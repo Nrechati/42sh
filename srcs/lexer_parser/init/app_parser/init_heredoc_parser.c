@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_heredoc_parser.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:07:01 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 20:59:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/23 17:04:01 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_heredoc_delimiter(t_pstate parsing)
 	parsing[P_HEREDOC_DELIMITER][E_GREAT] = heredoc_parser;
 	parsing[P_HEREDOC_DELIMITER][E_GREATAND] = heredoc_parser;
 	parsing[P_HEREDOC_DELIMITER][E_LESS] = heredoc_parser;
+	parsing[P_HEREDOC_DELIMITER][E_DLESS] = heredoc_parser;
 	parsing[P_HEREDOC_DELIMITER][E_LESSAND] = heredoc_parser;
 	parsing[P_HEREDOC_DELIMITER][E_DGREAT] = heredoc_parser;
 	parsing[P_HEREDOC_DELIMITER][E_ANDDGREAT] = heredoc_parser;
@@ -75,6 +76,7 @@ void	init_heredoc(t_pstate parsing)
 	parsing[P_HEREDOC][E_GREAT] = redirect_parser;
 	parsing[P_HEREDOC][E_GREATAND] = redirect_parser;
 	parsing[P_HEREDOC][E_LESS] = redirect_parser;
+	parsing[P_HEREDOC][E_DLESS] = redirect_parser;
 	parsing[P_HEREDOC][E_LESSAND] = redirect_parser;
 	parsing[P_HEREDOC][E_DGREAT] = redirect_parser;
 	parsing[P_HEREDOC][E_ANDDGREAT] = redirect_parser;
