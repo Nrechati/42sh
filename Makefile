@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+         #
+#    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/07 21:00:30 by skuppers         ###   ########.fr        #
+#    Updated: 2019/05/23 16:48:09 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@
 #								 Build Targets                                 #
 # ---------------------------------------------------------------------------- #
 
-NAME = 21sh
-NAMEDB = 21shdb
+NAME = 42sh
+NAMEDB = 42shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
