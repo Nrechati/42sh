@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/29 18:41:26 by nrechati         ###   ########.fr        #
+#    Updated: 2019/05/29 18:58:04 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -171,7 +171,6 @@ LFLAGS = -ltermcap
 INCS += sh21.h
 INCS += log.h
 INCS += interface_functions.h
-INCS += unit.h
 INCS += lexer.h
 INCS += parser.h
 INCS += builtin.h

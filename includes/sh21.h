@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:41:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/29 19:07:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include "libft.h"
 # include "define.h"
 # include "struct.h"
+# include "history.h"
+# include "init.h"
+# include "interface_functions.h"
+# include "lexer.h"
+# include "log.h"
+# include "parser.h"
+# include "resolve.h"
+# include "sig.h"
+# include "builtin.h"
 
 /*
 *****************************************************
@@ -80,7 +89,7 @@ void			close_fd(void *data);
 void			clear_node(void **data);
 void			free_anode(t_list *ptr);
 int8_t			del_node(t_list *ptr, const char *name);
-int8_t			free_node(t_list **alst, char *var);
+int8_t			free_node(t_list **alst, const char *var);
 int8_t			free_lst(t_list **alst);
 void			delete_variable(void *data);
 void			delete_parser(t_parser *parse);
@@ -103,7 +112,7 @@ void			print_opt(t_registry *shell);
 *****************************************************
 */
 
-char			*ft_strjoinfree(char *s1, const char *s2, const short todel);
+char			*ft_strjoinfree(char *s1, const char *s2, const int8_t todel);
 void			delete_job(void *data);
 void			del_token(void *token);
 

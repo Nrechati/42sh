@@ -6,15 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:41:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/29 19:01:56 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "sh21.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-
-
 
 static int	write_heredoc(char **line, int fd, t_parser *parse)
 {

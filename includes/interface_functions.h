@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:41:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/29 19:00:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int8_t		init_cursor(t_registry *shell);
 int8_t		init_termcap_calls(t_termcaps *termcp);
 void		define_interface_signal_behavior(t_registry *shell);
 void		setup_keycodes(t_interface *itf);
-short		set_term_behavior(t_registry *shell);
+int8_t		set_term_behavior(t_registry *shell);
 char		set_quote(const char c);
 int8_t		load_interface(t_registry *shell);
 void		unload_interface(t_interface *itf);
-short		restore_term_behavior(t_registry *shell);
+int8_t		restore_term_behavior(t_registry *shell);
 void		cleanup_interface(t_registry *shell);
 int8_t		update_window(t_registry *shell);
 

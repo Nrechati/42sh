@@ -6,14 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:41:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/29 19:06:36 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "sh21.h"
 #include <unistd.h>
 
 
-char	*ft_strjoinfree(char *s1, const char *s2, const short todel)
+char	*ft_strjoinfree(char *s1, const char *s2, const int8_t todel)
 {
 	char	*join;
 
