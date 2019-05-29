@@ -12,13 +12,12 @@
 
 #include "sh21.h"
 
-
-
 t_registry	*g_shell;
 
 static uint8_t	need_subprompt(enum e_type state, enum e_type type)
 {
-	if (state == E_PIPE && type == E_END && g_shell->is_interactive == TRUE)
+	if (state == E_PIPE && type == E_END
+		&& (g_shell->option.option & INTERACTIVE_OPT))
 		return (TRUE);
 	return (FALSE);
 }
@@ -70,7 +69,7 @@ static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
 	return (FALSE);
 }
 
-int8_t			parser(t_graph *graph, t_list *lst)
+int8_t			process_parser(t_graph *graph, t_list *lst)
 {
 	t_token		*token;
 	t_list		*tmp;
@@ -95,3 +94,14 @@ int8_t			parser(t_graph *graph, t_list *lst)
 	}
 	return (SUCCESS);
 }
+
+int8_t			parser(t_list *lst)
+{
+	static t_graph	*graph = NULL;
+
+	if (graph == NULL)
+		graph = generate_graph();
+	return (process_parser(graph, lst)); 
+
+}
+

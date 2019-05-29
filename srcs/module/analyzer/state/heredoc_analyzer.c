@@ -48,7 +48,7 @@ void		heredoc_delimiter(t_parser *parse)
 		parse->state = P_HEREDOC_DELIMITER;
 	else
 		parse->state = P_IO_HEREDOC_DELIMITER;
-	if (g_shell->is_interactive == FALSE)
+	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
 		ft_dprintf(2, "21sh: Here documents only in interractive mode\n");
 		ft_lstdel(&parse->token_list, del_token);

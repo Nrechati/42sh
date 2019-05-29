@@ -44,6 +44,7 @@
 # define HELP_OPT					0x001
 # define COMMAND_OPT				0x002
 # define DEBUG_OPT					0x004
+# define INTERACTIVE_OPT			0x008
 # define HMAP_BIN_SIZE				4096
 # define HMAP_BLT_SIZE				32
 # define SET_TERM					0

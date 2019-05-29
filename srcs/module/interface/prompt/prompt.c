@@ -83,7 +83,7 @@ char			*prompt(t_registry *shell)
 		if (is_eof(itf->line->buffer) == TRUE)
 			return (itf->line->buffer);
 	}
-	if (shell->is_interactive == TRUE && (itf->line->buffer == NULL
+	if ((shell->option.option & INTERACTIVE_OPT) && (itf->line->buffer == NULL
 		|| ft_strequ(itf->line->buffer, "\0") == TRUE))
 		ft_putchar('\n');
 	tc_ak_end(shell);

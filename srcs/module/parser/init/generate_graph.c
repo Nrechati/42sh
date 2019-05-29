@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h" //TMP
+#include "sh21.h"
 
-
-void			generate_graph(t_registry *shell)
+t_graph		*generate_graph(void)
 {
-	generate_grammar(shell);
-	set_start_token(shell->graph);
-	set_word_token(shell->graph);
-	set_redirect_token(shell->graph);
-	set_assign_token(shell->graph);
-	set_pipe_token(shell->graph);
-	set_ionumber_token(shell->graph);
+	static t_graph	graph[NB_OF_TOKENS];
+
+	ft_bzero(&graph, sizeof(graph));
+	set_start_token(graph);
+	set_word_token(graph);
+	set_redirect_token(graph);
+	set_assign_token(graph);
+	set_pipe_token(graph);
+	set_ionumber_token(graph);
+	return (graph);
 }

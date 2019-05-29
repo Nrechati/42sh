@@ -213,18 +213,16 @@ typedef struct			s_fd
 struct					s_registry
 {
 	const char			**grammar;
-	t_graph				graph[NB_OF_TOKENS];
+	t_list				*intern;
+	t_opt				option;
 	t_lexinfo			lexinfo;
 	t_pstate			parsing;
 	t_list				*env;
-	t_list				*intern;
 	t_list				*current_job;
 	t_hash				bin_hashmap;
 	t_hash				blt_hashmap;
 	struct s_interface	interface;
-	uint8_t				is_interactive;
 	uint8_t				parse_signal;
-	t_opt				option;
 	t_fd				cur_fd;
 };
 

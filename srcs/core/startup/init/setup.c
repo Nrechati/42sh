@@ -71,6 +71,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 		ft_flush_memory();
 		exit(0);
 	}
+	generate_grammar(shell);
 	get_env(&shell->env, env);
 	shell->bin_hashmap = ft_hmap_init(HMAP_BIN_SIZE);
 	shell->blt_hashmap = ft_hmap_init(HMAP_BLT_SIZE);

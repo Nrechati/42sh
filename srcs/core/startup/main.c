@@ -33,7 +33,6 @@ static void	batch_mode(t_registry *shell)
 {
 	char	*command;
 
-	shell->is_interactive = FALSE;
 	command = ((shell->option.option & COMMAND_OPT) != FALSE
 			? shell->option.command_str : read_input(STDIN_FILENO));
 	if (ft_strcheck(command, ft_isprint) == FALSE)
@@ -57,7 +56,7 @@ static void	launch_shell(t_registry *shell)
 	if ((shell->option.option & COMMAND_OPT) == FALSE
 			&& isatty(STDIN_FILENO) != 0)
 	{
-		shell->is_interactive = TRUE;
+		shell->option.option |= INTERACTIVE_OPT;
 		if ((load_interface(shell)) == SUCCESS)
 			launch_interface(shell);
 		else

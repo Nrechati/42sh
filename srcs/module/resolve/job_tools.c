@@ -46,7 +46,7 @@ uint8_t		job_is_completed(t_job *job)
 
 void		shell_is_interactive(t_registry *shell, uint8_t term)
 {
-	if (shell->is_interactive == TRUE)
+	if (shell->option.option & INTERACTIVE_OPT)
 	{
 		if (term == RESTORE_TERM)
 		{

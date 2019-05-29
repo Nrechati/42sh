@@ -21,8 +21,8 @@
 *****************************************************
 */
 
-int8_t		parser(t_graph *graph, t_list *lst);
-void		generate_graph(t_registry *shell);
+int8_t		parser(t_list *lst);
+t_graph		*generate_graph(void);
 void		set_start_token(t_graph *tab_tokens);
 void		set_word_token(t_graph *tab_tokens);
 void		set_redirect_token(t_graph *tab_tokens);

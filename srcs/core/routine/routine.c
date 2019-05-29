@@ -20,12 +20,11 @@ void		init_process(t_process *process)
 
 int8_t		init_shell(t_registry *shell)
 {
-	g_shell = shell;
+	g_shell = shell; // OK ?
 	shell->parse_signal = FALSE;
 	init_debug_logger(shell);
 	print_opt(shell);
 	init_parsing(shell->parsing);
-	generate_graph(shell);
 	init_lexinfo(shell);
 	return (SUCCESS);
 }
@@ -53,7 +52,7 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 	lexer_print_debug(shell, parse.token_list);
 	while (parse.token_list)
 	{
-		if (parser(shell->graph, parse.token_list) == FAILURE)
+		if (parser(parse.token_list) == FAILURE)
 		{
 			ft_lstdel(&parse.token_list, del_token);
 			return (FAILURE);
