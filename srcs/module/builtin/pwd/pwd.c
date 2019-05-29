@@ -22,7 +22,7 @@ char			*get_pwd(t_registry *shell, const t_option option)
 	pwd = NULL;
 	if ((option & P_OPT) == FALSE)
 	{
-		env_value_pwd = get_env_var(shell, "PWD");
+		env_value_pwd = get_intern_var(shell, "PWD");
 		if (env_value_pwd != NULL)
 			pwd = ft_strdup(env_value_pwd);
 		if (pwd == NULL || access(pwd, F_OK) != SUCCESS)

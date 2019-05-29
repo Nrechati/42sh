@@ -25,13 +25,12 @@ static void		free_hash(t_hash hashmap, void (*del)(void *))
 	hashmap.map = NULL;
 }
 
-void			free_registry(t_registry *reg)
+void			free_registry(t_registry *shell)
 {
-	free_opt(reg->option);
-	free_lst(&(reg->env));
-	free_lst(&(reg->intern));
-	free_hash(reg->hash.bin, ft_free);
-	free_hash(reg->hash.blt, NULL);
+	free_opt(shell->option);
+	free_lst(&(shell->intern));
+	free_hash(shell->hash.bin, ft_free);
+	free_hash(shell->hash.blt, NULL);
 }
 
 int8_t			exit_blt(t_registry *shell, char **av)

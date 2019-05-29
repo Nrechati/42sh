@@ -227,9 +227,6 @@ struct					s_registry
 
 	struct s_interface	interface;		// TEMP
 	t_list				*current_job;	// TEMP
-
-	t_list				*env;
-
 };
 
 typedef int				(*t_builtin) (t_registry *, char **);

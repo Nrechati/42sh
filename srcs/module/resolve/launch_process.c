@@ -99,7 +99,7 @@ int8_t			launch_process(t_job *job, t_process *process,
 	if (job->process_list->next == NULL
 			&& launch_builtin(shell, process) == SUCCESS)
 		return (SUCCESS);
-	env = str_lst_to_tab(shell->env);
+	env = str_lst_to_tab(shell->intern);
 	if ((pid = fork()) == SUCCESS)
 		execute_process(process, shell, env);
 	else if (pid < 0)

@@ -51,7 +51,7 @@ char			*is_cdpath_env(t_registry *shell, const char *to_find)
 	uint32_t	i;
 
 	i = 0;
-	if ((cd_path = get_env_var(shell, "CDPATH")) == NULL)
+	if ((cd_path = get_intern_var(shell, "CDPATH")) == NULL)
 		return (is_valid_path("./", to_find));
 	if ((tab_cd_path = ft_strsplit(cd_path, ":")) == NULL)
 		return (NULL);
@@ -81,7 +81,7 @@ uint8_t			check_path(t_registry *shell, char *curpath,
 
 	if (ft_strequ(path_give_by_user, "-") == TRUE)
 	{
-		oldpwd = get_env_var(shell, "OLDPWD");
+		oldpwd = get_intern_var(shell, "OLDPWD");
 		if (oldpwd != NULL)
 			path_give_by_user = oldpwd;
 	}

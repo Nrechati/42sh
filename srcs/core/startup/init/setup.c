@@ -16,15 +16,15 @@ static int		set_shlvl(t_registry *shell)
 {
 	char		*shlvl;
 
-	shlvl = get_env_var(shell, "SHLVL");
+	shlvl = get_intern_var(shell, "SHLVL");
 	if (shlvl == NULL)
-		add_env(shell, "SHLVL", "1");
+		add_intern_var(shell, "SHLVL", "1");
 	else
 	{
 		shlvl = ft_itoa(ft_atoi(shlvl) + 1);
 		if (shlvl == NULL)
 			return (FAILURE);
-		add_env(shell, "SHLVL", shlvl);
+		add_intern_var(shell, "SHLVL", shlvl);
 		ft_strdel(&shlvl);
 	}
 	return (SUCCESS);
@@ -72,7 +72,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 		exit(0);
 	}
 	generate_grammar(shell);
-	get_env(&shell->env, env);
+	get_env(&shell->intern, env);
 	shell->hash.bin = ft_hmap_init(HMAP_BIN_SIZE);
 	shell->hash.blt = ft_hmap_init(HMAP_BLT_SIZE);
 	shell->cur_fd.in = 0;

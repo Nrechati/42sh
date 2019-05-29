@@ -31,7 +31,7 @@ void		init_parser(t_registry *shell, t_parser *parse)
 {
 	ft_stckinit(&parse->stack);
 	parse->state = P_START;
-	parse->env = shell->env;
+	parse->env = shell->intern; /// ATTENTION a copier uniquement les var export
 	parse->oflags = 0;
 	parse->valid = 0;
 	init_process(&parse->process);

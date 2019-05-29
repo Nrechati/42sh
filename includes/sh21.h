@@ -56,12 +56,10 @@ void			get_prompt_ps1(t_registry *shell);
 *****************************************************
 */
 
-char			*get_env_var(t_registry *shell, char *name);
 char			*get_intern_var(t_registry *shell, char *name);
-int8_t			add_env(t_registry *shell, char *name, char *data);
-int8_t			add_internal(t_registry *shell, char *name,
+int8_t			add_intern_var(t_registry *shell, char *name,
 						char *data);
-int8_t			add_internal_nbr(t_registry *shell, char *name,
+int8_t			add_intern_nbr(t_registry *shell, char *name,
 						int data);
 
 /*
