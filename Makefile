@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/23 16:48:09 by nrechati         ###   ########.fr        #
+#    Updated: 2019/05/29 18:35:45 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,20 @@
 
 NAME = 42sh
 NAMEDB = 42shdb
-NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
-SRCS = $(LINE) $(LEXER) $(PARSER) $(BUILTIN) $(TOOLS) $(EXPANSION) $(INIT) $(STARTUP)
-OBJM = $(patsubst %.c, $(OPATH)%.o, $(LINEM))
+SRCS += $(CORE)
+SRCS += $(LINE)
+SRCS += $(ANALYZER)
+SRCS += $(BUILTIN)
+SRCS += $(TOOLS)
+SRCS += $(EXPANSION)
+SRCS += $(LEXER)
+SRCS += $(LOGGING)
+SRCS += $(PARSER)
+SRCS += $(RESOLVE)
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
-OBJT = $(patsubst %.c, $(OPATH)%.o, $(UNIT) $(UNITM))
-OBJD = $(patsubst %.c, $(OPATH)db%.o, $(LINEM) $(SRCS))
+OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 
@@ -36,7 +42,6 @@ LINK = $(CC)
 LINKD = $(CC) -g3
 COMPILE = $(CC) -c
 DEBUG = $(CC) -g3 -c
-DBRUN =
 
 # ---------------------------------------------------------------------------- #
 #									Commands                                   #
@@ -74,48 +79,66 @@ LPATH = libft/
 OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
-TPATH += unit-tests/
-TPATH += unit-tests/interface/
-TPATH += unit-tests/lexer/
-P_STARTUP = startup/
-P_LINE += interface/
-P_LINE += interface/prompt
-P_LINE += interface/action_keys/
-P_LINE += interface/history/
-P_LINE += interface/action_keys/clipboard/
-P_LINE += interface/action_keys/movement/
-P_LINE += interface/core/
-P_LINE += interface/init/
-P_LINE += interface/redraw/
-P_LINE += interface/utils/
-P_LINE += resolution/
-P_LINE += logging/
-P_LINE += signals/
-P_LINE += ./
-P_LEXER += lexer_parser/lexer/
-P_PARSER += lexer_parser/parser/grammar_parser
-P_PARSER += lexer_parser/parser/application_parser
-P_BUILTIN += builtin/
-P_BUILTIN += builtin/cd_blt
-P_BUILTIN += builtin/echo_blt
-P_BUILTIN += builtin/env_blt
-P_BUILTIN += builtin/exit_blt
-P_BUILTIN += builtin/export_blt
-P_BUILTIN += builtin/hash_blt
-P_BUILTIN += builtin/intern_blt
-P_BUILTIN += builtin/pwd_blt
-P_BUILTIN += builtin/set_blt
-P_BUILTIN += builtin/setenv_blt
-P_BUILTIN += builtin/type_blt
-P_BUILTIN += builtin/unset_blt
-P_BUILTIN += builtin/unsetenv_blt
-P_EXPANSION += expansion/
+
+P_CORE += core/routine/
+P_CORE += core/startup/
+P_CORE += core/startup/init/
+P_CORE += core/signals/
+
+P_LINE += module/interface/
+P_LINE += module/interface/prompt
+P_LINE += module/interface/action_keys/
+P_LINE += module/interface/history/
+P_LINE += module/interface/action_keys/clipboard/
+P_LINE += module/interface/action_keys/movement/
+P_LINE += module/interface/core/
+P_LINE += module/interface/init/
+P_LINE += module/interface/redraw/
+P_LINE += module/interface/utils/
+
+P_ANALYZER += module/analyzer/
+P_ANALYZER += module/analyzer/init/
+P_ANALYZER += module/analyzer/state/
+
+P_BUILTIN += module/builtin/
+P_BUILTIN += module/builtin/cd/
+P_BUILTIN += module/builtin/echo/
+P_BUILTIN += module/builtin/exit/
+P_BUILTIN += module/builtin/export/
+P_BUILTIN += module/builtin/hash/
+P_BUILTIN += module/builtin/pwd/
+P_BUILTIN += module/builtin/set/
+P_BUILTIN += module/builtin/type/
+P_BUILTIN += module/builtin/unset/
+
+P_EXPANSION += module/expansion/
+
+P_LEXER += module/lexer/
+P_LEXER += module/lexer/debug/
+P_LEXER += module/lexer/init/
+P_LEXER += module/lexer/state_machine/
+
+P_LOGGING += module/logging/
+
+P_PARSER += module/parser/
+P_PARSER += module/parser/init/
+P_PARSER += module/parser/debug/
+
+P_RESOLVE += module/resolve/
+
 P_TOOLS += tools/
-P_INIT += lexer_parser/init/app_parser/
-P_INIT += lexer_parser/init/grammar_parser/
-P_INIT += lexer_parser/init/lexer/
-_SPATH += $(P_LINE) $(P_LEXER) $(P_PARSER) $(P_BUILTIN) $(P_TOOLS) $(P_EXPANSION)
-_SPATH += $(P_INIT) $(P_STARTUP)
+
+_SPATH += $(P_CORE)
+_SPATH += $(P_LINE)
+_SPATH += $(P_ANALYZER)
+_SPATH += $(P_BUILTIN)
+_SPATH += $(P_TOOLS)
+_SPATH += $(P_EXPANSION)
+_SPATH += $(P_LEXER)
+_SPATH += $(P_LOGGING)
+_SPATH += $(P_PARSER)
+_SPATH += $(P_RESOLVE)
+
 SPATH += $(addprefix srcs/, $(_SPATH))
 
 # ---------------------------------------------------------------------------- #
@@ -137,7 +160,8 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
-DFLAGS = $(CFLAGS) -fsanitize=address,undefined
+DFLAGS += $(CFLAGS)
+DFLAGS += -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -161,85 +185,60 @@ INCS += enum.h
 #									Sources                                    #
 # ---------------------------------------------------------------------------- #
 
-#							- - - - - Unit - - - - -                           #
+#						- - - - -   Core   - - - - -						   #
 
-UNITM = unit.c
-LINEM = main.c
-
-#						- - - - -  Unit-test  - - - - -						   #
-
-UNIT += create_virt_registry.c
-UNIT += 00-machine.c
-UNIT += clipboard_copy.c
-UNIT += clipboard_cut.c
-UNIT += clipboard_paste.c
-
-#						- - - - -   Startup   - - - - -						   #
-
-STARTUP += launch.c
-STARTUP += options.c
-STARTUP += routines.c
+CORE += main.c
+CORE += options.c
+CORE += grammar.c
+CORE += routine.c
+CORE += exec_signals.c
+CORE += interface_signals.c
+CORE += signal_handler.c
+CORE += setup.c
 
 #						- - - - -  Debug Log  - - - - -						   #
 
-LINE += debug_logger.c
-LINE += print_debug.c
+LOGGING += debug_logger.c
+LOGGING += print_debug.c
 
 #						- - - - -  Built-in   - - - - -                        #
 
-BUILTIN += blt_tools.c
+BUILTIN += blt_options.c
 
 #CD
-BUILTIN += cd_blt.c
-BUILTIN += cd_blt_cdpath.c
-BUILTIN += cd_blt_additions.c
-BUILTIN += cd_blt_simple.c
+BUILTIN += cd.c
+BUILTIN += cd_cdpath.c
+BUILTIN += cd_additions.c
+BUILTIN += cd_simple.c
 
 #ECHO
-BUILTIN += echo_blt.c
-
-#ENV
-BUILTIN += env_blt.c
+BUILTIN += echo.c
 
 #EXIT
-BUILTIN += exit_blt.c
+BUILTIN += exit.c
 
 #EXPORT
-BUILTIN += export_blt.c
+BUILTIN += export.c
 
 #HASH
-BUILTIN += hash_blt.c
-
-#INTERN
-BUILTIN += intern_blt.c
+BUILTIN += hash.c
 
 #PWD
-BUILTIN += pwd_blt.c
+BUILTIN += pwd.c
 
 #SET
-BUILTIN += set_blt.c
-
-#SETENV
-BUILTIN += setenv_blt.c
+BUILTIN += set.c
 
 #TYPE
-BUILTIN += type_blt.c
+BUILTIN += type.c
 
 #UNSET
-BUILTIN += unset_blt.c
-
-#UNSETENV
-BUILTIN += unsetenv_blt.c
+BUILTIN += unset.c
 
 #						- - - - - Line edtion - - - - -                        #
 
 #History
 LINE += history.c
-
-#Signals
-LINE += signal_handler.c
-LINE += itf_signals.c
-LINE += exec_signals.c
 
 #Utilities
 LINE += validate_interface.c
@@ -285,70 +284,68 @@ LINE += execute_word_jumping_ak.c
 LINE += execute_ctrl_ak.c
 LINE += execute_special_ak.c
 
-#			 		   - - - - - Lexer - Parser - - - - -                      #
+#			 		      - - - - - Analyzer - - - - -                         #
 
-#Init
-INIT += init_parser.c
-INIT += init_io_parser.c
-INIT += init_io_redirect_parser.c
-INIT += init_string_parser.c
-INIT += init_start_parser.c
-INIT += init_heredoc_parser.c
-INIT += generate_graph.c
-INIT += ways_graph.c
-INIT += ways_graph_word.c
-INIT += init_lexer.c
-
-#Lexer
-LEXER += lexer.c
-LEXER += machine_interface.c
-LEXER += states.c
-LEXER += generate_token.c
-LEXER += quotes_states.c
-LEXER += sign_states.c
-LEXER += tmp_display.c
-LEXER += redirect_states.c
-
-#Grammar Parser
-PARSER += grammar_parser.c
-PARSER += parser_debug.c
-
-#Application Parser
-PARSER += parser_state.c
-PARSER += parser_interface.c
-PARSER += string_parser.c
-PARSER += redirect_parser.c
-PARSER += pipe_parser.c
-PARSER += io_redirect_parser.c
-PARSER += filename_parser.c
-PARSER += heredoc_parser.c
-PARSER += parser_tools.c
+ANALYZER += analyzer.c
+ANALYZER += init_analyzer.c
+ANALYZER += init_heredoc_analyzer.c
+ANALYZER += init_io_analyzer.c
+ANALYZER += init_io_redirect_analyzer.c
+ANALYZER += init_start_analyzer.c
+ANALYZER += init_string_analyzer.c
+ANALYZER += analyzer_interface.c
+ANALYZER += analyzer_tools.c
+ANALYZER += filename_analyzer.c
+ANALYZER += heredoc_analyzer.c
+ANALYZER += io_redirect_analyzer.c
+ANALYZER += pipe_analyzer.c
+ANALYZER += redirect_analyzer.c
+ANALYZER += string_analyzer.c
 
 #						   - - - - Expansion - - - -                           #
+
 EXPANSION += expansion.c
+EXPANSION += quoting.c
 EXPANSION += tilde.c
 EXPANSION += variable.c
-EXPANSION += quoting.c
 
-#						   - - - -    Tool    - - - -                          #
+#						   - - - -   Lexer   - - - -                           #
 
-TOOLS += list_functions.c
-TOOLS += list_functions2.c
+LEXER += lexer.c
+LEXER += tmp_display.c
+LEXER += init_lexer.c
+LEXER += generate_token.c
+LEXER += machine_interface.c
+LEXER += quotes_states.c
+LEXER += redirect_states.c
+LEXER += sign_states.c
+LEXER += states.c
+
+#						     - - - - Parser  - - - -                           #
+
+PARSER += parser.c
+PARSER += parser_debug.c
+PARSER += generate_graph.c
+PARSER += ways_graph.c
+PARSER += ways_graph_word.c
+
+#						     - - - - Resolve - - - -                           #
+
+RESOLVE += job_tools.c
+RESOLVE += launch_job.c
+RESOLVE += launch_process.c
+RESOLVE += waitjob.c
+
+#						     - - - -  Tools  - - - -                           #
+
 TOOLS += free.c
 TOOLS += free_node.c
-TOOLS += utils.c
+TOOLS += internals.c
+TOOLS += list_functions.c
+TOOLS += list_functions2.c
 TOOLS += print_opt.c
 TOOLS += read_filedesc.c
-TOOLS += internals.c
-
-#						   - - - - Resolution - - - -                          #
-
-LINE += job_tools.c
-LINE += launch_job.c
-LINE += launch_process.c
-LINE += waitjob.c
-
-
+TOOLS += utils.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
@@ -372,8 +369,8 @@ test : $(NAMET)
 
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJM)
-	$(LINK) $(OBJS) $(OBJM) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
+$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS)
+	$(LINK) $(OBJS) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJM) : $(OPATH)%.o : %.c $(INCS) Makefile
@@ -386,16 +383,6 @@ $(OBJS) : $(OPATH)%.o : %.c $(INCS) Makefile
 
 $(LIB) : FORCE
 	$(MAKE) -C $(LPATH)
-
-#					 - - - - Unit test Compilation - - - -                     #
-
-$(NAMET) : $(CLEAR) $(LIB) $(OPATH) $(OBJS) $(OBJT)
-	$(LINK) $(CFLAGS)  $(LDFLAGS) $(LDLIBN) $(LFLAGS) -fsanitize=address,undefined,leak -o  $@ $(OBJT) $(OBJS)
-	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
-
-$(OBJT) : $(OPATH)%.o : %.c $(INCS) Makefile
-	$(COMPILE) $(CFLAGS)  $< -o $@
-	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
 
 #					 - - - - - Debug Compilation - - - - -                     #
 

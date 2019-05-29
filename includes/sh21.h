@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh21.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 18:27:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
 void			init_parsing(t_pstate parsing);
 int8_t			parse_arg(char **av, t_opt *option);
+void			generate_grammar(t_registry *shell);
 
 /*
 *****************************************************
