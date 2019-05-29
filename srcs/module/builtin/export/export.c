@@ -46,16 +46,12 @@ static void			add_var_and_rehash(t_registry *shell,
 	clear_node((void **)&variable);
 }
 
-int8_t				export_blt(t_registry *shell, char **av)
+
+static int8_t		export_process(t_registry *shell, char **av)
 {
 	t_variable	*variable;
 	char		*equal;
-	t_option	option;
 
-	av++;
-	option = 0;
-	if (((option |= set_options(&av, get_option_export)) == ERROR_OPT))
-		return (FAILURE);
 	while (*av != NULL)
 	{
 		if ((variable = (t_variable *)ft_malloc(sizeof(t_variable))) == NULL)
@@ -73,4 +69,20 @@ int8_t				export_blt(t_registry *shell, char **av)
 		ft_free(variable);
 	}
 	return (SUCCESS);
+}
+
+int8_t				export_blt(t_registry *shell, char **av)
+{
+	t_option	option;
+
+	av++;
+	option = 0;
+	if (((option |= set_options(&av, get_option_export)) == ERROR_OPT))
+		return (FAILURE);
+	if (*av == NULL)
+	{
+		print_lst(shell->intern, shell->cur_fd.out,
+					(option & P_OPT) ? "export " : "", EXPORT_VAR);
+	}
+	return (export_process(shell, av));
 }

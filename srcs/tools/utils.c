@@ -12,18 +12,16 @@
 
 #include "sh21.h"
 
-void			print_lst(t_list **alst, int fd)
+void			print_lst(t_list *lst, int fd, char *prefix, t_option flag)
 {
-	t_list *ptr;
+	t_variable	*variable;
 
-	if (alst == NULL)
-		return ;
-	ptr = *alst;
-	while (ptr != NULL)
+	while (lst != NULL)
 	{
-		ft_dprintf(fd, "%s=%s\n", ((t_variable *)ptr->data)->name
-				, ((t_variable *)ptr->data)->data, ptr->next);
-		ptr = ptr->next;
+		variable = (t_variable *)lst->data;
+		if (variable->flag & flag)
+			ft_dprintf(fd, "%s%s=%s\n", prefix, variable->name, variable->data);
+		lst = lst->next;
 	}
 }
 

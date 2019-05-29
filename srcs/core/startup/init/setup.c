@@ -41,9 +41,7 @@ static t_list	*get_env(t_list **alst, char **env)
 	pos = ft_strcspn(*env, "=");
 	variable.name = ft_strsub(*env, 0, pos);
 	variable.data = ft_strdup(*env + pos + 1);
-	variable.flag = NO_FLAG;
-	variable.flag |= SET_VAR;
-	variable.flag |= EXPORT_VAR;
+	variable.flag = SET_VAR | EXPORT_VAR;
 	if (variable.name == NULL || variable.data == NULL)
 	{
 		ft_dprintf(2, "[ERROR] - Env malloc failed.\n");

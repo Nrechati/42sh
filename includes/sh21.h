@@ -69,7 +69,7 @@ size_t			list_export_size(t_list *lst);
 *****************************************************
 */
 
-void			print_lst(t_list **alst, int fd);
+void			print_lst(t_list *lst, int fd, char *prefix, t_option flag);
 int8_t			create_node(t_list **alst, const char *var, const char *data,
 					t_option flag);
 int8_t			change_node(t_list **alst, const char *var, char *data,
