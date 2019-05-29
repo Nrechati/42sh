@@ -45,10 +45,10 @@ void		print_result_debug(int which);
 *****************************************************
 */
 
+t_list		*analyzer(t_parser *parse);
 void		init_parser(t_registry *shell, t_parser *parse);
-void		init_parsing(t_pstate parsing);
+t_pstate	*init_parsing(void);
 void		init_process(t_process *process);
-t_list		*parser_state(t_pstate parsing, t_parser *parse);
 void		start_parser(t_parser *parse);
 void		separator_parser(t_parser *parse);
 void		stop_parser(t_parser *parse);

@@ -219,19 +219,17 @@ typedef	struct			s_hashmap
 struct					s_registry
 {
 	const char			**grammar;
+	t_list				*intern;
 	t_opt				option;
 	t_hashmap			hash;	
-	t_list				*intern;
 	t_fd				cur_fd;
+	uint8_t				parse_signal;
 
 	struct s_interface	interface;		// TEMP
 	t_list				*current_job;	// TEMP
 
-	t_lexinfo			lexinfo;
-	t_pstate			parsing;
 	t_list				*env;
 
-	uint8_t				parse_signal;
 };
 
 typedef int				(*t_builtin) (t_registry *, char **);

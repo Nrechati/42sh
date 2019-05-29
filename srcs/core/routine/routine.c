@@ -24,7 +24,6 @@ int8_t		init_shell(t_registry *shell)
 	shell->parse_signal = FALSE;
 	init_debug_logger(shell);
 	print_opt(shell);
-	init_parsing(shell->parsing);
 	return (SUCCESS);
 }
 
@@ -57,7 +56,7 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 			return (FAILURE);
 		}
 		init_parser(shell, &parse);
-		shell->current_job = parser_state(shell->parsing, &parse);
+		shell->current_job = analyzer(&parse);
 		parser_print_debug(shell, &parse);
 		lexer_print_debug(shell, parse.token_list);
 		if (parse.valid == 1)

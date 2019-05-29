@@ -62,8 +62,12 @@ void	get_token(t_parser *parse)
 	ft_lstdelone(&node, NULL);
 }
 
-t_list	*parser_state(t_pstate parsing, t_parser *parse)
+t_list	*analyzer(t_parser *parse)
 {
+	static t_pstate	*parsing = NULL;
+
+	if (parsing == NULL)
+		parsing = init_parsing();
 	if (parse->token.type == E_DEFAULT)
 		get_token(parse);
 	if (parse->state == P_STOP)
@@ -77,7 +81,7 @@ t_list	*parser_state(t_pstate parsing, t_parser *parse)
 		}
 		if (parse->state == P_STOP)
 			break ;
-		parsing[parse->state][parse->token.type](parse);
+		(*parsing)[parse->state][parse->token.type](parse);
 	}
 	return (parse->job_list);
 }

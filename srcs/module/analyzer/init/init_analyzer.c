@@ -48,8 +48,10 @@ static void	init_io_rediction_parser(t_pstate parsing)
 	init_flush_redirect(parsing);
 }
 
-void		init_parsing(t_pstate parsing)
+t_pstate	*init_parsing(void)
 {
+	static t_pstate parsing;
+
 	bzero_parsing(parsing);
 	init_start(parsing);
 	init_string(parsing);
@@ -59,4 +61,5 @@ void		init_parsing(t_pstate parsing)
 	init_redirect(parsing);
 	init_filename(parsing);
 	init_io_rediction_parser(parsing);
+	return (&parsing);
 }

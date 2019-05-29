@@ -36,7 +36,6 @@ int8_t			init_shell(t_registry *shell);
 int8_t			set_environment(t_registry *shell, char **av, char **env);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
-void			init_parsing(t_pstate parsing);
 int8_t			parse_arg(char **av, t_opt *option);
 void			generate_grammar(t_registry *shell);
 
