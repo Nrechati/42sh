@@ -17,9 +17,9 @@ t_list *g_job_head;
 
 static void		get_last_bin(t_registry *shell, t_process *process, char **cmd)
 {
-	if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
+	if (ft_hmap_getdata(&shell->hash.bin, process->av[0]) != NULL)
 		ft_asprintf(cmd, "%s"
-				, ft_hmap_getdata(&shell->bin_hashmap, process->av[0]));
+				, ft_hmap_getdata(&shell->hash.bin, process->av[0]));
 	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
 	{
 		if (access(process->av[0], F_OK) == SUCCESS
@@ -37,7 +37,7 @@ static int		change_last_bin(t_process *process, t_registry *shell)
 		return (FAILURE);
 	if (get_env_var(shell, "_") != NULL)
 	{
-		if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) == NULL)
+		if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL)
 		{
 			get_last_bin(shell, process, &asp);
 			if (asp == NULL || change_node(&shell->env, "_", asp) == FAILURE)
@@ -46,7 +46,7 @@ static int		change_last_bin(t_process *process, t_registry *shell)
 	}
 	else
 	{
-		if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) == NULL)
+		if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL)
 		{
 			get_last_bin(shell, process, &asp);
 			if (asp == NULL || s_create_node(&shell->env, "_", asp) == FAILURE)

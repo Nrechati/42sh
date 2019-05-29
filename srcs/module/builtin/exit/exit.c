@@ -30,8 +30,8 @@ void			free_registry(t_registry *reg)
 	free_opt(reg->option);
 	free_lst(&(reg->env));
 	free_lst(&(reg->intern));
-	free_hash(reg->bin_hashmap, ft_free);
-	free_hash(reg->blt_hashmap, NULL);
+	free_hash(reg->hash.bin, ft_free);
+	free_hash(reg->hash.blt, NULL);
 }
 
 int8_t			exit_blt(t_registry *shell, char **av)

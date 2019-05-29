@@ -73,8 +73,8 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 	}
 	generate_grammar(shell);
 	get_env(&shell->env, env);
-	shell->bin_hashmap = ft_hmap_init(HMAP_BIN_SIZE);
-	shell->blt_hashmap = ft_hmap_init(HMAP_BLT_SIZE);
+	shell->hash.bin = ft_hmap_init(HMAP_BIN_SIZE);
+	shell->hash.blt = ft_hmap_init(HMAP_BLT_SIZE);
 	shell->cur_fd.in = 0;
 	shell->cur_fd.out = 1;
 	shell->cur_fd.err = 2;

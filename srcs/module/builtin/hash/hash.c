@@ -13,7 +13,7 @@
 #include "sh21.h"
 #include <unistd.h>
 
-static void		hash_bin(t_registry *reg, const char *bin)
+static void		hash_bin(t_registry *shell, const char *bin)
 {
 	char			*asp;
 	DIR				*dip;
@@ -29,7 +29,7 @@ static void		hash_bin(t_registry *reg, const char *bin)
 			{
 				if (dit->d_name[0] != '.')
 				{
-					if (ft_hmap_insert(&(reg->bin_hashmap)
+					if (ft_hmap_insert(&(shell->hash.bin)
 							, dit->d_name, asp) == FALSE)
 						ft_free(asp);
 				}
@@ -42,39 +42,39 @@ static void		hash_bin(t_registry *reg, const char *bin)
 	}
 }
 
-static void		hash_builtin(t_registry *reg)
+static void		hash_builtin(t_registry *shell)
 {
-	ft_hmap_insert(&(reg->blt_hashmap), "echo", echo_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "cd", cd_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "hash", hash_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "exit", exit_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "type", type_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "export", export_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "set", set_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "unset", unset_blt);
-	ft_hmap_insert(&(reg->blt_hashmap), "pwd", pwd_blt);
+	ft_hmap_insert(&(shell->hash.blt), "echo", echo_blt);
+	ft_hmap_insert(&(shell->hash.blt), "cd", cd_blt);
+	ft_hmap_insert(&(shell->hash.blt), "hash", hash_blt);
+	ft_hmap_insert(&(shell->hash.blt), "exit", exit_blt);
+	ft_hmap_insert(&(shell->hash.blt), "type", type_blt);
+	ft_hmap_insert(&(shell->hash.blt), "export", export_blt);
+	ft_hmap_insert(&(shell->hash.blt), "set", set_blt);
+	ft_hmap_insert(&(shell->hash.blt), "unset", unset_blt);
+	ft_hmap_insert(&(shell->hash.blt), "pwd", pwd_blt);
 }
 
-int8_t			hash_blt(t_registry *reg, char **av)
+int8_t			hash_blt(t_registry *shell, char **av)
 {
 	uint32_t		i;
 	char			**tabs;
 
 	(void)av;
-	if (reg->bin_hashmap.used > 0)
-		ft_hmap_free_content(&(reg->bin_hashmap), ft_free);
-	if (get_data(reg->env, "PATH") != NULL)
+	if (shell->hash.bin.used > 0)
+		ft_hmap_free_content(&(shell->hash.bin), ft_free);
+	if (get_data(shell->env, "PATH") != NULL)
 	{
-		tabs = ft_strsplit(get_data(reg->env, "PATH"), ":");
+		tabs = ft_strsplit(get_data(shell->env, "PATH"), ":");
 		if (tabs == NULL)
 			return (FAILURE);
 		i = 0;
 		while (tabs[i] != NULL)
-			hash_bin(reg, tabs[i++]);
+			hash_bin(shell, tabs[i++]);
 		ft_freetab(&tabs);
 	}
-	hash_builtin(reg);
-	if (reg->blt_hashmap.used == FALSE)
-		ft_dprintf(reg->cur_fd.err, "Hashmap blt is empty.\n");
+	hash_builtin(shell);
+	if (shell->hash.blt.used == FALSE)
+		ft_dprintf(shell->cur_fd.err, "Hashmap blt is empty.\n");
 	return (SUCCESS);
 }

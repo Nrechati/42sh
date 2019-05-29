@@ -45,11 +45,11 @@ static void		execute_process(t_process *process,
 {
 	define_execution_signals();
 	ft_lstiter(process->fd, redirect);
-	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) != NULL)
-		exit(((t_builtin)ft_hmap_getdata(&shell->blt_hashmap
+	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) != NULL)
+		exit(((t_builtin)ft_hmap_getdata(&shell->hash.blt
 						, process->av[0]))(shell, process->av));
-	else if (ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) != NULL)
-		execve(ft_hmap_getdata(&shell->bin_hashmap, process->av[0])
+	else if (ft_hmap_getdata(&shell->hash.bin, process->av[0]) != NULL)
+		execve(ft_hmap_getdata(&shell->hash.bin, process->av[0])
 				, process->av, env);
 	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
 		execve(process->av[0], process->av, env);
@@ -61,7 +61,7 @@ static int8_t	launch_builtin(t_registry *shell, t_process *process)
 {
 	t_builtin		f;
 
-	if (!(f = ft_hmap_getdata(&shell->blt_hashmap, process->av[0])))
+	if (!(f = ft_hmap_getdata(&shell->hash.blt, process->av[0])))
 		return (FAILURE);
 	shell->cur_fd.in = 0;
 	shell->cur_fd.out = 1;
@@ -76,8 +76,8 @@ static int8_t	launch_builtin(t_registry *shell, t_process *process)
 
 static int8_t	is_exec(t_registry *shell, t_process *process)
 {
-	if (ft_hmap_getdata(&shell->blt_hashmap, process->av[0]) == NULL
-			&& ft_hmap_getdata(&shell->bin_hashmap, process->av[0]) == NULL
+	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL
+			&& ft_hmap_getdata(&shell->hash.bin, process->av[0]) == NULL
 			&& !(process->av[0][0] == '.' || process->av[0][0] == '/'))
 	{
 		ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
