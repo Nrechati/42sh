@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 21:12:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	pipe_parser(t_parser *parse)
 	int			fd[2];
 
 	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
-	parse->special_case ^= VALID_PROCESS;
 	if (parse->state == P_ERROR)
 		return ;
 	if (parse->special_case & NO_PIPE)

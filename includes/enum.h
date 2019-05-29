@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 11:30:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,28 +172,41 @@ enum	e_action_keys
 {
 	AK_ARROW_RIGHT,
 	AK_ARROW_LEFT,
-	AK_ARROW_UP,
-	AK_ARROW_DOWN,
+
 	AK_HOME,
 	AK_END,
+	AK_CTRL_A,
+	AK_CTRL_E,
+
 	AK_BACKSPACE,
 	AK_DELETE,
-	AK_CTRL_A,
-	AK_CTRL_D,
-	AK_CTRL_E,
-	AK_CTRL_L,
-	AK_CTRL_X,
-	AK_CTRL_B,
-	AK_CTRL_P,
-	AK_CTRL_LB,
-	AK_CTRL_RB,
-	AK_CTRL_F,
-	AK_CTRL_R,
+
 	AK_CTRL_LEFT,
 	AK_CTRL_RIGHT,
-	AK_TABULATION,
 	AK_CTRL_DOWN,
-	AK_CTRL_UP
+	AK_CTRL_UP,
+
+	AK_CTRL_D,
+	AK_CTRL_L,
+
+
+//clipboard
+	AK_ESCAPE,
+
+	AK_CTRL_V,
+
+	AK_CTRL_X,
+	AK_CTRL_P,
+
+	AK_CTRL_F,
+	AK_CTRL_B,
+
+// autocomp
+	AK_TABULATION,
+
+//historique
+	AK_ARROW_UP,
+	AK_ARROW_DOWN,
 };
 
 #endif

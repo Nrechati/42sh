@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
+#    By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/23 16:48:09 by nrechati         ###   ########.fr        #
+#    Updated: 2019/05/29 16:44:42 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@
 #								 Build Targets                                 #
 # ---------------------------------------------------------------------------- #
 
-NAME = 42sh
-NAMEDB = 42shdb
+NAME = 21sh
+NAMEDB = 21shdb
 NAMET = unit
 LIBFT = libft.a
 LIBFTDB = libftdb.a
@@ -81,7 +81,7 @@ P_STARTUP = startup/
 P_LINE += interface/
 P_LINE += interface/prompt
 P_LINE += interface/action_keys/
-P_LINE += interface/history/
+#P_LINE += interface/history/
 P_LINE += interface/action_keys/clipboard/
 P_LINE += interface/action_keys/movement/
 P_LINE += interface/core/
@@ -234,7 +234,6 @@ BUILTIN += unsetenv_blt.c
 #						- - - - - Line edtion - - - - -                        #
 
 #History
-LINE += history.c
 
 #Signals
 LINE += signal_handler.c
@@ -242,48 +241,45 @@ LINE += itf_signals.c
 LINE += exec_signals.c
 
 #Utilities
-LINE += validate_interface.c
-LINE += get_prompt_len.c
 LINE += input_tools.c
-LINE += shift_tools.c
 LINE += move_tools.c
-LINE += realloc_vector.c
 LINE += clean_registry.c
-LINE += set_quote.c
-LINE += ft_putc.c
-LINE += is_eof.c
-LINE += print.c
 
 #Redraw
-LINE += clean_screen.c
-LINE += redraw_prompt.c
+LINE += redraw.c
+LINE += redraw_tools.c
+LINE += redraw_modes.c
 
 #Initialization
-LINE += load_interface_config.c
-LINE += load_termcap_strings.c
+LINE += setup_interface.c
+LINE += init_interface.c
+LINE += load_interface.c
+LINE += load_interface_struct.c
+LINE += load_interface_modules.c
 
 #Core
-LINE += window_cursor.c
 LINE += term_mode.c
 LINE += launch_interface.c
-LINE += validate_quoting.c
 LINE += handle_input_keys.c
+LINE += cursor.c
+LINE += window.c
 
 #Prompt
 LINE += prompt.c
-LINE += sub_prompt.c
+LINE += prompt_expansion.c
+LINE += prompt_tools.c
 
 #Action keys
-LINE += init_clipboard.c
-LINE += init_ak_keycodes.c
 LINE += execute_clipboard_copy_ak.c
 LINE += execute_clipboard_cut_ak.c
 LINE += execute_clipboard_paste.c
+
 LINE += execute_arrow_ak.c
 LINE += execute_he_ak.c
 LINE += execute_word_jumping_ak.c
-LINE += execute_ctrl_ak.c
+
 LINE += execute_special_ak.c
+LINE += visual_mode.c
 
 #			 		   - - - - - Lexer - Parser - - - - -                      #
 

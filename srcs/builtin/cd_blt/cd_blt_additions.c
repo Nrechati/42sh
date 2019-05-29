@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 20:59:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 15:00:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ t_option		get_option_cd(char *s, t_option option)
 int8_t			exit_cd(t_registry *shell, char **old_pwd,
 					char **curpath, int8_t ret)
 {
+	(void)shell;
 	ft_strdel(old_pwd);
 	ft_strdel(curpath);
-	if (ret == SUCCESS)
-		get_prompt_ps1(shell);
+//	if (ret == SUCCESS)
+//		get_prompt_ps1(shell);
 	return (ret);
 }
 

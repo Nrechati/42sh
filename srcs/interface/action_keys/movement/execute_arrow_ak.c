@@ -6,108 +6,58 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:12:56 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 20:59:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:31:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
-#include <termcap.h>
 
-static void			goto_endof_column(t_interface *itf)
+int8_t				ak_arrow_right(t_registry *shell)
 {
-	while (itf->cursor.x < itf->window.cols)
-	{
-		tputs(itf->termcaps.cs_right, 1, &ft_putc);
-		itf->cursor.x++;
-	}
-	itf->cursor.x--;
-}
+	set_redraw_flags(&shell->interface, RD_NONE | RD_CMOVE);
 
-int8_t				tc_ak_arrow_right(t_registry *shell)
-{
-	if (validate_interface_content(&shell->interface) == FAILURE)
-		return (FAILURE);
-	if (shell->interface.cursor.index >= ft_vctlen(shell->interface.line))
-		return (-2);
-	if (shell->interface.cursor.x >= shell->interface.window.cols - 1)
-	{
-		tputs(shell->interface.termcaps.cs_down, 1, &ft_putc);
-		shell->interface.cursor.index += shell->interface.window.cols;
-		shell->interface.cursor.y++;
-		while (shell->interface.cursor.x > 0)
-		{
-			shell->interface.cursor.index--;
-			shell->interface.cursor.x--;
-		}
-	}
-	else
-	{
-		tputs(shell->interface.termcaps.cs_right, 1, &ft_putc);
-		shell->interface.cursor.index++;
-		shell->interface.cursor.x++;
-	}
+
+	int8_t offset;
+	offset = 1;
+	if (shell->interface.cursor.index >= vct_len(shell->interface.line))
+			offset = 0;
+	if (shell->interface.visual_mode == TRUE)
+		shell->interface.vis_stop = shell->interface.cursor.index + offset;
+
+	set_cursor_pos(&shell->interface, shell->interface.cursor.index + offset);
 	return (SUCCESS);
 }
 
-int8_t				tc_ak_arrow_left(t_registry *shell)
+int8_t				ak_arrow_left(t_registry *shell)
 {
-	if (validate_interface_content(&shell->interface) == FAILURE)
-		return (FAILURE);
-	if (shell->interface.cursor.index < 1)
-		return (-2);
-	if ((shell->interface.cursor.x == 0 && shell->interface.cursor.y >= 1))
-	{
-		tputs(shell->interface.termcaps.cs_up, 1, &ft_putc);
-		shell->interface.cursor.y--;
-		goto_endof_column(&shell->interface);
-		shell->interface.cursor.index--;
-	}
-	else
-	{
-		tputs(shell->interface.termcaps.cs_left, 1, &ft_putc);
-		shell->interface.cursor.index--;
-		shell->interface.cursor.x--;
-	}
+	set_redraw_flags(&shell->interface, RD_NONE | RD_CMOVE);
+
+
+	int8_t offset;
+	offset = 1;
+	if (shell->interface.cursor.index == 0)
+			offset = 0;
+
+	if (shell->interface.visual_mode == TRUE
+		&& shell->interface.cursor.index > 0)
+		shell->interface.vis_stop = shell->interface.cursor.index - offset;
+
+	set_cursor_pos(&shell->interface, shell->interface.cursor.index - offset);
 	return (SUCCESS);
 }
 
-int8_t				tc_ak_arrow_up(t_registry *shell)
+int8_t				ak_arrow_up(__unused t_registry *shell)
 {
-	if (shell->interface.hist_ptr == NULL)
-	{
-		shell->interface.hist_ptr = shell->interface.history_head;
-		if (shell->interface.current_line != NULL)
-			ft_strdel(&(shell->interface.current_line));
-		shell->interface.current_line = ft_strdup(
-						shell->interface.line->buffer);
-	}
-	else if (shell->interface.hist_ptr->next)
-		shell->interface.hist_ptr = shell->interface.hist_ptr->next;
-	if (shell->interface.hist_ptr == NULL)
-		return (FAILURE);
-	if (ft_strlen(shell->interface.hist_ptr->command)
-			< shell->interface.window.max_chars)
-		replace_input_line(shell, shell->interface.hist_ptr->command);
-	return (SUCCESS);
+//	ft_printf("%c[%d;%df",0x1B, 0, 0);
+	return (FAILURE);
 }
 
-int8_t				tc_ak_arrow_down(t_registry *shell)
+int8_t				ak_arrow_down(__unused t_registry *shell)
 {
-	if (shell->interface.hist_ptr == NULL)
-		return (FAILURE);
-	if (shell->interface.hist_ptr->prev == NULL)
-	{
-		shell->interface.hist_ptr = NULL;
-		if (ft_strlen(shell->interface.current_line)
-				<= shell->interface.window.max_chars)
-			replace_input_line(shell, shell->interface.current_line);
-	}
-	else if (shell->interface.hist_ptr->prev)
-	{
-		shell->interface.hist_ptr = shell->interface.hist_ptr->prev;
-		if (ft_strlen(shell->interface.hist_ptr->command)
-				< shell->interface.window.max_chars)
-			replace_input_line(shell, shell->interface.hist_ptr->command);
-	}
-	return (SUCCESS);
+//	char *position = ft_strnew(9);
+//	ft_printf("|len:%d|\n", vct_len(shell->interface.line));
+//	ft_dprintf(STDOUT_FILENO, "%c[6n", 0x1B);
+//	read(STDOUT_FILENO, position, 8);
+//	ft_printf("Position response: |%s|\n", position);
+	return (FAILURE);
 }

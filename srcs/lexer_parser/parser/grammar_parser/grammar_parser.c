@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/23 14:16:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		new_token = NULL;
 		while (new_token == NULL)
 		{
-			invoke_sub_prompt(g_shell, &line, "pipe> ");
-			g_shell->interface.state = INT_PS1;
+//			invoke_sub_prompt(g_shell, &line, "pipe> ");
+//			g_shell->interface.state = INT_PS1;
 			new_token = lexer(&g_shell->lexinfo, line);
 			ft_strdel(&line);
 		}
@@ -89,8 +89,6 @@ int8_t			parser(t_graph *graph, t_list *lst)
 		}
 		else
 			tmp = lst;
-		if (token != NULL && token->type == E_NEWLINE)
-			token->type = E_SEMICOLON;
 		lst = lst->next;
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 08:30:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,42 +146,77 @@ typedef struct s_registry	t_registry;
 
 typedef struct			s_termcaps
 {
+	char				*standout_on;
+	char				*standout_off;
 	char				*clear;
-	char				*cs_down;
-	char				*cs_right;
-	char				*cs_left;
-	char				*cs_up;
+	char				*down;
+	char				*right;
+	char				*left;
+	char				*up;
 }						t_termcaps;
+
+typedef struct			s_prompt
+{
+	t_vector			*text;
+	char				*state;
+	char				*missing_char;
+
+}						t_prompt;
 
 typedef struct			s_cursor
 {
-	uint32_t			index;
-	uint32_t			x;
-	uint32_t			y;
+	uint64_t			x;
+	uint64_t			y;
+	uint64_t			index;
 }						t_cursor;
+
+typedef struct			s_coord
+{
+	uint64_t			x;
+	uint64_t			y;
+}						t_coord;
 
 typedef struct			s_window
 {
 	uint32_t			rows;
 	uint32_t			cols;
-	uint32_t			max_chars;
+	uint32_t			rd_flag;
+	uint64_t			max_chars;
+	uint64_t			point_cursor;
+	uint64_t			point1;
+	uint64_t			point2;
+	t_vector			*displayed_line;
 }						t_window;
 
 typedef struct			s_interface
 {
 	struct termios		*term_mode;
 	struct termios		*orig_mode;
+	t_termcaps			termcaps;
+	t_window			window;
+	t_prompt			prompt;
+	t_cursor			cursor;
+	uint64_t			ak_masks[AK_AMOUNT];
+	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
 	t_vector			*line;
+	t_vector			*sub_line;
+
+	//visual mode
+	uint8_t				visual_mode;
+	int64_t				vis_start;
+	int64_t				vis_stop;
+
+	// Clipboard
 	t_vector			*clip;
+
+	// History
 	t_history			*history_head;
 	t_history			*hist_ptr;
 	char				*current_line;
-	char				*state;
-	t_cursor			cursor;
-	t_window			window;
-	t_termcaps			termcaps;
-	uint64_t			ak_masks[AK_AMOUNT];
-	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
+
+	// Keybinds & masks
+
+	// FLAGS
 	uint8_t				allow_input;
 }						t_interface;
 

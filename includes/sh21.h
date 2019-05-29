@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "libft.h"
 # include "define.h"
 # include "struct.h"
+# include <unistd.h>
+# include <stdlib.h>
 
 /*
 *****************************************************
@@ -38,9 +40,10 @@ int8_t			parse_arg(char **av, t_opt *option);
 */
 
 char			*read_input(const int fd);
-void			launch_interface(t_registry *shell);
+
+void			interactive_mode(t_registry *shell);
+
 int8_t			execution_pipeline(t_registry *shell, t_list *token_list);
-void			get_prompt_ps1(t_registry *shell);
 
 /*
 *****************************************************

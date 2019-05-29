@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:17:29 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	flush_string(t_parser *parse)
 		parse->process.av[index] = token->data;
 		ft_free(token);
 	}
-	parse->special_case ^= VALID_PROCESS;
 }
 
 void	special_string_parser(t_parser *parse)

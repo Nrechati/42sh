@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 14:15:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,22 +83,29 @@
 # define IFS_CHAR					10
 # define READ_SIZE					8
 # define CLIPBOARD_SZ				32
+
 # define INT_TERM					"TERM"
 # define INT_TERM_DFLT_VALUE		"xterm-256color"
+
 # define INT_DBG_FD					"DEBUG_FD"
 # define INT_DBG_FILE				".42sh.log"
+
 # define INT_ROWS					"ROWS"
 # define INT_COLS					"COLS"
+
 # define INT_PS1					"PS1"
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 # define INT_PS4					"PS4"
-# define INT_PS5					"PS5"
+
 # define INT_ESCAPE_SEQ				"ESC"
-# define INT_PS1_VALUE				"[ 21sh ]-> "
-# define INT_PS2_VALUE				"quote> "
+
+//# define INT_PS1_VALUE				"[\\u@\\h][\\w][\\s]-> "
+# define INT_PS1_VALUE				"[\\e[38;2;155;102;0;48;2;55;0;0m42sh\\e[0m][\\e[1;31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\w]->> "
+# define INT_PS2_VALUE				"\\w> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
+
 # define INT_ESCAPE_SEQ_VALUE		"\\"
 # define INT_MAGIC_NUMBER			"4242"
 
@@ -149,7 +156,6 @@
 # define HERETRIM					0x02
 # define TO_CLOSE					0x04
 # define NO_PIPE					0x08
-# define VALID_PROCESS				0x10
 
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT
@@ -216,8 +222,61 @@
 *****************************************************
 */
 
+# define ESC_COLOR_NO		"\033[0m"
+# define ESC_COLOR_RED		"\033[31m"
+# define ESC_COLOR_GREEN	"\033[32m"
+# define ESC_COLOR_BLUE 	"\033[34m"
+# define ESC_COLOR_YELLOW	"\033[33m"
+# define ESC_COLOR_PURPLE	"\033[35m"
+
+# define RD_NONE        0x001 /* No redraw at all*/
+# define RD_CLEAR       0x002 /* Redraw th entire window*/
+# define RD_LINE      	0x004 /* Redraw entire line */
+# define RD_LAST        0x008 /* redraw only last char of line vect */
+
+# define RD_FPTP        0x010 /* From point to point (index / t_coord) */
+# define RD_FPTE        0x020 /* From point to end */
+# define RD_FSTP        0x040 /* From start to point */
+
+# define RD_CEND        0x080 /* Put cursor at end */
+# define RD_CHOME       0x100 /* Put cursor at home */
+# define RD_CMOVE       0x200 /* Put cursor to point / index */
+
+# define RD_VISUAL		0x400
+
+// resize the uint64_t to needs
+# define SUCCESS            0
+# define CRITICAL_ERROR     0x001
+# define MALLOC_FAIL        0x002
+# define VCT_FAIL           0x004
+# define INVALID_TERM       0x008
+# define TERMMDE_FAIL       0x010
+# define TGETSTR_FAIL       0x020
+# define INTERNAL_FAIL      0x040
+# define LINE_FAIL          0x080
+# define WINDOW_FAIL        0x100
+# define CURSOR_FAIL        0x200
+# define PRMPT_FAIL         0x400
+
+# define INTERNAL_FAIL2     999
+# define CLIPB_FAIL         999
+# define HIST_FAIL          999
+# define SUBP_FAIL          2048
+# define AUTOC_FAIL         4096
+# define KEYBDS_FAIL        8192
+
+# define P_DATE				'd'
+# define P_NAME				's'
+# define P_USER				'u'
+# define P_CWD				'w'
+# define P_HOST				'h'
+# define P_MISS				'm'
+# define P_ESCAPE			'e'
+
 # define FAIL_EOF					42
-# define AK_AMOUNT					24
+# define AK_AMOUNT					25
+
+# define AK_ESCAPE_MASK				0x1b00000000000000
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
 # define AK_ARROW_DOWN_MASK 		0x1b5b420000000000
 # define AK_ARROW_RIGHT_MASK		0x1b5b430000000000

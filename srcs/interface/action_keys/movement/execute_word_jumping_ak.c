@@ -6,100 +6,75 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:33:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 20:59:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/27 16:13:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interface_functions.h"
 
-int8_t		tc_ak_next_word(t_registry *shell)
+int8_t		ak_ctrl_right(t_registry *shell)
 {
-	t_interface		*itf;
 	uint32_t		next_char;
 
-	itf = &shell->interface;
-	if (validate_interface_content(itf) == FAILURE)
+	if (shell->interface.cursor.index == vct_len(shell->interface.line))
 		return (FAILURE);
-	if (itf->cursor.index == ft_vctlen(itf->line))
-		return (FAILURE);
-	else
-	{
-		next_char = 0;
-		next_char = get_next_char(itf->line->buffer, itf->cursor.index, 1);
-		while (itf->cursor.index != next_char)
-			tc_ak_arrow_right(shell);
-	}
+	next_char = 0;
+	next_char = get_next_char(shell->interface.line->buffer,
+					          shell->interface.cursor.index, 1);
+	set_redraw_flags(&shell->interface, RD_NONE | RD_CMOVE);
+	set_cursor_pos(&shell->interface, next_char);
+
+	if (shell->interface.visual_mode == TRUE)
+		shell->interface.vis_stop = next_char;
+
 	return (SUCCESS);
 }
 
-int8_t		tc_ak_prev_word(t_registry *shell)
+int8_t		ak_ctrl_left(t_registry *shell)
 {
-	t_interface		*itf;
-	uint32_t		prev_char;
+	int32_t		next_char;
 
-	itf = &shell->interface;
-	if (validate_interface_content(itf) == FAILURE)
+	if (shell->interface.cursor.index == 0)
 		return (FAILURE);
-	if (itf->cursor.index == 0)
-		return (FAILURE);
-	else
-	{
-		prev_char = 0;
-		prev_char = get_next_char(itf->line->buffer, itf->cursor.index, -1);
-		while (itf->cursor.index != prev_char)
-			tc_ak_arrow_left(shell);
-	}
+	next_char = 0;
+	next_char = get_next_char(shell->interface.line->buffer,
+					          shell->interface.cursor.index, - 1);
+	set_redraw_flags(&shell->interface, RD_NONE | RD_CMOVE);
+	set_cursor_pos(&shell->interface, next_char);
+
+	if (shell->interface.visual_mode == TRUE && next_char >= 0)
+		shell->interface.vis_stop = next_char;
+
+	return (SUCCESS);
+
+}
+
+int8_t		ak_ctrl_down(t_registry *shell)
+{
+	set_redraw_flags(&shell->interface, RD_NONE | RD_CMOVE);
+	set_cursor_pos(&shell->interface,
+					shell->interface.cursor.index
+					+ shell->interface.window.cols);
+
+	if (shell->interface.visual_mode == TRUE
+		&& (shell->interface.cursor.index + shell->interface.window.cols
+				<= vct_len(shell->interface.line) + 2))
+			shell->interface.vis_stop = (shell->interface.cursor.index
+							+ shell->interface.window.cols);
+
 	return (SUCCESS);
 }
 
-int8_t		tc_ak_ctrl_down(t_registry *shell)
+int8_t		ak_ctrl_up(t_registry *shell)
 {
-	t_interface	*itf;
-	uint32_t	prompt_length;
-	uint32_t	moves;
-	uint32_t	lines_amount;
+	set_redraw_flags(&shell->interface, RD_NONE | RD_CMOVE);
+	set_cursor_pos(&shell->interface,
+					shell->interface.cursor.index
+					- shell->interface.window.cols);
 
-	itf = &shell->interface;
-	if (validate_interface_content(itf) == FAILURE)
-		return (FAILURE);
-	moves = 0;
-	prompt_length = get_prompt_len(shell);
-	lines_amount = (((ft_vctlen(itf->line) - 1) + prompt_length)
-				/ itf->window.cols) + 1;
-	if (lines_amount > 1)
-	{
-		while (moves < itf->window.cols)
-		{
-			tc_ak_arrow_right(shell);
-			++moves;
-		}
-	}
-	return (SUCCESS);
-}
+	if (shell->interface.visual_mode == TRUE)
+			shell->interface.vis_stop = (shell->interface.cursor.index
+							- shell->interface.window.cols);
 
-int8_t		tc_ak_ctrl_up(t_registry *shell)
-{
-	t_interface	*itf;
-	uint32_t	moves;
-	uint32_t	prompt_length;
-	uint32_t	lines_amount;
-
-	itf = &shell->interface;
-	if (validate_interface_content(itf) == FAILURE)
-		return (FAILURE);
-	prompt_length = get_prompt_len(shell);
-	lines_amount = (((ft_vctlen(itf->line) - 1) + prompt_length)
-			/ itf->window.cols + 1);
-	if (itf->cursor.y == 1 && itf->cursor.x <= prompt_length)
-		tc_ak_home(shell);
-	if (lines_amount > 1 && itf->cursor.y > 0)
-	{
-		moves = 0;
-		while (moves < itf->window.cols)
-		{
-			tc_ak_arrow_left(shell);
-			++moves;
-		}
-	}
 	return (SUCCESS);
 }

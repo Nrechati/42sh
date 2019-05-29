@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 		init_parser(shell, &parse);
 		shell->current_job = parser_state(shell->parsing, &parse);
 		parser_print_debug(shell, &parse);
-		lexer_print_debug(shell, parse.token_list);
 		if (parse.valid == 1)
 			launch_job(shell, parse.job_list);
 		delete_parser(&parse);

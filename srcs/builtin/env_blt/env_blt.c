@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_blt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/23 17:03:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ static void				ft_fill_with_new_value(t_registry *cpy_shell,
 		variable->data = ft_strdup(ft_strchr(**arg, '=') + 1);
 		add_env(cpy_shell, variable->name, variable->data);
 		(*arg)++;
+		if (variable != NULL && variable->name
+				&& ft_strequ(variable->name, "PATH") == TRUE)
+			hash_blt(cpy_shell, NULL);
 		clear_node((void **)&variable);
 		ft_free(variable);
 	}

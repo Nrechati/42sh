@@ -6,25 +6,25 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 20:59:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 15:01:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "interface_functions.h"
 
-static void			reset_prompt(t_registry *shell, char **av)
+static void			reset_prompt(__unused t_registry *shell,__unused char **av)
 {
-	if (ft_strequ(*av, "*") == TRUE)
-		fill_interface_related_internals(shell);
-	else if (ft_strequ(*av, "PS1") == TRUE)
-		get_prompt_ps1(shell);
-	else if (ft_strequ(*av, "PS2") == TRUE)
-		add_internal(shell, INT_PS2, INT_PS2_VALUE);
-	else if (ft_strequ(*av, "PS3") == TRUE)
-		add_internal(shell, INT_PS3, INT_PS3_VALUE);
-	else if (ft_strequ(*av, "PS4") == TRUE)
-		add_internal(shell, INT_PS4, INT_PS4_VALUE);
+//	if (ft_strequ(*av, "*") == TRUE)
+//		fill_interface_related_internals(shell);
+//	else if (ft_strequ(*av, "PS1") == TRUE)
+//		get_prompt_ps1(shell);
+//	else if (ft_strequ(*av, "PS2") == TRUE)
+//		add_internal(shell, INT_PS2, INT_PS2_VALUE);
+//	else if (ft_strequ(*av, "PS3") == TRUE)
+//		add_internal(shell, INT_PS3, INT_PS3_VALUE);
+//	else if (ft_strequ(*av, "PS4") == TRUE)
+//		add_internal(shell, INT_PS4, INT_PS4_VALUE);
 }
 
 int8_t				unset_blt(t_registry *shell, char **av)

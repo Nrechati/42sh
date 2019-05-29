@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,12 @@ void	stop_parser(t_parser *parse)
 	t_list		*node;
 
 	parse->state = P_STOP;
-	if (parse->special_case & VALID_PROCESS)
-	{
-		parse->special_case ^= VALID_PROCESS;
-		node = ft_lstnew(&parse->process, sizeof(t_process));
-		ft_lstaddback(&parse->job.process_list, node);
-		node = ft_lstnew(&parse->job, sizeof(t_job));
-		ft_lstaddback(&parse->job_list, node);
-		parse->valid = 1;
-	}
+	node = ft_lstnew(&parse->process, sizeof(t_process));
+	ft_lstaddback(&parse->job.process_list, node);
+	node = ft_lstnew(&parse->job, sizeof(t_job));
+	ft_lstaddback(&parse->job_list, node);
 	parse->token.type = E_DEFAULT;
+	parse->valid = 1;
 }
 
 void	end_parser(t_parser *parse)
@@ -68,14 +64,10 @@ void	end_parser(t_parser *parse)
 	t_list		*node;
 
 	parse->state = P_END;
-	if (parse->special_case & VALID_PROCESS)
-	{
-		parse->special_case ^= VALID_PROCESS;
-		node = ft_lstnew(&parse->process, sizeof(t_process));
-		ft_lstaddback(&parse->job.process_list, node);
-		node = ft_lstnew(&parse->job, sizeof(t_job));
-		ft_lstaddback(&parse->job_list, node);
-		parse->valid = 1;
-	}
+	node = ft_lstnew(&parse->process, sizeof(t_process));
+	ft_lstaddback(&parse->job.process_list, node);
+	node = ft_lstnew(&parse->job, sizeof(t_job));
+	ft_lstaddback(&parse->job_list, node);
 	get_token(parse);
+	parse->valid = 1;
 }

@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/07 21:00:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/18 15:00:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void		io_heredoc_parser(t_parser *parse)
 	io = pop_token_data(&parse->stack);
 	generate_filedesc(parse, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
 	ft_strdel(&io);
-	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
-	{
+//	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
+//	{
 		if (check_delimiter(&delimiter, &line, fd[1], parse) == SUCCESS)
 			return ;
-	}
+//	}
 	ft_strdel(&line);
 	error_parser(parse);
 }
@@ -98,11 +98,11 @@ void		heredoc_parser(t_parser *parse)
 	delimiter = pop_token_data(&parse->stack);
 	pop_token_data(&parse->stack);
 	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
-	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
-	{
+//	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
+//	{
 		if (check_delimiter(&delimiter, &line, fd[1], parse) == SUCCESS)
 			return ;
-	}
+//	}
 	ft_strdel(&line);
 	error_parser(parse);
 }

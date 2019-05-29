@@ -6,56 +6,36 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:12:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 20:59:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/28 11:25:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "log.h"
 #include "interface_functions.h"
 
-int8_t	tc_ak_copy_before_cursor(t_registry *shell)
+int8_t	ak_copy_selection(t_registry *shell)
 {
-	t_interface	*itf;
+	char			*tmp;
+	t_interface		*itf;
+	uint64_t		start;
+	uint64_t		length;
 
 	itf = &shell->interface;
-	if (validate_interface_content(itf) == FAILURE)
+	if (itf->visual_mode == FALSE)
 		return (FAILURE);
-	realloc_vector(itf->clip, itf->line);
-	itf->clip->buffer = ft_strncpy(itf->clip->buffer,
-					itf->line->buffer, itf->cursor.index);
-	log_print(shell, LOG_INFO, "Copied |%s| to clipboard.\n",
-					itf->clip->buffer);
-	return (SUCCESS);
-}
 
-int8_t	tc_ak_copy_after_cursor(t_registry *shell)
-{
-	char		*tmp;
-	t_interface	*itf;
+	start = (itf->vis_stop < itf->vis_start) ? itf->vis_stop : itf->vis_start;
+	length = (itf->vis_stop < itf->vis_start)
+			? (itf->vis_start - itf->vis_stop)
+			: (itf->vis_stop - itf->vis_start);
 
-	itf = &shell->interface;
-	if (validate_interface_content(itf) == FAILURE)
-		return (FAILURE);
-	realloc_vector(itf->clip, itf->line);
-	tmp = ft_strsub(itf->line->buffer,
-			itf->cursor.index, ft_vctlen(itf->line));
-	itf->clip->buffer = ft_strcpy(itf->clip->buffer, tmp);
+	vct_reset(itf->clip);
+	tmp = vct_sub(itf->line, start, length + 1);
+	vct_scpy(itf->clip, tmp, ft_strlen(tmp));
 	ft_strdel(&tmp);
-	log_print(shell, LOG_INFO, "Copied |%s| to clipboard.\n",
-					itf->clip->buffer);
-	return (SUCCESS);
-}
 
-int8_t	tc_ak_copy_line(t_registry *shell)
-{
-	t_interface	*itf;
-
-	itf = &shell->interface;
-	if (validate_interface_content(itf) == FAILURE)
-		return (FAILURE);
-	realloc_vector(itf->clip, itf->line);
-	ft_strcpy(itf->clip->buffer, itf->line->buffer);
-	log_print(shell, LOG_INFO, "Copied |%s| to clipboard.\n",
-					itf->clip->buffer);
+	ak_exit_visual_mode(shell);
+	set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
+	set_cursor_pos(&shell->interface, start);
 	return (SUCCESS);
 }

@@ -6,52 +6,65 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/07 20:59:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/29 07:26:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "sh21.h"
 #include "interface_functions.h"
+#include "log.h"
 
 static void		handle_printable_char(t_registry *shell, const char c)
 {
-	t_interface *itf;
+	t_vector *line;
+	t_cursor *cursor;
 
-	itf = &shell->interface;
-	if (validate_interface_content(itf) != FALSE)
-		return ;
-	if ((uint32_t)ft_vctlen(itf->line) >= itf->window.max_chars)
-		return ;
-	if (itf->cursor.index > (itf->line->size - 2))
-		ft_vctrescale(itf->line);
-	if (itf->cursor.index != ft_vctlen(itf->line))
+	line = shell->interface.line;
+	cursor = &shell->interface.cursor;
+
+	if (cursor->index == 0)
 	{
-		shift_content_right_once(itf->line, itf->cursor.index);
-		itf->line->buffer[itf->cursor.index] = c;
+		vct_push(line, c);
+		set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
+		set_cursor_pos(&shell->interface, 1);
+	}
+	else if (cursor->index == vct_len(line))
+	{
+		vct_add(line, c);
+		set_redraw_flags(&shell->interface, RD_LAST | RD_CEND);
 	}
 	else
-		itf->line->buffer[ft_vctlen(itf->line)] = c;
-	itf->cursor.index = redraw_after_cursor(shell);
-	tc_ak_arrow_right(shell);
+	{
+		vct_insert_char(line, c, cursor->index);
+		set_redraw_flags(&shell->interface, RD_FPTP | RD_CMOVE);
+		set_redraw_bounds(&shell->interface, cursor->index,
+						vct_len(shell->interface.line));
+
+		set_cursor_pos(&shell->interface, cursor->index + 1);
+	}
 }
 
-void			handle_input_key(t_registry *shell, char c[READ_SIZE])
+static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 {
 	uint32_t	index;
 	uint64_t	value;
 
-	if (shell->interface.allow_input == FALSE)
-		return ;
-	if (is_printable(c) == TRUE && c[0] != IFS_CHAR)
+	index = 0;
+	value = compute_mask(c);
+//	printf("Mask:%llu\n", value);
+	(void)shell;
+	while (index < AK_AMOUNT)
+	{
+		if (value == shell->interface.ak_masks[index])
+			shell->interface.tc_call[index](shell);
+		++index;
+	}
+}
+
+void			handle_input_key(t_registry *shell, char c[READ_SIZE])
+{
+	if (is_printable(c))
 		handle_printable_char(shell, c[0]);
 	else
-	{
-		index = 0;
-		value = compute_mask(c);
-		while (index < AK_AMOUNT)
-		{
-			if (value == shell->interface.ak_masks[index])
-				shell->interface.tc_call[index](shell);
-			++index;
-		}
-	}
+		handle_actionkey(shell, c);
 }
