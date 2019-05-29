@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+
 
 void	single_quote_machine(t_lexer *machine)
 {

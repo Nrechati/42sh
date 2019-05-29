@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
-#include "libft.h"
+
+
 
 static void		free_opt(t_opt option)
 {

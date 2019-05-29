@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+
 
 void	cleanup_interface(t_registry *shell)
 {

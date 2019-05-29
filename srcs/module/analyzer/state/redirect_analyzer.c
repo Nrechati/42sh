@@ -12,8 +12,8 @@
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "sh21.h"
-#include "parser.h"
+
+
 
 void	activate_piping(void *data)
 {

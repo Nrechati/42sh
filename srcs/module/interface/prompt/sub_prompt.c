@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
-#include "sh21.h"
+
+
 #include <unistd.h>
 
 static void			print_sub_prompt(t_registry *shell)

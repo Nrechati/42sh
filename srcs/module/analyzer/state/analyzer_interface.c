@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
-#include "parser.h"
-#include "lexer.h"
+
+
+
 
 int		check_token(t_parser *parse)
 {

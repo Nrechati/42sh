@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+
 
 static void		handle_printable_char(t_registry *shell, const char c)
 {

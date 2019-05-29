@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
+
 
 static char		*apply_history_filter(const char *command)
 {

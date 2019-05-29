@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
-#include "parser.h"
-#include "log.h"
-#include "sig.h"
-#include "lexer.h"
-#include "resolve.h"
+
+
+
+
+
+
 #include <unistd.h>
 
 void		init_process(t_process *process)

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
-#include "interface_functions.h"
-#include "sh21.h"
+
+
+
 #include <termcap.h>
 
 static int8_t		fill_interface_data(t_registry *shell)

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
-#include "interface_functions.h"
-#include "sh21.h"
+
+
+
 #include <unistd.h>
 #include <sys/ioctl.h>
 

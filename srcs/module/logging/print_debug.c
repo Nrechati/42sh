@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
-#include "lexer.h"
+
+
 
 void		lexer_print_debug(t_registry *shell, t_list *token_list)
 {

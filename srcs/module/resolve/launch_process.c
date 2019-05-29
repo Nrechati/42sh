@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
-#include "sig.h"
-#include "resolve.h"
+
+
+
 #include <unistd.h>
 
 t_registry	*g_shell;

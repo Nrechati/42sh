@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+
 
 int8_t		tc_ak_hightab(t_registry *shell)
 {

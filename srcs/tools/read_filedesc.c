@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "libft.h"
+
 
 char	*ft_strjoinfree(char *s1, const char *s2, const short todel)
 {

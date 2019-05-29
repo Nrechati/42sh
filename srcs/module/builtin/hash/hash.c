@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "builtin.h"
-#include "sh21.h"
+
+
 
 static void		hash_bin(t_registry *reg, const char *bin)
 {

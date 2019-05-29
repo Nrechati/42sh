@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
-#include "interface_functions.h"
-#include "lexer.h"
-#include "sig.h"
+
+
+
+
 #include <unistd.h>
 
 int8_t		shell_usage(void)

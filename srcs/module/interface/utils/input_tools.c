@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+
 
 uint8_t		is_printable(char c[READ_SIZE])
 {

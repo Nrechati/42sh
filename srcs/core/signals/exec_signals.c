@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+
 #include <signal.h>
-#include "lexer.h"
+
 
 void		stop_parsing(const int signo)
 {

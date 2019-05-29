@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
-#include "interface_functions.h"
+
+
 
 static void			reset_prompt(t_registry *shell, char **av)
 {

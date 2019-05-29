@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
-#include "interface_functions.h"
+
+
 
 static uint8_t		is_too_long(t_vector *a, t_vector *b, const uint32_t max)
 {

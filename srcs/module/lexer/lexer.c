@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "struct.h"
-#include "libft.h"
+
+
+
 #include <stdlib.h>
 
 int				create_token_data(t_lexer *machine)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+
 #include <termcap.h>
 #include <unistd.h>
 

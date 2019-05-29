@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "sh21.h"
-#include "interface_functions.h"
+
+
+
 
 t_registry	*g_shell;
 

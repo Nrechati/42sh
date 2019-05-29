@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+
 #include <fcntl.h>
 #include <unistd.h>
-#include "parser.h"
+
 
 void	pipe_parser(t_parser *parse)
 {

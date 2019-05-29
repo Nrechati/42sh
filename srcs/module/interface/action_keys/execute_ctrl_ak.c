@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+
 #include <termcap.h>
 
 int8_t		tc_ak_ctrl_d(t_registry *shell)

@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "sh21.h"
-#include "parser.h"
+
+
 
 void	io_redirect_flush(t_parser *parse)
 {

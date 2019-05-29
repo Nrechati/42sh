@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
-#include "interface_functions.h"
+
+
 
 int8_t	tc_ak_copy_before_cursor(t_registry *shell)
 {

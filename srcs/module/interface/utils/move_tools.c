@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "define.h"
+
+
 
 static int8_t	only_whitespaces_after(const char *str, const uint32_t index,
 					const char direction)

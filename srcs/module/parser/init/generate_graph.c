@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h" //TMP
-#include "parser.h"
+ //TMP
+
 
 void			generate_graph(t_registry *shell)
 {

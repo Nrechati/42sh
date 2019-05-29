@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
-#include "parser.h"
+
+
 #include <unistd.h>
 
 static char	*user_home(const char *str)

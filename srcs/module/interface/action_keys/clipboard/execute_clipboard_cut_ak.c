@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
-#include "log.h"
+
+
 
 static int8_t		cut_vector(t_vector *vect, t_cursor *cursor,
 							const int8_t before)

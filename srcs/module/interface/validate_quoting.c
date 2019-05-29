@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+
 
 static int64_t	goto_next_quote(const char *string,
 									const char quote, uint32_t index)

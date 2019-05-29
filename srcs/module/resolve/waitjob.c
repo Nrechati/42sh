@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <sys/wait.h>
-#include "resolve.h"
+
 
 static int8_t	set_process_status(t_process *process, const pid_t pid,
 										const int status)

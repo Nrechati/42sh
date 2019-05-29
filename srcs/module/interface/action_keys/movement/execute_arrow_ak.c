@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
+
 #include <termcap.h>
 
 static void			goto_endof_column(t_interface *itf)

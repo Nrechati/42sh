@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <termcap.h>
-#include "interface_functions.h"
+
 
 void			redraw_prompt(const int signo)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+
 
 static void		init_lexing(t_lexinfo *lexinfo)
 {

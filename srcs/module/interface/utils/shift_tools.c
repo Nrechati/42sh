@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+
 
 static void	ft_strshift(char *str, ssize_t index, const int shift)
 {

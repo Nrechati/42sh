@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
-#include "parser.h"
+
+
 
 static char	*variable_replace(t_list *lst, char *str)
 {

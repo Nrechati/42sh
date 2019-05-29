@@ -12,9 +12,9 @@
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "lexer.h"
-#include "parser.h"
-#include "interface_functions.h"
+
+
+
 
 static int	write_heredoc(char **line, int fd, t_parser *parse)
 {

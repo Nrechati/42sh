@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+
 
 char				*assign_token_data(t_lexer *machine, t_token *token)
 {

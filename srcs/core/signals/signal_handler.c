@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+
 #include <signal.h>
-#include "interface_functions.h"
-#include "sig.h"
+
+
 
 void			define_ign_signals(void)
 {

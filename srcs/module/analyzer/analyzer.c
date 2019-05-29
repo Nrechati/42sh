@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "sig.h"
+
+
 
 char	*pop_token_data(t_stack *stack)
 {

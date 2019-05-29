@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "sig.h"
-#include "interface_functions.h"
+
+
+
 #include <unistd.h>
 
 t_list	*g_job_head;

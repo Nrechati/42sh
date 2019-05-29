@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interface_functions.h"
-#include "builtin.h"
-#include "sh21.h"
-#include "log.h"
+
+
+
+
 #include <unistd.h>
 
 static char		*get_last_directory_of_pwd(char **pwd)

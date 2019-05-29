@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "log.h"
-#include "lexer.h"
-#include "sig.h"
-#include "history.h"
-#include "sh21.h"
-#include "interface_functions.h"
+
+
+
+
+
+
 #include <termcap.h>
 
 static void			update_history(t_registry *shell, char *input)

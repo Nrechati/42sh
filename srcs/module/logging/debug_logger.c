@@ -12,7 +12,7 @@
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "sh21.h"
+
 
 void			log_print(t_registry *shell, const char *importance,
 					const char *message, ...)
