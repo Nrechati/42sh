@@ -201,6 +201,7 @@ typedef struct			s_variable
 {
 	char				*name;
 	char				*data;
+	t_option			flag;
 }						t_variable;
 
 typedef struct			s_fd

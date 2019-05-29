@@ -35,24 +35,11 @@ static int		change_last_bin(t_process *process, t_registry *shell)
 	asp = NULL;
 	if (process->av == NULL)
 		return (FAILURE);
-	if (get_intern_var(shell, "_") != NULL)
+	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL)
 	{
-		if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL)
-		{
-			get_last_bin(shell, process, &asp);
-			if (asp == NULL || change_node(&shell->intern, "_", asp) == FAILURE)
-				return (FAILURE);
-		}
-	}
-	else
-	{
-		if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL)
-		{
-			get_last_bin(shell, process, &asp);
-			if (asp == NULL || s_create_node(&shell->intern, "_", asp) == FAILURE)
-				return (FAILURE);
-		}
-		ft_free(asp);
+		get_last_bin(shell, process, &asp);
+		if (add_intern_var(shell, "_", asp, SET_VAR) == FAILURE)
+			return (FAILURE);
 	}
 	return (SUCCESS);
 }

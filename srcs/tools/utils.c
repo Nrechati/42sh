@@ -27,25 +27,8 @@ void			print_lst(t_list **alst, int fd)
 	}
 }
 
-int8_t			f_create_node(t_list **alst, const char *str)
-{
-	t_variable	variable;
-	t_list		*newdir;
-
-	if (str == NULL)
-		return (FAILURE);
-	ft_bzero(&variable, sizeof(t_variable));
-	variable.name = ft_strsub(str, 0, ft_strcspn(str, "="));
-	variable.data = ft_strdup(str + (ft_strcspn(str, "=") + 1));
-	if (variable.name == NULL || variable.data == NULL)
-		return (FAILURE);
-	if ((newdir = ft_lstnew(&variable, sizeof(t_variable))) == NULL)
-		return (FAILURE);
-	ft_lstaddback(alst, newdir);
-	return (SUCCESS);
-}
-
-int8_t			s_create_node(t_list **alst, const char *name, const char *data)
+int8_t			create_node(t_list **alst, const char *name, const char *data,
+					t_option flag)
 {
 	t_variable	variable;
 	t_list		*newdir;
@@ -55,6 +38,7 @@ int8_t			s_create_node(t_list **alst, const char *name, const char *data)
 	ft_bzero(&variable, sizeof(t_variable));
 	variable.name = ft_strdup(name);
 	variable.data = ft_strdup(data);
+	variable.flag = flag;
 	if (variable.name == NULL || variable.data == NULL)
 		return (FAILURE);
 	if ((newdir = ft_lstnew(&variable, sizeof(t_variable))) == NULL)
@@ -63,7 +47,8 @@ int8_t			s_create_node(t_list **alst, const char *name, const char *data)
 	return (SUCCESS);
 }
 
-int8_t			change_node(t_list **alst, const char *name, char *data)
+int8_t			change_node(t_list **alst, const char *name, char *data,
+					t_option flag)
 {
 	t_list *ptr;
 
@@ -76,11 +61,12 @@ int8_t			change_node(t_list **alst, const char *name, char *data)
 		{
 			ft_free(((t_variable *)ptr->data)->data);
 			((t_variable *)ptr->data)->data = data;
+			((t_variable *)ptr->data)->flag = flag;
 			return (SUCCESS);
 		}
 		ptr = ptr->next;
 	}
-	return (s_create_node(alst, name, data));
+	return (create_node(alst, name, data, flag));
 }
 
 char			*get_data(t_list *lst, char *name)

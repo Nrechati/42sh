@@ -52,12 +52,12 @@ void			get_prompt_ps1(t_registry *shell)
 	if (pwd != NULL)
 		pwd = get_last_directory_of_pwd(&pwd);
 	if (pwd == NULL)
-		add_intern_var(shell, INT_PS1, "[21sh] -> ");
+		add_intern_var(shell, INT_PS1, "[21sh] -> ", SET_VAR);
 	else
 	{
 		ft_asprintf(&prompt, "[ %s ] -> ", pwd);
 		ft_strdel(&pwd);
-		add_intern_var(shell, INT_PS1, prompt);
+		add_intern_var(shell, INT_PS1, prompt, SET_VAR);
 		ft_strdel(&prompt);
 	}
 }

@@ -24,17 +24,20 @@ static char		**str_lst_to_tab(t_list *alst)
 	char		**tabs;
 
 	i = 0;
-	size = ft_lstlen(alst);
+	size = list_export_size(alst);
 	if ((tabs = (char **)ft_malloc(sizeof(char *) * (size + 1))) == NULL)
 		return (NULL);
 	while (alst != NULL)
 	{
 		variable = (t_variable *)alst->data;
-		env = NULL;
-		ft_asprintf(&env, "%s=%s", variable->name, variable->data);
-		tabs[i] = env;
+		if (variable->flag & EXPORT_VAR)
+		{
+			env = NULL;
+			ft_asprintf(&env, "%s=%s", variable->name, variable->data);
+			tabs[i] = env;
+			i++;
+		}
 		alst = alst->next;
-		i++;
 	}
 	tabs[i] = NULL;
 	return (tabs);

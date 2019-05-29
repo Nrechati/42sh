@@ -19,11 +19,11 @@ static void			reset_prompt(t_registry *shell, char **av)
 	else if (ft_strequ(*av, "PS1") == TRUE)
 		get_prompt_ps1(shell);
 	else if (ft_strequ(*av, "PS2") == TRUE)
-		add_intern_var(shell, INT_PS2, INT_PS2_VALUE);
+		add_intern_var(shell, INT_PS2, INT_PS2_VALUE, SET_VAR);
 	else if (ft_strequ(*av, "PS3") == TRUE)
-		add_intern_var(shell, INT_PS3, INT_PS3_VALUE);
+		add_intern_var(shell, INT_PS3, INT_PS3_VALUE, SET_VAR);
 	else if (ft_strequ(*av, "PS4") == TRUE)
-		add_intern_var(shell, INT_PS4, INT_PS4_VALUE);
+		add_intern_var(shell, INT_PS4, INT_PS4_VALUE, SET_VAR);
 }
 
 int8_t				unset_blt(t_registry *shell, char **av)

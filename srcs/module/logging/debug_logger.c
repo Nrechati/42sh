@@ -55,7 +55,7 @@ static void		debug_logger_extend(t_registry *shell,
 	if ((home_path = get_data(shell->intern, "HOME")) == NULL)
 	{
 		home_path = ft_itoa(-1);
-		add_intern_var(shell, INT_DBG_FD, home_path);
+		add_intern_var(shell, INT_DBG_FD, home_path, SET_VAR | EXPORT_VAR);
 		ft_strdel(&home_path);
 		ft_dprintf(2, "[ERROR] - Could not fetch home variable.\n");
 		return ;
@@ -65,7 +65,7 @@ static void		debug_logger_extend(t_registry *shell,
 	if (debug_fd < 0)
 		return ;
 	tmp = ft_itoa(debug_fd);
-	if (add_intern_var(shell, INT_DBG_FD, tmp) == FAILURE)
+	if (add_intern_var(shell, INT_DBG_FD, tmp, SET_VAR) == FAILURE)
 	{
 		ft_strdel(&tmp);
 		return ;
@@ -86,7 +86,7 @@ void			init_debug_logger(t_registry *shell)
 	else
 	{
 		home_path = ft_itoa(-1);
-		add_intern_var(shell, INT_DBG_FD, home_path);
+		add_intern_var(shell, INT_DBG_FD, home_path, SET_VAR);
 		ft_strdel(&home_path);
 	}
 }

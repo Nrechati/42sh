@@ -51,12 +51,12 @@ static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
 	{
 		pwd = NULL;
 		pwd = getcwd(NULL, PATH_MAX);
-		add_intern_var(shell, "PWD", pwd);
+		add_intern_var(shell, "PWD", pwd, SET_VAR | EXPORT_VAR);
 		ft_strdel(&pwd);
 	}
 	else
-		add_intern_var(shell, "PWD", curpath);
-	add_intern_var(shell, "OLDPWD", old_pwd);
+		add_intern_var(shell, "PWD", curpath, SET_VAR | EXPORT_VAR);
+	add_intern_var(shell, "OLDPWD", old_pwd, SET_VAR | EXPORT_VAR);
 }
 
 static int8_t		change_directory(t_registry *shell, char *curpath,

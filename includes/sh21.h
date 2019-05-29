@@ -58,9 +58,10 @@ void			get_prompt_ps1(t_registry *shell);
 
 char			*get_intern_var(t_registry *shell, char *name);
 int8_t			add_intern_var(t_registry *shell, char *name,
-						char *data);
+						char *data, t_option flag);
 int8_t			add_intern_nbr(t_registry *shell, char *name,
-						int data);
+						int data, t_option flag);
+size_t			list_export_size(t_list *lst);
 
 /*
 *****************************************************
@@ -69,9 +70,10 @@ int8_t			add_intern_nbr(t_registry *shell, char *name,
 */
 
 void			print_lst(t_list **alst, int fd);
-int8_t			f_create_node(t_list **alst, const char *str);
-int8_t			s_create_node(t_list **alst, const char *var, const char *data);
-int8_t			change_node(t_list **alst, const char *var, char *data);
+int8_t			create_node(t_list **alst, const char *var, const char *data,
+					t_option flag);
+int8_t			change_node(t_list **alst, const char *var, char *data,
+					t_option flag);
 char			*get_data(t_list *lst, char *var);
 void			print_process(void *data);
 char			*variable_to_str(void *data);

@@ -17,14 +17,16 @@ char		*get_intern_var(t_registry *shell, char *name)
 	return (get_data(shell->intern, name));
 }
 
-int8_t		add_intern_var(t_registry *shell, char *name, char *data)
+int8_t		add_intern_var(t_registry *shell, char *name, char *data,
+				t_option flag)
 {
 	if (get_data(shell->intern, name) == NULL)
-		return (s_create_node(&(shell->intern), name, data));
-	return (change_node(&(shell->intern), name, ft_strdup(data)));
+		return (create_node(&(shell->intern), name, data, flag));
+	return (change_node(&(shell->intern), name, ft_strdup(data), flag));
 }
 
-int8_t		add_intern_nbr(t_registry *shell, char *name, int data)
+int8_t		add_intern_nbr(t_registry *shell, char *name, int data,
+				t_option flag)
 {
 	int8_t	ret;
 	char	*data_copy;
@@ -32,7 +34,24 @@ int8_t		add_intern_nbr(t_registry *shell, char *name, int data)
 	ret = SUCCESS;
 	data_copy = NULL;
 	data_copy = ft_itoa(data);
-	ret = add_intern_var(shell, name, data_copy);
+	ret = add_intern_var(shell, name, data_copy, flag);
 	ft_strdel(&data_copy);
 	return (ret);
 }
+
+size_t		list_export_size(t_list *lst)
+{
+	size_t		count;
+	t_variable	*variable;
+
+	count = 0;
+	while (lst != NULL)
+	{
+		variable = (t_variable *)lst->data;
+		if (variable->flag & EXPORT_VAR)
+			count++;
+		lst = lst->next;
+	}
+	return (count);
+}
+

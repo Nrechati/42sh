@@ -74,7 +74,7 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 	itf = &shell->interface;
 	if (prompt_state && is_std_ps(prompt_state) == FALSE)
 	{
-		add_intern_var(shell, INT_PS5, prompt_state);
+		add_intern_var(shell, INT_PS5, prompt_state, SET_VAR);
 		prompt_state = INT_PS5;
 	}
 	old_state = itf->state;

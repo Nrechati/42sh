@@ -32,21 +32,31 @@
 *****************************************************
 */
 
-# define SUCCESS					0
 # define FAILURE					-1
+# define SUCCESS					0
+
 # define FALSE						0
 # define TRUE						1
+
 # define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
 # define SH21_USAGE_2				"[-c CMD]\n"
 # define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t"
 # define SH21_USAGE_LONG_OPTION_2	"--debug\n"
+
 # define NO_OPT						0x000
 # define HELP_OPT					0x001
 # define COMMAND_OPT				0x002
 # define DEBUG_OPT					0x004
 # define INTERACTIVE_OPT			0x008
+
+# define NO_FLAG					0x000
+# define EXPORT_VAR					0x001
+# define SET_VAR					0x002
+# define READONLY_VAR				0x004
+
 # define HMAP_BIN_SIZE				4096
 # define HMAP_BLT_SIZE				32
+
 # define SET_TERM					0
 # define RESTORE_TERM				1
 
