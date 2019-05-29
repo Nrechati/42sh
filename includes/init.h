@@ -42,4 +42,5 @@ void	init_pipe(t_pstate parsing);
 void	init_heredoc(t_pstate parsing);
 void	init_heredoc_redirect(t_pstate parsing);
 void	init_heredoc_delimiter(t_pstate parsing);
+
 #endif

@@ -36,7 +36,7 @@ static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		{
 			invoke_sub_prompt(g_shell, &line, "pipe> ");
 			g_shell->interface.state = INT_PS1;
-			new_token = lexer(&g_shell->lexinfo, line);
+			new_token = lexer(line);
 			ft_strdel(&line);
 		}
 		ft_putchar('\n');

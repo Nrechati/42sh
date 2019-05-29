@@ -27,10 +27,13 @@ int				create_token_data(t_lexer *machine)
 	return (SUCCESS);
 }
 
-t_list			*lexer(t_lexinfo *info, char *input)
+t_list			*lexer(char *input)
 {
-	t_lexer	machine;
+	static t_lexinfo	*info = NULL;
+	t_lexer				machine;
 
+	if (info == NULL)
+		info = init_lexinfo();
 	if (input == NULL)
 		return (NULL);
 	while (*input == '\t' || *input == ' ')

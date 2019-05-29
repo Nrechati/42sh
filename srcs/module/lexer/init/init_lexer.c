@@ -30,26 +30,30 @@ static void		init_lexing(t_lexinfo *lexinfo)
 	lexinfo->lexing[L_END] = end_machine;
 }
 
-void			init_lexinfo(t_registry *shell)
+t_lexinfo	*init_lexinfo(void)
 {
-	shell->lexinfo.special_signs[0] = E_DAND;
-	shell->lexinfo.special_signs[1] = E_OR;
-	shell->lexinfo.special_signs[2] = E_DSEMI;
-	shell->lexinfo.special_signs[3] = E_DLESS;
-	shell->lexinfo.special_signs[4] = E_DGREAT;
-	shell->lexinfo.special_signs[5] = E_LESSAND;
-	shell->lexinfo.special_signs[6] = E_GREATAND;
-	shell->lexinfo.special_signs[7] = E_LESSGREAT;
-	shell->lexinfo.special_signs[8] = E_DLESSDASH;
-	shell->lexinfo.special_signs[9] = E_CLOBBER;
-	shell->lexinfo.special_signs[10] = E_DEQ;
-	shell->lexinfo.special_signs[11] = E_NOTEQ;
-	shell->lexinfo.special_signs[12] = E_ANDGREAT;
-	shell->lexinfo.special_signs[13] = E_ANDDGREAT;
-	shell->lexinfo.duplicate[0] = E_STRING;
-	shell->lexinfo.duplicate[1] = E_IO_NUMBER;
-	shell->lexinfo.duplicate[2] = E_DB_QUOTE;
-	shell->lexinfo.duplicate[3] = E_ASSIGN;
-	shell->lexinfo.duplicate[4] = E_SPSTRING;
-	init_lexing(&shell->lexinfo);
+	static	t_lexinfo	lexinfo;
+
+	ft_bzero(&lexinfo, sizeof(lexinfo));
+	lexinfo.special_signs[0] = E_DAND;
+	lexinfo.special_signs[1] = E_OR;
+	lexinfo.special_signs[2] = E_DSEMI;
+	lexinfo.special_signs[3] = E_DLESS;
+	lexinfo.special_signs[4] = E_DGREAT;
+	lexinfo.special_signs[5] = E_LESSAND;
+	lexinfo.special_signs[6] = E_GREATAND;
+	lexinfo.special_signs[7] = E_LESSGREAT;
+	lexinfo.special_signs[8] = E_DLESSDASH;
+	lexinfo.special_signs[9] = E_CLOBBER;
+	lexinfo.special_signs[10] = E_DEQ;
+	lexinfo.special_signs[11] = E_NOTEQ;
+	lexinfo.special_signs[12] = E_ANDGREAT;
+	lexinfo.special_signs[13] = E_ANDDGREAT;
+	lexinfo.duplicate[0] = E_STRING;
+	lexinfo.duplicate[1] = E_IO_NUMBER;
+	lexinfo.duplicate[2] = E_DB_QUOTE;
+	lexinfo.duplicate[3] = E_ASSIGN;
+	lexinfo.duplicate[4] = E_SPSTRING;
+	init_lexing(&lexinfo);
+	return (&lexinfo);
 }

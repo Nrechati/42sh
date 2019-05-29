@@ -55,7 +55,7 @@ static int8_t		launch_shell_prompt(t_registry *shell)
 	ft_putchar('\n');
 	update_history(shell, input);
 	define_ign_signals();
-	execution_pipeline(shell, lexer(&shell->lexinfo, input));
+	execution_pipeline(shell, lexer(input));
 	return (SUCCESS);
 }
 

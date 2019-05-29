@@ -15,7 +15,8 @@
 
 # include "struct.h"
 
-t_list		*lexer(t_lexinfo *info, char *input);
+t_list		*lexer(char *input);
+t_lexinfo	*init_lexinfo(void);
 void		start_lexer(t_lexer *machine);
 void		end_machine(t_lexer *machine);
 void		out_lexer(t_lexer *machine);

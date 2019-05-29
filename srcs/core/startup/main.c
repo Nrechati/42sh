@@ -25,7 +25,7 @@ int8_t		shell_usage(void)
 
 static int	stdin_build_cmd(t_registry *shell, char *command)
 {
-	execution_pipeline(shell, lexer(&shell->lexinfo, command));
+	execution_pipeline(shell, lexer(command));
 	return (SUCCESS);
 }
 

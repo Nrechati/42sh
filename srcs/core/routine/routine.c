@@ -25,7 +25,6 @@ int8_t		init_shell(t_registry *shell)
 	init_debug_logger(shell);
 	print_opt(shell);
 	init_parsing(shell->parsing);
-	init_lexinfo(shell);
 	return (SUCCESS);
 }
 
