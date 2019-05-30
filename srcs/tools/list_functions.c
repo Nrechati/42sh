@@ -13,50 +13,6 @@
 #include "sh21.h"
 #include <unistd.h>
 
-void	print_filedesc(void *data)
-{
-	t_filedesc	*fd;
-
-	fd = data;
-	if (fd->action & FD_CLOSE)
-		ft_printf("Closing FD : %d\n", fd->second);
-	else if (fd->action & FD_WRITE)
-		ft_printf("FD : %d >>> FD : %d\n", fd->first, fd->second);
-	else if (fd->action & FD_READ)
-		ft_printf("FD : %d <<< FD : %d\n", fd->first, fd->second);
-}
-
-void	print_process(void *data)
-{
-	t_process	*process;
-
-	process = data;
-	ft_putchar('\n');
-	ft_showtab(process->av);
-	ft_lstiter(process->fd, print_filedesc);
-}
-
-int		find_variable(void *data, void *to_find)
-{
-	t_variable	*variable;
-	char		*name;
-
-	name = to_find;
-	variable = data;
-	return (ft_strequ(variable->name, name));
-}
-
-char	*variable_to_str(void *data)
-{
-	char		*string;
-	t_variable	*variable;
-
-	variable = data;
-	string = NULL;
-	ft_asprintf(&string, "%s=%s", variable->name, variable->data);
-	return (string);
-}
-
 void	delete_analyzer(t_resolution *resolve)
 {
 	if (resolve->tmp_env != NULL)

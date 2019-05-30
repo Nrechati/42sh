@@ -60,10 +60,15 @@ static void	launch_shell(t_registry *shell)
 
 static void	init_shell(t_registry *shell)
 {
-	g_shell = shell;
 	shell->analyzer_signal = FALSE;
 	init_debug_logger(shell);
-	print_opt(shell);
+	log_print(shell, LOG_INFO, "Options: \n");
+	log_print(shell, LOG_INFO, "| h=%d | v=%d | d=%d |\n",
+				(shell->option.option & HELP_OPT) == FALSE ? 0 : 1,
+				(shell->option.option & DEBUG_OPT) == FALSE ? 0 : 1);
+	log_print(shell, LOG_INFO, "| c=%d | cmd=%s |\n",
+				(shell->option.option & COMMAND_OPT) == FALSE ? 0 : 1,
+				shell->option.command_str);
 }
 
 int			main(int ac, char **av, char **env)

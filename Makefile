@@ -338,13 +338,12 @@ RESOLVE += waitjob.c
 
 #						     - - - -  Tools  - - - -                           #
 
-TOOLS += free_node.c
-TOOLS += internals.c
+TOOLS += intern_var_free.c
+TOOLS += intern_var_manager.c
+TOOLS += intern_var_tools.c
 TOOLS += list_functions.c
 TOOLS += list_functions2.c
-TOOLS += print_opt.c
 TOOLS += read_filedesc.c
-TOOLS += utils.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

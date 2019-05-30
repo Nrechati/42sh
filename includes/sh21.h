@@ -74,8 +74,6 @@ int8_t			create_node(t_list **alst, const char *var, const char *data,
 int8_t			change_node(t_list **alst, const char *var, char *data,
 					t_option flag);
 char			*get_data(t_list *lst, char *var);
-void			print_process(void *data);
-char			*variable_to_str(void *data);
 int				find_variable(void *data, void *to_find);
 
 /*
@@ -91,14 +89,6 @@ void			delete_variable(void *data);
 void			delete_analyzer(t_resolution *resolve);
 void			delete_process(void *data);
 void			delete_job(void *data);
-
-/*
-*****************************************************
-********************* OPTION ************************
-*****************************************************
-*/
-
-void			print_opt(t_registry *shell);
 
 /*
 *****************************************************

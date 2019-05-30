@@ -12,6 +12,16 @@
 
 #include "sh21.h"
 
+int		find_variable(void *data, void *to_find)
+{
+	t_variable	*variable;
+	char		*name;
+
+	name = to_find;
+	variable = data;
+	return (ft_strequ(variable->name, name));
+}
+
 void			print_lst(t_list *lst, int fd, char *prefix, t_option flag)
 {
 	t_variable	*variable;
