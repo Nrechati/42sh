@@ -19,15 +19,6 @@
 
 /*
 *****************************************************
-********************** BUILTIN **********************
-*****************************************************
-*/
-
-typedef uint16_t		t_option;
-typedef t_option		(*t_get_option)(char *s, t_option option);
-
-/*
-*****************************************************
 *********************** LEXER ***********************
 *****************************************************
 */
@@ -69,7 +60,17 @@ struct					s_lexer
 *****************************************************
 */
 
-typedef struct s_graph	t_graph;
+typedef struct			s_graph
+{
+	enum e_type			*good_type;
+}						t_graph;
+
+/*
+*****************************************************
+********************** ANALYZER *********************
+*****************************************************
+*/
+
 typedef struct s_resolution	t_resolution;
 typedef void			(*t_resolve)(t_resolution *);
 typedef t_resolve		t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
@@ -116,11 +117,6 @@ struct					s_resolution
 	enum e_analyzer_state	state;
 	int					oflags;
 	int					valid;
-};
-
-struct					s_graph
-{
-	enum e_type			*good_type;
 };
 
 /*
@@ -191,6 +187,8 @@ typedef struct			s_interface
 *****************************************************
 */
 
+typedef uint16_t		t_option;
+
 typedef struct			s_opt
 {
 	char				*command_str;
@@ -226,8 +224,8 @@ struct					s_registry
 	t_fd				cur_fd;
 	uint8_t				analyzer_signal;
 
-	struct s_interface	interface;		// TEMP
-	t_list				*current_job;	// TEMP
+	struct s_interface	interface;		// Think to modularize
+	t_list				*current_job;	// Think to modularize
 };
 
 typedef int				(*t_builtin) (t_registry *, char **);
@@ -241,5 +239,13 @@ extern t_registry		*g_shell;
 */
 
 extern t_list			*g_job_head;
+
+/*
+*****************************************************
+********************** BUILTIN **********************
+*****************************************************
+*/
+
+typedef t_option		(*t_get_option)(char *s, t_option option);
 
 #endif
