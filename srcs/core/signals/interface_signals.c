@@ -15,7 +15,6 @@
 #include <sys/ioctl.h>
 #include <termcap.h>
 
-
 void			redraw_prompt(const int signo)
 {
 	t_interface *itf;
@@ -30,7 +29,7 @@ void			redraw_prompt(const int signo)
 	if (signo != ft_atoi(INT_MAGIC_NUMBER))
 		ft_vctreset(itf->line);
 	itf->hist_ptr = NULL;
-	print_words(itf, get_intern_var(g_shell, itf->state));
+	print_words(itf, get_var(g_shell->intern, itf->state));
 	itf->cursor.index = 0;
 }
 
@@ -49,7 +48,7 @@ void			interface_resize_handler(const int signo)
 	update_window(g_shell);
 	tputs(itf->termcaps.clear, 1, ft_putc);
 	if ((itf->window.cols
-			< (uint32_t)(ft_strlen(get_intern_var(g_shell, INT_PS1)) * 2)
+			< (uint32_t)(ft_strlen(get_var(g_shell->intern, INT_PS1)) * 2)
 		|| itf->window.rows < 3)
 		|| ft_vctlen(itf->line) > (uint32_t)itf->window.max_chars)
 		g_shell->interface.allow_input = FALSE;

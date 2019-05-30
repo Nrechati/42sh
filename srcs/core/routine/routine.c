@@ -49,6 +49,6 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 void		shell_exit_routine(t_registry *shell)
 {
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
-		close(ft_atoi(get_intern_var(shell, INT_DBG_FD)));
+		close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));
 	free_registry(shell);
 }

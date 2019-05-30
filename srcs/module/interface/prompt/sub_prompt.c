@@ -17,7 +17,7 @@ static void			print_sub_prompt(t_registry *shell)
 {
 	char	*ps;
 
-	ps = get_intern_var(shell, shell->interface.state);
+	ps = get_var(shell->intern, shell->interface.state);
 	shell->interface.cursor.x = 0;
 	shell->interface.cursor.y = 0;
 	ft_putchar('\n');
@@ -74,7 +74,7 @@ int8_t				invoke_sub_prompt(t_registry *shell, char **line,
 	itf = &shell->interface;
 	if (prompt_state && is_std_ps(prompt_state) == FALSE)
 	{
-		add_intern_var(shell, INT_PS5, prompt_state, SET_VAR);
+		add_var(&shell->intern, INT_PS5, prompt_state, SET_VAR);
 		prompt_state = INT_PS5;
 	}
 	old_state = itf->state;

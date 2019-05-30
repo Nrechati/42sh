@@ -22,12 +22,12 @@ static char			*ft_get_curpath(t_registry *shell,
 
 	if (path_give_by_user == NULL)
 	{
-		home_path = get_intern_var(shell, "HOME");
+		home_path = get_var(shell->intern, "HOME");
 		curpath = ft_strdup(home_path != NULL ? home_path : get_home_path());
 	}
 	else if (ft_strequ(path_give_by_user, "-") == TRUE)
 	{
-		if ((curpath = get_intern_var(shell, "OLDPWD")) == NULL)
+		if ((curpath = get_var(shell->intern, "OLDPWD")) == NULL)
 			ft_dprintf(shell->cur_fd.err, CD_ERROR_OLDPWD_NOTSET);
 		else
 			curpath = ft_strdup(curpath);
@@ -51,12 +51,12 @@ static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
 	{
 		pwd = NULL;
 		pwd = getcwd(NULL, PATH_MAX);
-		add_intern_var(shell, "PWD", pwd, SET_VAR | EXPORT_VAR);
+		add_var(&shell->intern, "PWD", pwd, SET_VAR | EXPORT_VAR);
 		ft_strdel(&pwd);
 	}
 	else
-		add_intern_var(shell, "PWD", curpath, SET_VAR | EXPORT_VAR);
-	add_intern_var(shell, "OLDPWD", old_pwd, SET_VAR | EXPORT_VAR);
+		add_var(&shell->intern, "PWD", curpath, SET_VAR | EXPORT_VAR);
+	add_var(&shell->intern, "OLDPWD", old_pwd, SET_VAR | EXPORT_VAR);
 }
 
 static int8_t		change_directory(t_registry *shell, char *curpath,
@@ -69,7 +69,8 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 	{
 		set_oldpwd_and_pwd(shell, curpath, old_pwd, option);
 		if (ft_strequ(path_give_by_user, "-") == TRUE)
-			ft_dprintf(shell->cur_fd.out, "%s\n", get_intern_var(shell, "PWD"));
+			ft_dprintf(shell->cur_fd.out, "%s\n",
+					get_var(shell->intern, "PWD"));
 		return (exit_cd(shell, &old_pwd, &curpath, SUCCESS));
 	}
 	return (exit_cd(shell, &old_pwd, &curpath, FAILURE));
@@ -112,7 +113,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 		if ((curpath = make_curpath_simple(curpath)) == NULL)
 		{
 			ft_dprintf(shell->cur_fd.err, "21sh: cd: %s: %s", ft_strequ(*av,
-					"-") ? get_intern_var(shell, "OLDPWD") : *av, NOFI);
+					"-") ? get_var(shell->intern, "OLDPWD") : *av, NOFI);
 			return (FAILURE);
 		}
 		else if (ft_strlen(curpath) + 1 >= PATH_MAX)

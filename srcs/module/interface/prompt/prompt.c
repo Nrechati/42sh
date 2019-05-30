@@ -52,12 +52,12 @@ void			get_prompt_ps1(t_registry *shell)
 	if (pwd != NULL)
 		pwd = get_last_directory_of_pwd(&pwd);
 	if (pwd == NULL)
-		add_intern_var(shell, INT_PS1, "[21sh] -> ", SET_VAR);
+		add_var(&shell->intern, INT_PS1, "[21sh] -> ", SET_VAR);
 	else
 	{
 		ft_asprintf(&prompt, "[ %s ] -> ", pwd);
 		ft_strdel(&pwd);
-		add_intern_var(shell, INT_PS1, prompt, SET_VAR);
+		add_var(&shell->intern, INT_PS1, prompt, SET_VAR);
 		ft_strdel(&prompt);
 	}
 }
@@ -69,7 +69,7 @@ char			*prompt(t_registry *shell)
 
 	itf = &shell->interface;
 	ft_bzero(character, READ_SIZE);
-	ft_dprintf(STDOUT_FILENO, "%s", get_intern_var(shell, itf->state));
+	ft_dprintf(STDOUT_FILENO, "%s", get_var(shell->intern, itf->state));
 	itf->hist_ptr = NULL;
 	while (character[0] != IFS_CHAR)
 	{

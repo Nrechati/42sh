@@ -13,6 +13,8 @@
 #include "sh21.h"
 #include <unistd.h>
 
+t_registry	*g_shell;
+
 static char	*user_home(const char *str)
 {
 	char	*path;
@@ -33,12 +35,12 @@ static char	*tilde_expansion(t_resolution *resolve, const char *str)
 
 	expanded = NULL;
 	if (ft_strequ(str, "~") == TRUE)
-		expanded = ft_strdup(get_data(resolve->env, "HOME"));
+		expanded = ft_strdup(get_var(resolve->env, "HOME"));
 	else if (ft_strequ(str, "~+") == TRUE)
-		expanded = ft_strdup(get_data(resolve->env, "PWD"));
+		expanded = ft_strdup(get_var(resolve->env, "PWD"));
 	else if (ft_strequ(str, "~-") == TRUE)
 	{
-		if ((expanded = get_data(resolve->env, "OLDPWD")) != NULL)
+		if ((expanded = get_var(resolve->env, "OLDPWD")) != NULL)
 			return (ft_strdup(expanded));
 		ft_dprintf(2, "21sh: OLDPWD is not set\n");
 		error_analyzer(resolve);

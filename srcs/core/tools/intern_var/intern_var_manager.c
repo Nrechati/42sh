@@ -12,46 +12,39 @@
 
 #include "sh21.h"
 
-char		*get_intern_var(t_registry *shell, char *name)
+int			find_variable(void *data, void *to_find)
 {
-	return (get_data(shell->intern, name));
+	t_variable	*variable;
+	char		*name;
+
+	name = to_find;
+	variable = data;
+	return (ft_strequ(variable->name, name));
 }
 
-int8_t		add_intern_var(t_registry *shell, char *name, char *data,
-				t_option flag)
+char		*get_var(t_list *intern, char *name)
 {
-	if (get_data(shell->intern, name) == NULL)
-		return (create_node(&(shell->intern), name, data, flag));
-	return (change_node(&(shell->intern), name, ft_strdup(data), flag));
+	t_list *node;
+
+	if ((node = ft_lstfind(intern, name, find_variable)))
+		return (((t_variable *)node->data)->data);
+	return (NULL);
 }
 
-int8_t		add_intern_nbr(t_registry *shell, char *name, int data,
-				t_option flag)
+int8_t		add_var(t_list **intern, char *name, char *data, t_option flag)
 {
+	if (get_var(*intern, name) == NULL)
+		return (create_node(intern, name, data, flag));
+	return (change_node(intern, name, ft_strdup(data), flag));
+}
+
+int8_t		add_nbr_var(t_list **intern, char *name, int data, t_option flag)
+{
+	char	*data_str;
 	int8_t	ret;
-	char	*data_copy;
 
-	ret = SUCCESS;
-	data_copy = NULL;
-	data_copy = ft_itoa(data);
-	ret = add_intern_var(shell, name, data_copy, flag);
-	ft_strdel(&data_copy);
+	data_str = ft_itoa(data);
+	ret = add_var(intern, name, data_str, flag);
+	ft_strdel(&data_str);
 	return (ret);
 }
-
-size_t		list_export_size(t_list *lst)
-{
-	size_t		count;
-	t_variable	*variable;
-
-	count = 0;
-	while (lst != NULL)
-	{
-		variable = (t_variable *)lst->data;
-		if (variable->flag & EXPORT_VAR)
-			count++;
-		lst = lst->next;
-	}
-	return (count);
-}
-

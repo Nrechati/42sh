@@ -32,15 +32,6 @@ void	del_token(void *token)
 	ft_strdel(&tmp->data);
 }
 
-void	delete_variable(void *data)
-{
-	t_variable *variable;
-
-	variable = data;
-	if (variable->data)
-		ft_strdel(&variable->data);
-}
-
 void	delete_process(void *data)
 {
 	t_process	*process;

@@ -23,7 +23,7 @@ static char	*variable_replace(t_list *lst, char *str)
 	expanded = NULL;
 	i = ft_strcspn(str, EXP_INTERUPT);
 	str[i] = character_swap(str[i]);
-	data = get_data(lst, str);
+	data = get_var(lst, str);
 	str[i] = character_swap('\0');
 	if (i == 0)
 		ft_asprintf(&expanded, "$%s", str);

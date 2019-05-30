@@ -63,9 +63,9 @@ int8_t			hash_blt(t_registry *shell, char **av)
 	(void)av;
 	if (shell->hash.bin.used > 0)
 		ft_hmap_free_content(&(shell->hash.bin), ft_free);
-	if (get_data(shell->intern, "PATH") != NULL)
+	if (get_var(shell->intern, "PATH") != NULL)
 	{
-		tabs = ft_strsplit(get_data(shell->intern, "PATH"), ":");
+		tabs = ft_strsplit(get_var(shell->intern, "PATH"), ":");
 		if (tabs == NULL)
 			return (FAILURE);
 		i = 0;

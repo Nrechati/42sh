@@ -47,7 +47,6 @@ void		heredoc_analyzer(t_resolution *resolve);
 void		io_heredoc_analyzer(t_resolution *resolve);
 void		heredoc_delimiter(t_resolution *resolve);
 
-void		delete_process(void *data);
 char		*expand_string(t_list *lst, char *str);
 char		*string_expansion(t_resolution *resolve, char *str);
 char		*tilde(t_resolution *resolve, char *str);

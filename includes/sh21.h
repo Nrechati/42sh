@@ -56,10 +56,9 @@ void			get_prompt_ps1(t_registry *shell);
 *****************************************************
 */
 
-char			*get_intern_var(t_registry *shell, char *name);
-int8_t			add_intern_var(t_registry *shell, char *name,
-						char *data, t_option flag);
-int8_t			add_intern_nbr(t_registry *shell, char *name,
+char			*get_var(t_list *intern, char *name);
+int8_t			add_var(t_list **intern, char *name, char *data, t_option flag);
+int8_t			add_nbr_var(t_list **intern, char *name,
 						int data, t_option flag);
 size_t			list_export_size(t_list *lst);
 void			print_lst(t_list *lst, int fd, char *prefix, t_option flag);
@@ -67,7 +66,6 @@ int8_t			create_node(t_list **alst, const char *var, const char *data,
 					t_option flag);
 int8_t			change_node(t_list **alst, const char *var, char *data,
 					t_option flag);
-char			*get_data(t_list *lst, char *var);
 int				find_variable(void *data, void *to_find);
 
 /*
@@ -79,8 +77,6 @@ void			clear_node(void *node);
 void			free_anode(t_list *ptr);
 int8_t			del_node(t_list *ptr, const char *name);
 int8_t			free_node(t_list **alst, const char *var);
-void			delete_variable(void *data);
-void			delete_analyzer(t_resolution *resolve);
 void			delete_process(void *data);
 void			delete_job(void *data);
 void			del_token(void *token);
