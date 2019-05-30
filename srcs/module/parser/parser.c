@@ -14,34 +14,12 @@
 
 t_registry	*g_shell;
 
-static uint8_t	need_subprompt(enum e_type state, enum e_type type)
-{
-	if (state == E_PIPE && type == E_END
-		&& (g_shell->option.option & INTERACTIVE_OPT))
-		return (TRUE);
-	return (FALSE);
-}
-
 static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 										t_list **lst)
 {
-	t_list		*new_token;
-	char		*line;
-
 	if (need_subprompt(state, type) == TRUE)
 	{
-		line = NULL;
-		new_token = NULL;
-		while (new_token == NULL)
-		{
-			invoke_sub_prompt(g_shell, &line, "pipe> ");
-			g_shell->interface.state = INT_PS1;
-			new_token = lexer(line);
-			ft_strdel(&line);
-		}
-		ft_putchar('\n');
-		free_one_node_token(&(*lst)->next);
-		(*lst)->next = new_token;
+		parser_subprompt(lst);
 		return (TRUE);
 	}
 	ft_dprintf(2, "21sh: syntax error near unexpected token `%s'\n",

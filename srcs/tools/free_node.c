@@ -64,14 +64,3 @@ int8_t			free_node(t_list **alst, const char *name)
 	}
 	return (del_node(ptr, name));
 }
-
-void			free_one_node_token(t_list **token_lst)
-{
-	t_token	*token;
-
-	token = (t_token *)((*token_lst)->data);
-	ft_strdel(&token->data);
-	ft_free(token);
-	ft_free(*token_lst);
-	*token_lst = NULL;
-}

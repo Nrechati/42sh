@@ -91,7 +91,6 @@ void			delete_variable(void *data);
 void			delete_analyzer(t_resolution *resolve);
 void			delete_process(void *data);
 void			delete_job(void *data);
-void			free_one_node_token(t_list **token_lst);
 
 /*
 *****************************************************
