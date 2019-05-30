@@ -17,14 +17,14 @@
 # include "define.h"
 # include "struct.h"
 # include "sig.h"
-# include "history.h"
-# include "init.h"
-# include "interface_functions.h"
-# include "lexer.h"
-# include "log.h"
-# include "parser.h"
-# include "resolve.h"
 # include "builtin.h"
+# include "interface_functions.h"
+# include "history.h"
+# include "lexer.h"
+# include "parser.h"
+# include "analyzer.h"
+# include "resolve.h"
+# include "log.h"
 
 /*
 *****************************************************

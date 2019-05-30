@@ -173,6 +173,7 @@ INCS += log.h
 INCS += interface_functions.h
 INCS += lexer.h
 INCS += parser.h
+INCS += analyzer.h
 INCS += builtin.h
 INCS += resolve.h
 INCS += history.h
