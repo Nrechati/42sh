@@ -12,6 +12,7 @@
 
 #include "sh21.h"
 
+t_registry *g_shell;
 
 char	*pop_token_data(t_stack *stack)
 {
@@ -69,6 +70,8 @@ t_list	*analyzer(t_resolution *resolve)
 
 	if (analyzer == NULL)
 		analyzer = init_analyzer();
+	delete_analyzer(resolve);
+	reset_analyzer(g_shell, resolve);
 	if (resolve->token.type == E_DEFAULT)
 		get_token(resolve);
 	if (resolve->state == P_STOP)
@@ -84,5 +87,6 @@ t_list	*analyzer(t_resolution *resolve)
 			break ;
 		(*analyzer)[resolve->state][resolve->token.type](resolve);
 	}
+	analyzer_print_debug(g_shell, resolve);
 	return (resolve->job_list);
 }

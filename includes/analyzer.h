@@ -16,7 +16,6 @@
 t_list		*analyzer(t_resolution *resolve);
 void		reset_analyzer(t_registry *shell, t_resolution *resolve);
 t_analyzer	*init_analyzer(void);
-void		init_process(t_process *process);
 void		start_analyzer(t_resolution *resolve);
 void		separator_analyzer(t_resolution *resolve);
 void		stop_analyzer(t_resolution *resolve);
