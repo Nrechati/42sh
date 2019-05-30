@@ -13,8 +13,6 @@
 #ifndef INTERFACE_FUNCTIONS_H
 # define INTERFACE_FUNCTIONS_H
 
-# include "struct.h"
-
 /*
 *****************************************************
 ************** INIT / SETTING / FREE ****************

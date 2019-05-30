@@ -16,7 +16,7 @@
 t_list		*analyzer(t_resolution *resolve);
 void		reset_analyzer(t_registry *shell, t_resolution *resolve);
 t_analyzer	*init_analyzer(void);
-void		init_process(t_process *process);
+void		delete_analyzer(t_resolution *resolve);
 void		start_analyzer(t_resolution *resolve);
 void		separator_analyzer(t_resolution *resolve);
 void		stop_analyzer(t_resolution *resolve);
@@ -47,7 +47,6 @@ void		heredoc_analyzer(t_resolution *resolve);
 void		io_heredoc_analyzer(t_resolution *resolve);
 void		heredoc_delimiter(t_resolution *resolve);
 
-void		delete_process(void *data);
 char		*expand_string(t_list *lst, char *str);
 char		*string_expansion(t_resolution *resolve, char *str);
 char		*tilde(t_resolution *resolve, char *str);

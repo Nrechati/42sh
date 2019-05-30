@@ -33,7 +33,7 @@ void	pipe_analyzer(t_resolution *resolve)
 	}
 	node = ft_lstnew(&resolve->process, sizeof(t_process));
 	ft_lstaddback(&resolve->job.process_list, node);
-	init_process(&resolve->process);
+	ft_bzero(&resolve->process, sizeof(t_process));
 	generate_filedesc(resolve, STDOUT_FILENO, fd[1], FD_CLOSE);
 	generate_filedesc(resolve, fd[0], STDIN_FILENO,
 						FD_DUP | FD_WRITE | FD_PIPE);

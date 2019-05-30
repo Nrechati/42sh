@@ -115,7 +115,7 @@ typedef enum	e_quote
 
 /*
 *****************************************************
-********************** PARSER ***********************
+********************** ANALYZER *********************
 *****************************************************
 */
 
@@ -150,16 +150,6 @@ enum	e_analyzer_state
 	P_IO_HEREDOC,
 	P_IO_HEREDOC_REDIRECT,
 	P_IO_HEREDOC_DELIMITER,
-};
-
-enum	e_event
-{
-	NO_EVENT,
-	START_GRAPH,
-	END_GRAPH,
-	RECALL,
-	BACK,
-	ERROR_GRAPH
 };
 
 /*

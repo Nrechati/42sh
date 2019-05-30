@@ -13,6 +13,8 @@
 #include "sh21.h"
 #include <stdlib.h>
 
+t_registry *g_shell;
+
 int				create_token_data(t_lexer *machine)
 {
 	if (machine->buffer_index == BUFFER)
@@ -47,5 +49,6 @@ t_list			*lexer(char *input)
 	machine.lexinfo = info;
 	while (machine.state != L_FINISH)
 		machine.lexinfo->lexing[machine.state](&machine);
+	lexer_print_debug(g_shell, machine.tokens);
 	return (machine.tokens);
 }

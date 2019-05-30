@@ -15,19 +15,6 @@
 
 /*
 *****************************************************
-******** -------------- SIGNAL -------------- *******
-*****************************************************
-*/
-
-# define SSIG_KILL                  9
-# define SSIG_INT                   2
-# define SSIG_QUIT                  3
-# define SSIG_STOP                  19
-# define SSIG_SEGV					11
-# define SSIG_ABT					6
-
-/*
-*****************************************************
 ******** -------------- COMMON -------------- *******
 *****************************************************
 */
@@ -148,20 +135,6 @@
 *****************************************************
 */
 
-# define ANALYZER_STATES			30
-# define FD_DUP						0x01
-# define FD_CLOSE					0x02
-# define FD_WRITE					0x04
-# define FD_READ					0x08
-# define FD_PIPE					0x10
-# define FD_CLOED					0x20
-
-# define QUOTING					0x01
-# define HERETRIM					0x02
-# define TO_CLOSE					0x04
-# define NO_PIPE					0x08
-# define VALID_PROCESS				0x10
-
 # define REDIR						E_GREAT, E_LESS
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT
 # define REDIR_DB					E_DGREAT, E_DLESS, E_DLESSDASH, E_ANDDGREAT
@@ -223,6 +196,26 @@
 
 /*
 *****************************************************
+********************** ANALYZER *********************
+*****************************************************
+*/
+
+# define ANALYZER_STATES			30
+# define FD_DUP						0x01
+# define FD_CLOSE					0x02
+# define FD_WRITE					0x04
+# define FD_READ					0x08
+# define FD_PIPE					0x10
+# define FD_CLOED					0x20
+
+# define QUOTING					0x01
+# define HERETRIM					0x02
+# define TO_CLOSE					0x04
+# define NO_PIPE					0x08
+# define VALID_PROCESS				0x10
+
+/*
+*****************************************************
 **************** INTERFACE_FUNCTIONS ****************
 *****************************************************
 */
@@ -276,11 +269,15 @@
 
 /*
 *****************************************************
-*********************** UNIT ************************
+*********************** SIGNAL **********************
 *****************************************************
 */
 
-# define BLUE						"39"
-# define T_CHMOD					766
+# define SSIG_KILL                  9
+# define SSIG_INT                   2
+# define SSIG_QUIT                  3
+# define SSIG_STOP                  19
+# define SSIG_SEGV					11
+# define SSIG_ABT					6
 
 #endif

@@ -13,7 +13,6 @@
 #include "sh21.h"
 #include <unistd.h>
 
-
 char	*ft_strjoinfree(char *s1, const char *s2, const int8_t todel)
 {
 	char	*join;

@@ -38,7 +38,7 @@ static int		change_last_bin(t_process *process, t_registry *shell)
 	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL)
 	{
 		get_last_bin(shell, process, &asp);
-		if (add_intern_var(shell, "_", asp, SET_VAR) == FAILURE)
+		if (add_var(&shell->intern, "_", asp, SET_VAR) == FAILURE)
 			return (FAILURE);
 	}
 	return (SUCCESS);

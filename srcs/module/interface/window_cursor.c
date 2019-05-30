@@ -24,9 +24,9 @@ int8_t	update_window(t_registry *shell)
 		return (FAILURE);
 	window->rows = (w.ws_row <= 0) ? 0 : w.ws_row;
 	window->cols = (w.ws_col <= 0) ? 0 : w.ws_col;
-	if (add_intern_nbr(shell, INT_COLS, window->cols, SET_VAR) == FAILURE)
+	if (add_nbr_var(&shell->intern, INT_COLS, window->cols, SET_VAR) == FAILURE)
 		return (FAILURE);
-	if (add_intern_nbr(shell, INT_ROWS, window->rows, SET_VAR) == FAILURE)
+	if (add_nbr_var(&shell->intern, INT_ROWS, window->rows, SET_VAR) == FAILURE)
 		return (FAILURE);
 	window->max_chars = ((window->cols * window->rows)
 								- (get_prompt_len(shell) + 3));
@@ -46,9 +46,9 @@ int8_t	init_window(t_registry *shell)
 	}
 	window->rows = (w.ws_row <= 0) ? 0 : w.ws_row;
 	window->cols = (w.ws_col <= 0) ? 0 : w.ws_col;
-	if (add_intern_nbr(shell, INT_COLS, window->cols, SET_VAR) == FAILURE)
+	if (add_nbr_var(&shell->intern, INT_COLS, window->cols, SET_VAR) == FAILURE)
 		return (FAILURE);
-	if (add_intern_nbr(shell, INT_ROWS, window->rows, SET_VAR) == FAILURE)
+	if (add_nbr_var(&shell->intern, INT_ROWS, window->rows, SET_VAR) == FAILURE)
 		return (FAILURE);
 	window->max_chars = ((window->cols * window->rows)
 								- (get_prompt_len(shell) + 3));

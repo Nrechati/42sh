@@ -30,10 +30,10 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 	if ((term_name = getenv("TERM")) == NULL || ft_strequ(term_name, ""))
 	{
 		term_name = INT_TERM_DFLT_VALUE;
-		add_intern_var(shell, INT_TERM, INT_TERM_DFLT_VALUE, SET_VAR);
+		add_var(&shell->intern, INT_TERM, INT_TERM_DFLT_VALUE, SET_VAR);
 	}
 	else
-		add_intern_var(shell, INT_TERM, term_name, SET_VAR);
+		add_var(&shell->intern, INT_TERM, term_name, SET_VAR);
 	if (term_name == NULL || (tgetent(NULL, term_name)) == FAILURE)
 	{
 		log_print(shell, LOG_ERROR, "Tgetent failed.\n");
@@ -47,11 +47,11 @@ static int8_t		fetch_terminal_info(t_registry *shell)
 int8_t				fill_interface_related_internals(t_registry *shell)
 {
 	get_prompt_ps1(shell);
-	if (add_intern_var(shell, INT_PS2, INT_PS2_VALUE, SET_VAR) == FAILURE)
+	if (add_var(&shell->intern, INT_PS2, INT_PS2_VALUE, SET_VAR) == FAILURE)
 		return (FAILURE);
-	if (add_intern_var(shell, INT_PS3, INT_PS3_VALUE, SET_VAR) == FAILURE)
+	if (add_var(&shell->intern, INT_PS3, INT_PS3_VALUE, SET_VAR) == FAILURE)
 		return (FAILURE);
-	if (add_intern_var(shell, INT_PS4, INT_PS4_VALUE, SET_VAR) == FAILURE)
+	if (add_var(&shell->intern, INT_PS4, INT_PS4_VALUE, SET_VAR) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }

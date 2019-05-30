@@ -17,6 +17,7 @@ uint32_t	get_prompt_len(t_registry *shell)
 	uint32_t	p_len;
 
 	p_len = 0;
-	p_len = (uint32_t)ft_strlen(get_intern_var(shell, shell->interface.state));
+	p_len = (uint32_t)ft_strlen(get_var(shell->intern,
+				shell->interface.state));
 	return (p_len);
 }

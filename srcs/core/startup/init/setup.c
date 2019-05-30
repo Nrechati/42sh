@@ -16,7 +16,7 @@ static int		set_shlvl(t_registry *shell)
 {
 	char		*shlvl;
 
-	shlvl = get_intern_var(shell, "SHLVL");
+	shlvl = get_var(shell->intern, "SHLVL");
 	if (shlvl == NULL)
 		shlvl = ft_strdup("1");
 	else
@@ -25,7 +25,7 @@ static int		set_shlvl(t_registry *shell)
 		if (shlvl == NULL)
 			return (FAILURE);
 	}
-	add_intern_var(shell, "SHLVL", shlvl, EXPORT_VAR | SET_VAR);
+	add_var(&shell->intern, "SHLVL", shlvl, EXPORT_VAR | SET_VAR);
 	ft_strdel(&shlvl);
 	return (SUCCESS);
 }

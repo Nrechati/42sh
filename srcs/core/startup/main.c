@@ -23,12 +23,6 @@ int8_t		shell_usage(void)
 	return (FAILURE);
 }
 
-static int	stdin_build_cmd(t_registry *shell, char *command)
-{
-	execution_pipeline(shell, lexer(command));
-	return (SUCCESS);
-}
-
 static void	batch_mode(t_registry *shell)
 {
 	char	*command;
@@ -41,10 +35,7 @@ static void	batch_mode(t_registry *shell)
 		ft_strdel(&command);
 	}
 	if (command != NULL && quoting_is_valid(command) == TRUE)
-	{
-		if (stdin_build_cmd(shell, command) == FAILURE)
-			ft_dprintf(2, "[CRITICAL] - Malloc error.\n");
-	}
+			execution_pipeline(shell, lexer(command));
 	else
 		ft_dprintf(2, "21sh: No valid input.\n");
 	if ((shell->option.option & COMMAND_OPT) == FALSE && command != NULL)
@@ -67,6 +58,19 @@ static void	launch_shell(t_registry *shell)
 		batch_mode(shell);
 }
 
+static void	init_shell(t_registry *shell)
+{
+	shell->analyzer_signal = FALSE;
+	init_debug_logger(shell);
+	log_print(shell, LOG_INFO, "Options: \n");
+	log_print(shell, LOG_INFO, "| h=%d | v=%d | d=%d |\n",
+				(shell->option.option & HELP_OPT) == FALSE ? 0 : 1,
+				(shell->option.option & DEBUG_OPT) == FALSE ? 0 : 1);
+	log_print(shell, LOG_INFO, "| c=%d | cmd=%s |\n",
+				(shell->option.option & COMMAND_OPT) == FALSE ? 0 : 1,
+				shell->option.command_str);
+}
+
 int			main(int ac, char **av, char **env)
 {
 	t_registry		shell;
@@ -76,8 +80,7 @@ int			main(int ac, char **av, char **env)
 	g_shell = &shell;
 	if (set_environment(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
-	if (init_shell(&shell) == FAILURE)
-		return (FAILURE);
+	init_shell(&shell);
 	define_ign_signals();
 	launch_shell(&shell);
 	shell_exit_routine(&shell);

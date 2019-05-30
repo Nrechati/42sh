@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   intern_var_tools.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -67,11 +67,18 @@ int8_t			change_node(t_list **alst, const char *name, char *data,
 	return (create_node(alst, name, data, flag));
 }
 
-char			*get_data(t_list *lst, char *name)
+size_t		list_export_size(t_list *lst)
 {
-	t_list *node;
+	size_t		count;
+	t_variable	*variable;
 
-	if ((node = ft_lstfind(lst, name, find_variable)))
-		return (((t_variable *)node->data)->data);
-	return (NULL);
+	count = 0;
+	while (lst != NULL)
+	{
+		variable = (t_variable *)lst->data;
+		if (variable->flag & EXPORT_VAR)
+			count++;
+		lst = lst->next;
+	}
+	return (count);
 }
