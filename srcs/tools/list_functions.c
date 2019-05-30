@@ -57,11 +57,11 @@ char	*variable_to_str(void *data)
 	return (string);
 }
 
-void	delete_parser(t_parser *parse)
+void	delete_analyzer(t_resolution *resolve)
 {
-	if (parse->tmp_env != NULL)
-		ft_lstdel(&parse->tmp_env, NULL);
-	if (parse->job_list != NULL)
-		ft_lstdel(&parse->job_list, delete_job);
-	ft_stckdestroy(&parse->stack, del_token);
+	if (resolve->tmp_env != NULL)
+		ft_lstdel(&resolve->tmp_env, NULL);
+	if (resolve->job_list != NULL)
+		ft_lstdel(&resolve->job_list, delete_job);
+	ft_stckdestroy(&resolve->stack, del_token);
 }

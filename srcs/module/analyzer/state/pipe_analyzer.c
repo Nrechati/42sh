@@ -14,28 +14,28 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-
-void	pipe_parser(t_parser *parse)
+void	pipe_analyzer(t_resolution *resolve)
 {
 	t_list		*node;
 	int			fd[2];
 
-	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
-	parse->special_case ^= VALID_PROCESS;
-	if (parse->state == P_ERROR)
+	resolve->state = pipe(fd) ? P_ERROR : P_PIPE;
+	resolve->special_case ^= VALID_PROCESS;
+	if (resolve->state == P_ERROR)
 		return ;
-	if (parse->special_case & NO_PIPE)
+	if (resolve->special_case & NO_PIPE)
 		close(fd[1]);
 	else
 	{
-		generate_filedesc(parse, STDIN_FILENO, fd[0], FD_CLOSE);
-		generate_filedesc(parse, fd[1], STDOUT_FILENO
+		generate_filedesc(resolve, STDIN_FILENO, fd[0], FD_CLOSE);
+		generate_filedesc(resolve, fd[1], STDOUT_FILENO
 				, FD_DUP | FD_WRITE | FD_PIPE);
 	}
-	node = ft_lstnew(&parse->process, sizeof(t_process));
-	ft_lstaddback(&parse->job.process_list, node);
-	init_process(&parse->process);
-	generate_filedesc(parse, STDOUT_FILENO, fd[1], FD_CLOSE);
-	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE | FD_PIPE);
-	get_token(parse);
+	node = ft_lstnew(&resolve->process, sizeof(t_process));
+	ft_lstaddback(&resolve->job.process_list, node);
+	init_process(&resolve->process);
+	generate_filedesc(resolve, STDOUT_FILENO, fd[1], FD_CLOSE);
+	generate_filedesc(resolve, fd[0], STDIN_FILENO,
+						FD_DUP | FD_WRITE | FD_PIPE);
+	get_token(resolve);
 }

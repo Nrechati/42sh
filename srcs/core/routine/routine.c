@@ -21,47 +21,47 @@ void		init_process(t_process *process)
 int8_t		init_shell(t_registry *shell)
 {
 	g_shell = shell; // OK ?
-	shell->parse_signal = FALSE;
+	shell->analyzer_signal = FALSE;
 	init_debug_logger(shell);
 	print_opt(shell);
 	return (SUCCESS);
 }
 
-void		init_parser(t_registry *shell, t_parser *parse)
+void		reset_analyzer(t_registry *shell, t_resolution *resolve)
 {
-	ft_stckinit(&parse->stack);
-	parse->state = P_START;
-	parse->env = shell->intern; /// ATTENTION a copier uniquement les var export
-	parse->oflags = 0;
-	parse->valid = 0;
-	init_process(&parse->process);
-	ft_bzero(&parse->job, sizeof(t_job));
+	ft_stckinit(&resolve->stack);
+	resolve->state = P_START;
+	resolve->env = shell->intern;
+	resolve->oflags = 0;
+	resolve->valid = 0;
+	init_process(&resolve->process);
+	ft_bzero(&resolve->job, sizeof(t_job));
 }
 
 int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 {
-	t_parser	parse;
+	t_resolution	resolve;
 
-	shell->parse_signal = FALSE;
-	define_parser_signals();
-	ft_bzero(&parse, sizeof(t_parser));
-	parse.token_list = token_list;
-	parse.token.type = E_DEFAULT;
-	lexer_print_debug(shell, parse.token_list);
-	while (parse.token_list)
+	shell->analyzer_signal = FALSE;
+	define_analyzer_signals();
+	ft_bzero(&resolve, sizeof(t_resolution));
+	resolve.token_list = token_list;
+	resolve.token.type = E_DEFAULT;
+	lexer_print_debug(shell, resolve.token_list);
+	while (resolve.token_list)
 	{
-		if (parser(parse.token_list) == FAILURE)
+		if (parser(resolve.token_list) == FAILURE)
 		{
-			ft_lstdel(&parse.token_list, del_token);
+			ft_lstdel(&resolve.token_list, del_token);
 			return (FAILURE);
 		}
-		init_parser(shell, &parse);
-		shell->current_job = analyzer(&parse);
-		parser_print_debug(shell, &parse);
-		lexer_print_debug(shell, parse.token_list);
-		if (parse.valid == 1)
-			launch_job(shell, parse.job_list);
-		delete_parser(&parse);
+		reset_analyzer(shell, &resolve);
+		shell->current_job = analyzer(&resolve);
+		analyzer_print_debug(shell, &resolve);
+		lexer_print_debug(shell, resolve.token_list);
+		if (resolve.valid == 1)
+			launch_job(shell, resolve.job_list);
+		delete_analyzer(&resolve);
 	}
 	define_ign_signals();
 	return (SUCCESS);

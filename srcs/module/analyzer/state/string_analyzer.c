@@ -12,40 +12,40 @@
 
 #include "sh21.h"
 
-void	flush_string(t_parser *parse)
+void	flush_string(t_resolution *resolve)
 {
 	int		index;
 	t_token *token;
 
-	parse->state = P_STRING_FLUSH;
-	if (ft_stcksize(&parse->stack) == 0)
+	resolve->state = P_STRING_FLUSH;
+	if (ft_stcksize(&resolve->stack) == 0)
 		return ;
-	index = ft_stcksize(&parse->stack);
-	parse->process.av = (char **)ft_malloc(sizeof(char *) * (index + 1));
-	if (parse->process.av == NULL)
+	index = ft_stcksize(&resolve->stack);
+	resolve->process.av = (char **)ft_malloc(sizeof(char *) * (index + 1));
+	if (resolve->process.av == NULL)
 		return ;
-	parse->process.av[index] = NULL;
+	resolve->process.av[index] = NULL;
 	while (--index >= 0)
 	{
-		token = ft_stckpop(&parse->stack);
-		parse->process.av[index] = token->data;
+		token = ft_stckpop(&resolve->stack);
+		resolve->process.av[index] = token->data;
 		ft_free(token);
 	}
-	parse->special_case ^= VALID_PROCESS;
+	resolve->special_case ^= VALID_PROCESS;
 }
 
-void	special_string_parser(t_parser *parse)
+void	special_string_analyzer(t_resolution *resolve)
 {
-	parse->state = P_SPSTRING;
-	parse->token.type = E_STRING;
-	if ((parse->token.data = string_expansion(parse, parse->token.data)))
-		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+	resolve->state = P_SPSTRING;
+	resolve->token.type = E_STRING;
+	if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
+		ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }
 
-void	string_parser(t_parser *parse)
+void	string_analyzer(t_resolution *resolve)
 {
-	parse->state = P_STRING;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+	resolve->state = P_STRING;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }

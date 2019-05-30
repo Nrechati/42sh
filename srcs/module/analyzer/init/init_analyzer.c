@@ -12,54 +12,53 @@
 
 #include "sh21.h"
 
-
-static void	bzero_parsing(t_pstate parsing)
+static void	bzero_analyzer(t_analyzer analyzer)
 {
 	int		index;
 	int		state;
 
 	index = 0;
-	while (index < PARSE_STATES)
+	while (index < ANALYZER_STATES)
 	{
 		state = 0;
 		while (state < NB_OF_TOKENS)
-			parsing[index][state++] = error_parser;
+			analyzer[index][state++] = error_analyzer;
 		++index;
 	}
 }
 
-static void	init_io_rediction_parser(t_pstate parsing)
+static void	init_io_rediction_analyzer(t_analyzer analyzer)
 {
-	init_io(parsing);
-	init_io_redirect(parsing);
-	init_io_filename(parsing);
-	init_io_filename_and(parsing);
-	init_io_flush(parsing);
-	init_io_flush_and(parsing);
-	init_io_dup_move(parsing);
-	init_heredoc(parsing);
-	init_heredoc_redirect(parsing);
-	init_heredoc_delimiter(parsing);
-	init_io_heredoc(parsing);
-	init_io_heredoc_redirect(parsing);
-	init_dup_move(parsing);
-	init_pipe(parsing);
-	init_io_heredoc_delimiter(parsing);
-	init_flush_redirect(parsing);
+	init_io(analyzer);
+	init_io_redirect(analyzer);
+	init_io_filename(analyzer);
+	init_io_filename_and(analyzer);
+	init_io_flush(analyzer);
+	init_io_flush_and(analyzer);
+	init_io_dup_move(analyzer);
+	init_heredoc(analyzer);
+	init_heredoc_redirect(analyzer);
+	init_heredoc_delimiter(analyzer);
+	init_io_heredoc(analyzer);
+	init_io_heredoc_redirect(analyzer);
+	init_dup_move(analyzer);
+	init_pipe(analyzer);
+	init_io_heredoc_delimiter(analyzer);
+	init_flush_redirect(analyzer);
 }
 
-t_pstate	*init_parsing(void)
+t_analyzer	*init_analyzer(void)
 {
-	static t_pstate parsing;
+	static t_analyzer analyzer;
 
-	bzero_parsing(parsing);
-	init_start(parsing);
-	init_string(parsing);
-	init_special_string(parsing);
-	init_flush_string(parsing);
-	init_separator(parsing);
-	init_redirect(parsing);
-	init_filename(parsing);
-	init_io_rediction_parser(parsing);
-	return (&parsing);
+	bzero_analyzer(analyzer);
+	init_start(analyzer);
+	init_string(analyzer);
+	init_special_string(analyzer);
+	init_flush_string(analyzer);
+	init_separator(analyzer);
+	init_redirect(analyzer);
+	init_filename(analyzer);
+	init_io_rediction_analyzer(analyzer);
+	return (&analyzer);
 }

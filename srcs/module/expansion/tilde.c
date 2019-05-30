@@ -27,31 +27,31 @@ static char	*user_home(const char *str)
 	return (path);
 }
 
-static char	*tilde_expansion(t_parser *parse, const char *str)
+static char	*tilde_expansion(t_resolution *resolve, const char *str)
 {
 	char	*expanded;
 
 	expanded = NULL;
 	if (ft_strequ(str, "~") == TRUE)
-		expanded = ft_strdup(get_data(parse->env, "HOME"));
+		expanded = ft_strdup(get_data(resolve->env, "HOME"));
 	else if (ft_strequ(str, "~+") == TRUE)
-		expanded = ft_strdup(get_data(parse->env, "PWD"));
+		expanded = ft_strdup(get_data(resolve->env, "PWD"));
 	else if (ft_strequ(str, "~-") == TRUE)
 	{
-		if ((expanded = get_data(parse->env, "OLDPWD")) != NULL)
+		if ((expanded = get_data(resolve->env, "OLDPWD")) != NULL)
 			return (ft_strdup(expanded));
 		ft_dprintf(2, "21sh: OLDPWD is not set\n");
-		error_parser(parse);
+		error_analyzer(resolve);
 	}
 	else if ((expanded = user_home(str + 1)) == NULL)
 	{
 		ft_dprintf(2, "21sh: No such user or directory\n");
-		error_parser(parse);
+		error_analyzer(resolve);
 	}
 	return (expanded);
 }
 
-char		*tilde(t_parser *parse, char *str)
+char		*tilde(t_resolution *resolve, char *str)
 {
 	char		*expanded;
 	char		*holder;
@@ -65,7 +65,7 @@ char		*tilde(t_parser *parse, char *str)
 	{
 		i = ft_strcspn(str, "/");
 		str[i] = character_swap(str[i]);
-		expanded = tilde_expansion(parse, str);
+		expanded = tilde_expansion(resolve, str);
 		str[i] = character_swap('\0');
 		ft_asprintf(&holder, "%s%s", expanded, str + i);
 		ft_strdel(&expanded);

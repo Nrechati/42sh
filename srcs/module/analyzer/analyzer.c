@@ -35,7 +35,8 @@ t_type	pop_token_type(t_stack *stack)
 	return (type);
 }
 
-void	generate_filedesc(t_parser *parse, int first, int second, int action)
+void	generate_filedesc(t_resolution *resolve, int first, int second,
+				int action)
 {
 	t_list		*node;
 	t_filedesc	fd;
@@ -45,43 +46,43 @@ void	generate_filedesc(t_parser *parse, int first, int second, int action)
 	fd.second = second;
 	node = ft_lstnew(&fd, sizeof(t_filedesc));
 	if (action & FD_PIPE)
-		ft_lstadd(&parse->process.fd, node);
+		ft_lstadd(&resolve->process.fd, node);
 	else
-		ft_lstaddback(&parse->process.fd, node);
+		ft_lstaddback(&resolve->process.fd, node);
 }
 
-void	get_token(t_parser *parse)
+void	get_token(t_resolution *resolve)
 {
 	t_list		*node;
 
-	if (parse->token_list == NULL)
+	if (resolve->token_list == NULL)
 		return ;
-	node = parse->token_list;
-	parse->token_list = parse->token_list->next;
-	ft_memcpy(&parse->token, node->data, sizeof(t_token));
+	node = resolve->token_list;
+	resolve->token_list = resolve->token_list->next;
+	ft_memcpy(&resolve->token, node->data, sizeof(t_token));
 	ft_lstdelone(&node, NULL);
 }
 
-t_list	*analyzer(t_parser *parse)
+t_list	*analyzer(t_resolution *resolve)
 {
-	static t_pstate	*parsing = NULL;
+	static t_analyzer	*analyzer = NULL;
 
-	if (parsing == NULL)
-		parsing = init_parsing();
-	if (parse->token.type == E_DEFAULT)
-		get_token(parse);
-	if (parse->state == P_STOP)
-		parse->state = P_START;
-	while (parse->state != P_END && parse->state != P_ERROR)
+	if (analyzer == NULL)
+		analyzer = init_analyzer();
+	if (resolve->token.type == E_DEFAULT)
+		get_token(resolve);
+	if (resolve->state == P_STOP)
+		resolve->state = P_START;
+	while (resolve->state != P_END && resolve->state != P_ERROR)
 	{
-		if (g_shell->parse_signal == TRUE)
+		if (g_shell->analyzer_signal == TRUE)
 		{
-			signal_parser(parse);
+			signal_analyzer(resolve);
 			break ;
 		}
-		if (parse->state == P_STOP)
+		if (resolve->state == P_STOP)
 			break ;
-		(*parsing)[parse->state][parse->token.type](parse);
+		(*analyzer)[resolve->state][resolve->token.type](resolve);
 	}
-	return (parse->job_list);
+	return (resolve->job_list);
 }

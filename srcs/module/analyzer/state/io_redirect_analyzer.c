@@ -13,7 +13,7 @@
 #include "sh21.h"
 #include <fcntl.h>
 
-void	io_redirect_flush(t_parser *parse)
+void	io_redirect_flush(t_resolution *resolve)
 {
 	char		*filename;
 	char		*io;
@@ -21,61 +21,62 @@ void	io_redirect_flush(t_parser *parse)
 	int			action;
 
 	action = 0;
-	parse->state = P_IO_FLUSH;
-	filename = pop_token_data(&parse->stack);
-	pop_token_type(&parse->stack);
-	io = pop_token_data(&parse->stack);
+	resolve->state = P_IO_FLUSH;
+	filename = pop_token_data(&resolve->stack);
+	pop_token_type(&resolve->stack);
+	io = pop_token_data(&resolve->stack);
 	action |= FD_WRITE | FD_DUP;
-	if ((fd = open(filename, parse->oflags, 0644)) < 0)
-		error_parser(parse);
+	if ((fd = open(filename, resolve->oflags, 0644)) < 0)
+		error_analyzer(resolve);
 	else
-		generate_filedesc(parse, fd, ft_atoi(io), action);
+		generate_filedesc(resolve, fd, ft_atoi(io), action);
 	ft_strdel(&io);
 	ft_strdel(&filename);
 }
 
-void	io_and_redirect_flush(t_parser *parse)
+void	io_and_redirect_flush(t_resolution *resolve)
 {
 	char			*fd;
 	char			*io;
 	unsigned int	action;
 
 	action = 0;
-	parse->state = P_IO_FLUSH_AND;
-	fd = pop_token_data(&parse->stack);
-	pop_token_type(&parse->stack);
-	io = pop_token_data(&parse->stack);
-	action |= parse->special_case & TO_CLOSE ? FD_CLOSE : FD_DUP;
-	generate_filedesc(parse, ft_atoi(fd), ft_atoi(io), action | FD_WRITE);
+	resolve->state = P_IO_FLUSH_AND;
+	fd = pop_token_data(&resolve->stack);
+	pop_token_type(&resolve->stack);
+	io = pop_token_data(&resolve->stack);
+	action |= resolve->special_case & TO_CLOSE ? FD_CLOSE : FD_DUP;
+	generate_filedesc(resolve, ft_atoi(fd), ft_atoi(io), action | FD_WRITE);
 	ft_strdel(&fd);
 	ft_strdel(&io);
 }
 
-void	io_redirect_parser(t_parser *parse)
+void	io_redirect_analyzer(t_resolution *resolve)
 {
-	parse->state = P_IO_REDIRECT;
-	if (parse->token.type == E_GREAT)
-		parse->oflags = O_RDWR + O_CREAT + O_TRUNC + O_CLOEXEC;
-	else if (parse->token.type == E_DGREAT)
-		parse->oflags = O_RDWR + O_CREAT + O_APPEND + O_CLOEXEC;
-	else if (parse->token.type == E_LESS)
-		parse->oflags = O_RDONLY + O_CLOEXEC;
-	else if (parse->token.type == E_DLESS || parse->token.type == E_DLESSDASH)
-		parse->state = P_IO_HEREDOC_REDIRECT;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+	resolve->state = P_IO_REDIRECT;
+	if (resolve->token.type == E_GREAT)
+		resolve->oflags = O_RDWR + O_CREAT + O_TRUNC + O_CLOEXEC;
+	else if (resolve->token.type == E_DGREAT)
+		resolve->oflags = O_RDWR + O_CREAT + O_APPEND + O_CLOEXEC;
+	else if (resolve->token.type == E_LESS)
+		resolve->oflags = O_RDONLY + O_CLOEXEC;
+	else if (resolve->token.type == E_DLESS
+			|| resolve->token.type == E_DLESSDASH)
+		resolve->state = P_IO_HEREDOC_REDIRECT;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }
 
-void	io_redirect_and_parser(t_parser *parse)
+void	io_redirect_and_analyzer(t_resolution *resolve)
 {
-	parse->state = P_IO_REDIRECT_AND;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+	resolve->state = P_IO_REDIRECT_AND;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }
 
-void	io_parser(t_parser *parse)
+void	io_analyzer(t_resolution *resolve)
 {
-	parse->state = P_IO;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+	resolve->state = P_IO;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }

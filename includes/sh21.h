@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "define.h"
 # include "struct.h"
+# include "sig.h"
 # include "history.h"
 # include "init.h"
 # include "interface_functions.h"
@@ -23,7 +24,6 @@
 # include "log.h"
 # include "parser.h"
 # include "resolve.h"
-# include "sig.h"
 # include "builtin.h"
 
 /*
@@ -90,7 +90,7 @@ int8_t			del_node(t_list *ptr, const char *name);
 int8_t			free_node(t_list **alst, const char *var);
 int8_t			free_lst(t_list **alst);
 void			delete_variable(void *data);
-void			delete_parser(t_parser *parse);
+void			delete_analyzer(t_resolution *resolve);
 void			delete_process(void *data);
 void			delete_job(void *data);
 void			free_token_list(t_list *token_list);
@@ -120,7 +120,7 @@ void			del_token(void *token);
 *****************************************************
 */
 
-void			parser_print_debug(t_registry *shell, t_parser *parse);
+void			analyzer_print_debug(t_registry *shell, t_resolution *parse);
 void			lexer_print_debug(t_registry *shell, t_list *token_list);
 
 #endif

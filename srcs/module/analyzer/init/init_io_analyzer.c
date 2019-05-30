@@ -12,68 +12,68 @@
 
 #include "sh21.h"
 
-void	init_io(t_pstate parsing)
+void	init_io(t_analyzer analyzer)
 {
-	parsing[P_IO][E_GREAT] = io_redirect_parser;
-	parsing[P_IO][E_DGREAT] = io_redirect_parser;
-	parsing[P_IO][E_LESS] = io_redirect_parser;
-	parsing[P_IO][E_GREATAND] = io_redirect_and_parser;
-	parsing[P_IO][E_LESSAND] = io_redirect_and_parser;
+	analyzer[P_IO][E_GREAT] = io_redirect_analyzer;
+	analyzer[P_IO][E_DGREAT] = io_redirect_analyzer;
+	analyzer[P_IO][E_LESS] = io_redirect_analyzer;
+	analyzer[P_IO][E_GREATAND] = io_redirect_and_analyzer;
+	analyzer[P_IO][E_LESSAND] = io_redirect_and_analyzer;
 }
 
-void	init_io_filename(t_pstate parsing)
+void	init_io_filename(t_analyzer analyzer)
 {
-	parsing[P_IO_FILENAME][E_STRING] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_SPSTRING] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_GREAT] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_GREATAND] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_LESS] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_LESSAND] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_DGREAT] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_ANDDGREAT] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_PIPE] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_IO_NUMBER] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_SEMICOLON] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_NEWLINE] = io_redirect_flush;
-	parsing[P_IO_FILENAME][E_END] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_STRING] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_SPSTRING] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_GREAT] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_GREATAND] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_LESS] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_LESSAND] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_DGREAT] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_ANDDGREAT] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_PIPE] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_IO_NUMBER] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_SEMICOLON] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_NEWLINE] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_END] = io_redirect_flush;
 }
 
-void	init_io_filename_and(t_pstate parsing)
+void	init_io_filename_and(t_analyzer analyzer)
 {
-	parsing[P_IO_REDIRECT_AND][E_STRING] = io_dup_move_parser;
-	parsing[P_IO_REDIRECT_AND][E_SPSTRING] = io_dup_move_parser;
+	analyzer[P_IO_REDIRECT_AND][E_STRING] = io_dup_move_analyzer;
+	analyzer[P_IO_REDIRECT_AND][E_SPSTRING] = io_dup_move_analyzer;
 }
 
-void	init_io_flush(t_pstate parsing)
+void	init_io_flush(t_analyzer analyzer)
 {
-	parsing[P_IO_FLUSH][E_STRING] = string_parser;
-	parsing[P_IO_FLUSH][E_SPSTRING] = special_string_parser;
-	parsing[P_IO_FLUSH][E_GREAT] = redirect_parser;
-	parsing[P_IO_FLUSH][E_GREATAND] = redirect_parser;
-	parsing[P_IO_FLUSH][E_LESS] = redirect_parser;
-	parsing[P_IO_FLUSH][E_LESSAND] = redirect_parser;
-	parsing[P_IO_FLUSH][E_DGREAT] = redirect_parser;
-	parsing[P_IO_FLUSH][E_ANDDGREAT] = redirect_parser;
-	parsing[P_IO_FLUSH][E_IO_NUMBER] = io_parser;
-	parsing[P_IO_FLUSH][E_PIPE] = flush_string;
-	parsing[P_IO_FLUSH][E_SEMICOLON] = flush_string;
-	parsing[P_IO_FLUSH][E_NEWLINE] = flush_string;
-	parsing[P_IO_FLUSH][E_END] = flush_string;
+	analyzer[P_IO_FLUSH][E_STRING] = string_analyzer;
+	analyzer[P_IO_FLUSH][E_SPSTRING] = special_string_analyzer;
+	analyzer[P_IO_FLUSH][E_GREAT] = redirect_analyzer;
+	analyzer[P_IO_FLUSH][E_GREATAND] = redirect_analyzer;
+	analyzer[P_IO_FLUSH][E_LESS] = redirect_analyzer;
+	analyzer[P_IO_FLUSH][E_LESSAND] = redirect_analyzer;
+	analyzer[P_IO_FLUSH][E_DGREAT] = redirect_analyzer;
+	analyzer[P_IO_FLUSH][E_ANDDGREAT] = redirect_analyzer;
+	analyzer[P_IO_FLUSH][E_IO_NUMBER] = io_analyzer;
+	analyzer[P_IO_FLUSH][E_PIPE] = flush_string;
+	analyzer[P_IO_FLUSH][E_SEMICOLON] = flush_string;
+	analyzer[P_IO_FLUSH][E_NEWLINE] = flush_string;
+	analyzer[P_IO_FLUSH][E_END] = flush_string;
 }
 
-void	init_io_flush_and(t_pstate parsing)
+void	init_io_flush_and(t_analyzer analyzer)
 {
-	parsing[P_IO_FLUSH_AND][E_STRING] = string_parser;
-	parsing[P_IO_FLUSH_AND][E_SPSTRING] = special_string_parser;
-	parsing[P_IO_FLUSH_AND][E_GREAT] = redirect_parser;
-	parsing[P_IO_FLUSH_AND][E_GREATAND] = redirect_parser;
-	parsing[P_IO_FLUSH_AND][E_LESS] = redirect_parser;
-	parsing[P_IO_FLUSH_AND][E_LESSAND] = redirect_parser;
-	parsing[P_IO_FLUSH_AND][E_DGREAT] = redirect_parser;
-	parsing[P_IO_FLUSH_AND][E_ANDDGREAT] = redirect_parser;
-	parsing[P_IO_FLUSH_AND][E_IO_NUMBER] = io_parser;
-	parsing[P_IO_FLUSH_AND][E_PIPE] = flush_string;
-	parsing[P_IO_FLUSH_AND][E_SEMICOLON] = flush_string;
-	parsing[P_IO_FLUSH_AND][E_NEWLINE] = flush_string;
-	parsing[P_IO_FLUSH_AND][E_END] = flush_string;
+	analyzer[P_IO_FLUSH_AND][E_STRING] = string_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_SPSTRING] = special_string_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_GREAT] = redirect_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_GREATAND] = redirect_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_LESS] = redirect_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_LESSAND] = redirect_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_DGREAT] = redirect_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_ANDDGREAT] = redirect_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_IO_NUMBER] = io_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_PIPE] = flush_string;
+	analyzer[P_IO_FLUSH_AND][E_SEMICOLON] = flush_string;
+	analyzer[P_IO_FLUSH_AND][E_NEWLINE] = flush_string;
+	analyzer[P_IO_FLUSH_AND][E_END] = flush_string;
 }

@@ -70,9 +70,9 @@ struct					s_lexer
 */
 
 typedef struct s_graph	t_graph;
-typedef struct s_parser	t_parser;
-typedef void			(*t_parsing)(t_parser *);
-typedef t_parsing		t_pstate[PARSE_STATES][NB_OF_TOKENS];
+typedef struct s_resolution	t_resolution;
+typedef void			(*t_resolve)(t_resolution *);
+typedef t_resolve		t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 
 typedef struct			s_filedesc
 {
@@ -101,7 +101,7 @@ typedef struct			s_job
 	t_filedesc			fd;
 }						t_job;
 
-struct					s_parser
+struct					s_resolution
 {
 	t_list				*token_list;
 	t_list				*env;
@@ -112,8 +112,8 @@ struct					s_parser
 	t_stack				stack;
 	t_token				token;
 	unsigned int		special_case;
-	enum e_parser_state	last_state;
-	enum e_parser_state	state;
+	enum e_analyzer_state	last_state;
+	enum e_analyzer_state	state;
 	int					oflags;
 	int					valid;
 };
@@ -224,7 +224,7 @@ struct					s_registry
 	t_opt				option;
 	t_hashmap			hash;	
 	t_fd				cur_fd;
-	uint8_t				parse_signal;
+	uint8_t				analyzer_signal;
 
 	struct s_interface	interface;		// TEMP
 	t_list				*current_job;	// TEMP

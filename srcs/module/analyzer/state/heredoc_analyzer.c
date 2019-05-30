@@ -14,20 +14,21 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static int	write_heredoc(char **line, int fd, t_parser *parse)
+static int	write_heredoc(char **line, int fd, t_resolution *resolve)
 {
 	int		trim;
 
 	trim = 0;
-	if (parse->special_case & HERETRIM)
+	if (resolve->special_case & HERETRIM)
 		trim = ft_strspn(*line, " \t");
-	*line = variable_expansion(parse, *line);
+	*line = variable_expansion(resolve, *line);
 	ft_putendl_fd(*line + trim, fd);
 	ft_strdel(line);
 	return (0);
 }
 
-static int	check_delimiter(char **delimiter, char **line, int fd, t_parser *p)
+static int	check_delimiter(char **delimiter, char **line, int fd,
+				t_resolution *resolve)
 {
 	if (ft_strequ(*line, *delimiter) == TRUE || *line[0] == 4)
 	{
@@ -35,72 +36,72 @@ static int	check_delimiter(char **delimiter, char **line, int fd, t_parser *p)
 		ft_putchar('\n');
 		ft_strdel(delimiter);
 		ft_strdel(line);
-		p->special_case ^= HERETRIM;
+		resolve->special_case ^= HERETRIM;
 		return (SUCCESS);
 	}
-	write_heredoc(line, fd, p);
+	write_heredoc(line, fd, resolve);
 	return (FAILURE);
 }
 
-void		heredoc_delimiter(t_parser *parse)
+void		heredoc_delimiter(t_resolution *resolve)
 {
-	if (parse->state == P_HEREDOC_REDIRECT)
-		parse->state = P_HEREDOC_DELIMITER;
+	if (resolve->state == P_HEREDOC_REDIRECT)
+		resolve->state = P_HEREDOC_DELIMITER;
 	else
-		parse->state = P_IO_HEREDOC_DELIMITER;
+		resolve->state = P_IO_HEREDOC_DELIMITER;
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
 		ft_dprintf(2, "21sh: Here documents only in interractive mode\n");
-		ft_lstdel(&parse->token_list, del_token);
-		ft_strdel(&parse->token.data);
-		error_parser(parse);
+		ft_lstdel(&resolve->token_list, del_token);
+		ft_strdel(&resolve->token.data);
+		error_analyzer(resolve);
 	}
-	parse->token.type = E_STRING;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+	resolve->token.type = E_STRING;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }
 
-void		io_heredoc_parser(t_parser *parse)
+void		io_heredoc_analyzer(t_resolution *resolve)
 {
 	char		*line;
 	char		*delimiter;
 	char		*io;
 	int			fd[2];
 
-	parse->state = P_HEREDOC;
+	resolve->state = P_HEREDOC;
 	pipe(fd);
 	line = NULL;
-	delimiter = pop_token_data(&parse->stack);
-	pop_token_type(&parse->stack);
-	io = pop_token_data(&parse->stack);
-	generate_filedesc(parse, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
+	delimiter = pop_token_data(&resolve->stack);
+	pop_token_type(&resolve->stack);
+	io = pop_token_data(&resolve->stack);
+	generate_filedesc(resolve, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
 	ft_strdel(&io);
 	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
 	{
-		if (check_delimiter(&delimiter, &line, fd[1], parse) == SUCCESS)
+		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
 			return ;
 	}
 	ft_strdel(&line);
-	error_parser(parse);
+	error_analyzer(resolve);
 }
 
-void		heredoc_parser(t_parser *parse)
+void		heredoc_analyzer(t_resolution *resolve)
 {
 	char		*line;
 	char		*delimiter;
 	int			fd[2];
 
-	parse->state = P_HEREDOC;
+	resolve->state = P_HEREDOC;
 	line = NULL;
 	pipe(fd);
-	delimiter = pop_token_data(&parse->stack);
-	pop_token_data(&parse->stack);
-	generate_filedesc(parse, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
+	delimiter = pop_token_data(&resolve->stack);
+	pop_token_data(&resolve->stack);
+	generate_filedesc(resolve, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
 	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
 	{
-		if (check_delimiter(&delimiter, &line, fd[1], parse) == SUCCESS)
+		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
 			return ;
 	}
 	ft_strdel(&line);
-	error_parser(parse);
+	error_analyzer(resolve);
 }

@@ -13,17 +13,15 @@
 #include "sh21.h"
 #include <signal.h>
 
-
-
 void			define_ign_signals(void)
 {
 	loop_signals(SIG_IGN);
 }
 
-void			define_parser_signals(void)
+void			define_analyzer_signals(void)
 {
 	loop_signals(SIG_IGN);
-	signal(SIGINT, stop_parsing);
+	signal(SIGINT, stop_analysis);
 }
 
 void			define_execution_signals(void)

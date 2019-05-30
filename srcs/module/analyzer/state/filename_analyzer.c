@@ -12,65 +12,64 @@
 
 #include "sh21.h"
 
-
-void	filename_parser(t_parser *parse)
+void	filename_analyzer(t_resolution *resolve)
 {
-	if (parse->token.type == E_SPSTRING)
-		parse->token.data = string_expansion(parse, parse->token.data);
-	if (parse->state == P_IO_REDIRECT)
-		parse->state = P_IO_FILENAME;
-	else if (parse->token.type == E_SPSTRING)
-		parse->state = P_SPFILENAME;
+	if (resolve->token.type == E_SPSTRING)
+		resolve->token.data = string_expansion(resolve, resolve->token.data);
+	if (resolve->state == P_IO_REDIRECT)
+		resolve->state = P_IO_FILENAME;
+	else if (resolve->token.type == E_SPSTRING)
+		resolve->state = P_SPFILENAME;
 	else
-		parse->state = P_FILENAME;
-	check_filename(parse);
-	get_token(parse);
+		resolve->state = P_FILENAME;
+	check_filename(resolve);
+	get_token(resolve);
 }
 
-void	dup_move_parser(t_parser *parse)
+void	dup_move_analyzer(t_resolution *resolve)
 {
 	t_token *token;
 
-	if ((parse->token.data = string_expansion(parse, parse->token.data)))
+	if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
 	{
-		if (is_ionumber(parse, parse->token.data))
-			ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-		else if ((token = ft_stcktop(&parse->stack))->type == E_LESSAND)
+		if (is_ionumber(resolve, resolve->token.data))
+			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+		else if ((token = ft_stcktop(&resolve->stack))->type == E_LESSAND)
 		{
-			ft_dprintf(2, "21sh: %s: ambigous redirect", parse->token.data);
-			error_parser(parse);
+			ft_dprintf(2, "21sh: %s: ambigous redirect", resolve->token.data);
+			error_analyzer(resolve);
 		}
 		else
 		{
-			parse->state = P_FILENAME;
-			ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+			resolve->state = P_FILENAME;
+			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 		}
-		get_token(parse);
+		get_token(resolve);
 	}
 	else
 	{
-		ft_strdel(&parse->token.data);
-		error_parser(parse);
+		ft_strdel(&resolve->token.data);
+		error_analyzer(resolve);
 	}
 }
 
-void	io_dup_move_parser(t_parser *parse)
+void	io_dup_move_analyzer(t_resolution *resolve)
 {
-	parse->token.type = E_STRING;
-	if ((parse->token.data = string_expansion(parse, parse->token.data)))
+	resolve->token.type = E_STRING;
+	if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
 	{
-		if (is_ionumber(parse, parse->token.data))
-			ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+		if (is_ionumber(resolve, resolve->token.data))
+			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 		else
 		{
-			error_parser(parse);
-			ft_strdel(&parse->token.data);
+			error_analyzer(resolve);
+			ft_strdel(&resolve->token.data);
 		}
-		get_token(parse);
+		get_token(resolve);
 	}
 	else
 	{
-		ft_strdel(&parse->token.data);
-		error_parser(parse);
+		ft_strdel(&resolve->token.data);
+		error_analyzer(resolve);
 	}
 }

@@ -119,7 +119,7 @@ typedef enum	e_quote
 *****************************************************
 */
 
-enum	e_parser_state
+enum	e_analyzer_state
 {
 	P_START,
 	P_END,

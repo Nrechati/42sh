@@ -148,7 +148,7 @@
 *****************************************************
 */
 
-# define PARSE_STATES				30
+# define ANALYZER_STATES			30
 # define FD_DUP						0x01
 # define FD_CLOSE					0x02
 # define FD_WRITE					0x04

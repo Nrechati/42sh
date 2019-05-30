@@ -12,7 +12,6 @@
 
 #include "sh21.h"
 
-
 static char	*variable_replace(t_list *lst, char *str)
 {
 	char		*expanded;
@@ -48,7 +47,8 @@ static char	*variable_concat(t_list *lst, char **str, int i)
 	return (holder);
 }
 
-static int	check_expansion(t_parser *parse, char **str, int i, t_quote quote)
+static int	check_expansion(t_resolution *resolve, char **str,
+							int i, t_quote quote)
 {
 	int		check;
 
@@ -59,14 +59,14 @@ static int	check_expansion(t_parser *parse, char **str, int i, t_quote quote)
 			check = 0;
 		else if (quote != QUOTE_SINGLE)
 		{
-			*str = variable_concat(parse->env, str, i);
+			*str = variable_concat(resolve->env, str, i);
 			check = 1;
 		}
 	}
 	return (check);
 }
 
-char		*variable_expansion(t_parser *parse, char *str)
+char		*variable_expansion(t_resolution *resolve, char *str)
 {
 	t_quote		quote;
 	uint32_t	i;
@@ -77,9 +77,9 @@ char		*variable_expansion(t_parser *parse, char *str)
 	len = ft_strlen(str);
 	while (i < len)
 	{
-		if (ft_strchr("\'\"", str[i]) && (parse->special_case & QUOTING))
+		if (ft_strchr("\'\"", str[i]) && (resolve->special_case & QUOTING))
 			quote = select_quoting(quote, str[i]);
-		if (check_expansion(parse, &str, i, quote) == 1)
+		if (check_expansion(resolve, &str, i, quote) == 1)
 			len = ft_strlen(str);
 		else
 			++i;

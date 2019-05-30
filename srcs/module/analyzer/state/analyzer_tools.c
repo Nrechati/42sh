@@ -13,11 +13,12 @@
 #include "sh21.h"
 #include <unistd.h>
 
-int		is_ionumber(t_parser *parse, char *str)
+int		is_ionumber(t_resolution *resolve, char *str)
 {
 	int		len;
 
-	parse->state = parse->state == P_REDIRECT_AND ? P_DUP_MOVE : P_IO_DUP_MOVE;
+	resolve->state = resolve->state == P_REDIRECT_AND
+			? P_DUP_MOVE : P_IO_DUP_MOVE;
 	if (ft_strcheck(str, ft_isdigit) == 1)
 		return (1);
 	len = ft_strlen(str);
@@ -27,7 +28,7 @@ int		is_ionumber(t_parser *parse, char *str)
 		str[len - 1] = character_swap('\0');
 		if (str[len - 1] == '-')
 		{
-			parse->special_case ^= TO_CLOSE;
+			resolve->special_case ^= TO_CLOSE;
 			return (1);
 		}
 	}
@@ -51,13 +52,14 @@ uint8_t	check_access(char *data)
 	return (FALSE);
 }
 
-void	check_filename(t_parser *parse)
+void	check_filename(t_resolution *resolve)
 {
-	if (parse->token.data == NULL || check_access(parse->token.data) == FALSE)
+	if (resolve->token.data == NULL
+			|| check_access(resolve->token.data) == FALSE)
 	{
-		error_parser(parse);
-		ft_strdel(&parse->token.data);
+		error_analyzer(resolve);
+		ft_strdel(&resolve->token.data);
 	}
 	else
-		ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
+		ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 }

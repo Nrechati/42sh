@@ -23,13 +23,13 @@ void		lexer_print_debug(t_registry *shell, t_list *token_list)
 	}
 }
 
-void		parser_print_debug(t_registry *shell, t_parser *parse)
+void		analyzer_print_debug(t_registry *shell, t_resolution *resolve)
 {
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
 		ft_putstr("\n\033[33m-------------- PARSER --------------");
-		if (parse->valid == 1)
-			ft_lstiter(((t_job *)(parse->job_list->data))->process_list,
+		if (resolve->valid == 1)
+			ft_lstiter(((t_job *)(resolve->job_list->data))->process_list,
 					print_process);
 		else
 			ft_putstr(NULL);

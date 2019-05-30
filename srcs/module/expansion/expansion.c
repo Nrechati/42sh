@@ -33,12 +33,12 @@ t_quote	select_quoting(t_quote quote, const char c)
 	return (quote);
 }
 
-char	*string_expansion(t_parser *parse, char *str)
+char	*string_expansion(t_resolution *resolve, char *str)
 {
-	parse->special_case ^= QUOTING;
-	str = tilde(parse, str);
-	str = variable_expansion(parse, str);
+	resolve->special_case ^= QUOTING;
+	str = tilde(resolve, str);
+	str = variable_expansion(resolve, str);
 	quote_removal(str);
-	parse->special_case ^= QUOTING;
+	resolve->special_case ^= QUOTING;
 	return (str);
 }

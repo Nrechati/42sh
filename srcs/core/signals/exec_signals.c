@@ -13,18 +13,17 @@
 #include "sh21.h"
 #include <signal.h>
 
-
-void		stop_parsing(const int signo)
+void		stop_analysis(const int signo)
 {
 	(void)signo;
-	g_shell->parse_signal = TRUE;
+	g_shell->analyzer_signal = TRUE;
 }
 
-void		signal_parser(t_parser *parse)
+void		signal_analyzer(t_resolution *resolve)
 {
-	ft_dprintf(2, "21sh: Parsing has been interrupted.\n");
-	ft_lstdel(&parse->token_list, del_token);
-	ft_strdel(&parse->token.data);
+	ft_dprintf(2, "21sh: Analyzer has been interrupted.\n");
+	ft_lstdel(&resolve->token_list, del_token);
+	ft_strdel(&resolve->token.data);
 }
 
 void		kill_process(const int signo)

@@ -14,68 +14,68 @@
 
 
 
-int		check_token(t_parser *parse)
+int		check_token(t_resolution *resolve)
 {
-	if (parse->token.type == E_SEMICOLON)
+	if (resolve->token.type == E_SEMICOLON)
 		return (0);
-	if (parse->token.type == E_PIPE)
+	if (resolve->token.type == E_PIPE)
 		return (0);
-	if (parse->token.type == E_END)
+	if (resolve->token.type == E_END)
 		return (0);
-	if (parse->token.type == E_NEWLINE)
+	if (resolve->token.type == E_NEWLINE)
 		return (0);
 	return (1);
 }
 
-void	error_parser(t_parser *parse)
+void	error_analyzer(t_resolution *resolve)
 {
-	parse->state = P_ERROR;
-	parse->valid = -1;
-	ft_strdel(&parse->token.data);
-	while (check_token(parse))
+	resolve->state = P_ERROR;
+	resolve->valid = -1;
+	ft_strdel(&resolve->token.data);
+	while (check_token(resolve))
 	{
-		get_token(parse);
-		ft_strdel(&parse->token.data);
+		get_token(resolve);
+		ft_strdel(&resolve->token.data);
 	}
-	parse->token.type = E_DEFAULT;
-	ft_lstdel(&parse->process.fd, close_fd);
+	resolve->token.type = E_DEFAULT;
+	ft_lstdel(&resolve->process.fd, close_fd);
 }
 
-void	separator_parser(t_parser *parse)
+void	separator_analyzer(t_resolution *resolve)
 {
-	parse->state = P_SEPARATOR;
+	resolve->state = P_SEPARATOR;
 }
 
-void	stop_parser(t_parser *parse)
+void	stop_analyzer(t_resolution *resolve)
 {
 	t_list		*node;
 
-	parse->state = P_STOP;
-	if (parse->special_case & VALID_PROCESS)
+	resolve->state = P_STOP;
+	if (resolve->special_case & VALID_PROCESS)
 	{
-		parse->special_case ^= VALID_PROCESS;
-		node = ft_lstnew(&parse->process, sizeof(t_process));
-		ft_lstaddback(&parse->job.process_list, node);
-		node = ft_lstnew(&parse->job, sizeof(t_job));
-		ft_lstaddback(&parse->job_list, node);
-		parse->valid = 1;
+		resolve->special_case ^= VALID_PROCESS;
+		node = ft_lstnew(&resolve->process, sizeof(t_process));
+		ft_lstaddback(&resolve->job.process_list, node);
+		node = ft_lstnew(&resolve->job, sizeof(t_job));
+		ft_lstaddback(&resolve->job_list, node);
+		resolve->valid = 1;
 	}
-	parse->token.type = E_DEFAULT;
+	resolve->token.type = E_DEFAULT;
 }
 
-void	end_parser(t_parser *parse)
+void	end_analyzer(t_resolution *resolve)
 {
 	t_list		*node;
 
-	parse->state = P_END;
-	if (parse->special_case & VALID_PROCESS)
+	resolve->state = P_END;
+	if (resolve->special_case & VALID_PROCESS)
 	{
-		parse->special_case ^= VALID_PROCESS;
-		node = ft_lstnew(&parse->process, sizeof(t_process));
-		ft_lstaddback(&parse->job.process_list, node);
-		node = ft_lstnew(&parse->job, sizeof(t_job));
-		ft_lstaddback(&parse->job_list, node);
-		parse->valid = 1;
+		resolve->special_case ^= VALID_PROCESS;
+		node = ft_lstnew(&resolve->process, sizeof(t_process));
+		ft_lstaddback(&resolve->job.process_list, node);
+		node = ft_lstnew(&resolve->job, sizeof(t_job));
+		ft_lstaddback(&resolve->job_list, node);
+		resolve->valid = 1;
 	}
-	get_token(parse);
+	get_token(resolve);
 }

@@ -24,79 +24,81 @@ void	activate_piping(void *data)
 	fd->action |= FD_PIPE;
 }
 
-void	flush_redirect_and(t_parser *parse)
+void	flush_redirect_and(t_resolution *resolve)
 {
 	char			*filedesc;
 	int				fd;
 	unsigned int	action;
 	t_type			type;
 
-	parse->state = P_REDIRECT_FLUSH_AND;
+	resolve->state = P_REDIRECT_FLUSH_AND;
 	action = 0;
-	filedesc = pop_token_data(&parse->stack);
+	filedesc = pop_token_data(&resolve->stack);
 	fd = ft_atoi(filedesc);
 	ft_strdel(&filedesc);
-	type = pop_token_type(&parse->stack);
-	action |= parse->special_case & TO_CLOSE ? FD_CLOSE : FD_DUP;
-	parse->special_case ^= TO_CLOSE;
+	type = pop_token_type(&resolve->stack);
+	action |= resolve->special_case & TO_CLOSE ? FD_CLOSE : FD_DUP;
+	resolve->special_case ^= TO_CLOSE;
 	if (type == E_LESSAND)
-		generate_filedesc(parse, fd, STDIN_FILENO, action | FD_WRITE);
+		generate_filedesc(resolve, fd, STDIN_FILENO, action | FD_WRITE);
 	else
-		generate_filedesc(parse, fd, STDOUT_FILENO, action | FD_WRITE);
+		generate_filedesc(resolve, fd, STDOUT_FILENO, action | FD_WRITE);
 }
 
-void	flush_redirect(t_parser *parse)
+void	flush_redirect(t_resolution *resolve)
 {
 	char	*filename;
 	t_type	type;
 	int		fd;
 
-	parse->state = P_REDIRECT_FLUSH;
-	filename = pop_token_data(&parse->stack);
-	type = pop_token_type(&parse->stack);
-	if ((fd = open(filename, parse->oflags, 0644)) < 0)
+	resolve->state = P_REDIRECT_FLUSH;
+	filename = pop_token_data(&resolve->stack);
+	type = pop_token_type(&resolve->stack);
+	if ((fd = open(filename, resolve->oflags, 0644)) < 0)
 	{
 		ft_dprintf(2, "21sh: %s: No such file\n", filename);
-		error_parser(parse);
+		error_analyzer(resolve);
 	}
 	else if (type == E_LESS || type == E_LESSAND)
-		generate_filedesc(parse, fd, STDIN_FILENO, FD_DUP | FD_WRITE);
+		generate_filedesc(resolve, fd, STDIN_FILENO, FD_DUP | FD_WRITE);
 	else
 	{
 		if (type == E_GREATAND || type == E_ANDDGREAT)
-			generate_filedesc(parse, fd, STDERR_FILENO, FD_DUP | FD_WRITE);
+			generate_filedesc(resolve, fd, STDERR_FILENO, FD_DUP | FD_WRITE);
 		else if (type == E_ANDGREAT)
-			generate_filedesc(parse, fd, STDERR_FILENO, FD_DUP | FD_WRITE);
-		generate_filedesc(parse, fd, STDOUT_FILENO, FD_DUP | FD_WRITE);
+			generate_filedesc(resolve, fd, STDERR_FILENO, FD_DUP | FD_WRITE);
+		generate_filedesc(resolve, fd, STDOUT_FILENO, FD_DUP | FD_WRITE);
 	}
-	parse->special_case ^= NO_PIPE;
+	resolve->special_case ^= NO_PIPE;
 	ft_strdel(&filename);
 }
 
-void	redirect_and_parser(t_parser *parse)
+void	redirect_and_analyzer(t_resolution *resolve)
 {
-	parse->state = P_REDIRECT_AND;
-	if (parse->token.type == E_GREATAND)
-		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-	else if (parse->token.type == E_LESSAND)
-		parse->oflags = O_RDONLY;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+	resolve->state = P_REDIRECT_AND;
+	if (resolve->token.type == E_GREATAND)
+		resolve->oflags = O_RDWR + O_CREAT + O_TRUNC;
+	else if (resolve->token.type == E_LESSAND)
+		resolve->oflags = O_RDONLY;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }
 
-void	redirect_parser(t_parser *parse)
+void	redirect_analyzer(t_resolution *resolve)
 {
-	parse->state = P_REDIRECT;
-	if (parse->token.type == E_GREAT)
-		parse->oflags = O_RDWR + O_CREAT + O_TRUNC;
-	else if (parse->token.type == E_DGREAT || parse->token.type == E_ANDDGREAT)
-		parse->oflags = O_RDWR + O_CREAT + O_APPEND;
-	else if (parse->token.type == E_LESS)
-		parse->oflags = O_RDONLY;
-	else if (parse->token.type == E_DLESSDASH || parse->token.type == E_DLESS)
-		parse->state = P_HEREDOC_REDIRECT;
-	if (parse->token.type == E_DLESSDASH)
-		parse->special_case ^= HERETRIM;
-	ft_stckpush(&parse->stack, &parse->token, sizeof(t_token));
-	get_token(parse);
+	resolve->state = P_REDIRECT;
+	if (resolve->token.type == E_GREAT)
+		resolve->oflags = O_RDWR + O_CREAT + O_TRUNC;
+	else if (resolve->token.type == E_DGREAT
+			|| resolve->token.type == E_ANDDGREAT)
+		resolve->oflags = O_RDWR + O_CREAT + O_APPEND;
+	else if (resolve->token.type == E_LESS)
+		resolve->oflags = O_RDONLY;
+	else if (resolve->token.type == E_DLESSDASH
+			|| resolve->token.type == E_DLESS)
+		resolve->state = P_HEREDOC_REDIRECT;
+	if (resolve->token.type == E_DLESSDASH)
+		resolve->special_case ^= HERETRIM;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }
