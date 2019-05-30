@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "define.h"
+# include "enum.h"
 # include "struct.h"
 # include "sig.h"
 # include "builtin.h"
@@ -61,13 +62,6 @@ int8_t			add_intern_var(t_registry *shell, char *name,
 int8_t			add_intern_nbr(t_registry *shell, char *name,
 						int data, t_option flag);
 size_t			list_export_size(t_list *lst);
-
-/*
-*****************************************************
-*********************** LIST ************************
-*****************************************************
-*/
-
 void			print_lst(t_list *lst, int fd, char *prefix, t_option flag);
 int8_t			create_node(t_list **alst, const char *var, const char *data,
 					t_option flag);
@@ -89,24 +83,6 @@ void			delete_variable(void *data);
 void			delete_analyzer(t_resolution *resolve);
 void			delete_process(void *data);
 void			delete_job(void *data);
-
-/*
-*****************************************************
-********************** TOOLS ************************
-*****************************************************
-*/
-
-char			*ft_strjoinfree(char *s1, const char *s2, const int8_t todel);
-void			delete_job(void *data);
 void			del_token(void *token);
-
-/*
-*****************************************************
-********************** DEBUG ************************
-*****************************************************
-*/
-
-void			analyzer_print_debug(t_registry *shell, t_resolution *parse);
-void			lexer_print_debug(t_registry *shell, t_list *token_list);
 
 #endif

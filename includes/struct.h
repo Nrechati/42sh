@@ -13,10 +13,6 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# include "define.h"
-# include "enum.h"
-# include "libft.h"
-
 /*
 *****************************************************
 *********************** LEXER ***********************

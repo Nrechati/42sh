@@ -74,3 +74,12 @@ void		reset_analyzer(t_registry *shell, t_resolution *resolve)
 	ft_bzero(&resolve->process, sizeof(t_process));
 	ft_bzero(&resolve->job, sizeof(t_job));
 }
+
+void	delete_analyzer(t_resolution *resolve)
+{
+	if (resolve->tmp_env != NULL)
+		ft_lstdel(&resolve->tmp_env, NULL);
+	if (resolve->job_list != NULL)
+		ft_lstdel(&resolve->job_list, delete_job);
+	ft_stckdestroy(&resolve->stack, del_token);
+}

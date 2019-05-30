@@ -22,7 +22,6 @@ SRCS += $(CORE)
 SRCS += $(LINE)
 SRCS += $(ANALYZER)
 SRCS += $(BUILTIN)
-SRCS += $(TOOLS)
 SRCS += $(EXPANSION)
 SRCS += $(LEXER)
 SRCS += $(LOGGING)
@@ -84,6 +83,8 @@ P_CORE += core/routine/
 P_CORE += core/startup/
 P_CORE += core/startup/init/
 P_CORE += core/signals/
+P_CORE += core/tools/
+P_CORE += core/tools/intern_var
 
 P_LINE += module/interface/
 P_LINE += module/interface/prompt
@@ -132,7 +133,6 @@ _SPATH += $(P_CORE)
 _SPATH += $(P_LINE)
 _SPATH += $(P_ANALYZER)
 _SPATH += $(P_BUILTIN)
-_SPATH += $(P_TOOLS)
 _SPATH += $(P_EXPANSION)
 _SPATH += $(P_LEXER)
 _SPATH += $(P_LOGGING)
@@ -187,14 +187,26 @@ INCS += enum.h
 
 #						- - - - -   Core   - - - - -						   #
 
+#Startup
 CORE += main.c
 CORE += options.c
 CORE += grammar.c
+
+#Routine
 CORE += routine.c
+
+#Signals
 CORE += exec_signals.c
 CORE += interface_signals.c
 CORE += signal_handler.c
 CORE += setup.c
+
+#Tools
+CORE += intern_var_free.c
+CORE += intern_var_manager.c
+CORE += intern_var_tools.c
+CORE += list_function_pointers.c
+CORE += read_filedesc.c
 
 #						- - - - -  Debug Log  - - - - -						   #
 
@@ -335,15 +347,6 @@ RESOLVE += job_tools.c
 RESOLVE += launch_job.c
 RESOLVE += launch_process.c
 RESOLVE += waitjob.c
-
-#						     - - - -  Tools  - - - -                           #
-
-TOOLS += intern_var_free.c
-TOOLS += intern_var_manager.c
-TOOLS += intern_var_tools.c
-TOOLS += list_functions.c
-TOOLS += list_functions2.c
-TOOLS += read_filedesc.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #
