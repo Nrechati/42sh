@@ -338,7 +338,6 @@ RESOLVE += waitjob.c
 
 #						     - - - -  Tools  - - - -                           #
 
-TOOLS += free.c
 TOOLS += free_node.c
 TOOLS += internals.c
 TOOLS += list_functions.c

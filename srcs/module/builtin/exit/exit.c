@@ -12,7 +12,6 @@
 
 #include "sh21.h"
 
-
 static void		free_opt(t_opt option)
 {
 	ft_strdel(&option.command_str);
@@ -28,7 +27,7 @@ static void		free_hash(t_hash hashmap, void (*del)(void *))
 void			free_registry(t_registry *shell)
 {
 	free_opt(shell->option);
-	free_lst(&(shell->intern));
+	ft_lstdel(&shell->intern, clear_node);
 	free_hash(shell->hash.bin, ft_free);
 	free_hash(shell->hash.blt, NULL);
 }

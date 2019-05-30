@@ -83,16 +83,14 @@ int				find_variable(void *data, void *to_find);
 */
 
 void			close_fd(void *data);
-void			clear_node(void **data);
+void			clear_node(void *node);
 void			free_anode(t_list *ptr);
 int8_t			del_node(t_list *ptr, const char *name);
 int8_t			free_node(t_list **alst, const char *var);
-int8_t			free_lst(t_list **alst);
 void			delete_variable(void *data);
 void			delete_analyzer(t_resolution *resolve);
 void			delete_process(void *data);
 void			delete_job(void *data);
-void			free_token_list(t_list *token_list);
 void			free_one_node_token(t_list **token_lst);
 
 /*

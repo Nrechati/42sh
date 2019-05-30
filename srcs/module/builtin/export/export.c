@@ -43,7 +43,7 @@ static void			add_var_and_rehash(t_registry *shell,
 		add_intern_var(shell, variable->name, variable->data, EXPORT_VAR);
 	if (variable && variable->name && ft_strequ(variable->name, "PATH"))
 		hash_blt(shell, av);
-	clear_node((void **)&variable);
+	clear_node((void *)variable);
 }
 
 

@@ -12,18 +12,18 @@
 
 #include "sh21.h"
 
-void			clear_node(void **data)
+void			clear_node(void *node)
 {
-	t_variable	*ptr;
+	t_variable	*variable;
 
-	ptr = *data;
-	ft_free(ptr->name);
-	ft_free(ptr->data);
+	variable = node;
+	ft_free(variable->name);
+	ft_free(variable->data);
 }
 
 void			free_anode(t_list *ptr)
 {
-	clear_node(&ptr->data);
+	clear_node(ptr->data);
 	ft_free(ptr->data);
 }
 
