@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 10:53:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/31 11:05:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 uint64_t	get_prompt_length(t_prompt *prompt)
 {
-//	prompt_length();
 	return (vct_len(prompt->text));
+//	return (prompt->length);
 }
 
 void	expand_prompt(t_registry *shell, t_vector *text)

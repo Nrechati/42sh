@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 14:12:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/31 10:47:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int8_t		parse_effect_number(__unused char *str,__unused uint32_t index)
 	if (ft_strlen(tmp) == 0)
 		return (-1);
 	int32_t nbr = ft_atoi(tmp);
-	ft_dprintf(3, "|-> Parsed nbr: %d\n", nbr);
+//	ft_dprintf(3, "|-> Parsed nbr: %d\n", nbr);
 	if (nbr >= 0 && nbr <= 255)
 		return (0);
 	return (-1);
@@ -88,7 +88,7 @@ uint32_t	write_esc_sequence(char *str, uint32_t index)
 
 	esc = NULL;
 	length = 2;
-	ft_dprintf(3, "Sequencing %c\n", str[index + length]);
+//	ft_dprintf(3, "Sequencing %c\n", str[index + length]);
 	if (str[index + length] != '[')
 		return (length - 1);
 	while (str[++length + index] != '\0')
@@ -136,5 +136,6 @@ void	print_to_window(t_interface *itf, t_vector *text)
 			itf->cursor.x = 0;
 		}
 	}
+	itf->prompt.length = (itf->cursor.y * itf->window.cols)
+			+ itf->cursor.x;
 }
-

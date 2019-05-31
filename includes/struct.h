@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/28 08:30:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/05/31 10:35:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,10 +157,10 @@ typedef struct			s_termcaps
 
 typedef struct			s_prompt
 {
+	uint64_t			length;
 	t_vector			*text;
 	char				*state;
 	char				*missing_char;
-
 }						t_prompt;
 
 typedef struct			s_cursor
