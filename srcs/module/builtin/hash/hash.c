@@ -6,25 +6,32 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/03 15:56:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 16:39:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static void		hash_one(t_registry *shell, const char *bin)
+int8_t			hash_one(t_registry *shell, char *key, char *path)
+{
+	if (ft_hmap_insert(&(shell->hash.bin), key, path) == FALSE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+static void		hash_dir(t_registry *shell, const char *dir)
 {
 	char			*asp;
 	DIR				*dip;
 	struct dirent	*dit;
 
-	if ((dip = opendir(bin)) != NULL)
+	if ((dip = opendir(dir)) != NULL)
 	{
 		while ((dit = readdir(dip)) != NULL)
 		{
 			asp = NULL;
-			ft_asprintf(&asp, "%s/%s", bin, dit->d_name);
+			ft_asprintf(&asp, "%s/%s", dir, dit->d_name);
 			if (asp != NULL)
 			{
 				if (dit->d_name[0] != '.')
@@ -56,7 +63,7 @@ static int8_t	hash_all_path(t_registry *shell)
 			return (FAILURE);
 		i = 0;
 		while (tabs[i] != NULL)
-			hash_one(shell, tabs[i++]);
+			hash_dir(shell, tabs[i++]);
 		ft_freetab(&tabs);
 	}
 	return (SUCCESS);
@@ -152,7 +159,7 @@ int8_t			hash_blt(t_registry *shell, char **av)
 	}
 	if (!av[1])
 	{
-		ft_print_hashmap(&(shell->hash.bin));
+		ft_simplified_hash_print(&(shell->hash.bin));
 		return (SUCCESS);
 	}
 	if ((i = hash_get_opt(1, av, &opt)) == FAILURE)
