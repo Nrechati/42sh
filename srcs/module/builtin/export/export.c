@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:49:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ t_option			get_option_export(char *s, t_option option)
 static void			add_var_and_rehash(t_registry *shell,
 						t_variable *variable, char **av)
 {
+	(void)av;	//av usless si pas de rehash
 	if (variable->data)
 		add_var(&shell->intern, variable->name, variable->data,
 				EXPORT_VAR | SET_VAR);
 	else
 		add_var(&shell->intern, variable->name, variable->data, EXPORT_VAR);
 	if (variable && variable->name && ft_strequ(variable->name, "PATH"))
-		hash_blt(shell, av);
+		ft_hmap_free_content(&(shell->hash.bin), ft_free); 						//Simulate PATH reassignation
 	clear_node((void *)variable);
 }
 

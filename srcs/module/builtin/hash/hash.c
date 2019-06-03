@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 19:06:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 15:56:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static void		hash_bin(t_registry *shell, const char *bin)
+static void		hash_one(t_registry *shell, const char *bin)
 {
 	char			*asp;
 	DIR				*dip;
@@ -42,7 +42,27 @@ static void		hash_bin(t_registry *shell, const char *bin)
 	}
 }
 
-static void		hash_builtin(t_registry *shell)
+static int8_t	hash_all_path(t_registry *shell)
+{
+	uint32_t	i;
+	char		**tabs;
+
+	if (shell->hash.bin.used > 0)
+		ft_hmap_free_content(&(shell->hash.bin), ft_free);
+	if (get_var(shell->intern, "PATH") != NULL)
+	{
+		tabs = ft_strsplit(get_var(shell->intern, "PATH"), ":");
+		if (tabs == NULL)
+			return (FAILURE);
+		i = 0;
+		while (tabs[i] != NULL)
+			hash_one(shell, tabs[i++]);
+		ft_freetab(&tabs);
+	}
+	return (SUCCESS);
+}
+
+void			hash_builtin(t_registry *shell)
 {
 	ft_hmap_insert(&(shell->hash.blt), "echo", echo_blt);
 	ft_hmap_insert(&(shell->hash.blt), "cd", cd_blt);
@@ -55,26 +75,89 @@ static void		hash_builtin(t_registry *shell)
 	ft_hmap_insert(&(shell->hash.blt), "pwd", pwd_blt);
 }
 
+static int		hash_get_opt(int i, char **av, t_option *opt)
+{
+	int 	j;
+
+	while (av[i] && av[i][0] == '-')
+	{
+		j = 1;
+		while (av[i][j])
+		{
+			if (av[i][j] == 'r' && (*opt & H_WIPE) == FALSE)
+				*opt |= H_WIPE;
+			else if (av[i][j] == 'a' && (*opt & H_ALL) == FALSE)
+				*opt |= H_ALL;
+			else if (av[i][j] == 'h' && (*opt & H_HELP) == FALSE)
+				*opt |= H_HELP;
+			else
+			{
+				ft_dprintf(2, "%s%s%s", HASH_GENERAL_ERROR, av[i], HASH_INVALID_OPT);
+				return (FAILURE);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (i);
+}
+
+static void		hash_print_help(void)
+{
+	ft_printf("%s%s%s%s%s%s%s%s%s%s%s"
+			, HASH_USAGE
+			, HASH_HELP
+			, HASH_H_WIPE
+			, HASH_H_ALL
+			, HASH_H_HELP
+			, HASH_ORULE_1
+			, HASH_ORULE_2
+			, HASH_OPT_1
+			, HASH_OPT_2
+			, HASH_UTIL_1
+			, HASH_UTIL_2);
+}
+
+static int16_t	hash_handle_opt(t_registry *shell, t_option opt)
+{
+	if (opt & H_HELP)
+	{
+		hash_print_help();
+		return (H_HELP);
+	}
+	else if (opt & H_ALL)
+	{
+		hash_all_path(shell);
+		return (H_ALL);
+	}
+	else if (opt & H_WIPE)
+	{
+		ft_hmap_free_content(&(shell->hash.bin), ft_free);
+		return (H_WIPE);
+	}
+	else
+		return (SUCCESS);
+}
+
 int8_t			hash_blt(t_registry *shell, char **av)
 {
-	uint32_t		i;
-	char			**tabs;
+	int			i;
+	t_option	opt;
 
-	(void)av;
-	if (shell->hash.bin.used > 0)
-		ft_hmap_free_content(&(shell->hash.bin), ft_free);
-	if (get_var(shell->intern, "PATH") != NULL)
+	opt = 0;
+	if (av == NULL)
 	{
-		tabs = ft_strsplit(get_var(shell->intern, "PATH"), ":");
-		if (tabs == NULL)
-			return (FAILURE);
-		i = 0;
-		while (tabs[i] != NULL)
-			hash_bin(shell, tabs[i++]);
-		ft_freetab(&tabs);
+		ft_dprintf(2, "hash: NULL av given to built-in\n");
+		return (FAILURE);
 	}
-	hash_builtin(shell);
-	if (shell->hash.blt.used == FALSE)
-		ft_dprintf(shell->cur_fd.err, "Hashmap blt is empty.\n");
+	if (!av[1])
+	{
+		ft_print_hashmap(&(shell->hash.bin));
+		return (SUCCESS);
+	}
+	if ((i = hash_get_opt(1, av, &opt)) == FAILURE)
+		return (FAILURE);
+	if (hash_handle_opt(shell, opt) == H_HELP)
+		return (SUCCESS);
 	return (SUCCESS);
 }

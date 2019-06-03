@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:07:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:41:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 15:33:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_hash
 
 typedef struct	s_hnode
 {
+	int			hits;
 	char		*key;
 	void		*data;
 }				t_hnode;

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 12:07:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:41:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 15:33:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int		ft_create_hnode(t_list **alst, char *key, void *data)
 	if (key == NULL)
 		return (0);
 	ft_bzero(&h_node, sizeof(t_hnode));
+	h_node.hits = 0;
 	h_node.key = ft_strdup(key);
 	h_node.data = data;
 	if (h_node.key == NULL || h_node.data == NULL)

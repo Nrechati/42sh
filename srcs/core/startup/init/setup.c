@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:58:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 13:45:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,8 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 	shell->cur_fd.err = 2;
 	if (set_shlvl(shell) == FAILURE)
 		return (FAILURE);
-	return (hash_blt(shell, NULL));
+	hash_builtin(shell);
+	if (shell->hash.blt.used == FALSE)
+		ft_dprintf(shell->cur_fd.err, "Hashmap blt is empty.\n");
+	return (SUCCESS);
 }

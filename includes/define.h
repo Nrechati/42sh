@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:55:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 15:58:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define SET_VAR					0x002
 # define READONLY_VAR				0x004
 
-# define HMAP_BIN_SIZE				4096
+# define HMAP_BIN_SIZE				8
 # define HMAP_BLT_SIZE				32
 
 # define SET_TERM					0
@@ -69,8 +69,31 @@
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
 # define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
 # define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
-# define EXPORT_USAGE 				"type: usage: export name[=value] ...\n"
-# define UNSET_USAGE 				"type: usage: unset name\n"
+# define EXPORT_USAGE 				"export: usage: export name[=value] ...\n"
+# define UNSET_USAGE 				"unset: usage: unset name\n"
+
+/*
+*****************************************************
+*********************** HASH ************************
+*****************************************************
+*/
+
+# define H_WIPE						0x001
+# define H_ALL						0x002
+# define H_HELP						0x004
+# define HASH_GENERAL_ERROR			"bash: hash: "
+# define HASH_INVALID_OPT			": invalid option\n"
+# define HASH_USAGE 				"hash: usage: hash [-ar] [utility ...]\n"
+# define HASH_HELP  				"hash: help:\n"
+# define HASH_H_WIPE				"\t-r: wipe all hashmap content\n"
+# define HASH_H_ALL					"\t-a: wipe all and hash all PATH\n"
+# define HASH_H_HELP				"\t-h: print HELP and stop builtin\n"
+# define HASH_ORULE_1				"\t[overrules]: -h overrules -a "
+# define HASH_ORULE_2				"and -a overrules -r\n"
+# define HASH_OPT_1					"\t[usage]: options must be specified "
+# define HASH_OPT_2					"before utilities regardless of order\n"
+# define HASH_UTIL_1				"\t[utility]: add utility=/utility/path/"
+# define HASH_UTIL_2				"name to hashmap\n"
 
 /*
 *****************************************************

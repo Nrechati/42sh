@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 19:07:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:28:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ int8_t			create_node(t_list **alst, const char *var, const char *data,
 int8_t			change_node(t_list **alst, const char *var, char *data,
 					t_option flag);
 int				find_variable(void *data, void *to_find);
+
+/*
+*****************************************************
+*********************** HASH ************************
+*****************************************************
+*/
+
+void		hash_builtin(t_registry *shell);
 
 /*
 *********************** FREE
