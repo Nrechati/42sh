@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:34:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/31 11:45:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/03 10:30:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void     move_cursor_to_coord(t_interface *itf, uint64_t x, uint64_t y)
     int64_t x_moves;
     int64_t y_moves;
 
-	ft_dprintf(3, "\n\n\n");
+	ft_dprintf(3, "\n");
 	log_print(g_shell, LOG_INFO, "GOTO coord x:%lu y:%lu.\n", x, y);
 
 	y_moves =  (y - itf->cursor.y);
 	ft_dprintf(3, "Ymoves is %lu - %lu\n", y, itf->cursor.y);
-	log_print(g_shell, LOG_INFO, "NEED to move y:%ld times.\n", y_moves);
+	log_print(g_shell, LOG_INFO, "MOVING %ld times down.\n", y_moves);
 	while (y_moves > 0)
 	{
 		--y_moves;
@@ -38,9 +38,10 @@ void     move_cursor_to_coord(t_interface *itf, uint64_t x, uint64_t y)
     while (y_moves < 0)
 	{
 		++y_moves;
+		ft_dprintf(3, "---UP ONCE---\n");
 		tputs(itf->termcaps.up, 1, &ft_putc);
 		itf->cursor.index -= itf->window.cols;
-		itf->cursor.y--;
+//		itf->cursor.y--;
 	}
 
     x_moves =  (x - itf->cursor.x);
@@ -58,8 +59,8 @@ void     move_cursor_to_coord(t_interface *itf, uint64_t x, uint64_t y)
 		itf->cursor.index++;
 	}
 	itf->cursor.x = x;
-//	itf->cursor.y = y;
-	ft_dprintf(3, "Cursor is now at X:%lu Y:%lu\n", x, y);
+	itf->cursor.y = y;
+	ft_dprintf(3, "Cursor is now at X:%lu Y:%lu\n", itf->cursor.x, itf->cursor.y);
 }
 
 void     move_cursor(t_registry *shell)

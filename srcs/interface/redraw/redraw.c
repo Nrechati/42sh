@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:06 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 06:41:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/03 13:42:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void    redraw_line(t_registry *shell)
 
 void    redraw(t_registry *shell)
 {
+	ft_dprintf(3, "\n\n");
 	redraw_line(shell);
 
 	if (shell->interface.visual_mode == TRUE)

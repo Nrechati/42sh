@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/31 10:47:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/03 15:08:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_coord		*index_to_coord(t_window *win, uint64_t index)
 	t_coord	*co;
 
 	//TODO: change global
-//	ft_dprintf(3, "Index is :%d\n", index);
+	ft_dprintf(3, "Index to coord is :%d\n", index);
 	if (index > vct_len(g_shell->interface.line)
 				+ get_prompt_length(&g_shell->interface.prompt) + 1)
 		index = vct_len(g_shell->interface.line)
@@ -32,19 +32,26 @@ t_coord		*index_to_coord(t_window *win, uint64_t index)
 
 	co->x = (index % win->cols);
 	co->y = (index / win->cols);
+	ft_dprintf(3, "Co->x is %lu\n", co->x);
+	ft_dprintf(3, "Co->y is %lu\n", co->y);
 	return (co);
 }
-
+# include <termcap.h>
 void		print_char(t_interface *itf, char c)
 {
 	write(1, &c, 1);
 	itf->cursor.x++;
+	itf->cursor.index++;
+
 	if (itf->cursor.x == itf->window.cols)
 	{
+		ft_dprintf(3, "WRAPPING -- SINGLE\n");
+		tputs(itf->termcaps.down, 2, &ft_putc);
 		itf->cursor.y++;
 		itf->cursor.x = 0;
 	}
-	itf->cursor.index++;
+
+//ft_dprintf(3, "After single write, cursor is @ x:%lu y:%lu\n", itf->cursor.x, itf->cursor.y);
 }
 
 
@@ -52,16 +59,11 @@ void		print_loop(t_interface *itf, char *str)
 {
 	while (*str != '\0')
 	{
-		write(1, str, 1);
+		print_char(itf, *str);
 		++str;
-		itf->cursor.x++;
-		if (itf->cursor.x == itf->window.cols)
-		{
-			itf->cursor.y++;
-			itf->cursor.x = 0;
-		}
-		itf->cursor.index++;
 	}
+
+ft_dprintf(3, "After loop write, cursor is @ x:%lu y:%lu\n", itf->cursor.x, itf->cursor.y);
 }
 
 int8_t		parse_effect_number(__unused char *str,__unused uint32_t index)
