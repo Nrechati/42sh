@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:07:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/03 16:46:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/03 17:00:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 typedef struct	s_hash
 {
-//	size_t		print_pad;
+	size_t		print_pad;
 	size_t		map_size;
 	size_t		used;
 	t_list		**map;
