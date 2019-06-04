@@ -6,13 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 13:23:59 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:29:54 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-t_registry	*g_shell;
 
 static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 										t_list **lst)

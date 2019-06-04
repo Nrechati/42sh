@@ -6,14 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:53:39 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:33:39 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
-
-t_registry	*g_shell;
 
 static char		**str_lst_to_tab(t_list *alst)
 {

@@ -6,12 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:53:34 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:38:32 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
+
+t_registry	*g_shell;
 
 int8_t		shell_usage(void)
 {

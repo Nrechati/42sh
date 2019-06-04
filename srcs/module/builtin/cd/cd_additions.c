@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:53:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:34:39 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <unistd.h>
 #include <pwd.h>
 #include <limits.h>
-
-t_registry	*g_shell;
 
 t_option		get_option_cd(char *s, t_option option)
 {

@@ -6,14 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:53:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:36:53 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
-
-t_registry	*g_shell;
 
 static char	*user_home(const char *str)
 {
