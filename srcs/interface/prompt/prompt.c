@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 13:15:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:22:30 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_vector	*prompt(t_registry *shell, char *prompt_state)
 	vct_reset(shell->interface.line);
 	vct_reset(shell->interface.window.displayed_line);
 
-	while (!is_separator(character))
+	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
@@ -36,7 +36,7 @@ t_vector	*prompt(t_registry *shell, char *prompt_state)
 		handle_input_key(shell, character);
 		redraw(shell);
 
-		if (is_eof(vct_get_string(shell->interface.line)))
+		if (is_eof(vct_get_string(shell->interface.line)) == TRUE)
 			break ;
 	}
 
@@ -61,7 +61,7 @@ t_vector	*invoke_ps2prompt(t_registry *shell, char *missing)
 
 	shell->interface.line = linesave;
 
-	if (is_eof(vct_get_string(shell->interface.sub_line)))
+	if (is_eof(vct_get_string(shell->interface.sub_line)) == TRUE)
 		return (NULL);
 
 	return (vct_dup(shell->interface.sub_line));

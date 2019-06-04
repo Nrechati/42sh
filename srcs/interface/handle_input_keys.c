@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 10:28:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:23:00 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 
 void			handle_input_key(t_registry *shell, char c[READ_SIZE])
 {
-	if (is_printable(c))
+	if (is_printable(c) == TRUE)
 		handle_printable_char(shell, c[0]);
 	else
 		handle_actionkey(shell, c);
