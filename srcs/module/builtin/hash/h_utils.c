@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/04 14:06:09 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:52:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static int8_t	hash_one(t_registry *shell, char *key, char *path)
+int8_t			hash_one(t_registry *shell, char *key, char *path)
 {
 	if (ft_hmap_insert(&(shell->hash.bin), key, path) == FALSE)
 		return (FAILURE);

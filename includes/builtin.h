@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 14:07:06 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:52:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void		hash_print_help(void);
 int8_t		hash_blt(t_registry *reg, char **av);
 int8_t		hash_args(t_registry *shell, char *key);
 int8_t		hash_all_path(t_registry *shell);
+int8_t		hash_one(t_registry *shell, char *key, char *path);
 
 /*
 *****************************************************

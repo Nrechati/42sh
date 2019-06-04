@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:53:39 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 16:20:47 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ static char		**str_lst_to_tab(t_list *alst)
 static void		execute_process(t_process *process,
 					t_registry *shell, char **env)
 {
+	char	*pathname;
+
+	pathname = NULL;
 	define_execution_signals();
 	ft_lstiter(process->fd, redirect);
 	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) != NULL)
@@ -56,7 +59,7 @@ static void		execute_process(t_process *process,
 				, process->av, env);
 	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
 		execve(process->av[0], process->av, env);
-	ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
+	ft_dprintf(2, "42sh: command not found: %s\n", process->av[0]);
 	exit(FAILURE);
 }
 
@@ -79,13 +82,18 @@ static int8_t	launch_builtin(t_registry *shell, t_process *process)
 
 static int8_t	is_exec(t_registry *shell, t_process *process)
 {
+	char	*pathname;
+
+	pathname = NULL;
 	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL
 			&& ft_hmap_getdata(&shell->hash.bin, process->av[0]) == NULL
+			&& find_in_path(shell, process->av[0], &pathname) != SUCCESS
 			&& !(process->av[0][0] == '.' || process->av[0][0] == '/'))
 	{
-		ft_dprintf(2, "21sh: command not found: %s\n", process->av[0]);
+		ft_dprintf(2, "42sh: command not found: %s\n", process->av[0]);
 		return (FALSE);
 	}
+	hash_one(shell, process->av[0], pathname);
 	return (TRUE);
 }
 
