@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:53:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:03:39 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static t_resolution init_resolve(t_registry *shell, t_list *token_list)
+static t_resolution	init_resolve(t_registry *shell, t_list *token_list)
 {
 	t_resolution	resolve;
 
@@ -25,7 +25,7 @@ static t_resolution init_resolve(t_registry *shell, t_list *token_list)
 	return (resolve);
 }
 
-int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
+int8_t				execution_pipeline(t_registry *shell, t_list *token_list)
 {
 	t_resolution	resolve;
 
@@ -46,7 +46,7 @@ int8_t		execution_pipeline(t_registry *shell, t_list *token_list)
 	return (SUCCESS);
 }
 
-void		shell_exit_routine(t_registry *shell)
+void				shell_exit_routine(t_registry *shell)
 {
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 		close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));

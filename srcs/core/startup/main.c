@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 13:38:32 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:03:15 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	batch_mode(t_registry *shell)
 		ft_strdel(&command);
 	}
 	if (command != NULL && quoting_is_valid(command) == TRUE)
-			execution_pipeline(shell, lexer(command));
+		execution_pipeline(shell, lexer(command));
 	else
 		ft_dprintf(2, "21sh: No valid input.\n");
 	if ((shell->option.option & COMMAND_OPT) == FALSE && command != NULL)

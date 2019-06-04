@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:03:56 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int8_t			change_node(t_list **alst, const char *name, char *data,
 	return (create_node(alst, name, data, flag));
 }
 
-size_t		list_export_size(t_list *lst)
+size_t			list_export_size(t_list *lst)
 {
 	size_t		count;
 	t_variable	*variable;
