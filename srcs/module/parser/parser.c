@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:23:59 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int8_t			process_parser(t_graph *graph, t_list *lst)
 		}
 		else
 			tmp = lst;
-		if (token != NULL && token->type == E_NEWLINE)
-			token->type = E_SEMICOLON;
 		lst = lst->next;
 	}
 	return (SUCCESS);
@@ -80,6 +78,5 @@ int8_t			parser(t_list *lst)
 	if (graph == NULL)
 		graph = generate_graph();
 	return (process_parser(graph, lst)); 
-
 }
 
