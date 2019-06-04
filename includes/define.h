@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 10:37:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:38:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@
 # define H_ALL						0x002
 # define H_HELP						0x004
 # define NOT_FOUND					-2
-# define HASH_GENERAL_ERROR			"bash: hash: "
+# define HASH_GENERAL_ERROR			"42sh: hash: "
 # define HASH_INVALID_OPT			": invalid option\n"
+# define HASH_NO_AV					"NULL av given to built-in\n"
+# define HASH_NOT_FOUND				": not found\n"
 # define HASH_USAGE 				"hash: usage: hash [-ar] [utility ...]\n"
 # define HASH_HELP  				"hash: help:\n"
 # define HASH_H_WIPE				"\t-r: wipe all hashmap content\n"
