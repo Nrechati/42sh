@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:22:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:43:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_registry	*g_shell;
 
-int8_t		shell_usage(void)
+int8_t			shell_usage(void)
 {
 	ft_dprintf(2, "%s%s\nLong options:%s%s",
 					SH21_USAGE_1,
@@ -24,7 +24,7 @@ int8_t		shell_usage(void)
 	return (FAILURE);
 }
 
-static void	init_log(t_registry *shell)
+static void		init_log(t_registry *shell)
 {
 	init_debug_logger(shell);
 	log_print(shell, LOG_INFO, "Options: \n");
@@ -36,23 +36,23 @@ static void	init_log(t_registry *shell)
 				shell->option.command_str);
 }
 
-static void	init_shell(t_registry *shell, char **arg, char **env)
+static int8_t	init_shell(t_registry *shell, char **arg, char **env)
 {
 	g_shell = shell;
 	ft_bzero(shell, sizeof(t_registry));
-	if (set_environment(&shell, arg, env) == FAILURE)
+	if (set_environment(shell, arg, env) == FAILURE)
 		return (FAILURE);
 	init_log(shell);
 	define_ign_signals();
 	return (SUCCESS);
 }
 
-int			main(int ac, char **av, char **env)
+int				main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 
 	(void)ac;
-	if (init_registry(shell, av + 1, env) == FAILURE)
+	if (init_shell(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
 	launch_shell(&shell);
 	shell_exit_routine(&shell);

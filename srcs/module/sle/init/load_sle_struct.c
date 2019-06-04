@@ -24,9 +24,9 @@ uint64_t    init_window(t_registry *shell)
     window->rows = (w.ws_row <= 0) ? 0 : w.ws_row;
 	window->cols = (w.ws_col <= 0) ? 0 : w.ws_col;
     window->max_chars = window->rows * window->cols;
-    if (add_internal_nbr(shell, INT_COLS, window->cols) == FAILURE)
+    if (add_nbr_var(&shell->intern, INT_COLS, window->cols, SET_VAR) == FAILURE)
 		return (WINDOW_FAIL | INTERNAL_FAIL);
-	if (add_internal_nbr(shell, INT_ROWS, window->rows) == FAILURE)
+	if (add_nbr_var(&shell->intern, INT_ROWS, window->rows, SET_VAR) == FAILURE)
 		return (WINDOW_FAIL | INTERNAL_FAIL);
     if ((window->displayed_line = vct_new(0)) == NULL)
         return (CRITICAL_ERROR | WINDOW_FAIL | VCT_FAIL);

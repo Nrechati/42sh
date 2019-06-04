@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:18:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:57:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		p_insert_username(t_registry *shell, t_vector *text, uint64_t index)
 {
 	char	*username;
 
-	username = ft_strdup(get_env_var(shell, "USER"));
+	username = ft_strdup(get_var(shell->intern, "USER"));
 	if (username == NULL)
 		username = ft_strdup("user");
 	vct_replace_string(text, index, index + 2, username);
@@ -42,11 +42,9 @@ void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index)
 	char	*home;
 
 	len = 0;
-	cwd = ft_strdup(get_env_var(shell, "PWD"));
-	if (cwd == NULL)
-		cwd = ft_strdup("working-dir");
+	cwd = get_pwd(shell, NO_OPT);
 	vct_replace_string(text, index, index + 2, cwd);
-	if ((home = ft_strdup(get_env_var(shell, "HOME"))) != NULL)
+	if ((home = get_var(shell->intern, "HOME")) != NULL)
 	{
 		if (ft_strbeginswith(cwd, home))
 		{
@@ -55,7 +53,6 @@ void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index)
 		}
 	}
 	ft_strdel(&cwd);
-	ft_strdel(&home);
 }
 
 // GETHOSTNAME (3) BONUS

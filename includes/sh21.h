@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:37:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:13:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "sig.h"
 # include "builtin.h"
 # include "sle.h"
-# include "history.h"
 # include "lexer.h"
 # include "parser.h"
 # include "analyzer.h"
@@ -33,6 +32,7 @@
 *****************************************************
 */
 void			free_registry(t_registry *shell);
+void			launch_shell(t_registry *shell);
 int8_t			set_environment(t_registry *shell, char **av, char **env);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
@@ -49,7 +49,7 @@ char			*read_input(const int fd);
 
 void			interactive_mode(t_registry *shell);
 
-int8_t			execution_pipeline(t_registry *shell, t_list *token_list);
+int8_t			execution_pipeline(t_registry *shell, char *line);
 
 /*
 *****************************************************

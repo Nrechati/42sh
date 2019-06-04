@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:58:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:09:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,21 @@ uint8_t				need_subprompt(enum e_type state, enum e_type type)
 
 void				parser_subprompt(t_list **lst)
 {
+	t_vector	*line;
+	char		*str;
 	t_list		*new_token;
-	char		*line;
 
-	line = NULL;
 	new_token = NULL;
 	while (new_token == NULL)
 	{
-		invoke_sub_prompt(g_shell, &line, "pipe> ");
-		g_shell->interface.state = INT_PS1;
-		new_token = lexer(line);
-		ft_strdel(&line);
+		line = invoke_ps2prompt(g_shell, "pipe");
+		str = vct_get_string(line);
+
+		ft_strdel(&line->buffer);
+		free(line);
+
+		new_token = lexer(str);
+	//	ft_strdel(&str);
 	}
 	ft_putchar('\n');
 	free_one_node_token(&(*lst)->next);

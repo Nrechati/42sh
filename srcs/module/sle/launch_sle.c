@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:33:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:13:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void				interactive_mode(t_registry *shell)
 	define_interface_signals();
 	while (1)
 	{
+		valid = get_input(shell, &input);
 		if (valid != SUCCESS && valid != LINE_FAIL)
 			return ;
 		ft_dprintf(2, "\nSLE sending: |%s|\n", vct_get_string(input));
-//		execution_pipeline(shell,
-//				lexer(&shell->lexinfo, vct_get_string(input)));
+		execution_pipeline(shell, vct_get_string(input));
 	}
 
 // default signals

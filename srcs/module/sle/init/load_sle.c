@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:36:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:03:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,11 @@ uint64_t    link_keys_functions(__unused int8_t (*tc_call[AK_AMOUNT])(t_registry
 
 uint64_t    set_interface_internals(t_registry *shell)
 {
-	if (add_internal(shell, INT_PS1, INT_PS1_VALUE) == FAILURE)
+	if (add_var(&shell->intern, INT_PS1, INT_PS1_VALUE, SET_VAR) == FAILURE)
 		return (INTERNAL_FAIL);
-	if (add_internal(shell, INT_PS2, INT_PS2_VALUE) == FAILURE)
+	if (add_var(&shell->intern, INT_PS2, INT_PS2_VALUE, SET_VAR) == FAILURE)
 		return (INTERNAL_FAIL);
-	if (add_internal(shell, INT_PS3, INT_PS3_VALUE) == FAILURE)
-		return (INTERNAL_FAIL);
-	if (add_internal(shell, INT_PS4, INT_PS4_VALUE) == FAILURE)
+	if (add_var(&shell->intern, INT_PS3, INT_PS3_VALUE, SET_VAR) == FAILURE)
 		return (INTERNAL_FAIL);
     return (SUCCESS);
 }

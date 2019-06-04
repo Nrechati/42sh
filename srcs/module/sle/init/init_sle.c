@@ -23,10 +23,10 @@ uint64_t    get_terminal_info(t_registry *shell)
     if (terminal == NULL || ft_strequ(terminal, ""))
     {
         terminal = INT_TERM_DFLT_VALUE;
-		add_internal(shell, INT_TERM, INT_TERM_DFLT_VALUE);
+		add_var(&shell->intern, INT_TERM, INT_TERM_DFLT_VALUE, SET_VAR);
     }
     else
-        add_internal(shell, INT_TERM, terminal);
+        add_var(&shell->intern, INT_TERM, terminal, SET_VAR);
     if (tgetent(NULL, terminal) == FAILURE)
         return (CRITICAL_ERROR | INVALID_TERM);
     return (SUCCESS);

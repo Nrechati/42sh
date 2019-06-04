@@ -24,9 +24,9 @@ uint64_t	update_winsize(t_registry *shell)
 	win->rows = (w.ws_row <= 0) ? 0 : w.ws_row;
 	win->cols = (w.ws_col <= 0) ? 0 : w.ws_col;
     win->max_chars = win->rows * win->cols;
-    if (add_internal_nbr(shell, INT_COLS, win->cols) == FAILURE)
+    if (add_nbr_var(&shell->intern, INT_COLS, win->cols, SET_VAR) == FAILURE)
 		return (WINDOW_FAIL | INTERNAL_FAIL);
-	if (add_internal_nbr(shell, INT_ROWS, win->rows) == FAILURE)
+	if (add_nbr_var(&shell->intern, INT_ROWS, win->rows, SET_VAR) == FAILURE)
 		return (WINDOW_FAIL | INTERNAL_FAIL);
 	return (SUCCESS);
 }

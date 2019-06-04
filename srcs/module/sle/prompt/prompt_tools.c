@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:18:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:58:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ inline void		print_prompt(t_registry *shell, char *state)
 	t_vector	*ptext;
 
 	ptext = NULL;
-	ptext = vct_dups(get_intern_var(shell, state));
+	ptext = vct_dups(get_var(shell->intern, state));
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else

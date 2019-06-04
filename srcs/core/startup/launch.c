@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:23:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:14:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void				batch_mode(t_registry *shell)
 
 	command = read_input_cmd(shell);
 	if (ft_strcheck(command, ft_isprint) == TRUE)
-		execution_pipeline(shell, lexer(command));
+		execution_pipeline(shell, command);
 	else
 		ft_dprintf(2, "21sh: Not a valid input.\n");
 	ft_strdel(&command);

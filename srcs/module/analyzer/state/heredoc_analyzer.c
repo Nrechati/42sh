@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 19:01:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:05:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+/*
 static int	write_heredoc(char **line, int fd, t_resolution *resolve)
 {
 	int		trim;
@@ -42,7 +43,7 @@ static int	check_delimiter(char **delimiter, char **line, int fd,
 	write_heredoc(line, fd, resolve);
 	return (FAILURE);
 }
-
+*/
 void		heredoc_delimiter(t_resolution *resolve)
 {
 	if (resolve->state == P_HEREDOC_REDIRECT)
@@ -76,11 +77,11 @@ void		io_heredoc_analyzer(t_resolution *resolve)
 	io = pop_token_data(&resolve->stack);
 	generate_filedesc(resolve, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
 	ft_strdel(&io);
-	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
-	{
-		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
-			return ;
-	}
+//	while (invoke_ps2prompt(g_shell, &line, INT_PS3) == SUCCESS)
+//	{
+//		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
+//			return ;
+//	}
 	ft_strdel(&line);
 	error_analyzer(resolve);
 }
@@ -97,11 +98,11 @@ void		heredoc_analyzer(t_resolution *resolve)
 	delimiter = pop_token_data(&resolve->stack);
 	pop_token_data(&resolve->stack);
 	generate_filedesc(resolve, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
-	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
-	{
-		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
-			return ;
-	}
+//	while (invoke_ps2prompt(g_shell, &line, INT_PS3) == SUCCESS)
+//	{
+//		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
+//			return ;
+//	}
 	ft_strdel(&line);
 	error_analyzer(resolve);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:33:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:02:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,10 @@
 # define INT_PS1					"PS1"
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
-# define INT_PS4					"PS4"
 
-# define INT_ESCAPE_SEQ				"ESC"
-
-//# define INT_PS1_VALUE				"[\\u@\\h][\\w][\\s]-> "
 # define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\w]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
-# define INT_PS3_VALUE				"script> "
-# define INT_PS4_VALUE				"heredoc> "
-
-# define INT_ESCAPE_SEQ_VALUE		"\\"
-# define INT_MAGIC_NUMBER			"4242"
+# define INT_PS3_VALUE				"[(\\e[31mheredoc\\e[0m)> "
 
 /*
 *****************************************************

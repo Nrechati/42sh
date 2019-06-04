@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/04 18:35:28 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/04 18:42:18 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -174,7 +174,6 @@ INCS += parser.h
 INCS += analyzer.h
 INCS += builtin.h
 INCS += resolve.h
-INCS += history.h
 INCS += define.h
 INCS += struct.h
 INCS += enum.h
@@ -187,6 +186,7 @@ INCS += enum.h
 
 #Startup
 CORE += main.c
+CORE += launch.c
 CORE += options.c
 CORE += grammar.c
 

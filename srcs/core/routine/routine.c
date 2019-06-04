@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:01:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:12:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ static t_resolution	init_resolve(t_registry *shell, t_list *token_list)
 	return (resolve);
 }
 
-int8_t				execution_pipeline(t_registry *shell, t_list *token_list)
+int8_t				execution_pipeline(t_registry *shell, char *input)
 {
 	t_resolution	resolve;
+	t_list			*token_list;
 
+	token_list = lexer(input);
 	resolve = init_resolve(shell, token_list);
 	while (resolve.token_list)
 	{
