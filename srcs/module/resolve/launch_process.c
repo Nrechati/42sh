@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 16:20:47 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:16:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,28 @@ static int8_t	launch_builtin(t_registry *shell, t_process *process)
 
 static int8_t	is_exec(t_registry *shell, t_process *process)
 {
+	void	*hash;
 	char	*pathname;
 
+	hash = NULL;
 	pathname = NULL;
 	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) == NULL
-			&& ft_hmap_getdata(&shell->hash.bin, process->av[0]) == NULL
+			&& (hash = ft_hmap_getdata(&shell->hash.bin, process->av[0])) == NULL
 			&& find_in_path(shell, process->av[0], &pathname) != SUCCESS
 			&& !(process->av[0][0] == '.' || process->av[0][0] == '/'))
 	{
 		ft_dprintf(2, "42sh: command not found: %s\n", process->av[0]);
 		return (FALSE);
 	}
-	hash_one(shell, process->av[0], pathname);
+	if (hash != NULL)
+		if (ft_hmap_hits(&shell->hash.bin, process->av[0]) != SUCCESS)
+			ft_dprintf(2, "42sh: error hitting bin\n");
+	if (pathname != NULL)
+	{
+		hash_one(shell, process->av[0], pathname);
+		if (ft_hmap_hits(&shell->hash.bin, process->av[0]) != SUCCESS)
+			ft_dprintf(2, "42sh: error hitting bin\n");
+	}
 	return (TRUE);
 }
 

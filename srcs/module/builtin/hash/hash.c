@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 16:18:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:23:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int16_t	hash_handle_opt(t_registry *shell, t_option opt)
 	else if (opt & H_WIPE)
 	{
 		ft_hmap_free_content(&(shell->hash.bin), ft_free);
+		shell->hash.bin.print_pad = 0;
 		return (H_WIPE);
 	}
 	else
