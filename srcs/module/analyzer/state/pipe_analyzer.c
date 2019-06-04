@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:51:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	pipe_analyzer(t_resolution *resolve)
 
 	resolve->state = pipe(fd) ? P_ERROR : P_PIPE;
 	resolve->special_case ^= VALID_PROCESS;
+//	parse->state = pipe(fd) ? P_ERROR : P_PIPE;
 	if (resolve->state == P_ERROR)
 		return ;
 	if (resolve->special_case & NO_PIPE)

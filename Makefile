@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/29 18:58:04 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/04 18:35:28 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAMEDB = 42shdb
 LIBFT = libft.a
 LIBFTDB = libftdb.a
 SRCS += $(CORE)
-SRCS += $(LINE)
+SRCS += $(SLE)
 SRCS += $(ANALYZER)
 SRCS += $(BUILTIN)
 SRCS += $(EXPANSION)
@@ -57,7 +57,7 @@ TOUCH = touch
 # ---------------------------------------------------------------------------- #
 
 # One Line
-ONELINE =\e[1A\r
+ONESLE =\e[1A\r
 
 # Colors
 NC = \033[0m
@@ -86,16 +86,14 @@ P_CORE += core/signals/
 P_CORE += core/tools/
 P_CORE += core/tools/intern_var
 
-P_LINE += module/interface/
-P_LINE += module/interface/prompt
-P_LINE += module/interface/action_keys/
-P_LINE += module/interface/history/
-P_LINE += module/interface/action_keys/clipboard/
-P_LINE += module/interface/action_keys/movement/
-P_LINE += module/interface/core/
-P_LINE += module/interface/init/
-P_LINE += module/interface/redraw/
-P_LINE += module/interface/utils/
+P_SLE += module/sle/
+P_SLE += module/sle/prompt
+P_SLE += module/sle/action_keys/
+P_SLE += module/sle/action_keys/clipboard/
+P_SLE += module/sle/action_keys/movement/
+P_SLE += module/sle/init/
+P_SLE += module/sle/redraw/
+P_SLE += module/sle/utils/
 
 P_ANALYZER += module/analyzer/
 P_ANALYZER += module/analyzer/init/
@@ -130,7 +128,7 @@ P_RESOLVE += module/resolve/
 P_TOOLS += tools/
 
 _SPATH += $(P_CORE)
-_SPATH += $(P_LINE)
+_SPATH += $(P_SLE)
 _SPATH += $(P_ANALYZER)
 _SPATH += $(P_BUILTIN)
 _SPATH += $(P_EXPANSION)
@@ -170,7 +168,7 @@ LFLAGS = -ltermcap
 
 INCS += sh21.h
 INCS += log.h
-INCS += interface_functions.h
+INCS += sle.h
 INCS += lexer.h
 INCS += parser.h
 INCS += analyzer.h
@@ -197,7 +195,7 @@ CORE += routine.c
 
 #Signals
 CORE += exec_signals.c
-CORE += interface_signals.c
+CORE += sle_signals.c
 CORE += signal_handler.c
 CORE += setup.c
 
@@ -247,54 +245,45 @@ BUILTIN += type.c
 #UNSET
 BUILTIN += unset.c
 
-#						- - - - - Line edtion - - - - -                        #
+#	    					- - - - - SLE - - - - -                           #
 
-#History
-LINE += history.c
-
-#Utilities
-LINE += validate_interface.c
-LINE += get_prompt_len.c
-LINE += input_tools.c
-LINE += shift_tools.c
-LINE += move_tools.c
-LINE += realloc_vector.c
-LINE += clean_registry.c
-LINE += set_quote.c
-LINE += ft_putc.c
-LINE += is_eof.c
-LINE += print.c
+#Util
+SLE += input_tools.c
+SLE += move_tools.c
+SLE += clean_registry.c
 
 #Redraw
-LINE += clean_screen.c
-LINE += redraw_prompt.c
+SLE += redraw.c
+SLE += redraw_modes.c
+SLE += redraw_tools.c
 
-#Initialization
-LINE += load_interface_config.c
-LINE += load_termcap_strings.c
-
-#Core
-LINE += window_cursor.c
-LINE += term_mode.c
-LINE += launch_interface.c
-LINE += validate_quoting.c
-LINE += handle_input_keys.c
+#Init
+SLE += setup_sle.c
+SLE += init_sle.c
+SLE += load_sle.c
+SLE += load_sle_modules.c
+SLE += load_sle_struct.c
 
 #Prompt
-LINE += prompt.c
-LINE += sub_prompt.c
+SLE += prompt.c
+SLE += prompt_expansion.c
+SLE += prompt_tools.c
 
 #Action keys
-LINE += init_clipboard.c
-LINE += init_ak_keycodes.c
-LINE += execute_clipboard_copy_ak.c
-LINE += execute_clipboard_cut_ak.c
-LINE += execute_clipboard_paste.c
-LINE += execute_arrow_ak.c
-LINE += execute_he_ak.c
-LINE += execute_word_jumping_ak.c
-LINE += execute_ctrl_ak.c
-LINE += execute_special_ak.c
+SLE += execute_clipboard_copy_ak.c
+SLE += execute_clipboard_cut_ak.c
+SLE += execute_clipboard_paste.c
+SLE += execute_arrow_ak.c
+SLE += execute_he_ak.c
+SLE += execute_word_jumping_ak.c
+SLE += execute_special_ak.c
+SLE += visual_mode.c
+
+SLE += window.c
+SLE += term_mode.c
+SLE += launch_sle.c
+SLE += handle_input_keys.c
+SLE += cursor.c
 
 #			 		      - - - - - Analyzer - - - - -                         #
 

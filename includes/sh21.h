@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 19:07:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:37:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "struct.h"
 # include "sig.h"
 # include "builtin.h"
-# include "interface_functions.h"
+# include "sle.h"
 # include "history.h"
 # include "lexer.h"
 # include "parser.h"
@@ -46,9 +46,10 @@ void			generate_grammar(t_registry *shell);
 */
 
 char			*read_input(const int fd);
-void			launch_interface(t_registry *shell);
+
+void			interactive_mode(t_registry *shell);
+
 int8_t			execution_pipeline(t_registry *shell, t_list *token_list);
-void			get_prompt_ps1(t_registry *shell);
 
 /*
 *****************************************************

@@ -6,15 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 19:05:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:51:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-
 
 void	activate_piping(void *data)
 {

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:44:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 void			define_ign_signals(void)
 {
-	loop_signals(SIG_IGN);
+//	loop_signals(SIG_IGN);
 }
 
 void			define_analyzer_signals(void)
 {
-	loop_signals(SIG_IGN);
+//	loop_signals(SIG_IGN);
 	signal(SIGINT, stop_analysis);
 }
 
@@ -33,10 +33,10 @@ void			define_execution_signals(void)
 void			define_interface_signals(void)
 {
 	signal(SIGWINCH, interface_resize_handler);
-	signal(SIGINT, redraw_prompt);
+//	signal(SIGINT, redraw_prompt);
 }
 
 void			define_default_signals(void)
 {
-	loop_signals(SIG_DFL);
+//	loop_signals(SIG_DFL);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 13:29:54 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:58:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ int8_t			parser(t_list *lst)
 
 	if (graph == NULL)
 		graph = generate_graph();
-	return (process_parser(graph, lst)); 
+	return (process_parser(graph, lst));
 }
 
