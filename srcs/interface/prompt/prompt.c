@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/27 10:16:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:15:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,18 @@ t_vector	*prompt(t_registry *shell, char *prompt_state)
 }
 
 /*
+** ------------------------------------------------------------------ |
 **	Sub prompt invokation.
-**	Prompt_state is between INT_PS1 & INT_PS4, missing is \m
 **	Returns an allocated vector
 **	Return NULL on read error, eof, or dup error(malloc)
 */
 t_vector	*invoke_ps2prompt(t_registry *shell, char *missing)
 {
 	t_vector	*linesave;
-	(void)missing;
+
 	linesave = shell->interface.line;
 	shell->interface.line = shell->interface.sub_line;
-
-
+	shell->interface.prompt.missing_char = missing;
 	prompt(shell, INT_PS2);
 
 	shell->interface.line = linesave;

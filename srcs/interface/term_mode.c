@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/20 07:13:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 10:29:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,14 @@ uint64_t    load_terminal_mode(t_registry *shell)
 
     if ((tcgetattr(STDIN_FILENO, &term)) == FAILURE)
         return (CRITICAL_ERROR | TERMMDE_FAIL);
-
     if (alloc_otmode(shell, &term) != SUCCESS)
 		return (CRITICAL_ERROR | TERMMDE_FAIL | MALLOC_FAIL);
-
     term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
 	term.c_cc[VMIN] = 1;
 	term.c_cc[VTIME] = 0;
-
     if (alloc_ntmode(shell, &term) != SUCCESS)
 		return (CRITICAL_ERROR | TERMMDE_FAIL | MALLOC_FAIL);
-
     return (SUCCESS);
 }
 

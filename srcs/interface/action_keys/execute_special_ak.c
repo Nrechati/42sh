@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 15:14:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/31 11:10:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 11:25:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int8_t		ak_hightab(t_registry *shell)
 {
 	if (shell->interface.visual_mode == TRUE)
 		return (SUCCESS);
-	(void)shell;
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 10:09:57 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/28 11:40:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 10:52:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ uint64_t    assign_keycodes(t_interface *itf)
 	itf->visual_mode = FALSE;
 	itf->ak_masks[AK_ARROW_RIGHT] = AK_ARROW_RIGHT_MASK;
 	itf->ak_masks[AK_ARROW_LEFT] = AK_ARROW_LEFT_MASK;
-
 	itf->ak_masks[AK_ARROW_UP] = AK_ARROW_UP_MASK;
 	itf->ak_masks[AK_ARROW_DOWN] = AK_ARROW_DOWN_MASK;
-
 	itf->ak_masks[AK_HOME] = AK_HOME_MASK;
 	itf->ak_masks[AK_END] = AK_END_MASK;
 	itf->ak_masks[AK_BACKSPACE] = AK_BACKSPACE_MASK;
@@ -30,13 +28,11 @@ uint64_t    assign_keycodes(t_interface *itf)
 	itf->ak_masks[AK_CTRL_E] = AK_CTRL_E_MASK;
 	itf->ak_masks[AK_CTRL_D] = AK_CTRL_D_MASK;
 	itf->ak_masks[AK_CTRL_L] = AK_CTRL_L_MASK;
-
 	itf->ak_masks[AK_ESCAPE] = AK_ESCAPE_MASK;
 	itf->ak_masks[AK_CTRL_F] = AK_CTRL_F_MASK;
 	itf->ak_masks[AK_CTRL_X] = AK_CTRL_X_MASK;
 	itf->ak_masks[AK_CTRL_B] = AK_CTRL_B_MASK;
 	itf->ak_masks[AK_CTRL_P] = AK_CTRL_P_MASK;
-
 	itf->ak_masks[AK_CTRL_LEFT] = AK_CTRL_LEFT_MASK;
 	itf->ak_masks[AK_CTRL_RIGHT] = AK_CTRL_RIGHT_MASK;
 	itf->ak_masks[AK_CTRL_DOWN] = AK_CTRL_DOWN_MASK;
@@ -57,21 +53,17 @@ uint64_t    link_keys_functions(__unused int8_t (*tc_call[AK_AMOUNT])(t_registry
 	tc_call[AK_DELETE] = &ak_delete;
 	tc_call[AK_CTRL_A] = &ak_home;
 	tc_call[AK_CTRL_E] = &ak_end;
-
 	tc_call[AK_CTRL_D] = &ak_ctrl_d;
 	tc_call[AK_CTRL_L] = &ak_ctrl_l;
-
 	tc_call[AK_CTRL_UP] = &ak_ctrl_up;
 	tc_call[AK_CTRL_DOWN] = &ak_ctrl_down;
 	tc_call[AK_CTRL_LEFT] = &ak_ctrl_left;
 	tc_call[AK_CTRL_RIGHT] = &ak_ctrl_right;
-
 	tc_call[AK_CTRL_F] = &ak_enter_visual_mode;
 	tc_call[AK_ESCAPE] = &ak_exit_visual_mode;
 	tc_call[AK_CTRL_X] = &ak_cut_selection;
 	tc_call[AK_CTRL_B] = &ak_copy_selection;
 	tc_call[AK_CTRL_P] = &ak_paste_clipboard;
-
 	tc_call[AK_ARROW_UP] = &ak_arrow_up;
 	tc_call[AK_ARROW_DOWN] = &ak_arrow_down;
 /*

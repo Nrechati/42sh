@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/03 11:51:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 10:36:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	redrawmode_clear(t_registry *shell)
 
 void	redrawmode_last(t_registry *shell)
 {
-	ft_dprintf(3, "|-------Redraw mode last----------|\n");
 	t_coord		*co;
 	uint64_t	prompt_len;
 	uint64_t 	line_len;
@@ -34,22 +33,18 @@ void	redrawmode_last(t_registry *shell)
 	line_len  = vct_len(shell->interface.line);
 	disp_len  = vct_len(shell->interface.window.displayed_line);
 	prompt_len = get_prompt_length(&shell->interface.prompt);
-
 	if (line_len >= disp_len) //added char
 	{
 		prompt_len += line_len - 1;
-		co = index_to_coord(&shell->interface.window, prompt_len);
-	ft_dprintf(3, "|-------Initial cursor movement----------|\n");
+		co = index_to_coord(&shell->interface, prompt_len);
 		move_cursor_to_coord(&shell->interface, co->x, co->y);
-		print_char(&shell->interface,
-							vct_charat(shell->interface.line,
+		print_char(&shell->interface, vct_charat(shell->interface.line,
 						vct_len(shell->interface.line) - 1));
 	}
-	else //remove char
+	else //removed char
 	{
 		prompt_len += line_len - 1;
-		co = index_to_coord(&shell->interface.window, prompt_len);
-	ft_dprintf(3, "|-------Initial cursor movement----------|\n");
+		co = index_to_coord(&shell->interface, prompt_len);
 		move_cursor_to_coord(&shell->interface, co->x, co->y);
 		print_char(&shell->interface, ' ');
 	}
@@ -57,16 +52,13 @@ void	redrawmode_last(t_registry *shell)
 
 void	redrawmode_line(t_registry *shell)
 {
-	ft_dprintf(3, "\n\n|-------Redraw mode line----------|\n");
-	int64_t		diff;
 	t_coord		*co;
+	int64_t		diff;
 	uint64_t	prompt_len;
 
 	prompt_len = get_prompt_length(&shell->interface.prompt);
-	co = index_to_coord(&shell->interface.window, prompt_len);
-	ft_dprintf(3, "|-------Initial cursor movement----------|\n");
+	co = index_to_coord(&shell->interface, prompt_len);
 	move_cursor_to_coord(&shell->interface, co->x, co->y);
-
 	diff = vct_len(shell->interface.line)
 			- (vct_len(shell->interface.window.displayed_line));
 	print_loop(&shell->interface, vct_get_string(shell->interface.line));
@@ -75,13 +67,13 @@ void	redrawmode_line(t_registry *shell)
 		while (++diff <= 0)
 			print_char(&shell->interface, ' ');
 	}
+	if (co != NULL)
+		free(co);
 }
 
-#include "log.h"
+//TODO optimise &  cleanup
 void	redrawmode_fptp(__unused t_registry *shell)
 {
-	ft_dprintf(3, "|-------Redraw mode FPTP----------|\n");
-
 	uint64_t 	line_len;
 	uint64_t 	disp_len;
 	uint64_t	prompt_len;
@@ -92,7 +84,7 @@ void	redrawmode_fptp(__unused t_registry *shell)
 	disp_len  = vct_len(shell->interface.window.displayed_line);
 	prompt_len = get_prompt_length(&shell->interface.prompt);
 
-	co = index_to_coord(&shell->interface.window,
+	co = index_to_coord(&shell->interface,
 					shell->interface.window.point1
 					+ prompt_len);
 

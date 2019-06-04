@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/03 15:07:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:11:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@
 # define INT_ESCAPE_SEQ				"ESC"
 
 //# define INT_PS1_VALUE				"[\\u@\\h][\\w][\\s]-> "
-# define INT_PS1_VALUE				"[\\e[38;2;78;102;0;48;2;55;0;0m42sh\\e[0m][\\e[1;31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\w]->> "
-# define INT_PS2_VALUE				"\\w> "
+# define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\w]-> "
+# define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"script> "
 # define INT_PS4_VALUE				"heredoc> "
 

@@ -6,13 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:40:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 07:26:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 10:28:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "interface_functions.h"
-#include "log.h"
 
 static void		handle_printable_char(t_registry *shell, const char c)
 {
@@ -21,7 +20,6 @@ static void		handle_printable_char(t_registry *shell, const char c)
 
 	line = shell->interface.line;
 	cursor = &shell->interface.cursor;
-
 	if (cursor->index == 0)
 	{
 		vct_push(line, c);
@@ -39,7 +37,6 @@ static void		handle_printable_char(t_registry *shell, const char c)
 		set_redraw_flags(&shell->interface, RD_FPTP | RD_CMOVE);
 		set_redraw_bounds(&shell->interface, cursor->index,
 						vct_len(shell->interface.line));
-
 		set_cursor_pos(&shell->interface, cursor->index + 1);
 	}
 }
@@ -51,8 +48,6 @@ static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 
 	index = 0;
 	value = compute_mask(c);
-//	printf("Mask:%llu\n", value);
-	(void)shell;
 	while (index < AK_AMOUNT)
 	{
 		if (value == shell->interface.ak_masks[index])

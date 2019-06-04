@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 07:02:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 11:25:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,12 @@ void	redrawmode_visual(__unused t_registry *shell)
 		|| (uint64_t)shell->interface.vis_stop > vct_len(shell->interface.line) + 1)
 		return ;
 
-//	ft_dprintf(3, "|---> VISUAL MODE::Start:%d stop:%d\n",
-//					shell->interface.vis_start,
-//					shell->interface.vis_stop);
-
 	if (shell->interface.vis_stop < shell->interface.vis_start)
 		set_redraw_bounds(&shell->interface, shell->interface.vis_stop,
 											shell->interface.vis_start + 2);
 	else
 		set_redraw_bounds(&shell->interface, shell->interface.vis_start,
 											shell->interface.vis_stop + 2);
-
 	redrawmode_line(shell);
 	tputs(shell->interface.termcaps.standout_on, 1, &ft_putc);
 	redrawmode_fptp(shell);

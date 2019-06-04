@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/03 15:59:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:04:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	expand_prompt(t_registry *shell, t_vector *text)
 			p_insert_cwd(shell, text, index - 1);
 		else if (vct_charat(text, index) == P_HOST)
 			p_insert_host(shell, text, index - 1);
-		else if (vct_charat(text, index) == P_ESCAPE)
-			p_insert_escape(text, index);
-//		else if (vct_charat(text, index) == P_MISS)
-//			p_insert_missing(text, index - 1);
+//		else if (vct_charat(text, index) == P_ESCAPE)
+//			p_insert_escape(text, index);
+		else if (vct_charat(text, index) == P_MISS)
+			p_insert_missing(shell, text, index - 1);
 	}
 }
 
@@ -58,12 +58,14 @@ inline void		print_prompt(t_registry *shell, char *state)
 	t_vector	*ptext;
 
 	ptext = NULL;
-
 	ptext = vct_dups(get_intern_var(shell, state));
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
 		expand_prompt(shell, ptext);
+
 	shell->interface.prompt.text = ptext;
-	print_to_window(&shell->interface, ptext);
+	print_prompt_to_window(&shell->interface, ptext);
+	ft_strdel(&ptext->buffer);
+	free(ptext);
 }

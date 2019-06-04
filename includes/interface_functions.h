@@ -6,7 +6,7 @@
 /*   By: skuppers <skuppers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:54:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/03 09:40:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/04 13:02:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "struct.h"
 
+//uint64_t				sle_setup(t_registry *shell);
+//uint64_t				sle_start();
+//uint64_t				sle_getinput();
+//uint64_t				sle_stop();
 uint64_t				setup_interface(t_registry *shell);
 void					teardown_interface(t_registry *shell);
 /*
@@ -69,20 +73,21 @@ void		interface_resize_handler(const int signo);
 void		print_char(t_interface *itf, char c);
 void		print_loop(t_interface *itf, char *str);
 void		print_prompt(t_registry *shell, char *state);
-void		print_to_window(t_interface *itf, t_vector *text);
+void		print_prompt_to_window(t_interface *itf, t_vector *text);
 
 
 
 
 uint64_t	get_prompt_length(t_prompt *prompt);
-t_coord		*index_to_coord(t_window *window, uint64_t indx);
+t_coord		*index_to_coord(t_interface *itf, uint64_t indx);
 
 
 void		p_insert_name(t_vector *text, uint64_t index);
 void		p_insert_username(t_registry *shell, t_vector *text, uint64_t index);
 void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index);
 void		p_insert_host(t_registry *shell, t_vector *text, uint64_t index);
-void		p_insert_escape(t_vector *text, uint64_t index);
+void		p_insert_missing(t_registry *shell, t_vector *text, uint64_t index);
+//void		p_insert_escape(t_vector *text, uint64_t index);
 
 /*
 *****************************************************
