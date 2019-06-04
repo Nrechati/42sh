@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/03 16:52:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 10:37:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 # define H_WIPE						0x001
 # define H_ALL						0x002
 # define H_HELP						0x004
+# define NOT_FOUND					-2
 # define HASH_GENERAL_ERROR			"bash: hash: "
 # define HASH_INVALID_OPT			": invalid option\n"
 # define HASH_USAGE 				"hash: usage: hash [-ar] [utility ...]\n"
