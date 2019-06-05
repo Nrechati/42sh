@@ -69,8 +69,10 @@ uint64_t				sle_setup(t_registry *shell)
 
 	report = 0;
 	report |= init_interface(shell);
+	/////////////////////// MOVE TO SLE INIT
 	report |= load_interface(shell);
 	report |= load_interface_modules(&shell->interface);
+	///////////////////////////////////
 	sle_error(report);
 	return (report);
 }
