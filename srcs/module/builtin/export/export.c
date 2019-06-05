@@ -31,19 +31,21 @@ t_option			get_option_export(char *s, t_option option)
 }
 
 static void			add_var_and_rehash(t_registry *shell,
-						t_variable *variable, char **av)
+						t_variable *variable)
 {
-	(void)av;	//av usless si pas de rehash
 	if (variable->data)
+	{
 		add_var(&shell->intern, variable->name, variable->data,
 				EXPORT_VAR | SET_VAR);
+		if (ft_strequ(variable->name, "PATH") == TRUE)
+			ft_hmap_free_content(&(shell->hash.bin), ft_free);
+	}
 	else
+	{
+		variable->data = ft_strdup(get_var(shell->intern, variable->name));
 		add_var(&shell->intern, variable->name, variable->data, EXPORT_VAR);
-	if (variable && variable->name && ft_strequ(variable->name, "PATH"))
-		ft_hmap_free_content(&(shell->hash.bin), ft_free); 						//Simulate PATH reassignation
-	clear_node((void *)variable);
+	}
 }
-
 
 static int8_t		export_process(t_registry *shell, char **av)
 {
@@ -52,8 +54,10 @@ static int8_t		export_process(t_registry *shell, char **av)
 
 	while (*av != NULL)
 	{
-		if ((variable = (t_variable *)ft_malloc(sizeof(t_variable))) == NULL)
+		variable = (t_variable *)ft_malloc(sizeof(t_variable));
+		if (variable == NULL)
 			return (FAILURE);
+		ft_bzero(variable, sizeof(t_variable));
 		variable->name = ft_strdup(*av);
 		if ((equal = ft_strchr(*av, '=')) != NULL)
 		{
@@ -61,10 +65,9 @@ static int8_t		export_process(t_registry *shell, char **av)
 			*equal = '\0';
 			variable->data = ft_strdup(ft_strchr(*av, '=') + 1);
 		}
-		else
-			variable->data = ft_strdup(get_var(shell->intern, variable->name));
-		add_var_and_rehash(shell, variable, av++);
-		ft_free(variable);
+		add_var_and_rehash(shell, variable);
+		free_node((void *)variable);
+		av++;
 	}
 	return (SUCCESS);
 }

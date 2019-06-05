@@ -66,7 +66,8 @@ int8_t			create_node(t_list **alst, const char *var, const char *data,
 					t_option flag);
 int8_t			change_node(t_list **alst, const char *var, char *data,
 					t_option flag);
-int				find_variable(void *data, void *to_find);
+int				find_var(void *data, void *to_find);
+int8_t			free_var(t_list **alst, const char *var);
 
 /*
 *****************************************************
@@ -77,14 +78,13 @@ int				find_variable(void *data, void *to_find);
 int8_t					find_in_path(t_registry *shell, char *bin, char **buf);
 
 /*
-*********************** FREE
+*****************************************************
+**************** LIST FUNCTION POINTERS **************
+*****************************************************
 */
 
+void			free_node(void *node);
 void			close_fd(void *data);
-void			clear_node(void *node);
-void			free_anode(t_list *ptr);
-int8_t			del_node(t_list *ptr, const char *name);
-int8_t			free_node(t_list **alst, const char *var);
 void			delete_process(void *data);
 void			delete_job(void *data);
 void			del_token(void *token);

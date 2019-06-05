@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-int			find_variable(void *data, void *to_find)
+int			find_var(void *data, void *to_find)
 {
 	t_variable	*variable;
 	char		*name;
@@ -26,7 +26,7 @@ char		*get_var(t_list *intern, char *name)
 {
 	t_list *node;
 
-	if ((node = ft_lstfind(intern, name, find_variable)))
+	if ((node = ft_lstfind(intern, name, find_var)))
 		return (((t_variable *)node->data)->data);
 	return (NULL);
 }

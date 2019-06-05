@@ -27,7 +27,7 @@ static void		free_hash(t_hash hashmap, void (*del)(void *))
 void			free_registry(t_registry *shell)
 {
 	free_opt(shell->option);
-	ft_lstdel(&shell->intern, clear_node);
+	ft_lstdel(&shell->intern, free_node);
 	free_hash(shell->hash.bin, ft_free);
 	free_hash(shell->hash.blt, NULL);
 }

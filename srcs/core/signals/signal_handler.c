@@ -15,12 +15,12 @@
 
 void			define_ign_signals(void)
 {
-	loop_signals(SIG_IGN);
+//	loop_signals(SIG_IGN);
 }
 
 void			define_analyzer_signals(void)
 {
-	loop_signals(SIG_IGN);
+//	loop_signals(SIG_IGN);
 	signal(SIGINT, stop_analysis);
 }
 

@@ -12,20 +12,6 @@
 
 #include "sh21.h"
 
-static void			reset_prompt(t_registry *shell, char **av)
-{
-	if (ft_strequ(*av, "*") == TRUE)
-		fill_interface_related_internals(shell);
-	else if (ft_strequ(*av, "PS1") == TRUE)
-		get_prompt_ps1(shell);
-	else if (ft_strequ(*av, "PS2") == TRUE)
-		add_var(&shell->intern, INT_PS2, INT_PS2_VALUE, SET_VAR);
-	else if (ft_strequ(*av, "PS3") == TRUE)
-		add_var(&shell->intern, INT_PS3, INT_PS3_VALUE, SET_VAR);
-	else if (ft_strequ(*av, "PS4") == TRUE)
-		add_var(&shell->intern, INT_PS4, INT_PS4_VALUE, SET_VAR);
-}
-
 int8_t				unset_blt(t_registry *shell, char **av)
 {
 	++av;
@@ -34,8 +20,10 @@ int8_t				unset_blt(t_registry *shell, char **av)
 		ft_dprintf(shell->cur_fd.err, UNSET_USAGE);
 		return (FAILURE);
 	}
-	if (shell->intern != NULL)
-		free_node(&shell->intern, *av);
-	reset_prompt(shell, av);
+	if (shell->intern == NULL)
+		return (SUCCESS);
+	free_var(&shell->intern, *av);
+	if (ft_strequ(*av, "PATH") == TRUE)
+		ft_hmap_free_content(&(shell->hash.bin), ft_free);
 	return (SUCCESS);
 }
