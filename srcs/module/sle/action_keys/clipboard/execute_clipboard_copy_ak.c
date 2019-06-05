@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:22:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:23:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 09:17:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int8_t	ak_copy_selection(t_registry *shell)
 	length = (itf->vis_stop < itf->vis_start)
 			? (itf->vis_start - itf->vis_stop)
 			: (itf->vis_stop - itf->vis_start);
+
 	vct_reset(itf->clip);
 	tmp = vct_sub(itf->line, start, length + 1);
 	vct_scpy(itf->clip, tmp, ft_strlen(tmp));

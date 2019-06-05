@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 19:02:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:20:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@
 
 # define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\w]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
-# define INT_PS3_VALUE				"[(\\e[31mheredoc\\e[0m)> "
+# define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
 
 /*
 *****************************************************

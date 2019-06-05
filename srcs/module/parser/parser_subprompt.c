@@ -6,7 +6,8 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 19:09:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:16:18 by skuppers         ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +43,7 @@ void				parser_subprompt(t_list **lst)
 	{
 		line = invoke_ps2prompt(g_shell, "pipe");
 		str = vct_get_string(line);
-
-		ft_strdel(&line->buffer);
-		free(line);
+		vct_del(&line);
 
 		new_token = lexer(str);
 	//	ft_strdel(&str);

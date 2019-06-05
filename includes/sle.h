@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:37:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:11:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,16 @@
 
 # include "struct.h"
 
-//uint64_t				sle_setup(t_registry *shell);
-//uint64_t				sle_start();
-//uint64_t				sle_getinput();
-//uint64_t				sle_stop();
-
-uint64_t				setup_interface(t_registry *shell);
-void					teardown_interface(t_registry *shell);
 /*
 *****************************************************
 ************** INIT / SETTING / FREE ****************
 *****************************************************
 */
+
+uint64_t	sle_setup(t_registry *shell);
+void		sle_teardown(t_registry *shell);
+uint8_t		sle_getinput(t_registry *shell, t_vector **input);
+
 
 uint64_t	get_terminal_info(t_registry *shell);
 uint64_t    load_terminal_mode(t_registry *shell);
@@ -46,6 +44,7 @@ uint64_t    init_prompt(t_interface *interface);
 
 t_vector	*prompt(t_registry *shell, char *p_state);
 t_vector	*invoke_ps2prompt(t_registry *shell, char *missing);
+t_vector	*invoke_ps3prompt(t_registry *shell);
 
 void		handle_input_key(t_registry *shell, char c[READ_SIZE ]);
 

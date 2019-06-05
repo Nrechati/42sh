@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:14:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:14:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:11:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "sh21.h"
 
-void	teardown_interface(t_registry *shell)
+void	sle_teardown(t_registry *shell)
 {
 	(void)shell;
 //	unload_autocomp();

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 19:05:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:26:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-/*
+
 static int	write_heredoc(char **line, int fd, t_resolution *resolve)
 {
 	int		trim;
@@ -43,7 +43,7 @@ static int	check_delimiter(char **delimiter, char **line, int fd,
 	write_heredoc(line, fd, resolve);
 	return (FAILURE);
 }
-*/
+
 void		heredoc_delimiter(t_resolution *resolve)
 {
 	if (resolve->state == P_HEREDOC_REDIRECT)
@@ -77,11 +77,13 @@ void		io_heredoc_analyzer(t_resolution *resolve)
 	io = pop_token_data(&resolve->stack);
 	generate_filedesc(resolve, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
 	ft_strdel(&io);
+//TODO:CED
 //	while (invoke_ps2prompt(g_shell, &line, INT_PS3) == SUCCESS)
 //	{
 //		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
 //			return ;
 //	}
+
 	ft_strdel(&line);
 	error_analyzer(resolve);
 }
@@ -98,11 +100,17 @@ void		heredoc_analyzer(t_resolution *resolve)
 	delimiter = pop_token_data(&resolve->stack);
 	pop_token_data(&resolve->stack);
 	generate_filedesc(resolve, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
-//	while (invoke_ps2prompt(g_shell, &line, INT_PS3) == SUCCESS)
-//	{
-//		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
-//			return ;
-//	}
+//TODO:CED
+/*
+**	la fonction invoke_ps3prompt(), est pour les heredocs, et retourne un vecteur
+**	allouer que tu dois free quand ta fini.
+**	Retourne NULL en cas d'erreur ou d'EOF
+*/
+	while (invoke_ps3prompt(g_shell) == SUCCESS)
+	{
+		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
+			return ;
+	}
 	ft_strdel(&line);
 	error_analyzer(resolve);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 19:13:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:10:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ void			generate_grammar(t_registry *shell);
 */
 
 char			*read_input(const int fd);
-
-void			interactive_mode(t_registry *shell);
-
 int8_t			execution_pipeline(t_registry *shell, char *line);
 
 /*

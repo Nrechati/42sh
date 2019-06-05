@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 19:02:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:14:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void						interface_error(uint64_t report)
+void						sle_error(uint64_t report)
 {
 	(void)report;
 }
@@ -58,7 +58,7 @@ static uint64_t				load_interface_modules(t_interface *interface)
 	return (report);
 }
 
-uint64_t				setup_interface(t_registry *shell)
+uint64_t				sle_setup(t_registry *shell)
 {
 	uint64_t		report;
 
@@ -66,6 +66,6 @@ uint64_t				setup_interface(t_registry *shell)
 	report |= init_interface(shell);
 	report |= load_interface(shell);
 	report |= load_interface_modules(&shell->interface);
-	interface_error(report);
+	sle_error(report);
 	return (report);
 }

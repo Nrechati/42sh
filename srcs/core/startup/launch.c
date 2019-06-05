@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 19:14:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:20:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,33 @@ static void				batch_mode(t_registry *shell)
 	ft_strdel(&command);
 }
 
+static uint8_t		is_input_valid(uint8_t valid)
+{
+	if (valid != SUCCESS && valid != LINE_FAIL)
+		return (FALSE);
+	return (TRUE);
+}
+
+void				interactive_mode(t_registry *shell)
+{
+	t_vector		*input;
+
+	input = NULL;
+
+	if (set_term_mode(shell) == FAILURE)
+		ft_printf("Failed to set term mode.\n");
+
+	while (1)
+	{
+		if (is_input_valid(sle_getinput(shell, &input)) == FALSE)
+			break ;
+		execution_pipeline(shell, vct_get_string(input));
+	}
+
+	if (unset_term_mode(shell) == FAILURE)
+		ft_printf("Failed to unset term mode.\n");
+}
+
 static inline uint8_t	is_shell_interactive(t_registry *shell)
 {
 	if ((shell->option.option & COMMAND_OPT) == FALSE
@@ -45,17 +72,11 @@ static inline uint8_t	is_shell_interactive(t_registry *shell)
 
 void					launch_shell(t_registry *shell)
 {
-	uint64_t setup_flag;
-
 	if (is_shell_interactive(shell) == TRUE)
 	{
-		setup_flag = setup_interface(shell);
-		ft_dprintf(2, "|--> Interface setup returned %lu\n", setup_flag);
-
-		if ((setup_flag & CRITICAL_ERROR) == FALSE)
+		if ((sle_setup(shell) & CRITICAL_ERROR) == FALSE)
 			interactive_mode(shell);
-
-		teardown_interface(shell);
+		sle_teardown(shell);
 	}
 	else
 		batch_mode(shell);
