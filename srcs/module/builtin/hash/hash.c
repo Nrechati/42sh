@@ -6,43 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 19:06:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:23:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static void		hash_bin(t_registry *shell, const char *bin)
-{
-	char			*asp;
-	DIR				*dip;
-	struct dirent	*dit;
-
-	if ((dip = opendir(bin)) != NULL)
-	{
-		while ((dit = readdir(dip)) != NULL)
-		{
-			asp = NULL;
-			ft_asprintf(&asp, "%s/%s", bin, dit->d_name);
-			if (asp != NULL)
-			{
-				if (dit->d_name[0] != '.')
-				{
-					if (ft_hmap_insert(&(shell->hash.bin)
-							, dit->d_name, asp) == FALSE)
-						ft_free(asp);
-				}
-				else
-					ft_free(asp);
-			}
-		}
-		if (closedir(dip) == SUCCESS)
-			return ;
-	}
-}
-
-static void		hash_builtin(t_registry *shell)
+void			hash_builtin(t_registry *shell)
 {
 	ft_hmap_insert(&(shell->hash.blt), "echo", echo_blt);
 	ft_hmap_insert(&(shell->hash.blt), "cd", cd_blt);
@@ -55,26 +26,57 @@ static void		hash_builtin(t_registry *shell)
 	ft_hmap_insert(&(shell->hash.blt), "pwd", pwd_blt);
 }
 
+static int16_t	hash_handle_opt(t_registry *shell, t_option opt)
+{
+	if (opt & H_HELP)
+	{
+		hash_print_help();
+		return (H_HELP);
+	}
+	else if (opt & H_ALL)
+	{
+		hash_all_path(shell);
+		return (H_ALL);
+	}
+	else if (opt & H_WIPE)
+	{
+		ft_hmap_free_content(&(shell->hash.bin), ft_free);
+		shell->hash.bin.print_pad = 0;
+		return (H_WIPE);
+	}
+	else
+		return (SUCCESS);
+}
+
 int8_t			hash_blt(t_registry *shell, char **av)
 {
-	uint32_t		i;
-	char			**tabs;
+	int			i;
+	int8_t		ret;
+	t_option	opt;
 
-	(void)av;
-	if (shell->hash.bin.used > 0)
-		ft_hmap_free_content(&(shell->hash.bin), ft_free);
-	if (get_var(shell->intern, "PATH") != NULL)
+	opt = 0;
+	if (av == NULL)
 	{
-		tabs = ft_strsplit(get_var(shell->intern, "PATH"), ":");
-		if (tabs == NULL)
-			return (FAILURE);
-		i = 0;
-		while (tabs[i] != NULL)
-			hash_bin(shell, tabs[i++]);
-		ft_freetab(&tabs);
+		ft_dprintf(2, HASH_GENERAL_ERROR HASH_NO_AV);
+		return (FAILURE);
 	}
-	hash_builtin(shell);
-	if (shell->hash.blt.used == FALSE)
-		ft_dprintf(shell->cur_fd.err, "Hashmap blt is empty.\n");
+	if (!av[1])
+	{
+		ft_simplified_hash_print(&(shell->hash.bin));
+		return (SUCCESS);
+	}
+	if ((i = hash_get_opt(1, av, &opt)) == FAILURE)
+		return (FAILURE);
+	if (hash_handle_opt(shell, opt) == H_HELP)
+		return (SUCCESS);
+	while (av[i])
+	{
+		ret = hash_args(shell, av[i]);
+		if (ret == NOT_FOUND)
+			ft_dprintf(2, HASH_GENERAL_ERROR "%s" HASH_NOT_FOUND, av[i]);
+		else if (ret == FAILURE)
+			return (FAILURE);
+		i++;
+	}
 	return (SUCCESS);
 }

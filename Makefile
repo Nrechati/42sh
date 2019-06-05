@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/05/29 18:58:04 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/04 14:09:34 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ P_CORE += core/startup/init/
 P_CORE += core/signals/
 P_CORE += core/tools/
 P_CORE += core/tools/intern_var
+P_CORE += core/tools/path
 
 P_LINE += module/interface/
 P_LINE += module/interface/prompt
@@ -202,6 +203,7 @@ CORE += signal_handler.c
 CORE += setup.c
 
 #Tools
+CORE += search_path.c
 CORE += intern_var_free.c
 CORE += intern_var_manager.c
 CORE += intern_var_tools.c
@@ -234,6 +236,8 @@ BUILTIN += export.c
 
 #HASH
 BUILTIN += hash.c
+BUILTIN += h_opt.c
+BUILTIN += h_utils.c
 
 #PWD
 BUILTIN += pwd.c
