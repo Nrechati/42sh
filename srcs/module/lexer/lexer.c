@@ -15,40 +15,34 @@
 
 int				create_token_data(t_lexer *machine)
 {
-	if (machine->buffer_index == BUFFER)
-	{
-		ft_dprintf(2, "21sh: Argument too long\n");
-		ft_lstdel(&machine->tokens, del_token);
-		machine->state = L_FINISH;
-		machine->tokens = NULL;
-		return (FAILURE);
-	}
-	machine->buffer[machine->buffer_index++] = *machine->input;
+	//// ARG MAX ? 
+	vct_add(machine->buffer, *machine->input->buffer);
 	return (SUCCESS);
 }
 
-t_list			*lexer(t_vector *line)
+t_list			*lexer(t_vector *input)
 {
 	static t_lexinfo	*info = NULL;
 	t_lexer				machine;
-	char				*input;
 
 	if (info == NULL)
 		info = init_lexinfo();
-	input = vct_get_string(line);
-	if (input == NULL)
+	if (input == NULL || input->buffer == NULL)
 		return (NULL);
-	while (*input == '\t' || *input == ' ')
-		input++;
-	if (*input == '\0')
+	while (*input->buffer == '\t' || *input->buffer == ' ')
+		vct_del_char(input, 0);
+	if (*input->buffer == '\0')
 		return (NULL);
 	ft_bzero(&machine, sizeof(t_lexer));
 	machine.state = L_START;
+	machine.buffer = vct_new(0);
 	machine.last_lexer = E_DEFAULT;
-	machine.input = input;
+	machine.input = vct_dup(input);
 	machine.lexinfo = info;
 	while (machine.state != L_FINISH)
 		machine.lexinfo->lexing[machine.state](&machine);
 	lexer_print_debug(g_shell, machine.tokens);
+	vct_del(&machine.input);
+	vct_del(&machine.buffer);
 	return (machine.tokens);
 }

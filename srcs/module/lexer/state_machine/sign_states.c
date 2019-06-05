@@ -17,22 +17,27 @@ void			double_sign_machine(t_lexer *machine)
 	uint32_t	checker;
 
 	checker = 0;
-	if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
+	if (ft_strchr(DOUBLE_SIGN, *machine->input->buffer) != NULL)
 	{
-		if (*machine->buffer == '|' && *machine->input == '|' && ++checker)
+		if (*machine->buffer->buffer == '|'
+				&& *machine->input->buffer == '|' && ++checker)
 			machine->last_lexer = E_OR;
-		else if (*machine->buffer == ';' && *machine->input == ';' && ++checker)
+		else if (*machine->buffer->buffer == ';'
+				&& *machine->input->buffer == ';' && ++checker)
 			machine->last_lexer = E_DSEMI;
-		else if (*machine->buffer == '&' && *machine->input == '&' && ++checker)
+		else if (*machine->buffer->buffer == '&'
+				&& *machine->input->buffer == '&' && ++checker)
 			machine->last_lexer = E_DAND;
-		else if (*machine->buffer == '=' && *machine->input == '=' && ++checker)
+		else if (*machine->buffer->buffer == '='
+				&& *machine->input->buffer == '=' && ++checker)
 			machine->last_lexer = E_DEQ;
-		else if (*machine->buffer == '!' && *machine->input == '=' && ++checker)
+		else if (*machine->buffer->buffer == '!'
+				&& *machine->input->buffer == '=' && ++checker)
 			machine->last_lexer = E_NOTEQ;
 		if (checker != FALSE)
-			++machine->input;
+			vct_del_char(machine->input, 0);
 	}
-	if (*machine->buffer == '=' && *machine->input != '=')
+	if (*machine->buffer->buffer == '=' && *machine->input->buffer != '=')
 		machine->state = L_STRING;
 	else
 		machine->state = L_OUT;
@@ -43,17 +48,17 @@ static uint32_t	double_dispatcher(t_lexer *machine)
 	uint32_t	checker;
 
 	checker = 0;
-	if (*machine->input == '>')
+	if (*machine->input->buffer == '>')
 	{
 		++checker;
 		machine->state = L_GREATER;
 	}
-	else if (*machine->input == '<')
+	else if (*machine->input->buffer == '<')
 	{
 		++checker;
 		machine->state = L_LESSER;
 	}
-	else if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
+	else if (ft_strchr(DOUBLE_SIGN, *machine->input->buffer) != NULL)
 	{
 		++checker;
 		machine->state = L_DSIGN;
@@ -63,33 +68,33 @@ static uint32_t	double_dispatcher(t_lexer *machine)
 
 void			and_machine(t_lexer *machine)
 {
-	if (machine->input[1] == '>')
+	if (machine->input->buffer[1] == '>')
 	{
-		++machine->input;
+		vct_del_char(machine->input, 0);
 		machine->last_lexer = E_ANDGREAT;
-		++machine->input;
-		if (machine->last_lexer == E_ANDGREAT && *machine->input == '>')
+		vct_del_char(machine->input, 0);
+		if (machine->last_lexer == E_ANDGREAT && *machine->input->buffer == '>')
 		{
 			machine->last_lexer = E_ANDDGREAT;
-			machine->input++;
+			vct_del_char(machine->input, 0);
 		}
 	}
 	else
 	{
 		if (create_token_data(machine) == FAILURE)
 			return ;
-		++machine->input;
+		vct_del_char(machine->input, 0);
 	}
 	machine->state = L_OUT;
 }
 
 void			sign_machine(t_lexer *machine)
 {
-	if (*machine->input == '\'')
+	if (*machine->input->buffer == '\'')
 		machine->state = L_SQTE;
-	else if (*machine->input == '\"')
+	else if (*machine->input->buffer == '\"')
 		machine->state = L_DQTE;
-	else if (*machine->input == '&')
+	else if (*machine->input->buffer == '&')
 	{
 		machine->state = L_AND;
 		return ;
@@ -105,5 +110,5 @@ void			sign_machine(t_lexer *machine)
 			return ;
 		machine->state = L_OUT;
 	}
-	++machine->input;
+	vct_del_char(machine->input, 0);
 }

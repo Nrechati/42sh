@@ -38,11 +38,10 @@ typedef struct			s_lexinfo
 
 struct					s_lexer
 {
-	char				*input;
-	char				buffer[BUFFER];
-	char				*data;
-	unsigned int		buffer_index;
+	t_vector			*buffer;
+	t_vector			*input;
 	t_lexinfo			*lexinfo;
+	char				*data;
 	t_list				*tokens;
 	enum e_lexer_state	state;
 	enum e_quote		quote;
@@ -130,7 +129,7 @@ typedef struct			s_history
 
 /*
 *****************************************************
-**************** INTERFACE_FUNCTIONS ****************
+************************ SLE ************************
 *****************************************************
 */
 

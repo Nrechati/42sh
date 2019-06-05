@@ -27,7 +27,10 @@ void				interactive_mode(t_registry *shell)
 	if (set_term_mode(shell) == FAILURE)
 		ft_printf("Failed to set term mode.\n");
 	while (is_input_valid(sle_getinput(shell, &input)) == TRUE)
+	{
 		execution_pipeline(shell, input);
+		vct_del(&input);
+	}
 	if (unset_term_mode(shell) == FAILURE)
 		ft_printf("Failed to unset term mode.\n");
 }
