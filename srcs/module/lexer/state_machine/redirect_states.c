@@ -14,35 +14,37 @@
 
 void	lesser_machine(t_lexer *machine)
 {
-	uint32_t	checker;
-
-	checker = 0;
-	if (machine->last_lexer == E_DLESS
-			&& *machine->input->buffer == '-' && ++checker)
-		machine->last_lexer = E_DLESSDASH;
-	else if (*machine->buffer->buffer == '<' && *machine->input->buffer == '<')
+	if (machine->last_lexer == E_DLESS && *machine->input->buffer == '-')
 	{
-		if (machine->last_lexer != E_DLESS)
-		{
-			machine->last_lexer = E_DLESS;
-			if (create_token_data(machine) != FAILURE)
-				vct_del_char(machine->input, 0);
-			return ;
-		}
+		machine->last_lexer = E_DLESSDASH;
+		vct_del_char(machine->input, 0);
+	}
+	else if (*machine->buffer->buffer == '<' && *machine->input->buffer == '<'
+			&& machine->input->buffer[1] != '&'
+			&& (machine->last_lexer != E_DLESS))
+	{
+		machine->last_lexer = E_DLESS;
+		create_token_data(machine);
+		vct_del_char(machine->input, 0);
+		return ;
 	}
 	else if (*machine->input->buffer == '>' || *machine->input->buffer == '&')
 	{
-		if (*machine->buffer->buffer == '<'
-				&& *machine->input->buffer == '&' && ++checker)
+		if (*machine->buffer->buffer == '<' && *machine->input->buffer == '&')
+		{
 			machine->state = L_LESSAND;
+			vct_del_char(machine->input, 0);
+		}
 		else if (*machine->buffer->buffer == '<'
-				&& *machine->input->buffer == '>' && ++checker)
+				&& *machine->input->buffer == '>')
+		{
 			machine->last_lexer = E_LESSGREAT;
+			vct_del_char(machine->input, 0);
+		}
 	}
-	if (checker != FALSE)
-		vct_del_char(machine->input, 0);
 	machine->state = machine->state == L_LESSAND ? L_LESSAND : L_OUT;
 }
+
 
 void	greater_machine(t_lexer *machine)
 {
