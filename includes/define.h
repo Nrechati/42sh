@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 10:20:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 14:05:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
-# define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\w]-> "
+# define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
 
@@ -262,7 +262,7 @@
 # define P_ESCAPE			'e'
 
 # define FAIL_EOF					42
-# define AK_AMOUNT					25
+# define AK_AMOUNT					20
 
 # define AK_ESCAPE_MASK				0x1b00000000000000
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
@@ -277,13 +277,11 @@
 # define AK_BACKSPACE_MASK		 	0x7f00000000000000
 # define AK_CTRL_D_MASK 			0x0400000000000000
 # define AK_CTRL_L_MASK				0x0c00000000000000
+# define AK_CTRL_V_MASK				0x1600000000000000
 # define AK_CTRL_X_MASK				0x1800000000000000
 # define AK_CTRL_B_MASK				0x0200000000000000
 # define AK_CTRL_P_MASK				0x1000000000000000
-# define AK_CTRL_LB_MASK			0x1b00000000000000
-# define AK_CTRL_RB_MASK			0x1d00000000000000
 # define AK_CTRL_F_MASK				0x0600000000000000
-# define AK_CTRL_R_MASK				0x1200000000000000
 # define AK_CTRL_UP_MASK			0x1b5b313b35410000
 # define AK_CTRL_DOWN_MASK			0x1b5b313b35420000
 # define AK_CTRL_RIGHT_MASK			0x1b5b313b35430000

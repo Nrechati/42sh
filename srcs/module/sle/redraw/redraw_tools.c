@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 11:52:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 13:52:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,6 @@ void		print_loop(t_interface *itf, char *str)
 		print_char(itf, *str++);
 }
 
-int8_t		parse_effect_number(__unused char *str,__unused uint32_t index)
-{
-	char		*tmp;
-	int32_t		nbr;
-	uint32_t 	len;
-
-	len = 0;
-	while (ft_isdigit(str[index + len]))
-		++len;
-	tmp = ft_strsub(str, index, len);
-	if (ft_strlen(tmp) == 0)
-		return (FAILURE);
-	free(tmp);
-	nbr = ft_atoi(tmp);
-	if (nbr >= 0 && nbr <= 255)
-		return (SUCCESS);
-	return (FAILURE);
-}
-
 uint32_t	write_esc_sequence(char *str, uint32_t index)
 {
 	char		*esc;
@@ -76,7 +57,7 @@ uint32_t	write_esc_sequence(char *str, uint32_t index)
 	{
 		if (str[length + index] != ';'
 				&& str[length + index] != 'm'
-				&& parse_effect_number(str, length + index) == -1)
+				&& !ft_isdigit(str[length + index]))
 			return (length);
 		if (str[index + length] == 'm')
 		{

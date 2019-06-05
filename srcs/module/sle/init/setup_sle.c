@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 11:56:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 13:22:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void						sle_error(uint64_t report)
 	else if (report != 0)
 		ft_printf("42sh: warning: some errors occured: \n");
 	if (report != 0)
-		ft_printf("\t- error code: %lu. See logs.\n", report);
+		ft_printf("Error code: %lu. See logs.\n", report);
 }
 
 static uint64_t				init_interface(t_registry *shell)
