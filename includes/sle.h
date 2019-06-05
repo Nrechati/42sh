@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 10:11:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 11:34:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		print_prompt_to_window(t_interface *itf, t_vector *text);
 
 
 uint64_t	get_prompt_length(t_prompt *prompt);
-t_coord		*index_to_coord(t_interface *itf, uint64_t indx);
+void		index_to_coord(t_interface *itf, uint64_t indx, t_coord *co);
 
 
 void		p_insert_name(t_vector *text, uint64_t index);

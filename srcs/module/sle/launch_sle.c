@@ -6,12 +6,20 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 10:23:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 11:52:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
+
+// TODO
+// Teardown freeing
+// redraw modes FPTP / FSTP / FPTE
+// sle setup perror
+// INIT window/ update window
+// Visual mode condition
+// Cut/copy selection boundaries ternaries
 
 uint8_t		sle_getinput(t_registry *shell, t_vector **in)
 {

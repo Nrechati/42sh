@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:57:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 11:17:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index)
 	ft_strdel(&cwd);
 }
 
-// GETHOSTNAME (3) BONUS
 void		p_insert_host(__unused t_registry *shell,
 				t_vector *text,
 				uint64_t index)

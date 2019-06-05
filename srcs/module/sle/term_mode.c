@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:13:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/05 11:14:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,5 @@ int8_t			unset_term_mode(t_registry *shell)
 {
 	if (tcsetattr(STDIN_FILENO, TCSANOW, shell->interface.orig_mode) == FAILURE)
 		return (FAILURE);
-//	ft_free(shell->interface.term_mode);
-//	ft_free(shell->interface.orig_mode);
 	return (SUCCESS);
 }
