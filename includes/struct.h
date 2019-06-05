@@ -6,12 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:55:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/05 12:04:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+# include "enum.h"
+# include "define.h"
+# include "libft.h"
 
 /*
 *****************************************************
@@ -68,8 +71,8 @@ typedef struct			s_graph
 */
 
 typedef struct s_resolution	t_resolution;
-typedef void			(*t_resolve)(t_resolution *);
-typedef t_resolve		t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
+typedef void				(*t_resolve)(t_resolution *);
+typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 
 typedef struct			s_filedesc
 {
@@ -216,7 +219,7 @@ struct					s_registry
 	const char			**grammar;
 	t_list				*intern;
 	t_opt				option;
-	t_hashmap			hash;	
+	t_hashmap			hash;
 	t_fd				cur_fd;
 	uint8_t				analyzer_signal;
 
