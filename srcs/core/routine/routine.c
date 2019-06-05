@@ -25,7 +25,7 @@ static t_resolution	init_resolve(t_registry *shell, t_list *token_list)
 	return (resolve);
 }
 
-int8_t				execution_pipeline(t_registry *shell, char *input)
+int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 {
 	t_resolution	resolve;
 	t_list			*token_list;

@@ -32,7 +32,6 @@
 *****************************************************
 */
 void			free_registry(t_registry *shell);
-void			launch_shell(t_registry *shell);
 int8_t			set_environment(t_registry *shell, char **av, char **env);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
@@ -41,12 +40,14 @@ void			generate_grammar(t_registry *shell);
 
 /*
 *****************************************************
-****************** READ / INTERFACE *****************
+*********************** LAUNCH **********************
 *****************************************************
 */
 
-char			*read_input(const int fd);
-int8_t			execution_pipeline(t_registry *shell, char *line);
+void			launch_shell(t_registry *shell);
+void			batch_mode(t_registry *shell);
+void			interactive_mode(t_registry *shell);
+int8_t			execution_pipeline(t_registry *shell, t_vector *input);
 
 /*
 *****************************************************

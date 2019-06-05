@@ -13,7 +13,7 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-t_list		*lexer(char *input);
+t_list		*lexer(t_vector *line);
 t_lexinfo	*init_lexinfo(void);
 
 void		start_lexer(t_lexer *machine);

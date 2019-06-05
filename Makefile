@@ -29,6 +29,7 @@ SRCS += $(PARSER)
 SRCS += $(RESOLVE)
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
+
 LIB = $(addprefix $(LPATH), $(LIBFT))
 LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 
@@ -57,7 +58,7 @@ TOUCH = touch
 # ---------------------------------------------------------------------------- #
 
 # One Line
-ONESLE =\e[1A\r
+ONELINE =\e[1A\r
 
 # Colors
 NC = \033[0m
@@ -79,9 +80,10 @@ OPATH = objs/
 IPATH += includes/
 IPATH += libft/includes/
 
-P_CORE += core/routine/
 P_CORE += core/startup/
 P_CORE += core/startup/init/
+P_CORE += core/launch/
+P_CORE += core/routine/
 P_CORE += core/signals/
 P_CORE += core/tools/
 P_CORE += core/tools/intern_var
@@ -186,9 +188,13 @@ INCS += enum.h
 
 #Startup
 CORE += main.c
-CORE += launch.c
 CORE += options.c
 CORE += grammar.c
+
+#Lauch
+CORE += launch.c
+CORE += batch_mode.c
+CORE += interactive_mode.c
 
 #Routine
 CORE += routine.c
@@ -204,7 +210,6 @@ CORE += intern_var_free.c
 CORE += intern_var_manager.c
 CORE += intern_var_tools.c
 CORE += list_function_pointers.c
-CORE += read_filedesc.c
 
 #						- - - - -  Debug Log  - - - - -						   #
 
@@ -363,13 +368,9 @@ $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS)
 	$(LINK) $(OBJS) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
-$(OBJM) : $(OPATH)%.o : %.c $(INCS) Makefile
-	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
-	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
-
 $(OBJS) : $(OPATH)%.o : %.c $(INCS) Makefile
 	$(COMPILE) $(CFLAGS) $(CPPFLAGS) $< -o $@
-	$(PRINT) "$(ONELINE)$(BLUE)Compiling $<                   $(NC)\n"
+	$(PRINT) "$(ONELINE)$(CYAN)Compiling $<                   $(NC)\n"
 
 $(LIB) : FORCE
 	$(MAKE) -C $(LPATH)
@@ -382,11 +383,13 @@ $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
 
 $(OBJD) : $(OPATH)db%.o : %.c $(INCS) Makefile
 	$(DEBUG) $(DFLAGS) $(CPPFLAGS) $< -o $@
-	$(PRINT) "$(ONELINE)$(BLUE)Compiling $< for debug                   $(NC)\n"
+	$(PRINT) "$(ONELINE)$(PURPLE)Compiling $< for debug                   $(NC)\n"
 
 $(LIBDB) : FORCE
 	$(MAKE) -C $(LPATH) debug
 
+#					 - - - - - - - - - - - - - - - - - - -                     #
+#
 $(CLEAR):
 	$@
 

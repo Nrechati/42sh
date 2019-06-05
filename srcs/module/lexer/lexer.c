@@ -27,13 +27,15 @@ int				create_token_data(t_lexer *machine)
 	return (SUCCESS);
 }
 
-t_list			*lexer(char *input)
+t_list			*lexer(t_vector *line)
 {
 	static t_lexinfo	*info = NULL;
 	t_lexer				machine;
+	char				*input;
 
 	if (info == NULL)
 		info = init_lexinfo();
+	input = vct_get_string(line);
 	if (input == NULL)
 		return (NULL);
 	while (*input == '\t' || *input == ' ')

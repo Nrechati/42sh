@@ -49,7 +49,6 @@ t_vector	*invoke_ps2prompt(t_registry *shell, char *missing)
 	shell->interface.line = linesave;
 	if (is_eof(vct_get_string(shell->interface.sub_line)) == TRUE)
 		return (NULL);
-	ft_printf("\n");
 	return (vct_dup(shell->interface.sub_line));
 }
 
@@ -63,6 +62,5 @@ t_vector	*invoke_ps3prompt(t_registry *shell)
 	shell->interface.line = linesave;
 	if (is_eof(vct_get_string(shell->interface.sub_line)) == TRUE)
 		return (NULL);
-	ft_printf("\n");
 	return (vct_dup(shell->interface.sub_line));
 }

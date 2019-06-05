@@ -13,6 +13,13 @@
 #ifndef DEFINE_H
 # define DEFINE_H
 
+
+///// LINUX /////
+# ifndef __unused 
+#  define __unused __attribute__((unused))
+# endif
+/////////////////
+
 /*
 *****************************************************
 ******** -------------- COMMON -------------- *******

@@ -35,20 +35,15 @@ uint8_t				need_subprompt(enum e_type state, enum e_type type)
 void				parser_subprompt(t_list **lst)
 {
 	t_vector	*line;
-	char		*str;
 	t_list		*new_token;
 
 	new_token = NULL;
 	while (new_token == NULL)
 	{
 		line = invoke_ps2prompt(g_shell, "pipe");
-		str = vct_get_string(line);
+		new_token = lexer(line);
 		vct_del(&line);
-
-		new_token = lexer(str);
-	//	ft_strdel(&str);
 	}
-	ft_putchar('\n');
 	free_one_node_token(&(*lst)->next);
 	(*lst)->next = new_token;
 }
