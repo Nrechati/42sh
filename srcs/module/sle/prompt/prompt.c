@@ -15,6 +15,7 @@
 /*
 **	Standart prompt invocation
 */
+
 t_vector	*prompt(t_registry *shell, char *prompt_state)
 {
 	char	character[READ_SIZE + 1];

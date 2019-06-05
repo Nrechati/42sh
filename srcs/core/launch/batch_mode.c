@@ -13,53 +13,45 @@
 #include "sh21.h"
 #include <unistd.h>
 
-static char	*ft_strjoinfree(char *s1, const char *s2, const int8_t todel)
+static t_vector			*read_input(const int fd)
 {
-	char	*join;
+	char		buff[READ_SIZE + 1];
+	t_vector	*cmd;
+	int			ret;
 
-	if ((join = ft_strnew(ft_strlen(s1) + ft_strlen(s2))) == NULL)
-		return (NULL);
-	ft_strcpy(join, s1);
-	ft_strcat(join, s2);
-	if (todel == 1)
-		ft_strdel(&s1);
-	return (join);
-}
-
-static char	*read_input(const int fd)
-{
-	char	*final;
-	char	buffer[16];
-
-	final = NULL;
-	ft_memset(buffer, 0, 16);
-	while (read(fd, buffer, 15) > 0)
+	cmd = vct_new(0);
+	while ((ret = read(fd, buff, READ_SIZE)) > 0)
 	{
-		if (final == NULL)
-			final = ft_strdup(buffer);
-		else
-			final = ft_strjoinfree(final, buffer, 1);
-		ft_memset(buffer, 0, 16);
+		buff[ret] = '\0';
+		vct_scat(cmd, buff, ret);
 	}
-	return (final);
+	if (ret == FAILURE)
+	{
+		vct_del(&cmd);
+		return (NULL);	
+	}
+	return (cmd);
 }
 
-static inline char		*read_input_cmd(t_registry *shell)
+
+static inline t_vector	*get_input_cmd(t_registry *shell)
 {
 	if (shell->option.option & COMMAND_OPT)
-		return (ft_strdup(shell->option.command_str));
+		return (vct_dups(shell->option.command_str));
 	return (read_input(STDIN_FILENO));
 }
 
 void					batch_mode(t_registry *shell)
 {
-	char	*command;
+	t_vector	*cmd;
 
-	command = read_input_cmd(shell);
-/*	if (ft_strcheck(command, ft_isprint) == TRUE)
-		execution_pipeline(shell, command);
+	cmd = get_input_cmd(shell);
+	if (cmd == NULL || ft_strcheck(vct_get_string(cmd), ft_isprint) == FALSE)
+		ft_dprintf(2, "21sh: Not a valid input.\n");
 	else
-		ft_dprintf(2, "21sh: Not a valid input.\n");*/
-	ft_strdel(&command);
+	{
+		execution_pipeline(shell, cmd);
+		vct_del(&cmd);
+	}
 }
 
