@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 13:34:22 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:40:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,17 @@ void	get_token(t_resolution *resolve)
 	ft_lstdelone(&node, NULL);
 }
 
+int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
+{
+	TOUT
+}
+
 t_list	*analyzer(t_resolution *resolve)
 {
 	static t_analyzer	*analyzer = NULL;
+	t_list				*cmd_group;
 
+	cmd_group = NULL;
 	if (analyzer == NULL)
 		analyzer = init_analyzer();
 	delete_analyzer(resolve);
@@ -86,5 +93,6 @@ t_list	*analyzer(t_resolution *resolve)
 		(*analyzer)[resolve->state][resolve->token.type](resolve);
 	}
 	analyzer_print_debug(g_shell, resolve);
-	return (resolve->job_list);
+	generate_cmd_group(&cmd_group, &resolve->tree_node);
+	return	(cmd_group);
 }
