@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/05 15:41:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/05 16:43:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,12 @@ typedef struct			s_filedesc
 	int32_t				first;
 	int32_t				second;
 }						t_filedesc;
+
+typedef struct			s_group
+{
+	uint8_t				group_type;
+	t_list				*command_list;
+}						t_group;
 
 typedef	struct			s_command
 {

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/05 15:40:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/05 16:44:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,45 @@ void	get_token(t_resolution *resolve)
 	ft_lstdelone(&node, NULL);
 }
 
+t_list	*generate_cmd_list(t_stack *tree_node)
+{
+	t_command	command;
+	t_action	*action;
+	t_list		*node;
+
+
+	ft_bzero(&command, sizeof(t_command));
+	action = ft_stckpop(tree_node);
+	command.av = action->av;
+	ft_free(&action);
+	while (ft_stcksize(tree_node) > 0)
+	{
+		if (((t_action *)ft_stcktop(tree_node))->action == A_ARGS)
+			break;
+		node = ft_stckpopnode(tree_node);
+		ft_lstadd(&command.actions, node);
+	}
+	node = ft_lstnew(&command, sizeof(t_command));
+	return (node);
+}
+
 int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 {
-	TOUT
+	t_group 	group;
+	t_list		*node;
+	t_list		*command_lst;
+
+	ft_bzero(&group, sizeof(t_group));
+	command_lst = NULL;
+	while (ft_stcksize(tree_node) > 0)
+	{
+		if ((node = generate_cmd_list(tree_node)) == NULL)
+			return (FAILURE);
+		ft_lstadd(&group.command_list, node);
+	}
+	node = ft_lstnew(&group, sizeof(t_list));
+	ft_lstaddback(cmd_group, node);
+	return (SUCCESS);
 }
 
 t_list	*analyzer(t_resolution *resolve)
@@ -89,7 +125,7 @@ t_list	*analyzer(t_resolution *resolve)
 			break ;
 		}
 		if (resolve->state == P_STOP)
-			break ;
+			generate_cmd_group(&cmd_group, &resolve->tree_node);
 		(*analyzer)[resolve->state][resolve->token.type](resolve);
 	}
 	analyzer_print_debug(g_shell, resolve);
