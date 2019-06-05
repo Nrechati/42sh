@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:04:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,21 @@
 
 void	flush_string(t_resolution *resolve)
 {
-	int		index;
-	t_token *token;
+	t_token		*token;
+	t_list		*new_node;
+	t_action	new_action;
 
+	new_node = NULL;
 	resolve->state = P_STRING_FLUSH;
-	if (ft_stcksize(&resolve->stack) == 0)
-		return ;
-	index = ft_stcksize(&resolve->stack);
-	resolve->process.av = (char **)ft_malloc(sizeof(char *) * (index + 1));
-	if (resolve->process.av == NULL)
-		return ;
-	resolve->process.av[index] = NULL;
-	while (--index >= 0)
+	ft_bzero(&new_action, sizeof(t_action));
+	while (ft_stcksize(&resolve->stack) != 0)
 	{
 		token = ft_stckpop(&resolve->stack);
-		resolve->process.av[index] = token->data;
-		ft_free(token);
+		new_node = ft_lstnew(token, sizeof(t_token));
+		ft_lstadd(&new_action.av, new_node);
 	}
-	resolve->special_case ^= VALID_PROCESS;
+	ft_stckpush(&resolve->tree_node, &new_action, sizeof(t_action));
+	return ;
 }
 
 void	special_string_analyzer(t_resolution *resolve)

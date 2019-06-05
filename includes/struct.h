@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:55:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:01:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ typedef struct s_resolution	t_resolution;
 typedef void			(*t_resolve)(t_resolution *);
 typedef t_resolve		t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 
+typedef struct			s_action
+{
+	enum e_actions		action;
+	t_list				*av;
+}						t_action;
+
 typedef struct			s_filedesc
 {
 	unsigned int		action;
@@ -78,11 +84,18 @@ typedef struct			s_filedesc
 	int32_t				second;
 }						t_filedesc;
 
+typedef	struct			s_command
+{
+	t_list				*av;
+	t_list				*actions;
+	uint8_t				cmd_type;
+}						t_command;
+
 typedef struct			s_process
 {
-	t_list				*fd;
 	char				**av;
-	char				**env;
+	t_list				*env;
+	t_list				*redirects;
 	uint8_t				completed;
 	uint8_t				stopped;
 	pid_t				pid;
@@ -91,27 +104,20 @@ typedef struct			s_process
 
 typedef struct			s_job
 {
-	char				*command;
-	t_list				*process_list;
+	t_list				*processes;
 	struct termios		*term_modes;
 	pid_t				pgid;
-	t_filedesc			fd;
 }						t_job;
 
 struct					s_resolution
 {
-	t_list				*token_list;
-	t_list				*env;
-	t_list				*tmp_env;
-	t_list				*job_list;
-	t_process			process;
-	t_job				job;
+	t_list				*tokens;
 	t_stack				stack;
+	t_stack				tree_node;
 	t_token				token;
 	unsigned int		special_case;
 	enum e_analyzer_state	last_state;
 	enum e_analyzer_state	state;
-	int					oflags;
 	int					valid;
 };
 
@@ -216,7 +222,7 @@ struct					s_registry
 	const char			**grammar;
 	t_list				*intern;
 	t_opt				option;
-	t_hashmap			hash;	
+	t_hashmap			hash;
 	t_fd				cur_fd;
 	uint8_t				analyzer_signal;
 
