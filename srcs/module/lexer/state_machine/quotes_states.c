@@ -14,10 +14,10 @@
 
 void	single_quote_machine(t_lexer *machine)
 {
-	if (*machine->input->buffer == '\0')
+	while (*machine->input->buffer == '\0')
 	{
-		machine->state = L_OUT;
-		return ;
+		vct_del(&machine->input);
+		machine->input = invoke_ps2prompt(g_shell, "quote");
 	}
 	if (*machine->input->buffer == '\'')
 		machine->state = L_STRING;
@@ -33,18 +33,10 @@ void	single_quote_machine(t_lexer *machine)
 
 void	double_quote_machine(t_lexer *machine)
 {
-	//t_vector	*line;
-
-	if (*machine->input->buffer == '\0')
+	while (*machine->input->buffer == '\0')
 	{
-		/*while (line)
-		{
-			line = invoke_ps2prompt(g_shell, "dquote");
-			new_token = lexer(line);
-			vct_del(&line);
-		}*/
-		machine->state = L_OUT;
-		return ;
+		vct_del(&machine->input);
+		machine->input = invoke_ps2prompt(g_shell, "dquote");
 	}
 	if (*machine->input->buffer == '\"')
 		machine->state = L_STRING;
