@@ -21,13 +21,16 @@ int8_t				type_blt(t_registry *shell, char **av)
 	error = SUCCESS;
 	while (*av != NULL)
 	{
+		path_bin = NULL;
 		if (ft_hmap_getdata(&shell->hash.blt, *av) != NULL)
 			ft_dprintf(shell->cur_fd.out, "%s is a shell builtin\n", *av);
 		else if ((path_bin = ft_hmap_getdata(&shell->hash.bin, *av)) != NULL)
+			ft_dprintf(shell->cur_fd.out, "%s is hashed (%s)\n", *av, path_bin);
+		else if (find_in_path(shell, *av, &path_bin) == SUCCESS)
 			ft_dprintf(shell->cur_fd.out, "%s is %s\n", *av, path_bin);
 		else
 		{
-			error = 1;
+			error = FAILURE;
 			ft_dprintf(shell->cur_fd.err, "21sh: type: %s: not found\n", *av);
 		}
 		av++;

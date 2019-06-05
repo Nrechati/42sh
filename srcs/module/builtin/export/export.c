@@ -30,8 +30,7 @@ t_option			get_option_export(char *s, t_option option)
 	return (option);
 }
 
-static void			add_var_and_rehash(t_registry *shell,
-						t_variable *variable)
+static void			export_var(t_registry *shell, t_variable *variable)
 {
 	if (variable->data)
 	{
@@ -47,25 +46,31 @@ static void			add_var_and_rehash(t_registry *shell,
 	}
 }
 
+static void			get_name_and_data(t_variable *variable, char *arg)
+{
+	char		*equal;
+
+	variable->name = ft_strdup(arg);
+	variable->data = NULL;
+	if ((equal = ft_strchr(arg, '=')) != NULL)
+	{
+		equal = ft_strchr(variable->name, '=');
+		*equal = '\0';
+		variable->data = ft_strdup(ft_strchr(arg, '=') + 1);
+	}
+}
+
 static int8_t		export_process(t_registry *shell, char **av)
 {
 	t_variable	*variable;
-	char		*equal;
 
 	while (*av != NULL)
 	{
 		variable = (t_variable *)ft_malloc(sizeof(t_variable));
 		if (variable == NULL)
 			return (FAILURE);
-		ft_bzero(variable, sizeof(t_variable));
-		variable->name = ft_strdup(*av);
-		if ((equal = ft_strchr(*av, '=')) != NULL)
-		{
-			equal = ft_strchr(variable->name, '=');
-			*equal = '\0';
-			variable->data = ft_strdup(ft_strchr(*av, '=') + 1);
-		}
-		add_var_and_rehash(shell, variable);
+		get_name_and_data(variable, *av);
+		export_var(shell, variable);
 		free_node((void *)variable);
 		av++;
 	}
