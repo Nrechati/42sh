@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:48:43 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	number_machine(t_lexer *machine)
 		machine->last_lexer = E_IO_NUMBER;
 		if (create_token_data(machine) == FAILURE)
 			return ;
-		vct_del_char(machine->input, 0);
+		vct_cut(machine->input);
 	}
 	else if (ft_strchr("<>", *machine->input->buffer) != NULL)
 		machine->state = L_OUT;
@@ -56,6 +56,6 @@ void	string_machine(t_lexer *machine)
 	{
 		if (create_token_data(machine) == FAILURE)
 			return ;
-		vct_del_char(machine->input, 0);
+		vct_cut(machine->input);
 	}
 }

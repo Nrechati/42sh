@@ -6,18 +6,31 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:23:05 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:46:35 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+static void	lesser_addition(t_lexer *machine)
+{
+	if (*machine->buffer->buffer == '<' && *machine->input->buffer == '&')
+		machine->state = L_LESSAND;
+	else if (*machine->buffer->buffer == '<'
+			&& *machine->input->buffer == '>')
+		machine->last_lexer = E_LESSGREAT;
+	else
+		return ;
+	vct_cut(machine->input);
+
+}
 
 void	lesser_machine(t_lexer *machine)
 {
 	if (machine->last_lexer == E_DLESS && *machine->input->buffer == '-')
 	{
 		machine->last_lexer = E_DLESSDASH;
-		vct_del_char(machine->input, 0);
+		vct_cut(machine->input);
 	}
 	else if (*machine->buffer->buffer == '<' && *machine->input->buffer == '<'
 			&& machine->input->buffer[1] != '&'
@@ -25,46 +38,34 @@ void	lesser_machine(t_lexer *machine)
 	{
 		machine->last_lexer = E_DLESS;
 		create_token_data(machine);
-		vct_del_char(machine->input, 0);
+		vct_cut(machine->input);
 		return ;
 	}
 	else if (*machine->input->buffer == '>' || *machine->input->buffer == '&')
-	{
-		if (*machine->buffer->buffer == '<' && *machine->input->buffer == '&')
-		{
-			machine->state = L_LESSAND;
-			vct_del_char(machine->input, 0);
-		}
-		else if (*machine->buffer->buffer == '<'
-				&& *machine->input->buffer == '>')
-		{
-			machine->last_lexer = E_LESSGREAT;
-			vct_del_char(machine->input, 0);
-		}
-	}
+		lesser_addition(machine);
 	machine->state = machine->state == L_LESSAND ? L_LESSAND : L_OUT;
 }
 
 
 void	greater_machine(t_lexer *machine)
 {
-	uint32_t	checker;
-
-	checker = 0;
 	if (ft_strchr(">&|", *machine->input->buffer) != NULL)
 	{
-		if (*machine->buffer->buffer == '>'
-				&& *machine->input->buffer == '>' && ++checker)
+		if (*machine->buffer->buffer == '>' && *machine->input->buffer == '>')
 			machine->last_lexer = E_DGREAT;
 		else if (*machine->buffer->buffer == '>'
-				&& *machine->input->buffer == '&' && ++checker)
+				&& *machine->input->buffer == '&')
 			machine->state = L_GREATAND;
 		else if (*machine->buffer->buffer == '>'
-				&& *machine->input->buffer == '|' && ++checker)
+				&& *machine->input->buffer == '|')
 			machine->last_lexer = E_CLOBBER;
+		else
+		{
+			machine->state = machine->state == L_GREATAND ? L_GREATAND : L_OUT;
+			return ;
+		}
 	}
-	if (checker != FALSE)
-		vct_del_char(machine->input, 0);
+	vct_cut(machine->input);
 	machine->state = machine->state == L_GREATAND ? L_GREATAND : L_OUT;
 }
 

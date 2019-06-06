@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:47:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void			double_sign_machine(t_lexer *machine)
 		else if (*machine->buffer->buffer == '!'
 				&& *machine->input->buffer == '=')
 			machine->last_lexer = E_NOTEQ;
-		vct_del_char(machine->input, 0);
+		vct_cut(machine->input);
 	}
 	if (*machine->buffer->buffer == '=' && *machine->input->buffer != '=')
 		machine->state = L_STRING;
@@ -59,15 +59,15 @@ void			and_machine(t_lexer *machine)
 {
 	if (machine->input->buffer[1] == '>')
 	{
-		vct_del_char(machine->input, 0);
+		vct_cut(machine->input);
 		machine->last_lexer = E_ANDGREAT;
-		vct_del_char(machine->input, 0);
+		vct_cut(machine->input);
 		if (machine->last_lexer == E_ANDGREAT && *machine->input->buffer == '>')
 			machine->last_lexer = E_ANDDGREAT;
 	}
 	else
 		create_token_data(machine);
-	vct_del_char(machine->input, 0);
+	vct_cut(machine->input);
 	machine->state = L_OUT;
 }
 
@@ -90,5 +90,5 @@ void			sign_machine(t_lexer *machine)
 		create_token_data(machine);
 		machine->state = L_OUT;
 	}
-	vct_del_char(machine->input, 0);
+	vct_cut(machine->input);
 }

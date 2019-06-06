@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:44:43 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list			*lexer(t_vector *input)
 	if (input == NULL || input->buffer == NULL)
 		return (NULL);
 	while (*input->buffer == '\t' || *input->buffer == ' ')
-		vct_del_char(input, 0);
+		vct_cut(input);
 	if (*input->buffer == '\0')
 		return (NULL);
 	ft_bzero(&machine, sizeof(t_lexer));
