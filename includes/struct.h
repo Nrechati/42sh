@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/05 16:43:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:36:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,6 @@ typedef struct s_resolution	t_resolution;
 typedef void				(*t_resolve)(t_resolution *);
 typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 
-typedef struct			s_action
-{
-	enum e_actions		action;
-	t_list				*av;
-}						t_action;
-
 typedef struct			s_filedesc
 {
 	unsigned int		action;
@@ -87,18 +81,23 @@ typedef struct			s_filedesc
 	int32_t				second;
 }						t_filedesc;
 
-typedef struct			s_group
+typedef struct			s_action
 {
-	uint8_t				group_type;
-	t_list				*command_list;
-}						t_group;
+	enum e_actions		action;
+	t_list				*av;
+}						t_action;
 
 typedef	struct			s_command
 {
 	t_list				*av;
 	t_list				*actions;
-	uint8_t				cmd_type;
 }						t_command;
+
+typedef struct			s_group
+{
+	uint8_t				group_type;
+	t_list				*command_list;
+}						t_group;
 
 typedef struct			s_process
 {
@@ -107,6 +106,7 @@ typedef struct			s_process
 	t_list				*redirects;
 	uint8_t				completed;
 	uint8_t				stopped;
+	uint8_t				process_type;
 	pid_t				pid;
 	int					status;
 }						t_process;

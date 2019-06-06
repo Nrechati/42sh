@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/05 16:44:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:38:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,14 @@ t_type	pop_token_type(t_stack *stack)
 	return (type);
 }
 
-void	generate_filedesc(t_resolution *resolve, int first, int second,
-				int action)
-{
-	t_list		*node;
-	t_filedesc	fd;
-
-	fd.action = action;
-	fd.first = first;
-	fd.second = second;
-	node = ft_lstnew(&fd, sizeof(t_filedesc));
-	if (action & FD_PIPE)
-		ft_lstadd(&resolve->process.fd, node);
-	else
-		ft_lstaddback(&resolve->process.fd, node);
-}
-
 void	get_token(t_resolution *resolve)
 {
 	t_list		*node;
 
-	if (resolve->token_list == NULL)
+	if (resolve->tokens == NULL)
 		return ;
-	node = resolve->token_list;
-	resolve->token_list = resolve->token_list->next;
+	node = resolve->tokens;
+	resolve->tokens = resolve->tokens->next;
 	ft_memcpy(&resolve->token, node->data, sizeof(t_token));
 	ft_lstdelone(&node, NULL);
 }
@@ -87,11 +71,16 @@ t_list	*generate_cmd_list(t_stack *tree_node)
 int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 {
 	t_group 	group;
+	t_action	*action;
 	t_list		*node;
 	t_list		*command_lst;
 
-	ft_bzero(&group, sizeof(t_group));
 	command_lst = NULL;
+	ft_bzero(&group, sizeof(t_group));
+	action = ft_stckpop(tree_node);
+	if (action->action == A_END)
+		group.group_type |= GROUP_RUN;
+	ft_free(&action);
 	while (ft_stcksize(tree_node) > 0)
 	{
 		if ((node = generate_cmd_list(tree_node)) == NULL)

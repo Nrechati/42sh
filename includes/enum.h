@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/05 14:44:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:25:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef enum	e_quote
 enum	e_actions
 {
 	A_ARGS,
+	A_END,
 };
 
 enum	e_analyzer_state

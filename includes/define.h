@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 14:38:09 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:30:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,11 @@
 # define FD_READ					0x08
 # define FD_PIPE					0x10
 # define FD_CLOED					0x20
+
+# define GROUP_RUN					0x01
+# define GROUP_BG					0x02
+# define GROUP_AND					0x04
+# define GROUP_OR					0x08
 
 # define QUOTING					0x01
 # define HERETRIM					0x02

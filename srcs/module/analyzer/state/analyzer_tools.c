@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:37:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 19:01:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:11:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	check_filename(t_resolution *resolve)
 		ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 }
 
-void		reset_analyzer(t_registry *shell, t_resolution *resolve)
+void	reset_analyzer(t_registry *shell, t_resolution *resolve)
 {
 	ft_stckinit(&resolve->stack);
 	resolve->state = P_START;
