@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 19:16:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 20:07:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,22 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 		if (set_term_mode(sle) == FAILURE)
 			return (CRITICAL_ERROR);
 	}
+	if (shell != NULL)
+	{
+		sle->interns.ps1 = vct_dups(get_var(shell->intern, INT_PS1));
+		sle->interns.ps2 = vct_dups(get_var(shell->intern, INT_PS2));
+		sle->interns.ps3 = vct_dups(get_var(shell->intern, INT_PS3));
+		sle->interns.pwd = vct_dups(get_var(shell->intern, "PWD"));
+		sle->interns.username = vct_dups(get_var(shell->intern, "USER"));
+		sle->interns.home = vct_dups(get_var(shell->intern, "HOME"));
+	}
 	return (SUCCESS);
 }
 
 uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 {
 	static t_sle sle;
+
 
 	if (launch_sle(shell, &sle) == CRITICAL_ERROR)
 		return (CRITICAL_ERROR);
@@ -57,5 +67,7 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		*in = invoke_ps2prompt(shell, &sle, sle_flag);
 	else if (sle_flag & SLE_PS3_PROMPT)
 		*in = invoke_ps3prompt(shell, &sle);
+	else if (sle_flag & SLE_SIZE_UPDATE)
+		redraw_window(&sle);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 18:25:21 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 19:33:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static uint64_t				load_interface(t_registry *shell, t_sle *sle)
 	ft_memset(&sle->window, 0, sizeof(t_window));
 	ft_memset(&sle->cursor, 0, sizeof(t_cursor));
 	ft_memset(&sle->prompt, 0, sizeof(t_prompt));
-	report |= init_window(shell, sle);
+	report |= init_window(sle);
 	report |= init_cursor(sle);
 	report |= init_prompt(sle);
 	return (report);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 15:07:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 20:07:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,16 @@ typedef struct			s_window
 	t_vector			*displayed_line;
 }						t_window;
 
+typedef struct 			s_intern
+{
+	t_vector			*ps1;
+	t_vector			*ps2;
+	t_vector			*ps3;
+	t_vector			*pwd;
+	t_vector			*username;
+	t_vector			*home;
+}						t_intern;
+
 typedef struct			s_sle
 {
 	struct termios		*term_mode;
@@ -193,6 +203,8 @@ typedef struct			s_sle
 	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
 	t_vector			*line;
 	t_vector			*sub_line;
+
+	t_intern			interns;
 
 	//visual mode
 	uint8_t				visual_mode;

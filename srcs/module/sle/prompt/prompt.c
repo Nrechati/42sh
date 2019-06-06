@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 19:23:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 20:16:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
 	char	character[READ_SIZE + 1];
 
-	update_window(shell, sle);
+	update_window(sle);
 	print_prompt(shell, sle);
 	ft_bzero(character, READ_SIZE + 1);
 

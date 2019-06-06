@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 18:44:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 20:07:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_sle *sle));
 uint64_t    set_sle_internals(t_registry *shell);
 uint64_t    init_line(t_sle *sle);
 
-uint64_t    init_window(t_registry *shell, t_sle *sle);
+uint64_t    init_window(t_sle *sle);
 uint64_t    init_cursor(t_sle *sle);
 uint64_t    init_prompt(t_sle *sle);
 
@@ -58,7 +58,8 @@ void		move_cursor(t_sle *sle);
 void		move_cursor_to_coord(t_sle *sle, uint64_t x, uint64_t y);
 
 
-void		update_window(t_registry *shell, t_sle *sle);
+void		update_window(t_sle *sle);
+void		redraw_window(t_sle *sle);
 
 void		redraw(t_registry *shell, t_sle *sle);
 void		redrawmode_clear(t_registry *shell, t_sle *sle);
@@ -87,8 +88,8 @@ void		index_to_coord(t_sle *sle, uint64_t indx, t_coord *co);
 
 
 void		p_insert_name(t_vector *text, uint64_t index);
-void		p_insert_username(t_registry *shell, t_vector *text, uint64_t index);
-void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index);
+void		p_insert_username(t_sle *sle, t_vector *text, uint64_t index);
+void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index);
 void		p_insert_host(t_vector *text, uint64_t index);
 void		p_insert_missing(t_sle *sle, t_vector *text, uint64_t index);
 

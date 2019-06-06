@@ -42,7 +42,5 @@ uint64_t    init_termcaps(t_termcaps *termcap)
     termcap->down = ft_strdup(tgetstr("do", NULL));
     termcap->left = ft_strdup(tgetstr("le", NULL));
     termcap->right = ft_strdup(tgetstr("nd", NULL));
-	if (termcap->up == NULL || termcap->down == NULL)
-		log_print(g_shell, LOG_INFO, "problem.\n");
     return (SUCCESS);
 }

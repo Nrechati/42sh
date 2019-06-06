@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:58:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 20:16:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ uint64_t	get_prompt_length(t_prompt *prompt)
 	return (prompt->length);
 }
 
-void	expand_prompt(t_registry *shell, t_sle *sle, t_vector *text)
+void	expand_prompt(__unused t_registry *shell, t_sle *sle, t_vector *text)
 {
 	int64_t	length;
 	int64_t	index;
@@ -34,9 +34,9 @@ void	expand_prompt(t_registry *shell, t_sle *sle, t_vector *text)
 		if (vct_charat(text, index) == P_NAME)
 			p_insert_name(text, index - 1);
 		else if (vct_charat(text, index) == P_USER)
-			p_insert_username(shell, text, index - 1);
+			p_insert_username(sle, text, index - 1);
 		else if (vct_charat(text, index) == P_CWD)
-			p_insert_cwd(shell, text, index - 1);
+			p_insert_cwd(sle, text, index - 1);
 		else if (vct_charat(text, index) == P_HOST)
 			p_insert_host(text, index - 1);
 		else if (vct_charat(text, index) == P_MISS)
@@ -55,7 +55,13 @@ inline void		print_prompt(t_registry *shell, t_sle *sle)
 	t_vector	*ptext;
 
 	ptext = NULL;
-	ptext = vct_dups(get_var(shell->intern, sle->prompt.state));
+	if (sle->prompt.state == INT_PS1)
+		ptext = sle->interns.ps1;
+	else if (sle->prompt.state == INT_PS2)
+		ptext = sle->interns.ps2;
+	else if (sle->prompt.state == INT_PS3)
+		ptext = sle->interns.ps3;
+
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
@@ -63,6 +69,7 @@ inline void		print_prompt(t_registry *shell, t_sle *sle)
 
 	sle->prompt.text = ptext;
 	print_prompt_to_window(sle, ptext);
-	ft_strdel(&ptext->buffer);
-	free(ptext);
+
+//	ft_strdel(&ptext->buffer);
+//	free(ptext);
 }

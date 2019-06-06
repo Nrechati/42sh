@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 16:19:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 20:07:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,31 @@ void		p_insert_name(t_vector *text, uint64_t index)
 	vct_replace_string(text, index, index + 2, "42sh");
 }
 
-void		p_insert_username(t_registry *shell, t_vector *text, uint64_t index)
+void		p_insert_username(t_sle *sle, t_vector *text, uint64_t index)
 {
 	char	*username;
 
-	username = ft_strdup(get_var(shell->intern, "USER"));
+	username = vct_get_string(sle->interns.username);
 	if (username == NULL)
 		username = ft_strdup("user");
 	vct_replace_string(text, index, index + 2, username);
-	ft_strdel(&username);
 }
 
-void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index)
+void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index)
 {
 	size_t	len;
 	char	*cwd;
 	char	*home;
 
 	len = 0;
-	cwd = get_pwd(shell, NO_OPT);
+	cwd = vct_get_string(sle->interns.pwd);
+	home = vct_get_string(sle->interns.home);
 	vct_replace_string(text, index, index + 2, cwd);
-	if ((home = get_var(shell->intern, "HOME")) != NULL)
+
+	if (ft_strbeginswith(cwd, home))
 	{
-		if (ft_strbeginswith(cwd, home))
-		{
-			len = ft_strlen(home);
-			vct_replace_string(text, index, index + len, "~");
-		}
+		len = ft_strlen(home);
+		vct_replace_string(text, index, index + len, "~");
 	}
 	ft_strdel(&cwd);
 }
