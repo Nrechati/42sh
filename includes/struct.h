@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 12:44:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:24:23 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,16 @@ typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 
 typedef struct			s_filedesc
 {
-	unsigned int		action;
+	char				*file;
 	int32_t				first;
 	int32_t				second;
+	uint16_t			action;
 }						t_filedesc;
 
 typedef struct			s_action
 {
 	enum e_actions		action;
-	t_list				*av;
+	t_list				*data;
 }						t_action;
 
 typedef	struct			s_command
@@ -113,9 +114,10 @@ typedef struct			s_process
 
 typedef struct			s_job
 {
+	pid_t				pgid;
+	uint8_t				job_type;
 	t_list				*processes;
 	struct termios		*term_modes;
-	pid_t				pgid;
 }						t_job;
 
 struct					s_resolution
@@ -236,7 +238,6 @@ struct					s_registry
 	uint8_t				analyzer_signal;
 
 	struct s_interface	interface;		// Think to modularize
-	t_list				*current_job;	// Think to modularize
 };
 
 typedef int				(*t_builtin) (t_registry *, char **);

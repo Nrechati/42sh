@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 12:53:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:54:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_list	*generate_cmd_list(t_stack *tree_node)
 
 	ft_bzero(&command, sizeof(t_command));
 	action = ft_stckpop(tree_node);
-	command.av = action->av;
+	command.av = action->data;
 	ft_free(&action);
 	while (ft_stcksize(tree_node) > 0)
 	{

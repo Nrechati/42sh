@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 11:25:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:02:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef enum	e_quote
 enum	e_actions
 {
 	A_ARGS,
+	A_ASSIGN,
 	A_END,
 };
 
