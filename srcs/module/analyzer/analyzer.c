@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 12:45:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:51:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,6 @@ void	get_token(t_resolution *resolve)
 	resolve->tokens = resolve->tokens->next;
 	ft_memcpy(&resolve->token, node->data, sizeof(t_token));
 	ft_lstdelone(&node, NULL);
-}
-
-static int8_t	get_cmd_type(t_registry *shell, t_process *process)
-{
-	int8_t		ret;
-	char		*pathname;
-	uint8_t		type;
-
-	ret = 0;
-	type = 0;
-	pathname = NULL;
-	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) != NULL)
-		type |= IS_BLT;
-	else if (ft_hmap_getdata(&shell->hash.bin, process->av[0]) != NULL)
-		type |= IS_BIN;
-	else if ((ret = find_in_path(shell, process->av[0], &pathname)) != NOT_FOUND)
-	{
-		if (ret == FAILURE)
-			return (FAILURE);
-		hash_one(shell, process->av[0], pathname);
-		type |= IS_BIN;
-	}
-	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
-		type |= IS_ABS;
-	else
-		return (NOT_FOUND);
-	process->process_type |= type;
-	return (SUCCESS);
 }
 
 t_list	*generate_cmd_list(t_stack *tree_node)

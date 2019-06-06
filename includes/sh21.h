@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 12:03:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:52:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "analyzer.h"
+# include "interpreter.h"
 # include "resolve.h"
 # include "log.h"
 
