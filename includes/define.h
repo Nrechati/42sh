@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 14:05:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 14:35:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 
 ///// LINUX /////
-# ifndef __unused 
+# ifndef __unused
 #  define __unused __attribute__((unused))
 # endif
 /////////////////
@@ -252,6 +252,8 @@
 # define WINDOW_FAIL        0x100
 # define CURSOR_FAIL        0x200
 # define PRMPT_FAIL         0x400
+
+# define SETUP_DONE			0x800
 
 # define INTERNAL_FAIL2     999
 # define CLIPB_FAIL         999

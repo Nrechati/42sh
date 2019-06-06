@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 11:34:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:07:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int8_t   	unset_term_mode(t_registry *shell);
 uint64_t	init_termcaps(t_termcaps *termcp);
 
 uint64_t	assign_keycodes(t_interface *itf);
-uint64_t    link_keys_functions(int8_t (*tc_call[AK_AMOUNT])(t_registry *shell));
+uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_registry *shell));
 uint64_t    set_interface_internals(t_registry *shell);
 uint64_t    init_line(t_interface *interface);
 
@@ -63,6 +63,8 @@ void		redrawmode_clear(t_registry *shell);
 void		redrawmode_line(t_registry *shell);
 void		redrawmode_last(t_registry *shell);
 void		redrawmode_fptp(t_registry *shell);
+void		redrawmode_fstp(t_registry *shell);
+void		redrawmode_fpte(t_registry *shell);
 void		redrawmode_visual(t_registry *shell);
 //void		redrawmode_visual_off(t_registry *shell);
 

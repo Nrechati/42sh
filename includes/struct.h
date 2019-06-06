@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/05 11:28:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:07:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,16 @@ typedef struct			s_history
 
 typedef struct s_registry	t_registry;
 
+typedef struct			s_coord
+{
+	uint64_t			x;
+	uint64_t			y;
+}						t_coord;
+
 typedef struct			s_termcaps
 {
+	char				*position;
+	char				*ring;
 	char				*standout_on;
 	char				*standout_off;
 	char				*clear;
@@ -161,12 +169,6 @@ typedef struct			s_cursor
 	uint64_t			index;
 }						t_cursor;
 
-typedef struct			s_coord
-{
-	uint64_t			x;
-	uint64_t			y;
-}						t_coord;
-
 typedef struct			s_window
 {
 	uint32_t			rows;
@@ -188,7 +190,7 @@ typedef struct			s_interface
 	t_prompt			prompt;
 	t_cursor			cursor;
 	uint64_t			ak_masks[AK_AMOUNT];
-	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
+	int8_t				(*actionkeys[AK_AMOUNT])(struct s_registry *shell);
 	t_vector			*line;
 	t_vector			*sub_line;
 
@@ -197,18 +199,7 @@ typedef struct			s_interface
 	int64_t				vis_start;
 	int64_t				vis_stop;
 
-	// Clipboard
 	t_vector			*clip;
-
-	// History
-	t_history			*history_head;
-	t_history			*hist_ptr;
-	char				*current_line;
-
-	// Keybinds & masks
-
-	// FLAGS
-	uint8_t				allow_input;
 }						t_interface;
 
 /*

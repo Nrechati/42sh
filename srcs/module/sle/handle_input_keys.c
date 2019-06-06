@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 14:04:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:07:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		handle_printable_char(t_registry *shell, const char c)
 		vct_insert_char(line, c, cursor->index);
 		set_redraw_flags(&shell->interface, RD_FPTP | RD_CMOVE);
 		set_redraw_bounds(&shell->interface, cursor->index,
-						vct_len(shell->interface.line));
+						vct_len(shell->interface.line) + 1);
 		set_cursor_pos(&shell->interface, cursor->index + 1);
 	}
 }
@@ -50,7 +50,7 @@ static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 	while (index < AK_AMOUNT)
 	{
 		if (value == shell->interface.ak_masks[index])
-			shell->interface.tc_call[index](shell);
+			shell->interface.actionkeys[index](shell);
 		++index;
 	}
 }

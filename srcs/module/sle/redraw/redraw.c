@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:06 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 11:27:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 14:51:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,10 @@ static void    redraw_line(t_registry *shell)
 	else if (shell->interface.window.rd_flag & RD_LAST)
 		redrawmode_last(shell);
 	else if (shell->interface.window.rd_flag & RD_FPTE)
-    {
-//		shell->interface.window.rd_flag &= ~RD_FPTE;
-//		shell->interface.window.rd_flag |= RD_FPTP;
-//		shell->interface.window.point2 =
-//				(line_len >= disp_len) ? line_len + 1 : disp_len + 1;
-    }
+    	redrawmode_fpte(shell);
 	else if (shell->interface.window.rd_flag & RD_FSTP)
-    {
-//		rd_flag &= ~RD_FSTP;
-//		rd_flag |= RD_FPTP;
-//		shell->interface.window.point1 = 0;
-    }
-	if (shell->interface.window.rd_flag & RD_FPTP)
+		redrawmode_fstp(shell);
+	else if (shell->interface.window.rd_flag & RD_FPTP)
 		redrawmode_fptp(shell);
 }
 static inline void reset_redraw_mode(t_interface *itf)

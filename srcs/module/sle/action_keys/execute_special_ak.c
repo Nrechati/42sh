@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:20:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:03:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int8_t		ak_hightab(t_registry *shell)
 {
 	if (shell->interface.visual_mode == TRUE)
-		return (SUCCESS);
+		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -51,7 +51,7 @@ int8_t		ak_backspace(t_registry *shell)
 int8_t		ak_ctrl_d(t_registry *shell)
 {
 	if (shell->interface.visual_mode == TRUE)
-		return (SUCCESS);
+		return (FAILURE);
 
 	if (shell->interface.cursor.index == 0
 			&& vct_len(shell->interface.line) == 0)

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 14:06:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:11:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,27 @@ uint64_t    assign_keycodes(t_interface *itf)
     return (SUCCESS);
 }
 
-uint64_t    link_keys_functions(__unused int8_t (*tc_call[AK_AMOUNT])(t_registry *shell))
+uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_registry *shell))
 {
-    tc_call[AK_ARROW_LEFT] = &ak_arrow_left;
-	tc_call[AK_ARROW_RIGHT] = &ak_arrow_right;
-	tc_call[AK_HOME] = &ak_home;
-	tc_call[AK_END] = &ak_end;
-	tc_call[AK_BACKSPACE] = &ak_backspace;
-	tc_call[AK_DELETE] = &ak_delete;
-	tc_call[AK_CTRL_A] = &ak_home;
-	tc_call[AK_CTRL_E] = &ak_end;
-	tc_call[AK_CTRL_D] = &ak_ctrl_d;
-	tc_call[AK_CTRL_L] = &ak_ctrl_l;
-	tc_call[AK_CTRL_UP] = &ak_ctrl_up;
-	tc_call[AK_CTRL_DOWN] = &ak_ctrl_down;
-	tc_call[AK_CTRL_LEFT] = &ak_ctrl_left;
-	tc_call[AK_CTRL_RIGHT] = &ak_ctrl_right;
-	tc_call[AK_CTRL_F] = &ak_enter_visual_mode;
-	tc_call[AK_ESCAPE] = &ak_exit_visual_mode;
-	tc_call[AK_CTRL_X] = &ak_cut_selection;
-	tc_call[AK_CTRL_B] = &ak_copy_selection;
-	tc_call[AK_CTRL_P] = &ak_paste_clipboard;
+    actionkeys[AK_ARROW_LEFT] = &ak_arrow_left;
+	actionkeys[AK_ARROW_RIGHT] = &ak_arrow_right;
+	actionkeys[AK_HOME] = &ak_home;
+	actionkeys[AK_END] = &ak_end;
+	actionkeys[AK_BACKSPACE] = &ak_backspace;
+	actionkeys[AK_DELETE] = &ak_delete;
+	actionkeys[AK_CTRL_A] = &ak_home;
+	actionkeys[AK_CTRL_E] = &ak_end;
+	actionkeys[AK_CTRL_D] = &ak_ctrl_d;
+	actionkeys[AK_CTRL_L] = &ak_ctrl_l;
+	actionkeys[AK_CTRL_UP] = &ak_ctrl_up;
+	actionkeys[AK_CTRL_DOWN] = &ak_ctrl_down;
+	actionkeys[AK_CTRL_LEFT] = &ak_ctrl_left;
+	actionkeys[AK_CTRL_RIGHT] = &ak_ctrl_right;
+	actionkeys[AK_CTRL_F] = &ak_enter_visual_mode;
+	actionkeys[AK_ESCAPE] = &ak_exit_visual_mode;
+	actionkeys[AK_CTRL_X] = &ak_cut_selection;
+	actionkeys[AK_CTRL_B] = &ak_copy_selection;
+	actionkeys[AK_CTRL_P] = &ak_paste_clipboard;
 //	tc_call[AK_ARROW_UP] = &ak_arrow_up;
 //	tc_call[AK_ARROW_DOWN] = &ak_arrow_down;
 //	tc_call[AK_TABULATION] = &tc_ak_hightab;

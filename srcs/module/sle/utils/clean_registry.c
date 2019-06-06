@@ -6,16 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:14:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 10:11:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 14:35:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "sh21.h"
 
-void	sle_teardown(t_registry *shell)
+static void	sle_destroy(__unused t_registry *shell)
 {
-	(void)shell;
 //	unload_autocomp();
 //	unload_history();
 //	unload_clipboard();
@@ -60,4 +59,10 @@ void	sle_teardown(t_registry *shell)
 	ft_strdel(&(itf->termcaps.cs_up));
 	ft_strdel(&(itf->termcaps.cs_right));
 	ft_strdel(&(itf->termcaps.cs_left));*/
+}
+
+void	sle_teardown(t_registry *shell)
+{
+	unset_term_mode(shell);
+	sle_destroy(shell);
 }

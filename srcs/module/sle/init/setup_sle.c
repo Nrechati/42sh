@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 13:22:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:10:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static uint64_t				load_interface(t_registry *shell)
 
 	report = 0;
 	report |= assign_keycodes(&shell->interface);
-	report |= link_keys_functions(shell->interface.tc_call);
+	report |= link_keys_functions(shell->interface.actionkeys);
 	report |= set_interface_internals(shell);
 	report |= init_line(&shell->interface);
 	ft_memset(&shell->interface.window, 0, sizeof(t_window));
@@ -69,10 +69,9 @@ uint64_t				sle_setup(t_registry *shell)
 
 	report = 0;
 	report |= init_interface(shell);
-	/////////////////////// MOVE TO SLE INIT
 	report |= load_interface(shell);
 	report |= load_interface_modules(&shell->interface);
-	///////////////////////////////////
 	sle_error(report);
+	report |= SETUP_DONE;
 	return (report);
 }
