@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 11:30:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:44:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@
 # define H_HELP						0x004
 # define NOT_FOUND					-2
 # define HASH_GENERAL_ERROR			"42sh: hash: "
+# define HASH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
+# define HASH_HIT_ERROR				"error hitting bin\n"
 # define HASH_INVALID_OPT			": invalid option\n"
 # define HASH_NO_AV					"NULL av given to built-in\n"
 # define HASH_NOT_FOUND				": not found\n"
@@ -244,6 +246,10 @@
 # define TO_CLOSE					0x04
 # define NO_PIPE					0x08
 # define VALID_PROCESS				0x10
+
+# define IS_BLT						0x01
+# define IS_BIN						0x02
+# define IS_ABS						0x04
 
 /*
 *****************************************************
