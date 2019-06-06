@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:07:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:52:45 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	delete_process(void *data)
 
 	process = (t_process *)data;
 	ft_freetab(&process->av);
-	ft_lstdel(&process->fd, close_fd);
 }
 
 void	delete_job(void *data)
@@ -46,5 +45,4 @@ void	delete_job(void *data)
 	t_job	*job;
 
 	job = (t_job *)data;
-	ft_lstdel(&job->process_list, delete_process);
 }
