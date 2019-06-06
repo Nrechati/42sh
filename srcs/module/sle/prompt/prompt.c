@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 14:12:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 19:23:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,55 +16,62 @@
 **	Standart prompt invocation
 */
 
-t_vector	*prompt(t_registry *shell, char *prompt_state)
+t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
 	char	character[READ_SIZE + 1];
 
-	update_window(shell);
-	print_prompt(shell, prompt_state);
+	update_window(shell, sle);
+	print_prompt(shell, sle);
 	ft_bzero(character, READ_SIZE + 1);
-	vct_reset(shell->interface.line);
-	vct_reset(shell->interface.window.displayed_line);
+
+	vct_reset(sle->line);
+	vct_reset(sle->window.displayed_line);
+
 	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
 			return (NULL);
-		handle_input_key(shell, character);
-		redraw(shell);
-		if (is_eof(vct_get_string(shell->interface.line)) == TRUE)
+		handle_input_key(sle, character);
+		redraw(shell, sle);
+		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
 	ft_printf("\n");
-//	vct_add(shell->interface.line, '\n');
-	return (vct_dup(shell->interface.line));
+//	vct_add(sle->line, '\n');
+	return (vct_dup(sle->line));
 }
 
-t_vector	*invoke_ps2prompt(t_registry *shell, char *missing)
+t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
+{
+	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE, PROMPT_DQUOTE,
+		   								PROMPT_BQUOTE, PROMPT_NL, PROMPT_AND, PROMPT_OR};
+
+	t_vector	*linesave;
+
+	linesave = sle->line;
+	sle->line = sle->sub_line;
+	sle->prompt.missing_char = (char *)prompt_type[sle_flag & ~SLE_PS2_PROMPT];
+	sle->prompt.state = INT_PS2;
+	prompt(shell, sle);
+	sle->line = linesave;
+	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
+		return (NULL);
+//	vct_add(sle->sub_line, '\n');
+	return (vct_dup(sle->sub_line));
+}
+
+t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 {
 	t_vector	*linesave;
 
-	linesave = shell->interface.line;
-	shell->interface.line = shell->interface.sub_line;
-	shell->interface.prompt.missing_char = missing;
-	prompt(shell, INT_PS2);
-	shell->interface.line = linesave;
-	if (is_eof(vct_get_string(shell->interface.sub_line)) == TRUE)
+	linesave = sle->line;
+	sle->line = sle->sub_line;
+	sle->prompt.state = INT_PS3;
+	prompt(shell, sle);
+	sle->line = linesave;
+	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-//	vct_add(shell->interface.sub_line, '\n');
-	return (vct_dup(shell->interface.sub_line));
-}
-
-t_vector	*invoke_ps3prompt(t_registry *shell)
-{
-	t_vector	*linesave;
-
-	linesave = shell->interface.line;
-	shell->interface.line = shell->interface.sub_line;
-	prompt(shell, INT_PS3);
-	shell->interface.line = linesave;
-	if (is_eof(vct_get_string(shell->interface.sub_line)) == TRUE)
-		return (NULL);
-//	vct_add(shell->interface.sub_line, '\n');
-	return (vct_dup(shell->interface.sub_line));
+//	vct_add(sle->sub_line, '\n');
+	return (vct_dup(sle->sub_line));
 }

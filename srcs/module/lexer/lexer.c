@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 13:44:43 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/06 19:13:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int				create_token_data(t_lexer *machine)
 {
-	//// ARG MAX ? 
+	//// ARG MAX ?
 	vct_add(machine->buffer, *machine->input->buffer);
 	return (SUCCESS);
 }

@@ -13,64 +13,63 @@
 #include "sh21.h"
 #include <termcap.h>
 
-static void    redraw_line(t_registry *shell)
+static void    redraw_line(t_registry *shell, t_sle *sle)
 {
-	if (shell->interface.window.rd_flag & RD_NONE)
+	if (sle->window.rd_flag & RD_NONE)
         return;
-	if (shell->interface.window.rd_flag & RD_CLEAR)
+	if (sle->window.rd_flag & RD_CLEAR)
 	{
-		redrawmode_clear(shell);
-		shell->interface.window.rd_flag |= RD_LINE;
+		redrawmode_clear(shell, sle);
+		sle->window.rd_flag |= RD_LINE;
 	}
-	if (shell->interface.window.rd_flag & RD_LINE)
-		redrawmode_line(shell);
-	else if (shell->interface.window.rd_flag & RD_LAST)
-		redrawmode_last(shell);
-	else if (shell->interface.window.rd_flag & RD_FPTE)
-    	redrawmode_fpte(shell);
-	else if (shell->interface.window.rd_flag & RD_FSTP)
-		redrawmode_fstp(shell);
-	else if (shell->interface.window.rd_flag & RD_FPTP)
-		redrawmode_fptp(shell);
+	if (sle->window.rd_flag & RD_LINE)
+		redrawmode_line(sle);
+	else if (sle->window.rd_flag & RD_LAST)
+		redrawmode_last(sle);
+	else if (sle->window.rd_flag & RD_FPTE)
+    	redrawmode_fpte(sle);
+	else if (sle->window.rd_flag & RD_FSTP)
+		redrawmode_fstp(sle);
+	else if (sle->window.rd_flag & RD_FPTP)
+		redrawmode_fptp(sle);
 }
-static inline void reset_redraw_mode(t_interface *itf)
+static inline void reset_redraw_mode(t_sle *sle)
 {
-	vct_reset(itf->window.displayed_line);
-	vct_ncpy(itf->window.displayed_line, itf->line,
-					vct_len(itf->line));
-	itf->window.rd_flag = 0;
-	itf->window.point1 = 0;
-	itf->window.point2 = 0;
-	itf->window.point_cursor = 0;
-}
-
-void    redraw(t_registry *shell)
-{
-	redraw_line(shell);
-	if (shell->interface.visual_mode == TRUE)
-		redrawmode_visual(shell);
-	move_cursor(shell);
-
-	reset_redraw_mode(&shell->interface);
+	vct_reset(sle->window.displayed_line);
+	vct_ncpy(sle->window.displayed_line, sle->line,
+					vct_len(sle->line));
+	sle->window.rd_flag = 0;
+	sle->window.point1 = 0;
+	sle->window.point2 = 0;
+	sle->window.point_cursor = 0;
 }
 
-inline void		add_redraw_flags(t_interface *itf, uint32_t rd_flag)
+void    redraw(t_registry *shell, t_sle *sle)
 {
-	itf->window.rd_flag |= rd_flag;
+	redraw_line(shell, sle);
+	if (sle->visual_mode == TRUE)
+		redrawmode_visual(sle);
+	move_cursor(sle);
+	reset_redraw_mode(sle);
 }
 
-inline void     set_redraw_flags(t_interface *itf, uint32_t rd_flag)
+inline void		add_redraw_flags(t_sle *sle, uint32_t rd_flag)
 {
-	itf->window.rd_flag = rd_flag;
+	sle->window.rd_flag |= rd_flag;
 }
 
-inline void     set_redraw_bounds(t_interface *itf, uint64_t start, uint64_t end)
+inline void     set_redraw_flags(t_sle *sle, uint32_t rd_flag)
 {
-	itf->window.point1 = start;
-	itf->window.point2 = end;
+	sle->window.rd_flag = rd_flag;
 }
 
-inline void     set_cursor_pos(t_interface *itf, uint64_t index)
+inline void     set_redraw_bounds(t_sle *sle, uint64_t start, uint64_t end)
 {
-	itf->window.point_cursor = index;
+	sle->window.point1 = start;
+	sle->window.point2 = end;
+}
+
+inline void     set_cursor_pos(t_sle *sle, uint64_t index)
+{
+	sle->window.point_cursor = index;
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 19:18:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@ void	single_quote_machine(t_lexer *machine)
 	while (*machine->input->buffer == '\0')
 	{
 		vct_del(&machine->input);
-		machine->input = invoke_ps2prompt(g_shell, "quote");
+		sle(g_shell, &machine->input, SLE_PS2_PROMPT | PRINT_QUOTE);
 	}
 	if (*machine->input->buffer == '\'')
 		machine->state = L_STRING;
 	if (*machine->input->buffer != '\0')
 	{
-		if (create_token_data(machine) == FAILURE)
-			return ;
-		vct_del_char(machine->input, 0);
+		create_token_data(machine);
+		vct_cut(machine->input);
 	}
 	else
 		machine->state = L_START;
@@ -36,15 +35,14 @@ void	double_quote_machine(t_lexer *machine)
 	while (*machine->input->buffer == '\0')
 	{
 		vct_del(&machine->input);
-		machine->input = invoke_ps2prompt(g_shell, "dquote");
+		sle(g_shell, &machine->input, SLE_PS2_PROMPT | PRINT_DQUOTE);
 	}
 	if (*machine->input->buffer == '\"')
 		machine->state = L_STRING;
 	if (*machine->input->buffer != '\0')
 	{
-		if (create_token_data(machine) == FAILURE)
-			return ;
-		vct_del_char(machine->input, 0);
+		create_token_data(machine);
+		vct_cut(machine->input);
 	}
 	else
 		machine->state = L_START;

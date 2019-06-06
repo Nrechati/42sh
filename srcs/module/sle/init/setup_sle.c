@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 15:10:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:25:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,62 +16,60 @@ void						sle_error(uint64_t report)
 {
 	if (report & CRITICAL_ERROR)
 		ft_printf("42sh: One or more critical error occured: \n");
-	else if (report != 0)
+	else if (report != (SUCCESS | SETUP_DONE))
 		ft_printf("42sh: warning: some errors occured: \n");
-	if (report != 0)
+	if (report != (SUCCESS | SETUP_DONE))
 		ft_printf("Error code: %lu. See logs.\n", report);
 }
 
-static uint64_t				init_interface(t_registry *shell)
+static uint64_t				init_sle(t_registry *shell, t_sle *sle)
 {
 	uint64_t		report;
 
 	report = 0;
-	ft_memset(&shell->interface, 0, sizeof(t_interface));
 	report |= get_terminal_info(shell);
-	report |= load_terminal_mode(shell);
-	report |= init_termcaps(&shell->interface.termcaps);
+	report |= load_terminal_mode(sle);
+	report |= init_termcaps(&sle->termcaps);
 	return (report);
 }
 
-static uint64_t				load_interface(t_registry *shell)
+static uint64_t				load_interface(t_registry *shell, t_sle *sle)
 {
 	uint64_t		report;
 
 	report = 0;
-	report |= assign_keycodes(&shell->interface);
-	report |= link_keys_functions(shell->interface.actionkeys);
-	report |= set_interface_internals(shell);
-	report |= init_line(&shell->interface);
-	ft_memset(&shell->interface.window, 0, sizeof(t_window));
-	ft_memset(&shell->interface.cursor, 0, sizeof(t_cursor));
-	ft_memset(&shell->interface.prompt, 0, sizeof(t_prompt));
-	report |= init_window(shell);
-	report |= init_cursor(&shell->interface);
-	report |= init_prompt(&shell->interface);
+	report |= assign_keycodes(sle);
+	report |= link_keys_functions(sle->actionkeys);
+	report |= set_sle_internals(shell);
+	report |= init_line(sle);
+	ft_memset(&sle->window, 0, sizeof(t_window));
+	ft_memset(&sle->cursor, 0, sizeof(t_cursor));
+	ft_memset(&sle->prompt, 0, sizeof(t_prompt));
+	report |= init_window(shell, sle);
+	report |= init_cursor(sle);
+	report |= init_prompt(sle);
 	return (report);
 }
 
-static uint64_t				load_interface_modules(t_interface *interface)
+static uint64_t				load_interface_modules(__unused t_sle *sle)
 {
 	uint64_t		report;
 
 	report = 0;
-	(void)interface;
 //	report |= load_history();
 //	report |= load_autocomp();
 	return (report);
 }
 
-uint64_t				sle_setup(t_registry *shell)
+uint64_t				sle_setup(t_registry *shell, t_sle *sle)
 {
 	uint64_t		report;
 
 	report = 0;
-	report |= init_interface(shell);
-	report |= load_interface(shell);
-	report |= load_interface_modules(&shell->interface);
-	sle_error(report);
+	report |= init_sle(shell, sle);
+	report |= load_interface(shell, sle);
+	report |= load_interface_modules(sle);
 	report |= SETUP_DONE;
+	sle_error(report);
 	return (report);
 }

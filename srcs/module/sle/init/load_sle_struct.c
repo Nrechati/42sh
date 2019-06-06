@@ -6,53 +6,46 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 14:35:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:26:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <sys/ioctl.h>
 
-uint64_t    init_window(t_registry *shell)
+uint64_t    init_window(t_registry *shell, t_sle *sle)
 {
     struct winsize	w;
-	t_window		*window;
 
-    window = &shell->interface.window;
     if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
         return (CRITICAL_ERROR | WINDOW_FAIL);
-    window->rows = (w.ws_row <= 0) ? 0 : w.ws_row;
-	window->cols = (w.ws_col <= 0) ? 0 : w.ws_col;
-    window->max_chars = window->rows * window->cols;
-    if (add_nbr_var(&shell->intern, INT_COLS, window->cols, SET_VAR) == FAILURE)
+    sle->window.rows = (w.ws_row <= 0) ? 0 : w.ws_row;
+	sle->window.cols = (w.ws_col <= 0) ? 0 : w.ws_col;
+    sle->window.max_chars = sle->window.rows * sle->window.cols;
+    if (add_nbr_var(&shell->intern, INT_COLS, sle->window.cols, SET_VAR) == FAILURE)
 		return (WINDOW_FAIL | INTERNAL_FAIL);
-	if (add_nbr_var(&shell->intern, INT_ROWS, window->rows, SET_VAR) == FAILURE)
+	if (add_nbr_var(&shell->intern, INT_ROWS, sle->window.rows, SET_VAR) == FAILURE)
 		return (WINDOW_FAIL | INTERNAL_FAIL);
-    if ((window->displayed_line = vct_new(0)) == NULL)
+    if ((sle->window.displayed_line = vct_new(0)) == NULL)
         return (CRITICAL_ERROR | WINDOW_FAIL | VCT_FAIL);
     return (SUCCESS);
 }
 
-uint64_t    init_cursor(t_interface *interface)
+uint64_t    init_cursor(t_sle *sle)
 {
-    t_cursor    *cursor;
-
-    cursor = &interface->cursor;
-    cursor->x = 0;
-    cursor->y = 0;
-    cursor->index = 0;
+    sle->cursor.x = 0;
+    sle->cursor.y = 0;
+    sle->cursor.index = 0;
     return (SUCCESS);
 }
 
-uint64_t    init_prompt(t_interface *interface)
+uint64_t    init_prompt(t_sle *sle)
 {
-    t_prompt    *prompt;
 
-    prompt = &interface->prompt;
-	prompt->length = 0;
-	prompt->state = INT_PS1;
-	prompt->missing_char = NULL;
-    if ((prompt->text = vct_new(0)) == NULL)
+	sle->prompt.length = 0;
+	sle->prompt.state = INT_PS1;
+	sle->prompt.missing_char = NULL;
+    if ((sle->prompt.text = vct_new(0)) == NULL)
         return (PRMPT_FAIL | VCT_FAIL);
     return (SUCCESS);
 }

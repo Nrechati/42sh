@@ -90,6 +90,8 @@ void		io_heredoc_analyzer(t_resolution *resolve)
 
 void		heredoc_analyzer(t_resolution *resolve)
 {
+	t_vector *vector;
+
 	char		*line;
 	char		*delimiter;
 	int			fd[2];
@@ -106,7 +108,10 @@ void		heredoc_analyzer(t_resolution *resolve)
 **	allouer que tu dois free quand ta fini.
 **	Retourne NULL en cas d'erreur ou d'EOF
 */
-	while (invoke_ps3prompt(g_shell) == SUCCESS)
+
+
+	vector = NULL;
+	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
 		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
 			return ;

@@ -12,27 +12,25 @@
 
 #include "sh21.h"
 
-int8_t				ak_cut_selection(t_registry *shell)
+int8_t				ak_cut_selection(t_sle *sle)
 {
 	char			*tmp;
-	t_interface		*itf;
 	uint64_t		start;
 	uint64_t		length;
 
-	itf = &shell->interface;
-	if (itf->visual_mode == FALSE)
+	if (sle->visual_mode == FALSE)
 		return (FAILURE);
-	start = (itf->vis_stop < itf->vis_start) ? itf->vis_stop : itf->vis_start;
-	length = (itf->vis_stop < itf->vis_start)
-			? (itf->vis_start - itf->vis_stop)
-			: (itf->vis_stop - itf->vis_start);
-	vct_reset(itf->clip);
-	tmp = vct_sub(itf->line, start, length + 1);
-	vct_scpy(itf->clip, tmp, ft_strlen(tmp));
+	start = (sle->vis_stop < sle->vis_start) ? sle->vis_stop : sle->vis_start;
+	length = (sle->vis_stop < sle->vis_start)
+			? (sle->vis_start - sle->vis_stop)
+			: (sle->vis_stop - sle->vis_start);
+	vct_reset(sle->clip);
+	tmp = vct_sub(sle->line, start, length + 1);
+	vct_scpy(sle->clip, tmp, ft_strlen(tmp));
 	ft_strdel(&tmp);
-	vct_del_string(itf->line, start, length + 1);
-	ak_exit_visual_mode(shell);
-	set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
-	set_cursor_pos(&shell->interface, start);
+	vct_del_string(sle->line, start, length + 1);
+	ak_exit_visual_mode(sle);
+	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
+	set_cursor_pos(sle, start);
 	return (SUCCESS);
 }

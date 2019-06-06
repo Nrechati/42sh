@@ -6,53 +6,50 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 15:13:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 16:43:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-int8_t	ak_enter_visual_mode(t_registry *shell)
+int8_t	ak_enter_visual_mode(t_sle *sle)
 {
-	shell->interface.visual_mode = TRUE;
-	shell->interface.vis_start = shell->interface.cursor.index;
-	shell->interface.vis_stop = shell->interface.cursor.index;
+	sle->visual_mode = TRUE;
+	sle->vis_start = sle->cursor.index;
+	sle->vis_stop = sle->cursor.index;
 	return (SUCCESS);
 }
 
-int8_t	ak_exit_visual_mode(t_registry *shell)
+int8_t	ak_exit_visual_mode(t_sle *sle)
 {
-	shell->interface.visual_mode = FALSE;
-	set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
-	set_cursor_pos(&shell->interface, shell->interface.cursor.index);
+	sle->visual_mode = FALSE;
+	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
+	set_cursor_pos(sle, sle->cursor.index);
 	return (SUCCESS);
 }
 
-static inline uint8_t visual_bounds_valid(t_interface *itf)
+static inline uint8_t visual_bounds_valid(t_sle *sle)
 {
-	if (itf->vis_start < 0
-		|| itf->vis_stop < 0
-		|| (uint64_t)itf->vis_start > vct_len(itf->line) + 1
-		|| (uint64_t)itf->vis_stop > vct_len(itf->line) + 1)
+	if (sle->vis_start < 0
+		|| sle->vis_stop < 0
+		|| (uint64_t)sle->vis_start > vct_len(sle->line) + 1
+		|| (uint64_t)sle->vis_stop > vct_len(sle->line) + 1)
 		return (FALSE);
 	return (TRUE);
 }
 
-void	redrawmode_visual(__unused t_registry *shell)
+void	redrawmode_visual(t_sle *sle)
 {
-	t_interface *itf;
-
-	if (visual_bounds_valid(&shell->interface) == FALSE)
+	if (visual_bounds_valid(sle) == FALSE)
 		return ;
-	itf = &shell->interface;
-	if (itf->vis_stop < itf->vis_start)
-		set_redraw_bounds(itf, itf->vis_stop, itf->vis_start + 2);
+	if (sle->vis_stop < sle->vis_start)
+		set_redraw_bounds(sle, sle->vis_stop, sle->vis_start + 2);
 	else
-		set_redraw_bounds(itf, itf->vis_start, itf->vis_stop + 2);
+		set_redraw_bounds(sle, sle->vis_start, sle->vis_stop + 2);
 
-	redrawmode_line(shell);
-	tputs(shell->interface.termcaps.standout_on, 1, &ft_putc);
-	redrawmode_fptp(shell);
-	tputs(shell->interface.termcaps.standout_off, 1, &ft_putc);
+	redrawmode_line(sle);
+	tputs(sle->termcaps.standout_on, 1, &ft_putc);
+	redrawmode_fptp(sle);
+	tputs(sle->termcaps.standout_off, 1, &ft_putc);
 }

@@ -13,28 +13,26 @@
 #include "sh21.h"
 #include <sys/ioctl.h>
 
-uint64_t	update_winsize(t_registry *shell)
+uint64_t	update_winsize(t_registry *shell, t_sle *sle)
 {
 	struct winsize w;
-	t_window		*win;
 
-    win = &shell->interface.window;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
         return (CRITICAL_ERROR | WINDOW_FAIL);
-	win->rows = (w.ws_row <= 0) ? 0 : w.ws_row;
-	win->cols = (w.ws_col <= 0) ? 0 : w.ws_col;
-    win->max_chars = win->rows * win->cols;
-    if (add_nbr_var(&shell->intern, INT_COLS, win->cols, SET_VAR) == FAILURE)
+	sle->window.rows = (w.ws_row <= 0) ? 0 : w.ws_row;
+	sle->window.cols = (w.ws_col <= 0) ? 0 : w.ws_col;
+    sle->window.max_chars = sle->window.rows * sle->window.cols;
+    if (add_nbr_var(&shell->intern, INT_COLS, sle->window.cols, SET_VAR) == FAILURE)
 		return (WINDOW_FAIL | INTERNAL_FAIL);
-	if (add_nbr_var(&shell->intern, INT_ROWS, win->rows, SET_VAR) == FAILURE)
+	if (add_nbr_var(&shell->intern, INT_ROWS, sle->window.rows, SET_VAR) == FAILURE)
 		return (WINDOW_FAIL | INTERNAL_FAIL);
 	return (SUCCESS);
 }
 
-void	update_window(t_registry *shell)
+void	update_window(t_registry *shell, t_sle *sle)
 {
-	update_winsize(shell);
-	shell->interface.cursor.x = 0;
-	shell->interface.cursor.y = 0;
-	shell->interface.cursor.index = 0;
+	update_winsize(shell, sle);
+	sle->cursor.x = 0;
+	sle->cursor.y = 0;
+	sle->cursor.index = 0;
 }

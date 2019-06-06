@@ -181,7 +181,7 @@ typedef struct			s_window
 	t_vector			*displayed_line;
 }						t_window;
 
-typedef struct			s_interface
+typedef struct			s_sle
 {
 	struct termios		*term_mode;
 	struct termios		*orig_mode;
@@ -190,7 +190,7 @@ typedef struct			s_interface
 	t_prompt			prompt;
 	t_cursor			cursor;
 	uint64_t			ak_masks[AK_AMOUNT];
-	int8_t				(*actionkeys[AK_AMOUNT])(struct s_registry *shell);
+	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
 	t_vector			*line;
 	t_vector			*sub_line;
 
@@ -200,7 +200,7 @@ typedef struct			s_interface
 	int64_t				vis_stop;
 
 	t_vector			*clip;
-}						t_interface;
+}						t_sle;
 
 /*
 *****************************************************
@@ -245,7 +245,6 @@ struct					s_registry
 	t_fd				cur_fd;
 	uint8_t				analyzer_signal;
 
-	struct s_interface	interface;		// Think to modularize
 	t_list				*current_job;	// Think to modularize
 };
 

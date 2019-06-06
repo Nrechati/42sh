@@ -13,7 +13,7 @@
 
 #include "sh21.h"
 
-static void	sle_destroy(__unused t_registry *shell)
+static void	sle_destroy(__unused t_sle *sle)
 {
 //	unload_autocomp();
 //	unload_history();
@@ -39,7 +39,7 @@ static void	sle_destroy(__unused t_registry *shell)
 	t_history	*del;
 	t_history	*ptr;
 
-	ptr = itf->history_head;
+	ptr = sle->history_head;
 	while (ptr != NULL)
 	{
 		ft_strdel(&(ptr->command));
@@ -48,21 +48,21 @@ static void	sle_destroy(__unused t_registry *shell)
 		ptr = del;
 	}
 
-	ft_strdel(&(itf->current_line));
-	ft_strdel(&(itf->clip->buffer));
-	ft_strdel(&(itf->line->buffer));
-	ft_free(itf->clip);
-	ft_free(itf->line);
+	ft_strdel(&(sle->current_line));
+	ft_strdel(&(sle->clip->buffer));
+	ft_strdel(&(sle->line->buffer));
+	ft_free(sle->clip);
+	ft_free(sle->line);
 
-	ft_strdel(&(itf->termcaps.clear));
-	ft_strdel(&(itf->termcaps.cs_down));
-	ft_strdel(&(itf->termcaps.cs_up));
-	ft_strdel(&(itf->termcaps.cs_right));
-	ft_strdel(&(itf->termcaps.cs_left));*/
+	ft_strdel(&(sle->termcaps.clear));
+	ft_strdel(&(sle->termcaps.cs_down));
+	ft_strdel(&(sle->termcaps.cs_up));
+	ft_strdel(&(sle->termcaps.cs_right));
+	ft_strdel(&(sle->termcaps.cs_left));*/
 }
 
-void	sle_teardown(t_registry *shell)
+void	sle_teardown(t_sle *sle)
 {
-	unset_term_mode(shell);
-	sle_destroy(shell);
+	unset_term_mode(sle);
+	sle_destroy(sle);
 }

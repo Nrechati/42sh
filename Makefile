@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/04 18:42:18 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/06 16:17:33 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -198,6 +198,7 @@ CORE += interactive_mode.c
 
 #Routine
 CORE += routine.c
+CORE += exit_routine.c
 
 #Signals
 CORE += exec_signals.c

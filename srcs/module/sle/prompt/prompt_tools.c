@@ -17,7 +17,7 @@ uint64_t	get_prompt_length(t_prompt *prompt)
 	return (prompt->length);
 }
 
-void	expand_prompt(t_registry *shell, t_vector *text)
+void	expand_prompt(t_registry *shell, t_sle *sle, t_vector *text)
 {
 	int64_t	length;
 	int64_t	index;
@@ -38,9 +38,9 @@ void	expand_prompt(t_registry *shell, t_vector *text)
 		else if (vct_charat(text, index) == P_CWD)
 			p_insert_cwd(shell, text, index - 1);
 		else if (vct_charat(text, index) == P_HOST)
-			p_insert_host(shell, text, index - 1);
+			p_insert_host(text, index - 1);
 		else if (vct_charat(text, index) == P_MISS)
-			p_insert_missing(shell, text, index - 1);
+			p_insert_missing(sle, text, index - 1);
 	}
 }
 
@@ -50,19 +50,19 @@ void			prompt_mode(t_prompt *prompt, char *state, char *missing)
 	prompt->missing_char = missing;
 }
 
-inline void		print_prompt(t_registry *shell, char *state)
+inline void		print_prompt(t_registry *shell, t_sle *sle)
 {
 	t_vector	*ptext;
 
 	ptext = NULL;
-	ptext = vct_dups(get_var(shell->intern, state));
+	ptext = vct_dups(get_var(shell->intern, sle->prompt.state));
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
-		expand_prompt(shell, ptext);
+		expand_prompt(shell, sle, ptext);
 
-	shell->interface.prompt.text = ptext;
-	print_prompt_to_window(&shell->interface, ptext);
+	sle->prompt.text = ptext;
+	print_prompt_to_window(sle, ptext);
 	ft_strdel(&ptext->buffer);
 	free(ptext);
 }

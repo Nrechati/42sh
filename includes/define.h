@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 14:35:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 19:23:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,9 +222,22 @@
 
 /*
 *****************************************************
-**************** INTERFACE_FUNCTIONS ****************
+************************ SLE ************************
 *****************************************************
 */
+
+# define PROMPT_PIPE	"pipe"
+# define PROMPT_QUOTE	"quote"
+# define PROMPT_DQUOTE	"dquote"
+# define PROMPT_BQUOTE	"bquote"
+# define PROMPT_NL		"nl"
+# define PROMPT_AND		"and"
+# define PROMPT_OR		"or"
+
+# define SLE_GET_INPUT  0x100
+# define SLE_PS2_PROMPT 0x200
+# define SLE_PS3_PROMPT 0x400
+# define SLE_EXIT       0x800
 
 # define RD_NONE        0x001 /* No redraw at all*/
 # define RD_CLEAR       0x002 /* Redraw th entire window*/

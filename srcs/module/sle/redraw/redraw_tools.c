@@ -13,35 +13,35 @@
 #include "sh21.h"
 # include <termcap.h>
 
-void		index_to_coord(t_interface *itf, uint64_t index, t_coord *co)
+void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
 {
-	if (itf->window.cols == 0)
+	if (sle->window.cols == 0)
 		return ;
-	if (index > vct_len(itf->line)
-				+ get_prompt_length(&itf->prompt) + 1)
-		index = vct_len(itf->line)
-				+ get_prompt_length(&itf->prompt);
-	co->x = (index % itf->window.cols);
-	co->y = (index / itf->window.cols);
+	if (index > vct_len(sle->line)
+				+ get_prompt_length(&sle->prompt) + 1)
+		index = vct_len(sle->line)
+				+ get_prompt_length(&sle->prompt);
+	co->x = (index % sle->window.cols);
+	co->y = (index / sle->window.cols);
 }
 
-void		print_char(t_interface *itf, char c)
+void		print_char(t_sle *sle, char c)
 {
 	write(1, &c, 1);
-	itf->cursor.x++;
-	itf->cursor.index++;
-	if (itf->cursor.x == itf->window.cols)
+	sle->cursor.x++;
+	sle->cursor.index++;
+	if (sle->cursor.x == sle->window.cols)
 	{
-		tputs(itf->termcaps.down, 2, &ft_putc);
-		itf->cursor.y++;
-		itf->cursor.x = 0;
+		tputs(sle->termcaps.down, 2, &ft_putc);
+		sle->cursor.y++;
+		sle->cursor.x = 0;
 	}
 }
 
-void		print_loop(t_interface *itf, char *str)
+void		print_loop(t_sle *sle, char *str)
 {
 	while (*str != '\0')
-		print_char(itf, *str++);
+		print_char(sle, *str++);
 }
 
 uint32_t	write_esc_sequence(char *str, uint32_t index)
@@ -71,7 +71,7 @@ uint32_t	write_esc_sequence(char *str, uint32_t index)
 	return (length + 1);
 }
 
-void	print_prompt_to_window(t_interface *itf, t_vector *text)
+void	print_prompt_to_window(t_sle *sle, t_vector *text)
 {
 	uint32_t	index;
 	char		*str;
@@ -85,14 +85,14 @@ void	print_prompt_to_window(t_interface *itf, t_vector *text)
 
 		write(1, &str[index], 1);
 		++index;
-		itf->cursor.x++;
+		sle->cursor.x++;
 
-		if (itf->cursor.x == itf->window.cols)
+		if (sle->cursor.x == sle->window.cols)
 		{
-			itf->cursor.y++;
-			itf->cursor.x = 0;
+			sle->cursor.y++;
+			sle->cursor.x = 0;
 		}
 	}
-	itf->prompt.length = (itf->cursor.y * itf->window.cols)
-			+ itf->cursor.x;
+	sle->prompt.length = (sle->cursor.y * sle->window.cols)
+			+ sle->cursor.x;
 }

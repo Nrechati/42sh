@@ -6,17 +6,17 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 11:17:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/06 16:19:06 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		p_insert_missing(t_registry *shell, t_vector *text, uint64_t index)
+void		p_insert_missing(t_sle *sle, t_vector *text, uint64_t index)
 {
-	if (shell->interface.prompt.missing_char != NULL)
+	if (sle->prompt.missing_char != NULL)
 		vct_replace_string(text, index, index + 2,
-						shell->interface.prompt.missing_char);
+						sle->prompt.missing_char);
 }
 
 void		p_insert_name(t_vector *text, uint64_t index)
@@ -55,9 +55,7 @@ void		p_insert_cwd(t_registry *shell, t_vector *text, uint64_t index)
 	ft_strdel(&cwd);
 }
 
-void		p_insert_host(__unused t_registry *shell,
-				t_vector *text,
-				uint64_t index)
+void		p_insert_host(t_vector *text, uint64_t index)
 {
 	char	*host;
 	char	*hostname;

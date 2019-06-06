@@ -14,10 +14,8 @@
 
 void			interface_resize_handler(__unused const int signo)
 {
-	t_interface		*itf;
-
-	itf = &g_shell->interface;
-	update_window(g_shell);
-	set_redraw_flags(itf, RD_CLEAR | RD_CEND);
-	redraw(g_shell);
+//	sle = &g_shell->interface;
+//	update_window(g_shell);
+//	set_redraw_flags(sle, RD_CLEAR | RD_CEND);
+//	redraw(g_shell);
 }

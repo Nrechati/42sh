@@ -12,35 +12,35 @@
 
 #include "sh21.h"
 
-static void		handle_printable_char(t_registry *shell, const char c)
+static void		handle_printable_char(t_sle *sle, const char c)
 {
 	t_vector *line;
 	t_cursor *cursor;
 
-	line = shell->interface.line;
-	cursor = &shell->interface.cursor;
+	line = sle->line;
+	cursor = &sle->cursor;
 	if (cursor->index == 0)
 	{
 		vct_push(line, c);
-		set_redraw_flags(&shell->interface, RD_LINE | RD_CMOVE);
-		set_cursor_pos(&shell->interface, 1);
+		set_redraw_flags(sle, RD_LINE | RD_CMOVE);
+		set_cursor_pos(sle, 1);
 	}
 	else if (cursor->index == vct_len(line))
 	{
 		vct_add(line, c);
-		set_redraw_flags(&shell->interface, RD_LAST | RD_CEND);
+		set_redraw_flags(sle, RD_LAST | RD_CEND);
 	}
 	else
 	{
 		vct_insert_char(line, c, cursor->index);
-		set_redraw_flags(&shell->interface, RD_FPTP | RD_CMOVE);
-		set_redraw_bounds(&shell->interface, cursor->index,
-						vct_len(shell->interface.line) + 1);
-		set_cursor_pos(&shell->interface, cursor->index + 1);
+		set_redraw_flags(sle, RD_FPTP | RD_CMOVE);
+		set_redraw_bounds(sle, cursor->index,
+						vct_len(sle->line) + 1);
+		set_cursor_pos(sle, cursor->index + 1);
 	}
 }
 
-static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
+static void		handle_actionkey(t_sle *sle, char c[READ_SIZE])
 {
 	uint32_t	index;
 	uint64_t	value;
@@ -49,16 +49,16 @@ static void		handle_actionkey(t_registry *shell, char c[READ_SIZE])
 	value = compute_mask(c);
 	while (index < AK_AMOUNT)
 	{
-		if (value == shell->interface.ak_masks[index])
-			shell->interface.actionkeys[index](shell);
+		if (value == sle->ak_masks[index])
+			sle->actionkeys[index](sle);
 		++index;
 	}
 }
 
-void			handle_input_key(t_registry *shell, char c[READ_SIZE])
+void			handle_input_key(t_sle *sle, char c[READ_SIZE])
 {
 	if (is_printable(c) == TRUE)
-		handle_printable_char(shell, c[0]);
+		handle_printable_char(sle, c[0]);
 	else
-		handle_actionkey(shell, c);
+		handle_actionkey(sle, c);
 }

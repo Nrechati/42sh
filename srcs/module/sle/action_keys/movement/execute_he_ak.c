@@ -12,33 +12,33 @@
 
 #include "sh21.h"
 
-int8_t	ak_home(t_registry *shell)
+int8_t	ak_home(t_sle *sle)
 {
 	int64_t	x;
 
-	set_redraw_flags(&shell->interface, RD_NONE | RD_CHOME);
-	set_cursor_pos(&shell->interface, 0);
-	if (shell->interface.visual_mode == TRUE)
+	set_redraw_flags(sle, RD_NONE | RD_CHOME);
+	set_cursor_pos(sle, 0);
+	if (sle->visual_mode == TRUE)
 	{
 		x = 0;
-		while ((shell->interface.cursor.index + x) >= 1)
-			shell->interface.vis_stop = (shell->interface.cursor.index + --x);
+		while ((sle->cursor.index + x) >= 1)
+			sle->vis_stop = (sle->cursor.index + --x);
 	}
 	return (SUCCESS);
 }
 
-int8_t	ak_end(t_registry *shell)
+int8_t	ak_end(t_sle *sle)
 {
 	int64_t x;
 
-	set_redraw_flags(&shell->interface, RD_NONE | RD_CEND);
-	set_cursor_pos(&shell->interface, vct_len(shell->interface.line));
-	if (shell->interface.visual_mode == TRUE)
+	set_redraw_flags(sle, RD_NONE | RD_CEND);
+	set_cursor_pos(sle, vct_len(sle->line));
+	if (sle->visual_mode == TRUE)
 	{
 		x = 0;
-		while ((shell->interface.cursor.index + x)
-					< vct_len(shell->interface.line))
-			shell->interface.vis_stop = (shell->interface.cursor.index + ++x);
+		while ((sle->cursor.index + x)
+					< vct_len(sle->line))
+			sle->vis_stop = (sle->cursor.index + ++x);
 	}
 	return (SUCCESS);
 }
