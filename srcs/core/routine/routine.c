@@ -6,41 +6,41 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 14:03:39 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:58:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static t_resolution	init_resolve(t_registry *shell, t_list *token_list)
+static t_resolution	init_resolve(t_registry *shell, t_list *tokens)
 {
 	t_resolution	resolve;
 
 	shell->analyzer_signal = FALSE;
 	define_analyzer_signals();
 	ft_bzero(&resolve, sizeof(t_resolution));
-	resolve.token_list = token_list;
+	resolve.tokens = tokens;
 	resolve.token.type = E_DEFAULT;
 	return (resolve);
 }
 
-int8_t				execution_pipeline(t_registry *shell, t_list *token_list)
+int8_t				execution_pipeline(t_registry *shell, t_list *tokens)
 {
+	t_list			*cmd_group;
 	t_resolution	resolve;
 
-	resolve = init_resolve(shell, token_list);
-	while (resolve.token_list)
+	resolve = init_resolve(shell, tokens);
+	while (resolve.tokens)
 	{
-		if (parser(resolve.token_list) == FAILURE)
+		if (parser(resolve.tokens) == FAILURE)
 		{
-			ft_lstdel(&resolve.token_list, del_token);
+			ft_lstdel(&resolve.tokens, del_token);
 			return (FAILURE);
 		}
-		shell->current_job = analyzer(&resolve);
-		lexer_print_debug(shell, resolve.token_list);
-		if (resolve.valid == 1)
-			launch_job(shell, resolve.job_list);
+		cmd_group = analyzer(&resolve);
+		//CALL INTERPRETER
+		lexer_print_debug(shell, resolve.tokens);
 	}
 	define_ign_signals();
 	return (SUCCESS);
