@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/04 14:09:34 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/06 12:44:16 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ LIBFTDB = libftdb.a
 SRCS += $(CORE)
 SRCS += $(LINE)
 SRCS += $(ANALYZER)
+SRCS += $(INTERPRETER)
 SRCS += $(BUILTIN)
 SRCS += $(EXPANSION)
 SRCS += $(LEXER)
@@ -101,6 +102,10 @@ P_LINE += module/interface/utils/
 P_ANALYZER += module/analyzer/
 P_ANALYZER += module/analyzer/init/
 P_ANALYZER += module/analyzer/state/
+
+P_ANALYZER += module/interpreter/
+P_ANALYZER += module/init/
+P_ANALYZER += module/tools/
 
 P_BUILTIN += module/builtin/
 P_BUILTIN += module/builtin/cd/
@@ -317,6 +322,10 @@ ANALYZER += io_redirect_analyzer.c
 ANALYZER += pipe_analyzer.c
 ANALYZER += redirect_analyzer.c
 ANALYZER += string_analyzer.c
+
+#			 		      - - - - - Interpreter - - - - -                         #
+
+INTERPRETER += interpreter.c
 
 #						   - - - - Expansion - - - -                           #
 
