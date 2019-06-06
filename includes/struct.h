@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/05 16:43:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:37:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ typedef	struct			s_command
 {
 	t_list				*av;
 	t_list				*actions;
-	uint8_t				cmd_type;
 }						t_command;
 
 typedef struct			s_process
@@ -105,6 +104,7 @@ typedef struct			s_process
 	char				**av;
 	t_list				*env;
 	t_list				*redirects;
+	uint8_t				process_type;
 	uint8_t				completed;
 	uint8_t				stopped;
 	pid_t				pid;
