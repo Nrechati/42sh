@@ -6,12 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:26:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
+/*
 static char	*variable_replace(t_list *lst, char *str)
 {
 	char		*expanded;
@@ -46,12 +46,13 @@ static char	*variable_concat(t_list *lst, char **str, int i)
 	ft_strdel(str);
 	return (holder);
 }
-
+*/
 static int	check_expansion(t_resolution *resolve, char **str,
 							int i, t_quote quote)
 {
 	int		check;
 
+	(void)resolve;
 	check = 0;
 	if ((*str)[i] == '$' && (*str)[i + 1] != '\0')
 	{
@@ -59,7 +60,7 @@ static int	check_expansion(t_resolution *resolve, char **str,
 			check = 0;
 		else if (quote != QUOTE_SINGLE)
 		{
-			*str = variable_concat(resolve->env, str, i);
+			//*str = variable_concat(resolve->env, str, i);
 			check = 1;
 		}
 	}

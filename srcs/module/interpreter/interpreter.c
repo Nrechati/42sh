@@ -6,21 +6,18 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/06 17:47:57 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:51:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t run_job(t_registry *shell, t_list *cmd_group)
-{
-}
-
-int8_t interpreter(t_registry *shell, t_list *cmd_group)
+int8_t interpreter(t_registry *shell, t_list **cmd_group)
 {
 	t_list *job_lst;
 
-	job_lst = ft_lstmap(cmd_group, group_to_job, NULL); //CALLBACK DEL
+	(void)shell;
+	job_lst = ft_lstmap(*cmd_group, group_to_job, del_group); //CALLBACK DEL
 
 	//LSTDEL CMD_GROUP
 	//LSTDEL command_av

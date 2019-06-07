@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 13:36:53 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:25:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
-
+/*
 static char	*user_home(const char *str)
 {
 	char	*path;
@@ -26,13 +26,15 @@ static char	*user_home(const char *str)
 	}
 	return (path);
 }
-
+*/
 static char	*tilde_expansion(t_resolution *resolve, const char *str)
 {
 	char	*expanded;
 
+	(void)resolve;
+	(void)str;
 	expanded = NULL;
-	if (ft_strequ(str, "~") == TRUE)
+/*	if (ft_strequ(str, "~") == TRUE)
 		expanded = ft_strdup(get_var(resolve->env, "HOME"));
 	else if (ft_strequ(str, "~+") == TRUE)
 		expanded = ft_strdup(get_var(resolve->env, "PWD"));
@@ -47,7 +49,7 @@ static char	*tilde_expansion(t_resolution *resolve, const char *str)
 	{
 		ft_dprintf(2, "21sh: No such user or directory\n");
 		error_analyzer(resolve);
-	}
+	}*/
 	return (expanded);
 }
 
