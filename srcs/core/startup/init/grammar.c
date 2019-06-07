@@ -12,9 +12,11 @@
 
 #include "sh21.h"
 
-void		generate_grammar(t_registry *shell)
+const char	**g_grammar;
+
+void		generate_grammar(void)
 {
-	static const char	*grammar[] = { N_DB_QUOTE, N_PIPE,
+	static const char	*grammar[NB_OF_TOKENS] = { N_DB_QUOTE, N_PIPE,
 			N_PARENT_OPEN, N_PARENT_CLOSE, N_GREAT, N_LESS, N_SEMICOLON,
 			N_BACKQUOTE, N_AND, N_HOOK_OPEN, N_HOOK_CLOSE, N_BRACKET_OPEN,
 			N_BRACKET_CLOSE, N_HASH, N_PERCENT, N_NEWLINE, N_DAND, N_OR,
@@ -24,5 +26,5 @@ void		generate_grammar(t_registry *shell)
 			N_IF, N_IN, N_THEN, N_UNTIL, N_WHILE, N_IO_NUMBER, N_ASSIGN,
 			N_STRING, N_SPSTRING, N_END, N_ERROR, N_START};
 
-	shell->grammar = grammar;
+	g_grammar = grammar;
 }

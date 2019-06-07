@@ -21,7 +21,7 @@ void		parser_subprompt(t_list **lst);
 *************** INIT
 */
 
-t_graph		*generate_graph(void);
+t_parser	*init_parser(void);
 void		set_start_token(t_graph *tab_tokens);
 void		set_word_token(t_graph *tab_tokens);
 void		set_redirect_token(t_graph *tab_tokens);

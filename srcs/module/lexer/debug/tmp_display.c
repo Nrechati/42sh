@@ -18,5 +18,5 @@ void		print_token(void *data)
 
 	token = data;
 	ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, g_shell->grammar[token->type], token->data);
+				token->type, g_grammar[token->type], token->data);
 }

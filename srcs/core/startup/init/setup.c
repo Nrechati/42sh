@@ -72,13 +72,13 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 		ft_flush_memory();
 		exit(0);
 	}
-	generate_grammar(shell);
 	get_env(&shell->intern, env);
 	shell->hash.bin = ft_hmap_init(HMAP_BIN_SIZE);
 	shell->hash.blt = ft_hmap_init(HMAP_BLT_SIZE);
-	shell->cur_fd.in = 0;
-	shell->cur_fd.out = 1;
-	shell->cur_fd.err = 2;
+	generate_grammar();	//TEMP
+	shell->cur_fd.in = 0;	//TEMP	
+	shell->cur_fd.out = 1;	//TEMP
+	shell->cur_fd.err = 2;	//TEMP
 	if (set_shlvl(shell) == FAILURE)
 		return (FAILURE);
 	return (hash_blt(shell, NULL));

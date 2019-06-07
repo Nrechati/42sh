@@ -332,7 +332,7 @@ LEXER += states.c
 
 PARSER += parser.c
 PARSER += parser_subprompt.c
-PARSER += generate_graph.c
+PARSER += init_parser.c
 PARSER += ways_graph.c
 PARSER += ways_graph_word.c
 

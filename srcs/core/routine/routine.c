@@ -40,7 +40,6 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 			return (FAILURE);
 		}
 		shell->current_job = analyzer(&resolve);
-		lexer_print_debug(shell, resolve.token_list);
 		if (resolve.valid == 1)
 			launch_job(shell, resolve.job_list);
 	}

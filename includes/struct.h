@@ -15,6 +15,55 @@
 
 /*
 *****************************************************
+********************** COMMON ***********************
+*****************************************************
+*/
+
+extern const char		**g_grammar; // TEMP
+
+typedef uint16_t		t_option;
+
+typedef struct			s_opt
+{
+	char				*command_str;
+	t_option			option;
+}						t_opt;
+
+typedef struct			s_variable
+{
+	char				*name;
+	char				*data;
+	t_option			flag;
+}						t_variable;
+
+typedef struct			s_fd
+{
+	int					in;
+	int					out;
+	int					err;
+}						t_fd;
+
+typedef	struct			s_hashmap
+{
+	t_hash				bin;
+	t_hash				blt;
+}						t_hashmap;
+
+typedef struct			s_registry
+{
+	t_list				*intern;
+	t_opt				option;
+	t_hashmap			hash;
+
+	t_fd				cur_fd;				// Out
+	uint8_t				analyzer_signal;	// Out
+	t_list				*current_job;		// Out
+}						t_registry;
+
+extern t_registry		*g_shell;
+
+/*
+*****************************************************
 *********************** LEXER ***********************
 *****************************************************
 */
@@ -59,6 +108,13 @@ typedef struct			s_graph
 {
 	enum e_type			*good_type;
 }						t_graph;
+
+typedef struct		s_parser
+{
+	t_graph			*graph;
+	const char		**grammar;			
+}					t_parser;
+
 
 /*
 *****************************************************
@@ -132,8 +188,6 @@ typedef struct			s_history
 ************************ SLE ************************
 *****************************************************
 */
-
-typedef struct s_registry	t_registry;
 
 typedef struct			s_coord
 {
@@ -216,53 +270,13 @@ typedef struct			s_sle
 
 /*
 *****************************************************
-********************** COMMON ***********************
+********************** BUILTIN **********************
 *****************************************************
 */
 
-typedef uint16_t		t_option;
-
-typedef struct			s_opt
-{
-	char				*command_str;
-	t_option			option;
-}						t_opt;
-
-typedef struct			s_variable
-{
-	char				*name;
-	char				*data;
-	t_option			flag;
-}						t_variable;
-
-typedef struct			s_fd
-{
-	int					in;
-	int					out;
-	int					err;
-}						t_fd;
-
-typedef	struct			s_hashmap
-{
-	t_hash				bin;
-	t_hash				blt;
-}						t_hashmap;
-
-struct					s_registry
-{
-	const char			**grammar;
-	t_list				*intern;
-	t_opt				option;
-	t_hashmap			hash;
-	t_fd				cur_fd;
-	uint8_t				analyzer_signal;
-
-	t_list				*current_job;	// Think to modularize
-};
 
 typedef int				(*t_builtin) (t_registry *, char **);
-
-extern t_registry		*g_shell;
+typedef t_option		(*t_get_option)(char *s, t_option option);
 
 /*
 *****************************************************
@@ -271,13 +285,5 @@ extern t_registry		*g_shell;
 */
 
 extern t_list			*g_job_head;
-
-/*
-*****************************************************
-********************** BUILTIN **********************
-*****************************************************
-*/
-
-typedef t_option		(*t_get_option)(char *s, t_option option);
 
 #endif
