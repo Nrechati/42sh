@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/07 15:20:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/07 16:13:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,14 @@ void	run_process(void *context, void *data)
 	return;
 }
 
+void	expand_process(void *data)
+{
+	t_process *process;
+
+	process = data;
+
+}
+
 void	run_job(void *context, void *data)
 {
 	t_registry	*shell;
@@ -174,6 +182,3 @@ int8_t interpreter(t_registry *shell, t_list **cmd_group)
 	ft_lstiter_ctx(job_lst, shell, run_job);
 	return (SUCCESS);
 }
-
-
-

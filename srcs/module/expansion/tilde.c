@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 18:25:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/07 16:02:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
-/*
+
 static char	*user_home(const char *str)
 {
 	char	*path;
@@ -26,34 +26,33 @@ static char	*user_home(const char *str)
 	}
 	return (path);
 }
-*/
-static char	*tilde_expansion(t_resolution *resolve, const char *str)
+
+
+static char	*tilde_expansion(t_list *intern_var, const char *str)
 {
 	char	*expanded;
 
-	(void)resolve;
-	(void)str;
 	expanded = NULL;
-/*	if (ft_strequ(str, "~") == TRUE)
-		expanded = ft_strdup(get_var(resolve->env, "HOME"));
+	if (ft_strequ(str, "~") == TRUE)
+		expanded = ft_strdup(get_var(intern_var, "HOME"));
 	else if (ft_strequ(str, "~+") == TRUE)
-		expanded = ft_strdup(get_var(resolve->env, "PWD"));
+		expanded = ft_strdup(get_var(intern_var, "PWD"));
 	else if (ft_strequ(str, "~-") == TRUE)
 	{
-		if ((expanded = get_var(resolve->env, "OLDPWD")) != NULL)
+		if ((expanded = get_var(intern_var, "OLDPWD")) != NULL)
 			return (ft_strdup(expanded));
 		ft_dprintf(2, "21sh: OLDPWD is not set\n");
-		error_analyzer(resolve);
+		return (NULL);
 	}
 	else if ((expanded = user_home(str + 1)) == NULL)
 	{
 		ft_dprintf(2, "21sh: No such user or directory\n");
-		error_analyzer(resolve);
-	}*/
+		return (NULL);
+	}
 	return (expanded);
 }
 
-char		*tilde(t_resolution *resolve, char *str)
+char		*tilde(t_list *intern_var, char *str)
 {
 	char		*expanded;
 	char		*holder;
@@ -67,7 +66,7 @@ char		*tilde(t_resolution *resolve, char *str)
 	{
 		i = ft_strcspn(str, "/");
 		str[i] = character_swap(str[i]);
-		expanded = tilde_expansion(resolve, str);
+		expanded = tilde_expansion(intern_var, str);
 		str[i] = character_swap('\0');
 		ft_asprintf(&holder, "%s%s", expanded, str + i);
 		ft_strdel(&expanded);
