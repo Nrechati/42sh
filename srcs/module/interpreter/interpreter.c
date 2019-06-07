@@ -6,11 +6,16 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/06 17:47:57 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/07 09:53:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+int8_t	set_job_process_type(t_list *job_lst)
+{
+
+}
 
 int8_t run_job(t_registry *shell, t_list *cmd_group)
 {
@@ -30,6 +35,7 @@ int8_t interpreter(t_registry *shell, t_list *cmd_group)
 	//CALL	EXPAND AV
 	//CALL	EXPAND REDIRECT
 	//SET	JOBTYPE
+
 
 	//OPEN & PIPE
 	/*	RUN		JOB

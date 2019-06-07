@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/05 15:04:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/07 09:41:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	flush_string(t_resolution *resolve)
 	{
 		token = ft_stckpop(&resolve->stack);
 		new_node = ft_lstnew(token, sizeof(t_token));
-		ft_lstadd(&new_action.av, new_node);
+		ft_lstadd(&new_action.data, new_node);
 	}
 	ft_stckpush(&resolve->tree_node, &new_action, sizeof(t_action));
 	return ;

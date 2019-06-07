@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/06 17:47:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/07 09:59:56 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,22 @@ void		*token_to_var(void *data)
 	data_token = ptr->next->data;
 	ft_bzero(&var, sizeof(t_variable));
 	var.flag = EXPORT_VAR;
-	var.name = name_token->data;
-	var.data = data_token->data;
+	var.name = ft_strdup(name_token->data);
+	var.data = ft_strdup(data_token->data);
 	node = ft_lstnew(&var, sizeof(t_variable));
 	return (node);
 }
 
 char		*token_to_str(void *data)
 {
+	char		*str;
 	t_token		*token;
 
 	token = data;
-	return (token->data);
+	str = ft_strdup(token->data);
+	if (str == NULL)
+		return (NULL);
+	return (str);
 }
 
 void		*actions_to_redirects(void *data)
@@ -83,7 +87,7 @@ void		*group_to_job(void *data)
 	group = data;
 	ft_bzero(&job, sizeof(t_job));
 	job.job_type = group->group_type;
-	job.processes = ft_lstmap(group->command_list, cmd_to_process);
+	job.processes = ft_lstmap(group->command_list, cmd_to_process, NULL); //CALLBACK DEL
 	node = ft_lstnew(&job, sizeof(t_job));
 	return (node);
 }
