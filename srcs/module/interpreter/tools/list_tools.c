@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/06 18:06:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/07 10:08:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		del_action(void *data)
 	t_action 	*action;
 
 	action = data;
-	ft_lstdel(&action->data, NULL);		//Leak probable;
+	ft_lstdel(&action->data, del_token);		//Leak probable;
 
 }
 void		del_command(void *data)
