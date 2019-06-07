@@ -23,7 +23,7 @@ void	single_quote_machine(t_lexer *machine)
 		machine->state = L_STRING;
 	if (*machine->input->buffer != '\0')
 	{
-		create_token_data(machine);
+		vct_add(machine->buffer, *machine->input->buffer);
 		vct_cut(machine->input);
 	}
 	else
@@ -41,7 +41,7 @@ void	double_quote_machine(t_lexer *machine)
 		machine->state = L_STRING;
 	if (*machine->input->buffer != '\0')
 	{
-		create_token_data(machine);
+		vct_add(machine->buffer, *machine->input->buffer);
 		vct_cut(machine->input);
 	}
 	else

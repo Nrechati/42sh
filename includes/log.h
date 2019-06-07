@@ -17,6 +17,5 @@ void	log_print(t_registry *reg, const char *importance,
 						const char *message, ...);
 void	init_debug_logger(t_registry *reg);
 void	analyzer_print_debug(t_registry *shell, t_resolution *parse);
-void	lexer_print_debug(t_registry *shell, t_list *token_list);
 
 #endif

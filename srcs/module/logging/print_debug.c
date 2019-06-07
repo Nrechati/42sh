@@ -48,13 +48,3 @@ void		analyzer_print_debug(t_registry *shell, t_resolution *resolve)
 		ft_putendl("------------------------------------\033[0m\n");
 	}
 }
-
-void		lexer_print_debug(t_registry *shell, t_list *token_list)
-{
-	if (token_list != NULL && (shell->option.option & DEBUG_OPT) != FALSE)
-	{
-		ft_putendl("\n\033[34m-------------- LEXER ---------------");
-		ft_lstiter(token_list, print_token);
-		ft_putendl("------------------------------------\033[0m");
-	}
-}

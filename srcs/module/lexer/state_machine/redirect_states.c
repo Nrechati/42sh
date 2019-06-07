@@ -37,7 +37,7 @@ void	lesser_machine(t_lexer *machine)
 			&& (machine->last_lexer != E_DLESS))
 	{
 		machine->last_lexer = E_DLESS;
-		create_token_data(machine);
+		vct_add(machine->buffer, *machine->input->buffer);
 		vct_cut(machine->input);
 		return ;
 	}

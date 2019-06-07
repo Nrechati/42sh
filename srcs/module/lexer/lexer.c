@@ -13,11 +13,31 @@
 #include "sh21.h"
 #include <stdlib.h>
 
-int				create_token_data(t_lexer *machine)
+static int8_t		pre_process(t_lexer *machine)
 {
-	//// ARG MAX ?
-	vct_add(machine->buffer, *machine->input->buffer);
+	if (machine->input == NULL || machine->input->buffer == NULL)
+		return (FAILURE);
+	while (*machine->input->buffer == '\t' || *machine->input->buffer == ' ')
+		vct_cut(machine->input);
+	if (*machine->input->buffer == '\0')
+		return (FAILURE);
 	return (SUCCESS);
+}
+
+static void		init_machine(t_lexer *machine, t_vector *input, t_lexinfo *info)
+{
+	ft_bzero(machine, sizeof(t_lexer));
+	machine->state = L_START;
+	machine->buffer = vct_new(0);
+	machine->last_lexer = E_DEFAULT;
+	machine->input = vct_dup(input);
+	machine->lexinfo = info;
+}
+
+static void		free_machine_vct(t_lexer *machine)
+{
+	vct_del(&machine->input);
+	vct_del(&machine->buffer);
 }
 
 t_list			*lexer(t_vector *input)
@@ -27,22 +47,13 @@ t_list			*lexer(t_vector *input)
 
 	if (info == NULL)
 		info = init_lexinfo();
-	if (input == NULL || input->buffer == NULL)
-		return (NULL);
-	while (*input->buffer == '\t' || *input->buffer == ' ')
-		vct_cut(input);
-	if (*input->buffer == '\0')
-		return (NULL);
-	ft_bzero(&machine, sizeof(t_lexer));
-	machine.state = L_START;
-	machine.buffer = vct_new(0);
-	machine.last_lexer = E_DEFAULT;
-	machine.input = vct_dup(input);
-	machine.lexinfo = info;
-	while (machine.state != L_FINISH)
-		machine.lexinfo->lexing[machine.state](&machine);
-	lexer_print_debug(g_shell, machine.tokens);
-	vct_del(&machine.input);
-	vct_del(&machine.buffer);
+	init_machine(&machine, input, info);
+	if (pre_process(&machine) == SUCCESS)
+	{
+		while (machine.state != L_FINISH)
+			machine.lexinfo->lexing[machine.state](&machine);
+		lexer_print_debug(g_shell, machine.tokens); // DEBUG
+	}
+	free_machine_vct(&machine);
 	return (machine.tokens);
 }

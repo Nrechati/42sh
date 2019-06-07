@@ -66,7 +66,7 @@ void			and_machine(t_lexer *machine)
 			machine->last_lexer = E_ANDDGREAT;
 	}
 	else
-		create_token_data(machine);
+		vct_add(machine->buffer, *machine->input->buffer);
 	vct_cut(machine->input);
 	machine->state = L_OUT;
 }
@@ -84,10 +84,10 @@ void			sign_machine(t_lexer *machine)
 		return ;
 	}
 	else if (double_dispatcher(machine) != FALSE)
-		create_token_data(machine);
+		vct_add(machine->buffer, *machine->input->buffer);
 	else
 	{
-		create_token_data(machine);
+		vct_add(machine->buffer, *machine->input->buffer);
 		machine->state = L_OUT;
 	}
 	vct_cut(machine->input);

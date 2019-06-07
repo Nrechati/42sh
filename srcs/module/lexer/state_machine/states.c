@@ -17,8 +17,7 @@ void	number_machine(t_lexer *machine)
 	if (ft_isdigit(*machine->input->buffer) == TRUE)
 	{
 		machine->last_lexer = E_IO_NUMBER;
-		if (create_token_data(machine) == FAILURE)
-			return ;
+		vct_add(machine->buffer, *machine->input->buffer);
 		vct_cut(machine->input);
 	}
 	else if (ft_strchr("<>", *machine->input->buffer) != NULL)
@@ -54,8 +53,7 @@ void	string_machine(t_lexer *machine)
 		machine->last_lexer = E_STRING;
 	if (*machine->input->buffer != '\0')
 	{
-		if (create_token_data(machine) == FAILURE)
-			return ;
+		vct_add(machine->buffer, *machine->input->buffer);
 		vct_cut(machine->input);
 	}
 }

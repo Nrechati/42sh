@@ -13,7 +13,7 @@
 #include "sh21.h"
 #include <unistd.h>
 
-static t_resolution	init_resolve(t_registry *shell, t_list *token_list)
+static t_resolution	init_resolve(t_registry *shell, t_list *token_list) // MOVE
 {
 	t_resolution	resolve;
 
