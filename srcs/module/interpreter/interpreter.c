@@ -6,16 +6,63 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/07 13:39:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:20:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-char	**generate_env()
+int		is_export(void *data, __unused void *to_find)
 {
+	t_variable *variable;
 
+	variable = data;
+	return (variable->flag & (EXPORT_VAR | SET_VAR));
+}
+
+int		copy_var(void *src, void *dest)
+{
+	t_variable *source;
+	t_variable *destination;
+
+	source = src;
+	destination = dest;
+	destination->name = ft_strdup(source->name);
+	destination->data = ft_strdup(source->data);
+	return (0);
+}
+
+void	variable_update(void *context, void *data)
+{
+	t_list 		*tmp_env;
+	t_variable	*variable;
+
+	tmp_env = context;
+	variable = data;
+	add_var(&tmp_env, variable->name, variable->data, variable->flag);
+}
+
+char	*variable_to_tab(void *data)
+{
+	t_variable	*variable;
+	char		*str;
+
+	variable = data;
+	str = NULL;
+	ft_asprintf(&str, "%s=%s", variable->name, variable->data);
+	return (str);
+}
+
+char	**generate_env(t_registry *shell, t_list *local_env)
+{
+	char	**env;
+	t_list	*tmp_env;
+
+	tmp_env = ft_lstfilter(shell->intern, NULL, is_export, copy_var);
+	ft_lstiter_ctx(local_env, tmp_env, variable_update);
+	env = ft_lsttotab(tmp_env, variable_to_tab);
+	return (env);
 }
 
 void	run_builtin(t_registry *shell, t_process *process)
@@ -23,11 +70,9 @@ void	run_builtin(t_registry *shell, t_process *process)
 	int				ret;
 	t_builtin		builtin;
 
-	builtin = (t_builtin *)ft_hmap_getdata(&shell->hash.blt, process->av[0]);
-	//setup redirect
+	builtin = ft_hmap_getdata(&shell->hash.blt, process->av[0]);
 	ret = builtin(shell, process->av);
 	//check ret
-	//reset redirect
 	(void)ret;
 	return ;
 }
@@ -52,7 +97,27 @@ void	execute_process(t_registry *shell, t_process *process, char **env)
 	exit(FAILURE);
 }
 
-int8_t	run_process(void *context, void *data)
+void	fork_process(t_registry *shell, t_process *process)
+{
+	char			**env;
+	pid_t			pid;
+
+	env = generate_env(shell, process->env);
+	pid = 0;
+	pid = fork();
+	ft_putchar('\n');
+	if (pid < 0) // IF ERREUR
+	{
+		ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
+		return;
+	}
+	else if (pid == 0) // IF CHILD
+		execute_process(shell, process, env);
+	else						//IF PARENT
+		ft_freetab(&env);
+}
+
+void	run_process(void *context, void *data)
 {
 	t_registry	*shell;
 	t_process	*process;
@@ -62,77 +127,51 @@ int8_t	run_process(void *context, void *data)
 	if (get_process_type(shell, process) == FAILURE)
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR SH_MALLOC_ERROR);
-		return (FAILURE);
+		return;
 	}
 	if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTEPRETER_NOT_FOUND, process->av[0]);
-	else if (process->process_type & (IS_ALONE | IS_BLT))
+	else if (process->process_type & (IS_ALONE & IS_BLT))
 	{
-		//redirect
+		//redirect setup
 		run_builtin(shell, process);
+		//redirect init;
 	}
 	else
-	{
-		char			**env;
-
-		env = generate_env();
-		process->pid = fork();
-		if (process->pid < 0) // IF ERREUR
-		{
-			ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
-			return (FAILURE);
-		}
-		else if (process->pid == 0) // IF CHILD
-			execute_process(shell, process, env);
-		else						//IF PARENT
-			ft_freetab(&env);
-	}
-	return (SUCCESS);
+		fork_process(shell, process);
+	return;
 }
 
-int8_t run_job(t_registry *shell, t_job *job)
+void	run_job(void *context, void *data)
 {
+	t_registry	*shell;
+	t_job		*job;
 	t_process	*head;
 
+	shell = context;
+	job = data;
 	head = job->processes->data;
 	//EXPAND ALL JOB
-	//OPEN & PIPE ALL JOB
-
+	//OPEN ALL JOB
 	if (job->processes->next == NULL)
 		head->process_type |= IS_ALONE;
-	ft_lstiter_ctx(job->processes, shell, run_process); // RUN PROCESS(registre, process)
+	else
+		//PIPE ALL
+		;
+	ft_lstiter_ctx(job->processes, shell, run_process);
 	job->pgid = head->pid;
-	return (SUCCESS);
+	//CLOSE REDIRECTIONS;
+	//CHECK WAIT CONDITION HERE;
+	return ;
 }
 
 int8_t interpreter(t_registry *shell, t_list **cmd_group)
 {
 	t_list *job_lst;
 
-	(void)shell;
 	job_lst = ft_lstmap(*cmd_group, group_to_job, del_group); //CALLBACK DEL
 	ft_lstdel(cmd_group, del_group);
-	//lstiter(job_lst, run_job);
-	/*	RUN		JOB
-		while (process)
-		{
-			//CALL	EXPAND AV
-			//CALL	EXPAND REDIRECT
-			//SET	processTYPE
-			el_pipeator_300();
-			fork()
-			{
-				truc de pipe;
-				while (redirect)
-					lstiter(dup2);
-				execve(process(av));
-			}
-			el_closatator_3000()
-		}
-		waitANY(job.pgid);
-
-	*/
-
+	ft_lstiter_ctx(job_lst, shell, run_job);
 	return (SUCCESS);
 }
 
