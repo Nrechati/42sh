@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 12:44:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/07 13:31:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@
 *****************************************************
 */
 
+# define NOT_FOUND					-2
 # define FAILURE					-1
 # define SUCCESS					0
 
 # define FALSE						0
 # define TRUE						1
+
+# define SH_GENERAL_ERROR			"42sh: "
+# define SH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
 
 # define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
 # define SH21_USAGE_2				"[-c CMD]\n"
@@ -81,7 +85,6 @@
 # define H_WIPE						0x001
 # define H_ALL						0x002
 # define H_HELP						0x004
-# define NOT_FOUND					-2
 # define HASH_GENERAL_ERROR			"42sh: hash: "
 # define HASH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
 # define HASH_HIT_ERROR				"error hitting bin\n"
@@ -250,6 +253,19 @@
 # define IS_BLT						0x01
 # define IS_BIN						0x02
 # define IS_ABS						0x04
+# define IS_ASSIGN					0x08
+# define IS_ALONE					0x10
+# define IS_NOTFOUND				0x20
+
+/*
+*****************************************************
+******************** INTERPRETER ********************
+*****************************************************
+*/
+
+# define INTEPRETER_NOT_FOUND		" command not found\n"
+# define INTEPRETER_FORK_ERROR		" fork error\n"
+# define INTEPRETER_EXECVE_ERROR	" execve fail\n"
 
 /*
 *****************************************************

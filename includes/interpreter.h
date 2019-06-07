@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/06 18:48:45 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/07 11:45:55 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 */
 
 int8_t 		interpreter(t_registry *shell, t_list **cmd_group);
+int8_t		get_process_type(t_registry *shell, t_process *process);
 
 void		*group_to_job(void *data);
 void		*cmd_to_process(void *data);
