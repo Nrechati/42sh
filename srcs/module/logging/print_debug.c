@@ -6,15 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:29:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
+/*
 static void	print_filedesc(void *data)
 {
-	t_filedesc	*fd;
+	t_redirect	*fd;
 
 	fd = data;
 	if (fd->action & FD_CLOSE)
@@ -32,19 +32,19 @@ static void	print_process(void *data)
 	process = data;
 	ft_putchar('\n');
 	ft_showtab(process->av);
-	ft_lstiter(process->fd, print_filedesc);
+	ft_lstiter(process->redirects, print_filedesc);
 }
-
+*/
 void		analyzer_print_debug(t_registry *shell, t_resolution *resolve)
 {
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
 		ft_putstr("\n\033[33m-------------- PARSER --------------");
 		if (resolve->valid == 1)
-			ft_lstiter(((t_job *)(resolve->job_list->data))->process_list,
-					print_process);
-		else
-			ft_putstr(NULL);
+			//ft_lstiter(((t_job *)(resolve->job_list->data))->process_list,
+				//	print_process);
+		//else
+			//ft_putstr(NULL);
 		ft_putendl("------------------------------------\033[0m\n");
 	}
 }

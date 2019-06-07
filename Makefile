@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/06 12:44:16 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/06 18:23:31 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,9 +103,9 @@ P_ANALYZER += module/analyzer/
 P_ANALYZER += module/analyzer/init/
 P_ANALYZER += module/analyzer/state/
 
-P_ANALYZER += module/interpreter/
-P_ANALYZER += module/init/
-P_ANALYZER += module/tools/
+P_INTERPRETER += module/interpreter/
+P_INTERPRETER += module/interpreter/maping/
+P_INTERPRETER += module/interpreter/tools/
 
 P_BUILTIN += module/builtin/
 P_BUILTIN += module/builtin/cd/
@@ -131,8 +131,6 @@ P_PARSER += module/parser/
 P_PARSER += module/parser/init/
 P_PARSER += module/parser/debug/
 
-P_RESOLVE += module/resolve/
-
 P_TOOLS += tools/
 
 _SPATH += $(P_CORE)
@@ -143,7 +141,7 @@ _SPATH += $(P_EXPANSION)
 _SPATH += $(P_LEXER)
 _SPATH += $(P_LOGGING)
 _SPATH += $(P_PARSER)
-_SPATH += $(P_RESOLVE)
+_SPATH += $(P_INTERPRETER)
 
 SPATH += $(addprefix srcs/, $(_SPATH))
 
@@ -326,6 +324,9 @@ ANALYZER += string_analyzer.c
 #			 		      - - - - - Interpreter - - - - -                         #
 
 INTERPRETER += interpreter.c
+INTERPRETER += map.c
+INTERPRETER += list_tools.c
+INTERPRETER += get_process_type.c
 
 #						   - - - - Expansion - - - -                           #
 
@@ -354,12 +355,6 @@ PARSER += generate_graph.c
 PARSER += ways_graph.c
 PARSER += ways_graph_word.c
 
-#						     - - - - Resolve - - - -                           #
-
-RESOLVE += job_tools.c
-RESOLVE += launch_job.c
-RESOLVE += launch_process.c
-RESOLVE += waitjob.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

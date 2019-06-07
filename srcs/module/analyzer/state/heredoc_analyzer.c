@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 19:01:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:32:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+/*
 static int	write_heredoc(char **line, int fd, t_resolution *resolve)
 {
 	int		trim;
@@ -26,7 +27,6 @@ static int	write_heredoc(char **line, int fd, t_resolution *resolve)
 	ft_strdel(line);
 	return (0);
 }
-
 static int	check_delimiter(char **delimiter, char **line, int fd,
 				t_resolution *resolve)
 {
@@ -42,7 +42,7 @@ static int	check_delimiter(char **delimiter, char **line, int fd,
 	write_heredoc(line, fd, resolve);
 	return (FAILURE);
 }
-
+*/
 void		heredoc_delimiter(t_resolution *resolve)
 {
 	if (resolve->state == P_HEREDOC_REDIRECT)
@@ -52,7 +52,7 @@ void		heredoc_delimiter(t_resolution *resolve)
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
 		ft_dprintf(2, "21sh: Here documents only in interractive mode\n");
-		ft_lstdel(&resolve->token_list, del_token);
+		ft_lstdel(&resolve->tokens, del_token);
 		ft_strdel(&resolve->token.data);
 		error_analyzer(resolve);
 	}
@@ -63,12 +63,13 @@ void		heredoc_delimiter(t_resolution *resolve)
 
 void		io_heredoc_analyzer(t_resolution *resolve)
 {
-	char		*line;
+	/*char		*line;
 	char		*delimiter;
-	char		*io;
-	int			fd[2];
+	char		*io;*/
+	//int			fd[2];
 
 	resolve->state = P_HEREDOC;
+	/*
 	pipe(fd);
 	line = NULL;
 	delimiter = pop_token_data(&resolve->stack);
@@ -82,16 +83,18 @@ void		io_heredoc_analyzer(t_resolution *resolve)
 			return ;
 	}
 	ft_strdel(&line);
+	*/
 	error_analyzer(resolve);
 }
 
 void		heredoc_analyzer(t_resolution *resolve)
 {
-	char		*line;
+/*	char		*line;
 	char		*delimiter;
 	int			fd[2];
-
+*/
 	resolve->state = P_HEREDOC;
+	/*
 	line = NULL;
 	pipe(fd);
 	delimiter = pop_token_data(&resolve->stack);
@@ -104,4 +107,5 @@ void		heredoc_analyzer(t_resolution *resolve)
 	}
 	ft_strdel(&line);
 	error_analyzer(resolve);
+	*/
 }

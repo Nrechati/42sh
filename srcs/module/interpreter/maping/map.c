@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/07 09:59:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/07 10:05:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ char		*token_to_str(void *data)
 
 void		*actions_to_redirects(void *data)
 {
+	(void)data;
 	return (NULL);
 }
 
-int			*redirect_or_other(void *action, __unused void *data)
+int			redirect_or_other(void *action, __unused void *data)
 {
 	enum e_actions		type;
 
@@ -67,13 +68,12 @@ void		*cmd_to_process(void *data)
 
 	command = data;
 	ft_bzero(&process, sizeof(t_process));
-	actions_redirects = ft_lstsplit_if(command->actions, NULL, redirect_or_other);
+	actions_redirects = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
 //	process.redirects = ft_lstmap(actions_redirects, action_to_redirects, del_cb);
 	process.av = ft_lsttotab(command->av, token_to_str);
 	process.env = ft_lstmap(command->actions, token_to_var, NULL); //CALLBACK DEL
 
-	//LSTDEL action_redirect
-
+	ft_lstdel(&actions_redirects, del_action);
 	node = ft_lstnew(&process, sizeof(t_process));
 	return (node);
 }
@@ -87,7 +87,7 @@ void		*group_to_job(void *data)
 	group = data;
 	ft_bzero(&job, sizeof(t_job));
 	job.job_type = group->group_type;
-	job.processes = ft_lstmap(group->command_list, cmd_to_process, NULL); //CALLBACK DEL
+	job.processes = ft_lstmap(group->command_list, cmd_to_process, del_command);
 	node = ft_lstnew(&job, sizeof(t_job));
 	return (node);
 }

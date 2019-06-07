@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 17:54:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/07 01:16:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_list	*analyzer(t_resolution *resolve)
 	if (analyzer == NULL)
 		analyzer = init_analyzer();
 	delete_analyzer(resolve);
-	reset_analyzer(g_shell, resolve);
+//	reset_analyzer(g_shell, resolve);
 	if (resolve->token.type == E_DEFAULT)
 		get_token(resolve);
 	if (resolve->state == P_STOP)

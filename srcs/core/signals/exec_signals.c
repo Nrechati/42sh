@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 12:52:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:17:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ void		signal_analyzer(t_resolution *resolve)
 
 void		kill_process(const int signo)
 {
-	t_job		*job;
 	t_list		*proc;
 
 	proc = NULL;
 	(void)signo;
-	job = ((t_job*)(g_shell->current_job->data));
 	while (proc != NULL)
 	{
 		kill(((t_process*)(proc->data))->pid, SIGINT);
