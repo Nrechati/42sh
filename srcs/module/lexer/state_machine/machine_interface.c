@@ -21,7 +21,7 @@ void	start_lexer(t_lexer *machine)
 		machine->io_detect = 0;
 		while (*machine->input->buffer == ' '
 				|| *machine->input->buffer == '\t')
-			vct_del_char(machine->input, 0);
+			vct_cut(machine->input);
 	}
 	else if (ft_strchr(SIGN_DETECT, *machine->input->buffer) != NULL)
 		machine->state = L_SIGN;
