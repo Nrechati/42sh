@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 15:11:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:34:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ uint64_t    assign_keycodes(t_sle *sle)
 	sle->ak_masks[AK_CTRL_RIGHT] = AK_CTRL_RIGHT_MASK;
 	sle->ak_masks[AK_CTRL_DOWN] = AK_CTRL_DOWN_MASK;
 	sle->ak_masks[AK_CTRL_UP] = AK_CTRL_UP_MASK;
-//	sle->ak_masks[AK_ARROW_UP] = AK_ARROW_UP_MASK;
-//	sle->ak_masks[AK_ARROW_DOWN] = AK_ARROW_DOWN_MASK;
+	sle->ak_masks[AK_ARROW_UP] = AK_ARROW_UP_MASK;
+	sle->ak_masks[AK_ARROW_DOWN] = AK_ARROW_DOWN_MASK;
 //	sle->ak_masks[AK_TABULATION] = AK_TAB_MASK;
     return (SUCCESS);
 }
@@ -61,8 +61,8 @@ uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_sle *shell))
 	actionkeys[AK_CTRL_X] = &ak_cut_selection;
 	actionkeys[AK_CTRL_B] = &ak_copy_selection;
 	actionkeys[AK_CTRL_P] = &ak_paste_clipboard;
-//	tc_call[AK_ARROW_UP] = &ak_arrow_up;
-//	tc_call[AK_ARROW_DOWN] = &ak_arrow_down;
+	actionkeys[AK_ARROW_UP] = &ak_arrow_up;
+	actionkeys[AK_ARROW_DOWN] = &ak_arrow_down;
 //	tc_call[AK_TABULATION] = &tc_ak_hightab;
     return (SUCCESS);
 }

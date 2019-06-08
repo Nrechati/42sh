@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 20:16:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 11:13:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 	update_window(sle);
 	print_prompt(shell, sle);
 	ft_bzero(character, READ_SIZE + 1);
-
 	vct_reset(sle->line);
 	vct_reset(sle->window.displayed_line);
-
 	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
@@ -44,10 +42,10 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 
 t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 {
-	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE, PROMPT_DQUOTE,
-		   								PROMPT_BQUOTE, PROMPT_NL, PROMPT_AND, PROMPT_OR};
-
 	t_vector	*linesave;
+	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
+										PROMPT_DQUOTE, PROMPT_BQUOTE,
+										PROMPT_NL, PROMPT_AND, PROMPT_OR};
 
 	linesave = sle->line;
 	sle->line = sle->sub_line;

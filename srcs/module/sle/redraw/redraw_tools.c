@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 13:52:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:04:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,18 @@ void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
 {
 	if (sle->window.cols == 0)
 		return ;
-	if (index > vct_len(sle->line)
-				+ get_prompt_length(&sle->prompt) + 1)
-		index = vct_len(sle->line)
-				+ get_prompt_length(&sle->prompt);
+
+//	if (index >= sle->window.max_chars - sle->rd_info.prompt_len)
+//		index = (sle->window.max_chars - sle->rd_info.prompt_len) - 1;
+//	{
+//			ft_dprintf(3, "Stepping over max_chars len: %lu prompt:%lu cols:%lu rows:%lu chars:%lu\n", vct_len(sle->line),sle->rd_info.prompt_len,
+//							sle->window.cols,
+//							sle->window.rows,
+//							sle->window.max_chars);
+//	}
+	if (index > sle->rd_info.line_len + sle->rd_info.prompt_len + 1)
+		index =	sle->rd_info.line_len + sle->rd_info.prompt_len;
+
 	co->x = (index % sle->window.cols);
 	co->y = (index / sle->window.cols);
 }

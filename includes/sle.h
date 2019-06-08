@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 20:07:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:34:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void		link_actions_to_keys(int8_t (*actionkeys[AK_AMOUNT])
 *****************************************************
 */
 
+int8_t		ak_arrow_up(t_sle *sle);
+int8_t		ak_arrow_down(t_sle *sle);
 int8_t		ak_arrow_left(t_sle *sle);
 int8_t		ak_arrow_right(t_sle *sle);
 int8_t		ak_home(t_sle *sle);
@@ -146,21 +148,11 @@ int8_t		ak_ctrl_down(t_sle *sle);
 int8_t		ak_enter_visual_mode(t_sle *sle);
 int8_t		ak_exit_visual_mode(t_sle *sle);
 
-int8_t		ak_arrow_up(t_sle *sle);
-int8_t		ak_arrow_down(t_sle *sle);
-
 int8_t		ak_cut_selection(t_sle *sle);
 int8_t		ak_copy_selection(t_sle *sle);
 int8_t		ak_paste_clipboard(t_sle *sle);
 
 /*
-
-int8_t		ak_cut_before_cursor(t_sle *sle);
-int8_t		ak_cut_after_cursor(t_sle *sle);
-int8_t		ak_copy_before_cursor(t_sle *sle);
-int8_t		ak_copy_after_cursor(t_sle *sle);
-
-
 int8_t		ak_hightab(t_sle *sle);
 */
 #endif

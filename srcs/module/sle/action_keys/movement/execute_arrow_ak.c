@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:29 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:21:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 13:34:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,13 @@ int8_t				ak_arrow_left(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t				ak_arrow_up(__unused t_sle *sle)
+
+int8_t				ak_arrow_up(t_sle *sle)
 {
+	ft_dprintf(3, "LineLen: %lu | DispLen: %lu | PromptLen : %lu | Lines: %lu | \n",
+			  		sle->rd_info.line_len, sle->rd_info.disp_len,
+					sle->rd_info.prompt_len, sle->rd_info.lines_amount);
+
 	return (FAILURE);
 }
 

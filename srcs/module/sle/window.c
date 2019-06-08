@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:41:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 20:10:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:40:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	update_window(t_sle *sle)
 
 void	redraw_window(t_sle *sle)
 {
+	ft_dprintf(3, "Updating window.\n");
 	update_window(sle);
 	set_redraw_flags(sle, RD_CLEAR | RD_CEND);
 	redraw(NULL, sle);

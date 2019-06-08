@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:44:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:39:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void			define_interface_signals(void)
 
 void			define_default_signals(void)
 {
-//	loop_signals(SIG_DFL);
+	loop_signals(SIG_DFL);
 }

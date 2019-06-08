@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 19:23:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:34:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,8 @@ enum	prompt_type
 
 enum	e_action_keys
 {
+	AK_ARROW_UP,
+	AK_ARROW_DOWN,
 	AK_ARROW_RIGHT,
 	AK_ARROW_LEFT,
 	AK_HOME,
@@ -192,8 +194,6 @@ enum	e_action_keys
 	AK_CTRL_P,
 
 	AK_TABULATION,
-	AK_ARROW_UP,
-	AK_ARROW_DOWN,
 };
 
 #endif

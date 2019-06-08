@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 20:16:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 11:12:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,16 @@ inline void		print_prompt(t_registry *shell, t_sle *sle)
 	t_vector	*ptext;
 
 	ptext = NULL;
-	if (sle->prompt.state == INT_PS1)
+	if (ft_strequ(sle->prompt.state, INT_PS1))
 		ptext = sle->interns.ps1;
-	else if (sle->prompt.state == INT_PS2)
+	else if (ft_strequ(sle->prompt.state, INT_PS2))
 		ptext = sle->interns.ps2;
-	else if (sle->prompt.state == INT_PS3)
+	else if (ft_strequ(sle->prompt.state, INT_PS3))
 		ptext = sle->interns.ps3;
-
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
 		expand_prompt(shell, sle, ptext);
-
 	sle->prompt.text = ptext;
-	print_prompt_to_window(sle, ptext);
-
-//	ft_strdel(&ptext->buffer);
-//	free(ptext);
+	print_prompt_to_window(sle, sle->prompt.text);
 }

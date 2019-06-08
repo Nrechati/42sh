@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 19:33:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 11:08:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static uint64_t				load_interface(t_registry *shell, t_sle *sle)
 	uint64_t		report;
 
 	report = 0;
+	ft_memset(&sle->interns, 0, sizeof(t_intern));
 	report |= assign_keycodes(sle);
 	report |= link_keys_functions(sle->actionkeys);
 	report |= set_sle_internals(shell);

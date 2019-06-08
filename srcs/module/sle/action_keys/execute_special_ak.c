@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 16:41:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 13:36:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int8_t		ak_delete(t_sle *sle)
 		return (FAILURE);
 
 	vct_del_char(sle->line, sle->cursor.index);
-	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
+	set_redraw_flags(sle, RD_FPTE | RD_CMOVE);
 	set_redraw_bounds(sle, sle->cursor.index - 1, 0);
 	set_cursor_pos(sle, sle->cursor.index);
 	return (SUCCESS);
@@ -40,9 +40,9 @@ int8_t		ak_backspace(t_sle *sle)
 		return (FAILURE);
 	vct_del_char(sle->line, sle->cursor.index - 1);
 
-	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
-//	set_redraw_bounds(&sle-> sle->cursor.index - 1,
-//					vct_len(sle->window.displayed_line) + 1);
+	set_redraw_flags(sle, RD_FPTE | RD_CMOVE);
+	set_redraw_bounds(sle, sle->cursor.index - 1,
+					vct_len(sle->window.displayed_line) + 1);
 	set_cursor_pos(sle, sle->cursor.index - 1);
 	return (SUCCESS);
 }

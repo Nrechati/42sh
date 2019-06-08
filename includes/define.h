@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 19:35:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:04:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@
 # define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
+
 
 /*
 *****************************************************
@@ -226,6 +227,9 @@
 *****************************************************
 */
 
+# define START_FILTER	">...."
+# define END_FILTER		"<...."
+
 # define PROMPT_PIPE	"pipe"
 # define PROMPT_QUOTE	"quote"
 # define PROMPT_DQUOTE	"dquote"
@@ -285,7 +289,7 @@
 # define P_ESCAPE			'e'
 
 # define FAIL_EOF					42
-# define AK_AMOUNT					20
+# define AK_AMOUNT					22
 
 # define AK_ESCAPE_MASK				0x1b00000000000000
 # define AK_ARROW_UP_MASK			0x1b5b410000000000

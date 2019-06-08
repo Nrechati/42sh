@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 20:07:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/08 11:11:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct			s_graph
 typedef struct		s_parser
 {
 	t_graph			*graph;
-	const char		**grammar;			
+	const char		**grammar;
 }					t_parser;
 
 
@@ -235,6 +235,15 @@ typedef struct			s_window
 	t_vector			*displayed_line;
 }						t_window;
 
+typedef struct 			s_redrawinfo
+{
+	uint64_t			line_len;
+	uint64_t			disp_len;
+	uint64_t			prompt_len;
+	uint64_t			lines_amount;
+
+}						t_redrawinfo;
+
 typedef struct 			s_intern
 {
 	t_vector			*ps1;
@@ -253,6 +262,7 @@ typedef struct			s_sle
 	t_window			window;
 	t_prompt			prompt;
 	t_cursor			cursor;
+	t_redrawinfo		rd_info;
 	uint64_t			ak_masks[AK_AMOUNT];
 	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
 	t_vector			*line;
