@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 10:57:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:31:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		*actions_to_redirects(void *data)
 	//		redirect->first = PIPE_OUT
 	//		redirect->second = FD_IN
 
-	node = ft_lst_new(&redirect, sizeof(t_redirect));
+	node = ft_lstnew(&redirect, sizeof(t_redirect));
 	return (node);
 }
 

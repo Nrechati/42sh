@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/07 16:02:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:43:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static char	*user_home(const char *str)
 	}
 	return (path);
 }
-
 
 static char	*tilde_expansion(t_list *intern_var, const char *str)
 {

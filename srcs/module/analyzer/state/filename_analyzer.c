@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/10 10:12:51 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:30:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	filename_analyzer(t_resolution *resolve)
 {
 	if (resolve->token.type == E_SPSTRING)
-		resolve->token.data = string_expansion(resolve, resolve->token.data);
+		//resolve->token.data = string_expansion(resolve, resolve->token.data);
+		;
 	if (resolve->state == P_IO_REDIRECT)
 		resolve->state = P_IO_FILENAME;
 	else if (resolve->token.type == E_SPSTRING)
@@ -30,8 +31,8 @@ void	dup_move_analyzer(t_resolution *resolve)
 {
 	t_token *token;
 
-	if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
-	{
+	//if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
+//	{
 		if (is_ionumber(resolve, resolve->token.data))
 			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 		else if ((token = ft_stcktop(&resolve->stack))->type == E_LESSAND)
@@ -45,19 +46,19 @@ void	dup_move_analyzer(t_resolution *resolve)
 			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 		}
 		get_token(resolve);
-	}
-	else
-	{
+//	}
+	//else
+	//{
 		ft_strdel(&resolve->token.data);
 		error_analyzer(resolve);
-	}
+	//}
 }
 
 void	io_dup_move_analyzer(t_resolution *resolve)
 {
 	resolve->token.type = E_STRING;
-	if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
-	{
+	//if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
+//	{
 		if (is_ionumber(resolve, resolve->token.data))
 			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 		else
@@ -66,10 +67,10 @@ void	io_dup_move_analyzer(t_resolution *resolve)
 			ft_strdel(&resolve->token.data);
 		}
 		get_token(resolve);
-	}
-	else
-	{
+//	}
+//	else
+//	{
 		ft_strdel(&resolve->token.data);
 		error_analyzer(resolve);
-	}
+//	}
 }
