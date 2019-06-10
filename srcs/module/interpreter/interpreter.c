@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 19:23:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:48:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,15 @@ void	do_redirect(void *data)
 
 	redirect = data;
 	if (redirect->type & FD_PIPE)
+	{
+		ft_dprintf(2, "[FORK] redirect to %d from %d\n", redirect->to, redirect->from);
 		dup2(redirect->to, redirect->from);
+	}
 	else if (redirect->type & FD_CLOSE)
+	{
+		ft_dprintf(2, "[FORK]closing %d\n", redirect->to);
 		close(redirect->to);
+	}
 }
 
 void	execute_process(t_registry *shell, t_process *process, char **env)
@@ -230,14 +236,14 @@ int8_t	setup_pipe(t_list *processess)
 		return (FAILURE);
 	if ((close_node = close_pipe(pipe_fd[0])) == NULL)
 		return (FAILURE);
-	ft_lstaddback(&current->redirects, close_node);
 	ft_lstaddback(&current->redirects, pipe_node);
+	ft_lstaddback(&current->redirects, close_node);
 	if ((pipe_node = create_pipe(pipe_fd[0], STDIN_FILENO)) == NULL)
 		return (FAILURE);
 	if ((close_node = close_pipe(pipe_fd[1])) == NULL)
 		return (FAILURE);
-	ft_lstadd(&next->redirects, close_node);
 	ft_lstadd(&next->redirects, pipe_node);
+	ft_lstadd(&next->redirects, close_node);
 	return (setup_pipe(processess->next));
 }
 
