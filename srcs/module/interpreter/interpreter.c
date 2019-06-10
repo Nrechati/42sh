@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 15:10:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:41:31 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,20 +132,23 @@ void	execute_process(t_registry *shell, t_process *process, char **env)
 void	fork_process(t_registry *shell, t_process *process)
 {
 	char			**env;
-	pid_t			pid;
 
 	env = generate_env(shell, process->env);
-	pid = 0;
-	pid = fork();
-	if (pid < 0) // IF ERREUR
+	process->pid = fork();
+	if (process->pid < 0) // IF ERREUR
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
 		return;
 	}
-	else if (pid == 0) // IF CHILD
+	else if (process->pid == 0) // IF CHILD
 		execute_process(shell, process, env);
-	else						//IF PARENT
+	else
+	{						//IF PARENT
+		if (*process->pgid == 0)
+			*process->pgid = process->pid;
+		setpgid(process->pid, *process->pgid);
 		ft_freetab(&env);
+	}
 }
 
 void	run_process(void *context, void *data)
@@ -236,6 +239,54 @@ int8_t	setup_pipe(t_list *processess)
 	return (SUCCESS);
 }
 
+void	update_pid(t_list *processes, pid_t pid, int status)
+{
+	t_process	*current;
+
+	while (processes)
+	{
+		current = processes->data;
+		if (current->pid == pid)
+		{
+			if (WIFEXITED(status))
+				current->completed = 1;
+			return;
+		}
+		processes = processes->next;
+	}
+	return ;
+}
+
+uint8_t	all_is_done(t_list *processes)
+{
+	t_process	*current;
+
+	while (processes)
+	{
+		current = processes->data;
+		if (current->completed == FALSE)
+			return (FALSE);
+		processes = processes->next;
+	}
+	return (TRUE);
+}
+
+int8_t	waiter(t_job *job)
+{
+	int		status;
+	pid_t	pid;
+
+	while (all_is_done(job->processes) == FALSE)
+	{
+		ft_putstr("NOT DONE\n");
+		if ((pid = waitpid(WAIT_ANY, &status, WNOHANG)) == -1)
+			break;
+		ft_putnbr((int)pid);
+		update_pid(job->processes, pid, status);
+	}
+	return (SUCCESS);
+}
+
 void	run_job(void *context, void *data)
 {
 	t_registry	*shell;
@@ -252,13 +303,12 @@ void	run_job(void *context, void *data)
 	else
 		setup_pipe(job->processes);
 	ft_lstiter_ctx(job->processes, shell, run_process);
-	job->pgid = head->pid;
 
 	//CLOSE REDIRECTIONS;
 	iter_redirect(job->processes);
 
 	//CHECK WAIT CONDITION HERE;
-
+	waiter(job);
 	return ;
 }
 

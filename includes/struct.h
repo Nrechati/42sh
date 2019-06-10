@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/10 14:24:57 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:54:55 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct			s_process
 	uint8_t				completed;
 	uint8_t				stopped;
 	pid_t				pid;
+	pid_t				*pgid;
 	int					status;
 }						t_process;
 
@@ -230,6 +231,7 @@ typedef	struct			s_hashmap
 
 struct					s_registry
 {
+	pid_t				sid;
 	const char			**grammar;
 	t_list				*intern;
 	t_opt				option;
