@@ -6,23 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:07:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 18:18:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:03:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
-
-void	close_fd(void *data)
-{
-	t_redirect		*fd;
-
-	fd = data;
-	if (fd->first > 2)
-		close(fd->first);
-	if (fd->second > 2)
-		close(fd->second);
-}
 
 void	del_token(void *token)
 {

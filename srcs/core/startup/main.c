@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/07 01:17:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:52:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			main(int ac, char **av, char **env)
 
 	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
+	shell.sid = setsid();
 	g_shell = &shell;
 	if (set_environment(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);

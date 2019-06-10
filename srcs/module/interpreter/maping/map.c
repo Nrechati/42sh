@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 11:31:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:24:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,15 @@ void		*actions_to_redirects(void *data)
 	return (node);
 }
 
+void		set_process_pgid(void *context, void *data)
+{
+	t_process	*process;
+
+	process = data;
+	process->pgid = context;
+	return ;
+}
+
 void		*cmd_to_process(void *data)
 {
 	t_list		*node;
@@ -105,7 +114,6 @@ void		*cmd_to_process(void *data)
 //	process.redirects = ft_lstmap(actions_redirects, action_to_redirects, del_cb);
 	process.av = ft_lsttotab(command->av, token_to_str);
 	process.env = ft_lstmap(command->actions, token_to_var, NULL); //CALLBACK DEL
-
 	ft_lstdel(&actions_redirects, del_action);
 	node = ft_lstnew(&process, sizeof(t_process));
 	return (node);
@@ -121,6 +129,7 @@ void		*group_to_job(void *data)
 	ft_bzero(&job, sizeof(t_job));
 	job.job_type = group->group_type;
 	job.processes = ft_lstmap(group->command_list, cmd_to_process, del_command);
+	ft_lstiter_ctx(job.processes, &job.pgid, set_process_pgid);
 	node = ft_lstnew(&job, sizeof(t_job));
 	return (node);
 }
