@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 19:23:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:45:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,17 +241,23 @@ int8_t	setup_pipe(t_list *processess)
 	return (setup_pipe(processess->next));
 }
 
-void	update_pid(t_list *processes)
+void	update_pid(t_list *processes, pid_t pid)
 {
 	t_process	*current;
 
 	while (processes)
 	{
 		current = processes->data;
-		if (WIFEXITED(current->status))
-				current->completed = 1;
+		if (current->pid == pid)
+		{
+			current->completed = 1;
+			ft_dprintf(2, "\x1b[32m%s completed with succes with PID %d\n\x1b[0m"
+					, current->av[0], pid);
+			return ;
+		}
 		processes = processes->next;
 	}
+	ft_dprintf(2, "ERROR\n");
 	return ;
 }
 
@@ -263,9 +269,13 @@ uint8_t	all_is_done(t_list *processes)
 	{
 		current = processes->data;
 		if (current->completed == FALSE)
+		{
+			ft_dprintf(2, "\x1b[31m%s is not completed\n\x1b[0m", current->av[0]);
 			return (FALSE);
+		}
 		processes = processes->next;
 	}
+	ft_dprintf(2, "\x1b[32mAll is Done\n\x1b[0m");
 	return (TRUE);
 }
 
@@ -274,14 +284,14 @@ int8_t	waiter(t_job *job)
 	int		status;
 	pid_t	pid;
 
-	size_t  nbr_of_process = ft_lstlen(job->processes);
-
-	ft_printf("waiter pgid: %d\n", job->pgid);
-	while (nbr_of_process > 0)
+	ft_printf("\x1b[33mWaiter pgid: %d\n\x1b[0m", job->pgid);
+	while (all_is_done(job->processes) == FALSE)
 	{
+		status = 0;
 		pid = wait(&status);
-		ft_printf("PID %ld exited\n", (long)pid);
-		--nbr_of_process;
+		update_pid(job->processes, pid);
+	//	ft_printf("PID %ld exited\n", (long)pid);
+	//	--nbr_of_process;
 	}
 
 //	while (all_is_done(job->processes) == FALSE)
@@ -300,10 +310,8 @@ void	print_process(void *data)
 
 	process = data;
 	ft_showtab(process->av);
-	ft_printf("process->type: %d | process->pid: %d | process->pgid: %d\n"
-			, process->process_type
-			, process->pid
-			, *process->pgid);
+	ft_printf("\x1b[33mprocess->type: %d | process->pid: %d | process->pgid: %d\n\x1b[0m"
+			, process->process_type, process->pid, *process->pgid);
 }
 
 void	print_job(void *data)
@@ -311,7 +319,7 @@ void	print_job(void *data)
 	t_job *job;
 
 	job = data;
-	ft_printf("pgid : %s | job_type: %u\n"
+	ft_printf("\x1b[33mpgid : %s | job_type: %u\n\x1b[0m"
 			, job->pgid
 			, job->job_type);
 
