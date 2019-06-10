@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/07 15:20:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:50:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	run_process(void *context, void *data)
 	}
 	if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTEPRETER_NOT_FOUND, process->av[0]);
-	else if (process->process_type & (IS_ALONE & IS_BLT))
+	else if (process->process_type == (IS_ALONE | IS_BLT))
 	{
 		//redirect setup
 		run_builtin(shell, process);
