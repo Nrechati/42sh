@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 17:57:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:24:57 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 typedef struct			s_redirect
 {
 	char				*file;
-	int32_t				first;
-	int32_t				second;
-	uint16_t			action;
+	int32_t				from;
+	int32_t				to;
+	uint16_t			type;
 }						t_redirect;
 
 typedef struct			s_action

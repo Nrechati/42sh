@@ -6,21 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 18:33:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:06:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-void	activate_piping(void *data)
-{
-	t_redirect *fd;
-
-	fd = data;
-	fd->action |= FD_PIPE;
-}
 
 void	flush_redirect_and(t_resolution *resolve)
 {

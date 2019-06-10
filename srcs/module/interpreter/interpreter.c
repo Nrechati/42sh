@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 13:41:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:10:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,44 @@ void	run_builtin(t_registry *shell, t_process *process)
 	return ;
 }
 
+void	close_redirects(void *data)
+{
+	t_redirect	*redirect;
+
+	redirect = data;
+	if (redirect->type & FD_PIPE)
+		close(redirect->to);
+}
+
+void	iter_redirect(t_list *processes)
+{
+	t_process	*current;
+
+	while (processes != NULL)
+	{
+		current = processes->data;
+		ft_lstiter(current->redirects, close_redirects);
+		processes = processes->next;
+	}
+}
+
+void	do_redirect(void *data)
+{
+	t_redirect	*redirect;
+
+	redirect = data;
+	if (redirect->type & FD_PIPE)
+		dup2(redirect->to, redirect->from);
+	else if (redirect->type & FD_CLOSE)
+		close(redirect->to);
+}
+
 void	execute_process(t_registry *shell, t_process *process, char **env)
 {
 	char		*pathname;
 
 	pathname = NULL;
-	//lstiter(redirects, do_redirects);
+	ft_lstiter(process->redirects, do_redirect);
 	if (process->process_type & IS_BLT)
 	{
 		run_builtin(shell, process);
@@ -105,7 +137,6 @@ void	fork_process(t_registry *shell, t_process *process)
 	env = generate_env(shell, process->env);
 	pid = 0;
 	pid = fork();
-	ft_putchar('\n');
 	if (pid < 0) // IF ERREUR
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
@@ -142,12 +173,67 @@ void	run_process(void *context, void *data)
 	return;
 }
 
+/*
 void	expand_process(void *data)
 {
 	t_process *process;
 
 	process = data;
+}
+*/
+t_list	*close_pipe(int to_close)
+{
+	t_list		*node;
+	t_redirect	pipe;
 
+	ft_bzero(&pipe, sizeof(t_redirect));
+	pipe.to = to_close;
+	pipe.type |= FD_CLOSE;
+	node = ft_lstnew(&pipe, sizeof(t_redirect));
+	return (node);
+}
+
+t_list	*create_pipe(int to, int from)
+{
+	t_list		*node;
+	t_redirect	pipe;
+
+	ft_bzero(&pipe, sizeof(t_redirect));
+	pipe.from = from;
+	pipe.to = to;
+	pipe.type |= FD_PIPE;
+	node = ft_lstnew(&pipe, sizeof(t_redirect));
+	return (node);
+}
+
+int8_t	setup_pipe(t_list *processess)
+{
+	int			pipe_fd[2];
+	t_list		*pipe_node;
+	t_list		*close_node;
+	t_process	*current;
+	t_process	*next;
+
+	if (processess->next == NULL)
+		return (SUCCESS);
+	current = processess->data;
+	next = processess->next->data;
+	if (pipe(pipe_fd) == FAILURE)
+		return (FAILURE);
+	if ((pipe_node = create_pipe(pipe_fd[1], STDOUT_FILENO)) == NULL)
+		return (FAILURE);
+	if ((close_node = close_pipe(pipe_fd[0])) == NULL)
+		return (FAILURE);
+	ft_lstaddback(&current->redirects, pipe_node);
+	ft_lstaddback(&current->redirects, close_node);
+	if ((pipe_node = create_pipe(pipe_fd[0], STDIN_FILENO)) == NULL)
+		return (FAILURE);
+	if ((close_node = close_pipe(pipe_fd[1])) == NULL)
+		return (FAILURE);
+	ft_lstadd(&current->redirects, pipe_node);
+	ft_lstadd(&current->redirects, close_node);
+	setup_pipe(processess->next);
+	return (SUCCESS);
 }
 
 void	run_job(void *context, void *data)
@@ -164,12 +250,15 @@ void	run_job(void *context, void *data)
 	if (job->processes->next == NULL)
 		head->process_type |= IS_ALONE;
 	else
-		//PIPE ALL
-		;
+		setup_pipe(job->processes);
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	job->pgid = head->pid;
+
 	//CLOSE REDIRECTIONS;
+	iter_redirect(job->processes);
+
 	//CHECK WAIT CONDITION HERE;
+
 	return ;
 }
 
