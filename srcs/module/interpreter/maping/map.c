@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 16:24:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 17:21:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,12 @@ void		*actions_to_redirects(void *data)
 
 void		set_process_pgid(void *context, void *data)
 {
+	t_job		*job;
 	t_process	*process;
 
+	job = context;
 	process = data;
-	process->pgid = context;
+	process->pgid = &job->pgid;
 	return ;
 }
 
@@ -129,7 +131,7 @@ void		*group_to_job(void *data)
 	ft_bzero(&job, sizeof(t_job));
 	job.job_type = group->group_type;
 	job.processes = ft_lstmap(group->command_list, cmd_to_process, del_command);
-	ft_lstiter_ctx(job.processes, &job.pgid, set_process_pgid);
 	node = ft_lstnew(&job, sizeof(t_job));
+	ft_lstiter_ctx(job.processes, node->data, set_process_pgid);
 	return (node);
 }

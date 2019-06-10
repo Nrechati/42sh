@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 16:41:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:23:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
+#include <stdio.h>
 
 int		is_export(void *data, __unused void *to_find)
 {
@@ -114,6 +115,12 @@ void	execute_process(t_registry *shell, t_process *process, char **env)
 	char		*pathname;
 
 	pathname = NULL;
+	signal (SIGINT, SIG_DFL);
+	signal (SIGQUIT, SIG_DFL);
+	signal (SIGTSTP, SIG_DFL);
+	signal (SIGTTIN, SIG_DFL);
+	signal (SIGTTOU, SIG_DFL);
+	signal (SIGCHLD, SIG_DFL);
 	ft_lstiter(process->redirects, do_redirect);
 	if (process->process_type & IS_BLT)
 	{
@@ -141,9 +148,13 @@ void	fork_process(t_registry *shell, t_process *process)
 		return;
 	}
 	else if (process->pid == 0) // IF CHILD
+	{
+		setpgid(getpid(), *process->pgid);
 		execute_process(shell, process, env);
+	}
 	else
 	{						//IF PARENT
+		ft_printf("fork process pid : %d\n", process->pid);
 		if (*process->pgid == 0)
 			*process->pgid = process->pid;
 		setpgid(process->pid, *process->pgid);
@@ -176,14 +187,6 @@ void	run_process(void *context, void *data)
 	return;
 }
 
-/*
-void	expand_process(void *data)
-{
-	t_process *process;
-
-	process = data;
-}
-*/
 t_list	*close_pipe(int to_close)
 {
 	t_list		*node;
@@ -202,8 +205,8 @@ t_list	*create_pipe(int to, int from)
 	t_redirect	pipe;
 
 	ft_bzero(&pipe, sizeof(t_redirect));
-	pipe.from = from;
 	pipe.to = to;
+	pipe.from = from;
 	pipe.type |= FD_PIPE;
 	node = ft_lstnew(&pipe, sizeof(t_redirect));
 	return (node);
@@ -227,31 +230,26 @@ int8_t	setup_pipe(t_list *processess)
 		return (FAILURE);
 	if ((close_node = close_pipe(pipe_fd[0])) == NULL)
 		return (FAILURE);
-	ft_lstaddback(&current->redirects, pipe_node);
 	ft_lstaddback(&current->redirects, close_node);
+	ft_lstaddback(&current->redirects, pipe_node);
 	if ((pipe_node = create_pipe(pipe_fd[0], STDIN_FILENO)) == NULL)
 		return (FAILURE);
 	if ((close_node = close_pipe(pipe_fd[1])) == NULL)
 		return (FAILURE);
-	ft_lstadd(&current->redirects, pipe_node);
-	ft_lstadd(&current->redirects, close_node);
-	setup_pipe(processess->next);
-	return (SUCCESS);
+	ft_lstadd(&next->redirects, close_node);
+	ft_lstadd(&next->redirects, pipe_node);
+	return (setup_pipe(processess->next));
 }
 
-void	update_pid(t_list *processes, pid_t pid, int status)
+void	update_pid(t_list *processes)
 {
 	t_process	*current;
 
 	while (processes)
 	{
 		current = processes->data;
-		if (current->pid == pid)
-		{
-			if (WIFEXITED(status))
+		if (WIFEXITED(current->status))
 				current->completed = 1;
-			return;
-		}
 		processes = processes->next;
 	}
 	return ;
@@ -276,15 +274,47 @@ int8_t	waiter(t_job *job)
 	int		status;
 	pid_t	pid;
 
-	while (all_is_done(job->processes) == FALSE)
+	size_t  nbr_of_process = ft_lstlen(job->processes);
+
+	ft_printf("waiter pgid: %d\n", job->pgid);
+	while (nbr_of_process > 0)
 	{
-		ft_putstr("NOT DONE\n");
-		if ((pid = waitpid(WAIT_ANY, &status, WNOHANG)) == -1)
-			break;
-		ft_putnbr((int)pid);
-		update_pid(job->processes, pid, status);
+		pid = wait(&status);
+		ft_printf("PID %ld exited\n", (long)pid);
+		--nbr_of_process;
 	}
+
+//	while (all_is_done(job->processes) == FALSE)
+//	{
+//		status = 0;
+//		pid = waitpid(WAIT_ANY, &status, WEXITED | WNOHANG);
+//		//update_pid(job->processes);
+//	}
 	return (SUCCESS);
+}
+
+
+void	print_process(void *data)
+{
+	t_process *process;
+
+	process = data;
+	ft_showtab(process->av);
+	ft_printf("process->type: %d | process->pid: %d | process->pgid: %d\n"
+			, process->process_type
+			, process->pid
+			, *process->pgid);
+}
+
+void	print_job(void *data)
+{
+	t_job *job;
+
+	job = data;
+	ft_printf("pgid : %s | job_type: %u\n"
+			, job->pgid
+			, job->job_type);
+
 }
 
 void	run_job(void *context, void *data)
@@ -304,9 +334,9 @@ void	run_job(void *context, void *data)
 		setup_pipe(job->processes);
 	ft_lstiter_ctx(job->processes, shell, run_process);
 
+	ft_lstiter(job->processes, print_process);
 	//CLOSE REDIRECTIONS;
 	iter_redirect(job->processes);
-
 	//CHECK WAIT CONDITION HERE;
 	waiter(job);
 	return ;
@@ -316,6 +346,12 @@ int8_t interpreter(t_registry *shell, t_list **cmd_group)
 {
 	t_list *job_lst;
 
+	signal (SIGINT, SIG_DFL);
+	signal (SIGQUIT, SIG_DFL);
+	signal (SIGTSTP, SIG_DFL);
+	signal (SIGTTIN, SIG_DFL);
+	signal (SIGTTOU, SIG_DFL);
+	signal (SIGCHLD, SIG_DFL);
 	job_lst = ft_lstmap(*cmd_group, group_to_job, del_group);
 	ft_lstdel(cmd_group, del_group);
 	ft_lstiter_ctx(job_lst, shell, run_job);

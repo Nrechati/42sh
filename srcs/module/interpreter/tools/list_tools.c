@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/07 10:08:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:53:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		del_action(void *data)
 	ft_lstdel(&action->data, del_token);		//Leak probable;
 
 }
+
 void		del_command(void *data)
 {
 	t_command *command;

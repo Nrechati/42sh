@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/10 15:52:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:11:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,17 @@ int			main(int ac, char **av, char **env)
 
 	(void)ac;
 	ft_bzero(&shell, sizeof(t_registry));
-	shell.sid = setsid();
+/*	shell_pid = getpid();
+	if (setpgid(shell_pid, shell_pid) < 0)
+	{
+		ft_dprintf(2, "Failed Setpgid\n");
+		exit(0);
+	}*/
 	g_shell = &shell;
 	if (set_environment(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
 	init_shell(&shell);
-	define_ign_signals();
+	//define_ign_signals();
 	launch_shell(&shell);
 	shell_exit_routine(&shell);
 	ft_flush_memory();

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:53:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:06:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int8_t		launch_shell_prompt(t_registry *shell)
 	int8_t		completed;
 	char		*input;
 
-	define_interface_signals();
+	//define_interface_signals();
 	completed = get_input(shell, &input);
 	if (completed == FAILURE || completed == FAIL_EOF)
 	{
@@ -54,7 +54,7 @@ static int8_t		launch_shell_prompt(t_registry *shell)
 	}
 	ft_putchar('\n');
 	update_history(shell, input);
-	define_ign_signals();
+	//define_ign_signals();
 	execution_pipeline(shell, lexer(input));
 	return (SUCCESS);
 }
