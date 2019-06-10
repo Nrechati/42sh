@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/07 10:05:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 10:57:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ char		*token_to_str(void *data)
 	return (str);
 }
 
-void		*actions_to_redirects(void *data)
-{
-	(void)data;
-	return (NULL);
-}
-
 int			redirect_or_other(void *action, __unused void *data)
 {
 	enum e_actions		type;
@@ -57,6 +51,45 @@ int			redirect_or_other(void *action, __unused void *data)
 	if (type == A_ASSIGN)
 		return (FALSE);
 	return (TRUE);
+}
+
+void		*actions_to_redirects(void *data)
+{
+	t_list		*node;
+	t_action	*action;
+	t_redirect	redirect;
+
+	action = data;
+	ft_bzero(&redirect, sizeof(t_redirect));
+
+	//Tab : Redirect -> fct redirect (index = enum e_action)
+	//redirect.action = get_redirect_in_tab(action.enum)
+
+	// RAPPEL : PIPE OUT = LAST ACTION; PIPE IN = FIRST ACTION
+	// if (action->enum != A_PIPE)
+	//	while(action->data)
+	//			if (action->next->token->type == A_REDIRECT)
+	//				if (token->type == IO_NBR)
+	//					redirect->first = token->data
+	//				else if (token->type == WORD)
+	//					redirect->first = open(token->data | RW_ONLY)	//WHY CHAR* FILE ??
+	//			else if (action->next-> == NULL)
+	//				if (token->type == IO_NBR)
+	//					redirect->second = token->data
+	//				else if (token->type == WORD)
+	//					redirect->second = open(token->data | RW_ONLY)	//WHY CHAR* FILE ??
+
+	// if (action->enum == A_PIPE)
+	//	fd[IN,OUT] = pipe();
+	//	if (pipe out)
+	//		redirect->first = FD_OUT
+ 	//		redirect->second = PIPE_IN
+	//	if (pipe in)
+	//		redirect->first = PIPE_OUT
+	//		redirect->second = FD_IN
+
+	node = ft_lst_new(&redirect, sizeof(t_redirect));
+	return (node);
 }
 
 void		*cmd_to_process(void *data)

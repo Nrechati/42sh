@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 09:53:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 10:21:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ int8_t interpreter(t_registry *shell, t_list **cmd_group)
 {
 	t_list *job_lst;
 
-	job_lst = ft_lstmap(*cmd_group, group_to_job, del_group); //CALLBACK DEL
+	job_lst = ft_lstmap(*cmd_group, group_to_job, del_group);
 	ft_lstdel(cmd_group, del_group);
 	ft_lstiter_ctx(job_lst, shell, run_job);
 	return (SUCCESS);
