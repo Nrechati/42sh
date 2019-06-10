@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/06 18:23:31 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/10 21:24:47 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -327,6 +327,8 @@ INTERPRETER += interpreter.c
 INTERPRETER += map.c
 INTERPRETER += list_tools.c
 INTERPRETER += get_process_type.c
+INTERPRETER += generate_env.c
+INTERPRETER += pipe_interpreter.c
 
 #						   - - - - Expansion - - - -                           #
 

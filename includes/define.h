@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/10 14:41:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/10 21:00:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,8 @@
 # define ANALYZER_STATES			30
 # define FD_DUP						0x01
 # define FD_CLOSE					0x02
-# define FD_PIPE					0x04
+# define FD_PIPE_IN					0x04
+# define FD_PIPE_OUT				0x08
 
 # define GROUP_RUN					0x01
 # define GROUP_BG					0x02

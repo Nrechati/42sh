@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:29:53 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/10 19:06:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 21:02:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static int8_t		launch_shell_prompt(t_registry *shell)
 	}
 	ft_putchar('\n');
 	update_history(shell, input);
-	//define_ign_signals();
 	execution_pipeline(shell, lexer(input));
 	return (SUCCESS);
 }

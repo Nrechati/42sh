@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 18:46:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/10 20:45:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static t_resolution	init_resolve(t_registry *shell, t_list *tokens)
 	t_resolution	resolve;
 
 	shell->analyzer_signal = FALSE;
-	define_analyzer_signals();
 	ft_bzero(&resolve, sizeof(t_resolution));
 	resolve.tokens = tokens;
 	resolve.token.type = E_DEFAULT;
@@ -42,7 +41,6 @@ int8_t				execution_pipeline(t_registry *shell, t_list *tokens)
 		interpreter(shell, &cmd_group);
 		lexer_print_debug(shell, resolve.tokens);
 	}
-	define_ign_signals();
 	return (SUCCESS);
 }
 
