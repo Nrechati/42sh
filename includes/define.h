@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 13:36:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:48:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@
 # define CLIPBOARD_SZ				32
 
 # define INT_TERM					"TERM"
-# define INT_TERM_DFLT_VALUE		"xterm-256color"
+# define INT_TERM_DFLT_VALUE		"dumb"
 
 # define INT_DBG_FD					"DEBUG_FD"
 # define INT_DBG_FILE				".42sh.log"
@@ -133,6 +133,7 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
+//#define INT_PS1_VALUE "[42sh]-> "
 # define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "

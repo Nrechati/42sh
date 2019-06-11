@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 13:22:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:47:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static uint8_t            prompt_need_alignment(void)
 	}
     return ((x != 1) ? TRUE : FALSE);
 }
-
 static void		align_prompt(t_sle *sle)
 {
 	tputs(sle->termcaps.standout_on, 1, &ft_putc);
