@@ -8,4 +8,4 @@ INTERPRETER :
 	- && et ||
 	- reset termios
 	- redirect setup on builtin
-	-
+	- Assignations
