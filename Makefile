@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/11 11:48:38 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/11 18:32:31 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS += $(LEXER)
 SRCS += $(LOGGING)
 SRCS += $(PARSER)
 SRCS += $(RESOLVE)
+SRCS += $(HISTORIC)
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
 
@@ -128,6 +129,8 @@ P_PARSER += module/parser/debug/
 
 P_RESOLVE += module/resolve/
 
+P_HISTORIC += module/historic/
+
 P_TOOLS += tools/
 
 _SPATH += $(P_CORE)
@@ -139,6 +142,7 @@ _SPATH += $(P_LEXER)
 _SPATH += $(P_LOGGING)
 _SPATH += $(P_PARSER)
 _SPATH += $(P_RESOLVE)
+_SPATH += $(P_HISTORIC)
 
 SPATH += $(addprefix srcs/, $(_SPATH))
 
@@ -177,6 +181,7 @@ INCS += parser.h
 INCS += analyzer.h
 INCS += builtin.h
 INCS += resolve.h
+INCS += historic.h
 INCS += define.h
 INCS += struct.h
 INCS += enum.h
@@ -218,6 +223,10 @@ CORE += list_function_pointers.c
 
 LOGGING += debug_logger.c
 LOGGING += print_debug.c
+
+#						- - - - -  Historic  - - - - -						   #
+
+HISTORIC += circle_list.c
 
 #						- - - - -  Built-in   - - - - -                        #
 
