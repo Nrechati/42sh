@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/11 11:48:38 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/11 13:36:10 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ LIBFTDB = libftdb.a
 SRCS += $(CORE)
 SRCS += $(SLE)
 SRCS += $(ANALYZER)
+SRCS += $(INTERPRETER)
 SRCS += $(BUILTIN)
 SRCS += $(EXPANSION)
 SRCS += $(LEXER)
@@ -101,6 +102,12 @@ P_SLE += module/sle/utils/
 P_ANALYZER += module/analyzer/
 P_ANALYZER += module/analyzer/init/
 P_ANALYZER += module/analyzer/state/
+P_ANALYZER += module/analyzer/tools/
+
+P_INTERPRETER += module/interpreter/
+P_INTERPRETER += module/interpreter/core/
+P_INTERPRETER += module/interpreter/maping/
+P_INTERPRETER += module/interpreter/tools/
 
 P_BUILTIN += module/builtin/
 P_BUILTIN += module/builtin/cd/
@@ -126,8 +133,6 @@ P_PARSER += module/parser/
 P_PARSER += module/parser/init/
 P_PARSER += module/parser/debug/
 
-P_RESOLVE += module/resolve/
-
 P_TOOLS += tools/
 
 _SPATH += $(P_CORE)
@@ -138,7 +143,7 @@ _SPATH += $(P_EXPANSION)
 _SPATH += $(P_LEXER)
 _SPATH += $(P_LOGGING)
 _SPATH += $(P_PARSER)
-_SPATH += $(P_RESOLVE)
+_SPATH += $(P_INTERPRETER)
 
 SPATH += $(addprefix srcs/, $(_SPATH))
 
@@ -312,6 +317,21 @@ ANALYZER += io_redirect_analyzer.c
 ANALYZER += pipe_analyzer.c
 ANALYZER += redirect_analyzer.c
 ANALYZER += string_analyzer.c
+ANALYZER += token_tools.c
+
+#			 		      - - - - - Interpreter - - - - -                         #
+
+INTERPRETER += interpreter.c
+INTERPRETER += map.c
+INTERPRETER += list_tools.c
+INTERPRETER += get_process_type.c
+INTERPRETER += generate_env.c
+INTERPRETER += pipe_interpreter.c
+INTERPRETER += fork_process.c
+INTERPRETER += redirects.c
+INTERPRETER += waiter.c
+
+INTERPRETER += print_tools.c
 
 #						   - - - - Expansion - - - -                           #
 
@@ -340,12 +360,6 @@ PARSER += init_parser.c
 PARSER += ways_graph.c
 PARSER += ways_graph_word.c
 
-#						     - - - - Resolve - - - -                           #
-
-RESOLVE += job_tools.c
-RESOLVE += launch_job.c
-RESOLVE += launch_process.c
-RESOLVE += waitjob.c
 
 # ---------------------------------------------------------------------------- #
 #									 Rules                                     #

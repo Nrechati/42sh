@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:37:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:49:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:54:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,7 @@ void	check_filename(t_resolution *resolve)
 		ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 }
 
-void		reset_analyzer(t_registry *shell, t_resolution *resolve)
-{
-	ft_stckinit(&resolve->stack);
-	resolve->state = P_START;
-	resolve->env = shell->intern;
-	resolve->oflags = 0;
-	resolve->valid = 0;
-	ft_bzero(&resolve->process, sizeof(t_process));
-	ft_bzero(&resolve->job, sizeof(t_job));
-}
-
 void	delete_analyzer(t_resolution *resolve)
 {
-	if (resolve->tmp_env != NULL)
-		ft_lstdel(&resolve->tmp_env, NULL);
-	if (resolve->job_list != NULL)
-		ft_lstdel(&resolve->job_list, delete_job);
 	ft_stckdestroy(&resolve->stack, del_token);
 }

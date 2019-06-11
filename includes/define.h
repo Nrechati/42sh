@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 11:49:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:36:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,15 @@
 *****************************************************
 */
 
+# define NOT_FOUND					-2
 # define FAILURE					-1
 # define SUCCESS					0
 
 # define FALSE						0
 # define TRUE						1
+
+# define SH_GENERAL_ERROR			"42sh: "
+# define SH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
 
 # define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
 # define SH21_USAGE_2				"[-c CMD]\n"
@@ -88,8 +92,9 @@
 # define H_WIPE						0x001
 # define H_ALL						0x002
 # define H_HELP						0x004
-# define NOT_FOUND					-2
 # define HASH_GENERAL_ERROR			"42sh: hash: "
+# define HASH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
+# define HASH_HIT_ERROR				"error hitting bin\n"
 # define HASH_INVALID_OPT			": invalid option\n"
 # define HASH_NO_AV					"NULL av given to built-in\n"
 # define HASH_NOT_FOUND				": not found\n"
@@ -236,16 +241,36 @@
 # define ANALYZER_STATES			30
 # define FD_DUP						0x01
 # define FD_CLOSE					0x02
-# define FD_WRITE					0x04
-# define FD_READ					0x08
-# define FD_PIPE					0x10
-# define FD_CLOED					0x20
+# define FD_PIPE_IN					0x04
+# define FD_PIPE_OUT				0x08
+
+# define GROUP_RUN					0x01
+# define GROUP_BG					0x02
+# define GROUP_AND					0x04
+# define GROUP_OR					0x08
 
 # define QUOTING					0x01
 # define HERETRIM					0x02
 # define TO_CLOSE					0x04
 # define NO_PIPE					0x08
 # define VALID_PROCESS				0x10
+
+# define IS_BLT						0x01
+# define IS_BIN						0x02
+# define IS_ABS						0x04
+# define IS_ASSIGN					0x08
+# define IS_ALONE					0x10
+# define IS_NOTFOUND				0x20
+
+/*
+*****************************************************
+******************** INTERPRETER ********************
+*****************************************************
+*/
+
+# define INTEPRETER_NOT_FOUND		" command not found\n"
+# define INTEPRETER_FORK_ERROR		" fork error\n"
+# define INTEPRETER_EXECVE_ERROR	" execve fail\n"
 
 /*
 *****************************************************

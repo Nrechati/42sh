@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:55:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:55:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ static char	*variable_concat(t_list *lst, char **str, int i)
 	return (holder);
 }
 
-static int	check_expansion(t_resolution *resolve, char **str,
-							int i, t_quote quote)
+static int	check_expansion(t_list *intern_var, char **str, int i, t_quote quote)
 {
 	int		check;
 
@@ -59,14 +58,14 @@ static int	check_expansion(t_resolution *resolve, char **str,
 			check = 0;
 		else if (quote != QUOTE_SINGLE)
 		{
-			*str = variable_concat(resolve->env, str, i);
+			*str = variable_concat(intern_var, str, i);
 			check = 1;
 		}
 	}
 	return (check);
 }
 
-char		*variable_expansion(t_resolution *resolve, char *str)
+char		*variable_expansion(t_list *intern_var, char *str)
 {
 	t_quote		quote;
 	uint32_t	i;
@@ -77,9 +76,9 @@ char		*variable_expansion(t_resolution *resolve, char *str)
 	len = ft_strlen(str);
 	while (i < len)
 	{
-		if (ft_strchr("\'\"", str[i]) && (resolve->special_case & QUOTING))
+		if (ft_strchr("\'\"", str[i]))
 			quote = select_quoting(quote, str[i]);
-		if (check_expansion(resolve, &str, i, quote) == 1)
+		if (check_expansion(intern_var, &str, i, quote) == 1)
 			len = ft_strlen(str);
 		else
 			++i;

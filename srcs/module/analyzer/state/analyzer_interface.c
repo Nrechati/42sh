@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 14:04:36 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:49:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	error_analyzer(t_resolution *resolve)
 {
 	resolve->state = P_ERROR;
 	resolve->valid = -1;
+	ft_dprintf(2, "42sh: analyze error near unexpected token `%s'\n",
+						g_grammar[resolve->token.type]);
 	ft_strdel(&resolve->token.data);
 	while (check_token(resolve))
 	{
@@ -36,7 +38,6 @@ void	error_analyzer(t_resolution *resolve)
 		ft_strdel(&resolve->token.data);
 	}
 	resolve->token.type = E_DEFAULT;
-	ft_lstdel(&resolve->process.fd, close_fd);
 }
 
 void	separator_analyzer(t_resolution *resolve)
@@ -46,16 +47,14 @@ void	separator_analyzer(t_resolution *resolve)
 
 void	stop_analyzer(t_resolution *resolve)
 {
-	t_list		*node;
+	t_action	action;
 
 	resolve->state = P_STOP;
+	ft_bzero(&action, sizeof(t_action));
 	if (resolve->special_case & VALID_PROCESS)
 	{
-		resolve->special_case ^= VALID_PROCESS;
-		node = ft_lstnew(&resolve->process, sizeof(t_process));
-		ft_lstaddback(&resolve->job.process_list, node);
-		node = ft_lstnew(&resolve->job, sizeof(t_job));
-		ft_lstaddback(&resolve->job_list, node);
+		action.action = A_END;
+		ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 		resolve->valid = 1;
 	}
 	resolve->token.type = E_DEFAULT;
@@ -63,17 +62,12 @@ void	stop_analyzer(t_resolution *resolve)
 
 void	end_analyzer(t_resolution *resolve)
 {
-	t_list		*node;
+	t_action	action;
 
 	resolve->state = P_END;
-	if (resolve->special_case & VALID_PROCESS)
-	{
-		resolve->special_case ^= VALID_PROCESS;
-		node = ft_lstnew(&resolve->process, sizeof(t_process));
-		ft_lstaddback(&resolve->job.process_list, node);
-		node = ft_lstnew(&resolve->job, sizeof(t_job));
-		ft_lstaddback(&resolve->job_list, node);
-		resolve->valid = 1;
-	}
+	ft_bzero(&action, sizeof(t_action));
+	action.action = A_END;
+	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+	resolve->valid = 1;
 	get_token(resolve);
 }
