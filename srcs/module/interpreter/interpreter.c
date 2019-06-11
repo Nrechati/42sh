@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 21:36:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/11 09:53:01 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	update_pid(t_list *processes, pid_t pid)
 		if (current->pid == pid)
 		{
 			current->completed = 1;
-			ft_dprintf(2, "\x1b[32m%s completed with succes with PID %d\n\x1b[0m"
+			ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
 					, current->av[0]
 					, pid);
 			return ;

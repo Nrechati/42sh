@@ -1,4 +1,6 @@
 # 42sh
 42sh Project for 42
 
-Start dev branch
+error stuck in pipe
+builtin HS
+hits on bin
