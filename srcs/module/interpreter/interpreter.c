@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 10:35:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:15:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@ void	run_builtin(t_registry *shell, t_process *process)
 	ret = builtin(shell, process->av);
 	(void)ret;
 	return ;
+}
+
+int		get_not_found(void *data, void *context)
+{
+	t_process	*current;
+
+	(void)context;
+	current = data;
+	if (current->process_type & IS_NOTFOUND)
+		return (TRUE);
+	return (FALSE);
 }
 
 void	run_process(void *context, void *data)
@@ -66,7 +77,7 @@ void	run_job(void *context, void *data)
 	else
 		setup_pipe(job->processes);
 	ft_lstiter_ctx(job->processes, shell, run_process);
-
+	ft_lstremove_if(&job->processes, NULL, get_not_found, del_process);
 	ft_lstiter(job->processes, print_process);
 	//CLOSE REDIRECTIONS;
 	//CHECK WAIT CONDITION HERE;

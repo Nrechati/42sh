@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/10 16:53:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:15:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,14 @@ void		del_group(void *data)
 
 	group = data;
 	ft_lstdel(&group->command_list, del_command);
+}
+
+void	del_process(void *data)
+{
+	t_process	*current;
+
+	current = data;
+	ft_freetab(&current->av);
+	ft_lstdel(&current->env, clear_node);
+	ft_lstdel(&current->redirects, del_redirects);
 }

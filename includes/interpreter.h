@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 10:42:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:20:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char		*token_to_str(void *data);
 void		del_group(void *data);
 void		del_command(void *data);
 void		del_action(void *data);
+void		del_redirects(void *data);
+void		del_process(void *data);
 
 void		print_process(void *data);
 void		print_job(void *data);

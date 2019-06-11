@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 10:36:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:24:44 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	fork_process(t_registry *shell, t_process *process)
 	}
 	else
 	{						//IF PARENT
+		if (process->process_type & IS_BIN)
+			ft_hmap_hits(&shell->hash.bin, process->av[0]);
 		ft_printf("fork process pid : %d\n", process->pid);
 		ft_lstiter(process->redirects, close_redirects);
 		if (*process->pgid == 0)
