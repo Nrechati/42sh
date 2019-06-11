@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:39:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:25:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,6 @@ typedef struct			s_coord
 
 typedef struct			s_termcaps
 {
-	char				*position;
 	char				*ring;
 	char				*standout_on;
 	char				*standout_off;
