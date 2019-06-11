@@ -1,6 +1,11 @@
 # 42sh
 42sh Project for 42
 
-error stuck in pipe
-builtin HS
-hits on bin
+INTERPRETER :
+	- Expansion
+	- Redirection
+	- signaux
+	- && et ||
+	- reset termios
+	- redirect setup on builtin
+	-
