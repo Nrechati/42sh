@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 11:51:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:08:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int8_t				unset_blt(t_registry *shell, char **av)
 		return (FAILURE);
 	}
 	if (shell->intern != NULL)
-		free_node(&shell->intern, *av);
+		free_var(&shell->intern, *av);
 //read-only
 	return (SUCCESS);
 }

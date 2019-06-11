@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:13:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 16:19:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:55:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		free_hash(t_hash hashmap, void (*del)(void *))
 static void		free_registry(t_registry *shell)
 {
 	free_opt(shell->option);
-	ft_lstdel(&shell->intern, clear_node);
+	ft_lstdel(&shell->intern, free_node);
 	free_hash(shell->hash.bin, ft_free);
 	free_hash(shell->hash.blt, NULL);
 }
