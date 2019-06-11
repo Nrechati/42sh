@@ -6,41 +6,21 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 17:21:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:28:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		*token_to_var(void *data)
+void		set_process_pgid(void *context, void *data)
 {
-	t_list		*node;
-	t_list		*ptr;
-	t_token		*name_token;
-	t_token		*data_token;
-	t_variable	var;
+	t_job		*job;
+	t_process	*process;
 
-	ptr = ((t_action *)data)->data;
-	name_token = ptr->data;
-	data_token = ptr->next->data;
-	ft_bzero(&var, sizeof(t_variable));
-	var.flag = EXPORT_VAR;
-	var.name = ft_strdup(name_token->data);
-	var.data = ft_strdup(data_token->data);
-	node = ft_lstnew(&var, sizeof(t_variable));
-	return (node);
-}
-
-char		*token_to_str(void *data)
-{
-	char		*str;
-	t_token		*token;
-
-	token = data;
-	str = ft_strdup(token->data);
-	if (str == NULL)
-		return (NULL);
-	return (str);
+	job = context;
+	process = data;
+	process->pgid = &job->pgid;
+	return ;
 }
 
 int			redirect_or_other(void *action, __unused void *data)
@@ -66,7 +46,6 @@ void		*actions_to_redirects(void *data)
 	//redirect.action = get_redirect_in_tab(action.enum)
 
 	// RAPPEL : PIPE OUT = LAST ACTION; PIPE IN = FIRST ACTION
-	// if (action->enum != A_PIPE)
 	//	while(action->data)
 	//			if (action->next->token->type == A_REDIRECT)
 	//				if (token->type == IO_NBR)
@@ -78,29 +57,8 @@ void		*actions_to_redirects(void *data)
 	//					redirect->second = token->data
 	//				else if (token->type == WORD)
 	//					redirect->second = open(token->data | RW_ONLY)	//WHY CHAR* FILE ??
-
-	// if (action->enum == A_PIPE)
-	//	fd[IN,OUT] = pipe();
-	//	if (pipe out)
-	//		redirect->first = FD_OUT
- 	//		redirect->second = PIPE_IN
-	//	if (pipe in)
-	//		redirect->first = PIPE_OUT
-	//		redirect->second = FD_IN
-
 	node = ft_lstnew(&redirect, sizeof(t_redirect));
 	return (node);
-}
-
-void		set_process_pgid(void *context, void *data)
-{
-	t_job		*job;
-	t_process	*process;
-
-	job = context;
-	process = data;
-	process->pgid = &job->pgid;
-	return ;
 }
 
 void		*cmd_to_process(void *data)

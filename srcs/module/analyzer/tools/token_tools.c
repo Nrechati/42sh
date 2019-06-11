@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:03:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 10:03:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:27:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,35 @@ void	get_token(t_resolution *resolve)
 	resolve->tokens = resolve->tokens->next;
 	ft_memcpy(&resolve->token, node->data, sizeof(t_token));
 	ft_lstdelone(&node, NULL);
+}
+
+void	*token_to_var(void *data)
+{
+	t_list		*node;
+	t_list		*ptr;
+	t_token		*name_token;
+	t_token		*data_token;
+	t_variable	var;
+
+	ptr = ((t_action *)data)->data;
+	name_token = ptr->data;
+	data_token = ptr->next->data;
+	ft_bzero(&var, sizeof(t_variable));
+	var.flag = EXPORT_VAR;
+	var.name = ft_strdup(name_token->data);
+	var.data = ft_strdup(data_token->data);
+	node = ft_lstnew(&var, sizeof(t_variable));
+	return (node);
+}
+
+char	*token_to_str(void *data)
+{
+	char		*str;
+	t_token		*token;
+
+	token = data;
+	str = ft_strdup(token->data);
+	if (str == NULL)
+		return (NULL);
+	return (str);
 }

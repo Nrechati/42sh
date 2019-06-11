@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/10 21:24:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:27:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int8_t		setup_pipe(t_list *processess);
 void		*group_to_job(void *data);
 void		*cmd_to_process(void *data);
 void		*action_to_redirects(void *data);
+
+void		*token_to_var(void *data);
+char		*token_to_str(void *data);
 
 void		del_group(void *data);
 void		del_command(void *data);
