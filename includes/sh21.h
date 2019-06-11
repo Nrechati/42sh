@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 14:01:28 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:49:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include "struct.h"
 # include "sig.h"
 # include "builtin.h"
-# include "interface_functions.h"
-# include "history.h"
+# include "sle.h"
 # include "lexer.h"
 # include "parser.h"
 # include "analyzer.h"
@@ -32,23 +31,22 @@
 ******************** INIT / EXIT ********************
 *****************************************************
 */
-void			free_registry(t_registry *shell);
 int8_t			set_environment(t_registry *shell, char **av, char **env);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell);
 int8_t			parse_arg(char **av, t_opt *option);
-void			generate_grammar(t_registry *shell);
+void			generate_grammar(void); // TEMP
 
 /*
 *****************************************************
-****************** READ / INTERFACE *****************
+*********************** LAUNCH **********************
 *****************************************************
 */
 
-char			*read_input(const int fd);
-void			launch_interface(t_registry *shell);
-int8_t			execution_pipeline(t_registry *shell, t_list *token_list);
-void			get_prompt_ps1(t_registry *shell);
+void			launch_shell(t_registry *shell);
+void			batch_mode(t_registry *shell);
+void			interactive_mode(t_registry *shell);
+int8_t			execution_pipeline(t_registry *shell, t_vector *input);
 
 /*
 *****************************************************

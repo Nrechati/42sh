@@ -6,104 +6,89 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:47:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
+static uint8_t	cmp_buf_and_input(t_lexer *machine, char c)
+{
+	if (*machine->buffer->buffer == c && *machine->input->buffer == c)
+		return (TRUE);
+	return (FALSE);
+}
+
 void			double_sign_machine(t_lexer *machine)
 {
-	uint32_t	checker;
-
-	checker = 0;
-	if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
+	if (ft_strchr(DOUBLE_SIGN, *machine->input->buffer) != NULL)
 	{
-		if (*machine->buffer == '|' && *machine->input == '|' && ++checker)
+		if (cmp_buf_and_input(machine, '|') == TRUE)
 			machine->last_lexer = E_OR;
-		else if (*machine->buffer == ';' && *machine->input == ';' && ++checker)
+		else if (cmp_buf_and_input(machine, ';') == TRUE)
 			machine->last_lexer = E_DSEMI;
-		else if (*machine->buffer == '&' && *machine->input == '&' && ++checker)
+		else if (cmp_buf_and_input(machine, '&') == TRUE)
 			machine->last_lexer = E_DAND;
-		else if (*machine->buffer == '=' && *machine->input == '=' && ++checker)
+		else if (cmp_buf_and_input(machine, '=') == TRUE)
 			machine->last_lexer = E_DEQ;
-		else if (*machine->buffer == '!' && *machine->input == '=' && ++checker)
+		else if (*machine->buffer->buffer == '!'
+				&& *machine->input->buffer == '=')
 			machine->last_lexer = E_NOTEQ;
-		if (checker != FALSE)
-			++machine->input;
+		vct_cut(machine->input);
 	}
-	if (*machine->buffer == '=' && *machine->input != '=')
+	if (*machine->buffer->buffer == '=' && *machine->input->buffer != '=')
 		machine->state = L_STRING;
 	else
 		machine->state = L_OUT;
 }
 
-static uint32_t	double_dispatcher(t_lexer *machine)
+static uint8_t	double_dispatcher(t_lexer *machine)
 {
-	uint32_t	checker;
-
-	checker = 0;
-	if (*machine->input == '>')
-	{
-		++checker;
+	if (*machine->input->buffer == '>')
 		machine->state = L_GREATER;
-	}
-	else if (*machine->input == '<')
-	{
-		++checker;
+	else if (*machine->input->buffer == '<')
 		machine->state = L_LESSER;
-	}
-	else if (ft_strchr(DOUBLE_SIGN, *machine->input) != NULL)
-	{
-		++checker;
+	else if (ft_strchr(DOUBLE_SIGN, *machine->input->buffer) != NULL)
 		machine->state = L_DSIGN;
-	}
-	return (checker);
+	else
+		return (FALSE);
+	return (TRUE);
 }
 
 void			and_machine(t_lexer *machine)
 {
-	if (machine->input[1] == '>')
+	if (machine->input->buffer[1] == '>')
 	{
-		++machine->input;
+		vct_cut(machine->input);
 		machine->last_lexer = E_ANDGREAT;
-		++machine->input;
-		if (machine->last_lexer == E_ANDGREAT && *machine->input == '>')
-		{
+		vct_cut(machine->input);
+		if (machine->last_lexer == E_ANDGREAT && *machine->input->buffer == '>')
 			machine->last_lexer = E_ANDDGREAT;
-			machine->input++;
-		}
 	}
 	else
-	{
-		if (create_token_data(machine) == FAILURE)
-			return ;
-		++machine->input;
-	}
+		vct_add(machine->buffer, *machine->input->buffer);
+	vct_cut(machine->input);
 	machine->state = L_OUT;
 }
 
 void			sign_machine(t_lexer *machine)
 {
-	if (*machine->input == '\'')
+	if (*machine->input->buffer == '\'')
 		machine->state = L_SQTE;
-	else if (*machine->input == '\"')
+	else if (*machine->input->buffer == '\"')
 		machine->state = L_DQTE;
-	else if (*machine->input == '&')
+	else if (machine->input->buffer[0] == '&'
+			&& machine->input->buffer[1] != '&')
 	{
 		machine->state = L_AND;
 		return ;
 	}
 	else if (double_dispatcher(machine) != FALSE)
-	{
-		if (create_token_data(machine) == FAILURE)
-			return ;
-	}
+		vct_add(machine->buffer, *machine->input->buffer);
 	else
 	{
-		if (create_token_data(machine) == FAILURE)
-			return ;
+		vct_add(machine->buffer, *machine->input->buffer);
 		machine->state = L_OUT;
 	}
-	++machine->input;
+	vct_cut(machine->input);
 }

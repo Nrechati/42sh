@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 14:17:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 14:38:09 by nrechati         ###   ########.fr       */
+/*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/11 11:49:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
+
+
+///// LINUX /////
+# ifndef __unused
+#  define __unused __attribute__((unused))
+# endif
+/////////////////
 
 /*
 *****************************************************
@@ -107,24 +114,24 @@
 # define IFS_CHAR					10
 # define READ_SIZE					8
 # define CLIPBOARD_SZ				32
+
 # define INT_TERM					"TERM"
 # define INT_TERM_DFLT_VALUE		"xterm-256color"
+
 # define INT_DBG_FD					"DEBUG_FD"
 # define INT_DBG_FILE				".42sh.log"
+
 # define INT_ROWS					"ROWS"
 # define INT_COLS					"COLS"
+
 # define INT_PS1					"PS1"
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
-# define INT_PS4					"PS4"
-# define INT_PS5					"PS5"
-# define INT_ESCAPE_SEQ				"ESC"
-# define INT_PS1_VALUE				"[ 21sh ]-> "
-# define INT_PS2_VALUE				"quote> "
-# define INT_PS3_VALUE				"script> "
-# define INT_PS4_VALUE				"heredoc> "
-# define INT_ESCAPE_SEQ_VALUE		"\\"
-# define INT_MAGIC_NUMBER			"4242"
+
+# define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
+# define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
+# define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
+
 
 /*
 *****************************************************
@@ -242,12 +249,75 @@
 
 /*
 *****************************************************
-**************** INTERFACE_FUNCTIONS ****************
+************************ SLE ************************
 *****************************************************
 */
 
+# define START_FILTER	">...."
+# define END_FILTER		"<...."
+
+# define PROMPT_PIPE	"pipe"
+# define PROMPT_QUOTE	"quote"
+# define PROMPT_DQUOTE	"dquote"
+# define PROMPT_BQUOTE	"bquote"
+# define PROMPT_NL		"nl"
+# define PROMPT_AND		"and"
+# define PROMPT_OR		"or"
+
+# define SLE_GET_INPUT		0x0100
+# define SLE_PS2_PROMPT		0x0200
+# define SLE_PS3_PROMPT		0x0400
+# define SLE_SIZE_UPDATE	0x0800
+# define SLE_EXIT			0x1000
+
+# define RD_NONE        0x001 /* No redraw at all*/
+# define RD_CLEAR       0x002 /* Redraw th entire window*/
+# define RD_LINE      	0x004 /* Redraw entire line */
+# define RD_LAST        0x008 /* redraw only last char of line vect */
+
+# define RD_FPTP        0x010 /* From point to point (index / t_coord) */
+# define RD_FPTE        0x020 /* From point to end */
+# define RD_FSTP        0x040 /* From start to point */
+
+# define RD_CEND        0x080 /* Put cursor at end */
+# define RD_CHOME       0x100 /* Put cursor at home */
+# define RD_CMOVE       0x200 /* Put cursor to point / index */
+
+# define RD_VISUAL		0x400
+
+# define CRITICAL_ERROR     0x001
+# define MALLOC_FAIL        0x002
+# define VCT_FAIL           0x004
+# define INVALID_TERM       0x008
+# define TERMMDE_FAIL       0x010
+# define TGETSTR_FAIL       0x020
+# define INTERNAL_FAIL      0x040
+# define LINE_FAIL          0x080
+# define WINDOW_FAIL        0x100
+# define CURSOR_FAIL        0x200
+# define PRMPT_FAIL         0x400
+
+# define SETUP_DONE			0x800
+
+# define INTERNAL_FAIL2     999
+# define CLIPB_FAIL         999
+# define HIST_FAIL          999
+# define SUBP_FAIL          2048
+# define AUTOC_FAIL         4096
+# define KEYBDS_FAIL        8192
+
+# define P_DATE				'd'
+# define P_NAME				's'
+# define P_USER				'u'
+# define P_CWD				'w'
+# define P_HOST				'h'
+# define P_MISS				'm'
+# define P_ESCAPE			'e'
+
 # define FAIL_EOF					42
-# define AK_AMOUNT					24
+# define AK_AMOUNT					22
+
+# define AK_ESCAPE_MASK				0x1b00000000000000
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
 # define AK_ARROW_DOWN_MASK 		0x1b5b420000000000
 # define AK_ARROW_RIGHT_MASK		0x1b5b430000000000
@@ -260,13 +330,11 @@
 # define AK_BACKSPACE_MASK		 	0x7f00000000000000
 # define AK_CTRL_D_MASK 			0x0400000000000000
 # define AK_CTRL_L_MASK				0x0c00000000000000
+# define AK_CTRL_V_MASK				0x1600000000000000
 # define AK_CTRL_X_MASK				0x1800000000000000
 # define AK_CTRL_B_MASK				0x0200000000000000
 # define AK_CTRL_P_MASK				0x1000000000000000
-# define AK_CTRL_LB_MASK			0x1b00000000000000
-# define AK_CTRL_RB_MASK			0x1d00000000000000
 # define AK_CTRL_F_MASK				0x0600000000000000
-# define AK_CTRL_R_MASK				0x1200000000000000
 # define AK_CTRL_UP_MASK			0x1b5b313b35410000
 # define AK_CTRL_DOWN_MASK			0x1b5b313b35420000
 # define AK_CTRL_RIGHT_MASK			0x1b5b313b35430000

@@ -6,70 +6,79 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:23:05 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:46:35 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
+static void	lesser_addition(t_lexer *machine)
+{
+	if (*machine->buffer->buffer == '<' && *machine->input->buffer == '&')
+		machine->state = L_LESSAND;
+	else if (*machine->buffer->buffer == '<'
+			&& *machine->input->buffer == '>')
+		machine->last_lexer = E_LESSGREAT;
+	else
+		return ;
+	vct_cut(machine->input);
+
+}
+
 void	lesser_machine(t_lexer *machine)
 {
-	uint32_t	checker;
-
-	checker = 0;
-	if (machine->last_lexer == E_DLESS && *machine->input == '-' && ++checker)
+	if (machine->last_lexer == E_DLESS && *machine->input->buffer == '-')
+	{
 		machine->last_lexer = E_DLESSDASH;
-	else if (*machine->buffer == '<' && *machine->input == '<')
-	{
-		if (machine->last_lexer != E_DLESS)
-		{
-			machine->last_lexer = E_DLESS;
-			if (create_token_data(machine) != FAILURE)
-				++machine->input;
-			return ;
-		}
+		vct_cut(machine->input);
 	}
-	else if (*machine->input == '>' || *machine->input == '&')
+	else if (*machine->buffer->buffer == '<' && *machine->input->buffer == '<'
+			&& machine->input->buffer[1] != '&'
+			&& (machine->last_lexer != E_DLESS))
 	{
-		if (*machine->buffer == '<' && *machine->input == '&' && ++checker)
-			machine->state = L_LESSAND;
-		else if (*machine->buffer == '<' && *machine->input == '>' && ++checker)
-			machine->last_lexer = E_LESSGREAT;
+		machine->last_lexer = E_DLESS;
+		vct_add(machine->buffer, *machine->input->buffer);
+		vct_cut(machine->input);
+		return ;
 	}
-	if (checker != FALSE)
-		++machine->input;
+	else if (*machine->input->buffer == '>' || *machine->input->buffer == '&')
+		lesser_addition(machine);
 	machine->state = machine->state == L_LESSAND ? L_LESSAND : L_OUT;
 }
 
+
 void	greater_machine(t_lexer *machine)
 {
-	uint32_t	checker;
-
-	checker = 0;
-	if (ft_strchr(">&|", *machine->input) != NULL)
+	if (ft_strchr(">&|", *machine->input->buffer) != NULL)
 	{
-		if (*machine->buffer == '>' && *machine->input == '>' && ++checker)
+		if (*machine->buffer->buffer == '>' && *machine->input->buffer == '>')
 			machine->last_lexer = E_DGREAT;
-		else if (*machine->buffer == '>' && *machine->input == '&' && ++checker)
+		else if (*machine->buffer->buffer == '>'
+				&& *machine->input->buffer == '&')
 			machine->state = L_GREATAND;
-		else if (*machine->buffer == '>' && *machine->input == '|' && ++checker)
+		else if (*machine->buffer->buffer == '>'
+				&& *machine->input->buffer == '|')
 			machine->last_lexer = E_CLOBBER;
+		else
+		{
+			machine->state = machine->state == L_GREATAND ? L_GREATAND : L_OUT;
+			return ;
+		}
 	}
-	if (checker != FALSE)
-		++machine->input;
+	vct_cut(machine->input);
 	machine->state = machine->state == L_GREATAND ? L_GREATAND : L_OUT;
 }
 
 void	greatand_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_GREATAND;
-	*machine->buffer = '\0';
+	*machine->buffer->buffer = '\0';
 	machine->state = L_OUT;
 }
 
 void	lessand_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_LESSAND;
-	*machine->buffer = '\0';
+	*machine->buffer->buffer = '\0';
 	machine->state = L_OUT;
 }

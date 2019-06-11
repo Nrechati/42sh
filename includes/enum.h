@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:55:15 by nrechati         ###   ########.fr       */
+/*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/08 10:34:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,36 +154,46 @@ enum	e_analyzer_state
 
 /*
 *****************************************************
-**************** INTERFACE_FUNCTIONS ****************
+************************ SLE ************************
 *****************************************************
 */
 
+enum	prompt_type
+{
+	PRINT_PIPE,
+	PRINT_QUOTE,
+	PRINT_DQUOTE,
+	PRINT_BQUOTE,
+	PRINT_NL,
+	PRINT_AND,
+	PRINT_OR
+};
+
 enum	e_action_keys
 {
-	AK_ARROW_RIGHT,
-	AK_ARROW_LEFT,
 	AK_ARROW_UP,
 	AK_ARROW_DOWN,
+	AK_ARROW_RIGHT,
+	AK_ARROW_LEFT,
 	AK_HOME,
 	AK_END,
+	AK_CTRL_A,
+	AK_CTRL_E,
 	AK_BACKSPACE,
 	AK_DELETE,
-	AK_CTRL_A,
-	AK_CTRL_D,
-	AK_CTRL_E,
-	AK_CTRL_L,
-	AK_CTRL_X,
-	AK_CTRL_B,
-	AK_CTRL_P,
-	AK_CTRL_LB,
-	AK_CTRL_RB,
-	AK_CTRL_F,
-	AK_CTRL_R,
 	AK_CTRL_LEFT,
 	AK_CTRL_RIGHT,
-	AK_TABULATION,
 	AK_CTRL_DOWN,
-	AK_CTRL_UP
+	AK_CTRL_UP,
+	AK_CTRL_D,
+	AK_CTRL_L,
+	AK_ESCAPE,
+	AK_CTRL_F,
+	AK_CTRL_B,
+	AK_CTRL_X,
+	AK_CTRL_P,
+
+	AK_TABULATION,
 };
 
 #endif

@@ -4,6 +4,9 @@
 *.obj
 *.elf
 
+# Swap files
+.*.sw*
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -40,3 +43,5 @@
 # Executable
 42sh
 42shdb
+21sh
+21shdb

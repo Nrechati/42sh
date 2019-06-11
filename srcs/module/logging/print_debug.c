@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:57:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,5 @@ void		analyzer_print_debug(t_registry *shell, t_resolution *resolve)
 		else
 			ft_putstr(NULL);
 		ft_putendl("------------------------------------\033[0m\n");
-	}
-}
-
-void		lexer_print_debug(t_registry *shell, t_list *token_list)
-{
-	if (token_list != NULL && (shell->option.option & DEBUG_OPT) != FALSE)
-	{
-		ft_putendl("\n\033[34m-------------- LEXER ---------------");
-		ft_lstiter(token_list, print_token);
-		ft_putendl("------------------------------------\033[0m");
 	}
 }

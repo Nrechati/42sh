@@ -6,31 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:59:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:50:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-static void		free_opt(t_opt option)
-{
-	ft_strdel(&option.command_str);
-}
-
-static void		free_hash(t_hash hashmap, void (*del)(void *))
-{
-	ft_hmap_free_content(&hashmap, del);
-	ft_free(hashmap.map);
-	hashmap.map = NULL;
-}
-
-void			free_registry(t_registry *shell)
-{
-	free_opt(shell->option);
-	ft_lstdel(&shell->intern, free_node);
-	free_hash(shell->hash.bin, ft_free);
-	free_hash(shell->hash.blt, NULL);
-}
 
 int8_t			exit_blt(t_registry *shell, char **av)
 {
@@ -43,8 +23,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 		{
 			ft_dprintf(shell->cur_fd.err,
 					"21sh: exit: %s: numeric argument required\n", *av);
-			free_registry(shell);
-			ft_flush_memory();
+			shell_exit_routine(shell);
 			exit(FAILURE);
 		}
 		else if (*(av + 1) != NULL)
@@ -54,7 +33,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 		}
 	}
 	ret = *av == NULL ? SUCCESS : ft_atoi(*av);
-	free_registry(shell);
+	shell_exit_routine(shell);
 	ft_flush_memory();
 	exit(ret);
 }

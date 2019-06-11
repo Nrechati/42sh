@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/14 14:21:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:55:15 by nrechati         ###   ########.fr       */
+/*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/04 17:36:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-t_list		*lexer(char *input);
+t_list		*lexer(t_vector *line);
 t_lexinfo	*init_lexinfo(void);
 
 void		start_lexer(t_lexer *machine);
@@ -34,7 +34,7 @@ void		lesser_machine(t_lexer *machine);
 void		lessand_machine(t_lexer *machine);
 void		tilde_machine(t_lexer *machine);
 t_token		generate_token(t_lexer *machine);
-int			create_token_data(t_lexer *machine);
+
 
 /*
 *****************************************************
@@ -43,6 +43,6 @@ int			create_token_data(t_lexer *machine);
 */
 
 void		print_token(void *data);
-void		del_token(void *token);
+void		lexer_print_debug(t_registry *shell, t_list *token_list);
 
 #endif

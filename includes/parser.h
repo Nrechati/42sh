@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:55:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:36:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		parser_subprompt(t_list **lst);
 *************** INIT
 */
 
-t_graph		*generate_graph(void);
+t_parser	*init_parser(void);
 void		set_start_token(t_graph *tab_tokens);
 void		set_word_token(t_graph *tab_tokens);
 void		set_redirect_token(t_graph *tab_tokens);

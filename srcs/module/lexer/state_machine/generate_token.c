@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 20:19:38 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:52:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:56:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ char				*assign_token_data(t_lexer *machine, t_token *token)
 	i = 0;
 	while (i < TOKEN_WITH_DATA)
 	{
-		if (token->type == machine->lexinfo->duplicate[i++] && *machine->buffer)
+		if (token->type == machine->lexinfo->duplicate[i++]
+				&& *machine->buffer->buffer)
 		{
 			if (machine->data != NULL)
 				ft_asprintf(&token->data, "%s%s", machine->data
-						, machine->buffer);
+						, machine->buffer->buffer);
 			else
-				token->data = ft_strdup(machine->buffer);
+				token->data = ft_strdup(machine->buffer->buffer);
 			ft_strdel(&machine->data);
 		}
 	}
-	machine->buffer_index = 0;
 	return (token->data);
 }
 
@@ -67,7 +67,7 @@ static enum e_type	check_char(t_lexer *machine)
 	s = ALLCHAR;
 	while (i < SINGLE_SIGNS)
 	{
-		if (*machine->buffer == *(s + i))
+		if (*machine->buffer->buffer == *(s + i))
 			return (i);
 		++i;
 	}
@@ -94,7 +94,7 @@ t_token				generate_token(t_lexer *machine)
 	assign_token_data(machine, &token);
 	if (machine->last_lexer != E_END)
 	{
-		ft_bzero(machine->buffer, BUFFER);
+		vct_reset(machine->buffer);
 		machine->last_lexer = E_DEFAULT;
 	}
 	if (machine->io_detect)

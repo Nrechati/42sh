@@ -6,13 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 19:01:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/05 10:26:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 #include <unistd.h>
+
 
 static int	write_heredoc(char **line, int fd, t_resolution *resolve)
 {
@@ -76,17 +77,21 @@ void		io_heredoc_analyzer(t_resolution *resolve)
 	io = pop_token_data(&resolve->stack);
 	generate_filedesc(resolve, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
 	ft_strdel(&io);
-	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
-	{
-		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
-			return ;
-	}
+//TODO:CED
+//	while (invoke_ps2prompt(g_shell, &line, INT_PS3) == SUCCESS)
+//	{
+//		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
+//			return ;
+//	}
+
 	ft_strdel(&line);
 	error_analyzer(resolve);
 }
 
 void		heredoc_analyzer(t_resolution *resolve)
 {
+	t_vector *vector;
+
 	char		*line;
 	char		*delimiter;
 	int			fd[2];
@@ -97,7 +102,16 @@ void		heredoc_analyzer(t_resolution *resolve)
 	delimiter = pop_token_data(&resolve->stack);
 	pop_token_data(&resolve->stack);
 	generate_filedesc(resolve, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
-	while (invoke_sub_prompt(g_shell, &line, INT_PS4) == SUCCESS)
+//TODO:CED
+/*
+**	la fonction invoke_ps3prompt(), est pour les heredocs, et retourne un vecteur
+**	allouer que tu dois free quand ta fini.
+**	Retourne NULL en cas d'erreur ou d'EOF
+*/
+
+
+	vector = NULL;
+	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
 		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
 			return ;

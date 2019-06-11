@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 13:29:54 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:58:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
-										t_list **lst)
+static uint8_t	manage_error_and_subprompt(const char **grammar,
+					enum e_type state, enum e_type type, t_list **lst)
 {
 	if (need_subprompt(state, type) == TRUE)
 	{
@@ -21,7 +21,7 @@ static uint8_t	manage_error_and_subprompt(enum e_type state, enum e_type type,
 		return (TRUE);
 	}
 	ft_dprintf(2, "21sh: syntax error near unexpected token `%s'\n",
-						g_shell->grammar[type]);
+				grammar[type]);
 	return (FALSE);
 }
 
@@ -45,7 +45,7 @@ static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
 	return (FALSE);
 }
 
-int8_t			process_parser(t_graph *graph, t_list *lst)
+int8_t			process_parser(t_parser *parser, t_list *lst)
 {
 	t_token		*token;
 	t_list		*tmp;
@@ -56,9 +56,11 @@ int8_t			process_parser(t_graph *graph, t_list *lst)
 	while (lst != NULL)
 	{
 		token = (t_token *)lst->data;
-		if ((state_is_ok(token->type, &state, graph[state].good_type)) == FALSE)
+		if ((state_is_ok(token->type, &state,
+						parser->graph[state].good_type)) == FALSE)
 		{
-			if (manage_error_and_subprompt(state, token->type, &tmp) == FALSE)
+			if (manage_error_and_subprompt(parser->grammar,
+						state, token->type, &tmp) == FALSE)
 				return (FAILURE);
 			lst = tmp;
 		}
@@ -71,10 +73,9 @@ int8_t			process_parser(t_graph *graph, t_list *lst)
 
 int8_t			parser(t_list *lst)
 {
-	static t_graph	*graph = NULL;
+	static t_parser	*parser = NULL;
 
-	if (graph == NULL)
-		graph = generate_graph();
-	return (process_parser(graph, lst)); 
+	if (parser == NULL)
+		parser = init_parser();
+	return (process_parser(parser, lst));
 }
-

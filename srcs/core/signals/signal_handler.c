@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 13:48:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:49:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void			define_execution_signals(void)
 void			define_interface_signals(void)
 {
 	signal(SIGWINCH, interface_resize_handler);
-	signal(SIGINT, redraw_prompt);
+//	signal(SIGINT, redraw_prompt);
 }
 
 void			define_default_signals(void)

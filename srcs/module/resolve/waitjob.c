@@ -6,13 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:02:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/05/29 19:06:33 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:01:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <sys/wait.h>
-
 
 static int8_t	set_process_status(t_process *process, const pid_t pid,
 										const int status)

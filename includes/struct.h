@@ -6,12 +6,61 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/05/29 18:55:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/08 11:11:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+/*
+*****************************************************
+********************** COMMON ***********************
+*****************************************************
+*/
+
+extern const char		**g_grammar; // TEMP
+
+typedef uint16_t		t_option;
+
+typedef struct			s_opt
+{
+	char				*command_str;
+	t_option			option;
+}						t_opt;
+
+typedef struct			s_variable
+{
+	char				*name;
+	char				*data;
+	t_option			flag;
+}						t_variable;
+
+typedef struct			s_fd
+{
+	int					in;
+	int					out;
+	int					err;
+}						t_fd;
+
+typedef	struct			s_hashmap
+{
+	t_hash				bin;
+	t_hash				blt;
+}						t_hashmap;
+
+typedef struct			s_registry
+{
+	t_list				*intern;
+	t_opt				option;
+	t_hashmap			hash;
+
+	t_fd				cur_fd;				// Out
+	uint8_t				analyzer_signal;	// Out
+	t_list				*current_job;		// Out
+}						t_registry;
+
+extern t_registry		*g_shell;
 
 /*
 *****************************************************
@@ -38,11 +87,10 @@ typedef struct			s_lexinfo
 
 struct					s_lexer
 {
-	char				*input;
-	char				buffer[BUFFER];
-	char				*data;
-	unsigned int		buffer_index;
+	t_vector			*buffer;
+	t_vector			*input;
 	t_lexinfo			*lexinfo;
+	char				*data;
 	t_list				*tokens;
 	enum e_lexer_state	state;
 	enum e_quote		quote;
@@ -60,6 +108,13 @@ typedef struct			s_graph
 {
 	enum e_type			*good_type;
 }						t_graph;
+
+typedef struct		s_parser
+{
+	t_graph			*graph;
+	const char		**grammar;
+}					t_parser;
+
 
 /*
 *****************************************************
@@ -130,103 +185,108 @@ typedef struct			s_history
 
 /*
 *****************************************************
-**************** INTERFACE_FUNCTIONS ****************
+************************ SLE ************************
 *****************************************************
 */
 
-typedef struct s_registry	t_registry;
+typedef struct			s_coord
+{
+	uint64_t			x;
+	uint64_t			y;
+}						t_coord;
 
 typedef struct			s_termcaps
 {
+	char				*position;
+	char				*ring;
+	char				*standout_on;
+	char				*standout_off;
 	char				*clear;
-	char				*cs_down;
-	char				*cs_right;
-	char				*cs_left;
-	char				*cs_up;
+	char				*down;
+	char				*right;
+	char				*left;
+	char				*up;
 }						t_termcaps;
+
+typedef struct			s_prompt
+{
+	uint64_t			length;
+	t_vector			*text;
+	char				*state;
+	char				*missing_char;
+}						t_prompt;
 
 typedef struct			s_cursor
 {
-	uint32_t			index;
-	uint32_t			x;
-	uint32_t			y;
+	uint64_t			x;
+	uint64_t			y;
+	uint64_t			index;
 }						t_cursor;
 
 typedef struct			s_window
 {
 	uint32_t			rows;
 	uint32_t			cols;
-	uint32_t			max_chars;
+	uint32_t			rd_flag;
+	uint64_t			max_chars;
+	uint64_t			point_cursor;
+	uint64_t			point1;
+	uint64_t			point2;
+	t_vector			*displayed_line;
 }						t_window;
 
-typedef struct			s_interface
+typedef struct 			s_redrawinfo
+{
+	uint64_t			line_len;
+	uint64_t			disp_len;
+	uint64_t			prompt_len;
+	uint64_t			lines_amount;
+
+}						t_redrawinfo;
+
+typedef struct 			s_intern
+{
+	t_vector			*ps1;
+	t_vector			*ps2;
+	t_vector			*ps3;
+	t_vector			*pwd;
+	t_vector			*username;
+	t_vector			*home;
+}						t_intern;
+
+typedef struct			s_sle
 {
 	struct termios		*term_mode;
 	struct termios		*orig_mode;
-	t_vector			*line;
-	t_vector			*clip;
-	t_history			*history_head;
-	t_history			*hist_ptr;
-	char				*current_line;
-	char				*state;
-	t_cursor			cursor;
-	t_window			window;
 	t_termcaps			termcaps;
+	t_window			window;
+	t_prompt			prompt;
+	t_cursor			cursor;
+	t_redrawinfo		rd_info;
 	uint64_t			ak_masks[AK_AMOUNT];
-	int8_t				(*tc_call[AK_AMOUNT])(struct s_registry *shell);
-	uint8_t				allow_input;
-}						t_interface;
+	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
+	t_vector			*line;
+	t_vector			*sub_line;
+
+	t_intern			interns;
+
+	//visual mode
+	uint8_t				visual_mode;
+	int64_t				vis_start;
+	int64_t				vis_stop;
+
+	t_vector			*clip;
+}						t_sle;
 
 /*
 *****************************************************
-********************** COMMON ***********************
+********************** BUILTIN **********************
 *****************************************************
 */
 
-typedef uint16_t		t_option;
-
-typedef struct			s_opt
-{
-	char				*command_str;
-	t_option			option;
-}						t_opt;
-
-typedef struct			s_variable
-{
-	char				*name;
-	char				*data;
-	t_option			flag;
-}						t_variable;
-
-typedef struct			s_fd
-{
-	int					in;
-	int					out;
-	int					err;
-}						t_fd;
-
-typedef	struct			s_hashmap
-{
-	t_hash				bin;
-	t_hash				blt;
-}						t_hashmap;
-
-struct					s_registry
-{
-	const char			**grammar;
-	t_list				*intern;
-	t_opt				option;
-	t_hashmap			hash;	
-	t_fd				cur_fd;
-	uint8_t				analyzer_signal;
-
-	struct s_interface	interface;		// Think to modularize
-	t_list				*current_job;	// Think to modularize
-};
 
 typedef int				(*t_builtin) (t_registry *, char **);
-
-extern t_registry		*g_shell;
+typedef t_option		(*t_get_option)(char *s, t_option option);
 
 /*
 *****************************************************
@@ -235,13 +295,5 @@ extern t_registry		*g_shell;
 */
 
 extern t_list			*g_job_head;
-
-/*
-*****************************************************
-********************** BUILTIN **********************
-*****************************************************
-*/
-
-typedef t_option		(*t_get_option)(char *s, t_option option);
 
 #endif
