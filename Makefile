@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/10 21:24:47 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/11 10:04:41 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,6 +102,7 @@ P_LINE += module/interface/utils/
 P_ANALYZER += module/analyzer/
 P_ANALYZER += module/analyzer/init/
 P_ANALYZER += module/analyzer/state/
+P_ANALYZER += module/analyzer/tools/
 
 P_INTERPRETER += module/interpreter/
 P_INTERPRETER += module/interpreter/maping/
@@ -320,6 +321,7 @@ ANALYZER += io_redirect_analyzer.c
 ANALYZER += pipe_analyzer.c
 ANALYZER += redirect_analyzer.c
 ANALYZER += string_analyzer.c
+ANALYZER += token_tools.c
 
 #			 		      - - - - - Interpreter - - - - -                         #
 

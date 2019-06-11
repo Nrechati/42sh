@@ -6,45 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/10 16:42:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:03:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-char	*pop_token_data(t_stack *stack)
-{
-	t_token *token;
-	char	*data;
-
-	token = ft_stckpop(stack);
-	data = token->data;
-	ft_free(token);
-	return (data);
-}
-
-t_type	pop_token_type(t_stack *stack)
-{
-	t_token		*token;
-	t_type		type;
-
-	token = ft_stckpop(stack);
-	type = token->type;
-	ft_free(token);
-	return (type);
-}
-
-void	get_token(t_resolution *resolve)
-{
-	t_list		*node;
-
-	if (resolve->tokens == NULL)
-		return ;
-	node = resolve->tokens;
-	resolve->tokens = resolve->tokens->next;
-	ft_memcpy(&resolve->token, node->data, sizeof(t_token));
-	ft_lstdelone(&node, NULL);
-}
 
 t_list	*generate_cmd_list(t_stack *tree_node)
 {
@@ -52,11 +18,9 @@ t_list	*generate_cmd_list(t_stack *tree_node)
 	t_action	*action;
 	t_list		*node;
 
-
 	ft_bzero(&command, sizeof(t_command));
 	action = ft_stckpop(tree_node);
-	command.av = action->data; // ASSIGN ALONE = AV ?
-	// IF A_ASSIGN -> ASSIGN = AV, return (no actions)
+	command.av = action->data;
 	ft_free(&action);
 	while (ft_stcksize(tree_node) > 0)
 	{

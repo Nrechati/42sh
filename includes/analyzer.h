@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/10 11:28:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:03:36 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,32 +67,32 @@ void		generate_filedesc(t_resolution *resolve, int first, int second
 *************** INIT
 */
 
-void	init_io(t_analyzer analyzer);
-void	init_io_filename(t_analyzer analyzer);
-void	init_io_filename_and(t_analyzer analyzer);
-void	init_io_flush(t_analyzer analyzer);
-void	init_io_flush_and(t_analyzer analyzer);
-void	init_io_redirect(t_analyzer analyzer);
-void	init_pipe(t_analyzer analyzer);
-void	init_io_dup_move(t_analyzer analyzer);
-void	init_io_redirect(t_analyzer analyzer);
-void	init_io_move(t_analyzer analyzer);
-void	init_io_dup(t_analyzer analyzer);
-void	init_io_heredoc_redirect(t_analyzer analyzer);
-void	init_io_heredoc_delimiter(t_analyzer analyzer);
-void	init_io_heredoc(t_analyzer analyzer);
-void	init_string(t_analyzer analyzer);
-void	init_special_string(t_analyzer analyzer);
-void	init_flush_string(t_analyzer analyzer);
-void	init_filename(t_analyzer analyzer);
-void	init_start(t_analyzer analyzer);
-void	init_separator(t_analyzer analyzer);
-void	init_redirect(t_analyzer analyzer);
-void	init_dup_move(t_analyzer analyzer);
-void	init_flush_redirect(t_analyzer analyzer);
-void	init_pipe(t_analyzer analyzer);
-void	init_heredoc(t_analyzer analyzer);
-void	init_heredoc_redirect(t_analyzer analyzer);
-void	init_heredoc_delimiter(t_analyzer analyzer);
+void		init_io(t_analyzer analyzer);
+void		init_io_filename(t_analyzer analyzer);
+void		init_io_filename_and(t_analyzer analyzer);
+void		init_io_flush(t_analyzer analyzer);
+void		init_io_flush_and(t_analyzer analyzer);
+void		init_io_redirect(t_analyzer analyzer);
+void		init_pipe(t_analyzer analyzer);
+void		init_io_dup_move(t_analyzer analyzer);
+void		init_io_redirect(t_analyzer analyzer);
+void		init_io_move(t_analyzer analyzer);
+void		init_io_dup(t_analyzer analyzer);
+void		init_io_heredoc_redirect(t_analyzer analyzer);
+void		init_io_heredoc_delimiter(t_analyzer analyzer);
+void		init_io_heredoc(t_analyzer analyzer);
+void		init_string(t_analyzer analyzer);
+void		init_special_string(t_analyzer analyzer);
+void		init_flush_string(t_analyzer analyzer);
+void		init_filename(t_analyzer analyzer);
+void		init_start(t_analyzer analyzer);
+void		init_separator(t_analyzer analyzer);
+void		init_redirect(t_analyzer analyzer);
+void		init_dup_move(t_analyzer analyzer);
+void		init_flush_redirect(t_analyzer analyzer);
+void		init_pipe(t_analyzer analyzer);
+void		init_heredoc(t_analyzer analyzer);
+void		init_heredoc_redirect(t_analyzer analyzer);
+void		init_heredoc_delimiter(t_analyzer analyzer);
 
 #endif
