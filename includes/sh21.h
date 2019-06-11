@@ -13,6 +13,11 @@
 #ifndef SH21_H
 # define SH21_H
 
+
+/// LINUX ///
+# include <signal.h>
+# include <sys/wait.h>
+/////////////
 # include "libft.h"
 # include "define.h"
 # include "enum.h"
