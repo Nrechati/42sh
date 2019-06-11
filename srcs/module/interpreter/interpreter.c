@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 09:53:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:35:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,88 +23,6 @@ void	run_builtin(t_registry *shell, t_process *process)
 	ret = builtin(shell, process->av);
 	(void)ret;
 	return ;
-}
-
-void	close_redirects(void *data)
-{
-	t_redirect	*redirect;
-
-	redirect = data;
-	if (redirect->type & FD_PIPE_OUT || redirect->type & FD_PIPE_IN)
-		close(redirect->to);
-}
-
-void	do_redirect(void *data)
-{
-	t_redirect	*redirect;
-
-	redirect = data;
-	if (redirect->type & FD_PIPE_OUT)
-	{
-		dup2(redirect->to, STDOUT_FILENO);
-		close(redirect->from);
-	}
-	else if (redirect->type & FD_PIPE_IN)
-	{
-		dup2(redirect->to, STDIN_FILENO);
-		close(redirect->from);
-	}
-	else if (redirect->type & FD_CLOSE)
-		close(redirect->to);
-}
-
-void	execute_process(t_registry *shell, t_process *process, char **env)
-{
-	char		*pathname;
-
-	pathname = NULL;
-	signal (SIGINT, SIG_DFL);
-	signal (SIGQUIT, SIG_DFL);
-	signal (SIGTSTP, SIG_DFL);
-	signal (SIGTTIN, SIG_DFL);
-	signal (SIGTTOU, SIG_DFL);
-	signal (SIGCHLD, SIG_DFL);
-	signal (SIGPIPE, SIG_DFL);
-	ft_lstiter(process->redirects, do_redirect);
-	if (process->process_type & IS_BLT)
-	{
-		run_builtin(shell, process);
-		exit(process->status);
-	}
-	if (process->process_type & IS_BIN)
-		pathname = ft_hmap_getdata(&shell->hash.bin, process->av[0]);
-	else
-		pathname = process->av[0];
-	execve(pathname, process->av, env);
-	ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_EXECVE_ERROR);
-	exit(FAILURE);
-}
-
-void	fork_process(t_registry *shell, t_process *process)
-{
-	char			**env;
-
-	env = generate_env(shell, process->env);
-	process->pid = fork();
-	if (process->pid < 0) // IF ERREUR
-	{
-		ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
-		return;
-	}
-	else if (process->pid == 0) // IF CHILD
-	{
-		setpgid(getpid(), *process->pgid);
-		execute_process(shell, process, env);
-	}
-	else
-	{						//IF PARENT
-		ft_printf("fork process pid : %d\n", process->pid);
-		ft_lstiter(process->redirects, close_redirects);
-		if (*process->pgid == 0)
-			*process->pgid = process->pid;
-		setpgid(process->pid, *process->pgid);
-		ft_freetab(&env);
-	}
 }
 
 void	run_process(void *context, void *data)
@@ -130,77 +48,6 @@ void	run_process(void *context, void *data)
 	else
 		fork_process(shell, process);
 	return;
-}
-
-void	update_pid(t_list *processes, pid_t pid)
-{
-	t_process	*current;
-
-	while (processes)
-	{
-		current = processes->data;
-		if (current->pid == pid)
-		{
-			current->completed = 1;
-			ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
-					, current->av[0]
-					, pid);
-			return ;
-		}
-		processes = processes->next;
-	}
-	return ;
-}
-
-uint8_t	all_is_done(t_list *processes)
-{
-	t_process	*current;
-
-	while (processes)
-	{
-		current = processes->data;
-		if (current->completed == FALSE)
-			return (FALSE);
-		processes = processes->next;
-	}
-	ft_dprintf(2, "\x1b[32mAll is Done\n\x1b[0m");
-	return (TRUE);
-}
-
-int8_t	waiter(t_job *job)
-{
-	int		status;
-	pid_t	pid;
-
-	ft_printf("\x1b[33mWaiter pgid: %d\n\x1b[0m", job->pgid);
-	while (all_is_done(job->processes) == FALSE)
-	{
-		status = 0;
-		pid = waitpid(WAIT_ANY, &status, WNOHANG);
-		if (pid)
-			update_pid(job->processes, pid);
-	}
-	return (SUCCESS);
-}
-
-void	print_process(void *data)
-{
-	t_process *process;
-
-	process = data;
-	ft_showtab(process->av);
-	ft_printf("\x1b[33mprocess->type: %d | process->pid: %d | process->pgid: %d\n\x1b[0m"
-			, process->process_type, process->pid, *process->pgid);
-}
-
-void	print_job(void *data)
-{
-	t_job *job;
-
-	job = data;
-	ft_printf("\x1b[33mpgid : %s | job_type: %u\n\x1b[0m"
-			, job->pgid
-			, job->job_type);
 }
 
 void	run_job(void *context, void *data)

@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/11 10:04:41 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/11 10:41:45 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,6 +105,7 @@ P_ANALYZER += module/analyzer/state/
 P_ANALYZER += module/analyzer/tools/
 
 P_INTERPRETER += module/interpreter/
+P_INTERPRETER += module/interpreter/core/
 P_INTERPRETER += module/interpreter/maping/
 P_INTERPRETER += module/interpreter/tools/
 
@@ -331,6 +332,11 @@ INTERPRETER += list_tools.c
 INTERPRETER += get_process_type.c
 INTERPRETER += generate_env.c
 INTERPRETER += pipe_interpreter.c
+INTERPRETER += fork_process.c
+INTERPRETER += redirects.c
+INTERPRETER += waiter.c
+
+INTERPRETER += print_tools.c
 
 #						   - - - - Expansion - - - -                           #
 

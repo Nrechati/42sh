@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 10:28:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:36:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,6 @@ void		set_process_pgid(void *context, void *data)
 	process = data;
 	process->pgid = &job->pgid;
 	return ;
-}
-
-int			redirect_or_other(void *action, __unused void *data)
-{
-	enum e_actions		type;
-
-	type = ((t_action *)action)->action;
-	if (type == A_ASSIGN)
-		return (FALSE);
-	return (TRUE);
 }
 
 void		*actions_to_redirects(void *data)
