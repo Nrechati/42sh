@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/10 21:24:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:17:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int8_t	setup_pipe(t_list *processess)
 		return (FAILURE);
 	if ((pipe_node = create_pipe(pipe_fd[1], pipe_fd[0], FD_PIPE_OUT)) == NULL)
 		return (FAILURE);
-	ft_lstaddback(&current->redirects, pipe_node);
+	ft_lstadd(&current->redirects, pipe_node);
 	if ((pipe_node = create_pipe(pipe_fd[0], pipe_fd[1], FD_PIPE_IN)) == NULL)
 		return (FAILURE);
 	ft_lstadd(&next->redirects, pipe_node);
