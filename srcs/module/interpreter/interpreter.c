@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 18:25:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:30:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	run_builtin(t_registry *shell, t_process *process)
 	return ;
 }
 
-int		get_not_found(void *data, void *context)
+int		get_failed_process(void *data, void *context)
 {
 	t_process	*current;
 
 	(void)context;
 	current = data;
-	if (current->process_type & IS_NOTFOUND)
+	if (current->process_type & (IS_NOTFOUND | IS_OPEN_FAILED | IS_CRITICAL))
 		return (TRUE);
 	return (FALSE);
 }
@@ -77,10 +77,11 @@ void	run_job(void *context, void *data)
 	else
 		setup_pipe(job->processes);
 	ft_lstiter_ctx(job->processes, shell, run_process);
-	ft_lstremove_if(&job->processes, NULL, get_not_found, del_process);
+	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	ft_lstiter(job->processes, print_process);
 	//CLOSE REDIRECTIONS;
 	//CHECK WAIT CONDITION HERE;
+	//CHECK LEAK ON ERROR
 	waiter(job);
 	return ;
 }

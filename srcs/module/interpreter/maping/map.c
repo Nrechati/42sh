@@ -6,12 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 18:09:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:21:15 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-#include <fcntl.h>
 
 void		set_process_pgid(void *context, void *data)
 {
@@ -24,28 +23,13 @@ void		set_process_pgid(void *context, void *data)
 	return ;
 }
 
-int	stdout_truncate(t_registry *shell, t_redirect *redirect, t_action *action)
-{
-	t_token		*token;
-	char		*path;
-
-	(void)shell;
-	path = NULL;
-	token = action->data->data;
-	ft_asprintf(&path, "./%s", token->data);
-	redirect->type |= FD_DUP;
-	redirect->to = open(path, O_RDWR | O_TRUNC, 0766);
-	redirect->from = STDOUT_FILENO;
-	return (0);
-}
-
 t_redirection	*redirecter_init(void)
 {
 	static t_redirection	redirecter;
 
 	redirecter[A_STDOUT_TRUNCATE_FILE] = stdout_truncate;
-	redirecter[A_STDOUT_APPEND_FILE] = NULL;
-	redirecter[A_STDIN_READ_FILE] = NULL;
+	redirecter[A_STDOUT_APPEND_FILE] = stdout_append;
+	redirecter[A_STDIN_READ_FILE] = stdin_readfile;
 	return (&redirecter);
 }
 
@@ -62,8 +46,7 @@ void		*action_to_redirect(void *context, void *data)
 	action = data;
 	shell = context;
 	ft_bzero(&redirect, sizeof(t_redirect));
-	if ((*redirecter)[action->type](shell, &redirect, action))
-		return (NULL);
+	(*redirecter)[action->type](shell, &redirect, action);
 	node = ft_lstnew(&redirect, sizeof(t_redirect));
 	return (node);
 }
@@ -79,6 +62,7 @@ void		*cmd_to_process(void *context, void *data)
 	ft_bzero(&process, sizeof(t_process));
 	actions_redirects = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
 	process.redirects = ft_lstmap(actions_redirects, context, action_to_redirect, del_action);
+	ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
 	process.av = ft_lsttotab(command->av, token_to_str);
 	process.env = ft_lstmap(command->actions, NULL, token_to_var, free_node);
 	ft_lstdel(&actions_redirects, del_action);

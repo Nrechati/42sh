@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 13:36:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:17:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,8 @@
 # define FD_CLOSE					0x02
 # define FD_PIPE_IN					0x04
 # define FD_PIPE_OUT				0x08
+# define FD_OPEN_ERROR				0x10
+# define FD_CRITICAL_ERROR			0x20
 
 # define GROUP_RUN					0x01
 # define GROUP_BG					0x02
@@ -261,12 +263,16 @@
 # define IS_ASSIGN					0x08
 # define IS_ALONE					0x10
 # define IS_NOTFOUND				0x20
+# define IS_OPEN_FAILED				0x40
+# define IS_CRITICAL				0x80
 
 /*
 *****************************************************
 ******************** INTERPRETER ********************
 *****************************************************
 */
+
+# define REDIRECT_ACTION			3
 
 # define INTEPRETER_NOT_FOUND		" command not found\n"
 # define INTEPRETER_FORK_ERROR		" fork error\n"

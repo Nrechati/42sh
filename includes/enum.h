@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 17:50:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:55:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ enum			e_actions
 	A_STDOUT_TRUNCATE_FILE,
 	A_STDOUT_APPEND_FILE,
 	A_STDIN_READ_FILE,
+
 	A_ARGS,
 	A_ASSIGN,
 	A_END,
