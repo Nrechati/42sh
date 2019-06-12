@@ -19,8 +19,8 @@ uint64_t	update_winsize(t_sle *sle)
 
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
         return (CRITICAL_ERROR | WINDOW_FAIL);
-	sle->window.rows = (w.ws_row <= 0) ? 0 : w.ws_row;
-	sle->window.cols = (w.ws_col <= 0) ? 0 : w.ws_col;
+	sle->window.rows = (w.ws_row <= 0) ? 1 : w.ws_row;
+	sle->window.cols = (w.ws_col <= 0) ? 1 : w.ws_col;
     sle->window.max_chars = sle->window.rows * sle->window.cols;
 	return (SUCCESS);
 }
