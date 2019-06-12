@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 14:59:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:04:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,10 @@ void	stop_analyzer(t_resolution *resolve)
 
 	resolve->state = P_STOP;
 	ft_bzero(&action, sizeof(t_action));
-	if (resolve->special_case & VALID_PROCESS)
-	{
-		action.type = A_END;
-		ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
-		resolve->valid = 1;
-	}
-	resolve->token.type = E_DEFAULT;
+	action.type = A_END;
+	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+	resolve->valid = 1;
+	get_token(resolve);
 }
 
 void	end_analyzer(t_resolution *resolve)

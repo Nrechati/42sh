@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:13:42 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 14:35:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:12:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_analyzer	*init_analyzer(void)
 
 	bzero_analyzer(analyzer);
 	init_start(analyzer);
+	init_stop(analyzer);
 	init_string(analyzer);
 	init_special_string(analyzer);
 	init_flush_string(analyzer);

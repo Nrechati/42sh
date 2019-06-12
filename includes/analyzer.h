@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 10:03:36 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:12:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void		init_special_string(t_analyzer analyzer);
 void		init_flush_string(t_analyzer analyzer);
 void		init_filename(t_analyzer analyzer);
 void		init_start(t_analyzer analyzer);
+void		init_stop(t_analyzer analyzer);
 void		init_separator(t_analyzer analyzer);
 void		init_redirect(t_analyzer analyzer);
 void		init_dup_move(t_analyzer analyzer);
