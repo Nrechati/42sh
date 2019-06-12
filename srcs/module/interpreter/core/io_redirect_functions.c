@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_functions.c                               :+:      :+:    :+:   */
+/*   io_redirect_functions.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/12 17:58:40 by cempassi         ###   ########.fr       */
+/*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
+/*   Updated: 2019/06/12 18:02:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
-void		stdin_readfile(t_registry *shell, t_redirect *redirect
+
+void		io_readfile(t_registry *shell, t_redirect *redirect
 					, t_action *action)
 {
 	char		*filename;
@@ -31,11 +32,11 @@ void		stdin_readfile(t_registry *shell, t_redirect *redirect
 		}
 		else
 			redirect->type |= FD_DUP;
-		redirect->from = STDIN_FILENO;
+		redirect->from = get_io(action->data->next);
 	}
 }
 
-void		stdout_append(t_registry *shell, t_redirect *redirect
+void		io_append(t_registry *shell, t_redirect *redirect
 					, t_action *action)
 {
 	char		*filename;
@@ -53,11 +54,11 @@ void		stdout_append(t_registry *shell, t_redirect *redirect
 		}
 		else
 			redirect->type |= FD_DUP;
-		redirect->from = STDOUT_FILENO;
+		redirect->from = get_io(action->data->next);
 	}
 }
 
-void		stdout_truncate(t_registry *shell, t_redirect *redirect
+void		io_truncate(t_registry *shell, t_redirect *redirect
 					, t_action *action)
 {
 	char		*filename;
@@ -75,6 +76,6 @@ void		stdout_truncate(t_registry *shell, t_redirect *redirect
 		}
 		else
 			redirect->type |= FD_DUP;
-		redirect->from = STDOUT_FILENO;
+		redirect->from = get_io(action->data->next);
 	}
 }

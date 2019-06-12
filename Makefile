@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/12 14:56:58 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/12 18:04:33 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -330,6 +330,8 @@ INTERPRETER += pipe_interpreter.c
 INTERPRETER += fork_process.c
 INTERPRETER += redirects.c
 INTERPRETER += redirect_functions.c
+INTERPRETER += io_redirect_functions.c
+INTERPRETER += redirect_tools.c
 INTERPRETER += waiter.c
 
 INTERPRETER += print_tools.c

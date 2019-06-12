@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 14:48:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:29:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	filename_analyzer(t_resolution *resolve)
 {
-	if (resolve->token.type == E_SPSTRING)
-		//resolve->token.data = string_expansion(resolve, resolve->token.data);
-		;
 	if (resolve->state == P_IO_REDIRECT)
 		resolve->state = P_IO_FILENAME;
 	else if (resolve->token.type == E_SPSTRING)

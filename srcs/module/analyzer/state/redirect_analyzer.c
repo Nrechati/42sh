@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 15:22:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:32:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	flush_redirect(t_resolution *resolve)
 	t_list		*node;
 	t_action	action;
 
-	node = NULL;
 	resolve->state = P_REDIRECT_FLUSH;
 	ft_bzero(&action, sizeof(t_action));
 	node = ft_stckpopnode(&resolve->stack);

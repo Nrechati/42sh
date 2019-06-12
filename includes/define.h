@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/12 15:17:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:39:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@
 *****************************************************
 */
 
-# define REDIRECT_ACTION			3
+# define REDIRECT_ACTION			6
 
 # define INTEPRETER_NOT_FOUND		" command not found\n"
 # define INTEPRETER_FORK_ERROR		" fork error\n"
