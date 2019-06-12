@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:53:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:58:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*generate_cmd_list(t_stack *tree_node)
 	ft_free(&action);
 	while (ft_stcksize(tree_node) > 0)
 	{
-		if (((t_action *)ft_stcktop(tree_node))->action == A_ARGS)
+		if (((t_action *)ft_stcktop(tree_node))->type == A_ARGS)
 			break;
 		node = ft_stckpopnode(tree_node);
 		ft_lstadd(&command.actions, node);
@@ -43,7 +43,7 @@ int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 	command_lst = NULL;
 	ft_bzero(&group, sizeof(t_group));
 	action = ft_stckpop(tree_node);
-	if (action->action == A_END)
+	if (action->type == A_END)
 		group.group_type |= GROUP_RUN;
 	ft_free(&action);
 	while (ft_stcksize(tree_node) > 0)

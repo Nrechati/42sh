@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 12:20:09 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 16:03:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,14 @@ void		close_redirects(void *data);
 void		do_redirect(void *data);
 
 int8_t		setup_pipe(t_list *processess);
-void		*group_to_job(void *data);
-void		*cmd_to_process(void *data);
-void		*action_to_redirects(void *data);
+void		*group_to_job(void *context, void *data);
 
 void		update_pid(t_list *processes, pid_t pid);
 uint8_t		all_is_done(t_list *processes);
 int8_t		waiter(t_job *job);
 
 
-void		*token_to_var(void *data);
+void		*token_to_var(void *context, void *data);
 char		*token_to_str(void *data);
 
 void		del_group(void *data);

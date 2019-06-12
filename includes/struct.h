@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:39:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 16:24:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,23 +125,29 @@ typedef struct		s_parser
 *****************************************************
 */
 
+#define REDIRECT_ACTION		3
+
 typedef struct s_resolution	t_resolution;
 typedef void				(*t_resolve)(t_resolution *);
 typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
+typedef struct s_redirect	t_redirect;
+typedef struct s_action		t_action;
+typedef int					(*t_set_redirect)(t_registry *, t_redirect *, t_action *);
+typedef t_set_redirect		t_redirection[REDIRECT_ACTION];
 
-typedef struct			s_redirect
+struct					s_redirect
 {
 	char				*file;
 	int32_t				from;
 	int32_t				to;
 	uint16_t			type;
-}						t_redirect;
+};
 
-typedef struct			s_action
+struct					s_action
 {
-	enum e_actions		action;
+	enum e_actions		type;
 	t_list				*data;
-}						t_action;
+};
 
 typedef	struct			s_command
 {

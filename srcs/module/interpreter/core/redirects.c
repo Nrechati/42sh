@@ -6,19 +6,19 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 12:13:10 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:28:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-int			redirect_or_other(void *action, __unused void *data)
+int			redirect_or_other(__unused void *context, void *data)
 {
-	enum e_actions		type;
+	t_action		*action;
 
-	type = ((t_action *)action)->action;
-	if (type == A_ASSIGN)
+	action = data;
+	if (action->type == A_ASSIGN)
 		return (FALSE);
 	return (TRUE);
 }
@@ -55,6 +55,10 @@ void		do_redirect(void *data)
 	{
 		dup2(redirect->to, STDIN_FILENO);
 		close(redirect->from);
+	}
+	else if (redirect->type & FD_DUP)
+	{
+		dup2(redirect->to, redirect->from);
 	}
 	else if (redirect->type & FD_CLOSE)
 		close(redirect->to);

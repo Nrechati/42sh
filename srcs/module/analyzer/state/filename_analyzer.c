@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:49:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:48:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	filename_analyzer(t_resolution *resolve)
 		resolve->state = P_SPFILENAME;
 	else
 		resolve->state = P_FILENAME;
-	check_filename(resolve);
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+//	check_filename(resolve);
 	get_token(resolve);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:37:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:54:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:58:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	check_filename(t_resolution *resolve)
 		error_analyzer(resolve);
 		ft_strdel(&resolve->token.data);
 	}
-	else
-		ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 }
 
 void	delete_analyzer(t_resolution *resolve)

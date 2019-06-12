@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:03:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 10:27:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/11 16:04:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	get_token(t_resolution *resolve)
 	ft_lstdelone(&node, NULL);
 }
 
-void	*token_to_var(void *data)
+void	*token_to_var(__unused void *context, void *data)
 {
 	t_list		*node;
 	t_list		*ptr;
