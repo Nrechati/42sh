@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/13 00:36:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:54:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,10 @@
 */
 
 # define REDIRECT_ACTION			9
+
+# define CLOSED_STDIN				0x001
+# define CLOSED_STDOUT				0x002
+# define CLOSED_STDERR				0x004
 
 # define INTEPRETER_NOT_FOUND		" command not found\n"
 # define INTEPRETER_FORK_ERROR		" fork error\n"

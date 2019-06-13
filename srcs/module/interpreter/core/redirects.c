@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 01:27:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:38:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,9 @@ void		do_redirect(void *data)
 		close(redirect->from);
 	}
 	else if (redirect->type & FD_DUP)
-	{
-		//redirect->from = dup(redirect->from);
 		dup2(redirect->to, redirect->from);
-	}
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
 		dup2(redirect->to, redirect->from);
 	else if (redirect->type & FD_CLOSE)
-		close(redirect->to);
+		close(redirect->from);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 14:46:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:04:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void		*cmd_to_process(void *context, void *data)
 	command = data;
 	ft_bzero(&process, sizeof(t_process));
 
-	ft_printf("\x1b[33m|| PRINTING ACTIONS ||\n\x1b[0m");
-	ft_lstiter(&command->actions, print_actions);
-	ft_printf("\x1b[33m|| ENDED PRINT ||\n\x1b[0m");
+//	ft_printf("\x1b[33m|| PRINTING ACTIONS ||\n\x1b[0m");
+//	ft_lstiter(&command->actions, print_actions);
+//	ft_printf("\x1b[33m|| ENDED PRINT ||\n\x1b[0m");
 
 	actions_redirects = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
 	process.redirects = ft_lstmap(actions_redirects, context, action_to_redirect, del_action);
@@ -77,9 +77,9 @@ void		*cmd_to_process(void *context, void *data)
 	process.av = ft_lsttotab(command->av, token_to_str);
 	process.env = ft_lstmap(command->actions, NULL, token_to_var, free_node);
 
-	ft_printf("\x1b[33m|| PRINTING ASSIGNATIONS ||\n\x1b[0m");
-	ft_lstiter(process.env, print_var_lst);
-	ft_printf("\x1b[33m|| ENDED PRINT ||\n\x1b[0m");
+//	ft_printf("\x1b[33m|| PRINTING ASSIGNATIONS ||\n\x1b[0m");
+//	ft_lstiter(process.env, print_var_lst);
+//	ft_printf("\x1b[33m|| ENDED PRINT ||\n\x1b[0m");
 
 	ft_lstdel(&actions_redirects, del_action);
 	node = ft_lstnew(&process, sizeof(t_process));
