@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 14:26:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:35:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	run_process(void *context, void *data)
 	else if (process->process_type == (IS_ALONE | IS_BLT))
 	{
 		//redirect setup
-		ft_lstiter(process->redirects, do_redirect);
+	//	ft_lstiter(process->redirects, do_redirect);
 		run_builtin(shell, process);
+	//	ft_lstiter(process->redirects, close_redirect);
 		//redirect init;
 	}
 	else
