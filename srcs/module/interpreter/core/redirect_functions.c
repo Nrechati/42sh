@@ -6,12 +6,19 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/12 17:58:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 21:17:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
+
+void		close_fd(t_registry *shell, t_redirect *redirect, t_action *action)
+{
+	(void)shell;
+	redirect->type |= FD_CLOSE;
+	redirect->to = get_io(action->data);
+}
 
 void		stdin_readfile(t_registry *shell, t_redirect *redirect
 					, t_action *action)
@@ -30,9 +37,10 @@ void		stdin_readfile(t_registry *shell, t_redirect *redirect
 			redirect->type |= FD_OPEN_ERROR;
 		}
 		else
-			redirect->type |= FD_DUP;
+			redirect->type |= FD_REDIRECT;
 		redirect->from = STDIN_FILENO;
 	}
+	ft_strdel(&filename);
 }
 
 void		stdout_append(t_registry *shell, t_redirect *redirect
@@ -52,9 +60,10 @@ void		stdout_append(t_registry *shell, t_redirect *redirect
 			redirect->type |= FD_OPEN_ERROR;
 		}
 		else
-			redirect->type |= FD_DUP;
+			redirect->type |= FD_REDIRECT;
 		redirect->from = STDOUT_FILENO;
 	}
+	ft_strdel(&filename);
 }
 
 void		stdout_truncate(t_registry *shell, t_redirect *redirect
@@ -74,7 +83,8 @@ void		stdout_truncate(t_registry *shell, t_redirect *redirect
 			redirect->type |= FD_OPEN_ERROR;
 		}
 		else
-			redirect->type |= FD_DUP;
+			redirect->type |= FD_REDIRECT;
 		redirect->from = STDOUT_FILENO;
 	}
+	ft_strdel(&filename);
 }

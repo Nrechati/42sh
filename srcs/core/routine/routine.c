@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 14:16:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 01:46:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_resolution	init_resolve(t_registry *shell, t_list *tokens)
 
 int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 {
-	t_list			*cmd_group;
+	t_list			*command_group;
 	t_resolution	resolve;
 	t_list			*tokens;
 
@@ -34,14 +34,16 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 	resolve = init_resolve(shell, tokens);
 	while (resolve.tokens)
 	{
+		command_group = NULL;
 		if (parser(resolve.tokens) == FAILURE)
 		{
 			ft_lstdel(&resolve.tokens, del_token);
 			return (FAILURE);
 		}
 
-		cmd_group = analyzer(&resolve);
-		interpreter(shell, &cmd_group);
+		command_group = analyzer(&resolve);
+		if (command_group)
+			interpreter(shell, &command_group);
 		lexer_print_debug(shell, resolve.tokens);
 	}
 	return (SUCCESS);

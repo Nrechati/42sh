@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/12 18:03:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:44:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ char		*get_filename(t_list *node)
 
 	token = node->data;
 	filename = NULL;
-	ft_asprintf(&filename, "./%s", token->data);
-	return (token->data);
+	if (token->data[0] == '/' || ft_strnequ("./", token->data, 2))
+		filename = ft_strdup(token->data);
+	else
+		ft_asprintf(&filename, "./%s", token->data);
+	return (filename);
 
 }
 

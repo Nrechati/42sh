@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/12 18:00:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 23:14:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		fork_process(t_registry *shell, t_process *process);
 
 void		check_redirect_error(void *context, void *data);
 int			redirect_or_other(void *action, __unused void *data);
-void		close_redirects(void *data);
+void		close_redirect(void *data);
 void		do_redirect(void *data);
 
 int8_t		setup_pipe(t_list *processess);
@@ -56,6 +56,13 @@ void		io_truncate(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 void		io_readfile(t_registry *shell, t_redirect *redirect
 					, t_action *action);
+void		close_fd(t_registry *shell, t_redirect *redirect
+					, t_action *action);
+void		move_fd(t_registry *shell, t_redirect *redirect
+					, t_action *action);
+void		duplicate_fd(t_registry *shell, t_redirect *redirect
+					, t_action *action);
+
 void		*token_to_var(void *context, void *data);
 char		*token_to_str(void *data);
 

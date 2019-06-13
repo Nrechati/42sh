@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:03:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/12 14:07:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 20:04:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_string(t_analyzer analyzer)
 	analyzer[P_STRING][E_STRING] = string_analyzer;
 	analyzer[P_STRING][E_SPSTRING] = special_string_analyzer;
 	analyzer[P_STRING][E_GREAT] = redirect_analyzer;
-	analyzer[P_STRING][E_GREATAND] = redirect_and_analyzer;
+	analyzer[P_STRING][E_GREATAND] = redirect_analyzer;
 	analyzer[P_STRING][E_LESS] = redirect_analyzer;
 	analyzer[P_STRING][E_LESSAND] = redirect_and_analyzer;
 	analyzer[P_STRING][E_DGREAT] = redirect_analyzer;
@@ -37,7 +37,7 @@ void	init_special_string(t_analyzer analyzer)
 	analyzer[P_SPSTRING][E_STRING] = string_analyzer;
 	analyzer[P_SPSTRING][E_SPSTRING] = special_string_analyzer;
 	analyzer[P_SPSTRING][E_GREAT] = redirect_analyzer;
-	analyzer[P_SPSTRING][E_GREATAND] = redirect_and_analyzer;
+	analyzer[P_SPSTRING][E_GREATAND] = redirect_analyzer;
 	analyzer[P_SPSTRING][E_LESS] = redirect_analyzer;
 	analyzer[P_SPSTRING][E_LESSAND] = redirect_and_analyzer;
 	analyzer[P_SPSTRING][E_ANDGREAT] = redirect_analyzer;

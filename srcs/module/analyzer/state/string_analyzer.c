@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 15:13:50 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 01:49:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	flush_string(t_resolution *resolve)
 		ft_lstadd(&action.data, new_node);
 	}
 	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+	resolve->valid = 1;
 	return ;
 }
 

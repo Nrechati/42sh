@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:47:14 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/12 17:29:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 00:51:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,48 +27,14 @@ void	filename_analyzer(t_resolution *resolve)
 
 void	dup_move_analyzer(t_resolution *resolve)
 {
-	t_token *token;
-
-	//if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
-//	{
-		if (is_ionumber(resolve, resolve->token.data))
-			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
-		else if ((token = ft_stcktop(&resolve->stack))->type == E_LESSAND)
-		{
-			ft_dprintf(2, "21sh: %s: ambigous redirect", resolve->token.data);
-			error_analyzer(resolve);
-		}
-		else
-		{
-			resolve->state = P_FILENAME;
-			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
-		}
-		get_token(resolve);
-//	}
-	//else
-	//{
-		ft_strdel(&resolve->token.data);
-		error_analyzer(resolve);
-	//}
+	resolve->state = P_DUP_MOVE;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }
 
 void	io_dup_move_analyzer(t_resolution *resolve)
 {
-	resolve->token.type = E_STRING;
-	//if ((resolve->token.data = string_expansion(resolve, resolve->token.data)))
-//	{
-		if (is_ionumber(resolve, resolve->token.data))
-			ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
-		else
-		{
-			error_analyzer(resolve);
-			ft_strdel(&resolve->token.data);
-		}
-		get_token(resolve);
-//	}
-//	else
-//	{
-		ft_strdel(&resolve->token.data);
-		error_analyzer(resolve);
-//	}
+	resolve->state = P_IO_DUP_MOVE;
+	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
+	get_token(resolve);
 }

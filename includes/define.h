@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/12 17:39:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 00:36:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,32 +239,36 @@
 */
 
 # define ANALYZER_STATES			30
-# define FD_DUP						0x01
-# define FD_CLOSE					0x02
-# define FD_PIPE_IN					0x04
-# define FD_PIPE_OUT				0x08
-# define FD_OPEN_ERROR				0x10
-# define FD_CRITICAL_ERROR			0x20
+# define FD_DUP						0x001
+# define FD_MOVE					0x002
+# define FD_REDIRECT				0x004
+# define FD_CLOSE					0x008
+# define FD_PIPE_IN					0x010
+# define FD_PIPE_OUT				0x020
+# define FD_OPEN_ERROR				0x040
+# define FD_DUP_ERROR				0x080
+# define FD_CRITICAL_ERROR			0x100
 
-# define GROUP_RUN					0x01
-# define GROUP_BG					0x02
-# define GROUP_AND					0x04
-# define GROUP_OR					0x08
+# define GROUP_RUN					0x001
+# define GROUP_BG					0x002
+# define GROUP_AND					0x004
+# define GROUP_OR					0x008
 
-# define QUOTING					0x01
-# define HERETRIM					0x02
-# define TO_CLOSE					0x04
-# define NO_PIPE					0x08
-# define VALID_PROCESS				0x10
+# define QUOTING					0x001
+# define HERETRIM					0x002
+# define TO_CLOSE					0x004
+# define NO_PIPE					0x008
+# define VALID_PROCESS				0x010
 
-# define IS_BLT						0x01
-# define IS_BIN						0x02
-# define IS_ABS						0x04
-# define IS_ASSIGN					0x08
-# define IS_ALONE					0x10
-# define IS_NOTFOUND				0x20
-# define IS_OPEN_FAILED				0x40
-# define IS_CRITICAL				0x80
+# define IS_BLT						0x001
+# define IS_BIN						0x002
+# define IS_ABS						0x004
+# define IS_ASSIGN					0x008
+# define IS_ALONE					0x010
+# define IS_NOTFOUND				0x020
+# define IS_OPEN_FAILED				0x040
+# define IS_DUP_FAILED				0x080
+# define IS_CRITICAL				0x100
 
 /*
 *****************************************************
@@ -272,7 +276,7 @@
 *****************************************************
 */
 
-# define REDIRECT_ACTION			6
+# define REDIRECT_ACTION			9
 
 # define INTEPRETER_NOT_FOUND		" command not found\n"
 # define INTEPRETER_FORK_ERROR		" fork error\n"

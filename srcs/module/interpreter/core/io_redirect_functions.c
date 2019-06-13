@@ -6,13 +6,28 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/12 18:02:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 23:16:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
+void		duplicate_fd(t_registry *shell, t_redirect *redirect, t_action *action)
+{
+	(void)shell;
+	redirect->type = FD_DUP;
+	redirect->from = get_io(action->data);
+	redirect->to = get_io(action->data->next);
+}
+
+void		move_fd(t_registry *shell, t_redirect *redirect, t_action *action)
+{
+	(void)shell;
+	redirect->type |= FD_MOVE;
+	redirect->from = get_io(action->data);;
+	redirect->to = get_io(action->data->next);
+}
 
 void		io_readfile(t_registry *shell, t_redirect *redirect
 					, t_action *action)
@@ -31,9 +46,10 @@ void		io_readfile(t_registry *shell, t_redirect *redirect
 			redirect->type |= FD_OPEN_ERROR;
 		}
 		else
-			redirect->type |= FD_DUP;
+			redirect->type |= FD_REDIRECT;
 		redirect->from = get_io(action->data->next);
 	}
+	ft_strdel(&filename);
 }
 
 void		io_append(t_registry *shell, t_redirect *redirect
@@ -53,9 +69,10 @@ void		io_append(t_registry *shell, t_redirect *redirect
 			redirect->type |= FD_OPEN_ERROR;
 		}
 		else
-			redirect->type |= FD_DUP;
+			redirect->type |= FD_REDIRECT;
 		redirect->from = get_io(action->data->next);
 	}
+	ft_strdel(&filename);
 }
 
 void		io_truncate(t_registry *shell, t_redirect *redirect
@@ -75,7 +92,8 @@ void		io_truncate(t_registry *shell, t_redirect *redirect
 			redirect->type |= FD_OPEN_ERROR;
 		}
 		else
-			redirect->type |= FD_DUP;
+			redirect->type |= FD_REDIRECT;
 		redirect->from = get_io(action->data->next);
 	}
+	ft_strdel(&filename);
 }

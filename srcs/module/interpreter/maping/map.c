@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/12 18:02:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/12 23:15:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ t_redirection	*redirecter_init(void)
 	redirecter[A_IO_TRUNCATE_FILE] = io_truncate;
 	redirecter[A_IO_APPEND_FILE] = io_append;
 	redirecter[A_IO_READ_FILE] = io_readfile;
+	redirecter[A_DUP] = duplicate_fd;
+	redirecter[A_CLOSE] = close_fd;
+	redirecter[A_MOVE] = move_fd;
 	return (&redirecter);
 }
 

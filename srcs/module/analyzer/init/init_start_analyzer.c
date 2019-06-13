@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:05:16 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/12 14:12:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 02:06:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,25 @@ void	init_stop(t_analyzer analyzer)
 	analyzer[P_STOP][E_SEMICOLON] = separator_analyzer;
 	analyzer[P_STOP][E_NEWLINE] = separator_analyzer;
 	analyzer[P_STOP][E_END] = end_analyzer;
+}
+
+void	init_error(t_analyzer analyzer)
+{
+	analyzer[P_ERROR][E_STRING] = end_analyzer;
+	analyzer[P_ERROR][E_SPSTRING] = end_analyzer;
+	analyzer[P_ERROR][E_GREAT] = end_analyzer;
+	analyzer[P_ERROR][E_GREATAND] = end_analyzer;
+	analyzer[P_ERROR][E_LESS] = end_analyzer;
+	analyzer[P_ERROR][E_LESSAND] = end_analyzer;
+	analyzer[P_ERROR][E_DGREAT] = end_analyzer;
+	analyzer[P_ERROR][E_DLESS] = end_analyzer;
+	analyzer[P_ERROR][E_DLESSDASH] = end_analyzer;
+	analyzer[P_ERROR][E_ANDGREAT] = end_analyzer;
+	analyzer[P_ERROR][E_ANDDGREAT] = end_analyzer;
+	analyzer[P_ERROR][E_IO_NUMBER] = end_analyzer;
+	analyzer[P_ERROR][E_SEMICOLON] = separator_analyzer;
+	analyzer[P_ERROR][E_NEWLINE] = separator_analyzer;
+	analyzer[P_ERROR][E_END] = end_analyzer;
 }
 
 void	init_separator(t_analyzer analyzer)
@@ -111,17 +130,17 @@ void	init_flush_redirect(t_analyzer analyzer)
 
 void	init_dup_move(t_analyzer analyzer)
 {
-	analyzer[P_DUP_MOVE][E_STRING] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_SPSTRING] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_GREAT] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_GREATAND] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_LESS] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_LESSAND] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_DGREAT] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_ANDDGREAT] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_IO_NUMBER] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_PIPE] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_SEMICOLON] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_NEWLINE] = flush_redirect_and;
-	analyzer[P_DUP_MOVE][E_END] = flush_redirect_and;
+	analyzer[P_DUP_MOVE][E_STRING] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_SPSTRING] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_GREAT] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_GREATAND] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_LESS] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_LESSAND] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_DGREAT] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_ANDDGREAT] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_IO_NUMBER] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_PIPE] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_SEMICOLON] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_NEWLINE] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_END] = flush_redirect;
 }
