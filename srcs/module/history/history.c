@@ -6,7 +6,7 @@ void		add_new_entry(t_history *history, char *new)
 		return ;
 	add_entry(&history->entry, create_entry(new));
 	history->head_ptr = history->entry;
-	history->nb_of_entries--;
+	history->nb_of_entries++;
 }
 
 void		delete_entry(t_history *history, int id)

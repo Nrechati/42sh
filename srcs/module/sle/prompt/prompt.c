@@ -38,6 +38,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 	ft_printf("\n");
 	history(shell, ft_strdup(vct_get_string(sle->line)), ADD_ENTRY);
 	history(shell, NULL, RESET_HEAD);
+	history(shell, NULL, PRINT_HISTORY);
 //	vct_add(sle->line, '\n');
 	return (vct_dup(sle->line));
 }
