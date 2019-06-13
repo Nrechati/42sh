@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 17:43:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:52:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	execute_process(t_registry *shell, t_process *process, char **env)
 	signal (SIGTTOU, SIG_DFL);
 	signal (SIGCHLD, SIG_DFL);
 	signal (SIGPIPE, SIG_DFL);
-	ft_lstiter(process->redirects, do_redirect);
 	if (process->process_type & IS_BLT)
 	{
 		run_builtin(shell, process);
@@ -35,6 +34,7 @@ void	execute_process(t_registry *shell, t_process *process, char **env)
 		pathname = ft_hmap_getdata(&shell->hash.bin, process->av[0]);
 	else
 		pathname = process->av[0];
+	ft_lstiter(process->redirects, do_redirect);
 	execve(pathname, process->av, env);
 	ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_EXECVE_ERROR);
 	exit(FAILURE);

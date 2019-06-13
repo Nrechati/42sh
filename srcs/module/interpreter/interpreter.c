@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 16:41:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:54:10 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,22 @@ void	do_nofork_redirect(void *context, void *data)
 
 void	run_builtin(t_registry *shell, t_process *process)
 {
-	int				ret;
 	char			*tty_name;
 	uint8_t			std;
 	t_builtin		builtin;
 
 	std = 0;
 	tty_name = ttyname(STDIN_FILENO);
-	ft_lstiter_ctx(process->redirects, &std, do_nofork_redirect);
+	if (process->process_type & IS_ALONE)
+		ft_lstiter_ctx(process->redirects, &std, do_nofork_redirect);
+	else
+		ft_lstiter(process->redirects, do_redirect);
 	builtin = ft_hmap_getdata(&shell->hash.blt, process->av[0]);
-	ret = builtin(shell, process->av);
-	re_open_std(std, tty_name);
+	process->status = builtin(shell, process->av);
+	if (process->process_type & IS_ALONE)
+		re_open_std(std, tty_name);
 	ft_lstiter(process->redirects, close_redirect);
-	(void)ret;
+	process->completed = 1;
 	return ;
 }
 

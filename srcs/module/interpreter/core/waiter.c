@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 17:42:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:57:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ uint8_t	all_is_done(t_list *processes)
 	while (processes)
 	{
 		current = processes->data;
-		if (current->completed == 0 && current->process_type & IS_BLT)
-			current->completed = 1 ;
 		if (current->completed == FALSE)
 			return (FALSE);
 		processes = processes->next;
