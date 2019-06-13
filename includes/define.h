@@ -60,15 +60,18 @@
 *****************************************************
 */
 
-# define A_OPT						0x001
-# define F_OPT						0x002
-# define I_OPT						0x004
-# define L_OPT						0x008
-# define N_OPT						0x010
-# define P_OPT						0x020
-# define T_OPT						0x040
-# define P_LOW_OPT					0x080
-# define ERROR_OPT					0x800
+# define A_OPT						0x0001
+# define E_OPT						0x0002
+# define F_OPT						0x0004
+# define I_OPT						0x0008
+# define L_OPT						0x0010
+# define N_OPT						0x0020
+# define P_OPT						0x0040
+# define R_OPT						0x0080
+# define S_OPT						0x0100
+# define T_OPT						0x0200
+# define P_LOW_OPT					0x0400
+# define ERROR_OPT					0x8000
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
 # define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
 # define NOFI 						"No such file or directory\n"

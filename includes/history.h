@@ -22,6 +22,8 @@
 # define GET_ENTRY			0x0040
 # define BY_ID				0x0100
 # define BY_NAME			0x0200
+# define PRINT_ID			0x0400
+# define REVERSE			0x0800
 # define REL				0x1000
 # define PREV				0x2000
 # define NEXT				0x4000
@@ -54,6 +56,7 @@ char		*history(t_registry *shell, char *name, uint64_t option);
 void		add_new_entry(t_history *history, char *new);
 void		delete_entry(t_history *history, int id);
 char		*get_entry(t_history *history, char *search, uint64_t option);
+void		print_history(t_history *history, char *elem, uint64_t option);
 
 /*
 *****************

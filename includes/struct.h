@@ -21,7 +21,7 @@
 
 extern const char		**g_grammar; // TEMP
 
-typedef uint16_t		t_option;
+typedef uint64_t		t_option;
 
 typedef struct			s_opt
 {

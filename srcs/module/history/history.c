@@ -32,21 +32,6 @@ void		delete_entry(t_history *history, int id)
 	}
 }
 
-static void	print_history(t_history *history)
-{
-	int		i;
-	t_entry	*entry;
-
-	i = 1;
-	entry = history->entry;
-	while (entry != NULL)
-	{
-		ft_printf("ID: %3.3d | CMD: %s\n", i, entry->cmd);
-		entry = entry->prev;
-		i++;
-	}
-}
-
 static void	init_and_reset(t_registry *shell,
 					t_history *history, uint64_t option)
 {
@@ -79,7 +64,7 @@ char		*history(t_registry *shell, char *name, uint64_t option)
 	else if (option & GET_ENTRY)
 		return (get_entry(&history, name, option));
 	else if (option & PRINT_HISTORY)
-		print_history(&history);
+		print_history(&history, name, option);
 //	else if (option & WRITE_HISTFILE)
 //	else if (option & FREE_HISTORY)
 	return (NULL);

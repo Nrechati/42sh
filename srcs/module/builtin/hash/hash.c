@@ -24,6 +24,7 @@ void			hash_builtin(t_registry *shell)
 	ft_hmap_insert(&(shell->hash.blt), "set", set_blt);
 	ft_hmap_insert(&(shell->hash.blt), "unset", unset_blt);
 	ft_hmap_insert(&(shell->hash.blt), "pwd", pwd_blt);
+	ft_hmap_insert(&(shell->hash.blt), "fc", fc_blt);
 }
 
 static int16_t	hash_handle_opt(t_registry *shell, t_option opt)

@@ -230,6 +230,7 @@ LOGGING += print_debug.c
 HISTORY += history.c
 HISTORY += entry_manager.c
 HISTORY += get_entry.c
+HISTORY += print_history.c
 
 #						- - - - -  Built-in   - - - - -                        #
 
