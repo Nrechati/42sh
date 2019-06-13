@@ -67,7 +67,7 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 
 //	define_interface_signals();
 
-//	set_term_mode(&sle);
+	set_term_mode(&sle);
 	if (sle_flag == SLE_GET_INPUT)
 	{
 		*in = prompt(shell, &sle);
@@ -87,6 +87,6 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	else if (sle_flag == SLE_EXIT)
 		sle_teardown(&sle);
 
-//	unset_term_mode(&sle);
+	unset_term_mode(&sle);
 	return (SUCCESS);
 }
