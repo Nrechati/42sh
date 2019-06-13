@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 12:21:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:19:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	update_pid(t_list *processes, pid_t pid)
 		if (current->pid == pid)
 		{
 			current->completed = 1;
-			ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
-					, current->av[0]
-					, pid);
+		//	ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
+		//			, current->av[0]
+		//			, pid);
 			return ;
 		}
 		processes = processes->next;
@@ -45,7 +45,7 @@ uint8_t	all_is_done(t_list *processes)
 			return (FALSE);
 		processes = processes->next;
 	}
-	ft_dprintf(2, "\x1b[32mAll is Done\n\x1b[0m");
+	//ft_dprintf(2, "\x1b[32mAll is Done\n\x1b[0m");
 	return (TRUE);
 }
 
@@ -54,7 +54,6 @@ int8_t	waiter(t_job *job)
 	int		status;
 	pid_t	pid;
 
-	ft_printf("\x1b[33mWaiter pgid: %d\n\x1b[0m", job->pgid);
 	while (all_is_done(job->processes) == FALSE)
 	{
 		status = 0;
