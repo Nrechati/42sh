@@ -98,10 +98,10 @@ int8_t				cd_blt(t_registry *shell, char **av)
 	char		*curpath;
 	t_option	option;
 
-	if (one_only_arg(shell, ++av) == FALSE)
-		return (FAILURE);
+	av++;
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
-		|| (curpath = ft_get_curpath(shell, *av)) == NULL)
+		|| (curpath = ft_get_curpath(shell, *av)) == NULL
+		|| one_only_arg(shell, av) == FALSE)
 		return (FAILURE);
 	if (is_root(curpath) == FALSE && curpath[ft_strlen(curpath) - 1] == '/')
 		curpath[ft_strlen(curpath) - 1] = '\0';

@@ -20,6 +20,7 @@
 # define ADD_ENTRY			0x0010
 # define POP_ENTRY			0x0020
 # define GET_ENTRY			0x0040
+# define WITHOUT_SPACE		0x0080
 # define BY_ID				0x0100
 # define BY_NAME			0x0200
 # define PRINT_ID			0x0400

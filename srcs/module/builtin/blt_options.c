@@ -30,7 +30,7 @@ t_option					set_options(char ***av, t_get_option get_option)
 	option = 0;
 	if (av == NULL)
 		return (option);
-	while (**av != NULL)
+	while (**av != NULL && state != E_END_OPTION)
 	{
 		state = is_option(**av);
 		if (state == E_NO_OPTION)
