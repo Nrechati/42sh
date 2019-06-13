@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 13:36:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/12 21:14:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf);
 */
 
 void			free_node(void *node);
-void			close_fd(void *data);
 void			delete_process(void *data);
 void			delete_job(void *data);
 void			del_token(void *token);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/11 14:01:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 00:35:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void		del_action(void *data)
 	t_action 	*action;
 
 	action = data;
-	ft_lstdel(&action->data, del_token);		//Leak probable;
-
+	ft_lstdel(&action->data, del_token);
 }
 
 void		del_command(void *data)
@@ -38,7 +37,7 @@ void		del_group(void *data)
 	ft_lstdel(&group->command_list, del_command);
 }
 
-void	del_process(void *data)
+void		del_process(void *data)
 {
 	t_process	*current;
 

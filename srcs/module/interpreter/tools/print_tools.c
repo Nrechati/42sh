@@ -6,11 +6,19 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:30:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 15:14:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:43:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void	print_var_lst(void *data)
+{
+	t_variable *var;
+
+	var = data;
+	ft_printf("\x1b[33mVar = %s || Data = %s\n\x1b[0m", var->name, var->data);
+}
 
 void	print_process(void *data)
 {

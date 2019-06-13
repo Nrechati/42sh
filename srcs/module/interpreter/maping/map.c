@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 10:36:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:04:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,41 @@ void		set_process_pgid(void *context, void *data)
 	return ;
 }
 
-void		*actions_to_redirects(void *data)
+t_redirection	*redirecter_init(void)
 {
-	t_list		*node;
-	t_action	*action;
-	t_redirect	redirect;
+	static t_redirection	redirecter;
 
+	redirecter[A_STDOUT_TRUNCATE_FILE] = stdout_truncate;
+	redirecter[A_STDOUT_APPEND_FILE] = stdout_append;
+	redirecter[A_STDIN_READ_FILE] = stdin_readfile;
+	redirecter[A_IO_TRUNCATE_FILE] = io_truncate;
+	redirecter[A_IO_APPEND_FILE] = io_append;
+	redirecter[A_IO_READ_FILE] = io_readfile;
+	redirecter[A_DUP] = duplicate_fd;
+	redirecter[A_CLOSE] = close_fd;
+	redirecter[A_MOVE] = move_fd;
+	return (&redirecter);
+}
+
+void		*action_to_redirect(void *context, void *data)
+{
+	static t_redirection	*redirecter;
+	t_registry				*shell;
+	t_list					*node;
+	t_action				*action;
+	t_redirect				redirect;
+
+	if (redirecter == NULL)
+		redirecter = redirecter_init();
 	action = data;
+	shell = context;
 	ft_bzero(&redirect, sizeof(t_redirect));
-
-	//Tab : Redirect -> fct redirect (index = enum e_action)
-	//redirect.action = get_redirect_in_tab(action.enum)
-
-	// RAPPEL : PIPE OUT = LAST ACTION; PIPE IN = FIRST ACTION
-	//	while(action->data)
-	//			if (action->next->token->type == A_REDIRECT)
-	//				if (token->type == IO_NBR)
-	//					redirect->first = token->data
-	//				else if (token->type == WORD)
-	//					redirect->first = open(token->data | RW_ONLY)	//WHY CHAR* FILE ??
-	//			else if (action->next-> == NULL)
-	//				if (token->type == IO_NBR)
-	//					redirect->second = token->data
-	//				else if (token->type == WORD)
-	//					redirect->second = open(token->data | RW_ONLY)	//WHY CHAR* FILE ??
+	(*redirecter)[action->type](shell, &redirect, action);
 	node = ft_lstnew(&redirect, sizeof(t_redirect));
 	return (node);
 }
 
-void		*cmd_to_process(void *data)
+void		*cmd_to_process(void *context, void *data)
 {
 	t_list		*node;
 	t_list		*actions_redirects;
@@ -60,16 +66,27 @@ void		*cmd_to_process(void *data)
 
 	command = data;
 	ft_bzero(&process, sizeof(t_process));
+
+//	ft_printf("\x1b[33m|| PRINTING ACTIONS ||\n\x1b[0m");
+//	ft_lstiter(&command->actions, print_actions);
+//	ft_printf("\x1b[33m|| ENDED PRINT ||\n\x1b[0m");
+
 	actions_redirects = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
-//	process.redirects = ft_lstmap(actions_redirects, action_to_redirects, del_cb);
+	process.redirects = ft_lstmap(actions_redirects, context, action_to_redirect, del_action);
+	ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
 	process.av = ft_lsttotab(command->av, token_to_str);
-	process.env = ft_lstmap(command->actions, token_to_var, NULL); //CALLBACK DEL
+	process.env = ft_lstmap(command->actions, NULL, token_to_var, free_node);
+
+//	ft_printf("\x1b[33m|| PRINTING ASSIGNATIONS ||\n\x1b[0m");
+//	ft_lstiter(process.env, print_var_lst);
+//	ft_printf("\x1b[33m|| ENDED PRINT ||\n\x1b[0m");
+
 	ft_lstdel(&actions_redirects, del_action);
 	node = ft_lstnew(&process, sizeof(t_process));
 	return (node);
 }
 
-void		*group_to_job(void *data)
+void		*group_to_job(void *context, void *data)
 {
 	t_job		job;
 	t_list		*node;
@@ -78,7 +95,7 @@ void		*group_to_job(void *data)
 	group = data;
 	ft_bzero(&job, sizeof(t_job));
 	job.job_type = group->group_type;
-	job.processes = ft_lstmap(group->command_list, cmd_to_process, del_command);
+	job.processes = ft_lstmap(group->command_list, context, cmd_to_process, del_command);
 	node = ft_lstnew(&job, sizeof(t_job));
 	ft_lstiter_ctx(job.processes, node->data, set_process_pgid);
 	return (node);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 15:30:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:43:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,17 @@ void	fork_process(t_registry *shell, t_process *process)
 	}
 	else if (process->pid == 0) // IF CHILD
 	{
-//		setpgid(getpid(), *process->pgid);
+		//setpgid(getpid(), *process->pgid);
 		execute_process(shell, process, env);
 	}
 	else
 	{						//IF PARENT
 		if (process->process_type & IS_BIN)
 			ft_hmap_hits(&shell->hash.bin, process->av[0]);
-//		ft_printf("fork process pid : %d\n", process->pid);
-		ft_lstiter(process->redirects, close_redirects);
+		ft_lstiter(process->redirects, close_redirect);
 		if (*process->pgid == 0)
 			*process->pgid = process->pid;
-//		setpgid(process->pid, *process->pgid);
+		//setpgid(process->pid, *process->pgid);
 		ft_freetab(&env);
 	}
 }

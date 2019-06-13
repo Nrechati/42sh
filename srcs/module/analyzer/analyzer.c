@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:53:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 01:50:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*generate_cmd_list(t_stack *tree_node)
 	ft_free(&action);
 	while (ft_stcksize(tree_node) > 0)
 	{
-		if (((t_action *)ft_stcktop(tree_node))->action == A_ARGS)
+		if (((t_action *)ft_stcktop(tree_node))->type == A_ARGS)
 			break;
 		node = ft_stckpopnode(tree_node);
 		ft_lstadd(&command.actions, node);
@@ -41,9 +41,11 @@ int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 	t_list		*command_lst;
 
 	command_lst = NULL;
+	if (ft_stcksize(tree_node) == 0)
+		return (FAILURE);
 	ft_bzero(&group, sizeof(t_group));
 	action = ft_stckpop(tree_node);
-	if (action->action == A_END)
+	if (action->type == A_END)
 		group.group_type |= GROUP_RUN;
 	ft_free(&action);
 	while (ft_stcksize(tree_node) > 0)
@@ -60,18 +62,13 @@ int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 t_list	*analyzer(t_resolution *resolve)
 {
 	static t_analyzer	*analyzer = NULL;
-	t_list				*cmd_group;
+	t_list				*command_group;
 
-	cmd_group = NULL;
+	command_group = NULL;
 	if (analyzer == NULL)
 		analyzer = init_analyzer();
-	delete_analyzer(resolve);
-//	reset_analyzer(g_shell, resolve);
-	if (resolve->token.type == E_DEFAULT)
-		get_token(resolve);
-	if (resolve->state == P_STOP)
-		resolve->state = P_START;
-	while (resolve->state != P_END && resolve->state != P_ERROR)
+	get_token(resolve);
+	while (resolve->state != P_END)
 	{
 		if (g_shell->analyzer_signal == TRUE)
 		{
@@ -79,10 +76,12 @@ t_list	*analyzer(t_resolution *resolve)
 			break ;
 		}
 		if (resolve->state == P_STOP)
-			generate_cmd_group(&cmd_group, &resolve->tree_node);
+			generate_cmd_group(&command_group, &resolve->tree_node);
 		(*analyzer)[resolve->state][resolve->token.type](resolve);
 	}
-	analyzer_print_debug(g_shell, resolve);
-	generate_cmd_group(&cmd_group, &resolve->tree_node);
-	return	(cmd_group);
+	if (resolve->valid == 1)
+		if (generate_cmd_group(&command_group, &resolve->tree_node) == FAILURE)
+			return (NULL);
+	analyzer_print_debug(g_shell, command_group);
+	return	(command_group);
 }
