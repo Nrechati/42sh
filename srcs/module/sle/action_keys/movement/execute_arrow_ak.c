@@ -54,7 +54,8 @@ int8_t				ak_arrow_up(t_sle *sle)
 	char *hist_cmd;
 
 	hist_cmd = history(NULL, NULL, GET_ENTRY | PREV);
-	vct_replace_string(sle->line, 0, vct_len(sle->line), hist_cmd);
+	uint64_t len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
+	vct_replace_string(sle->line, 0, len ,hist_cmd);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	return (FAILURE);
 }
