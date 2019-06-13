@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/12 23:14:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:38:33 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void		del_process(void *data);
 
 void		print_process(void *data);
 void		print_job(void *data);
+void		print_var_lst(void *data);
 
 #endif

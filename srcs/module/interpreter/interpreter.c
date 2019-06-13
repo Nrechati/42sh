@@ -6,21 +6,65 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/12 17:38:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:41:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
-#include <stdio.h>
+#include <fcntl.h>
+
+static void	re_open_std(const uint8_t std, char *tty_name)
+{
+	int		fd;
+
+	fd = open(tty_name, O_RDWR);
+	if (std & CLOSED_STDIN)
+		dup2(fd, STDIN_FILENO);
+	if (std & CLOSED_STDOUT)
+		dup2(fd, STDOUT_FILENO);
+	if (std & CLOSED_STDERR)
+		dup2(fd, STDERR_FILENO);
+	if (fd >= 3)
+		close(fd);
+	return ;
+}
+
+void	do_nofork_redirect(void *context, void *data)
+{
+	uint8_t		*std;
+	t_redirect	*redirect;
+
+	redirect = data;
+	std = context;
+	if (redirect->from == STDIN_FILENO)
+		*std |= CLOSED_STDIN;
+	if (redirect->from == STDOUT_FILENO)
+		*std |= CLOSED_STDOUT;
+	if (redirect->from == STDERR_FILENO)
+		*std |= CLOSED_STDERR;
+	if (redirect->type & FD_DUP)
+		dup2(redirect->to, redirect->from);
+	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
+		dup2(redirect->to, redirect->from);
+	else if (redirect->type & FD_CLOSE)
+		close(redirect->from);
+}
 
 void	run_builtin(t_registry *shell, t_process *process)
 {
 	int				ret;
+	char			*tty_name;
+	uint8_t			std;
 	t_builtin		builtin;
 
+	std = 0;
+	tty_name = ttyname(STDIN_FILENO);
+	ft_lstiter_ctx(process->redirects, &std, do_nofork_redirect);
 	builtin = ft_hmap_getdata(&shell->hash.blt, process->av[0]);
 	ret = builtin(shell, process->av);
+	re_open_std(std, tty_name);
+	ft_lstiter(process->redirects, close_redirect);
 	(void)ret;
 	return ;
 }
@@ -51,11 +95,7 @@ void	run_process(void *context, void *data)
 	if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTEPRETER_NOT_FOUND, process->av[0]);
 	else if (process->process_type == (IS_ALONE | IS_BLT))
-	{
-		//redirect setup
 		run_builtin(shell, process);
-		//redirect init;
-	}
 	else
 		fork_process(shell, process);
 	return;
@@ -78,7 +118,7 @@ void	run_job(void *context, void *data)
 		setup_pipe(job->processes);
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-	ft_lstiter(job->processes, print_process);
+//	ft_lstiter(job->processes, print_process);
 	//CLOSE REDIRECTIONS;
 	//CHECK WAIT CONDITION HERE;
 	//CHECK LEAK ON ERROR

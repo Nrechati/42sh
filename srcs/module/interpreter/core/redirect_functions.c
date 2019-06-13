@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/12 21:17:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:38:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		close_fd(t_registry *shell, t_redirect *redirect, t_action *action)
 {
 	(void)shell;
 	redirect->type |= FD_CLOSE;
-	redirect->to = get_io(action->data);
+	redirect->from = get_io(action->data);
 }
 
 void		stdin_readfile(t_registry *shell, t_redirect *redirect
