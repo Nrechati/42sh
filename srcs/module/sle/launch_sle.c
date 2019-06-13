@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 11:13:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:02:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 
 	if ((setup_report & SETUP_DONE) == FALSE)
 	{
+		history(shell, NULL, INIT_HISTORY);
 		setup_report = sle_setup(shell, sle);
 		if (setup_report & CRITICAL_ERROR)
 			return (CRITICAL_ERROR);
-		if (set_term_mode(sle) == FAILURE)
-			return (CRITICAL_ERROR);
+//		if (set_term_mode(sle) == FAILURE)
+//			return (CRITICAL_ERROR);
 	}
 	save_intern_vars(shell, sle);
 	return (SUCCESS);
@@ -64,8 +65,9 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	if (launch_sle(shell, &sle) == CRITICAL_ERROR)
 		return (CRITICAL_ERROR);
 
-	define_interface_signals();
+//	define_interface_signals();
 
+//	set_term_mode(&sle);
 	if (sle_flag == SLE_GET_INPUT)
 	{
 		*in = prompt(shell, &sle);
@@ -85,5 +87,6 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	else if (sle_flag == SLE_EXIT)
 		sle_teardown(&sle);
 
+//	unset_term_mode(&sle);
 	return (SUCCESS);
 }

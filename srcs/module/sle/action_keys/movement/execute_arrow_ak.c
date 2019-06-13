@@ -48,10 +48,14 @@ int8_t				ak_arrow_left(t_sle *sle)
 
 int8_t				ak_arrow_up(t_sle *sle)
 {
-	ft_dprintf(3, "LineLen: %lu | DispLen: %lu | PromptLen : %lu | Lines: %lu | \n",
-			  		sle->rd_info.line_len, sle->rd_info.disp_len,
-					sle->rd_info.prompt_len, sle->rd_info.lines_amount);
+//	ft_dprintf(3, "LineLen: %lu | DispLen: %lu | PromptLen : %lu | Lines: %lu | \n",
+//			  		sle->rd_info.line_len, sle->rd_info.disp_len,
+	//				sle->rd_info.prompt_len, sle->rd_info.lines_amount);
+	char *hist_cmd;
 
+	hist_cmd = history(NULL, NULL, GET_ENTRY | PREV);
+	vct_replace_string(sle->line, 0, vct_len(sle->line), hist_cmd);
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	return (FAILURE);
 }
 
