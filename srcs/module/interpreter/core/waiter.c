@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 17:57:09 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 18:07:44 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	update_pid(t_list *processes, pid_t pid)
+void	update_pid(t_list *processes, pid_t pid, __unused int status)
 {
 	t_process	*current;
 
@@ -21,7 +21,11 @@ void	update_pid(t_list *processes, pid_t pid)
 		current = processes->data;
 		if (current->pid == pid)
 		{
-			current->completed = 1;
+			if (WIFEXITED(status))
+				current->completed = 1;
+			if (WIFSIGNALED(status))
+				current->completed = 1; 	//Gestion Signaux
+
 		//	ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
 		//			, current->av[0]
 		//			, pid);
@@ -58,7 +62,7 @@ int8_t	waiter(t_job *job)
 		status = 0;
 		pid = waitpid(WAIT_ANY, &status, WNOHANG);
 		if (pid)
-			update_pid(job->processes, pid);
+			update_pid(job->processes, pid, status);
 	}
 	return (SUCCESS);
 }
