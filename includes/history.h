@@ -16,7 +16,7 @@
 # define INIT_HISTORY		0x0001
 # define FREE_HISTORY		0x0002
 # define WRITE_HISTFILE		0x0004
-# define RESET_HEAD			0x0008
+# define PRINT_HISTORY		0x0008
 # define ADD_ENTRY			0x0010
 # define POP_ENTRY			0x0020
 # define GET_ENTRY			0x0040
@@ -25,6 +25,7 @@
 # define REL				0x1000
 # define PREV				0x2000
 # define NEXT				0x4000
+# define RESET_HEAD			0x8000
 
 typedef	struct	s_entry	t_entry;
 
