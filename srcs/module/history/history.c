@@ -47,15 +47,28 @@ static void	print_history(t_history *history)
 	}
 }
 
+static void	init_and_reset(t_registry *shell,
+					t_history *history, uint64_t option)
+{
+	(void)shell;
+	if (option & INIT_HISTORY)
+	{
+		ft_bzero(history, sizeof(t_history));
+		history->first_search = TRUE;
+	}
+	else if (option & RESET_HEAD)
+	{
+		history->first_search = TRUE;
+		history->head_ptr = history->entry;
+	}
+}
+
 char		*history(t_registry *shell, char *name, uint64_t option)
 {
 	static t_history	history;
 
-	(void)shell;
-	if (option & INIT_HISTORY)
-		ft_bzero(&history, sizeof(history));
-	else if (option & RESET_HEAD)
-		history.head_ptr = history.entry;
+	if ((option & INIT_HISTORY) || (option & RESET_HEAD))
+		init_and_reset(shell, &history, option);
 	else if (option & ADD_ENTRY)
 		add_new_entry(&history, name);
 	else if (option & POP_ENTRY)

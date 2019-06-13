@@ -53,33 +53,40 @@ static char	*get_entry_by_name_next(t_history *history, char *name)
 	return (NULL);
 }
 
-static char	*get_entry_by_name(t_history *history, char *name, uint64_t option)
+static char	*get_next_or_prev_entry(t_history *history, uint64_t option)
 {
-
-	if (option & NEXT)
-		return (get_entry_by_name_next(history, name));
-	return (get_entry_by_name_prev(history, name));
+	if (history->first_search == TRUE)
+	{
+		if (option & NEXT)
+			return (NULL);
+		history->first_search = FALSE;
+	}
+	else if (option & NEXT)
+	{
+		if (history->head_ptr->next != NULL)
+			history->head_ptr = history->head_ptr->next;
+	}
+	else if (option & PREV)
+	{
+		if (history->head_ptr->prev != NULL)
+			history->head_ptr = history->head_ptr->prev;
+	}
+	return (history->head_ptr->cmd);
 }
 
 char		*get_entry(t_history *history, char *search, uint64_t option)
 {
 	if (history->head_ptr == NULL)
 		return (NULL);
-	if (option & BY_ID)
+	else if (option & BY_ID)
 		return (get_entry_by_id(history, ft_atoi(search), option));
 	else if (option & BY_NAME)
-		return (get_entry_by_name(history, search, option));
-	else if (option & NEXT)
 	{
-		if (history->head_ptr->next != NULL)
-			history->head_ptr = history->head_ptr->next;
-		return (history->head_ptr->cmd);
+		if (option & NEXT)
+			return (get_entry_by_name_next(history, search));
+		return (get_entry_by_name_prev(history, search));
 	}
-	else if (option & PREV)
-	{
-		if (history->head_ptr->prev != NULL)
-			history->head_ptr = history->head_ptr->prev;
-		return (history->head_ptr->cmd);
-	}
+	else if ((option & NEXT) || (option & PREV))
+		return (get_next_or_prev_entry(history, option));
 	return (NULL);
 }

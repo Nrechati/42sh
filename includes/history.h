@@ -41,6 +41,7 @@ typedef struct	s_history
 	t_entry		*entry;
 	t_entry		*head_ptr;
 	int			nb_of_entries;
+	int			first_search;
 }				t_history;
 
 /*

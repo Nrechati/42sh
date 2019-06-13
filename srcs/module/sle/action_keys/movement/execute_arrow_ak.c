@@ -51,6 +51,8 @@ int8_t				ak_arrow_up(t_sle *sle)
 	char *hist_cmd;
 
 	hist_cmd = history(NULL, NULL, GET_ENTRY | PREV);
+	if (hist_cmd == NULL)
+		return (FAILURE);
 
 	uint64_t len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 
@@ -66,6 +68,8 @@ int8_t				ak_arrow_down(__unused t_sle *sle)
 	char *hist_cmd;
 
 	hist_cmd = history(NULL, NULL, GET_ENTRY | NEXT);
+	if (hist_cmd == NULL)
+		return (FAILURE);
 
 	uint64_t len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 
