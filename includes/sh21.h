@@ -24,7 +24,7 @@
 # include "parser.h"
 # include "analyzer.h"
 # include "resolve.h"
-# include "historic.h"
+# include "history.h"
 # include "log.h"
 
 /*

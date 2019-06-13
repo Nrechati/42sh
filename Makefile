@@ -27,7 +27,7 @@ SRCS += $(LEXER)
 SRCS += $(LOGGING)
 SRCS += $(PARSER)
 SRCS += $(RESOLVE)
-SRCS += $(HISTORIC)
+SRCS += $(HISTORY)
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
 
@@ -129,7 +129,7 @@ P_PARSER += module/parser/debug/
 
 P_RESOLVE += module/resolve/
 
-P_HISTORIC += module/historic/
+P_HISTORY += module/history/
 
 P_TOOLS += tools/
 
@@ -142,7 +142,7 @@ _SPATH += $(P_LEXER)
 _SPATH += $(P_LOGGING)
 _SPATH += $(P_PARSER)
 _SPATH += $(P_RESOLVE)
-_SPATH += $(P_HISTORIC)
+_SPATH += $(P_HISTORY)
 
 SPATH += $(addprefix srcs/, $(_SPATH))
 
@@ -181,7 +181,7 @@ INCS += parser.h
 INCS += analyzer.h
 INCS += builtin.h
 INCS += resolve.h
-INCS += historic.h
+INCS += history.h
 INCS += define.h
 INCS += struct.h
 INCS += enum.h
@@ -224,9 +224,11 @@ CORE += list_function_pointers.c
 LOGGING += debug_logger.c
 LOGGING += print_debug.c
 
-#						- - - - -  Historic  - - - - -						   #
+#						- - - - -   History   - - - - -						   #
 
-HISTORIC += circle_list.c
+HISTORY += history.c
+HISTORY += entry_manager.c
+HISTORY += get_entry.c
 
 #						- - - - -  Built-in   - - - - -                        #
 
