@@ -6,23 +6,39 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 20:11:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void	space_lexer(t_lexer *machine)
+{
+	if (machine->assign_detect == ASSIGN_NEXT)
+	{
+		if (*machine->buffer->buffer == '\0')
+		{
+			vct_add(machine->buffer, ' ');
+			machine->last_lexer = E_STRING;
+			machine->state = L_OUT;
+			machine->assign_detect = ASSIGN_ON;
+		}
+		vct_cut(machine->input);
+	}
+	else
+	{
+		machine->io_detect = 0;
+		while (ft_strchr("\t ", *machine->input->buffer))
+			vct_cut(machine->input);
+	}
+}
 
 void	start_lexer(t_lexer *machine)
 {
 	if (*machine->input->buffer == '\0')
 		machine->state = L_END;
 	else if (*machine->input->buffer == ' ' || *machine->input->buffer == '\t')
-	{
-		machine->io_detect = 0;
-		while (*machine->input->buffer == ' '
-				|| *machine->input->buffer == '\t')
-			vct_cut(machine->input);
-	}
+		space_lexer(machine);
 	else if (ft_strchr(SIGN_DETECT, *machine->input->buffer) != NULL)
 		machine->state = L_SIGN;
 	else if (ft_isdigit(*machine->input->buffer) == TRUE)

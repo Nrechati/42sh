@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/12 15:08:40 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:18:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ struct					s_lexer
 	enum e_lexer_state	state;
 	enum e_quote		quote;
 	enum e_type			last_lexer;
+	enum e_assign		assign_detect;
 	int					io_detect;
 };
 

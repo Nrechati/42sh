@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 19:13:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:56:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void		init_machine(t_lexer *machine, t_vector *input, t_lexinfo *info)
 	machine->last_lexer = E_DEFAULT;
 	machine->input = vct_dup(input);
 	machine->lexinfo = info;
+	machine->assign_detect = ASSIGN_ON;
 }
 
 static void		free_machine_vct(t_lexer *machine)
