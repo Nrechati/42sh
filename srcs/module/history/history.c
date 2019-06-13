@@ -32,18 +32,18 @@ void		delete_entry(t_history *history, int id)
 	}
 }
 
-void		print_history(t_history *history)
+static void	print_history(t_history *history)
 {
 	int		i;
 	t_entry	*entry;
 
+	i = 1;
 	entry = history->entry;
-	i = history->nb_of_entries;
 	while (entry != NULL)
 	{
 		ft_printf("ID: %3.3d | CMD: %s\n", i, entry->cmd);
 		entry = entry->prev;
-		i--;
+		i++;
 	}
 }
 
