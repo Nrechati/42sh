@@ -113,6 +113,7 @@ P_BUILTIN += module/builtin/pwd/
 P_BUILTIN += module/builtin/set/
 P_BUILTIN += module/builtin/type/
 P_BUILTIN += module/builtin/unset/
+P_BUILTIN += module/builtin/fc/
 
 P_EXPANSION += module/expansion/
 
@@ -265,6 +266,9 @@ BUILTIN += type.c
 
 #UNSET
 BUILTIN += unset.c
+
+#FC
+BUILTIN += fc.c
 
 #	    					- - - - - SLE - - - - -                           #
 

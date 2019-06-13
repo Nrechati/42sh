@@ -137,7 +137,7 @@ int8_t		export_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t		set_blt(t_registry *reg, char **av);
+int8_t		set_blt(t_registry *shell, char **av);
 
 /*
 *****************************************************
@@ -145,6 +145,15 @@ int8_t		set_blt(t_registry *reg, char **av);
 *****************************************************
 */
 
-int8_t		unset_blt(t_registry *reg, char **av);
+int8_t		unset_blt(t_registry *shell, char **av);
+
+/*
+*****************************************************
+*********************** FC **************************
+*****************************************************
+*/
+
+int8_t		fc_blt(t_registry *shell, char **av);
+t_option	get_option_fc(char *s, t_option option);
 
 #endif
