@@ -13,52 +13,56 @@
 
 #include "sh21.h"
 
-static void	sle_destroy(__unused t_sle *sle)
+void		unload_prompt(__unused t_sle *sle)
 {
-//	unload_autocomp();
-//	unload_history();
-//	unload_clipboard();
+	vct_del(&sle->prompt.text);
+}
 
-//	unload_prompt();
-//	unload_cursor();
-//	unload_window();
+void		unload_window(t_sle *sle)
+{
+	vct_del(&sle->window.displayed_line);
+}
 
-//	unload_line();
+void		unload_clipboard(t_sle *sle)
+{
+	vct_del(&sle->clip);
+}
 
-//	unload_termcaps();
+void		unload_line(t_sle *sle)
+{
+	vct_del(&sle->line);
+	vct_del(&sle->sub_line);
+}
 
-/*	unset_terminal_mode(shell);
-	{
-	if (shell->interface.orig_mode != NULL)
-		free(shell->interface.orig_mode);
-	if (shell->interface.term_mode != NULL)
-		free(shell->interface.term_mode);
-	}
+void		unload_interns(t_sle *sle)
+{
+	vct_del(&sle->interns.ps1);
+	vct_del(&sle->interns.ps2);
+	vct_del(&sle->interns.ps3);
+	vct_del(&sle->interns.pwd);
+	vct_del(&sle->interns.username);
+	vct_del(&sle->interns.home);
+}
 
+void		unload_termcaps(t_sle *sle)
+{
+	ft_strdel(&sle->termcaps.standout_on);
+	ft_strdel(&sle->termcaps.standout_off);
+	ft_strdel(&sle->termcaps.clear);
+	ft_strdel(&sle->termcaps.down);
+	ft_strdel(&sle->termcaps.up);
+	ft_strdel(&sle->termcaps.right);
+	ft_strdel(&sle->termcaps.left);
+}
 
-	t_history	*del;
-	t_history	*ptr;
-
-	ptr = sle->history_head;
-	while (ptr != NULL)
-	{
-		ft_strdel(&(ptr->command));
-		del = ptr->next;
-		ft_free(ptr);
-		ptr = del;
-	}
-
-	ft_strdel(&(sle->current_line));
-	ft_strdel(&(sle->clip->buffer));
-	ft_strdel(&(sle->line->buffer));
-	ft_free(sle->clip);
-	ft_free(sle->line);
-
-	ft_strdel(&(sle->termcaps.clear));
-	ft_strdel(&(sle->termcaps.cs_down));
-	ft_strdel(&(sle->termcaps.cs_up));
-	ft_strdel(&(sle->termcaps.cs_right));
-	ft_strdel(&(sle->termcaps.cs_left));*/
+static void	sle_destroy(t_sle *sle)
+{
+	unload_line(sle);
+	unload_clipboard(sle);
+	unload_prompt(sle);
+	unload_window(sle);
+	unload_termcaps(sle);
+	unload_interns(sle);
 }
 
 void	sle_teardown(t_sle *sle)

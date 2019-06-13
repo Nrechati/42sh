@@ -15,8 +15,8 @@
 
 void			define_interface_signals(void)
 {
-	signal(SIGWINCH, interface_resize_handler);
-//	signal(SIGINT, redraw_prompt);
+//	signal(SIGWINCH, interface_resize_handler);
+//	signal(SIGINT, ;
 }
 
 void			define_default_signals(void)

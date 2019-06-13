@@ -58,6 +58,9 @@ typedef struct			s_registry
 	t_opt				option;
 	t_hashmap			hash;
 
+	struct termios		*term_mode;
+	struct termios		*orig_mode;
+
 	t_fd				cur_fd;				// Out
 	uint8_t				analyzer_signal;	// Out
 	t_list				*current_job;		// Out
@@ -215,7 +218,7 @@ typedef struct			s_coord
 
 typedef struct			s_termcaps
 {
-	char				*ring;
+//	char				*ring;
 	char				*standout_on;
 	char				*standout_off;
 	char				*clear;
@@ -273,8 +276,6 @@ typedef struct 			s_intern
 
 typedef struct			s_sle
 {
-	struct termios		*term_mode;
-	struct termios		*orig_mode;
 	t_termcaps			termcaps;
 	t_window			window;
 	t_prompt			prompt;
@@ -284,14 +285,10 @@ typedef struct			s_sle
 	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
 	t_vector			*line;
 	t_vector			*sub_line;
-
 	t_intern			interns;
-
-	//visual mode
 	uint8_t				visual_mode;
 	int64_t				vis_start;
 	int64_t				vis_stop;
-
 	t_vector			*clip;
 }						t_sle;
 
