@@ -272,6 +272,7 @@ BUILTIN += unset.c
 BUILTIN += fc.c
 BUILTIN += fc_list.c
 BUILTIN += fc_redo.c
+BUILTIN += fc_editor.c
 
 #	    					- - - - - SLE - - - - -                           #
 

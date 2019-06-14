@@ -32,6 +32,13 @@
 
 typedef	struct	s_entry	t_entry;
 
+typedef struct	s_param
+{
+	int		first;
+	int		last;
+	int		fd;
+}				t_param;			
+
 struct			s_entry
 {
 	t_entry		*next;

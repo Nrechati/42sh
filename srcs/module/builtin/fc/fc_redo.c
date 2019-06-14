@@ -20,7 +20,7 @@ static int8_t	replace_cmd(char **cmd, char *target, char *result)
 	char	*out;
 	char	*tmp;
 
-	if (target == NULL || result == NULL)
+	if (target == NULL || result == NULL || *target == '\0')
 		return (FAILURE);
 	if (ft_strequ(target, result) == TRUE)
 		return (FAILURE);

@@ -1,6 +1,6 @@
 #include "sh21.h"
 
-static int8_t	get_first_last(char **av, char **param)
+int8_t			get_first_last(char **av, char **param)
 {
 	char	*last;
 	char	*tmp;
@@ -26,7 +26,7 @@ static int8_t	get_first_last(char **av, char **param)
 	return (SUCCESS);
 }
 
-void			print_history_list(char **av, t_option option)
+int8_t			fc_list(char **av, t_option option)
 {
 	char		*param;
 	uint64_t	opt_history;
@@ -38,8 +38,13 @@ void			print_history_list(char **av, t_option option)
 	if ((option & R_OPT))
 		opt_history |= REVERSE;
 	if (get_first_last(av, &param) == FAILURE)
+	{
 		ft_dprintf(g_shell->cur_fd.err,
 				"42sh: fc: history specification out of range\n");
+		ft_strdel(&param);
+		return (FAILURE);
+	}
 	history(NULL, param, opt_history);
 	ft_strdel(&param);
+	return (SUCCESS);
 }
