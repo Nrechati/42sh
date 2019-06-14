@@ -30,7 +30,7 @@ static char	*get_entry_by_name_prev(t_history *history, char *name)
 	{
 		if (ft_strstr(entry->cmd, name) != NULL)
 		{
-			history->head_ptr = entry->prev;
+			history->head_ptr = entry;
 			return (entry->cmd);
 		}
 		entry = entry->prev;
