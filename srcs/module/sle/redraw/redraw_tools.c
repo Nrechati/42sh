@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 15:04:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:17:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
 	if (index > sle->rd_info.line_len + sle->rd_info.prompt_len + 1)
 		index =	sle->rd_info.line_len + sle->rd_info.prompt_len;
 
-	co->x = (index % sle->window.cols);
-	co->y = (index / sle->window.cols);
+	if (sle->window.cols != 0)
+	{
+		co->x = (index % sle->window.cols);
+		co->y = (index / sle->window.cols);
+	}
 }
 
 void		print_char(t_sle *sle, char c)

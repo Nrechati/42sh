@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:23:48 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:45:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:01:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int8_t			free_var(t_list **alst, const char *name)
 
 	intern = *alst;
 	if (intern == NULL)
-		return (SUCCESS); 
+		return (SUCCESS);
 	var = (t_variable *)intern->data;
 	if (ft_strequ(var->name, name) == TRUE)
 	{

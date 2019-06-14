@@ -6,44 +6,45 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 16:14:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:43:37 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static t_resolution	init_resolve(t_registry *shell, t_list *token_list) // MOVE
+static t_resolution	init_resolve(t_registry *shell, t_list *tokens)
 {
 	t_resolution	resolve;
 
 	shell->analyzer_signal = FALSE;
-	define_analyzer_signals();
 	ft_bzero(&resolve, sizeof(t_resolution));
-	resolve.token_list = token_list;
+	resolve.tokens = tokens;
 	resolve.token.type = E_DEFAULT;
 	return (resolve);
 }
 
 int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 {
+	t_list			*command_group;
 	t_resolution	resolve;
-	t_list			*token_list;
+	t_list			*tokens;
 
-	token_list = lexer(input);
-	resolve = init_resolve(shell, token_list);
-	while (resolve.token_list)
+	tokens = lexer(input);
+	resolve = init_resolve(shell, tokens);
+	while (resolve.tokens)
 	{
-		if (parser(resolve.token_list) == FAILURE)
+		command_group = NULL;
+		if (parser(resolve.tokens) == FAILURE)
 		{
-			ft_lstdel(&resolve.token_list, del_token);
+			ft_lstdel(&resolve.tokens, del_token);
 			return (FAILURE);
 		}
 		history(shell, ft_strdup(vct_get_string(input)), ADD_ENTRY);
-		shell->current_job = analyzer(&resolve);
-		if (resolve.valid == 1)
-			launch_job(shell, resolve.job_list);
+		command_group = analyzer(&resolve);
+		if (command_group)
+			interpreter(shell, &command_group);
+		lexer_print_debug(shell, resolve.tokens);
 	}
-	define_ign_signals();
 	return (SUCCESS);
 }

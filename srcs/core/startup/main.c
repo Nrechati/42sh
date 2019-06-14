@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 18:43:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:02:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int8_t	init_shell(t_registry *shell, char **arg, char **env)
 	if (set_environment(shell, arg, env) == FAILURE)
 		return (FAILURE);
 	init_log(shell);
-	define_ign_signals();
 	return (SUCCESS);
 }
 
@@ -54,6 +53,15 @@ int				main(int ac, char **av, char **env)
 	(void)ac;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
+
+/*	shell_pid = getpid();
+	if (setpgid(shell_pid, shell_pid) < 0)
+	{
+		ft_dprintf(2, "Failed Setpgid\n");
+		exit(0);
+	}*/
+	g_shell = &shell;
+
 	launch_shell(&shell);
 	shell_exit_routine(&shell);
 	ft_flush_memory();

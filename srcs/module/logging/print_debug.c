@@ -6,45 +6,61 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:57:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 00:07:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void	print_filedesc(void *data)
-{
-	t_filedesc	*fd;
 
-	fd = data;
-	if (fd->action & FD_CLOSE)
-		ft_printf("Closing FD : %d\n", fd->second);
-	else if (fd->action & FD_WRITE)
-		ft_printf("FD : %d >>> FD : %d\n", fd->first, fd->second);
-	else if (fd->action & FD_READ)
-		ft_printf("FD : %d <<< FD : %d\n", fd->first, fd->second);
+void		print_action(void *data)
+{
+	t_action		*action;
+	char			*action_tab[12] = {"A_STDOUT_TRUNCATE_FILE",
+										"A_STDOUT_APPEND_FILE",
+										"A_STDIN_READ_FILE",
+										"A_IO_TRUNCATE_FILE",
+										"A_IO_APPEND_FILE",
+										"A_IO_READ_FILE",
+										"A_DUP",
+										"A_CLOSE",
+										"A_MOVE",
+										"A_AMBIGOUS_REDIRECT",
+										"A_ARGS",
+										"A_ASSIGN"};
+
+	action = data;
+	ft_dprintf(2, "action type: %s\n", action_tab[action->type]);
+	ft_lstiter(action->data, print_token);
 }
 
-static void	print_process(void *data)
+void		print_command(void *data)
 {
-	t_process	*process;
+	t_command		*command;
 
-	process = data;
-	ft_putchar('\n');
-	ft_showtab(process->av);
-	ft_lstiter(process->fd, print_filedesc);
+	command = data;
+	ft_lstiter(command->av, print_token);
+	ft_dprintf(2, "--------------------ACTIONS-------------------\n");
+	ft_lstiter(command->actions, print_action);
+
 }
 
-void		analyzer_print_debug(t_registry *shell, t_resolution *resolve)
+void		print_group(void *data)
+{
+	t_group 	*group;
+
+	group = data;
+	ft_dprintf(2, "group type: %d\n", group->group_type);
+	ft_lstiter(group->command_list, print_command);
+
+}
+void		analyzer_print_debug(t_registry *shell, t_list *command_group)
+
 {
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
-		ft_putstr("\n\033[33m-------------- PARSER --------------");
-		if (resolve->valid == 1)
-			ft_lstiter(((t_job *)(resolve->job_list->data))->process_list,
-					print_process);
-		else
-			ft_putstr(NULL);
+		ft_putstr("\n\033[33m-------------- PARSER --------------\n");
+		ft_lstiter(command_group, print_group);
 		ft_putendl("------------------------------------\033[0m\n");
 	}
 }

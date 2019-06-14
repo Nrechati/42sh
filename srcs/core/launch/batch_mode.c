@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 10:20:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:51:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_vector			*read_input(const int fd)
 	if (ret == FAILURE)
 	{
 		vct_del(&cmd);
-		return (NULL);	
+		return (NULL);
 	}
 	return (cmd);
 }
@@ -43,6 +43,7 @@ static inline t_vector	*get_input_cmd(t_registry *shell)
 
 void					batch_mode(t_registry *shell)
 {
+	ft_printf("Batch mode.\n");
 	t_vector	*cmd;
 
 	cmd = get_input_cmd(shell);

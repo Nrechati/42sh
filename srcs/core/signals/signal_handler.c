@@ -6,29 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 16:25:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 11:49:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:40:43 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <signal.h>
-
-void			define_ign_signals(void)
-{
-//	loop_signals(SIG_IGN);
-}
-
-void			define_analyzer_signals(void)
-{
-//	loop_signals(SIG_IGN);
-	signal(SIGINT, stop_analysis);
-}
-
-void			define_execution_signals(void)
-{
-	signal(SIGINT, kill_process);
-	signal(SIGQUIT, kill_process);
-}
 
 void			define_interface_signals(void)
 {

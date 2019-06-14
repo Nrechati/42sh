@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 11:49:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:44:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,15 @@
 *****************************************************
 */
 
+# define NOT_FOUND					-2
 # define FAILURE					-1
 # define SUCCESS					0
 
 # define FALSE						0
 # define TRUE						1
+
+# define SH_GENERAL_ERROR			"42sh: "
+# define SH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
 
 # define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
 # define SH21_USAGE_2				"[-c CMD]\n"
@@ -91,8 +95,9 @@
 # define H_WIPE						0x001
 # define H_ALL						0x002
 # define H_HELP						0x004
-# define NOT_FOUND					-2
 # define HASH_GENERAL_ERROR			"42sh: hash: "
+# define HASH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
+# define HASH_HIT_ERROR				"error hitting bin\n"
 # define HASH_INVALID_OPT			": invalid option\n"
 # define HASH_NO_AV					"NULL av given to built-in\n"
 # define HASH_NOT_FOUND				": not found\n"
@@ -119,7 +124,7 @@
 # define CLIPBOARD_SZ				32
 
 # define INT_TERM					"TERM"
-# define INT_TERM_DFLT_VALUE		"xterm-256color"
+# define INT_TERM_DFLT_VALUE		"dumb"
 
 # define INT_DBG_FD					"DEBUG_FD"
 # define INT_DBG_FILE				".42sh.log"
@@ -131,6 +136,7 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
+//#define INT_PS1_VALUE "[42sh]-> "
 # define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
@@ -237,18 +243,52 @@
 */
 
 # define ANALYZER_STATES			30
-# define FD_DUP						0x01
-# define FD_CLOSE					0x02
-# define FD_WRITE					0x04
-# define FD_READ					0x08
-# define FD_PIPE					0x10
-# define FD_CLOED					0x20
+# define FD_DUP						0x001
+# define FD_MOVE					0x002
+# define FD_REDIRECT				0x004
+# define FD_CLOSE					0x008
+# define FD_PIPE_IN					0x010
+# define FD_PIPE_OUT				0x020
+# define FD_OPEN_ERROR				0x040
+# define FD_DUP_ERROR				0x080
+# define FD_CRITICAL_ERROR			0x100
 
-# define QUOTING					0x01
-# define HERETRIM					0x02
-# define TO_CLOSE					0x04
-# define NO_PIPE					0x08
-# define VALID_PROCESS				0x10
+# define GROUP_RUN					0x001
+# define GROUP_BG					0x002
+# define GROUP_AND					0x004
+# define GROUP_OR					0x008
+
+# define QUOTING					0x001
+# define HERETRIM					0x002
+# define TO_CLOSE					0x004
+# define NO_PIPE					0x008
+# define VALID_PROCESS				0x010
+
+# define IS_BLT						0x001
+# define IS_BIN						0x002
+# define IS_ABS						0x004
+# define IS_ASSIGN					0x008
+# define IS_ALONE					0x010
+# define IS_NOTFOUND				0x020
+# define IS_OPEN_FAILED				0x040
+# define IS_DUP_FAILED				0x080
+# define IS_CRITICAL				0x100
+
+/*
+*****************************************************
+******************** INTERPRETER ********************
+*****************************************************
+*/
+
+# define REDIRECT_ACTION			9
+
+# define CLOSED_STDIN				0x001
+# define CLOSED_STDOUT				0x002
+# define CLOSED_STDERR				0x004
+
+# define INTEPRETER_NOT_FOUND		" command not found\n"
+# define INTEPRETER_FORK_ERROR		" fork error\n"
+# define INTEPRETER_EXECVE_ERROR	" execve fail\n"
 
 /*
 *****************************************************

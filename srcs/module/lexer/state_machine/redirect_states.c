@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:23:05 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 13:46:35 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:25:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,10 @@ void	greater_machine(t_lexer *machine)
 		else if (*machine->buffer->buffer == '>'
 				&& *machine->input->buffer == '|')
 			machine->last_lexer = E_CLOBBER;
-		else
-		{
-			machine->state = machine->state == L_GREATAND ? L_GREATAND : L_OUT;
-			return ;
-		}
+		vct_cut(machine->input);
 	}
-	vct_cut(machine->input);
-	machine->state = machine->state == L_GREATAND ? L_GREATAND : L_OUT;
+	if (machine->state != L_GREATAND)
+		machine->state = L_OUT;
 }
 
 void	greatand_machine(t_lexer *machine)

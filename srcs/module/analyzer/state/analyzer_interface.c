@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 14:04:36 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/13 02:09:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,23 @@ int		check_token(t_resolution *resolve)
 
 void	error_analyzer(t_resolution *resolve)
 {
+	if (resolve->valid == -2)
+		ft_dprintf(2, "42sh: ambigous redirect");
+	else
+	{
+		ft_dprintf(2, "42sh: analyze error near unexpected token `%s'\n",
+						g_grammar[resolve->token.type]);
+	}
 	resolve->state = P_ERROR;
 	resolve->valid = -1;
 	ft_strdel(&resolve->token.data);
+	ft_stckdestroy(&resolve->stack, del_token);
+	ft_stckdestroy(&resolve->tree_node, del_action);
 	while (check_token(resolve))
 	{
 		get_token(resolve);
 		ft_strdel(&resolve->token.data);
 	}
-	resolve->token.type = E_DEFAULT;
-	ft_lstdel(&resolve->process.fd, close_fd);
 }
 
 void	separator_analyzer(t_resolution *resolve)
@@ -46,34 +53,25 @@ void	separator_analyzer(t_resolution *resolve)
 
 void	stop_analyzer(t_resolution *resolve)
 {
-	t_list		*node;
+	t_action	action;
 
 	resolve->state = P_STOP;
-	if (resolve->special_case & VALID_PROCESS)
+	if (resolve->valid == 1)
 	{
-		resolve->special_case ^= VALID_PROCESS;
-		node = ft_lstnew(&resolve->process, sizeof(t_process));
-		ft_lstaddback(&resolve->job.process_list, node);
-		node = ft_lstnew(&resolve->job, sizeof(t_job));
-		ft_lstaddback(&resolve->job_list, node);
-		resolve->valid = 1;
+		ft_bzero(&action, sizeof(t_action));
+		action.type = A_END;
+		ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 	}
-	resolve->token.type = E_DEFAULT;
+	get_token(resolve);
 }
 
 void	end_analyzer(t_resolution *resolve)
 {
-	t_list		*node;
+	t_action	action;
 
 	resolve->state = P_END;
-	if (resolve->special_case & VALID_PROCESS)
-	{
-		resolve->special_case ^= VALID_PROCESS;
-		node = ft_lstnew(&resolve->process, sizeof(t_process));
-		ft_lstaddback(&resolve->job.process_list, node);
-		node = ft_lstnew(&resolve->job, sizeof(t_job));
-		ft_lstaddback(&resolve->job_list, node);
-		resolve->valid = 1;
-	}
+	ft_bzero(&action, sizeof(t_action));
+	action.type = A_END;
+	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 	get_token(resolve);
 }

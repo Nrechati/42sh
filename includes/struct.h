@@ -6,12 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/08 11:11:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:42:44 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+# include "enum.h"
+# include "define.h"
+# include "libft.h"
 
 /*
 *****************************************************
@@ -121,52 +124,70 @@ typedef struct		s_parser
 ********************** ANALYZER *********************
 *****************************************************
 */
-
 typedef struct s_resolution	t_resolution;
-typedef void			(*t_resolve)(t_resolution *);
-typedef t_resolve		t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
+typedef void				(*t_resolve)(t_resolution *);
+typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
+typedef struct s_redirect	t_redirect;
+typedef struct s_action		t_action;
+typedef void				(*t_set_redirect)(t_registry *, t_redirect *, t_action *);
+typedef t_set_redirect		t_redirection[REDIRECT_ACTION];
 
-typedef struct			s_filedesc
+struct					s_redirect
 {
-	unsigned int		action;
-	int32_t				first;
-	int32_t				second;
-}						t_filedesc;
+	char				*file;
+	int32_t				from;
+	int32_t				to;
+	uint16_t			type;
+};
+
+struct					s_action
+{
+	enum e_actions		type;
+	t_list				*data;
+};
+
+typedef	struct			s_command
+{
+	t_list				*av;
+	t_list				*actions;
+}						t_command;
+
+typedef struct			s_group
+{
+	uint8_t				group_type;
+	t_list				*command_list;
+}						t_group;
 
 typedef struct			s_process
 {
-	t_list				*fd;
 	char				**av;
-	char				**env;
+	t_list				*env;
+	t_list				*redirects;
+	uint8_t				process_type;
 	uint8_t				completed;
 	uint8_t				stopped;
 	pid_t				pid;
+	pid_t				*pgid;
 	int					status;
 }						t_process;
 
 typedef struct			s_job
 {
-	char				*command;
-	t_list				*process_list;
-	struct termios		*term_modes;
 	pid_t				pgid;
-	t_filedesc			fd;
+	uint8_t				job_type;
+	t_list				*processes;
+	struct termios		*term_modes;
 }						t_job;
 
 struct					s_resolution
 {
-	t_list				*token_list;
-	t_list				*env;
-	t_list				*tmp_env;
-	t_list				*job_list;
-	t_process			process;
-	t_job				job;
+	t_list				*tokens;
 	t_stack				stack;
+	t_stack				tree_node;
 	t_token				token;
 	unsigned int		special_case;
 	enum e_analyzer_state	last_state;
 	enum e_analyzer_state	state;
-	int					oflags;
 	int					valid;
 };
 
@@ -184,7 +205,6 @@ typedef struct			s_coord
 
 typedef struct			s_termcaps
 {
-	char				*position;
 	char				*ring;
 	char				*standout_on;
 	char				*standout_off;
@@ -271,7 +291,6 @@ typedef struct			s_sle
 ********************** BUILTIN **********************
 *****************************************************
 */
-
 
 typedef int				(*t_builtin) (t_registry *, char **);
 typedef t_option		(*t_get_option)(char *s, t_option option);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 10:34:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/12 21:40:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,23 @@ typedef enum	e_quote
 ********************** ANALYZER *********************
 *****************************************************
 */
+
+enum			e_actions
+{
+	A_STDOUT_TRUNCATE_FILE,
+	A_STDOUT_APPEND_FILE,
+	A_STDIN_READ_FILE,
+	A_IO_TRUNCATE_FILE,
+	A_IO_APPEND_FILE,
+	A_IO_READ_FILE,
+	A_DUP,
+	A_CLOSE,
+	A_MOVE,
+	A_AMBIGOUS_REDIRECT,
+	A_ARGS,
+	A_ASSIGN,
+	A_END,
+};
 
 enum	e_analyzer_state
 {

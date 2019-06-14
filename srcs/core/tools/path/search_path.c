@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 13:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/04 13:58:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:29:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static int8_t			find_bin(char *path, char *bin, char **buf)
 {
 	ft_asprintf(buf, "%s/%s", path, bin);
 	if (*buf == NULL)
+	{
+		ft_dprintf(2, HASH_GENERAL_ERROR HASH_MALLOC_ERROR);
 		return (FAILURE);
+	}
 	if (ft_exists_and_is_exec(*buf) == TRUE)
 		return (SUCCESS);
 	ft_strdel(buf);
@@ -49,7 +52,10 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
 		return (NOT_FOUND);
 	tab = ft_strsplit(get_var(shell->intern, "PATH"), ":");
 	if (tab == NULL)
+	{
+		ft_dprintf(2, HASH_GENERAL_ERROR HASH_MALLOC_ERROR);
 		return (FAILURE);
+	}
 	i = 0;
 	while (tab[i] != NULL)
 	{
