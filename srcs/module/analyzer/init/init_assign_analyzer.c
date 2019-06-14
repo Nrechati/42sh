@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 13:59:55 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/14 14:06:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:37:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_assign_data(t_analyzer analyzer)
 {
 	analyzer[P_ASSIGN_DATA][E_STRING] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_SPSTRING] = assign_flush_analyzer;
+	analyzer[P_ASSIGN_DATA][E_ASSIGN] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_GREAT] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_GREATAND] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_LESS] = assign_flush_analyzer;
