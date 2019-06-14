@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/13 19:23:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 00:41:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,9 @@ enum	e_analyzer_state
 	P_IO_HEREDOC,
 	P_IO_HEREDOC_REDIRECT,
 	P_IO_HEREDOC_DELIMITER,
+	P_ASSIGN_NAME,
+	P_ASSIGN_DATA,
+	P_ASSIGN_FLUSH,
 };
 
 /*

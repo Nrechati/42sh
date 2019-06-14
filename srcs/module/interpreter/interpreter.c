@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 16:41:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/14 01:58:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,31 @@ int		get_failed_process(void *data, void *context)
 	return (FALSE);
 }
 
+void	assign_intern(t_registry *shell, t_list *assign)
+{
+	t_list		*node;
+	t_variable	*variable;
+	t_variable	*to_find;
+
+	if (assign != NULL)
+	{
+		assign_intern(shell, assign->next);
+		to_find = assign->data;
+		if ((node = ft_lstfind(shell->intern, to_find->name, find_var)))
+		{
+			variable = node->data;
+			ft_strdel(&variable->data);
+			variable->data = ft_strdup(to_find->data);
+			ft_lstdelone(&node, free_node);
+		}
+		else
+		{
+			assign->next = NULL;
+			ft_lstadd(&shell->intern, assign);
+		}
+	}
+}
+
 void	run_process(void *context, void *data)
 {
 	t_registry	*shell;
@@ -94,6 +119,11 @@ void	run_process(void *context, void *data)
 	}
 	if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTEPRETER_NOT_FOUND, process->av[0]);
+	else if (process->process_type == IS_ASSIGN)
+	{
+		assign_intern(shell, process->env);
+		process->env = NULL;
+	}
 	else if (process->process_type == (IS_ALONE | IS_BLT))
 		run_builtin(shell, process);
 	else
@@ -118,7 +148,7 @@ void	run_job(void *context, void *data)
 		setup_pipe(job->processes);
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-//	ft_lstiter(job->processes, print_process);
+	//	ft_lstiter(job->processes, print_process);
 	//CLOSE REDIRECTIONS;
 	//CHECK WAIT CONDITION HERE;
 	//CHECK LEAK ON ERROR

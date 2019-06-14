@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/12 18:04:33 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/14 02:02:52 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -317,6 +317,7 @@ ANALYZER += io_redirect_analyzer.c
 ANALYZER += pipe_analyzer.c
 ANALYZER += redirect_analyzer.c
 ANALYZER += string_analyzer.c
+ANALYZER += assign_analyzer.c
 ANALYZER += token_tools.c
 
 #			 		      - - - - - Interpreter - - - - -                         #

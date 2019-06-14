@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 01:56:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 02:04:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void		error_analyzer(t_resolution *resolve);
 void		string_analyzer(t_resolution *resolve);
 void		special_string_analyzer(t_resolution *resolve);
 void		flush_string(t_resolution *resolve);
+
+
+void		assign_name_analyzer(t_resolution *resolve);
+void		assign_data_analyzer(t_resolution *resolve);
+void		assign_flush_analyzer(t_resolution *resolve);
 
 void		redirect_analyzer(t_resolution *resolve);
 void		redirect_and_analyzer(t_resolution *resolve);

@@ -6,11 +6,38 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 01:50:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 01:09:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void	command_assign(t_stack *tree_node, t_command *command)
+{
+	t_list		*node;
+
+
+	command->type |= COMMAND_ASSIGN;
+	while (ft_stcksize(tree_node) > 0)
+	{
+		node = ft_stckpopnode(tree_node);
+		ft_lstadd(&command->av, node);
+	}
+}
+
+void	command_args(t_stack *tree_node, t_command *command)
+{
+	t_list		*node;
+
+	command->type |= COMMAND_RUN;
+	while (ft_stcksize(tree_node) > 0)
+	{
+		if (((t_action *)ft_stcktop(tree_node))->type == A_ARGS)
+			break;
+		node = ft_stckpopnode(tree_node);
+		ft_lstadd(&command->actions, node);
+	}
+}
 
 t_list	*generate_cmd_list(t_stack *tree_node)
 {
@@ -19,15 +46,18 @@ t_list	*generate_cmd_list(t_stack *tree_node)
 	t_list		*node;
 
 	ft_bzero(&command, sizeof(t_command));
-	action = ft_stckpop(tree_node);
-	command.av = action->data;
-	ft_free(&action);
-	while (ft_stcksize(tree_node) > 0)
+	node = ft_stckpopnode(tree_node);
+	action = node->data;
+	if (action->type == A_ASSIGN)
 	{
-		if (((t_action *)ft_stcktop(tree_node))->type == A_ARGS)
-			break;
-		node = ft_stckpopnode(tree_node);
-		ft_lstadd(&command.actions, node);
+		command_assign(tree_node, &command);
+		ft_lstadd(&command.av, node);
+	}
+	else
+	{
+		command.av = action->data;
+		command_assign(tree_node, &command);
+		ft_lstdelone(&node, NULL);
 	}
 	node = ft_lstnew(&command, sizeof(t_command));
 	return (node);

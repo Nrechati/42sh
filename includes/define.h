@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/13 19:07:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 02:00:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@
 *****************************************************
 */
 
-# define ANALYZER_STATES			30
+# define ANALYZER_STATES			33
 # define FD_DUP						0x001
 # define FD_MOVE					0x002
 # define FD_REDIRECT				0x004
@@ -248,6 +248,9 @@
 # define FD_OPEN_ERROR				0x040
 # define FD_DUP_ERROR				0x080
 # define FD_CRITICAL_ERROR			0x100
+
+# define COMMAND_ASSIGN				0x001
+# define COMMAND_RUN				0x002
 
 # define GROUP_RUN					0x001
 # define GROUP_BG					0x002
