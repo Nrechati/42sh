@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:13:42 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 01:55:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:09:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ static void	init_io_rediction_analyzer(t_analyzer analyzer)
 	init_pipe(analyzer);
 	init_io_heredoc_delimiter(analyzer);
 	init_flush_redirect(analyzer);
+	init_assign_name(analyzer);
+	init_assign_data(analyzer);
+	init_assign_flush(analyzer);
 }
 
 t_analyzer	*init_analyzer(void)

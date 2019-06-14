@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/10 21:03:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:28:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ char	**generate_env(t_registry *shell, t_list *local_env)
 	tmp_env = ft_lstfilter(shell->intern, NULL, is_export, copy_var);
 	ft_lstiter_ctx(local_env, tmp_env, variable_update);
 	env = ft_lsttotab(tmp_env, variable_to_tab);
+	ft_lstdel(&tmp_env, free_node);
 	return (env);
 }

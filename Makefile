@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/14 02:02:52 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/14 14:10:24 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -309,6 +309,7 @@ ANALYZER += init_io_analyzer.c
 ANALYZER += init_io_redirect_analyzer.c
 ANALYZER += init_start_analyzer.c
 ANALYZER += init_string_analyzer.c
+ANALYZER += init_assign_analyzer.c
 ANALYZER += analyzer_interface.c
 ANALYZER += analyzer_tools.c
 ANALYZER += filename_analyzer.c

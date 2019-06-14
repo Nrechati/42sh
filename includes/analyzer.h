@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/14 02:04:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:08:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ void		generate_filedesc(t_resolution *resolve, int first, int second
 void		init_start(t_analyzer analyzer);
 void		init_stop(t_analyzer analyzer);
 void		init_error(t_analyzer analyzer);
+void		init_assign_name(t_analyzer analyzer);
+void		init_assign_data(t_analyzer analyzer);
+void		init_assign_flush(t_analyzer analyzer);
 void		init_io(t_analyzer analyzer);
 void		init_io_filename(t_analyzer analyzer);
 void		init_io_filename_and(t_analyzer analyzer);

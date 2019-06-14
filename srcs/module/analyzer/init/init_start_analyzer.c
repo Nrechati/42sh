@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:05:16 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 02:06:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:05:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_start(t_analyzer analyzer)
 {
 	analyzer[P_START][E_STRING] = string_analyzer;
 	analyzer[P_START][E_SPSTRING] = special_string_analyzer;
+	analyzer[P_START][E_ASSIGN] = assign_name_analyzer;
 	analyzer[P_START][E_GREAT] = redirect_analyzer;
 	analyzer[P_START][E_GREATAND] = redirect_and_analyzer;
 	analyzer[P_START][E_LESS] = redirect_analyzer;
@@ -35,6 +36,7 @@ void	init_stop(t_analyzer analyzer)
 {
 	analyzer[P_STOP][E_STRING] = string_analyzer;
 	analyzer[P_STOP][E_SPSTRING] = special_string_analyzer;
+	analyzer[P_STOP][E_ASSIGN] = assign_name_analyzer;
 	analyzer[P_STOP][E_GREAT] = redirect_analyzer;
 	analyzer[P_STOP][E_GREATAND] = redirect_and_analyzer;
 	analyzer[P_STOP][E_LESS] = redirect_analyzer;
