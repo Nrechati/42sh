@@ -153,7 +153,9 @@ int8_t		unset_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t		fc_blt(t_registry *shell, char **av);
 t_option	get_option_fc(char *s, t_option option);
+int8_t		fc_blt(t_registry *shell, char **av);
+void		print_history_list(char **av, t_option option);
+int8_t		fc_redo(t_registry *shell, char **av, t_option option);
 
 #endif
