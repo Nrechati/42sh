@@ -28,7 +28,6 @@ static int	get_elem(t_history *history, char *elem, int *first, int *last)
 		*last = history->nb_of_entries;
 	if (elem != NULL && (cur = ft_strstr(elem, "fd:")) != NULL)
 		fd = ft_atoi(cur + 3);
-	ft_printf("first: %d | last: %d\n", *first, *last);
 	return (fd);	
 }
 
@@ -56,11 +55,11 @@ void		print_reverse(t_history *history, int first, int last,
 		if (i <= last && entry->cmd != NULL)
 		{
 			if (option & PRINT_ID)
-				ft_printf("%-7d%s\n", i, entry->cmd);
+				ft_printf("%d\t%s\n", i, entry->cmd);
 			else if (option & WITHOUT_SPACE)
 				ft_printf("%s\n", entry->cmd);
 			else
-				ft_printf("       %s\n", entry->cmd);
+				ft_printf("\t%s\n", entry->cmd);
 		}
 		entry = entry->prev;
 		i--;
@@ -80,11 +79,11 @@ void		print_standard(t_history *history, int first, int last,
 		if (i >= first && entry->cmd != NULL)
 		{
 			if (option & PRINT_ID)
-				ft_printf("%-7d%s\n", i, entry->cmd);
+				ft_printf("%d\t%s\n", i, entry->cmd);
 			else if (option & WITHOUT_SPACE)
 				ft_printf("%s\n", entry->cmd);
 			else
-				ft_printf("       %s\n", entry->cmd);
+				ft_printf("\t%s\n", entry->cmd);
 		}
 		entry = entry->next;
 		i++;

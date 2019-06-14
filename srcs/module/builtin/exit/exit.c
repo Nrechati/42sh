@@ -21,6 +21,7 @@ int8_t			exit_blt(t_registry *shell, char **av)
 	{
 		if (ft_isnumeric(*av) == FALSE)
 		{
+			ft_dprintf(shell->cur_fd.err, "exit\n");
 			ft_dprintf(shell->cur_fd.err,
 					"21sh: exit: %s: numeric argument required\n", *av);
 			shell_exit_routine(shell);
@@ -35,5 +36,6 @@ int8_t			exit_blt(t_registry *shell, char **av)
 	ret = *av == NULL ? SUCCESS : ft_atoi(*av);
 	shell_exit_routine(shell);
 	ft_flush_memory();
+	ft_dprintf(shell->cur_fd.err, "exit\n");
 	exit(ret);
 }

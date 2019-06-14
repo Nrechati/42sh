@@ -5,6 +5,8 @@ static char	*get_entry_by_id(t_history *history, int id, uint64_t option)
 	t_entry		*entry;
 	int			real_id;
 
+	if (id == -1)
+		id = history->nb_of_entries - 1;
 	real_id = option & REL ? id : history->nb_of_entries - id;
 	entry = history->entry;
 	while (entry != NULL)
@@ -79,7 +81,10 @@ char		*get_entry(t_history *history, char *search, uint64_t option)
 	if (history->head_ptr == NULL)
 		return (NULL);
 	else if (option & BY_ID)
-		return (get_entry_by_id(history, ft_atoi(search), option));
+	{
+		return (get_entry_by_id(history, search == NULL ?
+					history->nb_of_entries - 1 : ft_atoi(search), option));
+	}
 	else if (option & BY_NAME)
 	{
 		if (option & NEXT)
