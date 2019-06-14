@@ -64,7 +64,7 @@ static char		*get_default_editor(t_registry *shell)
 	char	*editor;
 
 	editor = get_var(shell->intern, "FCEDIT");
-	editor = ft_strdup(editor == NULL ? "ed" : editor);
+	editor = ft_strdup(editor == NULL ? "vim" : editor);
 	return (editor);
 }
 

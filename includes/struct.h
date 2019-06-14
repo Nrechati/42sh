@@ -172,13 +172,6 @@ struct					s_resolution
 
 /*
 *****************************************************
-********************** HISTORY **********************
-*****************************************************
-*/
-
-
-/*
-*****************************************************
 ************************ SLE ************************
 *****************************************************
 */
@@ -290,5 +283,35 @@ typedef t_option		(*t_get_option)(char *s, t_option option);
 */
 
 extern t_list			*g_job_head;
+
+/*
+*****************************************************
+********************** HISTORY **********************
+*****************************************************
+*/
+
+typedef	struct	s_entry	t_entry;
+
+typedef struct	s_param
+{
+	int		first;
+	int		last;
+	int		fd;
+}				t_param;			
+
+struct			s_entry
+{
+	t_entry		*next;
+	t_entry		*prev;
+	char		*cmd;
+};
+
+typedef struct	s_history
+{
+	t_entry		*entry;
+	t_entry		*head_ptr;
+	int			nb_of_entries;
+	int			first_search;
+}				t_history;
 
 #endif

@@ -1,8 +1,6 @@
 #include "sh21.h"
 #include <fcntl.h>
 
-#define FC_FILE_TMP	"/tmp/42sh-fc.tmp"
-
 static void			add_fd_to_param(char **param, int fd)
 {
 	char	*tmp;

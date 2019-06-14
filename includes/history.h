@@ -13,47 +13,6 @@
 #ifndef FT_HISTORY_H
 # define FT_HISTORY_H
 
-# define INIT_HISTORY		0x0001
-# define FREE_HISTORY		0x0002
-# define WRITE_HISTFILE		0x0004
-# define PRINT_HISTORY		0x0008
-# define ADD_ENTRY			0x0010
-# define POP_ENTRY			0x0020
-# define GET_ENTRY			0x0040
-# define WITHOUT_SPACE		0x0080
-# define BY_ID				0x0100
-# define BY_NAME			0x0200
-# define PRINT_ID			0x0400
-# define REVERSE			0x0800
-# define REL				0x1000
-# define PREV				0x2000
-# define NEXT				0x4000
-# define RESET_HEAD			0x8000
-
-typedef	struct	s_entry	t_entry;
-
-typedef struct	s_param
-{
-	int		first;
-	int		last;
-	int		fd;
-}				t_param;			
-
-struct			s_entry
-{
-	t_entry		*next;
-	t_entry		*prev;
-	char		*cmd;
-};
-
-typedef struct	s_history
-{
-	t_entry		*entry;
-	t_entry		*head_ptr;
-	int			nb_of_entries;
-	int			first_search;
-}				t_history;
-
 /*
 *****************
 **** HISTORY ****
