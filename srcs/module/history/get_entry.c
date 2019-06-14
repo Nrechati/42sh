@@ -83,7 +83,7 @@ char		*get_entry(t_history *history, char *search, uint64_t option)
 	else if (option & BY_ID)
 	{
 		return (get_entry_by_id(history, search == NULL ?
-					history->nb_of_entries - 1 : ft_atoi(search), option));
+					history->nb_of_entries : ft_atoi(search), option));
 	}
 	else if (option & BY_NAME)
 	{

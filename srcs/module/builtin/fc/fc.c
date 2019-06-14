@@ -40,10 +40,10 @@ int8_t			fc_blt(t_registry *shell, char **av)
 	option = set_options(&av, get_option_fc);
 	if (option == ERROR_OPT)
 		return (FAILURE);
-	if (option & L_OPT)
-		print_history_list(av, option);
-	else if (option & S_OPT)
+	if (option & S_OPT)
 		ret = fc_redo(shell, av, option);
+	else if (option & L_OPT)
+		print_history_list(av, option);
 	history(shell, NULL, RESET_HEAD);
 	return (ret);
 }

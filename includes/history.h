@@ -68,6 +68,6 @@ void		print_history(t_history *history, char *elem, uint64_t option);
 void	add_entry(t_entry **head, t_entry *new_entry);
 t_entry	*create_entry(char *cmd);
 void	free_history(t_entry *entry);
-void	pop_entry(t_entry **entry);
+void	pop_entry(t_entry **entry, t_entry **head);
 
 #endif

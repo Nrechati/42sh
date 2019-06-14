@@ -4,7 +4,7 @@
 ** delete current entry
 */
 
-void	pop_entry(t_entry **entry)
+void	pop_entry(t_entry **entry, t_entry **head)
 {
 	t_entry	*next;
 	t_entry	*prev;
@@ -20,9 +20,12 @@ void	pop_entry(t_entry **entry)
 	if (prev != NULL)
 		prev->next = next;
 	if (cur->next == NULL && cur->prev == NULL)
-		*entry = NULL;
+		*head = NULL;
 	else if (cur->next == NULL)
-		*entry = prev;
+	{
+		*head = (*head)->prev;
+		(*head)->next = NULL;
+	}
 	ft_strdel(&cur->cmd);
 	free(cur);
 }

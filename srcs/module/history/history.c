@@ -14,15 +14,14 @@ void		delete_entry(t_history *history, int id)
 	t_entry		*entry;
 	int			rel_id;
 
-	if (id <= 0 || id > history->nb_of_entries)
-		ft_dprintf(2, "42sh: No history entry with ID %d\n", id);
-	rel_id = history->nb_of_entries - id;
+	rel_id = (id <= 0 || id > history->nb_of_entries)
+				? 0 : history->nb_of_entries - id;
 	entry = history->entry;
 	while (entry != NULL)
 	{
 		if (rel_id == 0)
 		{
-			pop_entry(&entry);
+			pop_entry(&entry, &history->entry);
 			history->head_ptr = history->entry;
 			history->nb_of_entries--;
 			return ;
@@ -58,8 +57,8 @@ char		*history(t_registry *shell, char *name, uint64_t option)
 		add_new_entry(&history, name);
 	else if (option & POP_ENTRY)
 	{
-		if (name != NULL && *name != '\0')
-			delete_entry(&history, ft_atoi(name));
+		delete_entry(&history, (name == NULL || *name == '\0')
+							? -1 : ft_atoi(name));
 	}
 	else if (option & GET_ENTRY)
 		return (get_entry(&history, name, option));

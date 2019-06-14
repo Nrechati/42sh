@@ -39,6 +39,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 			ft_lstdel(&resolve.token_list, del_token);
 			return (FAILURE);
 		}
+		history(shell, ft_strdup(vct_get_string(input)), ADD_ENTRY);
 		shell->current_job = analyzer(&resolve);
 		if (resolve.valid == 1)
 			launch_job(shell, resolve.job_list);
