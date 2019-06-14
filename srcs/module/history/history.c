@@ -39,6 +39,7 @@ static void	init_and_reset(t_registry *shell,
 	{
 		ft_bzero(history, sizeof(t_history));
 		history->first_search = TRUE;
+		read_histfile(shell, history);
 	}
 	else if (option & RESET_HEAD)
 	{

@@ -402,26 +402,26 @@
 
 # define INC_SEARCH                 "(inc-search)"
 # define INC_SEARCH_SUFFIX          "``:"
-# define DEFAULT_HISTORY_FILENAME	".sh_history"
+# define HISTFILE_DEFAULT			"./.42sh_history"
 
 # define FC_FILE_TMP				"/tmp/42sh-fc.tmp"
 
-# define INIT_HISTORY				0x0001
-# define FREE_HISTORY				0x0002
-# define WRITE_HISTFILE				0x0004
-# define PRINT_HISTORY				0x0008
-# define ADD_ENTRY					0x0010
-# define POP_ENTRY					0x0020
-# define GET_ENTRY					0x0040
-# define WITHOUT_SPACE				0x0080
-# define BY_ID						0x0100
-# define BY_NAME					0x0200
-# define PRINT_ID					0x0400
-# define REVERSE					0x0800
-# define REL						0x1000
-# define PREV						0x2000
-# define NEXT						0x4000
-# define RESET_HEAD					0x8000
+# define INIT_HISTORY				0x000001
+# define FREE_HISTORY				0x000002
+# define PRINT_HISTORY				0x000004
+# define WRITE_HISTFILE				0x000008
+# define ADD_ENTRY					0x000010
+# define POP_ENTRY					0x000020
+# define GET_ENTRY					0x000040
+# define WITHOUT_SPACE				0x000080
+# define BY_ID						0x000100
+# define BY_NAME					0x000200
+# define PRINT_ID					0x000400
+# define REVERSE					0x000800
+# define REL						0x001000
+# define PREV						0x002000
+# define NEXT						0x004000
+# define RESET_HEAD					0x008000
 
 /*
 *****************************************************

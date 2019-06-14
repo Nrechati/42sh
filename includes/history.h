@@ -24,6 +24,7 @@ void		add_new_entry(t_history *history, char *new);
 void		delete_entry(t_history *history, int id);
 char		*get_entry(t_history *history, char *search, uint64_t option);
 void		print_history(t_history *history, char *elem, uint64_t option);
+void		read_histfile(t_registry *shell, t_history *history);
 
 /*
 *****************
