@@ -8,10 +8,13 @@ static char	*get_histfile(t_registry *shell)
 
 	home = get_var(shell->intern, "HOME");
 	histfile = get_var(shell->intern, "HISTFILE");
+	if (histfile != NULL)
+		return (ft_strdup(histfile));
 	if (home != NULL)
 	{
 		ft_asprintf(&histfile, "%s/%s",
 					home, histfile == NULL ? HISTFILE_DEFAULT : histfile); 
+	ft_putendl(histfile);
 		return (histfile);
 	}
 	return (NULL);
