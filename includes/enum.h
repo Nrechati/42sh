@@ -192,7 +192,7 @@ enum	e_action_keys
 	AK_CTRL_B,
 	AK_CTRL_X,
 	AK_CTRL_P,
-
+	AK_CTRL_R,
 	AK_TABULATION,
 };
 

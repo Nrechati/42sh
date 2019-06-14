@@ -261,10 +261,11 @@ typedef struct			s_sle
 	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
 	t_vector			*line;
 	t_vector			*sub_line;
-
+	t_vector			*search_line;
 	t_intern			interns;
 
-	//visual mode
+	uint8_t				search_mode;
+
 	uint8_t				visual_mode;
 	int64_t				vis_start;
 	int64_t				vis_stop;

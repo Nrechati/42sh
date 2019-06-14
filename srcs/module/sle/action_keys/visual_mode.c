@@ -21,9 +21,10 @@ int8_t	ak_enter_visual_mode(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t	ak_exit_visual_mode(t_sle *sle)
+int8_t	ak_exit_modes(t_sle *sle)
 {
 	sle->visual_mode = FALSE;
+	sle->search_mode = FALSE;
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 	set_cursor_pos(sle, sle->cursor.index);
 	return (SUCCESS);

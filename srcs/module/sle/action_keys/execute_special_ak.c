@@ -12,6 +12,27 @@
 
 #include "sh21.h"
 
+void		build_search_string(__unused t_sle *sle)
+{
+
+}
+
+int8_t		ak_ctrl_r(t_sle *sle)
+{
+	t_vector *text;
+	
+	if (sle->search_mode == TRUE)
+		return (FAILURE);
+		
+	sle->search_mode = TRUE;
+	text = vct_dups(INC_SEARCH);
+	print_prompt_to_window(sle, text);
+	
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
+
+	return (SUCCESS);
+}
+
 int8_t		ak_hightab(t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
@@ -35,7 +56,12 @@ int8_t		ak_backspace(t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);
-
+	if (sle->search_mode == TRUE)
+	{
+		vct_pop(sle->sub_line);
+		set_redraw_flags(sle, RD_LINE | RD_CEND);
+		return (SUCCESS);
+	}
 	if (sle->cursor.index == 0)
 		return (FAILURE);
 	vct_del_char(sle->line, sle->cursor.index - 1);

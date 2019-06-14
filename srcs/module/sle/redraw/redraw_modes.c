@@ -47,12 +47,25 @@ void	redrawmode_line(t_sle *sle)
 {
 	t_coord		co;
 	int64_t		diff;
+	char		*search;
 
 	index_to_coord(sle, sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);
-
+	if (sle->search_mode && vct_len(sle->sub_line) != 0)
+	{
+		char *sl = vct_get_string(sle->sub_line);
+		search = history(NULL, sl, GET_ENTRY | BY_NAME | PREV);
+		if (search == NULL)
+			sle->search_line = vct_dups("Failed");
+		else
+			sle->search_line = vct_dups(search);
+		search = NULL;
+		ft_asprintf(&search, "`%s`:%s",
+					vct_get_string(sle->sub_line),
+					vct_get_string(sle->search_line));
+		sle->line = vct_dups(search);
+	}
 	diff = vct_len(sle->line) - (vct_len(sle->window.displayed_line));
-
 	print_loop(sle, vct_get_string(sle->line));
 	if (diff <= 0)
 	{

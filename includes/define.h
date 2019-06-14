@@ -287,6 +287,7 @@
 # define RD_CMOVE       0x200 /* Put cursor to point / index */
 
 # define RD_VISUAL		0x400
+# define RD_SEARCH      0x800
 
 # define CRITICAL_ERROR     0x001
 # define MALLOC_FAIL        0x002
@@ -302,12 +303,8 @@
 
 # define SETUP_DONE			0x800
 
-# define INTERNAL_FAIL2     999
-# define CLIPB_FAIL         999
+
 # define HIST_FAIL          999
-# define SUBP_FAIL          2048
-# define AUTOC_FAIL         4096
-# define KEYBDS_FAIL        8192
 
 # define P_DATE				'd'
 # define P_NAME				's'
@@ -318,7 +315,7 @@
 # define P_ESCAPE			'e'
 
 # define FAIL_EOF					42
-# define AK_AMOUNT					22
+# define AK_AMOUNT					23
 
 # define AK_ESCAPE_MASK				0x1b00000000000000
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
@@ -338,6 +335,7 @@
 # define AK_CTRL_B_MASK				0x0200000000000000
 # define AK_CTRL_P_MASK				0x1000000000000000
 # define AK_CTRL_F_MASK				0x0600000000000000
+# define AK_CTRL_R_MASK				0x1200000000000000
 # define AK_CTRL_UP_MASK			0x1b5b313b35410000
 # define AK_CTRL_DOWN_MASK			0x1b5b313b35420000
 # define AK_CTRL_RIGHT_MASK			0x1b5b313b35430000
@@ -362,6 +360,8 @@
 *****************************************************
 */
 
+# define INC_SEARCH                 "(inc-search)"
+# define INC_SEARCH_SUFFIX          "``:"
 # define DEFAULT_HISTORY_FILENAME	".sh_history"
 
 /*
