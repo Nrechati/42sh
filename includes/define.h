@@ -402,9 +402,9 @@
 
 # define INC_SEARCH                 "(inc-search)"
 # define INC_SEARCH_SUFFIX          "``:"
-# define HISTFILE_DEFAULT			"./.42sh_history"
-
+# define HISTFILE_DEFAULT			".42sh_history"
 # define FC_FILE_TMP				"/tmp/42sh-fc.tmp"
+# define HISTSIZE_DEFAULT			500		
 
 # define INIT_HISTORY				0x000001
 # define FREE_HISTORY				0x000002

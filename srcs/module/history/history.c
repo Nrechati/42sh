@@ -65,7 +65,9 @@ char		*history(t_registry *shell, char *name, uint64_t option)
 		return (get_entry(&history, name, option));
 	else if (option & PRINT_HISTORY)
 		print_history(&history, name, option);
-//	else if (option & WRITE_HISTFILE)
-//	else if (option & FREE_HISTORY)
+	else if (option & WRITE_HISTFILE)
+		write_histfile(shell, &history);
+	else if (option & FREE_HISTORY)
+		free_history(history.entry);
 	return (NULL);
 }

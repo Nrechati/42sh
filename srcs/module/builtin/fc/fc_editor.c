@@ -47,7 +47,7 @@ static int8_t		write_file(t_registry *shell, char **av, char *editor)
 
 	param = NULL;
 	if ((fd = open(FC_FILE_TMP, O_CREAT | O_WRONLY | O_TRUNC,
-					S_IRWXU | S_IRGRP | S_IROTH)) == FAILURE)
+					S_IRUSR | S_IWUSR)) == FAILURE)
 	{
 		ft_dprintf(g_shell->cur_fd.err,
 				"42sh: fc: failed to open or create file: %s\n", FC_FILE_TMP);
