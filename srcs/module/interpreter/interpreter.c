@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/14 01:58:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/14 15:15:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ void	run_job(void *context, void *data)
 	t_job		*job;
 	t_process	*head;
 
+	if (data == NULL)
+		return;
 	shell = context;
 	job = data;
 	head = job->processes->data;
