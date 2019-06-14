@@ -36,6 +36,11 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 			break ;
 	}
 	ft_printf("\n");
+	if (sle->search_mode == TRUE)
+	{
+		sle->search_mode = FALSE;
+		sle->line = sle->sub_line;
+	}
 	history(shell, NULL, RESET_HEAD);
 //	vct_add(sle->line, '\n');
 	return (vct_dup(sle->line));

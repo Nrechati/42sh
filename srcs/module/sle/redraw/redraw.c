@@ -15,6 +15,9 @@
 
 static void    redraw_line(t_registry *shell, t_sle *sle)
 {
+	if (sle->search_mode == TRUE)
+		sle->window.rd_flag = RD_LINE | RD_CEND;
+		
 	if (sle->window.rd_flag & RD_NONE)
         return;
 	if (sle->window.rd_flag & RD_CLEAR)

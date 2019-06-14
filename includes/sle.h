@@ -140,13 +140,16 @@ int8_t		ak_backspace(t_sle *sle);
 int8_t		ak_ctrl_d(t_sle *sle);
 int8_t		ak_ctrl_l(t_sle *sle);
 
+
+
 int8_t		ak_ctrl_left(t_sle *sle);
 int8_t		ak_ctrl_right(t_sle *sle);
 int8_t		ak_ctrl_up(t_sle *sle);
 int8_t		ak_ctrl_down(t_sle *sle);
 
+int8_t		ak_ctrl_r(t_sle *sle);
 int8_t		ak_enter_visual_mode(t_sle *sle);
-int8_t		ak_exit_visual_mode(t_sle *sle);
+int8_t		ak_exit_modes(t_sle *sle);
 
 int8_t		ak_cut_selection(t_sle *sle);
 int8_t		ak_copy_selection(t_sle *sle);

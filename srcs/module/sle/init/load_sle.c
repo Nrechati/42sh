@@ -36,6 +36,7 @@ uint64_t    assign_keycodes(t_sle *sle)
 	sle->ak_masks[AK_CTRL_UP] = AK_CTRL_UP_MASK;
 	sle->ak_masks[AK_ARROW_UP] = AK_ARROW_UP_MASK;
 	sle->ak_masks[AK_ARROW_DOWN] = AK_ARROW_DOWN_MASK;
+	sle->ak_masks[AK_CTRL_R] = AK_CTRL_R_MASK;
 //	sle->ak_masks[AK_TABULATION] = AK_TAB_MASK;
     return (SUCCESS);
 }
@@ -57,12 +58,13 @@ uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_sle *shell))
 	actionkeys[AK_CTRL_LEFT] = &ak_ctrl_left;
 	actionkeys[AK_CTRL_RIGHT] = &ak_ctrl_right;
 	actionkeys[AK_CTRL_F] = &ak_enter_visual_mode;
-	actionkeys[AK_ESCAPE] = &ak_exit_visual_mode;
+	actionkeys[AK_ESCAPE] = &ak_exit_modes;
 	actionkeys[AK_CTRL_X] = &ak_cut_selection;
 	actionkeys[AK_CTRL_B] = &ak_copy_selection;
 	actionkeys[AK_CTRL_P] = &ak_paste_clipboard;
 	actionkeys[AK_ARROW_UP] = &ak_arrow_up;
 	actionkeys[AK_ARROW_DOWN] = &ak_arrow_down;
+	actionkeys[AK_CTRL_R] = &ak_ctrl_r;
 //	tc_call[AK_TABULATION] = &tc_ak_hightab;
     return (SUCCESS);
 }
@@ -85,6 +87,8 @@ uint64_t    init_line(t_sle *sle)
 	if ((sle->sub_line = vct_new(0)) == NULL)
 		return (CRITICAL_ERROR | LINE_FAIL);
  	if ((sle->clip = vct_new(0)) == NULL)
+		return (CRITICAL_ERROR | LINE_FAIL);
+	if ((sle->search_line = vct_new(0)) == NULL)
 		return (CRITICAL_ERROR | LINE_FAIL);
    return (SUCCESS);
 }
