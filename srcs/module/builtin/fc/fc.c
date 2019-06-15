@@ -15,9 +15,9 @@ t_option		get_option_fc(char *s, t_option option)
 			option |= S_OPT;
 		else
 		{
-			ft_dprintf(g_shell->cur_fd.err,
-					"21sh: fc: -%c: invalid option\n", *s);
-			ft_dprintf(g_shell->cur_fd.err, "%s or %s\n",
+			ft_dprintf(STDERR_FILENO,
+					"42sh: fc: -%c: invalid option\n", *s);
+			ft_dprintf(STDERR_FILENO, "%s or %s\n",
 					"fc: usage: fc [-e ename] [-lnr] [first] [last]",
 					"fc -s [pat=rep] [command]");
 			return (ERROR_OPT);
@@ -39,9 +39,9 @@ static char			*get_fc_options(char ***av, t_option *option)
 		(*av)++;
 		if (**av == NULL || ***av == '-' || **av == '\0')
 		{
-			ft_dprintf(g_shell->cur_fd.err,
-					"21sh: fc: -e: option requires an argument\n");
-			ft_dprintf(g_shell->cur_fd.err, "%s or %s\n",
+			ft_dprintf(STDERR_FILENO,
+					"42sh: fc: -e: option requires an argument\n");
+			ft_dprintf(STDERR_FILENO, "%s or %s\n",
 					"fc: usage: fc [-e ename] [-lnr] [first] [last]",
 					"fc -s [pat=rep] [command]");
 			*option = ERROR_OPT;

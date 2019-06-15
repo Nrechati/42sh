@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:52:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:41:00 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		heredoc_delimiter(t_resolution *resolve)
 		resolve->state = P_IO_HEREDOC_DELIMITER;
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
-		ft_dprintf(2, "21sh: Here documents only in interractive mode\n");
+		ft_dprintf(2, "42sh: Here documents only in interractive mode\n");
 		ft_lstdel(&resolve->tokens, del_token);
 		ft_strdel(&resolve->token.data);
 		error_analyzer(resolve);

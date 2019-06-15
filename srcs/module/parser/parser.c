@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:58:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:41:55 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static uint8_t	manage_error_and_subprompt(const char **grammar,
 		parser_subprompt(lst);
 		return (TRUE);
 	}
-	ft_dprintf(2, "21sh: syntax error near unexpected token `%s'\n",
+	ft_dprintf(2, "42sh: syntax error near unexpected token `%s'\n",
 				grammar[type]);
 	return (FALSE);
 }

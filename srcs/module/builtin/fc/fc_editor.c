@@ -49,13 +49,13 @@ static int8_t		write_file(t_registry *shell, char **av, char *editor)
 	if ((fd = open(FC_FILE_TMP, O_CREAT | O_WRONLY | O_TRUNC,
 					S_IRUSR | S_IWUSR)) == FAILURE)
 	{
-		ft_dprintf(g_shell->cur_fd.err,
+		ft_dprintf(STDERR_FILENO,
 				"42sh: fc: failed to open or create file: %s\n", FC_FILE_TMP);
 		return (FAILURE);
 	}
 	if (get_first_last(av, &param) == FAILURE)
 	{
-		ft_dprintf(g_shell->cur_fd.err,
+		ft_dprintf(STDERR_FILENO,
 				"42sh: fc: history specification out of range\n");
 		ft_strdel(&param);
 		return (FAILURE);
@@ -75,7 +75,7 @@ int8_t			exec_new_pipeline(t_registry *shell)
 	
 	if ((fd = open(FC_FILE_TMP, O_RDONLY)) == FAILURE)
 	{
-		ft_dprintf(g_shell->cur_fd.err,
+		ft_dprintf(STDERR_FILENO,
 				"42sh: fc: failed to open or create file: %s\n", FC_FILE_TMP);
 		return (FAILURE);
 	}

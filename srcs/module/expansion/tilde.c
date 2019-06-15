@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:55:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:41:48 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ static char	*tilde_expansion(t_list *intern_var, const char *str)
 	{
 		if ((expanded = get_var(intern_var, "OLDPWD")) != NULL)
 			return (ft_strdup(expanded));
-		ft_dprintf(2, "21sh: OLDPWD is not set\n");
+		ft_dprintf(2, "42sh: OLDPWD is not set\n");
 		return (NULL);
 	}
 	else if ((expanded = user_home(str + 1)) == NULL)
 	{
-		ft_dprintf(2, "21sh: No such user or directory\n");
+		ft_dprintf(2, "42sh: No such user or directory\n");
 		return (NULL);
 	}
 	return (expanded);

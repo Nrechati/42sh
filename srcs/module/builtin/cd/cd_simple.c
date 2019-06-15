@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:52:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:42:17 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,12 @@ char			*make_curpath_simple(char *curpath)
 
 uint8_t			one_only_arg(t_registry *shell, char **arg)
 {
+	(void)shell;
 	if (*arg == NULL)
 		return (TRUE);
 	if (*(arg + 1) != NULL)
 	{
-		ft_dprintf(shell->cur_fd.err, "21sh: cd: Too many arguments\n");
+		ft_dprintf(STDERR_FILENO, "42sh: cd: Too many arguments\n");
 		return (FALSE);
 	}
 	return (TRUE);

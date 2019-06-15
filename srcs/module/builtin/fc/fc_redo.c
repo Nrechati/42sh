@@ -60,7 +60,7 @@ static int8_t			get_cmd(t_registry *shell, char **av, char **cmd)
 	{
 		if (ft_isnumeric(*av) == FALSE)
 		{
-			ft_dprintf(g_shell->cur_fd.err,
+			ft_dprintf(STDERR_FILENO,
 					"42sh: fc: history specification out of range\n");
 			free_tools(&target, &result, &param);
 			return (FAILURE);

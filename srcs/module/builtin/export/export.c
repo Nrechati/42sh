@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 11:50:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:42:35 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ t_option			get_option_export(char *s, t_option option)
 			option |= P_OPT;
 		else
 		{
-			ft_dprintf(g_shell->cur_fd.err,
-						"21sh: export: -%c: invalid option\n", *s);
-			ft_dprintf(g_shell->cur_fd.err, EXPORT_USAGE);
+			ft_dprintf(STDERR_FILENO,
+					"42sh: export: -%c: invalid option\n", *s);
+			ft_putendl_fd(EXPORT_USAGE, STDERR_FILENO);
 			return (ERROR_OPT);
 		}
 		s++;
@@ -70,7 +70,11 @@ static int8_t		export_process(t_registry *shell, char **av)
 		if (variable == NULL)
 			return (FAILURE);
 		get_name_and_data(variable, *av);
-		export_var(shell, variable);
+		if (ft_isnumeric(variable->name) == TRUE)
+			ft_dprintf(STDERR_FILENO,
+					"42sh: export: `%s': not a valid identifier\n", *av);
+		else
+			export_var(shell, variable);
 		free_node((void *)variable);
 		av++;
 	}
@@ -87,7 +91,7 @@ int8_t				export_blt(t_registry *shell, char **av)
 		return (FAILURE);
 	if (*av == NULL)
 	{
-		print_lst(shell->intern, shell->cur_fd.out,
+		print_lst(shell->intern, STDOUT_FILENO,
 					(option & P_OPT) ? "export " : "", EXPORT_VAR);
 	}
 	return (export_process(shell, av));

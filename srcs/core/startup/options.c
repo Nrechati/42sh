@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 20:06:27 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:45:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:40:37 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int8_t	shell_option_letter(t_opt *option, char *arg)
 {
 	if (*arg != '-')
 	{
-		ft_dprintf(2, "21sh: %c: invalid option\n", *arg);
+		ft_dprintf(2, "42sh: %c: invalid option\n", *arg);
 		return (FAILURE);
 	}
 	++arg;
@@ -30,7 +30,7 @@ static int8_t	shell_option_letter(t_opt *option, char *arg)
 			option->option |= DEBUG_OPT;
 		else
 		{
-			ft_dprintf(2, "21sh: -%c: invalid option\n", *arg);
+			ft_dprintf(2, "42sh: -%c: invalid option\n", *arg);
 			return (FAILURE);
 		}
 		++arg;
@@ -47,7 +47,7 @@ static int8_t	shell_option_word(t_opt *option, const char *arg)
 	else
 	{
 		if (ft_strnequ(arg, "--", 2) == TRUE)
-			ft_dprintf(2, "21sh: %s: invalid option\n", arg);
+			ft_dprintf(2, "42sh: %s: invalid option\n", arg);
 		return (FAILURE);
 	}
 	return (SUCCESS);
@@ -66,7 +66,7 @@ int8_t			parse_arg(char **av, t_opt *option)
 			av++;
 			if (*av == NULL || **av == '-')
 			{
-				ft_dprintf(2, "21sh: need command after -c option\n", av);
+				ft_dprintf(2, "42sh: need command after -c option\n", av);
 				return (shell_usage());
 			}
 			option->command_str = ft_strdup(*av);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:37:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 02:01:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:41:15 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ uint8_t	check_access(char *data)
 		return (TRUE);
 	lstat(data, &stat);
 	if (stat.st_mode & S_IFDIR)
-		ft_dprintf(2, "21sh: %s: Is a directory\n", data);
+		ft_dprintf(2, "42sh: %s: Is a directory\n", data);
 	else if (access(data, R_OK) != SUCCESS)
-		ft_dprintf(2, "21sh: %s: Permission denied\n", data);
+		ft_dprintf(2, "42sh: %s: Permission denied\n", data);
 	else
 		return (TRUE);
 	return (FALSE);

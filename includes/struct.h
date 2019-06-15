@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 17:42:44 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:11:42 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ typedef struct			s_variable
 	t_option			flag;
 }						t_variable;
 
-typedef struct			s_fd
-{
-	int					in;
-	int					out;
-	int					err;
-}						t_fd;
-
 typedef	struct			s_hashmap
 {
 	t_hash				bin;
@@ -58,7 +51,6 @@ typedef struct			s_registry
 	t_opt				option;
 	t_hashmap			hash;
 
-	t_fd				cur_fd;				// Out
 	uint8_t				analyzer_signal;	// Out
 	t_list				*current_job;		// Out
 }						t_registry;

@@ -39,7 +39,7 @@ int8_t			fc_list(char **av, t_option option)
 		opt_history |= REVERSE;
 	if (get_first_last(av, &param) == FAILURE)
 	{
-		ft_dprintf(g_shell->cur_fd.err,
+		ft_dprintf(STDERR_FILENO,
 				"42sh: fc: history specification out of range\n");
 		ft_strdel(&param);
 		return (FAILURE);
