@@ -87,6 +87,8 @@ char		*get_entry(t_history *history, char *search, uint64_t option)
 	}
 	else if (option & BY_NAME)
 	{
+		if (search == NULL || *search == '\0')
+			return (NULL);
 		if (option & NEXT)
 			return (get_entry_by_name_next(history, search));
 		return (get_entry_by_name_prev(history, search));
