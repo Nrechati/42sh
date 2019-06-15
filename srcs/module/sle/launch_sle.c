@@ -6,14 +6,12 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:03:02 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/15 19:14:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
-
-// TODO redraw modes FPTP / FSTP / FPTE
 
 void		save_intern_vars(t_registry *shell, t_sle *sle)
 {
@@ -63,12 +61,12 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 {
 	static t_sle sle;
 
+
 	if (launch_sle(shell, &sle) == CRITICAL_ERROR)
 		return (CRITICAL_ERROR);
 
-//	define_interface_signals();
-
 	set_term_mode(&sle);
+
 	if (sle_flag == SLE_GET_INPUT)
 	{
 		*in = prompt(shell, &sle);
@@ -89,5 +87,6 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		sle_teardown(&sle);
 
 	unset_term_mode(&sle);
+
 	return (SUCCESS);
 }

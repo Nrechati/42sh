@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 01:50:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/15 18:45:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ t_list	*analyzer(t_resolution *resolve)
 	get_token(resolve);
 	while (resolve->state != P_END)
 	{
-		if (g_shell->analyzer_signal == TRUE)
-		{
-			signal_analyzer(resolve);
-			break ;
-		}
 		if (resolve->state == P_STOP)
 			generate_cmd_group(&command_group, &resolve->tree_node);
 		(*analyzer)[resolve->state][resolve->token.type](resolve);

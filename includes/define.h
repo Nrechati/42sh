@@ -6,7 +6,8 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:45:04 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/15 19:20:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:01:52 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +37,7 @@
 # define SH_GENERAL_ERROR			"42sh: "
 # define SH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
 
-# define SH21_USAGE_1				"Usage: 42sh [long option] [-dh] "
+# define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
 # define SH21_USAGE_2				"[-c CMD]\n"
 # define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t"
 # define SH21_USAGE_LONG_OPTION_2	"--debug\n"
@@ -61,6 +62,18 @@
 
 /*
 *****************************************************
+********************** SIGNALS **********************
+*****************************************************
+*/
+
+# define NB_SIGNALS		33
+# define INIT_HANDLER 	0x000
+# define DFLT_PROFILE 	0x001
+# define SLE_PROFILE	0x002
+# define EXEC_PROFILE	0x004
+
+/*
+*****************************************************
 ********************** BUILTIN **********************
 *****************************************************
 */
@@ -78,7 +91,7 @@
 # define P_LOW_OPT					0x0400
 # define ERROR_OPT					0x8000
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
-# define CD_ERROR_OLDPWD_NOTSET		"42sh: cd: OLDPWD not set\n"
+# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
 # define NOFI 						"No such file or directory\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"

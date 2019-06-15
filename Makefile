@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/11 18:32:31 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/06/15 18:29:40 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -201,6 +201,7 @@ INCS += enum.h
 CORE += main.c
 CORE += options.c
 CORE += grammar.c
+CORE += setup.c
 
 #Lauch
 CORE += launch.c
@@ -212,10 +213,10 @@ CORE += routine.c
 CORE += exit_routine.c
 
 #Signals
+CORE += signal_profile.c
+CORE += init_signal_profile.c
 CORE += exec_signals.c
 CORE += sle_signals.c
-CORE += signal_handler.c
-CORE += setup.c
 
 #Tools
 CORE += search_path.c
