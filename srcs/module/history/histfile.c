@@ -14,7 +14,6 @@ static char	*get_histfile(t_registry *shell)
 	{
 		ft_asprintf(&histfile, "%s/%s",
 					home, histfile == NULL ? HISTFILE_DEFAULT : histfile); 
-	ft_putendl(histfile);
 		return (histfile);
 	}
 	return (NULL);

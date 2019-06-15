@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/13 17:44:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:01:52 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,17 @@
 # define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t"
 # define SH21_USAGE_LONG_OPTION_2	"--debug\n"
 
-# define NO_OPT						0x000
-# define HELP_OPT					0x001
-# define COMMAND_OPT				0x002
-# define DEBUG_OPT					0x004
-# define INTERACTIVE_OPT			0x008
+# define NO_OPT						0x0000
+# define HELP_OPT					0x0001
+# define COMMAND_OPT				0x0002
+# define DEBUG_OPT					0x0004
+# define INTERACTIVE_OPT			0x0008
+# define RECORD_HISTORY				0x0010
 
-# define NO_FLAG					0x000
-# define EXPORT_VAR					0x001
-# define SET_VAR					0x002
-# define READONLY_VAR				0x004
+# define NO_FLAG					0x0000
+# define EXPORT_VAR					0x0001
+# define SET_VAR					0x0002
+# define READONLY_VAR				0x0004
 
 # define HMAP_BIN_SIZE				8
 # define HMAP_BLT_SIZE				32
