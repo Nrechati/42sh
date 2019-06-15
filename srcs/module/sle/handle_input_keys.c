@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 15:07:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:21:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void		handle_actionkey(t_sle *sle, char c[READ_SIZE])
 
 	index = 0;
 	value = compute_mask(c);
-	//ft_printf("val: %lu\n", value);
+//	ft_printf("val: %lu\n", value);
 	while (index < AK_AMOUNT)
 	{
 		if (value == sle->ak_masks[index])

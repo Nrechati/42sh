@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/15 11:11:42 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:44:45 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ typedef struct	s_param
 	int		first;
 	int		last;
 	int		fd;
-}				t_param;			
+}				t_param;
 
 struct			s_entry
 {

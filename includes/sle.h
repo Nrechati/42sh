@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 10:34:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:17:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ int8_t		ak_ctrl_up(t_sle *sle);
 int8_t		ak_ctrl_down(t_sle *sle);
 
 int8_t		ak_ctrl_r(t_sle *sle);
+int8_t		ak_ctrl_i(t_sle *sle);
 int8_t		ak_enter_visual_mode(t_sle *sle);
 int8_t		ak_exit_modes(t_sle *sle);
 

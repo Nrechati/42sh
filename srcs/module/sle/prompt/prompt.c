@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 14:57:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:30:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 	if (sle->search_mode == TRUE)
 	{
 		sle->search_mode = FALSE;
-		sle->line = sle->sub_line;
+		sle->line = sle->search_line;
 	}
 	history(shell, NULL, RESET_HEAD);
 //	vct_add(sle->line, '\n');
