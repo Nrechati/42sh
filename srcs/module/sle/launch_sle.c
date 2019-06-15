@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 15:02:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:03:02 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 
 	if ((setup_report & SETUP_DONE) == FALSE)
 	{
+		shell->option.option |= RECORD_HISTORY;
 		history(shell, NULL, INIT_HISTORY);
 		setup_report = sle_setup(shell, sle);
 		if (setup_report & CRITICAL_ERROR)
