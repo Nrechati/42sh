@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/10 21:03:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/15 13:23:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int		is_export(void *data, __unused void *to_find)
 	t_variable *variable;
 
 	variable = data;
-	return (variable->flag & (EXPORT_VAR | SET_VAR));
+	if (variable->flag & EXPORT_VAR && variable->flag & SET_VAR)
+		return (TRUE);
+	return (FALSE);
 }
 
 int		copy_var(void *src, void *dest)
