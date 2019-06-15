@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/13 17:44:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:07:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,7 @@
 # define P_ESCAPE			'e'
 
 # define FAIL_EOF					42
-# define AK_AMOUNT					23
+# define AK_AMOUNT					24
 
 # define AK_ESCAPE_MASK				0x1b00000000000000
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
@@ -376,6 +376,7 @@
 # define AK_CTRL_P_MASK				0x1000000000000000
 # define AK_CTRL_F_MASK				0x0600000000000000
 # define AK_CTRL_R_MASK				0x1200000000000000
+# define AK_CTRL_S_MASK				0x1300000000000000
 # define AK_CTRL_UP_MASK			0x1b5b313b35410000
 # define AK_CTRL_DOWN_MASK			0x1b5b313b35420000
 # define AK_CTRL_RIGHT_MASK			0x1b5b313b35430000
@@ -399,12 +400,13 @@
 ********************** HISTORY **********************
 *****************************************************
 */
-
+# define REV_SEARCH					"(rev-search)"
 # define INC_SEARCH                 "(inc-search)"
-# define INC_SEARCH_SUFFIX          "``:"
+# define SEARCH_SUFFIX		        "``:"
+
 # define HISTFILE_DEFAULT			".42sh_history"
 # define FC_FILE_TMP				"/tmp/42sh-fc.tmp"
-# define HISTSIZE_DEFAULT			500		
+# define HISTSIZE_DEFAULT			500
 
 # define INIT_HISTORY				0x000001
 # define FREE_HISTORY				0x000002

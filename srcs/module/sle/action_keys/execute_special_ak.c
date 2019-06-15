@@ -6,28 +6,39 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 13:36:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:05:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		build_search_string(__unused t_sle *sle)
+int8_t		ak_ctrl_s(t_sle *sle)
 {
+	t_vector *text;
 
+	if (sle->search_mode == TRUE)
+		return (FAILURE);
+
+	sle->search_mode = TRUE;
+	text = vct_dups(REV_SEARCH);
+	print_prompt_to_window(sle, text);
+
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
+
+	return (SUCCESS);
 }
 
 int8_t		ak_ctrl_r(t_sle *sle)
 {
 	t_vector *text;
-	
+
 	if (sle->search_mode == TRUE)
 		return (FAILURE);
-		
+
 	sle->search_mode = TRUE;
 	text = vct_dups(INC_SEARCH);
 	print_prompt_to_window(sle, text);
-	
+
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 
 	return (SUCCESS);
