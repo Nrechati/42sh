@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 14:36:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:22:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	redrawmode_line(t_sle *sle)
 
 	index_to_coord(sle, sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);
-	if (sle->search_mode && vct_len(sle->sub_line) != 0)
+
+	if (sle->search_mode)
 	{
 		char *sl = vct_get_string(sle->sub_line);
 		search = history(NULL, sl, GET_ENTRY | BY_NAME | PREV);

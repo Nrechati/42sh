@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 16:43:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:23:43 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int8_t	ak_enter_visual_mode(t_sle *sle)
 	return (SUCCESS);
 }
 
+// ESCAPE
 int8_t	ak_exit_modes(t_sle *sle)
 {
 	sle->visual_mode = FALSE;
