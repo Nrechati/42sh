@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/15 13:21:47 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/15 14:49:46 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		is_export(void *data, __unused void *to_find)
 	t_variable *variable;
 
 	variable = data;
-	if (variable->flag & EXPORT_VAR && variable->flag & SET_VAR)
+	if (variable->flag == (EXPORT_VAR | SET_VAR))
 		return (TRUE);
 	return (FALSE);
 }
