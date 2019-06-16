@@ -14,33 +14,43 @@
 
 int8_t		ak_ctrl_i(t_sle *sle)
 {
-	t_vector *text;
+	t_vector 	*text;
+	t_coord 	co;
 
 	if (sle->search_mode == TRUE)
-		return (FAILURE);
-
-	sle->search_mode = TRUE;
+	{
+		index_to_coord(sle,
+			sle->rd_info.prompt_len - ft_strlen(INC_SEARCH), &co);
+		move_cursor_to_coord(sle, co.x, co.y);
+	}
+	else
+		sle->search_mode = TRUE;
+	
+	ft_bzero(sle->line->buffer, sle->line->size);
 	text = vct_dups(INC_SEARCH);
 	print_prompt_to_window(sle, text);
-
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
-
 	return (SUCCESS);
 }
 
 int8_t		ak_ctrl_r(t_sle *sle)
 {
-	t_vector *text;
+	t_vector 	*text;
+	t_coord 	co;
+
 
 	if (sle->search_mode == TRUE)
-		return (FAILURE);
-
-	sle->search_mode = TRUE;
+	{
+		index_to_coord(sle,
+			sle->rd_info.prompt_len - ft_strlen(REV_SEARCH), &co);
+		move_cursor_to_coord(sle, co.x, co.y);
+	}
+	else
+		sle->search_mode = TRUE;
+	ft_bzero(sle->line->buffer, sle->line->size);
 	text = vct_dups(REV_SEARCH);
 	print_prompt_to_window(sle, text);
-
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
-
 	return (SUCCESS);
 }
 

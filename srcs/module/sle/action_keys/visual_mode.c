@@ -15,6 +15,8 @@
 
 int8_t	ak_enter_visual_mode(t_sle *sle)
 {
+	if (sle->search_mode == TRUE)
+		return (FAILURE);
 	sle->visual_mode = TRUE;
 	sle->vis_start = sle->cursor.index;
 	sle->vis_stop = sle->cursor.index;

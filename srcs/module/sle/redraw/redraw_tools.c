@@ -93,11 +93,9 @@ void	print_prompt_to_window(t_sle *sle, t_vector *text)
 	{
 		if (str[index] == '\\' && str[index + 1] == 'e')
 			index += write_esc_sequence(str, index);
-
 		write(1, &str[index], 1);
 		++index;
 		sle->cursor.x++;
-
 		if (sle->cursor.x == sle->window.cols)
 		{
 			sle->cursor.y++;

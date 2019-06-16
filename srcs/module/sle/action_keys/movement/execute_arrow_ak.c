@@ -50,14 +50,15 @@ int8_t				ak_arrow_up(t_sle *sle)
 {
 	char *hist_cmd;
 
+	if (sle->search_mode == TRUE)
+		sle->search_mode = FALSE;
+
 	hist_cmd = history(NULL, NULL, GET_ENTRY | PREV);
 	if (hist_cmd == NULL)
 		return (FAILURE);
 
 	uint64_t len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
-
 	vct_replace_string(sle->line, 0, len ,hist_cmd);
-
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 
 	return (FAILURE);
@@ -66,6 +67,9 @@ int8_t				ak_arrow_up(t_sle *sle)
 int8_t				ak_arrow_down(__unused t_sle *sle)
 {
 	char *hist_cmd;
+
+	if (sle->search_mode == TRUE)
+		sle->search_mode = FALSE;
 
 	hist_cmd = history(NULL, NULL, GET_ENTRY | NEXT);
 	if (hist_cmd == NULL)
