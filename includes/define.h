@@ -137,8 +137,8 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
-//#define INT_PS1_VALUE "[42sh]-> "
-# define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
+#define INT_PS1_VALUE "[42sh]-> "
+//# define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
 

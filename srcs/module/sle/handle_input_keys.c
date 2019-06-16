@@ -23,7 +23,7 @@ static void		handle_printable_char(t_sle *sle, const char c)
 	{
 		vct_add(sle->sub_line, c);
 		set_redraw_flags(sle, RD_LINE | RD_CEND);
-		ft_dprintf(3, "Input is : |%s|\n", vct_get_string(sle->sub_line));
+//		ft_dprintf(3, "Input is : |%s|\n", vct_get_string(sle->sub_line));
 	}
 	else if (cursor->index == 0)
 	{

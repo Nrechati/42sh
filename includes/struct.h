@@ -270,6 +270,7 @@ typedef struct			s_sle
 	t_intern			interns;
 
 	uint8_t				search_mode;
+	uint16_t				search_type;
 
 	uint8_t				visual_mode;
 	int64_t				vis_start;
