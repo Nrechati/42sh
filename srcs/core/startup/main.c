@@ -43,6 +43,7 @@ static int8_t	init_shell(t_registry *shell, char **arg, char **env)
 	if (set_environment(shell, arg, env) == FAILURE)
 		return (FAILURE);
 	init_log(shell);
+	term_mode(TERMMODE_INIT);
 	return (SUCCESS);
 }
 

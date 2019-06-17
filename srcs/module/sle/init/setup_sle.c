@@ -28,7 +28,7 @@ static uint64_t				init_sle(t_registry *shell, t_sle *sle)
 
 	report = 0;
 	report |= get_terminal_info(shell);
-	report |= load_terminal_mode(sle);
+	report |= term_mode(TERMMODE_SLE);
 	report |= init_termcaps(&sle->termcaps);
 	return (report);
 }

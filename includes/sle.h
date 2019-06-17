@@ -26,14 +26,7 @@ uint8_t		sle(t_registry *shell, t_vector **input, uint32_t sle_flag);
 uint64_t	sle_setup(t_registry *shell, t_sle *sle);
 void		sle_teardown(t_sle *sle);
 
-
-
 uint64_t	get_terminal_info(t_registry *shell);
-uint64_t    load_terminal_mode(t_sle *sle);
-
-int8_t    	set_term_mode(t_sle *sle);
-int8_t   	unset_term_mode(t_sle *sle);
-
 uint64_t	init_termcaps(t_termcaps *termcp);
 uint64_t	assign_keycodes(t_sle *sle);
 uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_sle *sle));
@@ -112,16 +105,6 @@ uint32_t	get_next_char(const char *str, uint32_t index, const char direction);
 void		link_actions_to_keys(int8_t (*actionkeys[AK_AMOUNT])
 				(struct s_sle *sle));
 
-/*
-*****************************************************
-********************* DISPLAY ***********************
-*****************************************************
-*/
-/*
-*****************************************************
-********************* PROMPT ************************
-*****************************************************
-*/
 /*
 *****************************************************
 ******************** ACTION KEYS ********************

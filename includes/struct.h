@@ -58,6 +58,10 @@ typedef struct			s_registry
 	t_opt				option;
 	t_hashmap			hash;
 
+	struct termios		*sle_mode;
+	struct termios		*exec_mode;
+	struct termios		*orig_mode;
+
 	t_fd				cur_fd;				// Out
 	uint8_t				analyzer_signal;	// Out
 	t_list				*current_job;		// Out
@@ -276,8 +280,6 @@ typedef struct 			s_intern
 
 typedef struct			s_sle
 {
-	struct termios		*term_mode;
-	struct termios		*orig_mode;
 	t_termcaps			termcaps;
 	t_window			window;
 	t_prompt			prompt;
