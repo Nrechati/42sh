@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 12:39:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 19:23:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int8_t		waiter(t_job *job);
 char		*get_filename(t_list *node);
 int 		get_io(t_list *node);
 
+void		heredoc(t_registry *shell, t_redirect *redirect, t_action *action);
 void		stdout_truncate(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 void		stdout_append(t_registry *shell, t_redirect *redirect

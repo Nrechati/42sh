@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/14 14:10:24 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/17 19:24:28 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -335,6 +335,7 @@ INTERPRETER += redirect_functions.c
 INTERPRETER += io_redirect_functions.c
 INTERPRETER += redirect_tools.c
 INTERPRETER += waiter.c
+INTERPRETER += heredoc_interpreter.c
 
 INTERPRETER += print_tools.c
 

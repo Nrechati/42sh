@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 12:37:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 19:23:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ t_redirection	*redirecter_init(void)
 	redirecter[A_DUP] = duplicate_fd;
 	redirecter[A_CLOSE] = close_fd;
 	redirecter[A_MOVE] = move_fd;
+	redirecter[A_HEREDOC] = heredoc;
+	redirecter[A_HEREDOC_TRIM] = move_fd;
+	redirecter[A_IO_HEREDOC] = move_fd;
+	redirecter[A_IO_HEREDOC_TRIM] = move_fd;
 	return (&redirecter);
 }
 

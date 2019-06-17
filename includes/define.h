@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 14:45:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:54:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,7 @@
 *****************************************************
 */
 
-# define REDIRECT_ACTION			9
+# define REDIRECT_ACTION			14
 
 # define CLOSED_STDIN				0x001
 # define CLOSED_STDOUT				0x002
