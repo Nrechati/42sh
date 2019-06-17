@@ -41,7 +41,7 @@ typedef 		void (t_completion_fct)(char *, t_autocomplete *, t_registry *);
 char				*autocompletion(char *input, t_registry *shell,
 										int col, uint64_t option);
 
-enum e_result_type	get_result_type(char *input, size_t len);
+enum e_result_type	get_result_type(char *input);
 char				*get_start_input(char *input, enum e_result_type type);
 
 /*
@@ -57,6 +57,8 @@ void				print_possibilities(t_autocomplete *result, int col);
 uint8_t				is_cmd_delimiter(char c);
 size_t				get_maxlen(size_t ref, size_t len);
 int					lst_strcmp(void *data1, void *data2);
+uint8_t				is_a_directory(char *dirname, char *file);
+char				*get_home_input(char *input, t_registry *shell);
 
 /*
 **** Get Completion

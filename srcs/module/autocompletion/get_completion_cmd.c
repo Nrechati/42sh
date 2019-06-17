@@ -11,65 +11,85 @@
 /* ************************************************************************** */
 
 #include "sh21.h"
-/*
-static uint8_t			ft_exists_and_is_exec(char *path)
-{
-	struct stat		tmp;
+#include <unistd.h>
 
-	if (access(path, F_OK) == FAILURE)
-		return (FALSE);
-	if (stat(path, &tmp) == SUCCESS)
-	{
-		if (S_ISREG(tmp.st_mode) && access(path, X_OK) == SUCCESS)
-			return (TRUE);
-	}
-	return (FALSE);
+static uint8_t	is_exec(char *dirname, char *bin)
+{
+	char	*exec;
+	int		ok;
+
+	exec = NULL;
+	ok = FALSE;
+	ft_asprintf(&exec, "%s/%s", dirname, bin);
+	if (access(exec, X_OK) == SUCCESS)
+		ok = TRUE;
+	ft_strdel(&exec);
+	return (ok);
 }
 
-static int8_t			find_bin(char *path, char *bin, char **buf)
+static uint8_t	is_exclusive(t_list *result, char *data)
 {
-	ft_asprintf(buf, "%s/%s", path, bin);
-	if (*buf == NULL)
+	while (result != NULL)
 	{
-		ft_dprintf(2, HASH_GENERAL_ERROR HASH_MALLOC_ERROR);
-		return (FAILURE);
+		if (ft_strequ((char *)result->data , data) == TRUE)
+			return (FALSE);
+		result = result->next;
 	}
-	if (ft_exists_and_is_exec(*buf) == TRUE)
-		return (SUCCESS);
-	ft_strdel(buf);
-	return (NOT_FOUND);
+	return (TRUE);
 }
 
-int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
+static void		find_bin(char *input, DIR *dir, t_autocomplete *result,
+					char *dirname)
+{
+	struct dirent		*mydir;
+	char				*data;
+	size_t				len;
+
+	len = input == NULL ? 0 : ft_strlen(input);
+	while ((mydir = readdir(dir)) != NULL)
+	{
+		if (len == 0 || ft_strnequ(mydir->d_name, input, len) == TRUE)
+		{
+			if (ft_strequ(mydir->d_name, ".")
+				|| ft_strequ(mydir->d_name, "..")
+				|| is_a_directory(dirname, mydir->d_name) == TRUE
+				|| is_exec(dirname, mydir->d_name) == FALSE)
+				continue ;
+			data = NULL;
+			ft_asprintf(&data, "%s ", mydir->d_name);
+			if (is_exclusive(result->list, data) == TRUE)
+			{
+				ft_lstadd(&result->list, ft_lstnew(data, ft_strlen(data) + 1));
+				result->max_len = get_maxlen(result->max_len, ft_strlen(data));
+				result->nb++;
+			}
+			ft_strdel(&data);
+		}
+	}
+}
+
+void			get_completion_cmd(char *input, t_autocomplete *result,
+							t_registry *shell)
 {
 	uint32_t	i;
-	int8_t		ret;
 	char		**tab;
+	DIR			*dir;
 
+	result->nb = 0;
 	if (get_var(shell->intern, "PATH") == NULL)
-		return (NOT_FOUND);
+		return ;
 	tab = ft_strsplit(get_var(shell->intern, "PATH"), ":");
 	if (tab == NULL)
-	{
-		ft_dprintf(2, HASH_GENERAL_ERROR HASH_MALLOC_ERROR);
-		return (FAILURE);
-	}
+		return ;
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		ret = find_bin(tab[i], bin, buf);
-		if (ret != NOT_FOUND)
-			break;
+		if ((dir = opendir(tab[i])) != NULL)
+		{
+			find_bin(input, dir, result, tab[i]);
+			closedir(dir);
+		}
 		i++;
 	}
 	ft_freetab(&tab);
-	return (ret);
-}
-*/
-void get_completion_cmd(char *input, t_autocomplete *result, t_registry *shell)
-{
-	(void)input;
-	(void)result;
-	(void)shell;
-
 }

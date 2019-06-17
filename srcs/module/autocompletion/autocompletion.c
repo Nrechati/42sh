@@ -57,6 +57,16 @@ void		debug_autocompletion(t_autocomplete *result, char *input,  ////DEBUG
 		ft_printf("VAR'\n");
 }
 
+uint8_t		slash_is_missing(char *completion)
+{
+	if (completion != NULL && *completion != '\0'
+		&& (is_a_directory(completion, "\0") == TRUE
+		|| (is_a_directory("./", completion) == TRUE))
+			&& completion[ft_strlen(completion) - 1] != '/')
+		return (TRUE);
+	return (FALSE);
+}
+
 char		*autocompletion(char *input, t_registry *shell,
 								int col, uint64_t option)
 {
@@ -73,15 +83,23 @@ char		*autocompletion(char *input, t_registry *shell,
 		if (option & RESET_RESULT)
 			return (NULL);
 	}
-	if (input != NULL && ft_strequ(input, ".") == TRUE)
-		return (ft_strdup("/"));
-	result.type = get_result_type(input, input == NULL ? 0 : ft_strlen(input));
-	debug_autocompletion(&result, input, completion); // DEBUG
+	result.type = get_result_type(input);
 	completion = get_start_input(input, result.type);
+	completion = get_home_input(completion, shell);
+	if (slash_is_missing(completion) == TRUE)
+	{
+		ft_strdel(&completion);
+		return (ft_strdup("/"));
+	}
+	debug_autocompletion(&result, input, completion); // DEBUG
 	get_completion[result.type](completion, &result, shell);
 	if (result.nb == 1)
+	{
+		ft_strdel(&completion);
 		return (send_rest(&result, completion));
+	}
 	ft_mergesort(&result.list, lst_strcmp);
 	print_possibilities(&result, col);
+	ft_strdel(&completion);
 	return (NULL);
 }

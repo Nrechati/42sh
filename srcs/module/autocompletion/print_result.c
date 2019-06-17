@@ -18,45 +18,62 @@ void	post_process(t_autocomplete *result)
 	}
 }
 
-static int	get_scale(t_autocomplete *result, int col)
+static size_t	get_elem_by_line(t_autocomplete *result, int col)
 {
-	col = result->max_len > 0 ? col / result->max_len : 1;
-	if (col < 1)
+	size_t	elem_by_line;
+
+	if (col <= 0 || result->max_len <= 0)
 		return (1);
-	return (result->nb % col > 0 ? result->nb / col + 1 : result->nb / col);
+	elem_by_line = col / result->max_len;
+	if (elem_by_line == 0)
+		return (1);
+	return (elem_by_line);
+}
+
+static size_t	get_elem_by_col(t_autocomplete *result, int elem_by_line)
+{
+	size_t		elem_by_col;
+
+	elem_by_col = result->nb / elem_by_line;
+	if (result->nb % elem_by_line)
+		elem_by_col++;
+	return (elem_by_col);
 }
 
 void		print_possibilities(t_autocomplete *result, int col)
 {
 	t_list		*tmp;
 	t_list		*lst;
-	int			i;
-	int			tmp_max;
-	int			max;
+	size_t		i;
+	size_t		j;
+	size_t		elem_by_col;
+	size_t		elem_by_line;
 
-	if (result->list == NULL)
+	if (result->list == NULL || result->nb == 0)
 		return ;
-	ft_putchar('\n');
+	ft_printf("nb:%d\n", result->nb);
 	post_process(result);
-	max = get_scale(result, col);
-	tmp_max = 0;
+	elem_by_line = get_elem_by_line(result, col);
+	elem_by_col = get_elem_by_col(result, elem_by_line);
+	ft_putchar('\n');
 	lst = result->list;
-	while (tmp_max < max)
+	i = 0;
+	while (i < elem_by_col)
 	{
 		tmp = lst;
-		i = tmp_max;
-		while (i && tmp)
+		j = i;
+		while (j && tmp)
 		{
 			tmp = tmp->next;
-			i--;
+			j--;
 		}
-		while (tmp)
+		while (tmp != NULL)
 		{
-			if (i++ % max == 0 && tmp->data != NULL)
+			if (j++ % elem_by_col == 0)
 				ft_putstr((char *)tmp->data);
 			tmp = tmp->next;
 		}
 		ft_putchar('\n');
-		tmp_max++;
+		i++;
 	}
 }
