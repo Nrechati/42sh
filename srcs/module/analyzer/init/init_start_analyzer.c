@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:05:16 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 02:06:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:30:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_start(t_analyzer analyzer)
 {
 	analyzer[P_START][E_STRING] = string_analyzer;
 	analyzer[P_START][E_SPSTRING] = special_string_analyzer;
+	analyzer[P_START][E_ASSIGN] = assign_name_analyzer;
 	analyzer[P_START][E_GREAT] = redirect_analyzer;
 	analyzer[P_START][E_GREATAND] = redirect_and_analyzer;
 	analyzer[P_START][E_LESS] = redirect_analyzer;
@@ -35,6 +36,7 @@ void	init_stop(t_analyzer analyzer)
 {
 	analyzer[P_STOP][E_STRING] = string_analyzer;
 	analyzer[P_STOP][E_SPSTRING] = special_string_analyzer;
+	analyzer[P_STOP][E_ASSIGN] = assign_name_analyzer;
 	analyzer[P_STOP][E_GREAT] = redirect_analyzer;
 	analyzer[P_STOP][E_GREATAND] = redirect_and_analyzer;
 	analyzer[P_STOP][E_LESS] = redirect_analyzer;
@@ -54,6 +56,7 @@ void	init_error(t_analyzer analyzer)
 {
 	analyzer[P_ERROR][E_STRING] = end_analyzer;
 	analyzer[P_ERROR][E_SPSTRING] = end_analyzer;
+	analyzer[P_ERROR][E_ASSIGN] = end_analyzer;
 	analyzer[P_ERROR][E_GREAT] = end_analyzer;
 	analyzer[P_ERROR][E_GREATAND] = end_analyzer;
 	analyzer[P_ERROR][E_LESS] = end_analyzer;
@@ -94,6 +97,7 @@ void	init_redirect(t_analyzer analyzer)
 	analyzer[P_REDIRECT_AND][E_STRING] = dup_move_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_STRING] = string_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_SPSTRING] = special_string_analyzer;
+	analyzer[P_REDIRECT_FLUSH_AND][E_ASSIGN] = assign_name_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_GREAT] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_GREATAND] = redirect_and_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_LESS] = redirect_analyzer;
@@ -113,6 +117,7 @@ void	init_flush_redirect(t_analyzer analyzer)
 {
 	analyzer[P_REDIRECT_FLUSH][E_STRING] = string_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_SPSTRING] = special_string_analyzer;
+	analyzer[P_REDIRECT_FLUSH][E_ASSIGN] = assign_name_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_GREAT] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_GREATAND] = redirect_and_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_LESS] = redirect_analyzer;
@@ -132,6 +137,7 @@ void	init_dup_move(t_analyzer analyzer)
 {
 	analyzer[P_DUP_MOVE][E_STRING] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_SPSTRING] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_ASSIGN] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_GREAT] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_GREATAND] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_LESS] = flush_redirect;

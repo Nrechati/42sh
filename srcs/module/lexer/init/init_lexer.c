@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 02:50:12 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:57:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:47:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void		init_lexing(t_lexinfo *lexinfo)
 {
 	lexinfo->lexing[L_START] = start_lexer;
 	lexinfo->lexing[L_STRING] = string_machine;
+	lexinfo->lexing[L_SPACE] = space_lexer;
 	lexinfo->lexing[L_IO_NUMBER] = number_machine;
 	lexinfo->lexing[L_SIGN] = sign_machine;
 	lexinfo->lexing[L_DSIGN] = double_sign_machine;

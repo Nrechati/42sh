@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 02:09:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 11:37:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	error_analyzer(t_resolution *resolve)
 	else
 	{
 		ft_dprintf(2, "42sh: analyze error near unexpected token `%s'\n",
-						g_grammar[resolve->token.type]);
+				g_grammar[resolve->token.type]);
 	}
 	resolve->state = P_ERROR;
 	resolve->valid = -1;
@@ -61,6 +61,7 @@ void	stop_analyzer(t_resolution *resolve)
 		ft_bzero(&action, sizeof(t_action));
 		action.type = A_END;
 		ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+		resolve->valid = 0;
 	}
 	get_token(resolve);
 }
@@ -70,8 +71,11 @@ void	end_analyzer(t_resolution *resolve)
 	t_action	action;
 
 	resolve->state = P_END;
-	ft_bzero(&action, sizeof(t_action));
-	action.type = A_END;
-	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+	if (resolve->valid == 1)
+	{
+		ft_bzero(&action, sizeof(t_action));
+		action.type = A_END;
+		ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+	}
 	get_token(resolve);
 }

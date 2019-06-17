@@ -6,12 +6,38 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 17:52:12 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/17 20:24:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
+
+void	assign_intern(t_registry *shell, t_list *assign)
+{
+	t_list		*node;
+	t_variable	*variable;
+	t_variable	*to_find;
+
+	if (assign != NULL)
+	{
+		assign_intern(shell, assign->next);
+		to_find = assign->data;
+		if ((node = ft_lstfind(shell->intern, to_find->name, find_var)))
+		{
+			variable = node->data;
+			ft_strdel(&variable->data);
+			variable->data = ft_strdup(to_find->data);
+			if (variable->flag == EXPORT_VAR)
+				variable->flag |= SET_VAR;
+		}
+		else
+		{
+			assign->next = NULL;
+			ft_lstadd(&shell->intern, assign);
+		}
+	}
+}
 
 void	execute_process(t_registry *shell, t_process *process, char **env)
 {

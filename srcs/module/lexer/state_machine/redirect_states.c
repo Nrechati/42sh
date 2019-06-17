@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:23:05 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/12 18:25:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/13 18:59:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	lesser_addition(t_lexer *machine)
 
 }
 
-void	lesser_machine(t_lexer *machine)
+void		lesser_machine(t_lexer *machine)
 {
 	if (machine->last_lexer == E_DLESS && *machine->input->buffer == '-')
 	{
@@ -46,8 +46,7 @@ void	lesser_machine(t_lexer *machine)
 	machine->state = machine->state == L_LESSAND ? L_LESSAND : L_OUT;
 }
 
-
-void	greater_machine(t_lexer *machine)
+void		greater_machine(t_lexer *machine)
 {
 	if (ft_strchr(">&|", *machine->input->buffer) != NULL)
 	{
@@ -65,14 +64,14 @@ void	greater_machine(t_lexer *machine)
 		machine->state = L_OUT;
 }
 
-void	greatand_machine(t_lexer *machine)
+void		greatand_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_GREATAND;
 	*machine->buffer->buffer = '\0';
 	machine->state = L_OUT;
 }
 
-void	lessand_machine(t_lexer *machine)
+void		lessand_machine(t_lexer *machine)
 {
 	machine->last_lexer = E_LESSAND;
 	*machine->buffer->buffer = '\0';

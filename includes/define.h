@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 15:27:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 19:29:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
-//#define INT_PS1_VALUE "[42sh]-> "
 # define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
@@ -156,7 +155,7 @@
 *****************************************************
 */
 
-# define STATENBR					17
+# define STATENBR					19
 # define TOKEN_WITH_DATA			5
 # define NB_OF_TOKENS				50
 # define BUFFER						131071
@@ -250,7 +249,7 @@
 *****************************************************
 */
 
-# define ANALYZER_STATES			30
+# define ANALYZER_STATES			33
 # define FD_DUP						0x001
 # define FD_MOVE					0x002
 # define FD_REDIRECT				0x004
@@ -260,6 +259,9 @@
 # define FD_OPEN_ERROR				0x040
 # define FD_DUP_ERROR				0x080
 # define FD_CRITICAL_ERROR			0x100
+
+# define COMMAND_ASSIGN				0x001
+# define COMMAND_RUN				0x002
 
 # define GROUP_RUN					0x001
 # define GROUP_BG					0x002
@@ -288,7 +290,7 @@
 *****************************************************
 */
 
-# define REDIRECT_ACTION			9
+# define REDIRECT_ACTION			14
 
 # define CLOSED_STDIN				0x001
 # define CLOSED_STDOUT				0x002
