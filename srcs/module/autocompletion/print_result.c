@@ -49,6 +49,7 @@ void		print_possibilities(t_autocomplete *result, int col)
 	size_t		elem_by_col;
 	size_t		elem_by_line;
 
+	result->max_len++;
 	if (result->list == NULL || result->nb == 0)
 		return ;
 	ft_printf("nb:%d\n", result->nb);
