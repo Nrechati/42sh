@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 17:34:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:40:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ char	*expansion_pipeline(__unused t_list *intern_var, char **str)
 {
 	ft_printf("Expanding |%s| to ", *str);
 
-	variable_expansion(intern_var, &(*str));
-
 	tilde(intern_var, &(*str));
+	variable_expansion(intern_var, &(*str));
+	quote_removal(*str);
 
-//	quote_removal(str);
-
-	ft_printf("|%s|\n\n", *str);
+	ft_printf("|%s|\n", *str);
 
 	return (*str);
 }
