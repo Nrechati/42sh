@@ -1,5 +1,5 @@
 #include "sh21.h"
-
+/*
 static uint8_t			ft_exists_and_is_exec(char *path)
 {
 	struct stat		tmp;
@@ -53,7 +53,7 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
 	ft_freetab(&tab);
 	return (ret);
 }
-
+*/
 void get_completion_cmd(char *input, t_autocomplete *result, t_registry *shell)
 {
 	(void)input;	

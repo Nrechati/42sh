@@ -36,6 +36,11 @@ void	print_possibilities(t_list *result)
 	}
 }
 
+int		lst_strcmp(void *data1, void *data2)
+{
+	return (ft_strcmp((char *)data1, (char *)data2));
+}
+
 char	*autocompletion(char *input, t_registry *shell,
 								int col, uint64_t option)
 {
@@ -68,6 +73,7 @@ char	*autocompletion(char *input, t_registry *shell,
 						result.type == VARIABLE_BRACKET_TYPE
 						? completion + 2 : completion + 1));
 		}
+		ft_mergesort(&result.list, lst_strcmp);
 		print_possibilities(result.list);
 	}
 	return (NULL);
