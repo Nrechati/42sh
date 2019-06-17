@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 20:11:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:26:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ void	space_lexer(t_lexer *machine)
 void	start_lexer(t_lexer *machine)
 {
 	if (*machine->input->buffer == '\0')
-		machine->state = L_END;
+	{
+		if (machine->assign_detect == ASSIGN_NEXT)
+			space_lexer(machine);
+		else
+			machine->state = L_END;
+	}
 	else if (*machine->input->buffer == ' ' || *machine->input->buffer == '\t')
 		space_lexer(machine);
 	else if (ft_strchr(SIGN_DETECT, *machine->input->buffer) != NULL)

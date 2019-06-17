@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 14:38:33 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:39:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		run_builtin(t_registry *shell, t_process *process);
 int8_t		get_process_type(t_registry *shell, t_process *process);
 char		**generate_env(t_registry *shell, t_list *local_env);
 
+void		assign_intern(t_registry *shell, t_list *assign);
 void		execute_process(t_registry *shell, t_process *process, char **env);
 void		fork_process(t_registry *shell, t_process *process);
 

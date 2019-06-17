@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/14 02:05:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:37:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,25 @@ void		*action_to_redirect(void *context, void *data)
 	return (node);
 }
 
+void	*token_to_intern_var(__unused void *context, void *data)
+{
+	t_list		*node;
+	t_list		*ptr;
+	t_token		*name_token;
+	t_token		*data_token;
+	t_variable	var;
+
+	ptr = ((t_action *)data)->data;
+	name_token = ptr->data;
+	data_token = ptr->next->data;
+	ft_bzero(&var, sizeof(t_variable));
+	var.flag |= SET_VAR;
+	var.name = ft_strdup(name_token->data);
+	var.data = ft_strdup(data_token->data);
+	node = ft_lstnew(&var, sizeof(t_variable));
+	return (node);
+}
+
 void		*cmd_to_process(void *context, void *data)
 {
 	t_list		*node;
@@ -69,7 +88,7 @@ void		*cmd_to_process(void *context, void *data)
 	if (command->type == COMMAND_ASSIGN)
 	{
 		process.av = NULL;
-		process.env = ft_lstmap(command->av, context, token_to_var, free_node);
+		process.env = ft_lstmap(command->av, context, token_to_intern_var, free_node);
 		process.process_type = IS_ASSIGN;
 	}
 	else
@@ -79,8 +98,8 @@ void		*cmd_to_process(void *context, void *data)
 		ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
 		process.av = ft_lsttotab(command->av, token_to_str);
 		process.env = ft_lstmap(command->actions, context, token_to_var, free_node);
+		ft_lstdel(&actions_redirects, del_action);
 	}
-	ft_lstdel(&actions_redirects, del_action);
 	node = ft_lstnew(&process, sizeof(t_process));
 	return (node);
 }
