@@ -28,6 +28,8 @@ void	assign_intern(t_registry *shell, t_list *assign)
 			variable = node->data;
 			ft_strdel(&variable->data);
 			variable->data = ft_strdup(to_find->data);
+			if (variable->flag == EXPORT_VAR)
+				variable->flag |= SET_VAR;
 		}
 		else
 		{
