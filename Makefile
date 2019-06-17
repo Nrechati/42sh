@@ -245,11 +245,13 @@ HISTORY += print_history.c
 #						- - - -  Autocompletion - - - -						   #
 
 AUTOCOMPLETION += autocompletion.c
+AUTOCOMPLETION += autocompletion_tools.c
 AUTOCOMPLETION += get_completion_cmd.c
 AUTOCOMPLETION += get_completion_file.c
 AUTOCOMPLETION += get_completion_var.c
 AUTOCOMPLETION += get_start_input.c
 AUTOCOMPLETION += get_type.c
+AUTOCOMPLETION += print_result.c
 
 #						- - - - -  Built-in   - - - - -                        #
 

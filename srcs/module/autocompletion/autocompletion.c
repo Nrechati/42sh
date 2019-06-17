@@ -12,45 +12,20 @@
 
 #include "sh21.h"
 
-size_t	get_maxlen(size_t ref, size_t len)
-{
-	return (ref >= len ? ref: len);
-}
-
-uint8_t	is_cmd_delimiter(char c)
-{
-	if (c == '|' || c == ';' || c == '&' || c == ' ' || c == '\t')
-		return (TRUE);
-	return (FALSE);
-}
-
-char	*active_completion(char *input, char *completion)
+static char	*active_completion(char *input, char *completion)
 {
 	int		i;
 
 	if (input == NULL || completion == NULL)
 		return (NULL);
 	i = 0;
-	while (input[i] != '\0')
+	while (completion[i] != '\0')
 	{
 		if (input[i] != completion[i])
 			return (ft_strdup(completion + i));
+		i++;
 	}
 	return (NULL);
-}
-
-void	print_possibilities(t_list *result)
-{
-	while (result != NULL)
-	{
-		ft_putendl((char *)result->data);
-		result = result->next;
-	}
-}
-
-int		lst_strcmp(void *data1, void *data2)
-{
-	return (ft_strcmp((char *)data1, (char *)data2));
 }
 
 char	*autocompletion(char *input, t_registry *shell,
@@ -75,18 +50,19 @@ char	*autocompletion(char *input, t_registry *shell,
 	}
 	if (option & NEW_SEARCH)
 	{
-		result.type = get_result_type(input);
-		input = get_start_input(input, result.type);
-		get_completion[result.type](input, &result, shell);
+		result.type = get_result_type(input, input == NULL ? 0 : ft_strlen(input));
+		completion = get_start_input(input, result.type) + 1;
+		//ft_printf("\ninput: '%s', modif_input: '%s', type: %d\n", input, completion, result.type);
+		get_completion[result.type](completion, &result, shell);
 		if (result.nb == 1)
 		{
+			input = completion;
 			completion = (char *)result.list->data;
-			return (active_completion(input + 1,
-						result.type == VARIABLE_BRACKET_TYPE
-						? completion + 2 : completion + 1));
+			completion += result.type == VARIABLE_BRACKET_TYPE ? 2 : 1;
+			return (active_completion(input, completion));
 		}
 		ft_mergesort(&result.list, lst_strcmp);
-		print_possibilities(result.list);
+		print_possibilities(&result, col);
 	}
 	return (NULL);
 }

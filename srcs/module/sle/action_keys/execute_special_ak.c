@@ -35,7 +35,7 @@ int8_t		ak_hightab(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);
-	ft_printf("\nAutocomp: %s\n", autocompletion(vct_get_string(sle->line), shell, sle->window.cols, NEW_SEARCH));
+	ft_printf("\nAutocomp: %s|\n", autocompletion(vct_get_string(sle->line), shell, sle->window.cols, NEW_SEARCH));
 	autocompletion(NULL, shell, sle->window.cols, RESET_RESULT);
 	return (SUCCESS);
 }
