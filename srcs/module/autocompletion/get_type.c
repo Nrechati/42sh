@@ -4,8 +4,8 @@ static enum e_result_type	get_variable_type(char *input)
 {
 	size_t	last_char_index;
 
-	last_char = ft_strlen(input) - 1;
-	if (last_char < 0)
+	last_char_index = ft_strlen(input) - 1;
+	if (last_char_index < 0)
 		return (FILE_TYPE);
 	if (input[last_char_index] == '$')
 		return (VARIABLE_TYPE);
@@ -17,8 +17,6 @@ static enum e_result_type	get_variable_type(char *input)
 
 enum e_result_type			get_result_type(char *input)
 {
-	size_t	last_char_index;
-
 	if (input == NULL || *input == '\0')
 		return (CMD_TYPE);
 	if (is_cmd_delimiter(*input) == TRUE)

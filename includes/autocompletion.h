@@ -14,7 +14,7 @@ enum e_result_type
 
 typedef struct			s_autocomplete
 {
-	char				**result_tab;
+	t_list				*list;
 	size_t				nb;
 	size_t				max_len;
 	enum e_result_type	type;

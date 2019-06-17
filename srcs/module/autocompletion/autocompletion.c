@@ -12,8 +12,7 @@ uint8_t	is_cmd_delimiter(char c)
 	return (FALSE);
 }
 
-char	*active_completion(char *input, char *completion,
-					enum e_result_type type)
+char	*active_completion(char *input, char *completion)
 {
 	int		i;
 
@@ -28,44 +27,48 @@ char	*active_completion(char *input, char *completion,
 	return (NULL);
 }
 
-char	*print_possibilities(char **result_tab)
+void	print_possibilities(t_list *result)
 {
-	while (*result_tab != NULL)
-		ft_putendl(*result_tab++);
+	while (result != NULL)
+	{
+		ft_putendl((char *)result->data);
+		result = result->next;
+	}
 }
 
 char	*autocompletion(char *input, t_registry *shell,
 								int col, uint64_t option)
 {
-	enum e_rsult_type			type;
-	char						*input_completion;
+	char						*completion;
 	static t_autocomplete		result;
-	static t_completion_fct		get_completion[] = {
+	static t_completion_fct		*get_completion[] = {
 												get_completion_cmd,
 												get_completion_var,
 												get_completion_var,
 												get_completion_file};
 
-	input_completion = NULL;
+	(void)col;
+	completion = NULL;
 	if ((option & RESET_RESULT) || (option & NEW_SEARCH))
 	{
-		ft_freetab(&result.result_tab);
-		result.nb = 0;
-		result.max_len = 0;
-		result.type = CMD_TYPE;
+		ft_lstdel(&result.list, NULL); // IS GOOD ?
+		ft_bzero(&result, (sizeof(result)));
 		if (option & RESET_RESULT)
 			return (NULL);
 	}
 	if (option & NEW_SEARCH)
 	{
 		result.type = get_result_type(input);
-		input = get_start_input(input, type);
-		get_completion[type](input, &result, shell);
+		input = get_start_input(input, result.type);
+		get_completion[result.type](input, &result, shell);
 		if (result.nb == 1)
+		{
+			completion = (char *)result.list->data; 
 			return (active_completion(input + 1,
 						result.type == VARIABLE_BRACKET_TYPE
-						? result.tab[0] + 2 : result.tab[0] + 1);
-		print_possibilities(result.result_tab);
+						? completion + 2 : completion + 1));
+		}
+		print_possibilities(result.list);
 	}
 	return (NULL);
 }

@@ -245,7 +245,9 @@ HISTORY += print_history.c
 #						- - - -  Autocompletion - - - -						   #
 
 AUTOCOMPLETION += autocompletion.c
-AUTOCOMPLETION += get_completion.c
+AUTOCOMPLETION += get_completion_cmd.c
+AUTOCOMPLETION += get_completion_file.c
+AUTOCOMPLETION += get_completion_var.c
 AUTOCOMPLETION += get_start_input.c
 AUTOCOMPLETION += get_type.c
 
