@@ -21,7 +21,6 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 	char	character[READ_SIZE + 1];
 
 	update_window(sle);
-	sle->prompt.state = INT_PS1;
 	print_prompt(shell, sle);
 	ft_bzero(character, READ_SIZE + 1);
 	vct_reset(sle->line);
