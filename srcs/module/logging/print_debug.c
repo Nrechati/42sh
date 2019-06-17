@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 00:07:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 20:31:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void		print_action(void *data)
 {
 	t_action		*action;
-	char			*action_tab[12] = {"A_STDOUT_TRUNCATE_FILE",
+	char			*action_tab[16] = {"A_STDOUT_TRUNCATE_FILE",
 										"A_STDOUT_APPEND_FILE",
 										"A_STDIN_READ_FILE",
 										"A_IO_TRUNCATE_FILE",
@@ -25,6 +25,10 @@ void		print_action(void *data)
 										"A_DUP",
 										"A_CLOSE",
 										"A_MOVE",
+										"A_HEREDOC",
+										"A_HEREDOC_TRIM",
+										"A_IO_HEREDOC",
+										"A_IO_HEREDOC_TRIM",
 										"A_AMBIGOUS_REDIRECT",
 										"A_ARGS",
 										"A_ASSIGN"};
@@ -39,10 +43,14 @@ void		print_command(void *data)
 	t_command		*command;
 
 	command = data;
-	ft_lstiter(command->av, print_token);
-	ft_dprintf(2, "--------------------ACTIONS-------------------\n");
-	ft_lstiter(command->actions, print_action);
-
+	if (command->type & A_ARGS)
+	{
+		ft_lstiter(command->av, print_token);
+		ft_dprintf(2, "--------------------ACTIONS-------------------\n");
+		ft_lstiter(command->actions, print_action);
+	}
+	else if (command->type & A_ASSIGN)
+		ft_lstiter(command->av, print_action);
 }
 
 void		print_group(void *data)
@@ -54,8 +62,8 @@ void		print_group(void *data)
 	ft_lstiter(group->command_list, print_command);
 
 }
-void		analyzer_print_debug(t_registry *shell, t_list *command_group)
 
+void		analyzer_print_debug(t_registry *shell, t_list *command_group)
 {
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{

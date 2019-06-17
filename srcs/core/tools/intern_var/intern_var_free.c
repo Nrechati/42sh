@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:23:48 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 14:01:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/14 01:55:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void			free_node(void *node)
 	{
 		ft_free(variable->name);
 		ft_free(variable->data);
-		ft_free(variable);
 	}
 }
 

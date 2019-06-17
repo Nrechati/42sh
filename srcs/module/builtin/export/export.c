@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 11:50:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:29:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,14 @@ static void			export_var(t_registry *shell, t_variable *variable)
 	}
 	else
 	{
-		variable->data = ft_strdup(get_var(shell->intern, variable->name));
-		add_var(&shell->intern, variable->name, variable->data, EXPORT_VAR);
+		if ((variable->data = get_var(shell->intern, variable->name)) == NULL)
+			add_var(&shell->intern, variable->name, ft_strdup("\0"), EXPORT_VAR);
+		else
+		{
+			variable->data = ft_strdup(variable->data);
+			add_var(&shell->intern, variable->name, variable->data,
+					SET_VAR | EXPORT_VAR);
+		}
 	}
 }
 

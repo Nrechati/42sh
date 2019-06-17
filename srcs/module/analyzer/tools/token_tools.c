@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:03:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/11 16:04:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:38:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*token_to_var(__unused void *context, void *data)
 	name_token = ptr->data;
 	data_token = ptr->next->data;
 	ft_bzero(&var, sizeof(t_variable));
-	var.flag = EXPORT_VAR;
+	var.flag |= EXPORT_VAR;
 	var.name = ft_strdup(name_token->data);
 	var.data = ft_strdup(data_token->data);
 	node = ft_lstnew(&var, sizeof(t_variable));

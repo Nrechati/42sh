@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 18:34:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 19:28:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void		error_analyzer(t_resolution *resolve);
 void		string_analyzer(t_resolution *resolve);
 void		special_string_analyzer(t_resolution *resolve);
 void		flush_string(t_resolution *resolve);
+
+
+void		assign_name_analyzer(t_resolution *resolve);
+void		assign_data_analyzer(t_resolution *resolve);
+void		assign_flush_analyzer(t_resolution *resolve);
 
 void		redirect_analyzer(t_resolution *resolve);
 void		redirect_and_analyzer(t_resolution *resolve);
@@ -71,6 +76,9 @@ void		generate_filedesc(t_resolution *resolve, int first, int second
 void		init_start(t_analyzer analyzer);
 void		init_stop(t_analyzer analyzer);
 void		init_error(t_analyzer analyzer);
+void		init_assign_name(t_analyzer analyzer);
+void		init_assign_data(t_analyzer analyzer);
+void		init_assign_flush(t_analyzer analyzer);
 void		init_io(t_analyzer analyzer);
 void		init_io_filename(t_analyzer analyzer);
 void		init_io_filename_and(t_analyzer analyzer);

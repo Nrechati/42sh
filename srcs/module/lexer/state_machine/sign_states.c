@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/06 13:47:27 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:14:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void			double_sign_machine(t_lexer *machine)
 		machine->state = L_STRING;
 	else
 		machine->state = L_OUT;
+	if (machine->last_lexer == E_DAND || machine->last_lexer == E_OR)
+		machine->assign_detect = ASSIGN_ON;
 }
 
 static uint8_t	double_dispatcher(t_lexer *machine)
@@ -66,7 +68,10 @@ void			and_machine(t_lexer *machine)
 			machine->last_lexer = E_ANDDGREAT;
 	}
 	else
+	{
+		machine->assign_detect = ASSIGN_ON;
 		vct_add(machine->buffer, *machine->input->buffer);
+	}
 	vct_cut(machine->input);
 	machine->state = L_OUT;
 }
@@ -88,7 +93,9 @@ void			sign_machine(t_lexer *machine)
 	else
 	{
 		vct_add(machine->buffer, *machine->input->buffer);
+		machine->assign_detect = ASSIGN_ON;
 		machine->state = L_OUT;
 	}
 	vct_cut(machine->input);
+
 }

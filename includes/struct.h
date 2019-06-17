@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 17:42:44 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/17 19:28:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ struct					s_lexer
 	enum e_lexer_state	state;
 	enum e_quote		quote;
 	enum e_type			last_lexer;
+	enum e_assign		assign_detect;
 	int					io_detect;
 };
 
@@ -154,6 +155,7 @@ typedef	struct			s_command
 {
 	t_list				*av;
 	t_list				*actions;
+	uint8_t				type;
 }						t_command;
 
 typedef struct			s_group

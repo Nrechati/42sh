@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/12 18:04:33 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/17 19:24:28 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -312,6 +312,7 @@ ANALYZER += init_io_analyzer.c
 ANALYZER += init_io_redirect_analyzer.c
 ANALYZER += init_start_analyzer.c
 ANALYZER += init_string_analyzer.c
+ANALYZER += init_assign_analyzer.c
 ANALYZER += analyzer_interface.c
 ANALYZER += analyzer_tools.c
 ANALYZER += filename_analyzer.c
@@ -320,6 +321,7 @@ ANALYZER += io_redirect_analyzer.c
 ANALYZER += pipe_analyzer.c
 ANALYZER += redirect_analyzer.c
 ANALYZER += string_analyzer.c
+ANALYZER += assign_analyzer.c
 ANALYZER += token_tools.c
 
 #			 		      - - - - - Interpreter - - - - -                         #
@@ -336,6 +338,7 @@ INTERPRETER += redirect_functions.c
 INTERPRETER += io_redirect_functions.c
 INTERPRETER += redirect_tools.c
 INTERPRETER += waiter.c
+INTERPRETER += heredoc_interpreter.c
 
 INTERPRETER += print_tools.c
 

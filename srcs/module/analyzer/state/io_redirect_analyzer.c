@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 01:27:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:57:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	io_redirect_flush(t_resolution *resolve)
 
 void	io_redirect_analyzer(t_resolution *resolve)
 {
-	resolve->state = P_IO_REDIRECT;
+	if (resolve->token.type == E_DLESS || resolve->token.type == E_DLESSDASH)
+		resolve->state = P_IO_HEREDOC_REDIRECT;
+	else
+		resolve->state = P_IO_REDIRECT;
 	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 	get_token(resolve);
 }

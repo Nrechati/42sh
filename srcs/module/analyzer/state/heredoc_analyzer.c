@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:52:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:58:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	check_delimiter(char **delimiter, char **line, int fd,
 	return (FAILURE);
 }
 */
+
 void		heredoc_delimiter(t_resolution *resolve)
 {
 	if (resolve->state == P_HEREDOC_REDIRECT)
@@ -64,64 +65,45 @@ void		heredoc_delimiter(t_resolution *resolve)
 
 void		io_heredoc_analyzer(t_resolution *resolve)
 {
-	/*char		*line;
-	char		*delimiter;
-	char		*io;*/
-	//int			fd[2];
+	t_list			*node;
+	t_action		action;
+	enum e_type		type;
 
-	resolve->state = P_HEREDOC;
-	/*
-	pipe(fd);
-	line = NULL;
-	delimiter = pop_token_data(&resolve->stack);
-	pop_token_type(&resolve->stack);
-	io = pop_token_data(&resolve->stack);
-	generate_filedesc(resolve, fd[0], ft_atoi(io), FD_DUP | FD_WRITE);
-	ft_strdel(&io);
-//TODO:CED
-//	while (invoke_ps2prompt(g_shell, &line, INT_PS3) == SUCCESS)
-//	{
-//		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
-//			return ;
-//	}
+	resolve->state = P_IO_HEREDOC;
+	ft_bzero(&action, sizeof(t_action));
+	node = ft_stckpopnode(&resolve->stack);
+	ft_lstaddback(&action.data, node);
+	node = ft_stckpopnode(&resolve->stack);
+	type = ((t_token *)node->data)->type;
+	if (type == E_DLESS)
+		action.type = A_IO_HEREDOC;
+	else if (type == E_DLESSDASH)
+		action.type = A_IO_HEREDOC_TRIM;
+	ft_lstdelone(&node, NULL);
+	node = ft_stckpopnode(&resolve->stack);
+	ft_lstaddback(&action.data, node);
+	node = ft_lstnew(&action, sizeof(t_action));
+	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 
-	ft_strdel(&line);
-	*/
-	error_analyzer(resolve);
 }
 
 void		heredoc_analyzer(t_resolution *resolve)
 {
+	t_list			*node;
+	t_action		action;
+	enum e_type		type;
+
 	resolve->state = P_HEREDOC;
-
-/*	t_vector *vector;
-
-	char		*line;
-=======
-	char		*line;
->>>>>>> analyzer
-	char		*delimiter;
-	int			fd[2];
-*/
-	/*
-	line = NULL;
-	pipe(fd);
-	delimiter = pop_token_data(&resolve->stack);
-	pop_token_data(&resolve->stack);
-	generate_filedesc(resolve, fd[0], STDIN_FILENO, FD_DUP | FD_WRITE);
-//TODO:CED
-**	la fonction invoke_ps3prompt(), est pour les heredocs, et retourne un vecteur
-**	allouer que tu dois free quand ta fini.
-**	Retourne NULL en cas d'erreur ou d'EOF
-
-
-	vector = NULL;
-	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
-	{
-		if (check_delimiter(&delimiter, &line, fd[1], resolve) == SUCCESS)
-			return ;
-	}
-	ft_strdel(&line);
-	error_analyzer(resolve);
-*/
+	ft_bzero(&action, sizeof(t_action));
+	node = ft_stckpopnode(&resolve->stack);
+	ft_lstaddback(&action.data, node);
+	node = ft_stckpopnode(&resolve->stack);
+	type = ((t_token *)node->data)->type;
+	if (type == E_DLESS)
+		action.type = A_HEREDOC;
+	else if (type == E_DLESSDASH)
+		action.type = A_HEREDOC_TRIM;
+	ft_lstdelone(&node, NULL);
+	node = ft_lstnew(&action, sizeof(t_action));
+	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 }
