@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 18:39:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 19:22:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		*cmd_to_process(void *context, void *data)
 	ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
 	process.av = ft_lsttotab(command->av, token_to_str);
 
-/*-----------------------------------------------------------------*/
+/*-----------------------------------------------------------------
 	char **pseudo_av = malloc(sizeof(char*) * 42);
 
 	pseudo_av[0] = ft_strdup("$HOME");
@@ -112,7 +112,7 @@ void		*cmd_to_process(void *context, void *data)
 	for (int x = 0; pseudo_av[x] != NULL; x++)
 		expansion_pipeline(shell->intern, &(pseudo_av[x]));
 
-/*-----------------------------------------------------------------------*/
+-----------------------------------------------------------------------*/
 
 
 	process.env = ft_lstmap(command->actions, NULL, token_to_var, free_node);
