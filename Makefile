@@ -86,6 +86,7 @@ P_CORE += core/startup/init/
 P_CORE += core/launch/
 P_CORE += core/routine/
 P_CORE += core/signals/
+P_CORE += core/termmode/
 P_CORE += core/tools/
 P_CORE += core/tools/intern_var
 P_CORE += core/tools/path
@@ -219,6 +220,9 @@ CORE += intern_var_manager.c
 CORE += intern_var_tools.c
 CORE += list_function_pointers.c
 
+#termmode
+CORE += termmode.c
+
 #						- - - - -  Debug Log  - - - - -						   #
 
 LOGGING += debug_logger.c
@@ -295,7 +299,6 @@ SLE += execute_special_ak.c
 SLE += visual_mode.c
 
 SLE += window.c
-SLE += term_mode.c
 SLE += launch_sle.c
 SLE += handle_input_keys.c
 SLE += cursor.c

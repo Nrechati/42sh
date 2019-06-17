@@ -63,6 +63,5 @@ static void	sle_destroy(__unused t_sle *sle)
 
 void	sle_teardown(t_sle *sle)
 {
-	unset_term_mode(sle);
 	sle_destroy(sle);
 }
