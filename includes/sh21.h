@@ -31,6 +31,7 @@
 # include "interpreter.h"
 # include "resolve.h"
 # include "history.h"
+# include "autocompletion.h"
 # include "log.h"
 
 /*
