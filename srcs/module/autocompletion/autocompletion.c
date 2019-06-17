@@ -61,7 +61,7 @@ char		*autocompletion(char *input, t_registry *shell,
 	}
 	result.type = get_result_type(input, input == NULL ? 0 : ft_strlen(input));
 	completion = get_start_input(input, result.type) + 1;
-	//ft_printf("\ninput: '%s', modif_input: '%s', type: %d\n", input, completion, result.type);
+	ft_printf("\ninput: '%s', modif_input: '%s', type: %d\n", input, completion, result.type);
 	get_completion[result.type](completion, &result, shell);
 	if (result.nb == 1)
 		return (send_rest(&result, completion));

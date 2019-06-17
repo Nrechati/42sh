@@ -7,7 +7,7 @@ size_t	get_maxlen(size_t ref, size_t len)
 
 uint8_t	is_cmd_delimiter(char c)
 {
-	if (c == '|' || c == ';' || c == '&' || c == ' ' || c == '\t')
+	if (c == '|' || c == ';' || c == '&')
 		return (TRUE);
 	return (FALSE);
 }
