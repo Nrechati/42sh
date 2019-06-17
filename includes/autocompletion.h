@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   autocompletion.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/17 17:22:35 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/17 17:22:36 by skuppers         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef AUTOCOMPLETION_H
-# define AUTOCOMPLETION_H 
+# define AUTOCOMPLETION_H
 
 # define RESET_RESULT	0x0001
 # define NEW_SEARCH		0x0002

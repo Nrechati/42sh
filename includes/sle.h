@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 17:18:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:25:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,5 @@ int8_t		ak_cut_selection(t_registry *shell, t_sle *sle);
 int8_t		ak_copy_selection(t_registry *shell, t_sle *sle);
 int8_t		ak_paste_clipboard(t_registry *shell, t_sle *sle);
 
-/*
-int8_t		ak_hightab(t_sle *sle);
-*/
+int8_t		ak_hightab(t_registry *shell, t_sle *sle);
 #endif

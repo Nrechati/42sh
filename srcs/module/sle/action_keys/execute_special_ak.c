@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 17:19:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:27:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int8_t		ak_hightab(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);
-//	autocompletion(vct_get_string(sle->line), shell, ,);
+	ft_printf("\nAutocomp: %s\n", autocompletion(vct_get_string(sle->line), shell, sle->window.cols, NEW_SEARCH));
+	autocompletion(NULL, shell, sle->window.cols, RESET_RESULT);
 	return (SUCCESS);
 }
 

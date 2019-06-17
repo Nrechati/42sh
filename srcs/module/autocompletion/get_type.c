@@ -5,7 +5,7 @@ static enum e_result_type	get_variable_type(char *input)
 	size_t	last_char_index;
 
 	last_char_index = ft_strlen(input) - 1;
-	if (last_char_index < 0)
+	if (last_char_index <= 0)
 		return (FILE_TYPE);
 	if (input[last_char_index] == '$')
 		return (VARIABLE_TYPE);
