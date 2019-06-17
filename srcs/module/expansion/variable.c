@@ -6,32 +6,41 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:55:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:04:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static char	*variable_replace(t_list *lst, char *str)
+static char	*variable_replace(t_list *lst, t_vector *str, uint32_t start_idx)
 {
-	char		*expanded;
 	char		*data;
 	uint32_t	i;
 
-	if (*str == '\0')
-		return (str);
-	expanded = NULL;
-	i = ft_strcspn(str, EXP_INTERUPT);
-	str[i] = character_swap(str[i]);
-	data = get_var(lst, str);
-	str[i] = character_swap('\0');
-	if (i == 0)
-		ft_asprintf(&expanded, "$%s", str);
-	else if (data != NULL)
-		ft_asprintf(&expanded, "%s%s", data, str + i);
-	else
-		ft_asprintf(&expanded, "%s", str + i);
-	return (expanded);
+	char *sub = ft_strsub(vct_get_string(str),
+					start_idx + 1,
+					vct_len(str) - (start_idx + 1));
+//	ft_printf("SUB:|%s|\n", sub);
+
+	i = ft_strcspn(sub, EXP_INTERUPT);
+
+	char *data_name = ft_strsub(sub, 0, i);
+//	ft_printf("data:|%s|\n", data_name);
+
+	data = get_var(lst, data_name);
+
+	ft_printf("Replacing |%s| from %lu to %lu with |%s|\n",
+					vct_get_string(str), start_idx,
+					start_idx + i + 1,
+					data);
+
+	vct_replace_string(str, start_idx, start_idx + i + 1, data);
+
+//	ft_printf("Vector: |%s|\n", vct_get_string(str));
+
+	char *result = ft_strdup(vct_get_string(str));
+//	ft_printf("Result: |%s|\n", result);
+	return (result);
 }
 
 static char	*variable_concat(t_list *lst, char **str, int i)
@@ -40,11 +49,15 @@ static char	*variable_concat(t_list *lst, char **str, int i)
 	char	*holder;
 
 	holder = NULL;
-	expanded = variable_replace(lst, *str + i + 1);
-	ft_asprintf(&holder, "%.*s%s%c", i, *str, expanded, '\0');
-	ft_strdel(&expanded);
-	ft_strdel(str);
-	return (holder);
+
+	t_vector *string = vct_dups(*str);
+
+
+	expanded = variable_replace(lst, string, i);
+
+//	ft_strdel(&expanded);
+//	ft_strdel(str);
+	return (expanded);
 }
 
 static int	check_expansion(t_list *intern_var, char **str, int i, t_quote quote)
@@ -56,6 +69,7 @@ static int	check_expansion(t_list *intern_var, char **str, int i, t_quote quote)
 	{
 		if (ft_strchr(EXP_INTERUPT, (*str)[i + 1]))
 			check = 0;
+
 		else if (quote != QUOTE_SINGLE)
 		{
 			*str = variable_concat(intern_var, str, i);
@@ -65,7 +79,7 @@ static int	check_expansion(t_list *intern_var, char **str, int i, t_quote quote)
 	return (check);
 }
 
-char		*variable_expansion(t_list *intern_var, char *str)
+char		*variable_expansion(t_list *intern_var, char **str)
 {
 	t_quote		quote;
 	uint32_t	i;
@@ -73,15 +87,21 @@ char		*variable_expansion(t_list *intern_var, char *str)
 
 	i = 0;
 	quote = 0;
-	len = ft_strlen(str);
+	len = ft_strlen(*str);
+
 	while (i < len)
 	{
-		if (ft_strchr("\'\"", str[i]))
-			quote = select_quoting(quote, str[i]);
-		if (check_expansion(intern_var, &str, i, quote) == 1)
-			len = ft_strlen(str);
-		else
-			++i;
+//		ft_printf("Handling char: |%c|\n", (*str)[i]);
+		if (ft_strchr("\'\"", (*str)[i]))
+			quote = select_quoting(quote, (*str)[i]);
+
+		if (check_expansion(intern_var, str, i, quote) == 1)
+		{
+			len = ft_strlen(*str);
+			break ;
+		}
+
+		++i;
 	}
-	return (str);
+	return (NULL);
 }

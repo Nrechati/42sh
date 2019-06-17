@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:55:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:43:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ t_quote	select_quoting(t_quote quote, const char c)
 	return (quote);
 }
 
-char	*expansion_pipeline(t_list *intern_var, char *str)
+char	*expansion_pipeline(__unused t_list *intern_var, char **str)
 {
+	ft_printf("Expansion token: |%s|\n", *str);
 
-	(void)intern_var;
-	//tmp = tilde(intern_var, str, &tmp);
-//	tmp2 = variable_expansion(intern_var, tmp);
-	quote_removal(str);
-	return (str);
+	variable_expansion(intern_var, &(*str));
+
+	ft_printf("After exp: |%s|\n\n", *str);
+//	tilde(intern_var, *str);
+
+
+//	quote_removal(str);
+
+	return (*str);
 }

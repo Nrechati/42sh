@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 16:04:06 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:58:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void		*action_to_redirect(void *context, void *data)
 
 void		*cmd_to_process(void *context, void *data)
 {
+	t_registry 	*shell;
+
 	t_list		*node;
 	t_list		*actions_redirects;
 	t_process	process;
 	t_command	*command;
 
+	shell = context;
 	command = data;
 	ft_bzero(&process, sizeof(t_process));
 
@@ -75,6 +78,32 @@ void		*cmd_to_process(void *context, void *data)
 	process.redirects = ft_lstmap(actions_redirects, context, action_to_redirect, del_action);
 	ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
 	process.av = ft_lsttotab(command->av, token_to_str);
+
+//	ft_printf("Before");
+
+	char **pseudo_av = malloc(sizeof(char*) * 12);
+
+//	pseudo_av[0] = ft_strdup("$HOME");
+//	pseudo_av[1] = ft_strdup("sisi/$HOME");
+//	pseudo_av[2] = ft_strdup("$PWD/42sh.log");
+//	pseudo_av[3] = ft_strdup("toto/$NOTFOUND/tata");
+//	pseudo_av[4] = ft_strdup("\"$novariable\"");
+//	pseudo_av[5] = ft_strdup("\"$HOME\"");
+//	pseudo_av[6] = ft_strdup("\"seb/$HOME/op\"");
+	pseudo_av[0] = ft_strdup("\'$LITTERAL\'");
+	pseudo_av[1] = ft_strdup("\'$HOME\'");
+	pseudo_av[2] = NULL;
+
+//	pseudo_av[4] = ft_strdup("~");
+//	pseudo_av[5] = ft_strdup("~/");
+//	pseudo_av[6] = ft_strdup("~/toto");
+
+//	pseudo_av[7] = ft_strdup("\'literal string\'");
+
+	for (int x = 0; pseudo_av[x] != NULL; x++)
+		expansion_pipeline(shell->intern, &(pseudo_av[x]));
+
+
 	process.env = ft_lstmap(command->actions, NULL, token_to_var, free_node);
 
 //	ft_printf("\x1b[33m|| PRINTING ASSIGNATIONS ||\n\x1b[0m");
