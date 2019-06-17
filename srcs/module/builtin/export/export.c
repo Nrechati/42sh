@@ -34,6 +34,7 @@ static void			export_var(t_registry *shell, t_variable *variable)
 {
 	if (variable->data)
 	{
+		ft_putendl("wefwef");
 		add_var(&shell->intern, variable->name, variable->data,
 				EXPORT_VAR | SET_VAR);
 		if (ft_strequ(variable->name, "PATH") == TRUE)
@@ -41,8 +42,14 @@ static void			export_var(t_registry *shell, t_variable *variable)
 	}
 	else
 	{
-		variable->data = ft_strdup(get_var(shell->intern, variable->name));
-		add_var(&shell->intern, variable->name, variable->data, EXPORT_VAR);
+		if ((variable->data = get_var(shell->intern, variable->name)) == NULL)
+			add_var(&shell->intern, variable->name, ft_strdup("\0"), EXPORT_VAR);
+		else
+		{
+			variable->data = ft_strdup(variable->data);
+			add_var(&shell->intern, variable->name, variable->data,
+					SET_VAR | EXPORT_VAR);
+		}
 	}
 }
 

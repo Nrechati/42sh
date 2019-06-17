@@ -13,6 +13,9 @@
 #ifndef SH21_H
 # define SH21_H
 
+#include <sys/wait.h>
+#include <signal.h>
+
 # include "libft.h"
 # include "define.h"
 # include "enum.h"
