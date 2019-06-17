@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:17:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:18:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int8_t   	unset_term_mode(t_sle *sle);
 
 uint64_t	init_termcaps(t_termcaps *termcp);
 uint64_t	assign_keycodes(t_sle *sle);
-uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_sle *sle));
+uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(__unused t_registry *shell, t_sle *sle));
 uint64_t    set_sle_internals(t_registry *shell);
 uint64_t    init_line(t_sle *sle);
 
@@ -48,7 +48,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle);
 t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag);
 t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle);
 
-void		handle_input_key(t_sle *sle, char c[READ_SIZE ]);
+void		handle_input_key(t_registry *shell, t_sle *sle, char c[READ_SIZE ]);
 
 void		add_redraw_flags(t_sle *sle, uint32_t flag);
 void		set_redraw_flags(t_sle *sle, uint32_t rd_flag);
@@ -128,33 +128,31 @@ void		link_actions_to_keys(int8_t (*actionkeys[AK_AMOUNT])
 *****************************************************
 */
 
-int8_t		ak_arrow_up(t_sle *sle);
-int8_t		ak_arrow_down(t_sle *sle);
-int8_t		ak_arrow_left(t_sle *sle);
-int8_t		ak_arrow_right(t_sle *sle);
-int8_t		ak_home(t_sle *sle);
-int8_t		ak_end(t_sle *sle);
-int8_t		ak_delete(t_sle *sle);
-int8_t		ak_backspace(t_sle *sle);
+int8_t		ak_arrow_up(t_registry *shell, t_sle *sle);
+int8_t		ak_arrow_down(t_registry *shell, t_sle *sle);
+int8_t		ak_arrow_left(t_registry *shell, t_sle *sle);
+int8_t		ak_arrow_right(t_registry *shell, t_sle *sle);
+int8_t		ak_home(t_registry *shell, t_sle *sle);
+int8_t		ak_end(t_registry *shell, t_sle *sle);
+int8_t		ak_delete(t_registry *shell, t_sle *sle);
+int8_t		ak_backspace(t_registry *shell, t_sle *sle);
 
-int8_t		ak_ctrl_d(t_sle *sle);
-int8_t		ak_ctrl_l(t_sle *sle);
+int8_t		ak_ctrl_d(t_registry *shell, t_sle *sle);
+int8_t		ak_ctrl_l(t_registry *shell, t_sle *sle);
 
+int8_t		ak_ctrl_left(t_registry *shell, t_sle *sle);
+int8_t		ak_ctrl_right(t_registry *shell, t_sle *sle);
+int8_t		ak_ctrl_up(t_registry *shell, t_sle *sle);
+int8_t		ak_ctrl_down(t_registry *shell, t_sle *sle);
 
+int8_t		ak_ctrl_r(t_registry *shell, t_sle *sle);
+int8_t		ak_ctrl_i(t_registry *shell, t_sle *sle);
+int8_t		ak_enter_visual_mode(t_registry *shell, t_sle *sle);
+int8_t		ak_exit_modes(t_registry *shell, t_sle *sle);
 
-int8_t		ak_ctrl_left(t_sle *sle);
-int8_t		ak_ctrl_right(t_sle *sle);
-int8_t		ak_ctrl_up(t_sle *sle);
-int8_t		ak_ctrl_down(t_sle *sle);
-
-int8_t		ak_ctrl_r(t_sle *sle);
-int8_t		ak_ctrl_i(t_sle *sle);
-int8_t		ak_enter_visual_mode(t_sle *sle);
-int8_t		ak_exit_modes(t_sle *sle);
-
-int8_t		ak_cut_selection(t_sle *sle);
-int8_t		ak_copy_selection(t_sle *sle);
-int8_t		ak_paste_clipboard(t_sle *sle);
+int8_t		ak_cut_selection(t_registry *shell, t_sle *sle);
+int8_t		ak_copy_selection(t_registry *shell, t_sle *sle);
+int8_t		ak_paste_clipboard(t_registry *shell, t_sle *sle);
 
 /*
 int8_t		ak_hightab(t_sle *sle);

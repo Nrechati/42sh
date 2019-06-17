@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:29 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 13:34:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:17:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-int8_t				ak_arrow_right(t_sle *sle)
+int8_t				ak_arrow_right(__unused t_registry *shell, t_sle *sle)
 {
 	int8_t offset;
 
@@ -30,7 +30,7 @@ int8_t				ak_arrow_right(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t				ak_arrow_left(t_sle *sle)
+int8_t				ak_arrow_left(__unused t_registry *shell, t_sle *sle)
 {
 	int8_t offset;
 
@@ -46,7 +46,7 @@ int8_t				ak_arrow_left(t_sle *sle)
 }
 
 
-int8_t				ak_arrow_up(t_sle *sle)
+int8_t				ak_arrow_up(__unused t_registry *shell, t_sle *sle)
 {
 	char *hist_cmd;
 
@@ -64,7 +64,7 @@ int8_t				ak_arrow_up(t_sle *sle)
 	return (FAILURE);
 }
 
-int8_t				ak_arrow_down(__unused t_sle *sle)
+int8_t				ak_arrow_down(__unused t_registry *shell, __unused t_sle *sle)
 {
 	char *hist_cmd;
 

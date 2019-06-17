@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:21:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:13:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void		handle_printable_char(t_sle *sle, const char c)
 
 }
 
-static void		handle_actionkey(t_sle *sle, char c[READ_SIZE])
+static void		handle_actionkey(t_registry *shell, t_sle *sle, char c[READ_SIZE])
 {
 	uint32_t	index;
 	uint64_t	value;
@@ -58,15 +58,15 @@ static void		handle_actionkey(t_sle *sle, char c[READ_SIZE])
 	while (index < AK_AMOUNT)
 	{
 		if (value == sle->ak_masks[index])
-			sle->actionkeys[index](sle);
+			sle->actionkeys[index](shell, sle);
 		++index;
 	}
 }
 
-void			handle_input_key(t_sle *sle, char c[READ_SIZE])
+void			handle_input_key(t_registry *shell, t_sle *sle, char c[READ_SIZE])
 {
 	if (is_printable(c) == TRUE)
 		handle_printable_char(sle, c[0]);
 	else
-		handle_actionkey(sle, c);
+		handle_actionkey(shell, sle, c);
 }

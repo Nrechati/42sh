@@ -6,22 +6,22 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:21:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:19:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t		ak_ctrl_i(t_sle *sle)
+int8_t		ak_ctrl_i(__unused t_registry *shell, __unused t_sle *sle)
 {
-	sle->search_mode = TRUE;
-	sle->search_type = NEXT;
-	ft_bzero(sle->line->buffer, sle->line->size);
-	set_redraw_flags(sle, RD_LINE | RD_CEND);
+//	sle->search_mode = TRUE;
+//	sle->search_type = NEXT;
+//	ft_bzero(sle->line->buffer, sle->line->size);
+//	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	return (SUCCESS);
 }
 
-int8_t		ak_ctrl_r(t_sle *sle)
+int8_t		ak_ctrl_r(__unused t_registry *shell, t_sle *sle)
 {
 
 	sle->search_mode = TRUE;
@@ -31,14 +31,15 @@ int8_t		ak_ctrl_r(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_hightab(t_sle *sle)
+int8_t		ak_hightab(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);
+//	autocompletion(vct_get_string(sle->line), shell, ,);
 	return (SUCCESS);
 }
 
-int8_t		ak_delete(t_sle *sle)
+int8_t		ak_delete(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);
@@ -50,7 +51,7 @@ int8_t		ak_delete(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_backspace(t_sle *sle)
+int8_t		ak_backspace(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);
@@ -71,7 +72,7 @@ int8_t		ak_backspace(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_ctrl_d(t_sle *sle)
+int8_t		ak_ctrl_d(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);
@@ -82,10 +83,10 @@ int8_t		ak_ctrl_d(t_sle *sle)
 		vct_add(sle->line, 4);
 		return (SUCCESS);
 	}
-	return (ak_delete(sle));
+	return (ak_delete(shell, sle));
 }
 
-int8_t		ak_ctrl_l(t_sle *sle)
+int8_t		ak_ctrl_l(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);

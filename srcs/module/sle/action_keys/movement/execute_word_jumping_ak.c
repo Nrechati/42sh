@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:22:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:22:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:16:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t		ak_ctrl_right(t_sle *sle)
+int8_t		ak_ctrl_right(__unused t_registry *shell, t_sle *sle)
 {
 	uint32_t		next_char;
 
@@ -28,7 +28,7 @@ int8_t		ak_ctrl_right(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_ctrl_left(t_sle *sle)
+int8_t		ak_ctrl_left(__unused t_registry *shell, t_sle *sle)
 {
 	int32_t		next_char;
 
@@ -44,7 +44,7 @@ int8_t		ak_ctrl_left(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_ctrl_down(t_sle *sle)
+int8_t		ak_ctrl_down(__unused t_registry *shell, t_sle *sle)
 {
 	set_redraw_flags(sle, RD_NONE | RD_CMOVE);
 	set_cursor_pos(sle,
@@ -58,7 +58,7 @@ int8_t		ak_ctrl_down(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_ctrl_up(t_sle *sle)
+int8_t		ak_ctrl_up(__unused t_registry *shell, t_sle *sle)
 {
 	set_redraw_flags(sle, RD_NONE | RD_CMOVE);
 	set_cursor_pos(sle,

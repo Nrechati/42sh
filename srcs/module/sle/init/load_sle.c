@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:19:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:19:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ uint64_t    assign_keycodes(t_sle *sle)
     return (SUCCESS);
 }
 
-uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_sle *shell))
+uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_registry *shell, t_sle *sle))
 {
     actionkeys[AK_ARROW_LEFT] = &ak_arrow_left;
 	actionkeys[AK_ARROW_RIGHT] = &ak_arrow_right;

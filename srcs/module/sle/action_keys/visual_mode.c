@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:23:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:16:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-int8_t	ak_enter_visual_mode(t_sle *sle)
+int8_t	ak_enter_visual_mode(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->search_mode == TRUE)
 		return (FAILURE);
@@ -24,7 +24,7 @@ int8_t	ak_enter_visual_mode(t_sle *sle)
 }
 
 // ESCAPE
-int8_t	ak_exit_modes(t_sle *sle)
+int8_t	ak_exit_modes(__unused t_registry *shell, t_sle *sle)
 {
 	sle->visual_mode = FALSE;
 	sle->search_mode = FALSE;
