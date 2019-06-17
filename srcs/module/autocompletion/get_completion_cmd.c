@@ -1,5 +1,17 @@
-#include "sh21.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_completion_cmd.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/17 17:21:15 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/17 17:21:18 by skuppers         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "sh21.h"
+/*
 static uint8_t			ft_exists_and_is_exec(char *path)
 {
 	struct stat		tmp;
@@ -53,11 +65,11 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
 	ft_freetab(&tab);
 	return (ret);
 }
-
+*/
 void get_completion_cmd(char *input, t_autocomplete *result, t_registry *shell)
 {
-	(void)input;	
-	(void)result;	
+	(void)input;
+	(void)result;
 	(void)shell;
 
 }

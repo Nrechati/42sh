@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   autocompletion.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/17 17:21:02 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/17 17:21:08 by skuppers         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 size_t	get_maxlen(size_t ref, size_t len)
@@ -36,6 +48,11 @@ void	print_possibilities(t_list *result)
 	}
 }
 
+int		lst_strcmp(void *data1, void *data2)
+{
+	return (ft_strcmp((char *)data1, (char *)data2));
+}
+
 char	*autocompletion(char *input, t_registry *shell,
 								int col, uint64_t option)
 {
@@ -63,11 +80,12 @@ char	*autocompletion(char *input, t_registry *shell,
 		get_completion[result.type](input, &result, shell);
 		if (result.nb == 1)
 		{
-			completion = (char *)result.list->data; 
+			completion = (char *)result.list->data;
 			return (active_completion(input + 1,
 						result.type == VARIABLE_BRACKET_TYPE
 						? completion + 2 : completion + 1));
 		}
+		ft_mergesort(&result.list, lst_strcmp);
 		print_possibilities(result.list);
 	}
 	return (NULL);
