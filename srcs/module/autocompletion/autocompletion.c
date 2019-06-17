@@ -43,6 +43,20 @@ static void	reset_autocompletion(t_autocomplete *result)
 	ft_lstdel(&result->list, NULL); // IS GOOD ?
 	ft_bzero(result, sizeof(t_autocomplete));
 }
+
+
+void		debug_autocompletion(t_autocomplete *result, char *input,  ////DEBUG
+					char *completion)
+{
+	ft_printf("\ninput: '%s', modif_input: '%s', type: '", input, completion);
+	if (result->type == 0)
+		ft_printf("CMD'\n");
+	else if (result->type == 3)
+		ft_printf("FILE'\n");
+	else
+		ft_printf("VAR'\n");
+}
+
 char		*autocompletion(char *input, t_registry *shell,
 								int col, uint64_t option)
 {
@@ -59,9 +73,11 @@ char		*autocompletion(char *input, t_registry *shell,
 		if (option & RESET_RESULT)
 			return (NULL);
 	}
+	if (input != NULL && ft_strequ(input, ".") == TRUE)
+		return (ft_strdup("/"));
 	result.type = get_result_type(input, input == NULL ? 0 : ft_strlen(input));
-	completion = get_start_input(input, result.type) + 1;
-	ft_printf("\ninput: '%s', modif_input: '%s', type: %d\n", input, completion, result.type);
+	debug_autocompletion(&result, input, completion); // DEBUG
+	completion = get_start_input(input, result.type);
 	get_completion[result.type](completion, &result, shell);
 	if (result.nb == 1)
 		return (send_rest(&result, completion));

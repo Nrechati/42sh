@@ -13,7 +13,8 @@ enum e_result_type	get_result_type(char *input, size_t len)
 {
 	if (len == 0 || is_cmd_delimiter(input[len - 1]) == TRUE)
 		return (CMD_TYPE);
-	if (input[len - 1] == ' ' || input[len - 1] == '\t' || input[len - 1] == '}')
+	if (input[len - 1] == ' ' || input[len - 1] == '\t'
+			|| input[len - 1] == '}' || input[len - 1] == '/')
 		return (is_file_type(input, len));
 	if (input[len - 1] == '$')
 		return (VARIABLE_TYPE);
