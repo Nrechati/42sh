@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 14:15:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 15:40:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,26 @@ int		assign_detect(t_lexer *machine)
 	return (1);
 }
 
+int		assign_special(t_lexer *machine)
+{
+	if (machine->assign_detect == ASSIGN_NEXT && *machine->buffer->buffer == '\0')
+		return (1);
+	return (0);
+}
 void	string_machine(t_lexer *machine)
 {
 	if (*machine->input->buffer == '\0')
-		machine->state = L_START;
+	{
+		if (*machine->buffer->buffer == '\0' && machine->assign_detect == ASSIGN_NEXT)
+		{
+			vct_add(machine->buffer, ' ');
+			machine->last_lexer = E_STRING;
+			machine->state = L_OUT;
+		}
+		else
+			machine->state = L_START;
+		machine->assign_detect = ASSIGN_ON;
+	}
 	if (ft_strchr(LETTER_INTERUPT, *machine->input->buffer) != NULL)
 	{
 		if (machine->assign_detect == ASSIGN_NEXT)

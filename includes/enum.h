@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/14 00:41:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:44:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ enum	e_lexer_state
 	L_STRING,
 	L_IO_NUMBER,
 	L_SIGN,
+	L_SPACE,
 	L_DSIGN,
 	L_GREATER,
 	L_LESSER,

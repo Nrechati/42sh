@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 12:35:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:45:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@
 *****************************************************
 */
 
-# define STATENBR					17
+# define STATENBR					19
 # define TOKEN_WITH_DATA			5
 # define NB_OF_TOKENS				50
 # define BUFFER						131071

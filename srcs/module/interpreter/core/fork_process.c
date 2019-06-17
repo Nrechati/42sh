@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 12:38:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 15:50:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	assign_intern(t_registry *shell, t_list *assign)
 			variable = node->data;
 			ft_strdel(&variable->data);
 			variable->data = ft_strdup(to_find->data);
-			ft_lstdelone(&node, free_node);
 		}
 		else
 		{
