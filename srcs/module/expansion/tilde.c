@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 14:52:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:34:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
-/*
+
 static char	*user_home(const char *str)
 {
 	char	*path;
@@ -84,4 +84,4 @@ void		tilde(t_list *intern_var, char **str)
 		str = holder;
 
 	return (str);
-}*/
+}

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 16:58:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:30:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,16 @@ void		*cmd_to_process(void *context, void *data)
 
 	char **pseudo_av = malloc(sizeof(char*) * 12);
 
-//	pseudo_av[0] = ft_strdup("$HOME");
-//	pseudo_av[1] = ft_strdup("sisi/$HOME");
-//	pseudo_av[2] = ft_strdup("$PWD/42sh.log");
-//	pseudo_av[3] = ft_strdup("toto/$NOTFOUND/tata");
-//	pseudo_av[4] = ft_strdup("\"$novariable\"");
-//	pseudo_av[5] = ft_strdup("\"$HOME\"");
-//	pseudo_av[6] = ft_strdup("\"seb/$HOME/op\"");
-	pseudo_av[0] = ft_strdup("\'$LITTERAL\'");
-	pseudo_av[1] = ft_strdup("\'$HOME\'");
-	pseudo_av[2] = NULL;
+	pseudo_av[0] = ft_strdup("$HOME");
+	pseudo_av[1] = ft_strdup("sisi/$HOME");
+	pseudo_av[2] = ft_strdup("$PWD/42sh.log");
+	pseudo_av[3] = ft_strdup("toto/$NOTFOUND/tata");
+	pseudo_av[4] = ft_strdup("\"$novariable\"");
+	pseudo_av[5] = ft_strdup("\"$HOME\"");
+	pseudo_av[6] = ft_strdup("\"seb/$HOME/op\"");
+	pseudo_av[7] = ft_strdup("\'$LITTERAL\'");
+	pseudo_av[8] = ft_strdup("\'$HOME\'");
+	pseudo_av[9] = NULL;
 
 //	pseudo_av[4] = ft_strdup("~");
 //	pseudo_av[5] = ft_strdup("~/");

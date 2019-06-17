@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 15:46:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:35:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void		heredoc_delimiter(t_resolution *resolve);
 char		*expansion_pipeline(t_list *intern_var, char **str);
 
 char		*expand_string(t_list *lst, char *str);
-char		*tilde(t_list *intern_var, char *str);
+
+char		*tilde(t_list *intern_var, char **str);
 char		*variable_expansion(t_list *intern_var, char **str);
 
 void		quote_removal(char *str);
