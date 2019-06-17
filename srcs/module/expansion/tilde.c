@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:55:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:39:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*tilde_expansion(t_list *intern_var, const char *str)
 	char	*expanded;
 
 	expanded = NULL;
-	if (ft_strequ(str, "~") == TRUE)
+	if (ft_strequ(str, "~") == TRUE || ft_strequ(str, "~/"))
 		expanded = ft_strdup(get_var(intern_var, "HOME"));
 	else if (ft_strequ(str, "~+") == TRUE)
 		expanded = ft_strdup(get_var(intern_var, "PWD"));
@@ -51,26 +51,24 @@ static char	*tilde_expansion(t_list *intern_var, const char *str)
 	return (expanded);
 }
 
-char		*tilde(t_list *intern_var, char *str)
+void		tilde(t_list *intern_var, char **str)
 {
+	t_vector	*vector;
 	char		*expanded;
-	char		*holder;
 	uint32_t	i;
 
 	i = 0;
-	holder = NULL;
-	if (ft_strnequ(str, "~/", 2) == FALSE && ft_strequ(str, "~") == FALSE)
-		return (str);
-	if (str[0] == '~')
-	{
-		i = ft_strcspn(str, "/");
-		str[i] = character_swap(str[i]);
-		expanded = tilde_expansion(intern_var, str);
-		str[i] = character_swap('\0');
-		ft_asprintf(&holder, "%s%s", expanded, str + i);
-		ft_strdel(&expanded);
-		ft_strdel(&str);
-		str = holder;
-	}
-	return (str);
+	if (ft_strbeginswith(*str, "~") == FALSE)
+		return ;
+	i = ft_strcspn(*str, "/");
+	(*str)[i] = character_swap((*str)[i]);
+	expanded = tilde_expansion(intern_var, *str);
+	if (expanded == NULL)
+		return ;
+	(*str)[i] = character_swap('\0');
+	vector = vct_dups(*str);
+	vct_replace_string(vector, 0, i, expanded);
+	ft_strdel(str);
+	*str = ft_strdup(vct_get_string(vector));
+	vct_del(&vector);
 }

@@ -6,45 +6,44 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:55:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:39:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static char	*variable_replace(t_list *lst, char *str)
+static char	*variable_replace(t_list *lst, t_vector *str, uint32_t start_idx)
 {
-	char		*expanded;
-	char		*data;
 	uint32_t	i;
+	char 		*sub;
+	char		*data;
+	char		*data_name;
 
-	if (*str == '\0')
-		return (str);
-	expanded = NULL;
-	i = ft_strcspn(str, EXP_INTERUPT);
-	str[i] = character_swap(str[i]);
-	data = get_var(lst, str);
-	str[i] = character_swap('\0');
-	if (i == 0)
-		ft_asprintf(&expanded, "$%s", str);
-	else if (data != NULL)
-		ft_asprintf(&expanded, "%s%s", data, str + i);
-	else
-		ft_asprintf(&expanded, "%s", str + i);
-	return (expanded);
+	sub	= ft_strsub(vct_get_string(str),
+					start_idx + 1,
+					vct_len(str) - (start_idx + 1));
+	i = ft_strcspn(sub, EXP_INTERUPT);
+	data_name = ft_strsub(sub, 0, i);
+	data = get_var(lst, data_name);
+	ft_strdel(&sub);
+	ft_strdel(&data_name);
+	if (data == NULL)
+		data = "";
+	vct_replace_string(str, start_idx, start_idx + i + 1, data);
+	sub = ft_strdup(vct_get_string(str));
+	return (sub);
 }
 
 static char	*variable_concat(t_list *lst, char **str, int i)
 {
-	char	*expanded;
-	char	*holder;
+	t_vector	*string;
+	char		*expanded;
 
-	holder = NULL;
-	expanded = variable_replace(lst, *str + i + 1);
-	ft_asprintf(&holder, "%.*s%s%c", i, *str, expanded, '\0');
-	ft_strdel(&expanded);
+	string = vct_dups(*str);
 	ft_strdel(str);
-	return (holder);
+	expanded = variable_replace(lst, string, i);
+	vct_del(&string);
+	return (expanded);
 }
 
 static int	check_expansion(t_list *intern_var, char **str, int i, t_quote quote)
@@ -65,23 +64,21 @@ static int	check_expansion(t_list *intern_var, char **str, int i, t_quote quote)
 	return (check);
 }
 
-char		*variable_expansion(t_list *intern_var, char *str)
+void		variable_expansion(t_list *intern_var, char **str)
 {
-	t_quote		quote;
 	uint32_t	i;
 	uint32_t	len;
+	t_quote		quote;
 
 	i = 0;
 	quote = 0;
-	len = ft_strlen(str);
+	len = ft_strlen(*str);
 	while (i < len)
 	{
-		if (ft_strchr("\'\"", str[i]))
-			quote = select_quoting(quote, str[i]);
-		if (check_expansion(intern_var, &str, i, quote) == 1)
-			len = ft_strlen(str);
-		else
-			++i;
+		if (ft_strchr("\'\"", (*str)[i]))
+			quote = select_quoting(quote, (*str)[i]);
+		if (check_expansion(intern_var, str, i, quote) == 1)
+			len = ft_strlen(*str);
+		++i;
 	}
-	return (str);
 }

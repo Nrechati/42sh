@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 16:04:06 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:39:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void		*action_to_redirect(void *context, void *data)
 
 void		*cmd_to_process(void *context, void *data)
 {
+	t_registry 	*shell;
+
 	t_list		*node;
 	t_list		*actions_redirects;
 	t_process	process;
 	t_command	*command;
 
+	shell = context;
 	command = data;
 	ft_bzero(&process, sizeof(t_process));
 
@@ -75,6 +78,43 @@ void		*cmd_to_process(void *context, void *data)
 	process.redirects = ft_lstmap(actions_redirects, context, action_to_redirect, del_action);
 	ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
 	process.av = ft_lsttotab(command->av, token_to_str);
+
+/*-----------------------------------------------------------------*/
+	char **pseudo_av = malloc(sizeof(char*) * 42);
+
+	pseudo_av[0] = ft_strdup("$HOME");
+	pseudo_av[1] = ft_strdup("sisi/$HOME");
+	pseudo_av[2] = ft_strdup("$PWD/42sh.log");
+	pseudo_av[3] = ft_strdup("toto/$NOTFOUND/tata");
+	pseudo_av[4] = ft_strdup("\"$novariable\"");
+	pseudo_av[5] = ft_strdup("\"$HOME\"");
+	pseudo_av[6] = ft_strdup("\"seb/$HOME/op\"");
+	pseudo_av[7] = ft_strdup("\'$LITTERAL\'");
+	pseudo_av[8] = ft_strdup("\'$HOME\'");
+	pseudo_av[9] = ft_strdup("\'$HOMO\'");
+	pseudo_av[10] = ft_strdup("~");
+	pseudo_av[11] = ft_strdup("~/");
+	pseudo_av[12] = ft_strdup("~+");
+	pseudo_av[13] = ft_strdup("~-");
+	pseudo_av[14] = ft_strdup("~toto");
+	pseudo_av[15] = ft_strdup("~skuppers");
+	pseudo_av[16] = ft_strdup("\'literal string\'");
+	pseudo_av[17] = ft_strdup("\"literal string\"");
+	pseudo_av[18] = ft_strdup("\"plop\'litt\'plap\"");
+	pseudo_av[19] = ft_strdup("\'plop\"litt\"plap\'");
+	pseudo_av[20] = ft_strdup("~/$HOME");
+	pseudo_av[21] = ft_strdup("$HOME/$PWD");
+	pseudo_av[22] = ft_strdup("\'~/$HOME/$PWD\'");
+	pseudo_av[23] = ft_strdup("\"~/$HOME/$PWD\"");
+	pseudo_av[24] = ft_strdup("/~/");
+	pseudo_av[25] = NULL;
+
+	for (int x = 0; pseudo_av[x] != NULL; x++)
+		expansion_pipeline(shell->intern, &(pseudo_av[x]));
+
+/*-----------------------------------------------------------------------*/
+
+
 	process.env = ft_lstmap(command->actions, NULL, token_to_var, free_node);
 
 //	ft_printf("\x1b[33m|| PRINTING ASSIGNATIONS ||\n\x1b[0m");
