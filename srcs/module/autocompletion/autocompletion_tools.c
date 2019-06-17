@@ -42,9 +42,11 @@ char			*get_home_input(char *input, t_registry *shell)
 	char	*new_input;
 	char	*var;
 
-	if (input == NULL || *input == '\0')
+	if (input == NULL)
 		return (NULL);
 	new_input = NULL;
+	while (*input == ' ' || *input == '\t' || is_cmd_delimiter(*input) == TRUE)
+		input++;
 	if (*input == '~' && (var = get_var(shell->intern, "HOME")) != NULL)
 		ft_asprintf(&new_input, "%s%s", var, input + 1);
 	else

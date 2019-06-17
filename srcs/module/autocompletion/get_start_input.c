@@ -27,7 +27,9 @@ static char	*get_start_input_cmd(char *input, size_t len)
 {
 	while (len > 0)
 	{
-		if (is_cmd_delimiter(*input) == TRUE)
+		if (is_cmd_delimiter(*input) == TRUE
+			|| input[len] == ' ' || input[len] == '\t'
+				|| input[len] == '>' || input[len] == '<')
 			return (input + len + 1);
 		len--;
 	}

@@ -22,7 +22,10 @@ static char	*active_completion(char *input, char *completion)
 	while (completion[i] != '\0')
 	{
 		if (input[i] != completion[i])
+		{
+			ft_strdel(&input);
 			return (ft_strdup(completion + i));
+		}
 		i++;
 	}
 	return (NULL);
@@ -31,9 +34,13 @@ static char	*active_completion(char *input, char *completion)
 static char	*send_rest(t_autocomplete *result, char *input)
 {
 	char	*completion;
-
+	
 	completion = (char *)result->list->data;
-	completion += result->type == VARIABLE_BRACKET_TYPE ? 2 : 1;
+	if (result->type == VARIABLE_BRACKET_TYPE)
+		completion += 2;
+	else if (result->type == VARIABLE_TYPE)
+		completion ++;
+//	ft_printf("completion: %s, input: %s\n", completion, input);
 	return (active_completion(input, completion));
 }
 
@@ -95,7 +102,6 @@ char		*autocompletion(char *input, t_registry *shell,
 	get_completion[result.type](completion, &result, shell);
 	if (result.nb == 1)
 	{
-		ft_strdel(&completion);
 		return (send_rest(&result, completion));
 	}
 	ft_mergesort(&result.list, lst_strcmp);
