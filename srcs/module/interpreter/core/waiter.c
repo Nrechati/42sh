@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 17:07:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:20:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int8_t	waiter(t_job *job)
 		if (job->state & KILLED)
 		{
 			ft_lstiter(job->processes, terminator);
-			kill(job->pgid, SIGINT);
 			dprintf(2, SH_GENERAL_ERROR "job on %d pgid has been killed\n", job->pgid);
 			break ;
 		}
