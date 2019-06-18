@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 15:31:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 18:04:36 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,10 @@ typedef struct			s_process
 typedef struct			s_job
 {
 	pid_t				pgid;
+	t_list				*processes;
 	uint8_t				state;
 	uint8_t				job_type;
-	t_list				*processes;
+	uint32_t			signo;
 	struct termios		*term_modes;
 }						t_job;
 

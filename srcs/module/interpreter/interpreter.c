@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 16:46:50 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 18:05:00 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,23 +148,26 @@ void	set_stopped(void *data)
 	return ;
 }
 
-void	set_killed(void *data)
+void	set_signaled(void *context, void *data)
 {
-	t_job	*job;
+	t_job		*job;
+	uint32_t	*signo;
 
 	job = data;
+	signo = context;
 	job->state |= KILLED;
+	job->signo = *signo;
 	ft_lstiter(job->processes, set_stopped);
 	return ;
 }
 
-int8_t interpreter(t_registry *shell, t_list **cmd_group, uint8_t flag)
+int8_t interpreter(t_registry *shell, t_list **cmd_group, uint32_t flag)
 {
 	static t_list	*job_lst;
 
-	if (flag == TO_KILL)
+	if (flag > 0)
 	{
-		ft_lstiter(job_lst, set_killed);
+		ft_lstiter_ctx(job_lst, &flag, set_signaled);
 		return (SUCCESS);
 	}
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);

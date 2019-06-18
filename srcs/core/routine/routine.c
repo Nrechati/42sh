@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 16:27:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:59:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 		if (command_group)
 		{
 			history(shell, ft_strdup(vct_get_string(input)), ADD_ENTRY);
-			interpreter(shell, &command_group, TO_RUN);
+			interpreter(shell, &command_group, 0);
 			load_signal_profile(DFLT_PROFILE);
 		}
 		lexer_print_debug(shell, resolve.tokens);
