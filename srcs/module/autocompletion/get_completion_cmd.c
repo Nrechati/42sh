@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 17:21:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/18 11:02:20 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ static void		find_bin(char *input, DIR *dir, t_autocomplete *result,
 				|| is_a_directory(dirname, mydir->d_name) == TRUE
 				|| is_exec(dirname, mydir->d_name) == FALSE)
 				continue ;
-			data = NULL;
-			ft_asprintf(&data, "%s ", mydir->d_name);
+			data = ft_strjoin(mydir->d_name, " ");
 			if (is_exclusive(result->list, data) == TRUE)
 			{
 				ft_lstadd(&result->list, ft_lstnew(data, ft_strlen(data) + 1));
@@ -68,6 +67,31 @@ static void		find_bin(char *input, DIR *dir, t_autocomplete *result,
 	}
 }
 
+void			find_builtin(char * input, t_autocomplete *result)
+{
+	char				*data;
+	size_t				len;
+	int					i;
+	static const char	*blt[] = {"echo", "cd", "hash", "exit",
+									"type", "export", "set", "unset",
+									"pwd", "fc", NULL}; //ADD ALL BUILTIN
+
+	len = input == NULL ? 0 : ft_strlen(input);
+	i = 0;
+	while ((blt[i]) != NULL)
+	{
+		if (len == 0 || ft_strnequ(blt[i], input, len) == TRUE)
+		{
+			data = ft_strjoin(blt[i], " ");
+			ft_lstadd(&result->list, ft_lstnew(data, ft_strlen(data) + 1));
+			result->max_len = get_maxlen(result->max_len, ft_strlen(data));
+			result->nb++;
+			ft_strdel(&data);
+		}
+		i++;
+	}
+}
+
 void			get_completion_cmd(char *input, t_autocomplete *result,
 							t_registry *shell)
 {
@@ -76,6 +100,7 @@ void			get_completion_cmd(char *input, t_autocomplete *result,
 	DIR			*dir;
 
 	result->nb = 0;
+	find_builtin(input, result);
 	if (get_var(shell->intern, "PATH") == NULL)
 		return ;
 	tab = ft_strsplit(get_var(shell->intern, "PATH"), ":");
