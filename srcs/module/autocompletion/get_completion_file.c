@@ -56,7 +56,6 @@ void			get_completion_file(char *input, t_autocomplete *result,
 	if (ft_strequ("/", clean_path) == FALSE
 			&& (slash = ft_strrchr(clean_path, '/')) != NULL)
 		*(slash + 1) = '\0';
-	ft_printf("\nopen: '%s', input: '%s'\n", clean_path, input);
 	if ((dir = opendir(clean_path)) != NULL)
 	{
 		input = extract_file(input);
