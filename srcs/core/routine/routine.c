@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:08:14 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:56:28 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 	while (resolve.tokens)
 	{
 		command_group = NULL;
-		if (parser(resolve.tokens) == FAILURE)
+		if (parser(input, resolve.tokens) == FAILURE)
 		{
 			ft_lstdel(&resolve.tokens, del_token);
 			return (FAILURE);

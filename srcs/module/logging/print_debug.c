@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 20:31:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:39:33 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		analyzer_print_debug(t_registry *shell, t_list *command_group)
 {
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 	{
-		ft_putstr("\n\033[33m-------------- PARSER --------------\n");
+		ft_putstr("\n\033[33m------------ ANALYZER --------------\n");
 		ft_lstiter(command_group, print_group);
 		ft_putendl("------------------------------------\033[0m\n");
 	}

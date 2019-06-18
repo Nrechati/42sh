@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 15:05:28 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:23:15 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ struct					s_lexer
 {
 	t_vector			*buffer;
 	t_vector			*input;
+	t_vector			*origin_input;
 	t_lexinfo			*lexinfo;
 	char				*data;
 	t_list				*tokens;

@@ -6,16 +6,16 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:36:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:09:16 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-int8_t		parser(t_list *lst);
+int8_t		parser(t_vector *input, t_list *lst);
 uint8_t		need_subprompt(enum e_type state, enum e_type type);
-void		parser_subprompt(t_list **lst);
+void		parser_subprompt(enum e_type state, t_vector *input, t_list **lst);
 
 /*
 *************** INIT

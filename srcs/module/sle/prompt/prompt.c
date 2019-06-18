@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:06:57 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:43:42 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		sle->line = sle->search_line;
 	}
 	history(shell, NULL, RESET_HEAD);
-//	vct_add(sle->line, '\n');
+	vct_add(sle->line, '\n');
 	return (vct_dup(sle->line));
 }
 
@@ -61,7 +61,7 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-//	vct_add(sle->sub_line, '\n');
+	vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }
 
@@ -76,6 +76,6 @@ t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-//	vct_add(sle->sub_line, '\n');
+	vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }

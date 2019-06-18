@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:03:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 21:29:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:14:01 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	init_special_string(t_analyzer analyzer)
 void	init_flush_string(t_analyzer analyzer)
 {
 	analyzer[P_STRING_FLUSH][E_PIPE] = pipe_analyzer;
+	analyzer[P_STRING_FLUSH][E_NEWLINE] = separator_analyzer;
 	analyzer[P_STRING_FLUSH][E_END] = end_analyzer;
 	analyzer[P_STRING_FLUSH][E_SEMICOLON] = separator_analyzer;
 }
