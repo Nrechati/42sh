@@ -29,6 +29,7 @@
 # include "analyzer.h"
 # include "interpreter.h"
 # include "resolve.h"
+# include "history.h"
 # include "log.h"
 
 /*

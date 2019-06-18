@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 19:29:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:04:43 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,22 @@
 # define SH_GENERAL_ERROR			"42sh: "
 # define SH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
 
-# define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
+# define SH21_USAGE_1				"Usage: 42sh [long option] [-dh] "
 # define SH21_USAGE_2				"[-c CMD]\n"
 # define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t"
 # define SH21_USAGE_LONG_OPTION_2	"--debug\n"
 
-# define NO_OPT						0x000
-# define HELP_OPT					0x001
-# define COMMAND_OPT				0x002
-# define DEBUG_OPT					0x004
-# define INTERACTIVE_OPT			0x008
+# define NO_OPT						0x0000
+# define HELP_OPT					0x0001
+# define COMMAND_OPT				0x0002
+# define DEBUG_OPT					0x0004
+# define INTERACTIVE_OPT			0x0008
+# define RECORD_HISTORY				0x0010
 
-# define NO_FLAG					0x000
-# define EXPORT_VAR					0x001
-# define SET_VAR					0x002
-# define READONLY_VAR				0x004
+# define NO_FLAG					0x0000
+# define EXPORT_VAR					0x0001
+# define SET_VAR					0x0002
+# define READONLY_VAR				0x0004
 
 # define HMAP_BIN_SIZE				8
 # define HMAP_BLT_SIZE				32
@@ -75,17 +76,20 @@
 *****************************************************
 */
 
-# define A_OPT						0x001
-# define F_OPT						0x002
-# define I_OPT						0x004
-# define L_OPT						0x008
-# define N_OPT						0x010
-# define P_OPT						0x020
-# define T_OPT						0x040
-# define P_LOW_OPT					0x080
-# define ERROR_OPT					0x800
+# define A_OPT						0x0001
+# define E_OPT						0x0002
+# define F_OPT						0x0004
+# define I_OPT						0x0008
+# define L_OPT						0x0010
+# define N_OPT						0x0020
+# define P_OPT						0x0040
+# define R_OPT						0x0080
+# define S_OPT						0x0100
+# define T_OPT						0x0200
+# define P_LOW_OPT					0x0400
+# define ERROR_OPT					0x8000
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
-# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
+# define CD_ERROR_OLDPWD_NOTSET		"42sh: cd: OLDPWD not set\n"
 # define NOFI 						"No such file or directory\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
@@ -144,6 +148,7 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
+//#define INT_PS1_VALUE "[42sh]-> "
 # define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
@@ -337,6 +342,7 @@
 # define RD_CMOVE       0x200 /* Put cursor to point / index */
 
 # define RD_VISUAL		0x400
+# define RD_SEARCH      0x800
 
 # define CRITICAL_ERROR     0x001
 # define MALLOC_FAIL        0x002
@@ -352,12 +358,8 @@
 
 # define SETUP_DONE			0x800
 
-# define INTERNAL_FAIL2     999
-# define CLIPB_FAIL         999
+
 # define HIST_FAIL          999
-# define SUBP_FAIL          2048
-# define AUTOC_FAIL         4096
-# define KEYBDS_FAIL        8192
 
 # define P_DATE				'd'
 # define P_NAME				's'
@@ -368,7 +370,7 @@
 # define P_ESCAPE			'e'
 
 # define FAIL_EOF					42
-# define AK_AMOUNT					22
+# define AK_AMOUNT					25
 
 # define AK_ESCAPE_MASK				0x1b00000000000000
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
@@ -388,12 +390,13 @@
 # define AK_CTRL_B_MASK				0x0200000000000000
 # define AK_CTRL_P_MASK				0x1000000000000000
 # define AK_CTRL_F_MASK				0x0600000000000000
+# define AK_CTRL_R_MASK				0x1200000000000000
+# define AK_CTRL_I_MASK				0x0900000000000000
 # define AK_CTRL_UP_MASK			0x1b5b313b35410000
 # define AK_CTRL_DOWN_MASK			0x1b5b313b35420000
 # define AK_CTRL_RIGHT_MASK			0x1b5b313b35430000
 # define AK_CTRL_LEFT_MASK			0x1b5b313b35440000
 # define AK_TAB_MASK				0x0900000000000000
-
 /*
 *****************************************************
 ************************ LOG ************************
@@ -411,8 +414,30 @@
 ********************** HISTORY **********************
 *****************************************************
 */
+# define REV_SEARCH					"(rev-search)"
+# define INC_SEARCH                 "(inc-search)"
+# define SEARCH_SUFFIX		        "``:"
 
-# define DEFAULT_HISTORY_FILENAME	".sh_history"
+# define HISTFILE_DEFAULT			".42sh_history"
+# define FC_FILE_TMP				"/tmp/42sh-fc.tmp"
+# define HISTSIZE_DEFAULT			500
+
+# define INIT_HISTORY				0x000001
+# define FREE_HISTORY				0x000002
+# define PRINT_HISTORY				0x000004
+# define WRITE_HISTFILE				0x000008
+# define ADD_ENTRY					0x000010
+# define POP_ENTRY					0x000020
+# define GET_ENTRY					0x000040
+# define WITHOUT_SPACE				0x000080
+# define BY_ID						0x000100
+# define BY_NAME					0x000200
+# define PRINT_ID					0x000400
+# define REVERSE					0x000800
+# define REL						0x001000
+# define PREV						0x002000
+# define NEXT						0x004000
+# define RESET_HEAD					0x008000
 
 /*
 *****************************************************

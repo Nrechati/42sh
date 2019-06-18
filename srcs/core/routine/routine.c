@@ -40,7 +40,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 			ft_lstdel(&resolve.tokens, del_token);
 			return (FAILURE);
 		}
-
+		history(shell, ft_strdup(vct_get_string(input)), ADD_ENTRY);
 		command_group = analyzer(&resolve);
 		if (command_group)
 			interpreter(shell, &command_group);

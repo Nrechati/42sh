@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 18:53:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:04:53 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,8 @@ enum	e_action_keys
 	AK_CTRL_B,
 	AK_CTRL_X,
 	AK_CTRL_P,
-
+	AK_CTRL_R,
+	AK_CTRL_I,
 	AK_TABULATION,
 };
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 15:07:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:21:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@ static void		handle_printable_char(t_sle *sle, const char c)
 	t_vector *line;
 	t_cursor *cursor;
 
-	line = sle->line;
 	cursor = &sle->cursor;
-	if (cursor->index == 0)
+	line = sle->line;
+	if (sle->search_mode == TRUE)
+	{
+		vct_add(sle->sub_line, c);
+		set_redraw_flags(sle, RD_LINE | RD_CEND);
+//		ft_dprintf(3, "Input is : |%s|\n", vct_get_string(sle->sub_line));
+	}
+	else if (cursor->index == 0)
 	{
 		vct_push(line, c);
 		set_redraw_flags(sle, RD_LINE | RD_CMOVE);
@@ -38,6 +44,7 @@ static void		handle_printable_char(t_sle *sle, const char c)
 						vct_len(sle->line) + 1);
 		set_cursor_pos(sle, cursor->index + 1);
 	}
+
 }
 
 static void		handle_actionkey(t_sle *sle, char c[READ_SIZE])
@@ -47,6 +54,7 @@ static void		handle_actionkey(t_sle *sle, char c[READ_SIZE])
 
 	index = 0;
 	value = compute_mask(c);
+//	ft_printf("val: %lu\n", value);
 	while (index < AK_AMOUNT)
 	{
 		if (value == sle->ak_masks[index])

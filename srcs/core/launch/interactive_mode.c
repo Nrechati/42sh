@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 11:13:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 10:56:18 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void				interactive_mode(t_registry *shell)
 	t_vector		*input;
 
 	input = NULL;
-
 	while (is_input_valid(sle(shell, &input, SLE_GET_INPUT)) == TRUE)
 	{
 		define_default_signals();

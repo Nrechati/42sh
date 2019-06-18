@@ -29,7 +29,7 @@ int8_t				ak_cut_selection(t_sle *sle)
 	vct_scpy(sle->clip, tmp, ft_strlen(tmp));
 	ft_strdel(&tmp);
 	vct_del_string(sle->line, start, length + 1);
-	ak_exit_visual_mode(sle);
+	ak_exit_modes(sle);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 	set_cursor_pos(sle, start);
 	return (SUCCESS);

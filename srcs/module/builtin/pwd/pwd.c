@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:03:25 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:53:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:42:52 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char			*get_pwd(t_registry *shell, const t_option option)
 	else
 		pwd = getcwd(pwd, PATH_MAX);
 	if (pwd == NULL)
-		ft_dprintf(shell->cur_fd.err, "21sh: get_pwd(): An error occurred\n");
+		ft_dprintf(STDERR_FILENO, "42sh: getcwd(): An error occurred\n");
 	return (pwd);
 }
 
@@ -46,9 +46,9 @@ t_option		get_option_pwd(char *s, t_option option)
 			option |= P_OPT;
 		else
 		{
-			ft_dprintf(g_shell->cur_fd.err,
-					"21sh: pwd: -%c: invalid option\n", *s);
-			ft_dprintf(g_shell->cur_fd.err, "pwd: usage: pwd [-LP]\n");
+			ft_dprintf(STDERR_FILENO,
+					"42sh: pwd: -%c: invalid option\n", *s);
+			ft_dprintf(STDERR_FILENO, "pwd: usage: pwd [-LP]\n");
 			return (ERROR_OPT);
 		}
 		s++;

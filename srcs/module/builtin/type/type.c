@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:53:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:43:00 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int8_t				type_blt(t_registry *shell, char **av)
 	{
 		path_bin = NULL;
 		if (ft_hmap_getdata(&shell->hash.blt, *av) != NULL)
-			ft_dprintf(shell->cur_fd.out, "%s is a shell builtin\n", *av);
+			ft_printf("%s is a shell builtin\n", *av);
 		else if ((path_bin = ft_hmap_getdata(&shell->hash.bin, *av)) != NULL)
-			ft_dprintf(shell->cur_fd.out, "%s is hashed (%s)\n", *av, path_bin);
+			ft_printf("%s is hashed (%s)\n", *av, path_bin);
 		else if (find_in_path(shell, *av, &path_bin) == SUCCESS)
-			ft_dprintf(shell->cur_fd.out, "%s is %s\n", *av, path_bin);
+			ft_printf("%s is %s\n", *av, path_bin);
 		else
 		{
 			error = FAILURE;
-			ft_dprintf(shell->cur_fd.err, "21sh: type: %s: not found\n", *av);
+			ft_dprintf(STDERR_FILENO, "42sh: type: %s: not found\n", *av);
 		}
 		av++;
 	}

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:13:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 11:55:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:03:04 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,15 @@ static void		free_registry(t_registry *shell)
 
 void				shell_exit_routine(t_registry *shell)
 {
+	if (shell->option.option & RECORD_HISTORY)
+	{
+		history(shell, NULL, WRITE_HISTFILE);
+		history(shell, NULL, FREE_HISTORY);
+	}
 	if (shell->option.option & INTERACTIVE_OPT)
 		sle(shell, NULL, SLE_EXIT);
 
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 		close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));
-
 	free_registry(shell);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 19:28:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:05:28 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 extern const char		**g_grammar; // TEMP
 
-typedef uint16_t		t_option;
+typedef uint64_t		t_option;
 
 typedef struct			s_opt
 {
@@ -39,13 +39,6 @@ typedef struct			s_variable
 	t_option			flag;
 }						t_variable;
 
-typedef struct			s_fd
-{
-	int					in;
-	int					out;
-	int					err;
-}						t_fd;
-
 typedef	struct			s_hashmap
 {
 	t_hash				bin;
@@ -57,14 +50,9 @@ typedef struct			s_registry
 	t_list				*intern;
 	t_opt				option;
 	t_hashmap			hash;
-
 	struct termios		*sle_mode;
 	struct termios		*exec_mode;
 	struct termios		*orig_mode;
-
-	t_fd				cur_fd;				// Out
-	uint8_t				analyzer_signal;	// Out
-	t_list				*current_job;		// Out
 }						t_registry;
 
 extern t_registry		*g_shell;
@@ -199,19 +187,6 @@ struct					s_resolution
 
 /*
 *****************************************************
-********************** HISTORY **********************
-*****************************************************
-*/
-
-typedef struct			s_history
-{
-	char				*command;
-	struct s_history	*next;
-	struct s_history	*prev;
-}						t_history;
-
-/*
-*****************************************************
 ************************ SLE ************************
 *****************************************************
 */
@@ -291,10 +266,12 @@ typedef struct			s_sle
 	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
 	t_vector			*line;
 	t_vector			*sub_line;
-
+	t_vector			*search_line;
 	t_intern			interns;
 
-	//visual mode
+	uint8_t				search_mode;
+	uint16_t				search_type;
+
 	uint8_t				visual_mode;
 	int64_t				vis_start;
 	int64_t				vis_stop;
@@ -318,5 +295,35 @@ typedef t_option		(*t_get_option)(char *s, t_option option);
 */
 
 extern t_list			*g_job_head;
+
+/*
+*****************************************************
+********************** HISTORY **********************
+*****************************************************
+*/
+
+typedef	struct	s_entry	t_entry;
+
+typedef struct	s_param
+{
+	int		first;
+	int		last;
+	int		fd;
+}				t_param;
+
+struct			s_entry
+{
+	t_entry		*next;
+	t_entry		*prev;
+	char		*cmd;
+};
+
+typedef struct	s_history
+{
+	t_entry		*entry;
+	t_entry		*head_ptr;
+	int			nb_of_entries;
+	int			first_search;
+}				t_history;
 
 #endif

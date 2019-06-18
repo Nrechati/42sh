@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 13:40:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:40:26 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		stop_analysis(const int signo)
 
 void		signal_analyzer(t_resolution *resolve)
 {
-	ft_dprintf(2, "21sh: Analyzer has been interrupted.\n");
+	ft_dprintf(2, "42sh: Analyzer has been interrupted.\n");
 	ft_lstdel(&resolve->tokens, del_token);
 	ft_strdel(&resolve->token.data);
 }

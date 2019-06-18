@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 14:51:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:40:15 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void					batch_mode(t_registry *shell)
 
 	cmd = get_input_cmd(shell);
 	if (cmd == NULL || ft_strcheck(vct_get_string(cmd), ft_isprint) == FALSE)
-		ft_dprintf(2, "21sh: Not a valid input.\n");
+		ft_dprintf(2, "42sh: Not a valid input.\n");
 	else
 	{
 		execution_pipeline(shell, cmd);

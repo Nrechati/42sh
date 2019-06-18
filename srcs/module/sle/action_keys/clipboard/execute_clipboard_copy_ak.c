@@ -28,7 +28,7 @@ int8_t	ak_copy_selection(t_sle *sle)
 	tmp = vct_sub(sle->line, start, length + 1);
 	vct_scpy(sle->clip, tmp, ft_strlen(tmp));
 	ft_strdel(&tmp);
-	ak_exit_visual_mode(sle);
+	ak_exit_modes(sle);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 	set_cursor_pos(sle, start);
 	return (SUCCESS);
