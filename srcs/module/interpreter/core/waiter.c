@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 17:44:23 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:53:55 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	update_pid(t_list *processes, pid_t pid, __unused int status)
 				current->completed = TRUE;
 			if (WIFSIGNALED(status))
 			{
+				ft_printf("[1] - PID Kill by SIG%d\n", WTERMSIG(status)); //REWORK
 				current->completed = TRUE; //Gestion Signaux
 			}
 		//	ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
@@ -51,7 +52,6 @@ uint8_t	all_is_done(t_list *processes)
 //	ft_dprintf(2, "\x1b[32mAll is Done\n\x1b[0m");
 	return (TRUE);
 }
-#include <stdio.h>
 
 void	terminator(void *data)
 {
