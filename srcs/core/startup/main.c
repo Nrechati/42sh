@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 14:02:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 17:04:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static void		init_log(t_registry *shell)
 
 static int8_t	init_shell(t_registry *shell, char **arg, char **env)
 {
+
 	g_shell = shell;
+	load_signal_profile(INIT_HANDLER);
+	load_signal_profile(DFLT_PROFILE);
 	ft_bzero(shell, sizeof(t_registry));
 	if (set_environment(shell, arg, env) == FAILURE)
 		return (FAILURE);

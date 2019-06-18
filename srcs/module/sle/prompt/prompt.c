@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:06:57 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:14:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
-			return (NULL);
+		{
+			ft_printf("\n");
+			return (prompt(shell, sle));
+		}
 		handle_input_key(sle, character);
 		redraw(shell, sle);
 		if (is_eof(vct_get_string(sle->line)) == TRUE)

@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   launch_sle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:06:47 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:14:37 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
-
-// TODO redraw modes FPTP / FSTP / FPTE
 
 void		save_intern_vars(t_registry *shell, t_sle *sle)
 {
@@ -62,6 +60,7 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 {
 	static t_sle sle;
+
 
 	if (launch_sle(shell, &sle) == CRITICAL_ERROR)
 		return (CRITICAL_ERROR);

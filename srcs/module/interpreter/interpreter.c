@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 20:24:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:14:31 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,13 +139,6 @@ int8_t interpreter(t_registry *shell, t_list **cmd_group)
 {
 	t_list *job_lst;
 
-	signal (SIGINT, SIG_DFL);
-	signal (SIGQUIT, SIG_DFL);
-	signal (SIGTSTP, SIG_DFL);
-	signal (SIGTTIN, SIG_DFL);
-	signal (SIGTTOU, SIG_DFL);
-	signal (SIGCHLD, SIG_DFL);
-	signal (SIGPIPE, SIG_DFL);
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
 	ft_lstdel(cmd_group, del_group);
 	ft_lstiter_ctx(job_lst, shell, run_job);

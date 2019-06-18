@@ -6,46 +6,83 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:08:34 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:14:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-#include <signal.h>
 
-void		stop_analysis(const int signo)
+void	sigint_exec(int signo)
 {
 	(void)signo;
 }
 
-void		signal_analyzer(t_resolution *resolve)
+void	sigill_exec(int signo)
 {
-	ft_dprintf(2, "42sh: Analyzer has been interrupted.\n");
-	ft_lstdel(&resolve->tokens, del_token);
-	ft_strdel(&resolve->token.data);
-}
-
-void		kill_process(const int signo)
-{
-	t_list		*proc;
-
-	proc = NULL;
 	(void)signo;
-	while (proc != NULL)
-	{
-		kill(((t_process*)(proc->data))->pid, SIGINT);
-		proc = proc->next;
-	}
 }
 
-void		loop_signals(void (*func)(int))
+void	sigtrap_exec(int signo)
 {
-	int signo;
+	(void)signo;
+}
 
-	signo = 0;
-	while (++signo < 32)
-	{
-		if (signo != SSIG_QUIT && signo != SSIG_STOP && signo != SSIG_KILL)
-			signal(signo, func);
-	}
+void	sigabrt_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigfpe_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigbus_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigsegv_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigsys_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigquit_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigterm_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigcont_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigtstp_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigttin_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigttou_exec(int signo)
+{
+	(void)signo;
+}
+
+void	sigchld_exec(int signo)
+{
+	(void)signo;
 }

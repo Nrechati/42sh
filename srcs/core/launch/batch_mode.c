@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:40:15 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/15 15:05:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static inline t_vector	*get_input_cmd(t_registry *shell)
 
 void					batch_mode(t_registry *shell)
 {
-	ft_printf("Batch mode.\n");
 	t_vector	*cmd;
 
 	cmd = get_input_cmd(shell);
