@@ -69,6 +69,7 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	term_mode(TERMMODE_SLE);
 	if (sle_flag == SLE_GET_INPUT)
 	{
+		sle.prompt.state = INT_PS1;
 		*in = prompt(shell, &sle);
 		if (*in == NULL || is_eof(vct_get_string(*in)))
 			return (FAILURE);

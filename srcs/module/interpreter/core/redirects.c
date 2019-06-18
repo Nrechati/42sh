@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 16:38:54 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:56:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void		check_redirect_error(void *context, void *data)
 		process->process_type |= IS_CRITICAL;
 	}
 }
-
 
 int			redirect_or_other(__unused void *context, void *data)
 {

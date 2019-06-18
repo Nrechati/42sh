@@ -6,13 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/12 21:14:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 19:29:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH21_H
 # define SH21_H
-
 
 /// LINUX ///
 # include <signal.h>

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:36:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:56:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 t_list		*lexer(t_vector *line);
 t_lexinfo	*init_lexinfo(void);
 
+int			assign_special(t_lexer *machine);
+void		space_lexer(t_lexer *machine);
 void		start_lexer(t_lexer *machine);
 void		end_machine(t_lexer *machine);
 void		out_lexer(t_lexer *machine);

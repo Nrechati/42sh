@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 19:22:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 19:36:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ t_redirection	*redirecter_init(void)
 	redirecter[A_DUP] = duplicate_fd;
 	redirecter[A_CLOSE] = close_fd;
 	redirecter[A_MOVE] = move_fd;
+	redirecter[A_HEREDOC] = heredoc;
+	redirecter[A_HEREDOC_TRIM] = move_fd;
+	redirecter[A_IO_HEREDOC] = move_fd;
+	redirecter[A_IO_HEREDOC_TRIM] = move_fd;
 	return (&redirecter);
 }
 
@@ -57,6 +61,25 @@ void		*action_to_redirect(void *context, void *data)
 	return (node);
 }
 
+void	*token_to_intern_var(__unused void *context, void *data)
+{
+	t_list		*node;
+	t_list		*ptr;
+	t_token		*name_token;
+	t_token		*data_token;
+	t_variable	var;
+
+	ptr = ((t_action *)data)->data;
+	name_token = ptr->data;
+	data_token = ptr->next->data;
+	ft_bzero(&var, sizeof(t_variable));
+	var.flag = SET_VAR;
+	var.name = ft_strdup(name_token->data);
+	var.data = ft_strdup(data_token->data);
+	node = ft_lstnew(&var, sizeof(t_variable));
+	return (node);
+}
+
 void		*cmd_to_process(void *context, void *data)
 {
 	t_registry 	*shell;
@@ -69,59 +92,21 @@ void		*cmd_to_process(void *context, void *data)
 	shell = context;
 	command = data;
 	ft_bzero(&process, sizeof(t_process));
-
-//	ft_printf("\x1b[33m|| PRINTING ACTIONS ||\n\x1b[0m");
-//	ft_lstiter(&command->actions, print_actions);
-//	ft_printf("\x1b[33m|| ENDED PRINT ||\n\x1b[0m");
-
-	actions_redirects = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
-	process.redirects = ft_lstmap(actions_redirects, context, action_to_redirect, del_action);
-	ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
-	process.av = ft_lsttotab(command->av, token_to_str);
-
-/*-----------------------------------------------------------------
-	char **pseudo_av = malloc(sizeof(char*) * 42);
-
-	pseudo_av[0] = ft_strdup("$HOME");
-	pseudo_av[1] = ft_strdup("sisi/$HOME");
-	pseudo_av[2] = ft_strdup("$PWD/42sh.log");
-	pseudo_av[3] = ft_strdup("toto/$NOTFOUND/tata");
-	pseudo_av[4] = ft_strdup("\"$novariable\"");
-	pseudo_av[5] = ft_strdup("\"$HOME\"");
-	pseudo_av[6] = ft_strdup("\"seb/$HOME/op\"");
-	pseudo_av[7] = ft_strdup("\'$LITTERAL\'");
-	pseudo_av[8] = ft_strdup("\'$HOME\'");
-	pseudo_av[9] = ft_strdup("\'$HOMO\'");
-	pseudo_av[10] = ft_strdup("~");
-	pseudo_av[11] = ft_strdup("~/");
-	pseudo_av[12] = ft_strdup("~+");
-	pseudo_av[13] = ft_strdup("~-");
-	pseudo_av[14] = ft_strdup("~toto");
-	pseudo_av[15] = ft_strdup("~skuppers");
-	pseudo_av[16] = ft_strdup("\'literal string\'");
-	pseudo_av[17] = ft_strdup("\"literal string\"");
-	pseudo_av[18] = ft_strdup("\"plop\'litt\'plap\"");
-	pseudo_av[19] = ft_strdup("\'plop\"litt\"plap\'");
-	pseudo_av[20] = ft_strdup("~/$HOME");
-	pseudo_av[21] = ft_strdup("$HOME/$PWD");
-	pseudo_av[22] = ft_strdup("\'~/$HOME/$PWD\'");
-	pseudo_av[23] = ft_strdup("\"~/$HOME/$PWD\"");
-	pseudo_av[24] = ft_strdup("/~/");
-	pseudo_av[25] = NULL;
-
-	for (int x = 0; pseudo_av[x] != NULL; x++)
-		expansion_pipeline(shell->intern, &(pseudo_av[x]));
-
------------------------------------------------------------------------*/
-
-
-	process.env = ft_lstmap(command->actions, NULL, token_to_var, free_node);
-
-//	ft_printf("\x1b[33m|| PRINTING ASSIGNATIONS ||\n\x1b[0m");
-//	ft_lstiter(process.env, print_var_lst);
-//	ft_printf("\x1b[33m|| ENDED PRINT ||\n\x1b[0m");
-
-	ft_lstdel(&actions_redirects, del_action);
+	if (command->type == COMMAND_ASSIGN)
+	{
+		process.av = NULL;
+		process.env = ft_lstmap(command->av, context, token_to_intern_var, free_node);
+		process.process_type = IS_ASSIGN;
+	}
+	else
+	{
+		actions_redirects = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
+		process.redirects = ft_lstmap(actions_redirects, context, action_to_redirect, del_action);
+		ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
+		process.av = ft_lsttotab(command->av, token_to_str);
+		process.env = ft_lstmap(command->actions, context, token_to_var, free_node);
+		ft_lstdel(&actions_redirects, del_action);
+	}
 	node = ft_lstnew(&process, sizeof(t_process));
 	return (node);
 }

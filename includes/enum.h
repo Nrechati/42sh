@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/12 21:40:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:53:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ enum	e_lexer_state
 	L_STRING,
 	L_IO_NUMBER,
 	L_SIGN,
+	L_SPACE,
 	L_DSIGN,
 	L_GREATER,
 	L_LESSER,
@@ -113,6 +114,13 @@ typedef enum	e_quote
 	QUOTE_DOUBLE,
 }				t_quote;
 
+typedef enum	e_assign
+{
+	ASSIGN_OFF,
+	ASSIGN_ON,
+	ASSIGN_NEXT,
+
+}				t_assign;
 /*
 *****************************************************
 ********************** ANALYZER *********************
@@ -130,6 +138,10 @@ enum			e_actions
 	A_DUP,
 	A_CLOSE,
 	A_MOVE,
+	A_HEREDOC,
+	A_HEREDOC_TRIM,
+	A_IO_HEREDOC,
+	A_IO_HEREDOC_TRIM,
 	A_AMBIGOUS_REDIRECT,
 	A_ARGS,
 	A_ASSIGN,
@@ -167,6 +179,9 @@ enum	e_analyzer_state
 	P_IO_HEREDOC,
 	P_IO_HEREDOC_REDIRECT,
 	P_IO_HEREDOC_DELIMITER,
+	P_ASSIGN_NAME,
+	P_ASSIGN_DATA,
+	P_ASSIGN_FLUSH,
 };
 
 /*
