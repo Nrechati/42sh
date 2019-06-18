@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 17:40:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:44:23 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,7 @@ void	terminator(void *data)
 
 	process = data;
 	if (process->completed == FALSE)
-	{
 		kill(process->pid, SIGINT);
-		dprintf(2, SH_GENERAL_ERROR "process %s on %d pid has been killed\n"
-				, process->av[0]
-				, process->pid);
-	}
 	return ;
 }
 
@@ -77,10 +72,7 @@ int8_t	waiter(t_job *job)
 	while (all_is_done(job->processes) == FALSE)
 	{
 		if (job->state & KILLED)
-		{
 			ft_lstiter(job->processes, terminator);
-			dprintf(2, SH_GENERAL_ERROR "job on %d pgid has been killed\n", job->pgid);
-		}
 		status = 0;
 		pid = wait(&status);
 		if (pid)
