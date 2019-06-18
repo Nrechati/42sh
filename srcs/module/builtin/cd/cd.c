@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/13 16:55:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:29:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char			*ft_get_curpath(t_registry *shell,
 	else if (ft_strequ(path_give_by_user, "-") == TRUE)
 	{
 		if ((curpath = get_var(shell->intern, "OLDPWD")) == NULL)
-			ft_dprintf(shell->cur_fd.err, CD_ERROR_OLDPWD_NOTSET);
+			ft_dprintf(STDERR_FILENO, CD_ERROR_OLDPWD_NOTSET);
 		else
 			curpath = ft_strdup(curpath);
 	}
@@ -69,8 +69,7 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 	{
 		set_oldpwd_and_pwd(shell, curpath, old_pwd, option);
 		if (ft_strequ(path_give_by_user, "-") == TRUE)
-			ft_dprintf(shell->cur_fd.out, "%s\n",
-					get_var(shell->intern, "PWD"));
+			ft_printf("%s\n", get_var(shell->intern, "PWD"));
 		return (exit_cd(shell, &old_pwd, &curpath, SUCCESS));
 	}
 	return (exit_cd(shell, &old_pwd, &curpath, FAILURE));
@@ -98,10 +97,10 @@ int8_t				cd_blt(t_registry *shell, char **av)
 	char		*curpath;
 	t_option	option;
 
-	if (one_only_arg(shell, ++av) == FALSE)
-		return (FAILURE);
+	av++;
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
-		|| (curpath = ft_get_curpath(shell, *av)) == NULL)
+		|| (curpath = ft_get_curpath(shell, *av)) == NULL
+		|| one_only_arg(shell, av) == FALSE)
 		return (FAILURE);
 	if (is_root(curpath) == FALSE && curpath[ft_strlen(curpath) - 1] == '/')
 		curpath[ft_strlen(curpath) - 1] = '\0';
@@ -112,7 +111,7 @@ int8_t				cd_blt(t_registry *shell, char **av)
 				return (FAILURE);
 		if ((curpath = make_curpath_simple(curpath)) == NULL)
 		{
-			ft_dprintf(shell->cur_fd.err, "42sh: cd: %s: %s", ft_strequ(*av,
+			ft_dprintf(STDERR_FILENO, "42sh: cd: %s: %s", ft_strequ(*av,
 					"-") ? get_var(shell->intern, "OLDPWD") : *av, NOFI);
 			return (FAILURE);
 		}

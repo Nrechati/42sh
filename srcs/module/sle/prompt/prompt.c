@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 19:26:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:06:57 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 			break ;
 	}
 	ft_printf("\n");
+	if (sle->search_mode == TRUE)
+	{
+		sle->search_mode = FALSE;
+		sle->line = sle->search_line;
+	}
+	history(shell, NULL, RESET_HEAD);
 //	vct_add(sle->line, '\n');
 	return (vct_dup(sle->line));
 }

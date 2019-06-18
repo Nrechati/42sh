@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:52:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:42:09 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,16 @@ uint8_t			check_path(t_registry *shell, char *curpath,
 			path_give_by_user = oldpwd;
 	}
 	if (access(curpath, F_OK) != SUCCESS)
-		ft_dprintf(shell->cur_fd.err,
+		ft_dprintf(STDERR_FILENO,
 					"cd: no such file or directory: %s\n", path_give_by_user);
 	else if (lstat(curpath, &stat) == FAILURE)
-		ft_dprintf(shell->cur_fd.err,
+		ft_dprintf(STDERR_FILENO,
 					"cd: not a directory: %s\n", path_give_by_user);
 	else if (access(curpath, R_OK) != SUCCESS)
-		ft_dprintf(shell->cur_fd.err,
-					"21sh: cd: %s: Permission denied\n", path_give_by_user);
+		ft_dprintf(STDERR_FILENO,
+					"42sh: cd: %s: Permission denied\n", path_give_by_user);
 	else if (chdir(curpath) == FAILURE)
-		ft_dprintf(shell->cur_fd.err, "chdir() failed\n");
+		ft_dprintf(STDERR_FILENO, "chdir() failed\n");
 	else
 		return (TRUE);
 	return (FALSE);

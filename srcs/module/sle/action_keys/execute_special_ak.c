@@ -6,11 +6,30 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 13:36:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:21:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+int8_t		ak_ctrl_i(t_sle *sle)
+{
+	sle->search_mode = TRUE;
+	sle->search_type = NEXT;
+	ft_bzero(sle->line->buffer, sle->line->size);
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
+	return (SUCCESS);
+}
+
+int8_t		ak_ctrl_r(t_sle *sle)
+{
+
+	sle->search_mode = TRUE;
+	sle->search_type = PREV;
+	ft_bzero(sle->line->buffer, sle->line->size);
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
+	return (SUCCESS);
+}
 
 int8_t		ak_hightab(t_sle *sle)
 {
@@ -35,7 +54,12 @@ int8_t		ak_backspace(t_sle *sle)
 {
 	if (sle->visual_mode == TRUE)
 		return (FAILURE);
-
+	if (sle->search_mode == TRUE)
+	{
+		vct_pop(sle->sub_line);
+		set_redraw_flags(sle, RD_LINE | RD_CEND);
+		return (SUCCESS);
+	}
 	if (sle->cursor.index == 0)
 		return (FAILURE);
 	vct_del_char(sle->line, sle->cursor.index - 1);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 11:49:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:13:32 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 	if ((shell->option.option & HELP_OPT) != FALSE)
 	{
 		shell_usage();
+		/////FREE
 		ft_flush_memory();
 		exit(0);
 	}
@@ -76,13 +77,10 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 	shell->hash.bin = ft_hmap_init(HMAP_BIN_SIZE);
 	shell->hash.blt = ft_hmap_init(HMAP_BLT_SIZE);
 	generate_grammar();	//TEMP
-	shell->cur_fd.in = 0;	//TEMP
-	shell->cur_fd.out = 1;	//TEMP
-	shell->cur_fd.err = 2;	//TEMP
 	if (set_shlvl(shell) == FAILURE)
 		return (FAILURE);
 	hash_builtin(shell);
 	if (shell->hash.blt.used == FALSE)
-		ft_dprintf(shell->cur_fd.err, "Hashmap blt is empty.\n");
+		ft_dprintf(STDERR_FILENO, "Hashmap blt is empty.\n");
 	return (SUCCESS);
 }

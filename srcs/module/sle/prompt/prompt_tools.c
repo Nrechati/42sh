@@ -92,7 +92,6 @@ inline void		print_prompt(t_registry *shell, t_sle *sle)
 
 	if (prompt_need_alignment() == TRUE)
 		align_prompt(sle);
-
 	ptext = NULL;
 	if (ft_strequ(sle->prompt.state, INT_PS1))
 		ptext = sle->interns.ps1;

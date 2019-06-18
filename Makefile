@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/17 19:24:28 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/18 15:07:11 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS += $(LEXER)
 SRCS += $(LOGGING)
 SRCS += $(PARSER)
 SRCS += $(RESOLVE)
+SRCS += $(HISTORY)
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
 
@@ -120,6 +121,7 @@ P_BUILTIN += module/builtin/pwd/
 P_BUILTIN += module/builtin/set/
 P_BUILTIN += module/builtin/type/
 P_BUILTIN += module/builtin/unset/
+P_BUILTIN += module/builtin/fc/
 
 P_EXPANSION += module/expansion/
 
@@ -133,6 +135,7 @@ P_LOGGING += module/logging/
 P_PARSER += module/parser/
 P_PARSER += module/parser/init/
 P_PARSER += module/parser/debug/
+P_HISTORY += module/history/
 
 P_TOOLS += tools/
 
@@ -144,6 +147,7 @@ _SPATH += $(P_EXPANSION)
 _SPATH += $(P_LEXER)
 _SPATH += $(P_LOGGING)
 _SPATH += $(P_PARSER)
+_SPATH += $(P_HISTORY)
 _SPATH += $(P_INTERPRETER)
 
 SPATH += $(addprefix srcs/, $(_SPATH))
@@ -183,6 +187,7 @@ INCS += parser.h
 INCS += analyzer.h
 INCS += builtin.h
 INCS += resolve.h
+INCS += history.h
 INCS += define.h
 INCS += struct.h
 INCS += enum.h
@@ -228,6 +233,14 @@ CORE += termmode.c
 LOGGING += debug_logger.c
 LOGGING += print_debug.c
 
+#						- - - - -   History   - - - - -						   #
+
+HISTORY += history.c
+HISTORY += histfile.c
+HISTORY += entry_manager.c
+HISTORY += get_entry.c
+HISTORY += print_history.c
+
 #						- - - - -  Built-in   - - - - -                        #
 
 BUILTIN += blt_options.c
@@ -263,6 +276,12 @@ BUILTIN += type.c
 
 #UNSET
 BUILTIN += unset.c
+
+#FC
+BUILTIN += fc.c
+BUILTIN += fc_list.c
+BUILTIN += fc_redo.c
+BUILTIN += fc_editor.c
 
 #	    					- - - - - SLE - - - - -                           #
 
