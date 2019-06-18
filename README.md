@@ -4,7 +4,7 @@
 INTERPRETER :
 	- Expansion
 	- Redirection
-	- signaux
+	- signaux -> Builtin
 	- && et ||
 	- reset termios
 	- redirect setup on builtin
