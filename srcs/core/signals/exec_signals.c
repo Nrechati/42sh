@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:40:26 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:08:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void		stop_analysis(const int signo)
 {
 	(void)signo;
-	g_shell->analyzer_signal = TRUE;
 }
 
 void		signal_analyzer(t_resolution *resolve)
