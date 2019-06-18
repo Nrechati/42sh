@@ -52,7 +52,6 @@ void		print_possibilities(t_autocomplete *result, int col)
 	result->max_len++;
 	if (result->list == NULL || result->nb == 0)
 		return ;
-	ft_printf("nb:%d\n", result->nb);
 	post_process(result);
 	elem_by_line = get_elem_by_line(result, col);
 	elem_by_col = get_elem_by_col(result, elem_by_line);
