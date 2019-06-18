@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 13:59:10 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 20:54:59 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,33 @@ static void		debug_autocompletion(t_autocomplete *result, char *input,  ////DEBU
 		ft_printf("VAR'\n");
 }*/
 
-static char	*active_completion(char *input, char *completion)
+static char	*active_completion(char *input, char *completion, t_registry *shell)
 {
 	int		i;
+	char	*tmp;
 
-	if (input == NULL || completion == NULL)
+	if (input == NULL || completion == NULL || *completion == '\0')
 		return (NULL);
 	i = 0;
+	tmp = input;
+	if (input[0] == '~')
+		input = get_home_input(input, shell);
+	while (input != '\0' && input[0] != completion[0])
+		input++;
 	while (completion[i] != '\0')
 	{
 		if (input[i] != completion[i])
 		{
-			ft_strdel(&input);
+			ft_strdel(&tmp);
 			return (ft_strdup(completion + i));
 		}
 		i++;
 	}
+	ft_strdel(&tmp);
 	return (NULL);
 }
 
-static char	*send_rest(t_autocomplete *result, char *input)
+static char	*send_rest(t_autocomplete *result, char *input, t_registry *shell)
 {
 	char	*completion;
 	
@@ -52,8 +59,7 @@ static char	*send_rest(t_autocomplete *result, char *input)
 		completion += 2;
 	else if (result->type == VARIABLE_TYPE)
 		completion++;
-//	ft_printf("completion: %s, input: %s\n", completion, input);
-	return (active_completion(input, completion));
+	return (active_completion(input, completion, shell));
 }
 
 static char		*get_completion(char *input, t_registry *shell,
@@ -63,16 +69,22 @@ static char		*get_completion(char *input, t_registry *shell,
 									get_completion_var, get_completion_var,
 									get_completion_file};
 
+	if (ft_strequ(".", input) == TRUE)
+	{
+		*completion = ft_strdup("/");
+		return (*completion);
+	}
 	result->type = get_result_type(input);
 	*completion = get_start_input(input, result->type);
 	*completion = get_home_input(*completion, shell);
-	get_completion[result->type](*completion, result, shell);
-	if ((result->list == NULL && slash_is_missing(*completion) == TRUE)
-		|| (result->type == CMD_TYPE && ft_strequ(".", *completion) == TRUE))
+	if (result->type == FILE_TYPE && slash_is_missing(*completion) == TRUE
+		&& ft_strequ(".", *completion) == FALSE)
 	{
 		ft_strdel(completion);
-		return (ft_strdup("/"));
+		*completion = ft_strdup("/");
+		return (*completion);
 	}
+	get_completion[result->type](*completion, result, shell);
 	return (NULL);
 }
 
@@ -92,9 +104,8 @@ char		*autocompletion(char *input, t_registry *shell,
 	}
 	if (get_completion(input, shell, &result, &completion) != NULL)
 		return (completion);
-//	debug_autocompletion(&result, input, completion); // DEBUG
 	if (result.nb == 1)
-		return (send_rest(&result, completion));
+		return (send_rest(&result, completion, shell));
 	ft_mergesort(&result.list, lst_strcmp);
 	print_possibilities(&result, col);
 	ft_strdel(&completion);

@@ -1,41 +1,52 @@
 #include "sh21.h"
 
- char		*extract_file(char *input)
+ char		*extract_path(char *input)
 {
-	char	*tmp;
+	char	*path;
+	size_t	len;
 
 	if (input == NULL)
 		return (NULL);
-	if (*input == '/')
-		input++;
-	if ((tmp = ft_strrchr(input, '/')) != NULL)
+	path = ft_strdup(input);
+	len = ft_strlen(input) - 1;
+	while (len > 0 && path[len])
 	{
-		ft_strdel(&input);
-		return (ft_strdup(tmp + 1));
+		if (path[len - 1] == '/')
+		{
+			path[len] = '\0';
+			break ;
+		}
+		len--;
 	}
-	return (input);
-
+	return (path);
 }
 
-static void		get_file_list(char *dirname, char *input, t_autocomplete *result, DIR *dir)
+static void		get_file_list(char *dirname, char *input,
+						t_autocomplete *result, DIR *dir)
 {
 	struct dirent		*mydir;
 	char				*data;
+	char				*fusion;
 	size_t				len;
 
 	result->nb = 0;
 	len = input == NULL ? 0 : ft_strlen(input);
 	while ((mydir = readdir(dir)) != NULL)
 	{
-		if (len == 0 || ft_strnequ(mydir->d_name, input, len) == TRUE)
-		{
-			if ((ft_strequ(mydir->d_name, ".")
-				|| ft_strequ(mydir->d_name, ".."))
-				&& (len == 0 && *input != '.'))
+		if ((ft_strequ(mydir->d_name, ".")
+			|| ft_strequ(mydir->d_name, ".."))
+			&& len > 0 && input[len - 1] != '.')
 				continue ;
+		fusion = NULL;
+		if (dirname[ft_strlen(dirname) - 1 ] == '/' || mydir->d_name[0] == '/')
+			ft_asprintf(&fusion, "%s%s", dirname, mydir->d_name);
+		else
+			ft_asprintf(&fusion, "%s/%s", dirname, mydir->d_name);
+		if (len == 0 || ft_strnequ(fusion, input, len) == TRUE)
+		{
 			data = NULL;
 			if (is_a_directory(dirname, mydir->d_name) == TRUE)
-				ft_asprintf(&data, "%s/ ", mydir->d_name);
+				ft_asprintf(&data, "%s/", mydir->d_name);
 			else
 				ft_asprintf(&data, "%s ", mydir->d_name);
 			ft_lstadd(&result->list, ft_lstnew(data, ft_strlen(data) + 1));
@@ -43,28 +54,37 @@ static void		get_file_list(char *dirname, char *input, t_autocomplete *result, D
 			ft_strdel(&data);
 			result->nb++;
 		}
+		ft_strdel(&fusion);
 	}
 }
 
 void			get_completion_file(char *input, t_autocomplete *result,
 									__unused t_registry *shell)
 {
-	char	*clean_path;
-	char	*slash;
+	char	*path;
+	char	*transform;
 	DIR		*dir;
 
-	clean_path = ft_strdup((input == NULL || ft_strchr(input, '/') == NULL)
-						? "." : input);
-	ft_printf("\ninput: '%s' | cleanpath: '%s'\n", input, clean_path);
-	if (ft_strequ("/", clean_path) == FALSE
-			&& (slash = ft_strrchr(clean_path, '/')) != NULL)
-		*(slash + 1) = '\0';
-	if ((dir = opendir(clean_path)) != NULL)
+	if (input == NULL || *input == '\0')
+		transform = ft_strdup("./");
+	else if (input != NULL && *input != '/')
+		transform = ft_strjoin("./", input);
+	else
+		transform = ft_strdup(input);
+	path = extract_path(transform);
+	ft_printf("\nINPUT: '%s' | PATH : '%s'\n\n", transform, path);
+	if ((dir = opendir(transform)) != NULL)
 	{
-		ft_printf("\ninput: '%s' | cleanpath: '%s'\n", input, clean_path);
-		input = extract_file(input);
-		get_file_list(clean_path, input, result, dir);
+		ft_strdel(&path);
+		path = ft_strdup(transform);
+		get_file_list(path, transform, result, dir);
 		closedir(dir);
 	}
-	ft_strdel(&clean_path);
+	else if ((dir = opendir(path)) != NULL)
+	{
+		get_file_list(path, transform, result, dir);
+		closedir(dir);
+	}
+	ft_strdel(&path);
+	ft_strdel(&transform);
 }
