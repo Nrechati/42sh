@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:59:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:27:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,11 @@
 
 # define PENDING					0x00
 # define RUNNING					0x01
-# define FINISH						0x02
+# define ENDED						0x02
+# define KILLED						0x04
+
+# define TO_RUN						0x00
+# define TO_KILL					0x01
 
 # define INTEPRETER_NOT_FOUND		" command not found\n"
 # define INTEPRETER_FORK_ERROR		" fork error\n"

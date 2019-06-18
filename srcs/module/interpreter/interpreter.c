@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 15:50:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:46:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,11 @@ void	run_job(void *context, void *data)
 	t_job		*job;
 	t_process	*head;
 
-	if (data == NULL)
-		return;
+
 	shell = context;
 	job = data;
+	if (job == NULL || job->state & KILLED)
+		return;
 	head = job->processes->data;
 	//EXPAND ALL JOB
 	if (job->processes->next == NULL)
@@ -133,13 +134,39 @@ void	run_job(void *context, void *data)
 	//CHECK WAIT CONDITION HERE;
 	//CHECK LEAK ON ERROR
 	waiter(job);
+	//if (KILLED)
+	//	lstdel(job_lst);
 	return ;
 }
 
-int8_t interpreter(t_registry *shell, t_list **cmd_group)
+void	set_stopped(void *data)
 {
-	t_list		*job_lst;
+	t_process	*process;
 
+	process = data;
+	process->stopped = TRUE;
+	return ;
+}
+
+void	set_killed(void *data)
+{
+	t_job	*job;
+
+	job = data;
+	job->state |= KILLED;
+	ft_lstiter(job->processes, set_stopped);
+	return ;
+}
+
+int8_t interpreter(t_registry *shell, t_list **cmd_group, uint8_t flag)
+{
+	static t_list	*job_lst;
+
+	if (flag == TO_KILL)
+	{
+		ft_lstiter(job_lst, set_killed);
+		return (SUCCESS);
+	}
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
 	ft_lstdel(cmd_group, del_group);
 	load_signal_profile(EXEC_PROFILE);

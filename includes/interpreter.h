@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 19:29:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:24:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 *****************************************************
 */
 
-int8_t 		interpreter(t_registry *shell, t_list **cmd_group);
+int8_t 		interpreter(t_registry *shell, t_list **cmd_group
+					, uint8_t flag);
 void		run_builtin(t_registry *shell, t_process *process);
 int8_t		get_process_type(t_registry *shell, t_process *process);
 char		**generate_env(t_registry *shell, t_list *local_env);

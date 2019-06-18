@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:14:50 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:28:01 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	sigint_exec(int signo)
 {
+	interpreter(NULL, NULL, TO_KILL);
+	//set state |= SIGINT;
 	(void)signo;
 }
 
