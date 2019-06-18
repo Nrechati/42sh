@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:02:15 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/17 20:59:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/17 21:10:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_delimiter(char **delimiter, t_vector **vector
 	if (ft_strequ((*vector)->buffer, *delimiter) == TRUE )
 	{
 		close(fd);
-		ft_strde(delimiter);
+		ft_strdel(delimiter);
 		vct_del(vector);
 		return (SUCCESS);
 	}
