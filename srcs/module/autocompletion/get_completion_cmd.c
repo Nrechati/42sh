@@ -6,13 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 11:02:20 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 11:11:14 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
+/*
 static uint8_t	is_exec(char *dirname, char *bin)
 {
 	char	*exec;
@@ -25,7 +26,7 @@ static uint8_t	is_exec(char *dirname, char *bin)
 		ok = TRUE;
 	ft_strdel(&exec);
 	return (ok);
-}
+}*/
 
 static uint8_t	is_exclusive(t_list *result, char *data)
 {
@@ -52,8 +53,8 @@ static void		find_bin(char *input, DIR *dir, t_autocomplete *result,
 		{
 			if (ft_strequ(mydir->d_name, ".")
 				|| ft_strequ(mydir->d_name, "..")
-				|| is_a_directory(dirname, mydir->d_name) == TRUE
-				|| is_exec(dirname, mydir->d_name) == FALSE)
+				|| is_a_directory(dirname, mydir->d_name) == TRUE)
+			//	|| is_exec(dirname, mydir->d_name) == FALSE)
 				continue ;
 			data = ft_strjoin(mydir->d_name, " ");
 			if (is_exclusive(result->list, data) == TRUE)

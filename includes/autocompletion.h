@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:22:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 17:22:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/18 11:25:41 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ size_t				get_maxlen(size_t ref, size_t len);
 int					lst_strcmp(void *data1, void *data2);
 uint8_t				is_a_directory(char *dirname, char *file);
 char				*get_home_input(char *input, t_registry *shell);
+uint8_t				slash_is_missing(char *completion);
 
 /*
 **** Get Completion

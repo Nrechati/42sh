@@ -29,8 +29,8 @@ uint8_t	is_a_directory(char *dirname, char *file)
 	ft_asprintf(&total_name, "%s/%s", dirname, file);
 	if ((dir = opendir(total_name)) != NULL)
 	{
-		if (access(total_name, R_OK) == SUCCESS)
-			ok = TRUE;
+	//	if (access(total_name, R_OK) == SUCCESS)
+		ok = TRUE;
 		closedir(dir);
 	}
 	ft_strdel(&total_name);
@@ -52,4 +52,14 @@ char			*get_home_input(char *input, t_registry *shell)
 	else
 		new_input = ft_strdup(input);
 	return (new_input);
+}
+
+uint8_t		slash_is_missing(char *completion)
+{
+	if (completion != NULL && *completion != '\0'
+		&& (is_a_directory(completion, "\0") == TRUE
+		|| (is_a_directory("./", completion) == TRUE))
+			&& completion[ft_strlen(completion) - 1] != '/')
+		return (TRUE);
+	return (FALSE);
 }
