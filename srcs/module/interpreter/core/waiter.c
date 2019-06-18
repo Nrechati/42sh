@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 19:30:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:53:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	update_pid(t_list *processes, pid_t pid, __unused int status)
 				current->completed = 1;
 			if (WIFSIGNALED(status))
 				current->completed = 1; 	//Gestion Signaux
-
 		//	ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
 		//			, current->av[0]
 		//			, pid);

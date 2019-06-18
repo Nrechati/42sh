@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 15:14:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:50:43 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	run_job(void *context, void *data)
 		head->process_type |= IS_ALONE;
 	else
 		setup_pipe(job->processes);
+	job->state = RUNNING;
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	//	ft_lstiter(job->processes, print_process);
@@ -137,10 +138,11 @@ void	run_job(void *context, void *data)
 
 int8_t interpreter(t_registry *shell, t_list **cmd_group)
 {
-	t_list *job_lst;
+	t_list		*job_lst;
 
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
 	ft_lstdel(cmd_group, del_group);
+	load_signal_profile(EXEC_PROFILE);
 	ft_lstiter_ctx(job_lst, shell, run_job);
 	return (SUCCESS);
 }
