@@ -6,17 +6,16 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 16:28:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:39:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	sigint_exec(int signo)
+void	sigint_exec(__unused int signo)
 {
-	interpreter(NULL, NULL, TO_KILL);
-	//set state |= SIGINT;
-	(void)signo;
+	if (signo == SIGINT)
+		interpreter(NULL, NULL, TO_KILL);
 }
 
 void	sigill_exec(int signo)

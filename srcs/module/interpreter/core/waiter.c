@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 17:20:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:40:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	update_pid(t_list *processes, pid_t pid, __unused int status)
 			if (WIFEXITED(status))
 				current->completed = TRUE;
 			if (WIFSIGNALED(status))
-				current->completed = TRUE; 	//Gestion Signaux
+			{
+				current->completed = TRUE; //Gestion Signaux
+			}
 		//	ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
 		//			, current->av[0]
 		//			, pid);
@@ -78,7 +80,6 @@ int8_t	waiter(t_job *job)
 		{
 			ft_lstiter(job->processes, terminator);
 			dprintf(2, SH_GENERAL_ERROR "job on %d pgid has been killed\n", job->pgid);
-			break ;
 		}
 		status = 0;
 		pid = wait(&status);
