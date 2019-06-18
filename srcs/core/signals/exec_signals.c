@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 18:00:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 18:16:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,9 @@ void	sigquit_exec(__unused int signo)
 	interpreter(NULL, NULL, SIGQUIT);
 }
 
-void	sigill_exec(int signo)
-{
-	(void)signo;
-}
-
-void	sigtrap_exec(int signo)
-{
-	(void)signo;
-}
-
-void	sigabrt_exec(int signo)
-{
-	(void)signo;
-}
-
-void	sigfpe_exec(int signo)
-{
-	(void)signo;
-}
-
-void	sigbus_exec(int signo)
-{
-	(void)signo;
-}
-
-void	sigsegv_exec(int signo)
-{
-	(void)signo;
-}
-
-void	sigsys_exec(int signo)
-{
-	(void)signo;
-}
-
 void	sigterm_exec(int signo)
 {
-	(void)signo;
+	interpreter(NULL, NULL, SIGTERM);
 }
 
 void	sigcont_exec(int signo)
@@ -86,3 +51,40 @@ void	sigchld_exec(int signo)
 {
 	(void)signo;
 }
+
+/*
+void sigill_exec(int signo)
+{
+	(void)signo;
+}
+
+void sigtrap_exec(int signo)
+{
+	(void)signo;
+}
+
+void sigabrt_exec(int signo)
+{
+	(void)signo;
+}
+
+void sigfpe_exec(int signo)
+{
+	(void)signo;
+}
+
+void sigbus_exec(int signo)
+{
+	(void)signo;
+}
+
+void sigsegv_exec(int signo)
+{
+	(void)signo;
+}
+
+void sigsys_exec(int signo)
+{
+	(void)signo;
+}
+*/

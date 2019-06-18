@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 18:08:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/18 18:16:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,14 @@ int8_t	waiter(t_job *job)
 	while (all_is_done(job->processes) == FALSE)
 	{
 		if (job->state & KILLED)
-			ft_lstiter_ctx(job->processes, &job->signo, terminator);
+		{
+			if (job->signo == SIGINT)
+				ft_lstiter_ctx(job->processes, &job->signo, terminator);
+			else if (job->signo == SIGQUIT)
+				ft_lstiter_ctx(job->processes, &job->signo, terminator);
+			else if (job->signo == SIGTERM)
+				ft_lstiter_ctx(job->processes, &job->signo, terminator);
+		}
 		status = 0;
 		pid = wait(&status);
 		if (pid)
