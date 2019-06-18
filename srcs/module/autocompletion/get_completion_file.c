@@ -1,11 +1,13 @@
 #include "sh21.h"
 
-static char		*extract_file(char *input)
+ char		*extract_file(char *input)
 {
 	char	*tmp;
 
 	if (input == NULL)
 		return (NULL);
+	if (*input == '/')
+		input++;
 	if ((tmp = ft_strrchr(input, '/')) != NULL)
 	{
 		ft_strdel(&input);
@@ -51,13 +53,15 @@ void			get_completion_file(char *input, t_autocomplete *result,
 	char	*slash;
 	DIR		*dir;
 
-	clean_path = ft_strdup((input == NULL || *input == '\0') ? "."
-						: input);
+	clean_path = ft_strdup((input == NULL || ft_strchr(input, '/') == NULL)
+						? "." : input);
+	ft_printf("\ninput: '%s' | cleanpath: '%s'\n", input, clean_path);
 	if (ft_strequ("/", clean_path) == FALSE
 			&& (slash = ft_strrchr(clean_path, '/')) != NULL)
 		*(slash + 1) = '\0';
 	if ((dir = opendir(clean_path)) != NULL)
 	{
+		ft_printf("\ninput: '%s' | cleanpath: '%s'\n", input, clean_path);
 		input = extract_file(input);
 		get_file_list(clean_path, input, result, dir);
 		closedir(dir);

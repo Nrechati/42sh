@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 11:29:21 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/18 13:59:10 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ static char		*get_completion(char *input, t_registry *shell,
 	result->type = get_result_type(input);
 	*completion = get_start_input(input, result->type);
 	*completion = get_home_input(*completion, shell);
-	if (slash_is_missing(*completion) == TRUE)
+	get_completion[result->type](*completion, result, shell);
+	if ((result->list == NULL && slash_is_missing(*completion) == TRUE)
+		|| (result->type == CMD_TYPE && ft_strequ(".", *completion) == TRUE))
 	{
 		ft_strdel(completion);
-		*completion = ft_strdup("/");
-		return (*completion);
+		return (ft_strdup("/"));
 	}
-	get_completion[result->type](*completion, result, shell);
 	return (NULL);
 }
 

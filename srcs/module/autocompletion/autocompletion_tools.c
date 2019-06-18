@@ -56,10 +56,18 @@ char			*get_home_input(char *input, t_registry *shell)
 
 uint8_t		slash_is_missing(char *completion)
 {
-	if (completion != NULL && *completion != '\0'
-		&& (is_a_directory(completion, "\0") == TRUE
-		|| (is_a_directory("./", completion) == TRUE))
-			&& completion[ft_strlen(completion) - 1] != '/')
+	size_t	len;
+
+	if (completion != NULL) 
+	{
+		len = ft_strlen(completion);
+		if (len > 1 && completion[len - 1] == '.')
+			return (FALSE);
+		else if (*completion != '\0'
+					&& (is_a_directory(completion, "\0") == TRUE
+					|| (is_a_directory("./", completion) == TRUE))
+					&& completion[ft_strlen(completion) - 1] != '/')
 		return (TRUE);
+	}
 	return (FALSE);
 }
