@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 19:27:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 20:08:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int8_t		ak_hightab(t_registry *shell, t_sle *sle)
 		ft_putendl("");
 		print_prompt(shell, sle);
 	}
-	set_redraw_flags(sle, RD_LINE | RD_CEND);
+//	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	return (SUCCESS);
 }
 
