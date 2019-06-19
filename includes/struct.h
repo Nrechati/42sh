@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 14:48:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:22:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ typedef	struct			s_hashmap
 
 typedef struct			s_registry
 {
-	uint16_t			last_job_state; //to intern var ??
-	uint16_t			last_job_type; //to intern var ??
-
 	t_list				*intern;
 	t_opt				option;
 	t_hashmap			hash;

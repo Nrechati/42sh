@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 16:16:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:33:37 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,18 +132,21 @@ void			set_signaled(void *context, void *data)
 	return ;
 }
 
-static uint8_t	do_i_run(t_registry *shell)
+static uint8_t	do_i_run(t_registry *shell, int job_type)
 {
-	if (shell->last_job_state & KILLED)
+	char	*last_status;
+
+	last_status = get_var(shell->intern, "?");
+	if (ft_atoi(last_status) > 128)
 		return (FALSE);
-	else if (shell->last_job_type & GROUP_AND)
+	else if (job_type & GROUP_AND)
 	{
-		if (!(shell->last_job_state & SUCCEDED))
+		if (ft_strequ(last_status, "0") == FALSE)
 			return (FALSE);
 	}
-	else if (shell->last_job_type & GROUP_OR)
+	else if (job_type & GROUP_OR)
 	{
-		if (shell->last_job_state & SUCCEDED)
+		if (ft_strequ(last_status, "0") == TRUE)
 			return (FALSE);
 	}
 	return (TRUE);
@@ -151,18 +154,20 @@ static uint8_t	do_i_run(t_registry *shell)
 
 void			run_job(void *context, void *data)
 {
-	t_registry	*shell;
+	char		*job_type;
 	t_job		*job;
 	t_process	*head;
+	t_registry	*shell;
 
 	shell = context;
 	job = data;
-	if (job == NULL || do_i_run(shell) == FALSE)
+	job_type = ft_itoa(job->job_type);
+	if (job == NULL || do_i_run(shell, ft_atoi(job_type)) == FALSE)
 	{
-		shell->last_job_type = job->job_type;
+		add_var(&shell->intern, "job_type", job_type, SET_VAR);
 		return;
 	}
-	shell->last_job_type = job->job_type;
+	add_var(&shell->intern, "job_type", job_type, SET_VAR);
 	head = job->processes->data;
 	//EXPAND ALL JOB
 	if (job->processes->next == NULL)
@@ -172,8 +177,7 @@ void			run_job(void *context, void *data)
 	job->state |= RUNNING;
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-	waiter(job);
-	shell->last_job_state = job->state;
+	waiter(shell, job);
 	return ;
 }
 
@@ -190,6 +194,6 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 	ft_lstdel(cmd_group, del_group);
 	load_signal_profile(EXEC_PROFILE);
 	ft_lstiter_ctx(job_lst, shell, run_job);
-	shell->last_job_type = 0;
+	add_var(&shell->intern, "job_type", "0", SET_VAR);
 	return (SUCCESS);
 }

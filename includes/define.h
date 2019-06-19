@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:19:10 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:31:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,10 +280,10 @@
 # define COMMAND_ASSIGN				0x001
 # define COMMAND_RUN				0x002
 
-# define GROUP_RUN					0x001
-# define GROUP_BG					0x002
-# define GROUP_AND					0x004
-# define GROUP_OR					0x008
+# define GROUP_RUN					0x000
+# define GROUP_BG					0x001
+# define GROUP_AND					0x002
+# define GROUP_OR					0x004
 
 # define QUOTING					0x001
 # define HERETRIM					0x002
