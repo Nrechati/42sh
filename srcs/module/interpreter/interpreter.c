@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 18:05:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:37:00 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,28 @@ void	run_process(void *context, void *data)
 	return;
 }
 
+void	set_stopped(void *data)
+{
+	t_process	*process;
+
+	process = data;
+	process->stopped = TRUE;
+	return ;
+}
+
+void	set_signaled(void *context, void *data)
+{
+	t_job		*job;
+	uint32_t	*signo;
+
+	job = data;
+	signo = context;
+	job->state |= KILLED;
+	job->signo = *signo;
+	ft_lstiter(job->processes, set_stopped);
+	return ;
+}
+
 void	run_job(void *context, void *data)
 {
 	t_registry	*shell;
@@ -136,28 +158,6 @@ void	run_job(void *context, void *data)
 	waiter(job);
 	//if (KILLED)
 	//	lstdel(job_lst);
-	return ;
-}
-
-void	set_stopped(void *data)
-{
-	t_process	*process;
-
-	process = data;
-	process->stopped = TRUE;
-	return ;
-}
-
-void	set_signaled(void *context, void *data)
-{
-	t_job		*job;
-	uint32_t	*signo;
-
-	job = data;
-	signo = context;
-	job->state |= KILLED;
-	job->signo = *signo;
-	ft_lstiter(job->processes, set_stopped);
 	return ;
 }
 
