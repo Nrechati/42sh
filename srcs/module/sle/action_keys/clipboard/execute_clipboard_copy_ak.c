@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:22:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 10:57:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:17:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t	ak_copy_selection(t_sle *sle)
+int8_t	ak_copy_selection(__unused t_registry *shell, t_sle *sle)
 {
 	char			*tmp;
 	uint64_t		start;
@@ -29,7 +29,7 @@ int8_t	ak_copy_selection(t_sle *sle)
 	tmp = vct_sub(sle->line, start, length + 1);
 	vct_scpy(sle->clip, tmp, ft_strlen(tmp));
 	ft_strdel(&tmp);
-	ak_exit_modes(sle);
+	ak_exit_modes(shell, sle);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 	set_cursor_pos(sle, start);
 	return (SUCCESS);

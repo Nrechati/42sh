@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-int8_t		ak_ctrl_right(t_sle *sle)
+int8_t		ak_ctrl_right(__unused t_registry *shell, t_sle *sle)
 {
 	uint32_t		next_char;
 
@@ -33,7 +33,7 @@ int8_t		ak_ctrl_right(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_ctrl_left(t_sle *sle)
+int8_t		ak_ctrl_left(__unused t_registry *shell, t_sle *sle)
 {
 	int32_t		next_char;
 
@@ -55,7 +55,7 @@ int8_t		ak_ctrl_left(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_ctrl_down(t_sle *sle)
+int8_t		ak_ctrl_down(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
@@ -71,7 +71,7 @@ int8_t		ak_ctrl_down(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_ctrl_up(t_sle *sle)
+int8_t		ak_ctrl_up(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);

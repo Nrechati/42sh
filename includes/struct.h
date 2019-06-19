@@ -266,9 +266,8 @@ typedef struct			s_sle
 
 	t_redrawinfo		rd_info;
 	uint64_t			ak_masks[AK_AMOUNT];
-
-	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
-
+	int8_t				(*actionkeys[AK_AMOUNT])(t_registry *shell,
+					struct s_sle *sle);
 	t_vector			*line;
 	t_vector			*sub_line;
 

@@ -29,6 +29,7 @@ SRCS += $(LOGGING)
 SRCS += $(PARSER)
 SRCS += $(RESOLVE)
 SRCS += $(HISTORY)
+SRCS += $(AUTOCOMPLETION)
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
 
@@ -135,9 +136,11 @@ P_LOGGING += module/logging/
 P_PARSER += module/parser/
 P_PARSER += module/parser/init/
 P_PARSER += module/parser/debug/
+
 P_HISTORY += module/history/
 
-P_TOOLS += tools/
+P_AUTOCOMPLETION += module/autocompletion/
+
 
 _SPATH += $(P_CORE)
 _SPATH += $(P_SLE)
@@ -148,6 +151,7 @@ _SPATH += $(P_LEXER)
 _SPATH += $(P_LOGGING)
 _SPATH += $(P_PARSER)
 _SPATH += $(P_HISTORY)
+_SPATH += $(P_AUTOCOMPLETION)
 _SPATH += $(P_INTERPRETER)
 
 SPATH += $(addprefix srcs/, $(_SPATH))
@@ -188,6 +192,7 @@ INCS += analyzer.h
 INCS += builtin.h
 INCS += resolve.h
 INCS += history.h
+INCS += autocompletion.h
 INCS += define.h
 INCS += struct.h
 INCS += enum.h
@@ -241,6 +246,17 @@ HISTORY += histfile.c
 HISTORY += entry_manager.c
 HISTORY += get_entry.c
 HISTORY += print_history.c
+
+#						- - - -  Autocompletion - - - -						   #
+
+AUTOCOMPLETION += autocompletion.c
+AUTOCOMPLETION += autocompletion_tools.c
+AUTOCOMPLETION += get_completion_cmd.c
+AUTOCOMPLETION += get_completion_file.c
+AUTOCOMPLETION += get_completion_var.c
+AUTOCOMPLETION += get_start_input.c
+AUTOCOMPLETION += get_type.c
+AUTOCOMPLETION += print_result.c
 
 #						- - - - -  Built-in   - - - - -                        #
 

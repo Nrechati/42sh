@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 17:45:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/18 11:38:22 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		{
 			ft_printf("\nRead failed\n");
 			return (NULL);
-		}
-
-		handle_input_key(sle, character);
+		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
 
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
@@ -50,12 +48,11 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 
 	if (sle->state == STATE_SEARCH)
 		sle->line = sle->search_line;
-
 	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
 		vct_reset(sle->line);
-
 	sle->state = STATE_STD;
-
+	autocompletion(NULL, shell, sle->window.cols, RESET_RESULT);
+	history(shell, NULL, RESET_HEAD);
 //	vct_add(sle->line, '\n');
 
 	set_redraw_flags(sle, RD_LINE | RD_CEND);

@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 11:09:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:16:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t	ak_home(t_sle *sle)
+int8_t	ak_home(__unused t_registry *shell, t_sle *sle)
 {
 	int64_t	x;
 
@@ -31,7 +31,7 @@ int8_t	ak_home(t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t	ak_end(t_sle *sle)
+int8_t	ak_end(__unused t_registry *shell, t_sle *sle)
 {
 	int64_t x;
 

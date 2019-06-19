@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 13:52:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:25:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ uint64_t    assign_keycodes(t_sle *sle)
 	sle->ak_masks[AK_ARROW_DOWN] = AK_ARROW_DOWN_MASK;
 	sle->ak_masks[AK_CTRL_R] = AK_CTRL_R_MASK;
 	sle->ak_masks[AK_CTRL_T] = AK_CTRL_T_MASK;
-//	sle->ak_masks[AK_TABULATION] = AK_TAB_MASK;
+	sle->ak_masks[AK_TABULATION] = AK_TAB_MASK;
     return (SUCCESS);
 }
 
-uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_sle *shell))
+uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_registry *shell, t_sle *sle))
 {
     actionkeys[AK_ARROW_LEFT] = &ak_arrow_left;
 	actionkeys[AK_ARROW_RIGHT] = &ak_arrow_right;
@@ -66,7 +66,7 @@ uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_sle *shell))
 	actionkeys[AK_ARROW_DOWN] = &ak_arrow_down;
 	actionkeys[AK_CTRL_R] = &ak_ctrl_r;
 	actionkeys[AK_CTRL_T] = &ak_ctrl_t;
-//	tc_call[AK_TABULATION] = &tc_ak_hightab;
+	actionkeys[AK_TABULATION] = &ak_hightab;
     return (SUCCESS);
 }
 
