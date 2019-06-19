@@ -72,7 +72,6 @@ void			get_completion_file(char *input, t_autocomplete *result,
 	else
 		transform = ft_strdup(input);
 	path = extract_path(transform);
-	ft_printf("\nINPUT: '%s' | PATH : '%s'\n\n", transform, path);
 	if ((dir = opendir(transform)) != NULL)
 	{
 		ft_strdel(&path);

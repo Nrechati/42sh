@@ -73,7 +73,8 @@ void		print_possibilities(t_autocomplete *result, int col)
 				ft_putstr((char *)tmp->data);
 			tmp = tmp->next;
 		}
-		ft_putchar('\n');
 		i++;
+		if (i != elem_by_col)
+			ft_putchar('\n');
 	}
 }
