@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:02:15 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/18 13:37:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:51:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void		heredoc(t_registry *shell, t_redirect *redirect, t_action *action)
 	t_vector	*vector;
 
 	vector = NULL;
-	delimiter = ((t_token *)action->data->data)->data;
+	delimiter = NULL;
+	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
 	pipe(fd);
 	while (sle(shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
