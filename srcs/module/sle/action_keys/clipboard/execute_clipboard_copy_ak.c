@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:22:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 13:30:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:57:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int8_t	ak_copy_selection(t_sle *sle)
 	uint64_t		start;
 	uint64_t		length;
 
-	if (sle->visual_mode == FALSE)
+	if (sle->state != STATE_VISUAL)
 		return (FAILURE);
+
 	start = (sle->vis_stop < sle->vis_start) ? sle->vis_stop : sle->vis_start;
 	length = (sle->vis_stop < sle->vis_start)
 			? (sle->vis_start - sle->vis_stop)

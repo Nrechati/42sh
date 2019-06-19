@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:06 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:28:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:25:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void    redraw_line(t_registry *shell, t_sle *sle)
 {
-	if (sle->search_mode == TRUE)
+	if (sle->state == STATE_SEARCH)
 		sle->window.rd_flag = RD_LINE | RD_CEND;
 
 	if (sle->window.rd_flag & RD_NONE)
@@ -70,7 +70,7 @@ void    redraw(t_registry *shell, t_sle *sle)
 	compute_redrawinfo(sle, &rd_info);
 	redraw_line(shell, sle);
 
-	if (sle->visual_mode == TRUE)
+	if (sle->state == STATE_VISUAL)
 		redrawmode_visual(sle);
 
 	move_cursor(sle);

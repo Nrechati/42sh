@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:14:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 12:56:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 	if ((setup_report & SETUP_DONE) == FALSE)
 	{
 		shell->option.option |= RECORD_HISTORY;
+
 		history(shell, NULL, INIT_HISTORY);
+
 		setup_report = sle_setup(shell, sle);
+
 		if (setup_report & CRITICAL_ERROR)
 			return (CRITICAL_ERROR);
-//		if (set_term_mode(sle) == FAILURE)
-//			return (CRITICAL_ERROR);
 	}
 	save_intern_vars(shell, sle);
 	return (SUCCESS);
@@ -65,9 +66,9 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	if (launch_sle(shell, &sle) == CRITICAL_ERROR)
 		return (CRITICAL_ERROR);
 
-//	define_interface_signals();
-
+	load_signal_profile(SLE_PROFILE);
 	term_mode(TERMMODE_SLE);
+
 	if (sle_flag == SLE_GET_INPUT)
 	{
 		sle.prompt.state = INT_PS1;
@@ -89,5 +90,7 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		sle_teardown(&sle);
 
 	term_mode(TERMMODE_DFLT);
+	load_signal_profile(DFLT_PROFILE);
+
 	return (SUCCESS);
 }

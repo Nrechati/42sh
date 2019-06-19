@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 19:33:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 12:49:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ uint64_t    init_window(t_sle *sle)
 
     if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
         return (CRITICAL_ERROR | WINDOW_FAIL);
-    sle->window.rows = (w.ws_row <= 0) ? 0 : w.ws_row;
-	sle->window.cols = (w.ws_col <= 0) ? 0 : w.ws_col;
+    sle->window.rows = (w.ws_row <= 0) ? 1 : w.ws_row;
+	sle->window.cols = (w.ws_col <= 0) ? 1 : w.ws_col;
     sle->window.max_chars = sle->window.rows * sle->window.cols;
     if ((sle->window.displayed_line = vct_new(0)) == NULL)
         return (CRITICAL_ERROR | WINDOW_FAIL | VCT_FAIL);

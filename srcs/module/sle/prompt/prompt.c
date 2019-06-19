@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:14:40 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:53:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,17 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
-	ft_printf("\n");
-	if (sle->search_mode == TRUE)
-	{
-		sle->search_mode = FALSE;
+	if (sle->state == STATE_SEARCH)
 		sle->line = sle->search_line;
-	}
+	sle->state = STATE_STD;
 	history(shell, NULL, RESET_HEAD);
+
 //	vct_add(sle->line, '\n');
+
+	ak_end(sle);
+	redraw(shell, sle);
+	ft_printf("\n");
+
 	return (vct_dup(sle->line));
 }
 

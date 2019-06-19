@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 15:15:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:34:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	redrawmode_line(t_sle *sle)
 	index_to_coord(sle, sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);
 
-	if (sle->search_mode == TRUE)
+	if (sle->state == STATE_SEARCH)
 	{
 		sl = vct_get_string(sle->sub_line);
 
@@ -75,7 +75,7 @@ void	redrawmode_line(t_sle *sle)
 		sle->line = vct_dups(search);
 	}
 
-	diff = vct_len(sle->line) - (vct_len(sle->window.displayed_line));
+	diff = vct_len(sle->line) - (vct_len(sle->window.displayed_line)) - 1;
 	print_loop(sle, vct_get_string(sle->line));
 	if (diff <= 0)
 	{

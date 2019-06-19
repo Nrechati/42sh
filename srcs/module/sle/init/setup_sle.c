@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/08 11:08:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:49:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ uint64_t				sle_setup(t_registry *shell, t_sle *sle)
 	report |= init_sle(shell, sle);
 	report |= load_interface(shell, sle);
 	report |= load_interface_modules(sle);
+	sle->state = STATE_STD;
 	report |= SETUP_DONE;
 	sle_error(report);
 	return (report);

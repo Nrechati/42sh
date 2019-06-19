@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 19:11:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:48:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@ void				interactive_mode(t_registry *shell)
 
 	input = NULL;
 	load_signal_profile(SLE_PROFILE);
+
 	while (is_input_valid(sle(shell, &input, SLE_GET_INPUT)) == TRUE)
 	{
 		load_signal_profile(DFLT_PROFILE);
+
 		execution_pipeline(shell, input);
 		vct_del(&input);
+
 		load_signal_profile(SLE_PROFILE);
 	}
 }
