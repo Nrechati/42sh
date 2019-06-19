@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:56:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:27:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int8_t		ak_ctrl_t(t_sle *sle)
 {
 	sle->state = STATE_SEARCH;
-
 	sle->search_type = NEXT;
 	ft_bzero(sle->line->buffer, sle->line->size);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
@@ -26,7 +25,6 @@ int8_t		ak_ctrl_t(t_sle *sle)
 int8_t		ak_ctrl_r(t_sle *sle)
 {
 	sle->state = STATE_SEARCH;
-
 	sle->search_type = PREV;
 	ft_bzero(sle->line->buffer, sle->line->size);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);

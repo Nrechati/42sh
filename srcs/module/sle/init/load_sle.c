@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:56:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 13:52:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ uint64_t    init_line(t_sle *sle)
 		return (CRITICAL_ERROR | LINE_FAIL);
 	if ((sle->search_line = vct_new(0)) == NULL)
 		return (CRITICAL_ERROR | LINE_FAIL);
+	sle->line_save = NULL;
    return (SUCCESS);
 }

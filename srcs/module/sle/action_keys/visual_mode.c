@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 11:31:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:24:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int8_t	ak_enter_visual_mode(t_sle *sle)
 {
-	if (sle->state == STATE_VISUAL)
+	if (sle->state != STATE_STD)
 		return (FAILURE);
 
 	sle->state = STATE_VISUAL;
@@ -26,12 +26,19 @@ int8_t	ak_enter_visual_mode(t_sle *sle)
 	return (SUCCESS);
 }
 
+// ESCAPE
 int8_t	ak_exit_modes(t_sle *sle)
 {
+	if (sle->state == STATE_SEARCH)
+	{
+		if (ft_strequ(vct_get_string(sle->search_line), "Failed") == TRUE)
+			vct_reset(sle->search_line);
+		sle->line = sle->search_line;
+	}
+
 	sle->state = STATE_STD;
 
-	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
-	set_cursor_pos(sle, sle->cursor.index);
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
 
 	return (SUCCESS);
 }
