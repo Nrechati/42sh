@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/14 14:56:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/19 21:13:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-void		check_redirect_error(void *context, void *data)
+void	check_redirect_error(void *context, void *data)
 {
 	t_process		*process;
 	t_redirect		*redirect;
@@ -31,7 +31,7 @@ void		check_redirect_error(void *context, void *data)
 	}
 }
 
-int			redirect_or_other(__unused void *context, void *data)
+int		redirect_or_other(__unused void *context, void *data)
 {
 	t_action		*action;
 
@@ -41,7 +41,7 @@ int			redirect_or_other(__unused void *context, void *data)
 	return (TRUE);
 }
 
-void		del_redirects(void *data)
+void	del_redirects(void *data)
 {
 	t_redirect	*redirect;
 
@@ -50,7 +50,7 @@ void		del_redirects(void *data)
 	ft_free(redirect->file);
 }
 
-void		close_redirect(void *data)
+void	close_redirect(void *data)
 {
 	t_redirect	*redirect;
 
@@ -66,7 +66,7 @@ void		close_redirect(void *data)
 	}
 }
 
-void		do_redirect(void *data)
+void	do_redirect(void *data)
 {
 	t_redirect	*redirect;
 

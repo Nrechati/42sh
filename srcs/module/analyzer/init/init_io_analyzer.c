@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:54:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 18:52:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:26:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	init_io(t_analyzer analyzer)
 	analyzer[P_IO][E_GREAT] = io_redirect_analyzer;
 	analyzer[P_IO][E_DGREAT] = io_redirect_analyzer;
 	analyzer[P_IO][E_LESS] = io_redirect_analyzer;
+	analyzer[P_IO][E_DLESS] = io_redirect_analyzer;
+	analyzer[P_IO][E_DLESSDASH] = io_redirect_analyzer;
 	analyzer[P_IO][E_GREATAND] = io_redirect_and_analyzer;
 	analyzer[P_IO][E_LESSAND] = io_redirect_and_analyzer;
 }

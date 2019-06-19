@@ -6,44 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 15:38:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 21:46:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		set_process_pgid(void *context, void *data)
-{
-	t_job		*job;
-	t_process	*process;
-
-	job = context;
-	process = data;
-	process->pgid = &job->pgid;
-	return ;
-}
-
-t_redirection	*redirecter_init(void)
-{
-	static t_redirection	redirecter;
-
-	redirecter[A_STDOUT_TRUNCATE_FILE] = stdout_truncate;
-	redirecter[A_STDOUT_APPEND_FILE] = stdout_append;
-	redirecter[A_STDIN_READ_FILE] = stdin_readfile;
-	redirecter[A_IO_TRUNCATE_FILE] = io_truncate;
-	redirecter[A_IO_APPEND_FILE] = io_append;
-	redirecter[A_IO_READ_FILE] = io_readfile;
-	redirecter[A_DUP] = duplicate_fd;
-	redirecter[A_CLOSE] = close_fd;
-	redirecter[A_MOVE] = move_fd;
-	redirecter[A_HEREDOC] = heredoc;
-	redirecter[A_HEREDOC_TRIM] = move_fd;
-	redirecter[A_IO_HEREDOC] = move_fd;
-	redirecter[A_IO_HEREDOC_TRIM] = move_fd;
-	return (&redirecter);
-}
-
-void		*action_to_redirect(void *context, void *data)
+void		*set_redirect(void *context, void *data)
 {
 	static t_redirection	*redirecter;
 	t_registry				*shell;
@@ -61,7 +30,7 @@ void		*action_to_redirect(void *context, void *data)
 	return (node);
 }
 
-void	*token_to_intern_var(__unused void *context, void *data)
+void		*set_intern(__unused void *context, void *data)
 {
 	t_list		*node;
 	t_list		*ptr;
@@ -80,33 +49,34 @@ void	*token_to_intern_var(__unused void *context, void *data)
 	return (node);
 }
 
+void		set_process(t_process *proc, t_command *command, void *context)
+{
+	t_list		*redirect;
+
+	redirect = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
+	proc->redirects = ft_lstmap(redirect, context, set_redirect, del_action);
+	ft_lstiter_ctx(proc->redirects, &proc, check_redirect_error);
+	proc->av = ft_lsttotab(command->av, token_to_str);
+	proc->env = ft_lstmap(command->actions, context, token_to_var, free_node);
+	ft_lstdel(&redirect, del_action);
+}
+
 void		*cmd_to_process(void *context, void *data)
 {
-	t_registry 	*shell;
-
 	t_list		*node;
-	t_list		*actions_redirects;
 	t_process	process;
 	t_command	*command;
 
-	shell = context;
 	command = data;
 	ft_bzero(&process, sizeof(t_process));
 	if (command->type == COMMAND_ASSIGN)
 	{
 		process.av = NULL;
-		process.env = ft_lstmap(command->av, context, token_to_intern_var, free_node);
+		process.env = ft_lstmap(command->av, context, set_intern, free_node);
 		process.process_type = IS_ASSIGN;
 	}
 	else
-	{
-		actions_redirects = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
-		process.redirects = ft_lstmap(actions_redirects, context, action_to_redirect, del_action);
-		ft_lstiter_ctx(process.redirects, &process, check_redirect_error);
-		process.av = ft_lsttotab(command->av, token_to_str);
-		process.env = ft_lstmap(command->actions, context, token_to_var, free_node);
-		ft_lstdel(&actions_redirects, del_action);
-	}
+		set_process(&process, command, context);
 	node = ft_lstnew(&process, sizeof(t_process));
 	return (node);
 }

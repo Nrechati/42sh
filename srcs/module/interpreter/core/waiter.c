@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 10:52:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 21:53:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,38 @@ int8_t		set_signame(char *sigtab[32])
 	int		i;
 
 	i = 0;
-	sigtab[0] = ft_strdup("NOSIG");
-	sigtab[1] = ft_strdup("SIGHUP");
-	sigtab[2] = ft_strdup("SIGINT");
-	sigtab[3] = ft_strdup("SIGQUIT");
-	sigtab[4] = ft_strdup("SIGILL");
-	sigtab[5] = ft_strdup("SIGTRAP");
-	sigtab[6] = ft_strdup("SIGABRT");
-	sigtab[7] = ft_strdup("SIGEMT");
-	sigtab[8] = ft_strdup("SIGFPE");
-	sigtab[9] = ft_strdup("SIGKILL");
-	sigtab[10] = ft_strdup("SIGBUS");
-	sigtab[11] = ft_strdup("SIGSEGV");
-	sigtab[12] = ft_strdup("SIGSYS");
-	sigtab[13] = ft_strdup("SIGPIPE");
-	sigtab[14] = ft_strdup("SIGALRM");
-	sigtab[15] = ft_strdup("SIGTERM");
-	sigtab[16] = ft_strdup("SIGURG");
-	sigtab[17] = ft_strdup("SIGSTOP");
-	sigtab[18] = ft_strdup("SIGSTP");
-	sigtab[19] = ft_strdup("SIGCONT");
-	sigtab[20] = ft_strdup("SIGTTIN");
-	sigtab[21] = ft_strdup("SIGTTOU");
-	sigtab[22] = ft_strdup("SIGIO");
-	sigtab[23] = ft_strdup("SIGXCPU");
-	sigtab[24] = ft_strdup("SIGXFSZ");
-	sigtab[25] = ft_strdup("SIGVTALRM");
-	sigtab[26] = ft_strdup("SIGPROF");
-	sigtab[27] = ft_strdup("SIGWINCH");
-	sigtab[28] = ft_strdup("SIGINFO");
-	sigtab[29] = ft_strdup("SIGINFO");
-	sigtab[30] = ft_strdup("SIGUSR1");
-	sigtab[31] = ft_strdup("SIGUSR2");
+	sigtab[0] = "NOSIG";
+	sigtab[1] = "SIGHUP";
+	sigtab[2] = "SIGINT";
+	sigtab[3] = "SIGQUIT";
+	sigtab[4] = "SIGILL";
+	sigtab[5] = "SIGTRAP";
+	sigtab[6] = "SIGABRT";
+	sigtab[7] = "SIGEMT";
+	sigtab[8] = "SIGFPE";
+	sigtab[9] = "SIGKILL";
+	sigtab[10] = "SIGBUS";
+	sigtab[11] = "SIGSEGV";
+	sigtab[12] = "SIGSYS";
+	sigtab[13] = "SIGPIPE";
+	sigtab[14] = "SIGALRM";
+	sigtab[15] = "SIGTERM";
+	sigtab[16] = "SIGURG";
+	sigtab[17] = "SIGSTOP";
+	sigtab[18] = "SIGSTP";
+	sigtab[19] = "SIGCONT";
+	sigtab[20] = "SIGTTIN";
+	sigtab[21] = "SIGTTOU";
+	sigtab[22] = "SIGIO";
+	sigtab[23] = "SIGXCPU";
+	sigtab[24] = "SIGXFSZ";
+	sigtab[25] = "SIGVTALRM";
+	sigtab[26] = "SIGPROF";
+	sigtab[27] = "SIGWINCH";
+	sigtab[28] = "SIGINFO";
+	sigtab[29] = "SIGINFO";
+	sigtab[30] = "SIGUSR1";
+	sigtab[31] = "SIGUSR2";
 	while (i < 32)
 	{
 		if (sigtab[i] == NULL)

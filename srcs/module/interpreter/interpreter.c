@@ -6,29 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 18:05:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 21:39:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
-#include <fcntl.h>
-
-static void	re_open_std(const uint8_t std, char *tty_name)
-{
-	int		fd;
-
-	fd = open(tty_name, O_RDWR);
-	if (std & CLOSED_STDIN)
-		dup2(fd, STDIN_FILENO);
-	if (std & CLOSED_STDOUT)
-		dup2(fd, STDOUT_FILENO);
-	if (std & CLOSED_STDERR)
-		dup2(fd, STDERR_FILENO);
-	if (fd >= 3)
-		close(fd);
-	return ;
-}
 
 void	do_nofork_redirect(void *context, void *data)
 {
@@ -66,21 +49,10 @@ void	run_builtin(t_registry *shell, t_process *process)
 	builtin = ft_hmap_getdata(&shell->hash.blt, process->av[0]);
 	process->status = builtin(shell, process->av);
 	if (process->process_type & IS_ALONE)
-		re_open_std(std, tty_name);
+		default_io(std, tty_name);
 	ft_lstiter(process->redirects, close_redirect);
 	process->completed = 1;
 	return ;
-}
-
-int		get_failed_process(void *data, void *context)
-{
-	t_process	*current;
-
-	(void)context;
-	current = data;
-	if (current->process_type & (IS_NOTFOUND | IS_OPEN_FAILED | IS_CRITICAL))
-		return (TRUE);
-	return (FALSE);
 }
 
 void	run_process(void *context, void *data)
@@ -116,13 +88,11 @@ void	run_job(void *context, void *data)
 	t_job		*job;
 	t_process	*head;
 
-
 	shell = context;
 	job = data;
 	if (job == NULL || job->state & KILLED)
 		return;
 	head = job->processes->data;
-	//EXPAND ALL JOB
 	if (job->processes->next == NULL)
 		head->process_type |= IS_ALONE;
 	else
@@ -130,34 +100,11 @@ void	run_job(void *context, void *data)
 	job->state = RUNNING;
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-	//	ft_lstiter(job->processes, print_process);
 	//CHECK WAIT CONDITION HERE;
 	//CHECK LEAK ON ERROR
 	waiter(job);
 	//if (KILLED)
 	//	lstdel(job_lst);
-	return ;
-}
-
-void	set_stopped(void *data)
-{
-	t_process	*process;
-
-	process = data;
-	process->stopped = TRUE;
-	return ;
-}
-
-void	set_signaled(void *context, void *data)
-{
-	t_job		*job;
-	uint32_t	*signo;
-
-	job = data;
-	signo = context;
-	job->state |= KILLED;
-	job->signo = *signo;
-	ft_lstiter(job->processes, set_stopped);
 	return ;
 }
 
