@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 12:38:59 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:34:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int8_t			waiter(t_job *job)
 	}
 	if (job->state & KILLED)
 		ft_printf("\x1b[33m\n [1]\tjob killed by : SIG%d\n\x1b[0m", job->signo);
-	if ((!(job->state & FAILED)) && (!(job->state & FAILED)))
+	if ((!(job->state & FAILED)) && (!(job->state & KILLED)))
 		job->state |= SUCCEDED;
 	job->state = ENDED;
 	return (SUCCESS);

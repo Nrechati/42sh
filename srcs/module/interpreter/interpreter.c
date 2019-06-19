@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 12:44:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:41:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ static uint8_t	do_i_run(t_registry *shell, t_job *job)
 	return (TRUE);
 }
 
-#include		<stdio.h>
 void			run_job(void *context, void *data)
 {
 	t_registry	*shell;
@@ -159,7 +158,6 @@ void			run_job(void *context, void *data)
 
 	shell = context;
 	job = data;
-	printf("last_job %d");
 	if (job == NULL || do_i_run(shell, job) == FALSE)
 		return ;
 	head = job->processes->data;
@@ -168,7 +166,7 @@ void			run_job(void *context, void *data)
 		head->process_type |= IS_ALONE;
 	else
 		setup_pipe(job->processes);
-	job->state = RUNNING;
+	job->state |= RUNNING;
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	waiter(job);
@@ -176,7 +174,7 @@ void			run_job(void *context, void *data)
 	return ;
 }
 
-int8_t 			interpreter(t_registry *shell, t_list **cmd_group, uint32_t flag)
+int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 {
 	static t_list	*job_lst;
 
