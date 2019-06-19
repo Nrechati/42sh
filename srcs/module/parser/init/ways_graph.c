@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/04 17:59:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:21:16 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void		set_start_token(t_graph *tab_tokens)
 {
 	static enum e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
-										E_IO_NUMBER, E_END, E_START, E_ERROR};
+										E_NEWLINE, E_IO_NUMBER, E_END,
+										E_START, E_ERROR};
 
 	tab_tokens[E_START].good_type = tab_good_type;
 	tab_tokens[E_SEMICOLON].good_type = tab_good_type;
@@ -50,6 +51,8 @@ void		set_pipe_token(t_graph *tab_tokens)
 										E_IO_NUMBER, E_ERROR};
 
 	tab_tokens[E_PIPE].good_type = tab_good_type;
+	tab_tokens[E_DAND].good_type = tab_good_type;
+	tab_tokens[E_OR].good_type = tab_good_type;
 }
 
 void		set_ionumber_token(t_graph *tab_tokens)

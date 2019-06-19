@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 14:37:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/18 16:29:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void	single_quote_machine(t_lexer *machine)
 		{
 			vct_del(&machine->input);
 			sle(g_shell, &machine->input, SLE_PS2_PROMPT | PRINT_QUOTE);
+			if (*machine->input->buffer != '\0')
+				vct_ncat(machine->origin_input, machine->input,
+						vct_len(machine->input));
 		}
 		if (*machine->input->buffer == '\'')
 			machine->state = L_STRING;
@@ -43,6 +46,9 @@ void	double_quote_machine(t_lexer *machine)
 		{
 			vct_del(&machine->input);
 			sle(g_shell, &machine->input, SLE_PS2_PROMPT | PRINT_DQUOTE);
+			if (*machine->input->buffer != '\0')
+				vct_ncat(machine->origin_input, machine->input,
+						vct_len(machine->input));
 		}
 		if (*machine->input->buffer == '\"')
 			machine->state = L_STRING;
