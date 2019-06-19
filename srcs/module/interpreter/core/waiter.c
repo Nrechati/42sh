@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 15:42:54 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:11:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static void	update_pid(t_job *job, pid_t pid, int status, char *sigtab[32])
 		current = processes->data;
 		if (current->pid == pid)
 		{
-			ft_printf("%s ended with status %d\n", current->av[0], status); //REWORK
 			if (WIFEXITED(status))
 			{
 				if (status != 0)

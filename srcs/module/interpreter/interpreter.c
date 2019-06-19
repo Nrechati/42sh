@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 15:11:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:16:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,12 @@ void			run_job(void *context, void *data)
 	t_process	*head;
 
 	shell = context;
-	ft_printf("last_type = %d || last_state = %d\n"
-			, shell->last_job_type, shell->last_job_state);
 	job = data;
 	if (job == NULL || do_i_run(shell) == FALSE)
-		return ;
+	{
+		shell->last_job_type = job->job_type;
+		return;
+	}
 	shell->last_job_type = job->job_type;
 	head = job->processes->data;
 	//EXPAND ALL JOB
