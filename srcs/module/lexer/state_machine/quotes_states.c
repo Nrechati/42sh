@@ -27,17 +27,20 @@ void	single_quote_machine(t_lexer *machine)
 {
 	if (g_shell->option.option & INTERACTIVE_OPT)
 	{
-		if (machine->input->buffer[machine->index] == '\0')
-			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
-		if (machine->input->buffer[machine->index] == '\'')
-			machine->state = L_STRING;
-		if (machine->input->buffer[machine->index] != '\0')
+		while (machine->input->buffer[machine->index] != '\'')
 		{
-			vct_add(machine->buffer, machine->input->buffer[machine->index]);
-			machine->index++;
+			if (machine->input->buffer[machine->index] == '\0')
+				subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
+			else
+			{
+				vct_add(machine->buffer,
+						machine->input->buffer[machine->index]);
+				machine->index++;
+			}
 		}
-		else
-			machine->state = L_START;
+		vct_add(machine->buffer, machine->input->buffer[machine->index]);
+		machine->index++;
+		machine->state = L_STRING;
 	}
 	else
 		machine->state = L_OUT;
@@ -47,17 +50,20 @@ void	double_quote_machine(t_lexer *machine)
 {
 	if (g_shell->option.option & INTERACTIVE_OPT)
 	{
-		if (machine->input->buffer[machine->index] == '\0')
-			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
-		if (machine->input->buffer[machine->index] == '\"')
-			machine->state = L_STRING;
-		if (machine->input->buffer[machine->index] != '\0')
+		while (machine->input->buffer[machine->index] != '\"')
 		{
-			vct_add(machine->buffer, machine->input->buffer[machine->index]);
-			machine->index++;
-		}	
-		else
-			machine->state = L_START;
+			if (machine->input->buffer[machine->index] == '\0')
+				subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
+			else
+			{
+				vct_add(machine->buffer,
+						machine->input->buffer[machine->index]);
+				machine->index++;
+			}
+		}
+		vct_add(machine->buffer, machine->input->buffer[machine->index]);
+		machine->index++;
+		machine->state = L_STRING;
 	}
 	else
 		machine->state = L_OUT;
