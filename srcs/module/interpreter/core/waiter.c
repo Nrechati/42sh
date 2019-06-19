@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 09:41:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 09:45:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	update_pid(t_list *processes, pid_t pid, __unused int status)
+void	update_pid(t_list *processes, pid_t pid, int status)
 {
 	t_process	*current;
 
@@ -21,12 +21,13 @@ void	update_pid(t_list *processes, pid_t pid, __unused int status)
 		current = processes->data;
 		if (current->pid == pid)
 		{
-//			ft_printf("%s ended with status %d\n", current->av[0], status); //REWORK
+			ft_printf("%s ended with status %d\n", current->av[0], status); //REWORK
 			if (WIFEXITED(status))
 				current->completed = TRUE;
 			if (WIFSIGNALED(status))
 			{
-//				ft_printf("[1] - PID Kill by SIG%d\n", WTERMSIG(status)); //REWORK
+				ft_printf("%s terminated with status %d by SIG%d\n"
+						, current->av[0], status, WTERMSIG(status)); //REWORK
 				current->stopped = TRUE;								  //Gestion Signaux
 			}
 		//	ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
@@ -50,7 +51,6 @@ uint8_t	all_is_done(t_list *processes)
 			return (FALSE);
 		processes = processes->next;
 	}
-//	ft_dprintf(2, "\x1b[32mAll is Done\n\x1b[0m");
 	return (TRUE);
 }
 
@@ -71,7 +71,6 @@ int8_t	waiter(t_job *job)
 	int		status;
 	pid_t	pid;
 
-//	ft_printf("\x1b[33mWaiter pgid: %d\n\x1b[0m", job->pgid);
 	while (all_is_done(job->processes) == FALSE)
 	{
 		if (job->state & KILLED)
@@ -84,8 +83,8 @@ int8_t	waiter(t_job *job)
 				update_pid(job->processes, pid, status);
 		}
 	}
-//	if (job->state & KILLED)
-//		ft_printf("\x1b[33m\n [1]\tjob killed by : SIG%d\n\x1b[0m", job->signo);
+	if (job->state & KILLED)
+		ft_printf("\x1b[33m\n [1]\tjob killed by : SIG%d\n\x1b[0m", job->signo);
 	job->state = ENDED;
 	return (SUCCESS);
 }
