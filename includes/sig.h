@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:02:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 19:20:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 09:30:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	init_tab_signal_dflt(struct sigaction tab_signal[NB_SIGNALS]);
 /*
 **** HANDLER EXEC
 */
-void	sigint_exec(int signo);
+void	sigstop_exec(int signo); //SIGINT ; SIGQUIT ; SIGTERM
+
 void	sigill_exec(int signo);
 void	sigtrap_exec(int signo);
 void	sigabrt_exec(int signo);
@@ -33,8 +34,6 @@ void	sigfpe_exec(int signo);
 void	sigbus_exec(int signo);
 void	sigsegv_exec(int signo);
 void	sigsys_exec(int signo);
-void	sigquit_exec(int signo);
-void	sigterm_exec(int signo);
 void	sigcont_exec(int signo);
 void	sigtstp_exec(int signo);
 void	sigttin_exec(int signo);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 18:16:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 09:41:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ void	update_pid(t_list *processes, pid_t pid, __unused int status)
 		current = processes->data;
 		if (current->pid == pid)
 		{
+//			ft_printf("%s ended with status %d\n", current->av[0], status); //REWORK
 			if (WIFEXITED(status))
 				current->completed = TRUE;
 			if (WIFSIGNALED(status))
 			{
-				ft_printf("[1] - PID Kill by SIG%d\n", WTERMSIG(status)); //REWORK
+//				ft_printf("[1] - PID Kill by SIG%d\n", WTERMSIG(status)); //REWORK
 				current->stopped = TRUE;								  //Gestion Signaux
 			}
 		//	ft_dprintf(2, "\x1b[32m%s completed with success with PID %d\n\x1b[0m"
@@ -74,20 +75,17 @@ int8_t	waiter(t_job *job)
 	while (all_is_done(job->processes) == FALSE)
 	{
 		if (job->state & KILLED)
+			ft_lstiter_ctx(job->processes, &job->signo, terminator);
+		else
 		{
-			if (job->signo == SIGINT)
-				ft_lstiter_ctx(job->processes, &job->signo, terminator);
-			else if (job->signo == SIGQUIT)
-				ft_lstiter_ctx(job->processes, &job->signo, terminator);
-			else if (job->signo == SIGTERM)
-				ft_lstiter_ctx(job->processes, &job->signo, terminator);
+			status = 0;
+			pid = wait(&status);
+			if (pid)
+				update_pid(job->processes, pid, status);
 		}
-		status = 0;
-		pid = wait(&status);
-		if (pid)
-			update_pid(job->processes, pid, status);
 	}
-	ft_printf("\x1b[33m\n [1]\tkilled by : SIG%d\n\x1b[0m", job->signo);
+//	if (job->state & KILLED)
+//		ft_printf("\x1b[33m\n [1]\tjob killed by : SIG%d\n\x1b[0m", job->signo);
 	job->state = ENDED;
 	return (SUCCESS);
 }

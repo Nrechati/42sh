@@ -6,25 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 18:51:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 09:29:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	sigint_exec(__unused int signo)
+void	sigstop_exec(int signo)
 {
-	interpreter(NULL, NULL, SIGINT);
-}
-
-void	sigquit_exec(__unused int signo)
-{
-	interpreter(NULL, NULL, SIGQUIT);
-}
-
-void	sigterm_exec(__unused int signo)
-{
-	interpreter(NULL, NULL, SIGTERM);
+	interpreter(NULL, NULL, signo);
 }
 
 void	sigcont_exec(int signo)
