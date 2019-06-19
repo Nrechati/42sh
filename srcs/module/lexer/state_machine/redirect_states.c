@@ -14,51 +14,56 @@
 
 static void	lesser_addition(t_lexer *machine)
 {
-	if (*machine->buffer->buffer == '<' && *machine->input->buffer == '&')
+	if (*machine->buffer->buffer == '<'
+			&& machine->input->buffer[machine->index] == '&')
 		machine->state = L_LESSAND;
 	else if (*machine->buffer->buffer == '<'
-			&& *machine->input->buffer == '>')
+			&& machine->input->buffer[machine->index] == '>')
 		machine->last_lexer = E_LESSGREAT;
 	else
 		return ;
-	vct_cut(machine->input);
+	machine->index++;
 
 }
 
 void		lesser_machine(t_lexer *machine)
 {
-	if (machine->last_lexer == E_DLESS && *machine->input->buffer == '-')
+	if (machine->last_lexer == E_DLESS
+			&& machine->input->buffer[machine->index] == '-')
 	{
 		machine->last_lexer = E_DLESSDASH;
-		vct_cut(machine->input);
+		machine->index++;
 	}
-	else if (*machine->buffer->buffer == '<' && *machine->input->buffer == '<'
-			&& machine->input->buffer[1] != '&'
+	else if (*machine->buffer->buffer == '<'
+			&& machine->input->buffer[machine->index] == '<'
+			&& machine->input->buffer[machine->index + 1] != '&'
 			&& (machine->last_lexer != E_DLESS))
 	{
 		machine->last_lexer = E_DLESS;
-		vct_add(machine->buffer, *machine->input->buffer);
-		vct_cut(machine->input);
+		vct_add(machine->buffer, machine->input->buffer[machine->index]);
+		machine->index++;
 		return ;
 	}
-	else if (*machine->input->buffer == '>' || *machine->input->buffer == '&')
+	else if (machine->input->buffer[machine->index] == '>'
+			|| machine->input->buffer[machine->index] == '&')
 		lesser_addition(machine);
 	machine->state = machine->state == L_LESSAND ? L_LESSAND : L_OUT;
 }
 
 void		greater_machine(t_lexer *machine)
 {
-	if (ft_strchr(">&|", *machine->input->buffer) != NULL)
+	if (ft_strchr(">&|", machine->input->buffer[machine->index]) != NULL)
 	{
-		if (*machine->buffer->buffer == '>' && *machine->input->buffer == '>')
+		if (*machine->buffer->buffer == '>'
+				&& machine->input->buffer[machine->index] == '>')
 			machine->last_lexer = E_DGREAT;
 		else if (*machine->buffer->buffer == '>'
-				&& *machine->input->buffer == '&')
+				&& machine->input->buffer[machine->index] == '&')
 			machine->state = L_GREATAND;
 		else if (*machine->buffer->buffer == '>'
-				&& *machine->input->buffer == '|')
+				&& machine->input->buffer[machine->index] == '|')
 			machine->last_lexer = E_CLOBBER;
-		vct_cut(machine->input);
+		machine->index++;
 	}
 	if (machine->state != L_GREATAND)
 		machine->state = L_OUT;

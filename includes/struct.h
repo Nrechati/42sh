@@ -84,7 +84,7 @@ struct					s_lexer
 {
 	t_vector			*buffer;
 	t_vector			*input;
-	t_vector			*origin_input;
+	size_t				index;
 	t_lexinfo			*lexinfo;
 	char				*data;
 	t_list				*tokens;

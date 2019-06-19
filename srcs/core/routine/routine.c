@@ -13,6 +13,7 @@
 #include "sh21.h"
 #include <unistd.h>
 
+/*
 static t_resolution	init_resolve(t_list *tokens)
 {
 	t_resolution	resolve;
@@ -21,15 +22,27 @@ static t_resolution	init_resolve(t_list *tokens)
 	resolve.tokens = tokens;
 	resolve.token.type = E_DEFAULT;
 	return (resolve);
-}
+}*/
 
 int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 {
 	t_list			*command_group;
 	t_resolution	resolve;
 	t_list			*tokens;
-
+///
+	if (input->buffer != NULL && ft_strnequ("exit", input->buffer, 4))
+	{
+		shell_exit_routine(shell);
+		exit(0);
+	}
+	///
 	tokens = lexer(input);
+	///
+	(void)command_group;
+	(void)resolve;
+	ft_lstdel(&tokens, del_token);
+	///
+	/*
 	resolve = init_resolve(tokens);
 	while (resolve.tokens)
 	{
@@ -47,6 +60,6 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 			load_signal_profile(DFLT_PROFILE);
 		}
 		lexer_print_debug(shell, resolve.tokens);
-	}
+	}*/
 	return (SUCCESS);
 }

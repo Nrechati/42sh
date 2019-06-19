@@ -12,24 +12,29 @@
 
 #include "sh21.h"
 
+static void	subprompt_calling(t_lexer *machine, uint64_t option)
+{
+	t_vector	*new_input;
+
+	new_input = vct_new(0);
+	while (new_input->buffer[0] == '\0')
+		sle(g_shell, &new_input, option);
+	vct_ncat(machine->input, new_input, vct_len(new_input));
+	vct_del(&new_input);
+}
+
 void	single_quote_machine(t_lexer *machine)
 {
 	if (g_shell->option.option & INTERACTIVE_OPT)
 	{
-		while (*machine->input->buffer == '\0')
-		{
-			vct_del(&machine->input);
-			sle(g_shell, &machine->input, SLE_PS2_PROMPT | PRINT_QUOTE);
-			if (*machine->input->buffer != '\0')
-				vct_ncat(machine->origin_input, machine->input,
-						vct_len(machine->input));
-		}
-		if (*machine->input->buffer == '\'')
+		if (machine->input->buffer[machine->index] == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
+		if (machine->input->buffer[machine->index] == '\'')
 			machine->state = L_STRING;
-		if (*machine->input->buffer != '\0')
+		if (machine->input->buffer[machine->index] != '\0')
 		{
-			vct_add(machine->buffer, *machine->input->buffer);
-			vct_cut(machine->input);
+			vct_add(machine->buffer, machine->input->buffer[machine->index]);
+			machine->index++;
 		}
 		else
 			machine->state = L_START;
@@ -42,20 +47,14 @@ void	double_quote_machine(t_lexer *machine)
 {
 	if (g_shell->option.option & INTERACTIVE_OPT)
 	{
-		while (*machine->input->buffer == '\0')
-		{
-			vct_del(&machine->input);
-			sle(g_shell, &machine->input, SLE_PS2_PROMPT | PRINT_DQUOTE);
-			if (*machine->input->buffer != '\0')
-				vct_ncat(machine->origin_input, machine->input,
-						vct_len(machine->input));
-		}
-		if (*machine->input->buffer == '\"')
+		if (machine->input->buffer[machine->index] == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
+		if (machine->input->buffer[machine->index] == '\"')
 			machine->state = L_STRING;
-		if (*machine->input->buffer != '\0')
+		if (machine->input->buffer[machine->index] != '\0')
 		{
-			vct_add(machine->buffer, *machine->input->buffer);
-			vct_cut(machine->input);
+			vct_add(machine->buffer, machine->input->buffer[machine->index]);
+			machine->index++;
 		}	
 		else
 			machine->state = L_START;

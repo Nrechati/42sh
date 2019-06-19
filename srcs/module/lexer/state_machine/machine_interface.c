@@ -23,27 +23,29 @@ void	space_lexer(t_lexer *machine)
 			machine->state = L_OUT;
 			machine->assign_detect = ASSIGN_ON;
 		}
-		else if (ft_strchr("\t ", *machine->input->buffer))
-			vct_cut(machine->input);
+		else if (ft_strchr("\t ", machine->input->buffer[machine->index]))
+			machine->index++;
 	}
 	else
 	{
 		machine->io_detect = 0;
-		while (ft_strchr("\t ", *machine->input->buffer))
-			vct_cut(machine->input);
+		while (ft_strchr("\t ", machine->input->buffer[machine->index]))
+			machine->index++;
 		machine->state = L_START;
 	}
 }
 
 void	start_lexer(t_lexer *machine)
 {
-	if (*machine->input->buffer == '\0')
+	if (machine->input->buffer[machine->index] == '\0')
 		machine->state = assign_special(machine) ? L_SPACE : L_END;
-	else if (*machine->input->buffer == ' ' || *machine->input->buffer == '\t')
+	else if (machine->input->buffer[machine->index] == ' '
+			|| machine->input->buffer[machine->index] == '\t')
 		machine->state = L_SPACE;
-	else if (ft_strchr(SIGN_DETECT, *machine->input->buffer) != NULL)
+	else if (ft_strchr(SIGN_DETECT,
+				machine->input->buffer[machine->index]) != NULL)
 		machine->state = L_SIGN;
-	else if (ft_isdigit(*machine->input->buffer) == TRUE)
+	else if (ft_isdigit(machine->input->buffer[machine->index]) == TRUE)
 		machine->state = L_IO_NUMBER;
 	else
 		machine->state = L_STRING;

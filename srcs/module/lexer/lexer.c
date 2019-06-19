@@ -17,9 +17,10 @@ static int8_t		pre_process(t_lexer *machine)
 {
 	if (machine->input == NULL || machine->input->buffer == NULL)
 		return (FAILURE);
-	while (*machine->input->buffer == '\t' || *machine->input->buffer == ' ')
-		vct_cut(machine->input);
-	if (*machine->input->buffer == '\0')
+	while (machine->input->buffer[machine->index] == '\t'
+			|| machine->input->buffer[machine->index] == ' ')
+		machine->index++;
+	if (machine->input->buffer[machine->index] == '\0')
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -30,16 +31,10 @@ static void		init_machine(t_lexer *machine, t_vector *input, t_lexinfo *info)
 	machine->state = L_START;
 	machine->buffer = vct_new(0);
 	machine->last_lexer = E_DEFAULT;
-	machine->input = vct_dup(input);
-	machine->origin_input = input;
+	machine->input = input;
+	machine->index = 0;
 	machine->lexinfo = info;
 	machine->assign_detect = ASSIGN_ON;
-}
-
-static void		free_machine_vct(t_lexer *machine)
-{
-	vct_del(&machine->input);
-	vct_del(&machine->buffer);
 }
 
 t_list			*lexer(t_vector *input)
@@ -56,6 +51,6 @@ t_list			*lexer(t_vector *input)
 			machine.lexinfo->lexing[machine.state](&machine);
 		lexer_print_debug(g_shell, machine.tokens); // DEBUG
 	}
-	free_machine_vct(&machine);
+	vct_del(&machine.buffer);
 	return (machine.tokens);
 }
