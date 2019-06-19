@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:56:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:14:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ int8_t		ak_ctrl_up(t_registry *shell, t_sle *sle);
 int8_t		ak_ctrl_down(t_registry *shell, t_sle *sle);
 
 int8_t		ak_ctrl_r(t_registry *shell, t_sle *sle);
-int8_t		ak_ctrl_i(t_registry *shell, t_sle *sle);
 int8_t		ak_enter_visual_mode(t_registry *shell, t_sle *sle);
 int8_t		ak_exit_modes(t_registry *shell, t_sle *sle);
 
@@ -138,5 +137,5 @@ int8_t		ak_copy_selection(t_registry *shell, t_sle *sle);
 int8_t		ak_paste_clipboard(t_registry *shell, t_sle *sle);
 
 int8_t		ak_hightab(t_registry *shell, t_sle *sle);
-int8_t		ak_ctrl_t(t_sle *sle);
+int8_t		ak_ctrl_t(t_registry *shell, t_sle *sle);
 #endif

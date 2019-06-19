@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 20:54:59 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:24:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ static char	*active_completion(char *input, char *completion, t_registry *shell)
 	{
 		if (input[i] != completion[i])
 		{
-			ft_strdel(&tmp);
+//			ft_strdel(&tmp);
 			return (ft_strdup(completion + i));
 		}
 		i++;
 	}
-	ft_strdel(&tmp);
+//	ft_strdel(&tmp);
 	return (NULL);
 }
 
 static char	*send_rest(t_autocomplete *result, char *input, t_registry *shell)
 {
 	char	*completion;
-	
+
 	completion = (char *)result->list->data;
 	if (result->type == VARIABLE_BRACKET_TYPE)
 		completion += 2;
@@ -80,7 +80,7 @@ static char		*get_completion(char *input, t_registry *shell,
 	if (result->type == FILE_TYPE && slash_is_missing(*completion) == TRUE
 		&& ft_strequ(".", *completion) == FALSE)
 	{
-		ft_strdel(completion);
+//		ft_strdel(completion);
 		*completion = ft_strdup("/");
 		return (*completion);
 	}
@@ -97,7 +97,7 @@ char		*autocompletion(char *input, t_registry *shell,
 	completion = NULL;
 	if ((option & RESET_RESULT) || (option & NEW_SEARCH))
 	{
-		ft_lstdel(&result.list, NULL); // IS GOOD ?
+//		ft_lstdel(&result.list, NULL); // IS GOOD ?
 		ft_bzero(&result, sizeof(t_autocomplete));
 		if (option & RESET_RESULT)
 			return (NULL);
@@ -108,6 +108,6 @@ char		*autocompletion(char *input, t_registry *shell,
 		return (send_rest(&result, completion, shell));
 	ft_mergesort(&result.list, lst_strcmp);
 	print_possibilities(&result, col);
-	ft_strdel(&completion);
+//	ft_strdel(&completion);
 	return (NULL);
 }

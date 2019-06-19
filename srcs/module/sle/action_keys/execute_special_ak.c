@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 20:55:48 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:27:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t		ak_ctrl_t(t_sle *sle)
+int8_t		ak_ctrl_t(__unused t_registry *shell, t_sle *sle)
 {
 	sle->state = STATE_SEARCH;
 	sle->search_type = NEXT;
@@ -32,15 +32,18 @@ int8_t		ak_ctrl_r(__unused t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t		ak_hightab(__unused t_registry *shell, t_sle *sle)
+int8_t		ak_hightab(t_registry *shell, t_sle *sle)
 {
 	char	*ret_completion;
 
-	if (sle->visual_mode == TRUE)
+	if (sle->state != STATE_STD)
 		return (FAILURE);
+
 	//ft_printf("\nAutocomp: %s|\n", autocompletion(vct_get_string(sle->line),shell, sle->window.cols, NEW_SEARCH));
+
 	ret_completion = autocompletion(vct_get_string(sle->line), shell,
 			sle->window.cols, NEW_SEARCH);
+
 	if (ret_completion != NULL)
 		vct_scat(sle->line, ret_completion, ft_strlen(ret_completion));
 	else
