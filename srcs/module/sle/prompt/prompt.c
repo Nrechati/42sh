@@ -79,6 +79,6 @@ t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-	vct_add(sle->sub_line, '\n');
+	//vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }
