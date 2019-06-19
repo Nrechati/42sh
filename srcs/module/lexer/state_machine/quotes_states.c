@@ -12,17 +12,6 @@
 
 #include "sh21.h"
 
-static void	subprompt_calling(t_lexer *machine, uint64_t option)
-{
-	t_vector	*new_input;
-
-	new_input = vct_new(0);
-	while (new_input->buffer[0] == '\0')
-		sle(g_shell, &new_input, option);
-	vct_ncat(machine->input, new_input, vct_len(new_input));
-	vct_del(&new_input);
-}
-
 static uint8_t	is_closed(t_lexer *machine, char close)
 {
 	if (get_input(machine, CUR_CHAR) == close)
@@ -55,6 +44,12 @@ void	double_quote_machine(t_lexer *machine)
 	{
 		if (get_input(machine, CUR_CHAR) == '\0')
 			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
+		else if (get_input(machine, CUR_CHAR) == '\\')
+		{
+			vct_del_char(machine->input, machine->index);
+			if (get_input(machine, CUR_CHAR) != '\"')
+				add_to_buffer(machine);
+		}
 		else if (get_input(machine, CUR_CHAR) == '$'
 			&& get_input(machine, NEXT_CHAR == '{'))
 		{

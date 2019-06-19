@@ -39,6 +39,13 @@ void	start_lexer(t_lexer *machine)
 {
 	if (get_input(machine, CUR_CHAR) == '\0')
 		machine->state = assign_special(machine) ? L_SPACE : L_END;
+	else if (get_input(machine, CUR_CHAR) == '\\')
+	{
+		machine->index++;
+		add_to_buffer(machine);
+		machine->last_lexer = E_STRING;
+		machine->state = L_STRING;
+	}
 	else if (ft_strchr("\t ", get_input(machine, CUR_CHAR)) != NULL)
 		machine->state = L_SPACE;
 	else if (ft_strchr(SIGN_DETECT, get_input(machine, CUR_CHAR)) != NULL)

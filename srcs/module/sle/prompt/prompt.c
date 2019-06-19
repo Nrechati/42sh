@@ -38,6 +38,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
+	vct_add(sle->line, '\n');
 	ft_printf("\n");
 	if (sle->search_mode == TRUE)
 	{
@@ -45,7 +46,6 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		sle->line = sle->search_line;
 	}
 	history(shell, NULL, RESET_HEAD);
-	vct_add(sle->line, '\n');
 	return (vct_dup(sle->line));
 }
 
@@ -65,10 +65,9 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-	if (sle_flag & PRINT_BRACE)
+	sle_flag &= ~SLE_PS2_PROMPT;
+	if (sle_flag == PRINT_BRACE)
 		vct_add(sle->sub_line, ' ');
-	else
-		vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }
 
@@ -83,6 +82,5 @@ t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-	vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }

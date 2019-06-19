@@ -13,12 +13,25 @@
 #include "sh21.h"
 #include <stdlib.h>
 
+void				subprompt_calling(t_lexer *machine, uint64_t option)
+{
+	t_vector	*new_input;
+
+	new_input = vct_new(0);
+	while (new_input->buffer[0] == '\0')
+		sle(g_shell, &new_input, option);
+	vct_ncat(machine->input, new_input, vct_len(new_input));
+	vct_del(&new_input);
+}
+
 char				get_buffer(t_lexer *machine, uint8_t pos)
 {
 	if (machine->buffer->buffer == NULL)
 		return ('\0');
-	if (pos & NEXT)
+	if (pos & NEXT_CHAR)
 		return (machine->buffer->buffer[1]);
+	else if (pos & NEXT_NEXT_CHAR)
+		return (machine->buffer->buffer[2]);
 	return (machine->buffer->buffer[0]);
 }
 
@@ -26,8 +39,10 @@ char				get_input(t_lexer *machine, uint8_t pos)
 {
 	if (machine->input->buffer == NULL)
 		return ('\0');
-	if (pos & NEXT)
+	if (pos & NEXT_CHAR)
 		return (machine->input->buffer[machine->index + 1]);
+	else if (pos & NEXT_NEXT_CHAR)
+		return (machine->input->buffer[machine->index + 2]);
 	return (machine->input->buffer[machine->index]);
 }
 

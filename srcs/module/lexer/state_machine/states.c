@@ -63,6 +63,7 @@ int		assign_special(t_lexer *machine)
 		return (TRUE);
 	return (FALSE);
 }
+
 void	string_machine(t_lexer *machine)
 {
 	if (get_input(machine, CUR_CHAR) == '\0')
@@ -77,6 +78,13 @@ void	string_machine(t_lexer *machine)
 		else
 			machine->state = L_START;
 		machine->assign_detect = ASSIGN_ON;
+	}
+	else if (get_input(machine, CUR_CHAR) == '\\')
+	{
+		machine->index++;
+		add_to_buffer(machine);
+		machine->last_lexer = E_STRING;
+		machine->state = L_STRING;
 	}
 	if (ft_strchr(LETTER_INTERUPT, get_input(machine, CUR_CHAR)) != NULL)
 	{

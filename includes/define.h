@@ -180,10 +180,10 @@
 # define SPECIAL_SIGNS				14
 # define SIGNS 						30
 # define ALLCHAR					"\"|()><;`&{}[]#%\n"
-# define SIGN_DETECT				" \t<>|;&!=\n"
+# define SIGN_DETECT				" \t<>|;&!=\n\\"
 # define LETTER_TO_QUOTE			"\"\'$"
 # define LETTER_INTERUPT			" \t<>|;&\n"
-# define LETTER_SPECIAL				"\"\'\\$~*?"
+# define LETTER_SPECIAL				"\"\'$~*?"
 # define TILDE_INTERUPT				" /$"
 # define QSP_INT					" \"\'"
 /*
@@ -197,6 +197,7 @@
 
 # define CUR_CHAR					0x01
 # define NEXT_CHAR					0x02
+# define NEXT_NEXT_CHAR				0x04
 
 /*
 *****************************************************
