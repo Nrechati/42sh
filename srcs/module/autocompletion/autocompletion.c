@@ -35,18 +35,18 @@ static char	*active_completion(char *input, char *completion, t_registry *shell)
 	tmp = input;
 	if (input[0] == '~')
 		input = get_home_input(input, shell);
-	while (input != '\0' && input[0] != completion[0])
+	while (input[0] != '\0' && input[0] != completion[0])
 		input++;
 	while (completion[i] != '\0')
 	{
 		if (input[i] != completion[i])
 		{
-//			ft_strdel(&tmp);
+			ft_strdel(&tmp);
 			return (ft_strdup(completion + i));
 		}
 		i++;
 	}
-//	ft_strdel(&tmp);
+	ft_strdel(&tmp);
 	return (NULL);
 }
 
@@ -115,6 +115,7 @@ char		*autocompletion(char *input, t_registry *shell,
 		return (send_rest(&result, completion, shell));
 	}
 	ft_mergesort(&result.list, lst_strcmp);
+	(void)col;
 	print_possibilities(&result, col);
 	ft_strdel(&cpy_input);
 	ft_strdel(&completion);

@@ -5,14 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2SA_RESTART19/SA_RESTART6/15 18:23:42 by skuppers          #+#    #+#             */
+/*   Created: 2019/06/15 18:23:42 by skuppers          #+#    #+#             */
 /*   Updated: 2019/06/19 17:13:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static struct sigaction	set_sigaction_struct(void (*handler)(int), int flags, sigset_t mask)
+static struct sigaction	set_sigaction_struct(void (*handler)(int),
+			int flags, sigset_t mask)
 {
 		struct sigaction sigaction;
 
@@ -67,12 +68,10 @@ void		init_tab_signal_sle(struct sigaction tab_signal[NB_SIGNALS])
 
 void		init_tab_signal_exec(struct sigaction tab_signal[NB_SIGNALS])
 {
-	struct sigaction ignore;
 	sigset_t			sigset;
 
 	ft_bzero(&sigset, sizeof(sigset_t));
 	loop_defaults(tab_signal);
-	ignore = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGINT] = set_sigaction_struct(sigint_exec, SA_RESTART, sigset);
 	tab_signal[SIGILL] = set_sigaction_struct(sigill_exec, SA_RESTART, sigset);
 	tab_signal[SIGTRAP] = set_sigaction_struct(sigtrap_exec, SA_RESTART, sigset);

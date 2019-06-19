@@ -32,9 +32,10 @@ void	print_process(void *data)
 
 void	print_job(void *data)
 {
-	t_job *job;
+	(void)data;
+//	t_job *job;
 
-	job = data;
+//	job = data;
 //	ft_printf("\x1b[33mpgid : %s | job_type: %u\n\x1b[0m"
 //			, job->pgid
 //			, job->job_type);

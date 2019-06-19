@@ -40,10 +40,8 @@ int8_t		ak_hightab(t_registry *shell, t_sle *sle)
 		return (FAILURE);
 
 	//ft_printf("\nAutocomp: %s|\n", autocompletion(vct_get_string(sle->line),shell, sle->window.cols, NEW_SEARCH));
-
 	ret_completion = autocompletion(vct_get_string(sle->line), shell,
 			sle->window.cols, NEW_SEARCH);
-
 	if (ret_completion != NULL)
 		vct_scat(sle->line, ret_completion, ft_strlen(ret_completion));
 	else

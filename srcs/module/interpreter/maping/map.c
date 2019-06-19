@@ -82,14 +82,14 @@ void	*token_to_intern_var(__unused void *context, void *data)
 
 void		*cmd_to_process(void *context, void *data)
 {
-	t_registry 	*shell;
+	//t_registry 	*shell;
 
 	t_list		*node;
 	t_list		*actions_redirects;
 	t_process	process;
 	t_command	*command;
 
-	shell = context;
+//	shell = context;
 	command = data;
 	ft_bzero(&process, sizeof(t_process));
 	if (command->type == COMMAND_ASSIGN)

@@ -68,9 +68,9 @@ int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 	t_group 	group;
 	t_action	*action;
 	t_list		*node;
-	t_list		*command_lst;
+//	t_list		*command_lst;
 
-	command_lst = NULL;
+//	command_lst = NULL;
 	if (ft_stcksize(tree_node) == 0)
 		return (FAILURE);
 	ft_bzero(&group, sizeof(t_group));
