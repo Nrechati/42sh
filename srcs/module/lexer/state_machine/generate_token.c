@@ -20,7 +20,7 @@ char				*assign_token_data(t_lexer *machine, t_token *token)
 	while (i < TOKEN_WITH_DATA)
 	{
 		if (token->type == machine->lexinfo->duplicate[i++]
-				&& *machine->buffer->buffer)
+			&& get_buffer(machine, CUR_CHAR) != '\0')
 		{
 			if (machine->data != NULL)
 				ft_asprintf(&token->data, "%s%s", machine->data
@@ -67,7 +67,7 @@ static enum e_type	check_char(t_lexer *machine)
 	s = ALLCHAR;
 	while (i < SINGLE_SIGNS)
 	{
-		if (*machine->buffer->buffer == *(s + i))
+		if (get_buffer(machine, CUR_CHAR) == s[i])
 			return (i);
 		++i;
 	}

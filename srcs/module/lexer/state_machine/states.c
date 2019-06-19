@@ -14,13 +14,12 @@
 
 void	number_machine(t_lexer *machine)
 {
-	if (ft_isdigit(machine->input->buffer[machine->index]) == TRUE)
+	if (ft_isdigit(get_input(machine, CUR_CHAR)) == TRUE)
 	{
 		machine->last_lexer = E_IO_NUMBER;
-		vct_add(machine->buffer, machine->input->buffer[machine->index]);
-		machine->index++;
+		add_to_buffer(machine);
 	}
-	else if (ft_strchr("<>", machine->input->buffer[machine->index]) != NULL)
+	else if (ft_strchr("<>", get_input(machine, CUR_CHAR)) != NULL)
 		machine->state = L_OUT;
 	else
 	{
@@ -32,19 +31,22 @@ void	number_machine(t_lexer *machine)
 void	string_special(t_lexer *machine)
 {
 	machine->last_lexer = E_SPSTRING;
-	if (machine->input->buffer[machine->index] == '\"')
+	if (get_input(machine, CUR_CHAR) == '\"')
 		machine->state = L_DQTE;
-	else if (machine->input->buffer[machine->index] == '\'')
+	else if (get_input(machine, CUR_CHAR) == '\'')
 		machine->state = L_SQTE;
+	else if (get_input(machine, CUR_CHAR) == '$'
+			&& get_input(machine, NEXT_CHAR == '{'))
+		machine->state = L_BRACE_EXP;
 }
 
 int		assign_detect(t_lexer *machine)
 {
 	if (machine->assign_detect == ASSIGN_OFF)
 		return (FALSE);
-	if (machine->input->buffer[machine->index] != '=')
+	if (get_input(machine, CUR_CHAR) != '=')
 		return (FALSE);
-	if (*machine->buffer->buffer == '\0')
+	if (get_buffer(machine, CUR_CHAR) == '\0')
 		return (FALSE);
 	if (ft_strchr(machine->buffer->buffer, '=') != NULL)
 		return (FALSE);
@@ -57,15 +59,15 @@ int		assign_detect(t_lexer *machine)
 int		assign_special(t_lexer *machine)
 {
 	if (machine->assign_detect == ASSIGN_NEXT
-			&& *machine->buffer->buffer == '\0')
+		&& get_buffer(machine, CUR_CHAR) == '\0')
 		return (TRUE);
 	return (FALSE);
 }
 void	string_machine(t_lexer *machine)
 {
-	if (machine->input->buffer[machine->index] == '\0')
+	if (get_input(machine, CUR_CHAR) == '\0')
 	{
-		if (*machine->buffer->buffer == '\0'
+		if (get_buffer(machine, CUR_CHAR) == '\0'
 				&& machine->assign_detect == ASSIGN_NEXT)
 		{
 			vct_add(machine->buffer, ' ');
@@ -76,8 +78,7 @@ void	string_machine(t_lexer *machine)
 			machine->state = L_START;
 		machine->assign_detect = ASSIGN_ON;
 	}
-	if (ft_strchr(LETTER_INTERUPT,
-				machine->input->buffer[machine->index]) != NULL)
+	if (ft_strchr(LETTER_INTERUPT, get_input(machine, CUR_CHAR)) != NULL)
 	{
 		if (machine->assign_detect == ASSIGN_NEXT)
 			machine->assign_detect = ASSIGN_ON;
@@ -86,19 +87,12 @@ void	string_machine(t_lexer *machine)
 		machine->state = L_OUT;
 		return ;
 	}
-	else if (ft_strchr(LETTER_SPECIAL,
-				machine->input->buffer[machine->index]) != NULL)
-	{
+	else if (ft_strchr(LETTER_SPECIAL, get_input(machine, CUR_CHAR)) != NULL)
 		string_special(machine);
-		return ;
-	}
 	else if (machine->last_lexer != E_SPSTRING)
 		machine->last_lexer = E_STRING;
 	if (assign_detect(machine))
 		machine->index++;
-	else if (machine->input->buffer[machine->index] != '\0')
-	{
-		vct_add(machine->buffer, machine->input->buffer[machine->index]);
-		machine->index++;
-	}
+	else if (get_input(machine, CUR_CHAR) != '\0')
+		add_to_buffer(machine);
 }

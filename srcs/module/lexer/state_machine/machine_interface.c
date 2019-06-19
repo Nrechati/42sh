@@ -16,20 +16,20 @@ void	space_lexer(t_lexer *machine)
 {
 	if (machine->assign_detect == ASSIGN_NEXT)
 	{
-		if (*machine->buffer->buffer == '\0')
+		if (get_buffer(machine, CUR_CHAR) == '\0')
 		{
 			vct_add(machine->buffer, ' ');
 			machine->last_lexer = E_STRING;
 			machine->state = L_OUT;
 			machine->assign_detect = ASSIGN_ON;
 		}
-		else if (ft_strchr("\t ", machine->input->buffer[machine->index]))
+		else if (ft_strchr("\t ", get_input(machine, CUR_CHAR)) != NULL)
 			machine->index++;
 	}
 	else
 	{
 		machine->io_detect = 0;
-		while (ft_strchr("\t ", machine->input->buffer[machine->index]))
+		while (ft_strchr("\t ", get_input(machine, CUR_CHAR)) != NULL)
 			machine->index++;
 		machine->state = L_START;
 	}
@@ -37,15 +37,13 @@ void	space_lexer(t_lexer *machine)
 
 void	start_lexer(t_lexer *machine)
 {
-	if (machine->input->buffer[machine->index] == '\0')
+	if (get_input(machine, CUR_CHAR) == '\0')
 		machine->state = assign_special(machine) ? L_SPACE : L_END;
-	else if (machine->input->buffer[machine->index] == ' '
-			|| machine->input->buffer[machine->index] == '\t')
+	else if (ft_strchr("\t ", get_input(machine, CUR_CHAR)) != NULL)
 		machine->state = L_SPACE;
-	else if (ft_strchr(SIGN_DETECT,
-				machine->input->buffer[machine->index]) != NULL)
+	else if (ft_strchr(SIGN_DETECT, get_input(machine, CUR_CHAR)) != NULL)
 		machine->state = L_SIGN;
-	else if (ft_isdigit(machine->input->buffer[machine->index]) == TRUE)
+	else if (ft_isdigit(get_input(machine, CUR_CHAR)) == TRUE)
 		machine->state = L_IO_NUMBER;
 	else
 		machine->state = L_STRING;
@@ -53,7 +51,7 @@ void	start_lexer(t_lexer *machine)
 
 void	end_machine(t_lexer *machine)
 {
-	if (*machine->buffer->buffer != '\0')
+	if (get_buffer(machine, CUR_CHAR) != '\0')
 		machine->state = L_OUT;
 	else if (machine->last_lexer != E_END)
 	{

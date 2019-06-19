@@ -16,6 +16,10 @@
 t_list		*lexer(t_vector *line);
 t_lexinfo	*init_lexinfo(void);
 
+void		add_to_buffer(t_lexer *machine);
+char		get_buffer(t_lexer *machine, uint8_t pos);
+char		get_input(t_lexer *machine, uint8_t pos);
+
 int			assign_special(t_lexer *machine);
 void		space_lexer(t_lexer *machine);
 void		start_lexer(t_lexer *machine);

@@ -12,57 +12,49 @@
 
 #include "sh21.h"
 
-static void	lesser_addition(t_lexer *machine)
-{
-	if (*machine->buffer->buffer == '<'
-			&& machine->input->buffer[machine->index] == '&')
-		machine->state = L_LESSAND;
-	else if (*machine->buffer->buffer == '<'
-			&& machine->input->buffer[machine->index] == '>')
-		machine->last_lexer = E_LESSGREAT;
-	else
-		return ;
-	machine->index++;
-
-}
-
 void		lesser_machine(t_lexer *machine)
 {
 	if (machine->last_lexer == E_DLESS
-			&& machine->input->buffer[machine->index] == '-')
-	{
+			&& get_input(machine, CUR_CHAR) == '-')
 		machine->last_lexer = E_DLESSDASH;
-		machine->index++;
-	}
-	else if (*machine->buffer->buffer == '<'
-			&& machine->input->buffer[machine->index] == '<'
-			&& machine->input->buffer[machine->index + 1] != '&'
-			&& (machine->last_lexer != E_DLESS))
+	else if (get_buffer(machine, CUR_CHAR) == '<')
 	{
-		machine->last_lexer = E_DLESS;
-		vct_add(machine->buffer, machine->input->buffer[machine->index]);
-		machine->index++;
-		return ;
+		if (get_input(machine, CUR_CHAR) == '<'
+			&& get_input(machine, NEXT_CHAR) != '&'
+			&& machine->last_lexer != E_DLESS)
+		{
+			machine->last_lexer = E_DLESS;
+			add_to_buffer(machine);
+			machine->state = L_OUT;
+			return ;
+		}
+		else if (get_input(machine, CUR_CHAR) == '>')
+			machine->last_lexer = E_LESSGREAT;
+		else if (get_input(machine, CUR_CHAR) == '&')
+			machine->state = L_LESSAND;
+		else
+		{
+			machine->state = L_OUT;
+			return ;
+		}
 	}
-	else if (machine->input->buffer[machine->index] == '>'
-			|| machine->input->buffer[machine->index] == '&')
-		lesser_addition(machine);
+	machine->index++;
 	machine->state = machine->state == L_LESSAND ? L_LESSAND : L_OUT;
 }
 
 void		greater_machine(t_lexer *machine)
 {
-	if (ft_strchr(">&|", machine->input->buffer[machine->index]) != NULL)
+	if (ft_strchr(">&|", get_input(machine, CUR_CHAR)) != NULL)
 	{
-		if (*machine->buffer->buffer == '>'
-				&& machine->input->buffer[machine->index] == '>')
-			machine->last_lexer = E_DGREAT;
-		else if (*machine->buffer->buffer == '>'
-				&& machine->input->buffer[machine->index] == '&')
-			machine->state = L_GREATAND;
-		else if (*machine->buffer->buffer == '>'
-				&& machine->input->buffer[machine->index] == '|')
-			machine->last_lexer = E_CLOBBER;
+		if (get_buffer(machine, CUR_CHAR) == '>')
+		{
+			if (get_input(machine, CUR_CHAR) == '>')
+				machine->last_lexer = E_DGREAT;
+			else if (get_input(machine, CUR_CHAR) == '&')
+				machine->state = L_GREATAND;
+			else if (get_input(machine, CUR_CHAR) == '|')
+				machine->last_lexer = E_CLOBBER;
+		}
 		machine->index++;
 	}
 	if (machine->state != L_GREATAND)

@@ -25,11 +25,11 @@ static void	subprompt_calling(t_lexer *machine, uint64_t option)
 
 static uint8_t	is_closed(t_lexer *machine, char close)
 {
-	if (machine->input->buffer[machine->index] == close)
+	if (get_input(machine, CUR_CHAR) == close)
 		return (TRUE);
 	else if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
-		if (machine->input->buffer[machine->index] == '\0')
+		if (get_input(machine, CUR_CHAR) == '\0')
 			return (TRUE);
 	}
 	return (FALSE);
@@ -37,63 +37,58 @@ static uint8_t	is_closed(t_lexer *machine, char close)
 
 void	single_quote_machine(t_lexer *machine)
 {
-	vct_add(machine->buffer, machine->input->buffer[machine->index]);
-	machine->index++;
 	while (is_closed(machine, '\'') == FALSE)
 	{
-		if (machine->input->buffer[machine->index] == '\0')
+		if (get_input(machine, CUR_CHAR) == '\0')
 			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
 		else
-		{
-			vct_add(machine->buffer,
-					machine->input->buffer[machine->index]);
-			machine->index++;
-		}
+			add_to_buffer(machine);
 	}
-	vct_add(machine->buffer, machine->input->buffer[machine->index]);
-	machine->index++;
-	if (machine->input->buffer[machine->index] != '\'')
+	add_to_buffer(machine);
+	if (get_input(machine, CUR_CHAR) != '\'')
 		machine->state = L_STRING;
 }
 
 void	double_quote_machine(t_lexer *machine)
 {
-	vct_add(machine->buffer, machine->input->buffer[machine->index]);
-	machine->index++;
 	while (is_closed(machine, '\"') == FALSE)
 	{
-		if (machine->input->buffer[machine->index] == '\0')
+		if (get_input(machine, CUR_CHAR) == '\0')
 			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
-		else
+		else if (get_input(machine, CUR_CHAR) == '$'
+			&& get_input(machine, NEXT_CHAR == '{'))
 		{
-			vct_add(machine->buffer,
-					machine->input->buffer[machine->index]);
-			machine->index++;
+			add_to_buffer(machine);
+			brace_exp_machine(machine);
 		}
+		else
+			add_to_buffer(machine);
 	}
-	vct_add(machine->buffer, machine->input->buffer[machine->index]);
-	machine->index++;
-	if (machine->input->buffer[machine->index] != '\"')
+	add_to_buffer(machine);
+	if (get_input(machine, CUR_CHAR) != '\"')
 		machine->state = L_STRING;
 }
 
 void	brace_exp_machine(t_lexer *machine)
 {
-	vct_add(machine->buffer, machine->input->buffer[machine->index]);
-	machine->index++;
-	while (is_closed(machine, '\'') == FALSE)
+	add_to_buffer(machine);
+	while (is_closed(machine, '}') == FALSE)
 	{
-		if (machine->input->buffer[machine->index] == '\0')
-			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
-		else
+		if (get_input(machine, CUR_CHAR) == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_BRACE);
+		else if (get_input(machine, CUR_CHAR) == '\"')
 		{
-			vct_add(machine->buffer,
-					machine->input->buffer[machine->index]);
-			machine->index++;
+			add_to_buffer(machine);
+			double_quote_machine(machine);
 		}
+		else if (get_input(machine, CUR_CHAR) == '\'')
+		{
+			add_to_buffer(machine);
+			single_quote_machine(machine);
+		}
+		else
+			add_to_buffer(machine);
 	}
-	vct_add(machine->buffer, machine->input->buffer[machine->index]);
-	machine->index++;
-	if (machine->input->buffer[machine->index] != '\"')
-		machine->state = L_STRING;
+	add_to_buffer(machine);
+	machine->state = L_STRING;
 }

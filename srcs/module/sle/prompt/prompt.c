@@ -54,7 +54,8 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	t_vector	*linesave;
 	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
 										PROMPT_DQUOTE, PROMPT_BQUOTE,
-										PROMPT_NL, PROMPT_AND, PROMPT_OR};
+										PROMPT_NL, PROMPT_AND, PROMPT_OR,
+										PROMPT_BRACE};
 
 	linesave = sle->line;
 	sle->line = sle->sub_line;
@@ -64,7 +65,10 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-	vct_add(sle->sub_line, '\n');
+	if (sle_flag & PRINT_BRACE)
+		vct_add(sle->sub_line, ' ');
+	else
+		vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }
 

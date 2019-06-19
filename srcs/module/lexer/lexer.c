@@ -13,6 +13,30 @@
 #include "sh21.h"
 #include <stdlib.h>
 
+char				get_buffer(t_lexer *machine, uint8_t pos)
+{
+	if (machine->buffer->buffer == NULL)
+		return ('\0');
+	if (pos & NEXT)
+		return (machine->buffer->buffer[1]);
+	return (machine->buffer->buffer[0]);
+}
+
+char				get_input(t_lexer *machine, uint8_t pos)
+{
+	if (machine->input->buffer == NULL)
+		return ('\0');
+	if (pos & NEXT)
+		return (machine->input->buffer[machine->index + 1]);
+	return (machine->input->buffer[machine->index]);
+}
+
+void				add_to_buffer(t_lexer *machine)
+{
+	vct_add(machine->buffer, machine->input->buffer[machine->index]);
+	machine->index++;
+}
+
 static int8_t		pre_process(t_lexer *machine)
 {
 	if (machine->input == NULL || machine->input->buffer == NULL)

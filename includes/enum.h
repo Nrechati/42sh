@@ -199,7 +199,8 @@ enum	prompt_type
 	PRINT_BQUOTE,
 	PRINT_NL,
 	PRINT_AND,
-	PRINT_OR
+	PRINT_OR,
+	PRINT_BRACE
 };
 
 enum	e_action_keys
