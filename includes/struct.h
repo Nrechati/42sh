@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 12:56:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 13:50:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,10 +271,14 @@ typedef struct			s_sle
 
 	t_intern			interns;
 
-	t_vector			*search_line;
+	//history
+	t_vector			*line_save;
 
+	// inc search
+	t_vector			*search_line;
 	uint16_t			search_type;
 
+	//visual mode
 	int64_t				vis_start;
 	int64_t				vis_stop;
 

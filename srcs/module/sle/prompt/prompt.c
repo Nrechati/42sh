@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 11:53:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:23:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 
 	update_window(sle);
 	print_prompt(shell, sle);
+
 	ft_bzero(character, READ_SIZE + 1);
 	vct_reset(sle->line);
 	vct_reset(sle->window.displayed_line);
+	history(shell, NULL, RESET_HEAD);
+	sle->state = STATE_STD;
+
 	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
@@ -38,14 +42,20 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
+
+//	ft_printf("SLE STATE: %d | %s\n", sle->state, vct_get_string(sle->search_line));
+
 	if (sle->state == STATE_SEARCH)
 		sle->line = sle->search_line;
+
+	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
+		vct_reset(sle->line);
+
 	sle->state = STATE_STD;
-	history(shell, NULL, RESET_HEAD);
 
 //	vct_add(sle->line, '\n');
 
-	ak_end(sle);
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
 	ft_printf("\n");
 
