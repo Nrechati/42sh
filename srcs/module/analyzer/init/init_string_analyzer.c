@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:03:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 15:14:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:58:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	init_string(t_analyzer analyzer)
 	analyzer[P_STRING][E_ANDDGREAT] = redirect_analyzer;
 	analyzer[P_STRING][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_STRING][E_PIPE] = flush_string;
+	analyzer[P_STRING][E_DAND] = flush_string;
+	analyzer[P_STRING][E_OR] = flush_string;
 	analyzer[P_STRING][E_SEMICOLON] = flush_string;
 	analyzer[P_STRING][E_NEWLINE] = flush_string;
 	analyzer[P_STRING][E_END] = flush_string;
@@ -47,6 +49,8 @@ void	init_special_string(t_analyzer analyzer)
 	analyzer[P_SPSTRING][E_ANDDGREAT] = redirect_analyzer;
 	analyzer[P_SPSTRING][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_SPSTRING][E_PIPE] = flush_string;
+	analyzer[P_SPSTRING][E_DAND] = flush_string;
+	analyzer[P_SPSTRING][E_OR] = flush_string;
 	analyzer[P_SPSTRING][E_SEMICOLON] = flush_string;
 	analyzer[P_SPSTRING][E_NEWLINE] = flush_string;
 	analyzer[P_SPSTRING][E_END] = flush_string;
@@ -56,6 +60,8 @@ void	init_flush_string(t_analyzer analyzer)
 {
 	analyzer[P_STRING_FLUSH][E_PIPE] = pipe_analyzer;
 	analyzer[P_STRING_FLUSH][E_NEWLINE] = separator_analyzer;
+	analyzer[P_STRING_FLUSH][E_DAND] = separator_analyzer;
+	analyzer[P_STRING_FLUSH][E_OR] = separator_analyzer;
 	analyzer[P_STRING_FLUSH][E_END] = end_analyzer;
 	analyzer[P_STRING_FLUSH][E_SEMICOLON] = separator_analyzer;
 }

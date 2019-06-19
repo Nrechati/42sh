@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:05:16 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 21:21:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:03:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	init_separator(t_analyzer analyzer)
 	analyzer[P_SEPARATOR][E_ANDDGREAT] = stop_analyzer;
 	analyzer[P_SEPARATOR][E_SEMICOLON] = stop_analyzer;
 	analyzer[P_SEPARATOR][E_NEWLINE] = stop_analyzer;
+	analyzer[P_SEPARATOR][E_OR] = stop_analyzer;
+	analyzer[P_SEPARATOR][E_DAND] = stop_analyzer;
 	analyzer[P_SEPARATOR][E_END] = end_analyzer;
 }
 

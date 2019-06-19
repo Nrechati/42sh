@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 14:41:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:11:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,16 +132,16 @@ void			set_signaled(void *context, void *data)
 	return ;
 }
 
-static uint8_t	do_i_run(t_registry *shell, t_job *job)
+static uint8_t	do_i_run(t_registry *shell)
 {
-	if (job->state & KILLED)
+	if (shell->last_job_state & KILLED)
 		return (FALSE);
-	else if (job->job_type & GROUP_AND)
+	else if (shell->last_job_type & GROUP_AND)
 	{
 		if (!(shell->last_job_state & SUCCEDED))
 			return (FALSE);
 	}
-	else if (job->job_type & GROUP_OR)
+	else if (shell->last_job_type & GROUP_OR)
 	{
 		if (shell->last_job_state & SUCCEDED)
 			return (FALSE);
@@ -155,11 +155,13 @@ void			run_job(void *context, void *data)
 	t_job		*job;
 	t_process	*head;
 
-
 	shell = context;
+	ft_printf("last_type = %d || last_state = %d\n"
+			, shell->last_job_type, shell->last_job_state);
 	job = data;
-	if (job == NULL || do_i_run(shell, job) == FALSE)
+	if (job == NULL || do_i_run(shell) == FALSE)
 		return ;
+	shell->last_job_type = job->job_type;
 	head = job->processes->data;
 	//EXPAND ALL JOB
 	if (job->processes->next == NULL)
@@ -187,5 +189,6 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 	ft_lstdel(cmd_group, del_group);
 	load_signal_profile(EXEC_PROFILE);
 	ft_lstiter_ctx(job_lst, shell, run_job);
+	shell->last_job_type = 0;
 	return (SUCCESS);
 }
