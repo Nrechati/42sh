@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 13:15:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 18:58:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	redrawmode_line(t_sle *sle)
 	char		*search;
 	char 		*sl;
 
-	//ft_printf("prompt_len: %d rev %d\n", sle->rd_info.prompt_len, ft_strlen(REV_SEARCH));
+	ft_dprintf(3, "Terminal lines: %d\n", sle->rd_info.lines_amount);
 
 	index_to_coord(sle, sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);

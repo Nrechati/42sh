@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:44:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 18:18:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 18:52:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	sigint_sle(__unused int signo)
 
 void	sigwinch_sle(__unused int signo)
 {
-//	sle(NULL, NULL, SLE_SIZE_UPDATE);
+	sle(NULL, NULL, SLE_SIZE_UPDATE);
 }

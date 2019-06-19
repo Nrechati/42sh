@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:06 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 13:49:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:00:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	compute_redrawinfo(t_sle *sle, t_redrawinfo *rd_info)
 	rd_info->line_len = vct_len(sle->line);
 	rd_info->disp_len = vct_len(sle->window.displayed_line);
 	rd_info->prompt_len = get_prompt_length(&sle->prompt);
-	if (sle->window.cols)
+	if (sle->window.cols > 0)
 	{
-		rd_info->lines_amount = (rd_info->line_len + rd_info->prompt_len)
-				/ (sle->window.cols);
+		rd_info->lines_amount = ((rd_info->line_len + rd_info->prompt_len)
+				/ (sle->window.cols)) + 1;
 	}
 	sle->rd_info = *rd_info;
 }
