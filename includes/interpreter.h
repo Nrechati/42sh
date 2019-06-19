@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 17:57:36 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:38:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void		do_redirect(void *data);
 int8_t		setup_pipe(t_list *processess);
 void		*group_to_job(void *context, void *data);
 
-void		update_pid(t_list *processes, pid_t pid, int status);
-uint8_t		all_is_done(t_list *processes);
 int8_t		waiter(t_job *job);
 
 char		*get_filename(t_list *node);

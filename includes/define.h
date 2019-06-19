@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 17:58:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 09:58:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # define FALSE						0
 # define TRUE						1
+# define ERROR						2
 
 # define SH_GENERAL_ERROR			"42sh: "
 # define SH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
