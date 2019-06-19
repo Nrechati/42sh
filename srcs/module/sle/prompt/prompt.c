@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 14:23:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:24:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,13 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 			ft_printf("\n");
 			return (prompt(shell, sle));
 		}
+
+
 		handle_input_key(sle, character);
 		redraw(shell, sle);
+
+
+
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
@@ -57,6 +62,8 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
+
+
 	ft_printf("\n");
 
 	return (vct_dup(sle->line));

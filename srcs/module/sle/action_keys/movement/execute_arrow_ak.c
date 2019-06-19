@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:29 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 14:30:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:04:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,11 @@ int8_t				ak_arrow_up(t_sle *sle)
 	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
 		return (FAILURE);
 
-	if (sle->state == STATE_STD)
-		history(NULL, vct_get_string(sle->line), ADD_ENTRY);
+	if (sle->state == STATE_STD && sle->line_save == NULL)
+		sle->line_save = vct_dup(sle->line);
 
 	if (sle->state == STATE_SEARCH)
 		sle->state = STATE_STD;
-
 
 	hist_cmd = history(NULL, NULL, GET_ENTRY | PREV);
 	if (hist_cmd == NULL)
@@ -93,11 +92,13 @@ int8_t				ak_arrow_down(__unused t_sle *sle)
 		sle->state = STATE_STD;
 
 	hist_cmd = history(NULL, NULL, GET_ENTRY | NEXT);
-//	if (hist_cmd == NULL)
-//	{
-//		ft_printf("HISTCMD IS NULL\n");
-//		hist_cmd = vct_get_string(sle->line_save);
-//	}
+	if (hist_cmd == NULL && sle->line_save != NULL)
+	{
+		hist_cmd = vct_get_string(sle->line_save);
+		sle->line_save = NULL;
+		history(NULL, NULL, RESET_HEAD);
+	}
+
 	uint64_t len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 
 	vct_replace_string(sle->line, 0, len ,hist_cmd);

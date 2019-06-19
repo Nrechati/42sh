@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:56:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:27:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,7 +387,7 @@
 # define P_ESCAPE			'e'
 
 # define FAIL_EOF					42
-# define AK_AMOUNT					24
+# define AK_AMOUNT					23
 
 # define AK_ESCAPE_MASK				0x1b00000000000000
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 13:50:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:27:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,9 +263,12 @@ typedef struct			s_sle
 	t_window			window;
 	t_prompt			prompt;
 	t_cursor			cursor;
+
 	t_redrawinfo		rd_info;
 	uint64_t			ak_masks[AK_AMOUNT];
+
 	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
+
 	t_vector			*line;
 	t_vector			*sub_line;
 
