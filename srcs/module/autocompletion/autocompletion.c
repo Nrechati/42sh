@@ -80,7 +80,7 @@ static char		*get_completion(char *input, t_registry *shell,
 	if (result->type == FILE_TYPE && slash_is_missing(*completion) == TRUE
 		&& ft_strequ(".", *completion) == FALSE)
 	{
-//		ft_strdel(completion);
+		ft_strdel(completion);
 		*completion = ft_strdup("/");
 		return (*completion);
 	}
@@ -93,21 +93,30 @@ char		*autocompletion(char *input, t_registry *shell,
 {
 	char						*completion;
 	static t_autocomplete		result;
+	char						*cpy_input;
 
 	completion = NULL;
 	if ((option & RESET_RESULT) || (option & NEW_SEARCH))
 	{
-//		ft_lstdel(&result.list, NULL); // IS GOOD ?
+		ft_lstdel(&result.list, NULL); // IS GOOD ?
 		ft_bzero(&result, sizeof(t_autocomplete));
 		if (option & RESET_RESULT)
 			return (NULL);
 	}
-	if (get_completion(input, shell, &result, &completion) != NULL)
+	cpy_input = ft_strdup(input);
+	if (get_completion(cpy_input, shell, &result, &completion) != NULL)
+	{
+		ft_strdel(&cpy_input);
 		return (completion);
+	}
 	if (result.nb == 1)
+	{
+		ft_strdel(&cpy_input);
 		return (send_rest(&result, completion, shell));
+	}
 	ft_mergesort(&result.list, lst_strcmp);
 	print_possibilities(&result, col);
-//	ft_strdel(&completion);
+	ft_strdel(&cpy_input);
+	ft_strdel(&completion);
 	return (NULL);
 }
