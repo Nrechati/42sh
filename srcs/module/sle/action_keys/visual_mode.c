@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 14:24:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:36:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int8_t	ak_enter_visual_mode(t_sle *sle)
 // ESCAPE
 int8_t	ak_exit_modes(t_sle *sle)
 {
+	ft_printf("SLE ESCAPE STATE: %d \n", sle->state);
 	if (sle->state == STATE_SEARCH)
 	{
 		if (ft_strequ(vct_get_string(sle->search_line), "Failed") == TRUE)

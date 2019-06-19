@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:56:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 18:17:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 
 	load_signal_profile(SLE_PROFILE);
 	term_mode(TERMMODE_SLE);
+	sle.state = STATE_STD;
 
 	if (sle_flag == SLE_GET_INPUT)
 	{
@@ -83,14 +84,21 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	else if (sle_flag & SLE_PS3_PROMPT)
 		*in = invoke_ps3prompt(shell, &sle);
 
+	else if (sle_flag == SLE_RD_PROMPT)
+	{
+		vct_reset(sle.line);
+		sle.state = STATE_STD;
+		set_redraw_flags(&sle, RD_LINE | RD_CEND);
+		redraw(shell, &sle);
+		update_window(&sle);
+		print_prompt(NULL, &sle);
+	}
+
 	else if (sle_flag & SLE_SIZE_UPDATE)
 		redraw_window(&sle);
 
 	else if (sle_flag == SLE_EXIT)
 		sle_teardown(&sle);
-
-	term_mode(TERMMODE_DFLT);
-	load_signal_profile(DFLT_PROFILE);
 
 	return (SUCCESS);
 }

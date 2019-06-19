@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 15:24:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:45:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,33 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
 	char	character[READ_SIZE + 1];
 
-	update_window(sle);
-	print_prompt(shell, sle);
 
 	ft_bzero(character, READ_SIZE + 1);
 	vct_reset(sle->line);
 	vct_reset(sle->window.displayed_line);
 	history(shell, NULL, RESET_HEAD);
+
 	sle->state = STATE_STD;
 
+	update_window(sle);
+
+	print_prompt(shell, sle);
 	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
 		{
-			ft_printf("\n");
-			return (prompt(shell, sle));
+			ft_printf("\nRead failed\n");
+			return (NULL);
 		}
-
 
 		handle_input_key(sle, character);
 		redraw(shell, sle);
-
-
 
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
 
-//	ft_printf("SLE STATE: %d | %s\n", sle->state, vct_get_string(sle->search_line));
 
 	if (sle->state == STATE_SEARCH)
 		sle->line = sle->search_line;

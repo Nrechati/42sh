@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 15:27:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:18:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,7 +343,8 @@
 # define SLE_PS2_PROMPT		0x0200
 # define SLE_PS3_PROMPT		0x0400
 # define SLE_SIZE_UPDATE	0x0800
-# define SLE_EXIT			0x1000
+# define SLE_RD_PROMPT		0x1000
+# define SLE_EXIT			0x2000
 
 # define RD_NONE        0x001 /* No redraw at all*/
 # define RD_CLEAR       0x002 /* Redraw th entire window*/

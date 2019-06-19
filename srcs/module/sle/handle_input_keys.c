@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:49:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:48:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void		handle_printable_char(t_sle *sle, const char c)
 
 	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
 		return ;
+//	ft_printf("--- PASSED STATE PRINTABLE STATE: %d ---\n", sle->state);
 
 	cursor = &sle->cursor;
 	line = sle->line;
@@ -47,7 +48,7 @@ static void		handle_printable_char(t_sle *sle, const char c)
 						vct_len(sle->line) + 1);
 		set_cursor_pos(sle, cursor->index + 1);
 	}
-
+//	ft_printf("Added character %c to string |%s|\n", c, vct_get_string(sle->line));
 }
 
 static void		handle_actionkey(t_sle *sle, char c[READ_SIZE])
