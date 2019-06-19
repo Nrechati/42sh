@@ -23,48 +23,77 @@ static void	subprompt_calling(t_lexer *machine, uint64_t option)
 	vct_del(&new_input);
 }
 
+static uint8_t	is_closed(t_lexer *machine, char close)
+{
+	if (machine->input->buffer[machine->index] == close)
+		return (TRUE);
+	else if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
+	{
+		if (machine->input->buffer[machine->index] == '\0')
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
 void	single_quote_machine(t_lexer *machine)
 {
-	if (g_shell->option.option & INTERACTIVE_OPT)
+	vct_add(machine->buffer, machine->input->buffer[machine->index]);
+	machine->index++;
+	while (is_closed(machine, '\'') == FALSE)
 	{
-		while (machine->input->buffer[machine->index] != '\'')
+		if (machine->input->buffer[machine->index] == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
+		else
 		{
-			if (machine->input->buffer[machine->index] == '\0')
-				subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
-			else
-			{
-				vct_add(machine->buffer,
-						machine->input->buffer[machine->index]);
-				machine->index++;
-			}
+			vct_add(machine->buffer,
+					machine->input->buffer[machine->index]);
+			machine->index++;
 		}
-		vct_add(machine->buffer, machine->input->buffer[machine->index]);
-		machine->index++;
-		machine->state = L_STRING;
 	}
-	else
-		machine->state = L_OUT;
+	vct_add(machine->buffer, machine->input->buffer[machine->index]);
+	machine->index++;
+	if (machine->input->buffer[machine->index] != '\'')
+		machine->state = L_STRING;
 }
 
 void	double_quote_machine(t_lexer *machine)
 {
-	if (g_shell->option.option & INTERACTIVE_OPT)
+	vct_add(machine->buffer, machine->input->buffer[machine->index]);
+	machine->index++;
+	while (is_closed(machine, '\"') == FALSE)
 	{
-		while (machine->input->buffer[machine->index] != '\"')
+		if (machine->input->buffer[machine->index] == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
+		else
 		{
-			if (machine->input->buffer[machine->index] == '\0')
-				subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
-			else
-			{
-				vct_add(machine->buffer,
-						machine->input->buffer[machine->index]);
-				machine->index++;
-			}
+			vct_add(machine->buffer,
+					machine->input->buffer[machine->index]);
+			machine->index++;
 		}
-		vct_add(machine->buffer, machine->input->buffer[machine->index]);
-		machine->index++;
-		machine->state = L_STRING;
 	}
-	else
-		machine->state = L_OUT;
+	vct_add(machine->buffer, machine->input->buffer[machine->index]);
+	machine->index++;
+	if (machine->input->buffer[machine->index] != '\"')
+		machine->state = L_STRING;
+}
+
+void	brace_exp_machine(t_lexer *machine)
+{
+	vct_add(machine->buffer, machine->input->buffer[machine->index]);
+	machine->index++;
+	while (is_closed(machine, '\'') == FALSE)
+	{
+		if (machine->input->buffer[machine->index] == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
+		else
+		{
+			vct_add(machine->buffer,
+					machine->input->buffer[machine->index]);
+			machine->index++;
+		}
+	}
+	vct_add(machine->buffer, machine->input->buffer[machine->index]);
+	machine->index++;
+	if (machine->input->buffer[machine->index] != '\"')
+		machine->state = L_STRING;
 }

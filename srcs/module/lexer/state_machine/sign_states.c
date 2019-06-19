@@ -85,6 +85,12 @@ void			sign_machine(t_lexer *machine)
 		machine->state = L_SQTE;
 	else if (machine->input->buffer[machine->index] == '\"')
 		machine->state = L_DQTE;
+	else if (machine->input->buffer[machine->index] == '$'
+		&& machine->input->buffer[machine->index + 1] == '{')
+	{
+		machine->state = L_BRACE_EXP;
+		return ;
+	}
 	else if (machine->input->buffer[machine->index] == '&'
 			&& machine->input->buffer[machine->index + 1] != '&')
 	{
@@ -92,13 +98,16 @@ void			sign_machine(t_lexer *machine)
 		return ;
 	}
 	else if (double_dispatcher(machine) != FALSE)
+	{
 		vct_add(machine->buffer, machine->input->buffer[machine->index]);
+		machine->index++;
+	}
 	else
 	{
 		vct_add(machine->buffer, machine->input->buffer[machine->index]);
 		machine->assign_detect = ASSIGN_ON;
 		machine->state = L_OUT;
+		machine->index++;
 	}
-	machine->index++;
 
 }

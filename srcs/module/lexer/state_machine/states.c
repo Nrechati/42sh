@@ -88,7 +88,10 @@ void	string_machine(t_lexer *machine)
 	}
 	else if (ft_strchr(LETTER_SPECIAL,
 				machine->input->buffer[machine->index]) != NULL)
+	{
 		string_special(machine);
+		return ;
+	}
 	else if (machine->last_lexer != E_SPSTRING)
 		machine->last_lexer = E_STRING;
 	if (assign_detect(machine))

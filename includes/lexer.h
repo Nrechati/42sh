@@ -28,6 +28,7 @@ void		expansion_machine(t_lexer *machine);
 void		backslash_machine(t_lexer *machine);
 void		single_quote_machine(t_lexer *machine);
 void		double_quote_machine(t_lexer *machine);
+void		brace_exp_machine(t_lexer *machine);
 void		double_sign_machine(t_lexer *machine);
 void		and_machine(t_lexer *machine);
 void		greater_machine(t_lexer *machine);
