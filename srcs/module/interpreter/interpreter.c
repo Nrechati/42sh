@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 11:37:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 12:44:15 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-static void	re_open_std(const uint8_t std, char *tty_name)
+static void		re_open_std(const uint8_t std, char *tty_name)
 {
 	int		fd;
 
@@ -30,7 +30,7 @@ static void	re_open_std(const uint8_t std, char *tty_name)
 	return ;
 }
 
-void	do_nofork_redirect(void *context, void *data)
+void			do_nofork_redirect(void *context, void *data)
 {
 	uint8_t		*std;
 	t_redirect	*redirect;
@@ -51,7 +51,7 @@ void	do_nofork_redirect(void *context, void *data)
 		close(redirect->from);
 }
 
-void	run_builtin(t_registry *shell, t_process *process)
+void			run_builtin(t_registry *shell, t_process *process)
 {
 	char			*tty_name;
 	uint8_t			std;
@@ -72,7 +72,7 @@ void	run_builtin(t_registry *shell, t_process *process)
 	return ;
 }
 
-int		get_failed_process(void *data, void *context)
+int				get_failed_process(void *data, void *context)
 {
 	t_process	*current;
 
@@ -83,7 +83,7 @@ int		get_failed_process(void *data, void *context)
 	return (FALSE);
 }
 
-void	run_process(void *context, void *data)
+void			run_process(void *context, void *data)
 {
 	t_registry	*shell;
 	t_process	*process;
@@ -119,7 +119,7 @@ void	set_stopped(void *data)
 	return ;
 }
 
-void	set_signaled(void *context, void *data)
+void			set_signaled(void *context, void *data)
 {
 	t_job		*job;
 	uint32_t	*signo;
@@ -132,7 +132,25 @@ void	set_signaled(void *context, void *data)
 	return ;
 }
 
-void	run_job(void *context, void *data)
+static uint8_t	do_i_run(t_registry *shell, t_job *job)
+{
+	if (job->state & KILLED)
+		return (FALSE);
+	else if (job->job_type & GROUP_AND)
+	{
+		if (!(shell->last_job_state & SUCCEDED))
+			return (FALSE);
+	}
+	else if (job->job_type & GROUP_OR)
+	{
+		if (shell->last_job_state & SUCCEDED)
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
+#include		<stdio.h>
+void			run_job(void *context, void *data)
 {
 	t_registry	*shell;
 	t_job		*job;
@@ -141,8 +159,9 @@ void	run_job(void *context, void *data)
 
 	shell = context;
 	job = data;
-	if (job == NULL || job->state & KILLED)
-		return;
+	printf("last_job %d");
+	if (job == NULL || do_i_run(shell, job) == FALSE)
+		return ;
 	head = job->processes->data;
 	//EXPAND ALL JOB
 	if (job->processes->next == NULL)
@@ -152,16 +171,12 @@ void	run_job(void *context, void *data)
 	job->state = RUNNING;
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-	//	ft_lstiter(job->processes, print_process);
-	//CHECK WAIT CONDITION HERE;
-	//CHECK LEAK ON ERROR
 	waiter(job);
-	//if (KILLED)
-	//	lstdel(job_lst);
+	shell->last_job_state = job->state;
 	return ;
 }
 
-int8_t interpreter(t_registry *shell, t_list **cmd_group, uint32_t flag)
+int8_t 			interpreter(t_registry *shell, t_list **cmd_group, uint32_t flag)
 {
 	static t_list	*job_lst;
 

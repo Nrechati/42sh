@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 10:52:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 12:38:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ int8_t		set_signame(char *sigtab[32])
 	return (SUCCESS);
 }
 
-static void	update_pid(t_list *processes, pid_t pid, int status, char *sigtab[32])
+static void	update_pid(t_job *job, pid_t pid, int status, char *sigtab[32])
 {
+	t_list			*processes;
 	t_process		*current;
 
+	processes = job->processes;
 	while (processes)
 	{
 		current = processes->data;
@@ -71,7 +73,10 @@ static void	update_pid(t_list *processes, pid_t pid, int status, char *sigtab[32
 			if (WIFEXITED(status))
 			{
 				if (status != 0)
+				{
+					job->state |= FAILED;
 					current->completed = ERROR;
+				}
 				else
 					current->completed = TRUE;
 			}
@@ -79,6 +84,7 @@ static void	update_pid(t_list *processes, pid_t pid, int status, char *sigtab[32
 			{
 				ft_printf("%s terminated with status %d by %s\n"
 						, current->av[0], status, sigtab[WTERMSIG(status)]);
+				job->state |= FAILED;
 				current->stopped = TRUE;
 			}
 			return ;
@@ -132,11 +138,13 @@ int8_t			waiter(t_job *job)
 			status = 0;
 			pid = wait(&status);
 			if (pid)
-				update_pid(job->processes, pid, status , sigtab);
+				update_pid(job, pid, status , sigtab);
 		}
 	}
 	if (job->state & KILLED)
 		ft_printf("\x1b[33m\n [1]\tjob killed by : SIG%d\n\x1b[0m", job->signo);
+	if ((!(job->state & FAILED)) && (!(job->state & FAILED)))
+		job->state |= SUCCEDED;
 	job->state = ENDED;
 	return (SUCCESS);
 }
