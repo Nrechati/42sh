@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 17:16:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:55:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ int8_t	ak_home(__unused t_registry *shell, t_sle *sle)
 
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
-
 	set_redraw_flags(sle, RD_NONE | RD_CHOME);
 	set_cursor_pos(sle, 0);
-
 	if (sle->state == STATE_VISUAL)
 	{
 		x = 0;
@@ -37,10 +35,8 @@ int8_t	ak_end(__unused t_registry *shell, t_sle *sle)
 
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
-
 	set_redraw_flags(sle, RD_NONE | RD_CEND);
 	set_cursor_pos(sle, vct_len(sle->line));
-
 	if (sle->state == STATE_VISUAL)
 	{
 		x = 0;

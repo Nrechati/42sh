@@ -6,63 +6,44 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 19:17:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:53:06 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-/*
-**	Standart prompt invocation
-*/
-
 t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
 	char	character[READ_SIZE + 1];
 
-
+	sle->state = STATE_STD;
 	ft_bzero(character, READ_SIZE + 1);
 	vct_reset(sle->line);
 	vct_reset(sle->window.displayed_line);
 	history(shell, NULL, RESET_HEAD);
-
-	sle->state = STATE_STD;
-
 	update_window(sle);
-
 	print_prompt(shell, sle);
 	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
 			return (NULL);
-
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
-
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
-
-
 	if (sle->state == STATE_SEARCH)
 		sle->line = sle->search_line;
-
 	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
 		vct_reset(sle->line);
-
 	sle->state = STATE_STD;
-
 	autocompletion(NULL, shell, sle->window.cols, RESET_RESULT);
 	history(shell, NULL, RESET_HEAD);
-
 //	vct_add(sle->line, '\n');
-
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
-
 	ft_printf("\n");
-
 	return (vct_dup(sle->line));
 }
 

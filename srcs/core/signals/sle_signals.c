@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:44:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 18:52:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:09:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	sigterm_sle(int signo)
 {
 	(void)signo;
+	exit_blt(g_shell, 0);
 }
 
 void	sigcont_sle(int signo)

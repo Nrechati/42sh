@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 18:10:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:52:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ inline void		print_prompt(__unused t_registry *shell, t_sle *sle)
 {
 	t_vector	*ptext;
 
-//	ft_printf("WHAT R U DOING HERE????\n");
 	if (prompt_need_alignment() == TRUE)
 		align_prompt(sle);
 	ptext = NULL;

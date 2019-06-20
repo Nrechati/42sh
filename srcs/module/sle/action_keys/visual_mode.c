@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 19:13:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:54:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,12 @@ int8_t	ak_enter_visual_mode(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->state != STATE_STD)
 		return (FAILURE);
-
 	sle->state = STATE_VISUAL;
-
 	sle->vis_start = sle->cursor.index;
 	sle->vis_stop = sle->cursor.index;
-
 	return (SUCCESS);
 }
 
-// ESCAPE
 int8_t	ak_exit_modes(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->state == STATE_SEARCH)
@@ -35,11 +31,8 @@ int8_t	ak_exit_modes(__unused t_registry *shell, t_sle *sle)
 			vct_reset(sle->search_line);
 		sle->line = sle->search_line;
 	}
-
 	sle->state = STATE_STD;
-
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
-
 	return (SUCCESS);
 }
 
@@ -57,12 +50,10 @@ void	redrawmode_visual(t_sle *sle)
 {
 	if (visual_bounds_valid(sle) == FALSE)
 		return ;
-
 	if (sle->vis_stop < sle->vis_start)
 		set_redraw_bounds(sle, sle->vis_stop, sle->vis_start + 2);
 	else
 		set_redraw_bounds(sle, sle->vis_start, sle->vis_stop + 1);
-
 	redrawmode_line(sle);
 	tputs(sle->termcaps.standout_on, 1, &ft_putc);
 	redrawmode_fptp(sle);

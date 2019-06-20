@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:49:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:54:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ uint64_t    init_cursor(t_sle *sle)
 
 uint64_t    init_prompt(t_sle *sle)
 {
-
 	sle->prompt.length = 0;
 	sle->prompt.state = INT_PS1;
 	sle->prompt.missing_char = NULL;

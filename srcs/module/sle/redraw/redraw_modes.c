@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 18:58:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:51:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,23 @@ void	redrawmode_line(t_sle *sle)
 	char		*search;
 	char 		*sl;
 
-	ft_dprintf(3, "Terminal lines: %d\n", sle->rd_info.lines_amount);
-
 	index_to_coord(sle, sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);
-
 	if (sle->state == STATE_SEARCH)
 	{
 		sl = vct_get_string(sle->sub_line);
-
 		search = history(NULL, sl, GET_ENTRY | BY_NAME | sle->search_type);
-
 		if (search == NULL)
 			sle->search_line = vct_dups("Failed");
 		else
 			sle->search_line = vct_dups(search);
-
 		search = NULL;
 		ft_asprintf(&search, "%s`%s`:%s",
 					(sle->search_type == NEXT) ? INC_SEARCH : REV_SEARCH,
 					vct_get_string(sle->sub_line),
 					vct_get_string(sle->search_line));
-
 		sle->line = vct_dups(search);
 	}
-
 	diff = vct_len(sle->line) - (vct_len(sle->window.displayed_line)) - 1;
 	print_loop(sle, vct_get_string(sle->line));
 	if (diff <= 0)
@@ -93,9 +85,7 @@ void	redrawmode_fptp(t_sle *sle)
 
 	index_to_coord(sle, sle->window.point1 + sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);
-
 	length = sle->window.point2 - (sle->window.point1 + 1);
-
 	tmp = sle->window.point1;
 	while (length  > 0)
 	{
