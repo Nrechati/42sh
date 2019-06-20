@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 18:25:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 21:17:15 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define INTERFACE_FUNCTIONS_H
 
 # include "struct.h"
+
 # define NO_CLOSE			0x0000
 # define ANY				0x0001
 # define SP_SINGLE_QUOTE	0x0002
@@ -23,7 +24,12 @@
 # define IS_CLOSE			0x0020
 
 
-uint16_t	verif_line(t_registry *shell, t_sle *sle, size_t i, uint16_t close);
+void		verif_line(t_sle *sle);
+void		any_routine(t_sle *sle, size_t *i);
+void		double_quote_routine(t_sle *sle, size_t *i);
+void		single_quote_routine(t_sle *sle, size_t *i);
+void		brace_exp_routine(t_sle *sle, size_t *i);
+void		maths_exp_routine(t_sle *sle, size_t *i);
 
 /*
 *****************************************************
