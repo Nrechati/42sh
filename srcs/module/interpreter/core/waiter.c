@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 10:55:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:36:36 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		set_status(t_registry *shell, t_process *current, int status)
 		current->stopped = TRUE;
 	}
 	add_var(&shell->intern, "?", exit_status, SET_VAR);
-	ft_free(exit_status);
+	ft_strdel(&exit_status);
 }
 
 static void		update_pid(t_registry *shell, t_job *job, pid_t pid, int status)

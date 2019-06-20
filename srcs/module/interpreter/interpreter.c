@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 10:54:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:35:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void		do_nofork_redirect(void *context, void *data)
 void			run_builtin(t_registry *shell, t_process *process)
 {
 	char			*tty_name;
+	char			*status;
 	uint8_t			std;
 	t_builtin		builtin;
 
@@ -47,10 +48,13 @@ void			run_builtin(t_registry *shell, t_process *process)
 		ft_lstiter(process->redirects, do_redirect);
 	builtin = ft_hmap_getdata(&shell->hash.blt, process->av[0]);
 	process->status = builtin(shell, process->av);
+	status = ft_itoa(process->status);
 	if (process->process_type & IS_ALONE)
 		default_io(std, tty_name);
 	ft_lstiter(process->redirects, close_redirect);
+	add_var(&shell->intern, "?", status, SET_VAR);
 	process->completed = 1;
+	ft_strdel(&status);
 	return ;
 }
 
@@ -91,7 +95,8 @@ static void		run_job(void *context, void *data)
 	shell = context;
 	job = data;
 	job_type = ft_itoa(job->job_type);
-	if (job == NULL || do_i_run(shell, ft_atoi(get_var(shell->intern, "job_type"))) == FALSE)
+	if (job == NULL || do_i_run(shell, job
+			, ft_atoi(get_var(shell->intern, "job_type"))) == FALSE)
 	{
 		add_var(&shell->intern, "job_type", job_type, SET_VAR);
 		return;

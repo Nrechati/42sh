@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 11:09:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:28:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				check_delimiter(char **delimiter, t_vector **vector, int fd);
 
 int				get_failed_process(void *data, void *context);
 void			re_open_std(const uint8_t std, char *tty_name);
-uint8_t			do_i_run(t_registry *shell, int job_type);
+uint8_t			do_i_run(t_registry *shell, t_job *job, int job_type);
 void			set_stopped(void *data);
 void			set_signaled(void *context, void *data);
 
