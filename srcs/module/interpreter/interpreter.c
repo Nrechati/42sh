@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 11:35:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 12:37:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static void		run_process(void *context, void *data)
 
 	shell = context;
 	process = data;
+	if (expand_process(shell->intern, process->av))
+		return ;
 	if (get_process_type(shell, process) == FAILURE)
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR SH_MALLOC_ERROR);
@@ -73,11 +75,7 @@ static void		run_process(void *context, void *data)
 	if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTEPRETER_NOT_FOUND, process->av[0]);
 	else if (process->process_type & IS_ASSIGN)
-	{
-		assign_intern(shell, process->env);
-		process->env = NULL;
-		process->completed = 1;
-	}
+		process->completed = assign_intern(shell, &process->env);
 	else if (process->process_type == (IS_ALONE | IS_BLT))
 		run_builtin(shell, process);
 	else

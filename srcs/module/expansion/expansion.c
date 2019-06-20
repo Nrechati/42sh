@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 20:25:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 03:46:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,17 @@ t_quote	select_quoting(t_quote quote, const char c)
 	return (quote);
 }
 
-char	*expansion_pipeline(t_list *intern_var, char **str)
+char	*expansion_pipeline(t_list *intern_var, char *str)
 {
-	tilde(intern_var, &(*str));
-	variable_expansion(intern_var, &(*str));
-	quote_removal(*str);
-	return (*str);
+	char		*dest;
+	char		*expanded;
+
+	if ((dest = tilde(intern_var, str)) == NULL)
+		return (NULL);
+	expanded = variable_expansion(intern_var, dest);
+	ft_strdel(&dest);
+	if (expanded == NULL)
+		return (NULL);
+	quote_removal(expanded);
+	return (expanded);
 }

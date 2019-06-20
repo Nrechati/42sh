@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 15:06:12 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 03:50:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,25 @@ static char	*tilde_expansion(t_list *intern_var, const char *str)
 	return (expanded);
 }
 
-void		tilde(t_list *intern_var, char **str)
+char		*tilde(t_list *intern_var, char *str)
 {
 	t_vector	*vector;
+	char		*source;
 	char		*expanded;
 	uint32_t	i;
 
 	i = 0;
-	if (ft_strbeginswith(*str, "~") == FALSE)
-		return ;
-	i = ft_strcspn(*str, "/");
-	(*str)[i] = character_swap((*str)[i]);
-	expanded = tilde_expansion(intern_var, *str);
+	if (ft_strbeginswith(str, "~") == FALSE)
+		return (ft_strdup(str));
+	i = ft_strcspn(str, "/");
+	str[i] = character_swap(str[i]);
+	expanded = tilde_expansion(intern_var, str);
+	str[i] = character_swap('\0');
 	if (expanded == NULL)
-		return ;
-	(*str)[i] = character_swap('\0');
-	vector = vct_dups(*str);
+		return (NULL);
+	vector = vct_dups(str);
 	vct_replace_string(vector, 0, i, expanded);
-	ft_strdel(str);
-	*str = ft_strdup(vct_get_string(vector));
+	source = ft_strdup(vct_get_string(vector));
 	vct_del(&vector);
+	return (source);
 }

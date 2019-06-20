@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/20 10:57:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 12:32:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,6 @@ void		io_redirect_flush(t_resolution *resolve);
 void		heredoc_analyzer(t_resolution *resolve);
 void		io_heredoc_analyzer(t_resolution *resolve);
 void		heredoc_delimiter(t_resolution *resolve);
-
-char		*expansion_pipeline(t_list *intern_var, char **str);
-char		*expand_string(t_list *lst, char *str);
-void		tilde(t_list *intern_var, char **str);
-void		variable_expansion(t_list *intern_var, char **str);
-void		quote_removal(char *str);
-char		character_swap(char swapped);
-t_quote		select_quoting(t_quote quote, char c);
 
 int			is_ionumber(t_resolution *resolve, char *str);
 void		check_filename(t_resolution *resolve);

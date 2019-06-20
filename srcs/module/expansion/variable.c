@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 18:39:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 07:54:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,51 +34,58 @@ static char	*variable_replace(t_list *lst, t_vector *str, uint32_t start_idx)
 	return (sub);
 }
 
-static char	*variable_concat(t_list *lst, char **str, int i)
+static int variable_concat(t_list *lst, char **dest, int i)
 {
-	t_vector	*string;
-	char		*expanded;
+	t_vector	*vector;
 
-	string = vct_dups(*str);
-	ft_strdel(str);
-	expanded = variable_replace(lst, string, i);
-	vct_del(&string);
-	return (expanded);
+	vector = vct_dups(*dest);
+	ft_strdel(dest);
+	if ((*dest = variable_replace(lst, vector, i)) == NULL)
+		return (-1);
+	vct_del(&vector);
+	return (1);
 }
 
-static int	check_expansion(t_list *intern_var, char **str, int i, t_quote quote)
+static int	check_expansion(t_list *intern, char **dest, int i, t_quote quote)
 {
 	int		check;
 
 	check = 0;
-	if ((*str)[i] == '$' && (*str)[i + 1] != '\0')
+	if ((*dest)[i] != '$')
+		return (0);
+	if ((*dest)[i + 1] == '{')
+		check = parameter_expansion(intern, dest, i);
+	else if ((*dest)[i + 1] != '\0')
 	{
-		if (ft_strchr(EXP_INTERUPT, (*str)[i + 1]))
+		if (ft_strchr(EXP_INTERUPT, (*dest)[i + 1]))
 			check = 0;
 		else if (quote != QUOTE_SINGLE)
-		{
-			*str = variable_concat(intern_var, str, i);
-			check = 1;
-		}
+			check = variable_concat(intern, dest, i);
 	}
 	return (check);
 }
 
-void		variable_expansion(t_list *intern_var, char **str)
+char		*variable_expansion(t_list *intern_var, char *str)
 {
 	uint32_t	i;
 	uint32_t	len;
 	t_quote		quote;
+	char		*dest;
+	int			result;
 
 	i = 0;
 	quote = 0;
-	len = ft_strlen(*str);
+	dest = ft_strdup(str);
+	len = ft_strlen(dest);
 	while (i < len)
 	{
-		if (ft_strchr("\'\"", (*str)[i]))
-			quote = select_quoting(quote, (*str)[i]);
-		if (check_expansion(intern_var, str, i, quote) == 1)
-			len = ft_strlen(*str);
+		if (ft_strchr("\'\"", dest[i]))
+			quote = select_quoting(quote, dest[i]);
+		if ((result = check_expansion(intern_var, &dest, i, quote)) == 1)
+			len = ft_strlen(dest);
+		else if (result == -1)
+			return (NULL);
 		++i;
 	}
+	return (dest);
 }

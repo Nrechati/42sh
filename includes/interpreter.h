@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 11:28:34 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 12:36:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void			run_builtin(t_registry *shell, t_process *process);
 int8_t			get_process_type(t_registry *shell, t_process *process);
 char			**generate_env(t_registry *shell, t_list *local_env);
 
-void			assign_intern(t_registry *shell, t_list *assign);
-void			execute_process(t_registry *shell, t_process *process, char **env);
+int				assign_intern(t_registry *shell, t_list **assign);
 void			fork_process(t_registry *shell, t_process *process);
 
 void			set_process_pgid(void *context, void *data);
@@ -50,6 +49,7 @@ int8_t			setup_pipe(t_list *processess);
 void			*group_to_job(void *context, void *data);
 
 int8_t			waiter(t_registry *shell, t_job *job);
+int				expand_process(t_list *intern, char **av);
 
 char			*get_filename(t_list *node);
 int 			get_io(t_list *node);
