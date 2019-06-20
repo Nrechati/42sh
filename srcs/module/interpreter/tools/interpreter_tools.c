@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:30:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 10:34:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:28:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void		re_open_std(const uint8_t std, char *tty_name)
 	return ;
 }
 
-uint8_t		do_i_run(t_registry *shell, int job_type)
+uint8_t		do_i_run(t_registry *shell, t_job *job, int job_type)
 {
 	char	*last_status;
 
 	last_status = get_var(shell->intern, "?");
-	if (ft_atoi(last_status) > 128)
+	if (job->state & KILLED)
 		return (FALSE);
 	else if (job_type & GROUP_AND)
 	{
