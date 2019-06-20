@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 10:54:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:20:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 	load_signal_profile(EXEC_PROFILE);
 	ft_lstiter_ctx(job_lst, shell, run_job);
 	add_var(&shell->intern, "job_type", "0", SET_VAR);
+	add_var(&shell->intern, "?", "0", SET_VAR);
 	return (SUCCESS);
 }
