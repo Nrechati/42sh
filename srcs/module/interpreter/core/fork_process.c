@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 20:35:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 21:53:06 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	signal (SIGCHLD, SIG_DFL);
 	signal (SIGPIPE, SIG_DFL);
 
-	ft_dprintf(3, "Child process pid is %d\n", getpid());
+//	process->pid = getpid();
+	ft_dprintf(3, "Child process pid is %d\n", process->pid);
+
+//	setpgid(getpid(), *process->pgid);
 	ft_dprintf(3, "Setting process group ID to %d\n", *process->pgid);
-	setpgid(getpid(), *process->pgid);
-	ft_dprintf(3, "Attaching pid %d to the controlling terminal\n", *process->pgid);
-	tcsetpgrp(STDOUT_FILENO, *process->pgid);
+
+//	tcsetpgrp(STDIN_FILENO, (pid_t )process->pgid);
+	ft_dprintf(3, "Attaching pid %d to the controlling terminal\n", process->pgid);
 
 	if (process->process_type & IS_BLT)
 	{
@@ -53,11 +56,11 @@ static void	parent_process(t_registry *shell, t_process *process, char ***env)
 		ft_hmap_hits(&shell->hash.bin, process->av[0]);
 	ft_lstiter(process->redirects, close_redirect);
 
-	ft_dprintf(3, "Parent process pid is %d\n", getpid());
+//	ft_dprintf(3, "Parent process pid is %d\n", getpid());
 
-	if (*process->pgid == 0)
-		*process->pgid = process->pid;
-	setpgid(process->pid, *process->pgid);
+//	if (*process->pgid == 0)
+//		*process->pgid = process->pid;
+//	setpgid(process->pid, *process->pgid);
 
 	ft_freetab(env);
 }

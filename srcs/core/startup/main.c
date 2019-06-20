@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 20:16:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 21:53:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ int				main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 	pid_t			shell_pid;
+	pid_t
 
 	(void)ac;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
 
 	shell_pid = getpid();
+
 	if (setpgid(shell_pid, shell_pid) < 0)
 	{
 		ft_dprintf(2, "Failed Setpgid\n");
