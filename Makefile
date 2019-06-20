@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/20 04:47:15 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/20 08:38:33 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -124,6 +124,8 @@ P_BUILTIN += module/builtin/unset/
 P_BUILTIN += module/builtin/fc/
 
 P_EXPANSION += module/expansion/
+P_EXPANSION += module/expansion/lexers/
+P_EXPANSION += module/expansion/parsers/
 
 P_LEXER += module/lexer/
 P_LEXER += module/lexer/debug/
@@ -369,6 +371,10 @@ EXPANSION += expansion.c
 EXPANSION += quoting.c
 EXPANSION += tilde.c
 EXPANSION += variable.c
+EXPANSION += parameter.c
+EXPANSION += parameter_lexer.c
+EXPANSION += parameter_lexer_word.c
+EXPANSION += parameter_parser.c
 
 #						   - - - -   Lexer   - - - -                           #
 
