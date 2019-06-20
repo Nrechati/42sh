@@ -47,6 +47,7 @@ enum	e_lexer_state
 	L_LESSAND,
 	L_SQTE,
 	L_DQTE,
+	L_BRACE_EXP,
 	L_AND,
 	L_OUT,
 	L_END,
@@ -199,7 +200,8 @@ enum	prompt_type
 	PRINT_BQUOTE,
 	PRINT_NL,
 	PRINT_AND,
-	PRINT_OR
+	PRINT_OR,
+	PRINT_BRACE
 };
 
 enum	e_action_keys

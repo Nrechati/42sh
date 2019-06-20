@@ -26,6 +26,7 @@ static void		init_lexing(t_lexinfo *lexinfo)
 	lexinfo->lexing[L_LESSAND] = lessand_machine;
 	lexinfo->lexing[L_SQTE] = single_quote_machine;
 	lexinfo->lexing[L_DQTE] = double_quote_machine;
+	lexinfo->lexing[L_BRACE_EXP] = brace_exp_machine;
 	lexinfo->lexing[L_AND] = and_machine;
 	lexinfo->lexing[L_OUT] = out_lexer;
 	lexinfo->lexing[L_END] = end_machine;

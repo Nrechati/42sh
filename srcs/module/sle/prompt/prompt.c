@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 11:26:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:24:46 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
-	char	character[READ_SIZE + 1];
+	char		character[READ_SIZE + 1];
+	uint64_t	backslash;
 
 	sle->state = STATE_STD;
 	ft_bzero(character, READ_SIZE + 1);
@@ -51,7 +52,8 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	t_vector	*linesave;
 	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
 										PROMPT_DQUOTE, PROMPT_BQUOTE,
-										PROMPT_NL, PROMPT_AND, PROMPT_OR};
+										PROMPT_NL, PROMPT_AND, PROMPT_OR,
+										PROMPT_BRACE};
 
 	linesave = sle->line;
 	sle->line = sle->sub_line;
@@ -61,7 +63,9 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-	//vct_add(sle->sub_line, '\n');
+	sle_flag &= ~SLE_PS2_PROMPT;
+	if (sle_flag == PRINT_BRACE)
+		vct_add(sle->sub_line, ' ');
 	return (vct_dup(sle->sub_line));
 }
 

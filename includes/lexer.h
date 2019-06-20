@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 14:56:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:17:40 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 t_list		*lexer(t_vector *line);
 t_lexinfo	*init_lexinfo(void);
+
+uint8_t		is_end_of_cmd(t_lexer *machine);
+void		subprompt_calling(t_lexer *machine, uint64_t option);
+void		add_to_buffer(t_lexer *machine);
+char		get_buffer(t_lexer *machine, uint8_t pos);
+char		get_input(t_lexer *machine, uint8_t pos);
 
 int			assign_special(t_lexer *machine);
 void		space_lexer(t_lexer *machine);
@@ -28,6 +34,7 @@ void		expansion_machine(t_lexer *machine);
 void		backslash_machine(t_lexer *machine);
 void		single_quote_machine(t_lexer *machine);
 void		double_quote_machine(t_lexer *machine);
+void		brace_exp_machine(t_lexer *machine);
 void		double_sign_machine(t_lexer *machine);
 void		and_machine(t_lexer *machine);
 void		greater_machine(t_lexer *machine);

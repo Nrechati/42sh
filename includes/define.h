@@ -180,10 +180,10 @@
 # define SPECIAL_SIGNS				14
 # define SIGNS 						30
 # define ALLCHAR					"\"|()><;`&{}[]#%\n"
-# define SIGN_DETECT				" \t<>|;&!=\n"
+# define SIGN_DETECT				" \t<>|;&!=\n\\"
 # define LETTER_TO_QUOTE			"\"\'$"
 # define LETTER_INTERUPT			" \t<>|;&\n"
-# define LETTER_SPECIAL				"\"\'\\$~*?"
+# define LETTER_SPECIAL				"\"\'$~*?"
 # define TILDE_INTERUPT				" /$"
 # define QSP_INT					" \"\'"
 /*
@@ -194,6 +194,10 @@
 # define QUOTE_INTERUPT				"\\\"`$"
 # define EXP_INTERUPT				" \t\'\"`$/"
 # define DOUBLE_SIGN				"&|;=!"
+
+# define CUR_CHAR					0x01
+# define NEXT_CHAR					0x02
+# define NEXT_NEXT_CHAR				0x04
 
 /*
 *****************************************************
@@ -348,6 +352,7 @@
 # define PROMPT_NL		"nl"
 # define PROMPT_AND		"and"
 # define PROMPT_OR		"or"
+# define PROMPT_BRACE	"braceparam"
 
 # define SLE_GET_INPUT		0x0100
 # define SLE_PS2_PROMPT		0x0200

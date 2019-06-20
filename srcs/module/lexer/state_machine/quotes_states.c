@@ -6,60 +6,84 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 16:29:24 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:13:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
+static uint8_t	is_closed(t_lexer *machine, char close)
+{
+	if (get_input(machine, CUR_CHAR) == close)
+		return (TRUE);
+	else if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
+	{
+		if (get_input(machine, CUR_CHAR) == '\0')
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
 void	single_quote_machine(t_lexer *machine)
 {
-	if (g_shell->option.option & INTERACTIVE_OPT)
+	while (is_closed(machine, '\'') == FALSE)
 	{
-		while (*machine->input->buffer == '\0')
-		{
-			vct_del(&machine->input);
-			sle(g_shell, &machine->input, SLE_PS2_PROMPT | PRINT_QUOTE);
-			if (*machine->input->buffer != '\0')
-				vct_ncat(machine->origin_input, machine->input,
-						vct_len(machine->input));
-		}
-		if (*machine->input->buffer == '\'')
-			machine->state = L_STRING;
-		if (*machine->input->buffer != '\0')
-		{
-			vct_add(machine->buffer, *machine->input->buffer);
-			vct_cut(machine->input);
-		}
+		if (get_input(machine, CUR_CHAR) == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_QUOTE);
 		else
-			machine->state = L_START;
+			add_to_buffer(machine);
 	}
-	else
-		machine->state = L_OUT;
+	add_to_buffer(machine);
+	if (get_input(machine, CUR_CHAR) != '\'')
+		machine->state = L_STRING;
 }
 
 void	double_quote_machine(t_lexer *machine)
 {
-	if (g_shell->option.option & INTERACTIVE_OPT)
+	while (is_closed(machine, '\"') == FALSE)
 	{
-		while (*machine->input->buffer == '\0')
+		if (get_input(machine, CUR_CHAR) == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
+		else if (get_input(machine, CUR_CHAR) == '\\')
 		{
-			vct_del(&machine->input);
-			sle(g_shell, &machine->input, SLE_PS2_PROMPT | PRINT_DQUOTE);
-			if (*machine->input->buffer != '\0')
-				vct_ncat(machine->origin_input, machine->input,
-						vct_len(machine->input));
+			machine->index++;
+			if (get_input(machine, CUR_CHAR) != '\"')
+				add_to_buffer(machine);
 		}
-		if (*machine->input->buffer == '\"')
-			machine->state = L_STRING;
-		if (*machine->input->buffer != '\0')
+		else if (get_input(machine, CUR_CHAR) == '$'
+			&& get_input(machine, NEXT_CHAR == '{'))
 		{
-			vct_add(machine->buffer, *machine->input->buffer);
-			vct_cut(machine->input);
-		}	
+			add_to_buffer(machine);
+			brace_exp_machine(machine);
+		}
 		else
-			machine->state = L_START;
+			add_to_buffer(machine);
 	}
-	else
-		machine->state = L_OUT;
+	add_to_buffer(machine);
+	if (get_input(machine, CUR_CHAR) != '\"')
+		machine->state = L_STRING;
+}
+
+void	brace_exp_machine(t_lexer *machine)
+{
+	add_to_buffer(machine);
+	while (is_closed(machine, '}') == FALSE)
+	{
+		if (get_input(machine, CUR_CHAR) == '\0')
+			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_BRACE);
+		else if (get_input(machine, CUR_CHAR) == '\"')
+		{
+			add_to_buffer(machine);
+			double_quote_machine(machine);
+		}
+		else if (get_input(machine, CUR_CHAR) == '\'')
+		{
+			add_to_buffer(machine);
+			single_quote_machine(machine);
+		}
+		else
+			add_to_buffer(machine);
+	}
+	add_to_buffer(machine);
+	machine->state = L_STRING;
 }

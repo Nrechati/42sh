@@ -13,6 +13,7 @@
 #include "sh21.h"
 #include <unistd.h>
 
+
 static t_resolution	init_resolve(t_list *tokens)
 {
 	t_resolution	resolve;
