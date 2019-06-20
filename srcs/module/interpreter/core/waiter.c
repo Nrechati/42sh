@@ -6,81 +6,47 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 21:53:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:55:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t		set_signame(char *sigtab[32])
+static void		set_status(t_registry *shell, t_process *current, int status)
 {
-	int		i;
+	char	*exit_status;
 
-	i = 0;
-	sigtab[0] = "NOSIG";
-	sigtab[1] = "SIGHUP";
-	sigtab[2] = "SIGINT";
-	sigtab[3] = "SIGQUIT";
-	sigtab[4] = "SIGILL";
-	sigtab[5] = "SIGTRAP";
-	sigtab[6] = "SIGABRT";
-	sigtab[7] = "SIGEMT";
-	sigtab[8] = "SIGFPE";
-	sigtab[9] = "SIGKILL";
-	sigtab[10] = "SIGBUS";
-	sigtab[11] = "SIGSEGV";
-	sigtab[12] = "SIGSYS";
-	sigtab[13] = "SIGPIPE";
-	sigtab[14] = "SIGALRM";
-	sigtab[15] = "SIGTERM";
-	sigtab[16] = "SIGURG";
-	sigtab[17] = "SIGSTOP";
-	sigtab[18] = "SIGSTP";
-	sigtab[19] = "SIGCONT";
-	sigtab[20] = "SIGTTIN";
-	sigtab[21] = "SIGTTOU";
-	sigtab[22] = "SIGIO";
-	sigtab[23] = "SIGXCPU";
-	sigtab[24] = "SIGXFSZ";
-	sigtab[25] = "SIGVTALRM";
-	sigtab[26] = "SIGPROF";
-	sigtab[27] = "SIGWINCH";
-	sigtab[28] = "SIGINFO";
-	sigtab[29] = "SIGINFO";
-	sigtab[30] = "SIGUSR1";
-	sigtab[31] = "SIGUSR2";
-	while (i < 32)
+	exit_status = NULL;
+	if (WIFEXITED(status))
 	{
-		if (sigtab[i] == NULL)
-			return (FAILURE);
-		i++;
+		exit_status = ft_itoa(WEXITSTATUS(status)); //PROTECT ?
+		if (WEXITSTATUS(status) != 0)
+			current->completed = ERROR;
+		else
+			current->completed = TRUE;
 	}
-	return (SUCCESS);
+	if (WIFSIGNALED(status))
+	{
+		ft_printf("%s terminated with status %d by %d\n", current->av[0], status, WTERMSIG(status));
+		exit_status = ft_itoa(WTERMSIG(status) + 128);
+		current->stopped = TRUE;
+	}
+	add_var(&shell->intern, "?", exit_status, SET_VAR);
+	ft_free(exit_status);
 }
 
-static void	update_pid(t_list *processes, pid_t pid, int status, char *sigtab[32])
+static void		update_pid(t_registry *shell, t_job *job, pid_t pid, int status)
 {
+	t_list			*processes;
 	t_process		*current;
 
+	processes = job->processes;
 	while (processes)
 	{
 		current = processes->data;
 		if (current->pid == pid)
 		{
-			ft_printf("%s ended with status %d\n", current->av[0], status); //REWORK
-			if (WIFEXITED(status))
-			{
-				if (status != 0)
-					current->completed = ERROR;
-				else
-					current->completed = TRUE;
-			}
-			if (WIFSIGNALED(status))
-			{
-				ft_printf("%s terminated with status %d by %s\n"
-						, current->av[0], status, sigtab[WTERMSIG(status)]);
-				current->stopped = TRUE;
-			}
+			set_status(shell, current, status);
 			return ;
 		}
 		processes = processes->next;
@@ -102,7 +68,7 @@ static uint8_t	all_is_done(t_list *processes)
 	return (TRUE);
 }
 
-void			terminator(void *context, void *data)
+void			kill_process(void *context, void *data)
 {
 	uint32_t	*signo;
 	t_process	*process;
@@ -114,29 +80,24 @@ void			terminator(void *context, void *data)
 	return ;
 }
 
-int8_t			waiter(t_job *job)
+int8_t			waiter(t_registry *shell, t_job *job)
 {
 	int				status;
 	pid_t			pid;
-	static char		*sigtab[32];
 
-	if (*sigtab == NULL)
-		if (set_signame(sigtab) == FAILURE)
-			return (FAILURE);
 	while (all_is_done(job->processes) == FALSE)
 	{
 		if (job->state & KILLED)
-			ft_lstiter_ctx(job->processes, &job->signo, terminator);
-		else
-		{
-			status = 0;
-			pid = wait(&status);
-			if (pid)
-				update_pid(job->processes, pid, status , sigtab);
-		}
+			ft_lstiter_ctx(job->processes, &job->signo, kill_process);
+		status = 0;
+		pid = wait(&status);
+		if (pid)
+			update_pid(shell, job, pid, status);
 	}
 	if (job->state & KILLED)
-		ft_printf("\x1b[33m\n [1]\tjob killed by : SIG%d\n\x1b[0m", job->signo);
-	job->state = ENDED;
+		ft_printf("\x1b[33m\n\t[1]\t%d job killed by : SIG%d\n\x1b[0m"
+													, job->pgid
+													, job->signo);
+	job->state ^= (RUNNING | ENDED);
 	return (SUCCESS);
 }

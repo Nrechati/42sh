@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 15:39:33 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:48:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		print_group(void *data)
 	t_group 	*group;
 
 	group = data;
-	ft_dprintf(2, "group type: %d\n", group->group_type);
+	ft_dprintf(2, "group type: %d\n", group->type);
 	ft_lstiter(group->command_list, print_command);
 
 }

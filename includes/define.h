@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 18:44:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:50:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,10 +280,10 @@
 # define COMMAND_ASSIGN				0x001
 # define COMMAND_RUN				0x002
 
-# define GROUP_RUN					0x001
-# define GROUP_BG					0x002
-# define GROUP_AND					0x004
-# define GROUP_OR					0x008
+# define GROUP_RUN					0x000
+# define GROUP_BG					0x001
+# define GROUP_AND					0x002
+# define GROUP_OR					0x004
 
 # define QUOTING					0x001
 # define HERETRIM					0x002
@@ -317,6 +317,8 @@
 # define RUNNING					0x01
 # define ENDED						0x02
 # define KILLED						0x04
+# define SUCCEDED					0x08
+# define FAILED						0x10
 
 # define TRIM_OFF					0x00
 # define TRIM_ON					0x01

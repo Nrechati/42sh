@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 11:37:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:49:47 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,12 @@ void	stop_analyzer(t_resolution *resolve)
 	if (resolve->valid == 1)
 	{
 		ft_bzero(&action, sizeof(t_action));
-		action.type = A_END;
+		if (resolve->token.type == E_DAND)
+			action.type = A_DAND;
+		else if (resolve->token.type == E_OR)
+			action.type = A_OR;
+		else if (resolve->token.type == E_SEMICOLON)
+			action.type = A_END;
 		ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 		resolve->valid = 0;
 	}

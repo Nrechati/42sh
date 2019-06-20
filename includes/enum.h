@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 18:46:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:50:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef enum	e_assign
 *****************************************************
 */
 
-enum			e_actions
+enum e_actions
 {
 	A_STDOUT_TRUNCATE_FILE,
 	A_STDOUT_APPEND_FILE,
@@ -144,6 +144,8 @@ enum			e_actions
 	A_AMBIGOUS_REDIRECT,
 	A_ARGS,
 	A_ASSIGN,
+	A_DAND,
+	A_OR,
 	A_END,
 };
 

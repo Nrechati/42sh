@@ -6,44 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 15:05:46 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:08:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-/*
->>>>>>> analyzer
-static int	write_heredoc(char **line, int fd, t_resolution *resolve)
-{
-	int		trim;
-
-	trim = 0;
-	if (resolve->special_case & HERETRIM)
-		trim = ft_strspn(*line, " \t");
-	*line = variable_expansion(resolve, *line);
-	ft_putendl_fd(*line + trim, fd);
-	ft_strdel(line);
-	return (0);
-}
-static int	check_delimiter(char **delimiter, char **line, int fd,
-				t_resolution *resolve)
-{
-	if (ft_strequ(*line, *delimiter) == TRUE || *line[0] == 4)
-	{
-		close(fd);
-		ft_putchar('\n');
-		ft_strdel(delimiter);
-		ft_strdel(line);
-		resolve->special_case ^= HERETRIM;
-		return (SUCCESS);
-	}
-	write_heredoc(line, fd, resolve);
-	return (FAILURE);
-}
-*/
 
 void		heredoc_delimiter(t_resolution *resolve)
 {

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 11:11:20 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:22:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ typedef	struct			s_command
 
 typedef struct			s_group
 {
-	uint8_t				group_type;
+	uint8_t				type;
 	t_list				*command_list;
 }						t_group;
 

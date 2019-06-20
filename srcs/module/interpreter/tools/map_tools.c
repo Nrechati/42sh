@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 21:33:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/19 21:39:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:13:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,4 @@ void	set_process_pgid(void *context, void *data)
 	process = data;
 	process->pgid = &job->pgid;
 	return ;
-}
-
-void	set_stopped(void *data)
-{
-	t_process	*process;
-
-	process = data;
-	process->stopped = TRUE;
-	return ;
-}
-
-void	set_signaled(void *context, void *data)
-{
-	t_job		*job;
-	uint32_t	*signo;
-
-	job = data;
-	signo = context;
-	job->state |= KILLED;
-	job->signo = *signo;
-	ft_lstiter(job->processes, set_stopped);
-	return ;
-}
-
-int		get_failed_process(void *data, void *context)
-{
-	t_process	*current;
-
-	(void)context;
-	current = data;
-	if (current->process_type & (IS_NOTFOUND | IS_OPEN_FAILED | IS_CRITICAL))
-		return (TRUE);
-	return (FALSE);
 }

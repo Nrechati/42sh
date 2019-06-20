@@ -6,14 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 21:39:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:54:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-#include <unistd.h>
 
-void	do_nofork_redirect(void *context, void *data)
+static void		do_nofork_redirect(void *context, void *data)
 {
 	uint8_t		*std;
 	t_redirect	*redirect;
@@ -34,7 +33,7 @@ void	do_nofork_redirect(void *context, void *data)
 		close(redirect->from);
 }
 
-void	run_builtin(t_registry *shell, t_process *process)
+void			run_builtin(t_registry *shell, t_process *process)
 {
 	char			*tty_name;
 	uint8_t			std;
@@ -55,7 +54,7 @@ void	run_builtin(t_registry *shell, t_process *process)
 	return ;
 }
 
-void	run_process(void *context, void *data)
+static void		run_process(void *context, void *data)
 {
 	t_registry	*shell;
 	t_process	*process;
@@ -82,33 +81,35 @@ void	run_process(void *context, void *data)
 	return;
 }
 
-void	run_job(void *context, void *data)
+static void		run_job(void *context, void *data)
 {
-	t_registry	*shell;
+	char		*job_type;
 	t_job		*job;
 	t_process	*head;
+	t_registry	*shell;
 
 	shell = context;
 	job = data;
-	if (job == NULL || job->state & KILLED)
+	job_type = ft_itoa(job->job_type);
+	if (job == NULL || do_i_run(shell, ft_atoi(get_var(shell->intern, "job_type"))) == FALSE)
+	{
+		add_var(&shell->intern, "job_type", job_type, SET_VAR);
 		return;
+	}
+	add_var(&shell->intern, "job_type", job_type, SET_VAR);
 	head = job->processes->data;
 	if (job->processes->next == NULL)
 		head->process_type |= IS_ALONE;
 	else
 		setup_pipe(job->processes);
-	job->state = RUNNING;
+	job->state |= RUNNING;
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-	//CHECK WAIT CONDITION HERE;
-	//CHECK LEAK ON ERROR
-	waiter(job);
-	//if (KILLED)
-	//	lstdel(job_lst);
+	waiter(shell, job);
 	return ;
 }
 
-int8_t interpreter(t_registry *shell, t_list **cmd_group, uint32_t flag)
+int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 {
 	static t_list	*job_lst;
 
@@ -121,5 +122,6 @@ int8_t interpreter(t_registry *shell, t_list **cmd_group, uint32_t flag)
 	ft_lstdel(cmd_group, del_group);
 	load_signal_profile(EXEC_PROFILE);
 	ft_lstiter_ctx(job_lst, shell, run_job);
+	add_var(&shell->intern, "job_type", "0", SET_VAR);
 	return (SUCCESS);
 }

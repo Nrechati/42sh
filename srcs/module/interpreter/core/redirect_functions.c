@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 21:49:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:11:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
-void	close_fd(t_registry *shell, t_redirect *redirect, t_action *action)
+void		close_fd(t_registry *shell, t_redirect *redirect, t_action *action)
 {
 	(void)shell;
 	redirect->type |= FD_CLOSE;
