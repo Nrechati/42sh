@@ -6,40 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/18 16:42:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 04:34:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-void	assign_intern(t_registry *shell, t_list *assign)
-{
-	t_list		*node;
-	t_variable	*variable;
-	t_variable	*to_find;
-
-	if (assign != NULL)
-	{
-		assign_intern(shell, assign->next);
-		to_find = assign->data;
-		if ((node = ft_lstfind(shell->intern, to_find->name, find_var)))
-		{
-			variable = node->data;
-			ft_strdel(&variable->data);
-			variable->data = ft_strdup(to_find->data);
-			if (variable->flag == EXPORT_VAR)
-				variable->flag |= SET_VAR;
-		}
-		else
-		{
-			assign->next = NULL;
-			ft_lstadd(&shell->intern, assign);
-		}
-	}
-}
-
-void	execute_process(t_registry *shell, t_process *process, char **env)
+static void	child_process(t_registry *shell, t_process *process, char **env)
 {
 	char		*pathname;
 
@@ -51,6 +25,7 @@ void	execute_process(t_registry *shell, t_process *process, char **env)
 	signal (SIGTTOU, SIG_DFL);
 	signal (SIGCHLD, SIG_DFL);
 	signal (SIGPIPE, SIG_DFL);
+	//setpgid(getpid(), *process->pgid);
 	if (process->process_type & IS_BLT)
 	{
 		run_builtin(shell, process);
@@ -66,30 +41,60 @@ void	execute_process(t_registry *shell, t_process *process, char **env)
 	exit(FAILURE);
 }
 
-void	fork_process(t_registry *shell, t_process *process)
+static void	parent_process(t_registry *shell, t_process *process, char ***env)
+{
+	if (process->process_type & IS_BIN)
+		ft_hmap_hits(&shell->hash.bin, process->av[0]);
+	ft_lstiter(process->redirects, close_redirect);
+	if (*process->pgid == 0)
+		*process->pgid = process->pid;
+	//setpgid(process->pid, *process->pgid);
+	ft_freetab(env);
+}
+
+void		fork_process(t_registry *shell, t_process *process)
 {
 	char			**env;
 
 	env = generate_env(shell, process->env);
-	process->pid = fork();
-	if (process->pid < 0) // IF ERREUR
+	if ((process->pid = fork()) < 0) // IF ERREUR
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
 		return;
 	}
-	else if (process->pid == 0) // IF CHILD
+	else if (process->pid == 0)
+		child_process(shell, process, env);
+	else
+		parent_process(shell, process, &env);
+}
+
+static void	update_intern(t_variable *variable, char *data)
+{
+	ft_strdel(&variable->data);
+	variable->data = ft_strdup(data);
+	if (variable->flag == EXPORT_VAR)
+		variable->flag |= SET_VAR;
+}
+
+int			assign_intern(t_registry *shell, t_list **assign)
+{
+	t_list		*node;
+	t_variable	*to_find;
+
+	if (*assign == NULL)
+		return (1);
+	assign_intern(shell, &(*assign)->next);
+	to_find = (*assign)->data;
+	if ((node = ft_lstfind(shell->intern, to_find->name, find_var)))
 	{
-		//setpgid(getpid(), *process->pgid);
-		execute_process(shell, process, env);
+		update_intern(node->data, to_find->data);
+		ft_lstdelone(assign, free_node);
 	}
 	else
-	{						//IF PARENT
-		if (process->process_type & IS_BIN)
-			ft_hmap_hits(&shell->hash.bin, process->av[0]);
-		ft_lstiter(process->redirects, close_redirect);
-		if (*process->pgid == 0)
-			*process->pgid = process->pid;
-		//setpgid(process->pid, *process->pgid);
-		ft_freetab(&env);
+	{
+		(*assign)->next = NULL;
+		ft_lstadd(&shell->intern, (*assign));
 	}
+	*assign = NULL;
+	return (1);
 }

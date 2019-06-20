@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:16:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 18:19:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 03:45:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,14 @@ static void	delete_char(char *str)
 void		quote_removal(char *str)
 {
 	t_quote 	quote;
-//	t_vector	*vct;
 
 	quote = 0;
-//	vct = vct_dups(str);
 	while (*str != '\0')
 	{
 		if (ft_strchr("\'\"", *str))
 			quote = select_quoting(quote, *str);
-
 		if (quote != QUOTE_DOUBLE && *str == '\'')
 			delete_char(str);
-
 		else if (quote != QUOTE_SINGLE && *str == '\"')
 			delete_char(str);
 		else

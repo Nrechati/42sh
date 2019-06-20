@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 18:46:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 03:47:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef enum	e_quote
 	QUOTE_OFF,
 	QUOTE_SINGLE,
 	QUOTE_DOUBLE,
+	QUOTE_BACKSLASH,
 }				t_quote;
 
 typedef enum	e_assign

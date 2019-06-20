@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/19 21:51:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 04:01:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int				write_heredoc(t_list *intern_var, t_vector **vector, int fd
 	int			index;
 
 	index = 0;
-	string = expansion_pipeline(intern_var, &(*vector)->buffer);
+	string = expansion_pipeline(intern_var, (*vector)->buffer);
 	while (trim == TRIM_ON && ft_strchr(" \t", string[index]))
 		index++;
 	ft_putstr_fd(string + index, fd);

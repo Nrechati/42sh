@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 21:49:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 03:53:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	stdin_readfile(t_registry *shell, t_redirect *redirect
 
 	(void)shell;
 	filename = get_filename(action->data);
+
 	if (filename == NULL)
 		redirect->type |= FD_CRITICAL_ERROR;
 	else

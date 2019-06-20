@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/19 21:39:52 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/20 04:47:15 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -349,7 +349,6 @@ ANALYZER += token_tools.c
 INTERPRETER += interpreter.c
 INTERPRETER += map.c
 INTERPRETER += list_tools.c
-INTERPRETER += get_process_type.c
 INTERPRETER += generate_env.c
 INTERPRETER += pipe_interpreter.c
 INTERPRETER += fork_process.c
@@ -360,6 +359,7 @@ INTERPRETER += redirect_tools.c
 INTERPRETER += waiter.c
 INTERPRETER += heredoc_interpreter.c
 INTERPRETER += map_tools.c
+INTERPRETER += process_tools.c
 
 INTERPRETER += print_tools.c
 

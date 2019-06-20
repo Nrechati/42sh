@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_process_type.c                                 :+:      :+:    :+:   */
+/*   process_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/06 12:50:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/07 11:50:41 by nrechati         ###   ########.fr       */
+/*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
+/*   Updated: 2019/06/20 04:47:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t			get_process_type(t_registry *shell, t_process *process)
+int		expand_process(t_list *intern, char **av)
+{
+	int		index;
+	char	*holder;
+
+	if (av == NULL)
+		return (0);
+	index = 0;
+	holder = NULL;
+	while(av[index])
+	{
+		if ((holder = expansion_pipeline(intern, av[index])) == NULL)
+			return (-1);
+		ft_strdel(&av[index]);
+		av[index++] = holder;
+	}
+	return (0);
+}
+
+int8_t	get_process_type(t_registry *shell, t_process *process)
 {
 	int8_t		ret;
 	char		*pathname;

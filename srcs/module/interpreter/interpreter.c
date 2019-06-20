@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 21:39:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 04:48:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	run_process(void *context, void *data)
 
 	shell = context;
 	process = data;
+	if (expand_process(shell->intern, process->av))
+		return ;
 	if (get_process_type(shell, process) == FAILURE)
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR SH_MALLOC_ERROR);
@@ -70,11 +72,7 @@ void	run_process(void *context, void *data)
 	if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTEPRETER_NOT_FOUND, process->av[0]);
 	else if (process->process_type & IS_ASSIGN)
-	{
-		assign_intern(shell, process->env);
-		process->env = NULL;
-		process->completed = 1;
-	}
+		process->completed = assign_intern(shell, &process->env);
 	else if (process->process_type == (IS_ALONE | IS_BLT))
 		run_builtin(shell, process);
 	else
@@ -100,8 +98,6 @@ void	run_job(void *context, void *data)
 	job->state = RUNNING;
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-	//CHECK WAIT CONDITION HERE;
-	//CHECK LEAK ON ERROR
 	waiter(job);
 	//if (KILLED)
 	//	lstdel(job_lst);
