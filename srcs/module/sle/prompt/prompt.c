@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 11:11:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:24:46 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,27 @@
 **	Standart prompt invocation
 */
 
+void				backslash_calling(t_vector *line, t_registry *shell)
+{
+	t_vector	*new_input;
+
+	new_input = vct_new(0);
+	sle(shell, &new_input, SLE_PS2_PROMPT | PRINT_NL);
+	vct_ncat(line, new_input, vct_len(new_input));
+	vct_del(&new_input);
+}
+
 t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
-	char	character[READ_SIZE + 1];
+	char		character[READ_SIZE + 1];
+	uint64_t	backslash;
 
 	update_window(sle);
 	print_prompt(shell, sle);
 	ft_bzero(character, READ_SIZE + 1);
 	vct_reset(sle->line);
 	vct_reset(sle->window.displayed_line);
+	backslash = 0;
 	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
@@ -33,13 +45,19 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 			ft_printf("\n");
 			return (prompt(shell, sle));
 		}
+		if (character[0] == '\\')
+			backslash++;
 		handle_input_key(sle, character);
 		redraw(shell, sle);
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
-	vct_add(sle->line, '\n');
 	ft_printf("\n");
+	if (backslash % 2 == 1
+			&& vct_charat(sle->line, vct_len(sle->line) - 1) == '\\')
+		backslash_calling(sle->line, shell);
+	if (sle->prompt.state == INT_PS1)
+		vct_add(sle->line, '\n');
 	if (sle->search_mode == TRUE)
 	{
 		sle->search_mode = FALSE;

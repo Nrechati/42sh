@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 13:34:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 16:29:24 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:13:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	double_quote_machine(t_lexer *machine)
 			subprompt_calling(machine, SLE_PS2_PROMPT | PRINT_DQUOTE);
 		else if (get_input(machine, CUR_CHAR) == '\\')
 		{
-			vct_del_char(machine->input, machine->index);
+			machine->index++;
 			if (get_input(machine, CUR_CHAR) != '\"')
 				add_to_buffer(machine);
 		}

@@ -6,22 +6,39 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 14:23:19 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 16:22:20 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:18:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <stdlib.h>
+/*
+uint8_t				is_braceparam(t_lexer * lexer)
+{
+}*/
+
+uint8_t				is_end_of_cmd(t_lexer *machine)
+{
+	if (get_input(machine, CUR_CHAR) == '\n'
+		&& get_input(machine, NEXT_CHAR) == '\0')
+		return (TRUE);
+	return (FALSE);
+}
 
 void				subprompt_calling(t_lexer *machine, uint64_t option)
 {
 	t_vector	*new_input;
+	uint64_t	opt_nl;
 
-	new_input = vct_new(0);
-	while (new_input->buffer[0] == '\0')
-		sle(g_shell, &new_input, option);
-	vct_ncat(machine->input, new_input, vct_len(new_input));
-	vct_del(&new_input);
+	opt_nl = SLE_PS2_PROMPT | PRINT_NL;
+	if (opt_nl != option || is_end_of_cmd(machine) == FALSE)
+	{
+		new_input = vct_new(0);
+		while (new_input->buffer[0] == '\0')
+			sle(g_shell, &new_input, option);
+		vct_ncat(machine->input, new_input, vct_len(new_input));
+		vct_del(&new_input);
+	}
 }
 
 char				get_buffer(t_lexer *machine, uint8_t pos)
