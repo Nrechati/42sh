@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 18:23:42 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 11:22:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:30:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ void		init_tab_signal_exec(struct sigaction tab_signal[NB_SIGNALS])
 	tab_signal[SIGINT] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
 	tab_signal[SIGQUIT] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
 	tab_signal[SIGTERM] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
-	//JOB CTRL
-	tab_signal[SIGCONT] = set_sigaction_struct(sigcont_exec, SA_RESTART, sigset);
+
 	tab_signal[SIGTSTP] = set_sigaction_struct(sigtstp_exec, SA_RESTART, sigset);
+	tab_signal[SIGCONT] = set_sigaction_struct(sigcont_exec, SA_RESTART, sigset);
+
 	tab_signal[SIGTTIN] = set_sigaction_struct(sigttin_exec, SA_RESTART, sigset);
-	tab_signal[SIGCHLD] = set_sigaction_struct(sigchld_exec, SA_RESTART, sigset);
 	tab_signal[SIGTTOU] = set_sigaction_struct(sigttou_exec, SA_RESTART, sigset);
+	tab_signal[SIGCHLD] = set_sigaction_struct(sigchld_exec, SA_RESTART, sigset);
 }
 

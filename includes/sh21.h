@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 02:55:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:47:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "history.h"
 # include "autocompletion.h"
 # include "log.h"
+# include "jobctl.h"
 
 /*
 *****************************************************

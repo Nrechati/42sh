@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 19:12:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:33:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ typedef struct			s_registry
 	t_list				*intern;
 	t_opt				option;
 	t_hashmap			hash;
+
+	t_list				*job_list;
+
 	struct termios		*sle_mode;
 	struct termios		*exec_mode;
 	struct termios		*orig_mode;
@@ -155,25 +158,25 @@ typedef struct			s_group
 
 typedef struct			s_process
 {
-	char				**av;
-	t_list				*env;
-	t_list				*redirects;
+	char				**av;			/* av for exec			*/
+	t_list				*env;			/* env for exec			*/
+	t_list				*redirects;		/* ??? 					*/
 	uint8_t				process_type;
-	uint8_t				completed;
-	uint8_t				stopped;
-	pid_t				pid;
-	pid_t				*pgid;
-	int					status;
+	uint8_t				completed;		/* process completed	*/
+	uint8_t				stopped;		/* process stopped		*/
+	pid_t				pid;			/* process id			*/
+	pid_t				*pgid;			/* process group id		*/
+	int					status;			/* process status		*/
 }						t_process;
 
 typedef struct			s_job
 {
-	pid_t				pgid;
-	t_list				*processes;
-	uint8_t				state;
+	pid_t				pgid;			/* Job process group id */
+	t_list				*processes;		/* Job process list		*/
+	uint8_t				state;			/* RUNNIG | PENDING */
 	uint8_t				job_type;
 	uint32_t			signo;
-	struct termios		*term_modes;
+	struct termios		*term_modes;	/* Saved termios mode 	*/
 }						t_job;
 
 struct					s_resolution

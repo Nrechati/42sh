@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 04:34:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 20:35:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	signal (SIGTTOU, SIG_DFL);
 	signal (SIGCHLD, SIG_DFL);
 	signal (SIGPIPE, SIG_DFL);
-	//setpgid(getpid(), *process->pgid);
+
+	ft_dprintf(3, "Child process pid is %d\n", getpid());
+	ft_dprintf(3, "Setting process group ID to %d\n", *process->pgid);
+	setpgid(getpid(), *process->pgid);
+	ft_dprintf(3, "Attaching pid %d to the controlling terminal\n", *process->pgid);
+	tcsetpgrp(STDOUT_FILENO, *process->pgid);
+
 	if (process->process_type & IS_BLT)
 	{
 		run_builtin(shell, process);
@@ -46,9 +52,13 @@ static void	parent_process(t_registry *shell, t_process *process, char ***env)
 	if (process->process_type & IS_BIN)
 		ft_hmap_hits(&shell->hash.bin, process->av[0]);
 	ft_lstiter(process->redirects, close_redirect);
+
+	ft_dprintf(3, "Parent process pid is %d\n", getpid());
+
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
-	//setpgid(process->pid, *process->pgid);
+	setpgid(process->pid, *process->pgid);
+
 	ft_freetab(env);
 }
 

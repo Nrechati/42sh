@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/20 12:32:36 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/20 20:15:44 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,6 +111,7 @@ P_INTERPRETER += module/interpreter/
 P_INTERPRETER += module/interpreter/core/
 P_INTERPRETER += module/interpreter/maping/
 P_INTERPRETER += module/interpreter/tools/
+P_INTERPRETER += module/interpreter/jobcontrol/
 
 P_BUILTIN += module/builtin/
 P_BUILTIN += module/builtin/cd/
@@ -198,6 +199,7 @@ INCS += autocompletion.h
 INCS += define.h
 INCS += struct.h
 INCS += enum.h
+INCS += jobctl.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -379,6 +381,8 @@ INTERPRETER += heredoc_interpreter.c
 INTERPRETER += map_tools.c
 INTERPRETER += interpreter_tools.c
 INTERPRETER += process_tools.c
+INTERPRETER += jobctl.c
+INTERPRETER += utils.c
 
 INTERPRETER += print_tools.c
 
