@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:37:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/15 11:41:15 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:24:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,14 @@ void	check_filename(t_resolution *resolve)
 void	delete_analyzer(t_resolution *resolve)
 {
 	ft_stckdestroy(&resolve->stack, del_token);
+}
+
+void	set_group_type(t_group *group, t_action *action)
+{
+	if (action->type == A_DAND)
+		group->type |= GROUP_AND;
+	else if (action->type == A_OR)
+		group->type |= GROUP_OR;
+	else if (action->type == A_END)
+		group->type |= GROUP_RUN;
 }

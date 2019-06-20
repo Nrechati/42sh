@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 14:50:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:24:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	command_assign(t_stack *tree_node, t_command *command)
+static void		command_assign(t_stack *tree_node, t_command *command)
 {
 	t_list		*node;
 
@@ -25,7 +25,7 @@ void	command_assign(t_stack *tree_node, t_command *command)
 	}
 }
 
-void	command_args(t_stack *tree_node, t_command *command)
+static void		command_args(t_stack *tree_node, t_command *command)
 {
 	t_list		*node;
 
@@ -39,7 +39,7 @@ void	command_args(t_stack *tree_node, t_command *command)
 	}
 }
 
-t_list	*generate_cmd_list(t_stack *tree_node)
+static t_list	*generate_cmd_list(t_stack *tree_node)
 {
 	t_command	command;
 	t_action	*action;
@@ -63,17 +63,7 @@ t_list	*generate_cmd_list(t_stack *tree_node)
 	return (node);
 }
 
-void	set_group_type(t_group *group, t_action *action)
-{
-	if (action->type == A_DAND)
-		group->type |= GROUP_AND;
-	else if (action->type == A_OR)
-		group->type |= GROUP_OR;
-	else if (action->type == A_END)
-		group->type |= GROUP_RUN;
-}
-
-int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
+static int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 {
 	t_group 	group;
 	t_action	*action;
@@ -98,7 +88,7 @@ int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 	return (SUCCESS);
 }
 
-t_list	*analyzer(t_resolution *resolve)
+t_list			*analyzer(t_resolution *resolve)
 {
 	static t_analyzer	*analyzer = NULL;
 	t_list				*command_group;

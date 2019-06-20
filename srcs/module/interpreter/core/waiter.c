@@ -6,42 +6,47 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 17:22:55 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:42:56 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void update_pid(t_registry *shell, t_job *job, pid_t pid, int status)
+static void		set_status(t_registry *shell, t_process *current, int status)
 {
-	char			*exit_status;
+	char	*exit_status;
+
+	exit_status = NULL;
+	if (WIFEXITED(status))
+	{
+		exit_status = ft_itoa(WEXITSTATUS(status)); //PROTECT ?
+		if (WEXITSTATUS(status) != 0)
+			current->completed = ERROR;
+		else
+			current->completed = TRUE;
+	}
+	if (WIFSIGNALED(status))
+	{
+		ft_printf("%s terminated with status %d by %d\n", current->av[0], status, WTERMSIG(status));
+		exit_status = ft_itoa(WTERMSIG(status) + 128);
+		current->stopped = TRUE;
+	}
+	add_var(&shell->intern, "?", exit_status, SET_VAR);
+	ft_free(exit_status);
+}
+
+static void		update_pid(t_registry *shell, t_job *job, pid_t pid, int status)
+{
 	t_list			*processes;
 	t_process		*current;
 
-	exit_status = NULL;
 	processes = job->processes;
 	while (processes)
 	{
 		current = processes->data;
 		if (current->pid == pid)
 		{
-			if (WIFEXITED(status))
-			{
-				exit_status = ft_itoa(WEXITSTATUS(status));
-				if (WEXITSTATUS(status) != 0)
-					current->completed = ERROR;
-				else
-					current->completed = TRUE;
-			}
-			if (WIFSIGNALED(status))
-			{
-				ft_printf("%s terminated with status %d by %d\n"
-						, current->av[0], status, WTERMSIG(status));
-				exit_status = ft_itoa(WTERMSIG(status) + 128);
-				current->stopped = TRUE;
-			}
-			add_var(&shell->intern, "?", exit_status, SET_VAR);
-			ft_free(exit_status);
+			set_status(shell, current, status);
 			return ;
 		}
 		processes = processes->next;
@@ -63,7 +68,7 @@ static uint8_t	all_is_done(t_list *processes)
 	return (TRUE);
 }
 
-void			terminator(void *context, void *data)
+void			kill_process(void *context, void *data)
 {
 	uint32_t	*signo;
 	t_process	*process;
@@ -83,14 +88,15 @@ int8_t			waiter(t_registry *shell, t_job *job)
 	while (all_is_done(job->processes) == FALSE)
 	{
 		if (job->state & KILLED)
-			ft_lstiter_ctx(job->processes, &job->signo, terminator);
+			ft_lstiter_ctx(job->processes, &job->signo, kill_process);
 		status = 0;
 		pid = wait(&status);
 		if (pid)
 			update_pid(shell, job, pid, status);
 	}
 	if (job->state & KILLED)
-		ft_printf("\x1b[33m\n [1]\tjob killed by : SIG%d\n\x1b[0m"
+		ft_printf("\x1b[33m\n\t[1]\t%d job killed by : SIG%d\n\x1b[0m"
+													, job->pgid
 													, job->signo);
 	job->state ^= (RUNNING | ENDED);
 	return (SUCCESS);

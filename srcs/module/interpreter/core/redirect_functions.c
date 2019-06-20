@@ -6,12 +6,32 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 16:38:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:27:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
+
+t_redirection	*redirecter_init(void)
+{
+	static t_redirection	redirecter;
+
+	redirecter[A_STDOUT_TRUNCATE_FILE] = stdout_truncate;
+	redirecter[A_STDOUT_APPEND_FILE] = stdout_append;
+	redirecter[A_STDIN_READ_FILE] = stdin_readfile;
+	redirecter[A_IO_TRUNCATE_FILE] = io_truncate;
+	redirecter[A_IO_APPEND_FILE] = io_append;
+	redirecter[A_IO_READ_FILE] = io_readfile;
+	redirecter[A_DUP] = duplicate_fd;
+	redirecter[A_CLOSE] = close_fd;
+	redirecter[A_MOVE] = move_fd;
+	redirecter[A_HEREDOC] = heredoc;
+	redirecter[A_HEREDOC_TRIM] = move_fd;
+	redirecter[A_IO_HEREDOC] = move_fd;
+	redirecter[A_IO_HEREDOC_TRIM] = move_fd;
+	return (&redirecter);
+}
 
 void		close_fd(t_registry *shell, t_redirect *redirect, t_action *action)
 {

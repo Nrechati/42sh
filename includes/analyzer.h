@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 19:28:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:25:18 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void		error_analyzer(t_resolution *resolve);
 void		string_analyzer(t_resolution *resolve);
 void		special_string_analyzer(t_resolution *resolve);
 void		flush_string(t_resolution *resolve);
-
 
 void		assign_name_analyzer(t_resolution *resolve);
 void		assign_data_analyzer(t_resolution *resolve);
@@ -63,6 +62,7 @@ t_quote		select_quoting(t_quote quote, char c);
 
 int			is_ionumber(t_resolution *resolve, char *str);
 void		check_filename(t_resolution *resolve);
+void		set_group_type(t_group *group, t_action *action);
 t_type		pop_token_type(t_stack *stack);
 char		*pop_token_data(t_stack *stack);
 void		get_token(t_resolution *resolve);

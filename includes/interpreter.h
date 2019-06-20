@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 16:42:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:44:13 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,60 +21,67 @@
 *****************************************************
 */
 
-int8_t 		interpreter(t_registry *shell, t_list **cmd_group
+int8_t 			interpreter(t_registry *shell, t_list **cmd_group
 					, int flag);
-void		run_builtin(t_registry *shell, t_process *process);
-int8_t		get_process_type(t_registry *shell, t_process *process);
-char		**generate_env(t_registry *shell, t_list *local_env);
+void			run_builtin(t_registry *shell, t_process *process);
+int8_t			get_process_type(t_registry *shell, t_process *process);
+char			**generate_env(t_registry *shell, t_list *local_env);
 
-void		assign_intern(t_registry *shell, t_list *assign);
-void		execute_process(t_registry *shell, t_process *process, char **env);
-void		fork_process(t_registry *shell, t_process *process);
+void			assign_intern(t_registry *shell, t_list *assign);
+void			execute_process(t_registry *shell, t_process *process, char **env);
+void			fork_process(t_registry *shell, t_process *process);
 
-void		check_redirect_error(void *context, void *data);
-int			redirect_or_other(void *action, __unused void *data);
-void		close_redirect(void *data);
-void		do_redirect(void *data);
+t_redirection	*redirecter_init(void);
+void			check_redirect_error(void *context, void *data);
+int				redirect_or_other(void *action, __unused void *data);
+void			close_redirect(void *data);
+void			do_redirect(void *data);
 
-int8_t		setup_pipe(t_list *processess);
-void		*group_to_job(void *context, void *data);
+int				get_failed_process(void *data, void *context);
+void			re_open_std(const uint8_t std, char *tty_name);
+uint8_t			do_i_run(t_registry *shell, int job_type);
+void			set_stopped(void *data);
+void			set_signaled(void *context, void *data);
 
-int8_t		waiter(t_registry *shell, t_job *job);
+int8_t			setup_pipe(t_list *processess);
+void			*group_to_job(void *context, void *data);
 
-char		*get_filename(t_list *node);
-int 		get_io(t_list *node);
+int8_t			waiter(t_registry *shell, t_job *job);
 
-void		heredoc(t_registry *shell, t_redirect *redirect, t_action *action);
-void		stdout_truncate(t_registry *shell, t_redirect *redirect
+char			*get_filename(t_list *node);
+int 			get_io(t_list *node);
+
+void			heredoc(t_registry *shell, t_redirect *redirect, t_action *action);
+void			stdout_truncate(t_registry *shell, t_redirect *redirect
 					, t_action *action);
-void		stdout_append(t_registry *shell, t_redirect *redirect
+void			stdout_append(t_registry *shell, t_redirect *redirect
 					, t_action *action);
-void		stdin_readfile(t_registry *shell, t_redirect *redirect
+void			stdin_readfile(t_registry *shell, t_redirect *redirect
 					, t_action *action);
-void		io_append(t_registry *shell, t_redirect *redirect
+void			io_append(t_registry *shell, t_redirect *redirect
 					, t_action *action);
-void		io_truncate(t_registry *shell, t_redirect *redirect
+void			io_truncate(t_registry *shell, t_redirect *redirect
 					, t_action *action);
-void		io_readfile(t_registry *shell, t_redirect *redirect
+void			io_readfile(t_registry *shell, t_redirect *redirect
 					, t_action *action);
-void		close_fd(t_registry *shell, t_redirect *redirect
+void			close_fd(t_registry *shell, t_redirect *redirect
 					, t_action *action);
-void		move_fd(t_registry *shell, t_redirect *redirect
+void			move_fd(t_registry *shell, t_redirect *redirect
 					, t_action *action);
-void		duplicate_fd(t_registry *shell, t_redirect *redirect
+void			duplicate_fd(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 
-void		*token_to_var(void *context, void *data);
-char		*token_to_str(void *data);
+void			*token_to_var(void *context, void *data);
+char			*token_to_str(void *data);
 
-void		del_group(void *data);
-void		del_command(void *data);
-void		del_action(void *data);
-void		del_redirects(void *data);
-void		del_process(void *data);
+void			del_group(void *data);
+void			del_command(void *data);
+void			del_action(void *data);
+void			del_redirects(void *data);
+void			del_process(void *data);
 
-void		print_process(void *data);
-void		print_job(void *data);
-void		print_var_lst(void *data);
+void			print_process(void *data);
+void			print_job(void *data);
+void			print_var_lst(void *data);
 
 #endif

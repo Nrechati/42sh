@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 14:48:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:29:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,6 @@ void		set_process_pgid(void *context, void *data)
 	process = data;
 	process->pgid = &job->pgid;
 	return ;
-}
-
-t_redirection	*redirecter_init(void)
-{
-	static t_redirection	redirecter;
-
-	redirecter[A_STDOUT_TRUNCATE_FILE] = stdout_truncate;
-	redirecter[A_STDOUT_APPEND_FILE] = stdout_append;
-	redirecter[A_STDIN_READ_FILE] = stdin_readfile;
-	redirecter[A_IO_TRUNCATE_FILE] = io_truncate;
-	redirecter[A_IO_APPEND_FILE] = io_append;
-	redirecter[A_IO_READ_FILE] = io_readfile;
-	redirecter[A_DUP] = duplicate_fd;
-	redirecter[A_CLOSE] = close_fd;
-	redirecter[A_MOVE] = move_fd;
-	redirecter[A_HEREDOC] = heredoc;
-	redirecter[A_HEREDOC_TRIM] = move_fd;
-	redirecter[A_IO_HEREDOC] = move_fd;
-	redirecter[A_IO_HEREDOC_TRIM] = move_fd;
-	return (&redirecter);
 }
 
 void		*action_to_redirect(void *context, void *data)
@@ -61,7 +41,7 @@ void		*action_to_redirect(void *context, void *data)
 	return (node);
 }
 
-void	*token_to_intern_var(__unused void *context, void *data)
+void		*token_to_intern_var(__unused void *context, void *data)
 {
 	t_list		*node;
 	t_list		*ptr;
