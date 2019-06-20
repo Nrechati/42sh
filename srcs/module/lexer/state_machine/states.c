@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:03:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/20 11:23:20 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:07:47 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ void	string_special(t_lexer *machine)
 		machine->state = L_DQTE;
 	else if (get_input(machine, CUR_CHAR) == '\'')
 		machine->state = L_SQTE;
-	else if (get_input(machine, CUR_CHAR) == '$'
-			&& get_input(machine, NEXT_CHAR == '{'))
-		machine->state = L_BRACE_EXP;
 }
 
 int		assign_detect(t_lexer *machine)

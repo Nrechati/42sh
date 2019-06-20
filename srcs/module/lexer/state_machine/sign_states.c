@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:27 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 14:14:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:10:07 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,6 @@ void			sign_machine(t_lexer *machine)
 		machine->state = L_SQTE;
 	else if (get_input(machine, CUR_CHAR) == '\"')
 		machine->state = L_DQTE;
-	else if (get_input(machine, CUR_CHAR) == '$'
-			&& get_input(machine, NEXT_CHAR) == '{')
-		machine->state = L_BRACE_EXP;
 	else if (get_input(machine, CUR_CHAR) == '&'
 			&& get_input(machine, NEXT_CHAR) != '&')
 		machine->state = L_AND;

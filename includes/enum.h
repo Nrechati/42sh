@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 12:49:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:08:49 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ enum	e_lexer_state
 	L_LESSAND,
 	L_SQTE,
 	L_DQTE,
-	L_BRACE_EXP,
 	L_AND,
 	L_OUT,
 	L_END,
@@ -201,7 +200,8 @@ enum	prompt_type
 	PRINT_NL,
 	PRINT_AND,
 	PRINT_OR,
-	PRINT_BRACE
+	PRINT_BRACE,
+	PRINT_MATHS
 };
 
 enum	e_action_keys

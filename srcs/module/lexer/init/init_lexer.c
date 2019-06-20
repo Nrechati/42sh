@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 02:50:12 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 14:47:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:09:28 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void		init_lexing(t_lexinfo *lexinfo)
 	lexinfo->lexing[L_LESSAND] = lessand_machine;
 	lexinfo->lexing[L_SQTE] = single_quote_machine;
 	lexinfo->lexing[L_DQTE] = double_quote_machine;
-	lexinfo->lexing[L_BRACE_EXP] = brace_exp_machine;
 	lexinfo->lexing[L_AND] = and_machine;
 	lexinfo->lexing[L_OUT] = out_lexer;
 	lexinfo->lexing[L_END] = end_machine;

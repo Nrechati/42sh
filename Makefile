@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/20 12:14:26 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/20 16:58:17 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -176,7 +176,7 @@ CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
 DFLAGS += $(CFLAGS)
-DFLAGS += -fsanitize=address,undefined
+#DFLAGS += -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -321,6 +321,7 @@ SLE += load_sle_struct.c
 
 #Prompt
 SLE += prompt.c
+SLE += prompt_subroutine.c
 SLE += prompt_expansion.c
 SLE += prompt_tools.c
 

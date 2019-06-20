@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 11:17:40 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:07:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void		expansion_machine(t_lexer *machine);
 void		backslash_machine(t_lexer *machine);
 void		single_quote_machine(t_lexer *machine);
 void		double_quote_machine(t_lexer *machine);
-void		brace_exp_machine(t_lexer *machine);
 void		double_sign_machine(t_lexer *machine);
 void		and_machine(t_lexer *machine);
 void		greater_machine(t_lexer *machine);
