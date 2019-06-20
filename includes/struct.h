@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 17:22:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:12:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,22 +260,29 @@ typedef struct 			s_intern
 
 typedef struct			s_sle
 {
+	uint8_t				state;
+
 	t_termcaps			termcaps;
 	t_window			window;
 	t_prompt			prompt;
 	t_cursor			cursor;
+
 	t_redrawinfo		rd_info;
 	uint64_t			ak_masks[AK_AMOUNT];
-	int8_t				(*actionkeys[AK_AMOUNT])(struct s_sle *sle);
+	int8_t				(*actionkeys[AK_AMOUNT])(t_registry *shell, struct s_sle *sle);
 	t_vector			*line;
 	t_vector			*sub_line;
-	t_vector			*search_line;
+
 	t_intern			interns;
 
-	uint8_t				search_mode;
-	uint16_t				search_type;
+	//history
+	t_vector			*line_save;
 
-	uint8_t				visual_mode;
+	// inc search
+	t_vector			*search_line;
+	uint16_t			search_type;
+
+	//visual mode
 	int64_t				vis_start;
 	int64_t				vis_stop;
 

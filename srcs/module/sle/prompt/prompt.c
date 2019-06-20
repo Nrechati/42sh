@@ -6,46 +6,43 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 11:11:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:26:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-/*
-**	Standart prompt invocation
-*/
-
 t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
 	char	character[READ_SIZE + 1];
 
-	update_window(sle);
-	print_prompt(shell, sle);
+	sle->state = STATE_STD;
 	ft_bzero(character, READ_SIZE + 1);
 	vct_reset(sle->line);
 	vct_reset(sle->window.displayed_line);
+	history(shell, NULL, RESET_HEAD);
+	update_window(sle);
+	print_prompt(shell, sle);
 	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
-		{
-			ft_printf("\n");
-			return (prompt(shell, sle));
-		}
-		handle_input_key(sle, character);
+			return (NULL);
+		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 			break ;
 	}
-	ft_printf("\n");
-	if (sle->search_mode == TRUE)
-	{
-		sle->search_mode = FALSE;
+	if (sle->state == STATE_SEARCH)
 		sle->line = sle->search_line;
-	}
+	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
+		vct_reset(sle->line);
+	sle->state = STATE_STD;
+	autocompletion(NULL, shell, sle->window.cols, RESET_RESULT);
 	history(shell, NULL, RESET_HEAD);
 	vct_add(sle->line, '\n');
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
+	redraw(shell, sle);
 	return (vct_dup(sle->line));
 }
 
@@ -64,7 +61,7 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-	vct_add(sle->sub_line, '\n');
+	//vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }
 

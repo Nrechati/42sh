@@ -67,6 +67,8 @@ static char	*get_next_or_prev_entry(t_history *history, uint64_t option)
 	{
 		if (history->head_ptr->next != NULL)
 			history->head_ptr = history->head_ptr->next;
+		else
+			return (NULL);
 	}
 	else if (option & PREV)
 	{

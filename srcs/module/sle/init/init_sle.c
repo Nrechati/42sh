@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:14 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 14:29:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:53:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ uint64_t    get_terminal_info(t_registry *shell)
     if (terminal == NULL || ft_strequ(terminal, ""))
     {
         terminal = INT_TERM_DFLT_VALUE;
-		add_var(&shell->intern, INT_TERM, INT_TERM_DFLT_VALUE, SET_VAR | EXPORT_VAR);
+		add_var(&shell->intern, INT_TERM,
+						INT_TERM_DFLT_VALUE, SET_VAR | EXPORT_VAR);
     }
     else
         add_var(&shell->intern, INT_TERM, terminal, SET_VAR | EXPORT_VAR);
@@ -32,7 +33,6 @@ uint64_t    get_terminal_info(t_registry *shell)
     return (SUCCESS);
 }
 
-//add more error handling around the dup TGETSTR_FAIL
 uint64_t    init_termcaps(t_termcaps *termcap)
 {
     termcap->standout_on = ft_strdup(tgetstr("so", NULL));

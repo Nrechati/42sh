@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 14:47:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:52:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ uint64_t	get_prompt_length(t_prompt *prompt)
 	return (prompt->length);
 }
 
-void	expand_prompt(__unused t_registry *shell, t_sle *sle, t_vector *text)
+static void	expand_prompt(t_sle *sle, t_vector *text)
 {
 	int64_t	length;
 	int64_t	index;
@@ -86,7 +86,7 @@ static void		align_prompt(t_sle *sle)
 	tputs(sle->termcaps.standout_off, 1, &ft_putc);
 }
 
-inline void		print_prompt(t_registry *shell, t_sle *sle)
+inline void		print_prompt(__unused t_registry *shell, t_sle *sle)
 {
 	t_vector	*ptext;
 
@@ -102,7 +102,7 @@ inline void		print_prompt(t_registry *shell, t_sle *sle)
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
-		expand_prompt(shell, sle, ptext);
+		expand_prompt(sle, ptext);
 	sle->prompt.text = ptext;
 	print_prompt_to_window(sle, sle->prompt.text);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:15:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 19:08:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:25:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_putc(const int c)
 
 uint8_t	is_eof(const char *buffer)
 {
-	if (buffer[0] == 4 && buffer[1] == '\0')
+	if (buffer[0] == 4)
 		return (TRUE);
 	return (FALSE);
 }

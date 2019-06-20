@@ -37,7 +37,7 @@ static char			*get_fc_options(char ***av, t_option *option)
 	if (ft_strequ(**av, "-e") == TRUE)
 	{
 		(*av)++;
-		if (**av == NULL || ***av == '-' || **av == '\0')
+		if (**av == NULL || ***av == '-' || ***av == '\0')
 		{
 			ft_dprintf(STDERR_FILENO,
 					"42sh: fc: -e: option requires an argument\n");

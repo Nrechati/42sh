@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:41:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 11:28:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:11:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ void	update_window(t_sle *sle)
 	sle->cursor.index = 0;
 }
 
-void	redraw_window(t_sle *sle)
+void	redraw_window(__unused  t_sle *sle)
 {
-	ft_dprintf(3, "Updating window.\n");
 	update_window(sle);
 	set_redraw_flags(sle, RD_CLEAR | RD_CEND);
 	redraw(NULL, sle);

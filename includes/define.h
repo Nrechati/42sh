@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:50:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:14:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,6 +333,11 @@
 *****************************************************
 */
 
+# define STATE_STD		0x00
+# define STATE_VISUAL	0x01
+# define STATE_SEARCH	0x02
+# define STATE_AUTOCP	0x04
+
 # define START_FILTER	">...."
 # define END_FILTER		"<...."
 
@@ -348,7 +353,8 @@
 # define SLE_PS2_PROMPT		0x0200
 # define SLE_PS3_PROMPT		0x0400
 # define SLE_SIZE_UPDATE	0x0800
-# define SLE_EXIT			0x1000
+# define SLE_RD_PROMPT		0x1000
+# define SLE_EXIT			0x2000
 
 # define RD_NONE        0x001 /* No redraw at all*/
 # define RD_CLEAR       0x002 /* Redraw th entire window*/
@@ -392,7 +398,7 @@
 # define P_ESCAPE			'e'
 
 # define FAIL_EOF					42
-# define AK_AMOUNT					25
+# define AK_AMOUNT					24
 
 # define AK_ESCAPE_MASK				0x1b00000000000000
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
@@ -407,18 +413,18 @@
 # define AK_BACKSPACE_MASK		 	0x7f00000000000000
 # define AK_CTRL_D_MASK 			0x0400000000000000
 # define AK_CTRL_L_MASK				0x0c00000000000000
-# define AK_CTRL_V_MASK				0x1600000000000000
+# define AK_CTRL_F_MASK				0x0600000000000000
 # define AK_CTRL_X_MASK				0x1800000000000000
 # define AK_CTRL_B_MASK				0x0200000000000000
 # define AK_CTRL_P_MASK				0x1000000000000000
-# define AK_CTRL_F_MASK				0x0600000000000000
 # define AK_CTRL_R_MASK				0x1200000000000000
-# define AK_CTRL_I_MASK				0x0900000000000000
+# define AK_CTRL_T_MASK				0x1400000000000000
 # define AK_CTRL_UP_MASK			0x1b5b313b35410000
 # define AK_CTRL_DOWN_MASK			0x1b5b313b35420000
 # define AK_CTRL_RIGHT_MASK			0x1b5b313b35430000
 # define AK_CTRL_LEFT_MASK			0x1b5b313b35440000
 # define AK_TAB_MASK				0x0900000000000000
+
 /*
 *****************************************************
 ************************ LOG ************************

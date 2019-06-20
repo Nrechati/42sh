@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 20:07:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:52:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index)
 	cwd = vct_get_string(sle->interns.pwd);
 	home = vct_get_string(sle->interns.home);
 	vct_replace_string(text, index, index + 2, cwd);
-
 	if (ft_strbeginswith(cwd, home))
 	{
 		len = ft_strlen(home);

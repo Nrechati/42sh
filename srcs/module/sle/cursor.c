@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:34:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/05 11:46:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:50:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ static inline void cursor_move(t_sle *sle)
 {
 	t_coord		coord;
 
-	if (sle->window.point_cursor
-					> vct_len(sle->line))
+	if (sle->window.point_cursor > vct_len(sle->line))
 		return ;
 	index_to_coord(sle, get_prompt_length(&sle->prompt)
 						+ sle->window.point_cursor, &coord);

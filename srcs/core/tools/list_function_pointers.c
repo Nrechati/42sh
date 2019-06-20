@@ -31,7 +31,8 @@ void	delete_process(void *data)
 
 void	delete_job(void *data)
 {
-	t_job	*job;
+	(void)data;
+//	t_job	*job;
 
-	job = (t_job *)data;
+//	job = (t_job *)data;
 }
