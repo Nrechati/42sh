@@ -6,11 +6,26 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 16:01:23 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 16:06:56 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+int		ft_isspace(int c)
+{
+	if (c == ' ' || c == '\t' || c == '\n'
+			|| c == '\r' || c == '\v' || c == '\f')
+		return (1);
+	else
+		return (0);
+}
+
+void		trim_space(t_arithmetic *math)
+{
+	while (ft_isspace(math->source[math->index]) == TRUE)
+		math->index++;
+}
 
 void		out_math(t_arithmetic *math)
 {
@@ -123,26 +138,27 @@ void		sign_math(t_arithmetic *math)	// * / %
 	}
 	vct_add(math->buffer, math->source[math->index]);
 	math->index++;
-	if (math->source[math->index] == '+' && math->buffer->buffer[0] == '+')
-		math->index++;
-	if (math->source[math->index] == '-' && math->buffer->buffer[0] == '-')
-
+	if (math->buffer->buffer[0] == '+')
+	{
+		if (math->source[math->index] == '+')
+		{
+			math->type = TYPE_INCREMENT;
+			math->index++;
+		}
+		else
+			math->type = TYPE_ADD;
+	}
+	if (math->buffer->buffer[0] == '-')
+	{
+		if (math->source[math->index] == '-')
+		{
+			math->type = TYPE_DECREMENT;
+			math->index++;
+		}
+		else
+			math->type = TYPE_SUBSTRACT;
+	}
 	return ;
-}
-
-int		ft_isspace(int c)
-{
-	if (c == ' ' || c == '\t' || c == '\n'
-			|| c == '\r' || c == '\v' || c == '\f')
-		return (1);
-	else
-		return (0);
-}
-
-void		trim_space(t_arithmetic *math)
-{
-	while (ft_isspace(math->source[math->index]) == TRUE)
-		math->index++;
 }
 
 void		start_math(t_arithmetic *math)

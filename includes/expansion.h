@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/20 15:49:36 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/20 16:07:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ enum				e_mathexp
 	MATH_END,
 };
 
-enum			e_mathtype
+enum e_mathtype
 {
 	TYPE_DECIMAL,
 	TYPE_OCTAL,
@@ -102,8 +102,12 @@ enum			e_mathtype
 	TYPE_TIME,
 	TYPE_DIVIDE,
 	TYPE_MODULO,
+	TYPE_ADD,
+	TYPE_SUBSTRACT,
 	TYPE_OPEN_P,
 	TYPE_CLOSE_P,
+	TYPE_INCREMENT,
+	TYPE_DECREMENT,
 };
 
 enum				e_rpn
