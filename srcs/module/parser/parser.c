@@ -61,7 +61,7 @@ int8_t			process_parser(t_vector *input, t_parser *parser, t_list *lst)
 						state, token->type, &tmp) == FALSE)
 			{
 				ft_dprintf(2, "42sh: syntax error near unexpected token `%s'\n",
-						parser->grammar[token->type]);
+					token->type == E_NEWLINE ? "\\n" : parser->grammar[token->type]);
 				return (FAILURE);
 			}
 			lst = tmp;

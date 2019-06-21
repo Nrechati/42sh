@@ -128,8 +128,6 @@ P_EXPANSION += module/expansion/
 
 P_LEXER += module/lexer/
 P_LEXER += module/lexer/debug/
-P_LEXER += module/lexer/init/
-P_LEXER += module/lexer/state_machine/
 
 P_LOGGING += module/logging/
 
@@ -392,13 +390,8 @@ EXPANSION += variable.c
 
 LEXER += lexer.c
 LEXER += tmp_display.c
-LEXER += init_lexer.c
-LEXER += generate_token.c
-LEXER += machine_interface.c
-LEXER += quotes_states.c
-LEXER += redirect_states.c
-LEXER += sign_states.c
-LEXER += states.c
+LEXER += lexer_interface.c
+LEXER += set_inhibitor.c
 
 #						     - - - - Parser  - - - -                           #
 

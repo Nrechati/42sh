@@ -14,34 +14,26 @@
 # define LEXER_H
 
 t_list		*lexer(t_vector *line);
-t_lexinfo	*init_lexinfo(void);
 
-uint8_t		is_end_of_cmd(t_lexer *machine);
-void		subprompt_calling(t_lexer *machine, uint64_t option);
-void		add_to_buffer(t_lexer *machine);
-char		get_buffer(t_lexer *machine, uint8_t pos);
-char		get_input(t_lexer *machine, uint8_t pos);
+/*
+*****************************************************
+******************** INTERFACE **********************
+*****************************************************
+*/
 
-int			assign_special(t_lexer *machine);
-void		space_lexer(t_lexer *machine);
-void		start_lexer(t_lexer *machine);
-void		end_machine(t_lexer *machine);
-void		out_lexer(t_lexer *machine);
-void		string_machine(t_lexer *machine);
-void		number_machine(t_lexer *machine);
-void		sign_machine(t_lexer *machine);
-void		expansion_machine(t_lexer *machine);
-void		backslash_machine(t_lexer *machine);
-void		single_quote_machine(t_lexer *machine);
-void		double_quote_machine(t_lexer *machine);
-void		double_sign_machine(t_lexer *machine);
-void		and_machine(t_lexer *machine);
-void		greater_machine(t_lexer *machine);
-void		greatand_machine(t_lexer *machine);
-void		lesser_machine(t_lexer *machine);
-void		lessand_machine(t_lexer *machine);
-void		tilde_machine(t_lexer *machine);
-t_token		generate_token(t_lexer *machine);
+void		process_lexer(t_lexer *lexer);
+void		out_lexer(t_lexer *lexer);
+void		set_inhibitor(t_lexer *lexer);
+
+/*
+*****************************************************
+********************** TOOLS ************************
+*****************************************************
+*/
+
+void		add_to_buffer(t_lexer *lexer);
+char		get_buffer(t_lexer *lexer, uint8_t pos);
+char		get_input(t_lexer *lexer, uint8_t pos);
 
 
 /*

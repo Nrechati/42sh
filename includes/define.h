@@ -172,32 +172,30 @@
 *****************************************************
 */
 
-# define STATENBR					19
-# define TOKEN_WITH_DATA			5
 # define NB_OF_TOKENS				50
-# define BUFFER						131071
-# define SINGLE_SIGNS				16
-# define SPECIAL_SIGNS				14
-# define SIGNS 						30
-# define ALLCHAR					"\"|()><;`&{}[]#%\n"
-# define SIGN_DETECT				" \t<>|;&!=\n\\"
-# define LETTER_TO_QUOTE			"\"\'$"
-# define LETTER_INTERUPT			" \t<>|;&\n"
-# define LETTER_SPECIAL				"\"\'$~*?"
-# define TILDE_INTERUPT				" /$"
-# define QSP_INT					" \"\'"
-/*
-** 42sh
-** # define LETTER_INTERUPT			" \t<>|;\'\"`()$&!?{}[]*%\\"
-** # define SIGN_DETECT				" \t<>|;\'\"`()$&!?{}[]*%\\="
-*/
-# define QUOTE_INTERUPT				"\\\"`$"
-# define EXP_INTERUPT				" \t\'\"`$/"
-# define DOUBLE_SIGN				"&|;=!"
 
 # define CUR_CHAR					0x01
 # define NEXT_CHAR					0x02
 # define NEXT_NEXT_CHAR				0x04
+
+# define NO_FLAG					0x0000
+# define BACKSLASH_FLAG				0x0001
+# define SINGLEQUOTE_FLAG			0x0002
+# define DOUBLEQUOTE_FLAG			0x0004
+# define BRACEPARAM_FLAG			0x0008
+# define MATHS_FLAG					0x0010
+
+# define POSSIBLE					0
+# define IMPOSSIBLE					1
+# define LISTEN						2
+
+/*
+*****************************************************
+********************* EXPANSION *********************
+*****************************************************
+*/
+
+# define EXP_INTERUPT				" \t\'\"`$/"
 
 /*
 *****************************************************
@@ -214,35 +212,35 @@
 # define E_START					E_DEFAULT
 
 # define N_DB_QUOTE					"\""
-# define N_PIPE						"|"
+# define N_PIPE						"|"  //
 # define N_PARENT_OPEN				"("
-# define N_PARENT_CLOSE				")"
-# define N_GREAT					">"
-# define N_LESS						"<"
-# define N_SEMICOLON				";"
+# define N_PARENT_CLOSE				")" 
+# define N_GREAT					">"  //
+# define N_LESS						"<"  //
+# define N_SEMICOLON				";"  //
 # define N_BACKQUOTE				"`"
-# define N_AND						"&"
-# define N_HOOK_OPEN				"{"
-# define N_HOOK_CLOSE				"}"
-# define N_BRACKET_OPEN				"["
-# define N_BRACKET_CLOSE			"]"
+# define N_AND						"&"  //
+# define N_HOOK_OPEN				"{"  //
+# define N_HOOK_CLOSE				"}"  //
+# define N_BRACKET_OPEN				"["  //
+# define N_BRACKET_CLOSE			"]"  //
 # define N_HASH						"#"
 # define N_PERCENT					"%"
-# define N_NEWLINE					"\\n"
-# define N_DAND						"&&"
-# define N_OR						"||"
-# define N_DSEMI					";;"
-# define N_DLESS					"<<"
-# define N_DGREAT					">>"
-# define N_LESSAND					"<&"
-# define N_GREATAND					">&"
-# define N_LESSGREAT				"<>"
-# define N_ANDDGREAT				"&>>"
-# define N_ANDGREAT					"&>"
-# define N_DLESSDASH				"<<-"
-# define N_CLOBBER					">|"
-# define N_DEQ						"=="
-# define N_NOTEQ					"!="
+# define N_NEWLINE					"\n" //
+# define N_DAND						"&&"  //
+# define N_OR						"||"  //
+# define N_DSEMI					";;"  //
+# define N_DLESS					"<<"  //
+# define N_DGREAT					">>"  //
+# define N_LESSAND					"<&"  //
+# define N_GREATAND					">&"  //
+# define N_LESSGREAT				"<>"  //
+# define N_ANDDGREAT				"&>>" //
+# define N_ANDGREAT					"&>"  //
+# define N_DLESSDASH				"<<-" //
+# define N_CLOBBER					">|"  //
+# define N_DEQ						"=="  //
+# define N_NOTEQ					"!="  //
 # define N_CASE						"case"
 # define N_DO						"do"
 # define N_DONE						"done"
@@ -256,8 +254,8 @@
 # define N_THEN						"then"
 # define N_UNTIL					"until"
 # define N_WHILE					"while"
-# define N_IO_NUMBER				"IO number"
-# define N_ASSIGN					"assign (=)"
+# define N_IO_NUMBER				"IO nb"
+# define N_ASSIGN					"(=)"
 # define N_STRING					"word"
 # define N_SPSTRING					"spword"
 # define N_END						"end"

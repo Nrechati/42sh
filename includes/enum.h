@@ -35,21 +35,8 @@ enum	e_state_option
 
 enum	e_lexer_state
 {
-	L_START,
-	L_STRING,
-	L_IO_NUMBER,
-	L_SIGN,
-	L_SPACE,
-	L_DSIGN,
-	L_GREATER,
-	L_LESSER,
-	L_GREATAND,
-	L_LESSAND,
-	L_SQTE,
-	L_DQTE,
-	L_AND,
+	L_PROCESS,
 	L_OUT,
-	L_END,
 	L_FINISH
 };
 
@@ -107,24 +94,18 @@ typedef enum	e_type
 	E_DEFAULT,
 }				t_type;
 
+/*
+*****************************************************
+********************** ANALYZER *********************
+*****************************************************
+*/
+
 typedef enum	e_quote
 {
 	QUOTE_OFF,
 	QUOTE_SINGLE,
 	QUOTE_DOUBLE,
 }				t_quote;
-
-typedef enum	e_assign
-{
-	ASSIGN_OFF,
-	ASSIGN_ON,
-	ASSIGN_NEXT,
-}				t_assign;
-/*
-*****************************************************
-********************** ANALYZER *********************
-*****************************************************
-*/
 
 enum e_actions
 {
