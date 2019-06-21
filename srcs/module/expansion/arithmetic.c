@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 16:06:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 09:47:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,11 @@ void		decimal_math(t_arithmetic *math)
 		vct_add(math->buffer, math->source[math->index]);
 		math->index++;
 	}
+}
+
+void		logical_math(t_arithmetic *math)
+{
+
 }
 
 void		variable_math(t_arithmetic *math)
