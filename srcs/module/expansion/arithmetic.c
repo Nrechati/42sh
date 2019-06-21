@@ -6,11 +6,26 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 10:57:36 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 12:44:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void	print_token_lst(t_arithmetic *math)
+{
+	t_list	*ptr;
+	t_math	*token;
+
+	ptr = math->tokens;
+	while (ptr != NULL)
+	{
+		token = ptr->data;
+		ft_printf("|| %s | %d || ->", token->value, token->type);
+		ptr = ptr->next;
+	}
+	ft_printf("NULL \n");
+}
 
 int		ft_isspace(int c)
 {
@@ -40,6 +55,7 @@ void		out_math(t_arithmetic *math)
 	ft_lstaddback(&math->tokens, node);
 	vct_del(&math->buffer);
 	math->buffer = vct_new(DEFAULT_BUFFER);
+	math->state = MATH_START;
 }
 
 void		hexa_math(t_arithmetic *math)
@@ -120,6 +136,8 @@ void		variable_math(t_arithmetic *math)
 
 void		sign_math(t_arithmetic *math)	// * / %
 {
+	if (ft_strequ(math->source + math->index, "))"))
+		math->state = MATH_END;
 	if (ft_strchr(SINGLE_SIGN_SET, math->source[math->index]))
 	{
 		if (math->source[math->index] == '*')
@@ -240,8 +258,6 @@ void		start_math(t_arithmetic *math)
 		trim_space(math);
 	else if (ft_isdigit(math->source[math->index]) == TRUE)
 		math->state = MATH_DECIMAL;
-	if (ft_isdigit(math->source[math->index]) == TRUE)
-		math->state = MATH_DECIMAL;
 	else if (ft_isalpha(math->source[math->index]) == TRUE)
 		math->state = MATH_VARIABLE;
 	else if (ft_strchr(SIGN_SET, math->source[math->index]))
@@ -257,7 +273,7 @@ static void	init_mathexp(t_mathexp state[MATH_STATES])
 	state[MATH_OCTAL] = octal_math;
 	state[MATH_HEXA] = hexa_math;
 	state[MATH_VARIABLE] = variable_math;
-	state[MATH_SIGN] = variable_math;
+	state[MATH_SIGN] = sign_math;
 	state[MATH_LOGICAL] = logical_math;
 	state[MATH_OUT] = out_math;
 	state[MATH_END] = NULL;
@@ -267,12 +283,12 @@ void		arithmetic_lexer(t_arithmetic *math)
 {
 	static t_mathexp	state[MATH_STATES];
 
-	ft_printf("coucou\n");
-	exit(0);
 	if (state[0] == NULL)
 		init_mathexp(state);
 	while (math->state != MATH_END)
 		state[math->state](math);
+	print_token_lst(math);
+	exit(0);
 }
 
 int			arithmetic(__unused t_list *intern, char **output, int i)
@@ -287,15 +303,17 @@ int			arithmetic(__unused t_list *intern, char **output, int i)
 	return (SUCCESS);
 }
 
-static int	check_expansion(t_list *intern, char **output, int i, __unused t_quote quote)
+static int	check_math_expansion(t_list *intern, char **buff, int i, __unused t_quote quote)
 {
+	char	*input;
 	int		check;
 
 	check = 0;
-	if ((*output)[i] != '$')
+	input = *buff;
+	if (input[i] != '$')
 		return (0);
-	if (ft_strnequ(output[i + 1], "((", 2) == TRUE)
-		check = arithmetic(intern, output, i);
+	if (ft_strnequ(&input[i + 1], "((", 2) == TRUE)
+		check = arithmetic(intern, buff, i);
 	return (check);
 }
 
@@ -315,7 +333,7 @@ char		*arithmetic_expansion(t_list *intern, char *input)
 	{
 		if (ft_strchr("\'\"", output[i]))
 			quote = select_quoting(quote, output[i]);
-		if ((result = check_expansion(intern, &output, i, quote)) == 1)
+		if ((result = check_math_expansion(intern, &output, i, quote)) == 1)
 			len = ft_strlen(output);
 		else if (result == -1)
 			return (NULL);

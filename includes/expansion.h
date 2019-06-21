@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/21 11:01:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 12:56:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,44 +78,45 @@ struct	s_parameter
 };
 
 /* ********************** ARITHMETIC *********************/
-enum				e_mathexp
+enum e_mathexp
 {
 	MATH_START,
 	MATH_DECIMAL,
 	MATH_OCTAL,
 	MATH_HEXA,
+	MATH_VARIABLE,
 	MATH_SIGN,
 	MATH_LOGICAL,
-	MATH_VARIABLE,
 	MATH_OUT,
 	MATH_END,
 };
 
-enum			e_mathtype
+enum e_mathtype
 {
-	TYPE_DECIMAL,
-	TYPE_OCTAL,
-	TYPE_HEXA,
-	TYPE_VARIABLE,
-	TYPE_TIME,
-	TYPE_DIVIDE,
-	TYPE_MODULO,
-	TYPE_ADD,
-	TYPE_SUBSTRACT,
-	TYPE_OPEN_P,
-	TYPE_CLOSE_P,
-	TYPE_INCREMENT,
-	TYPE_DECREMENT,
-	TYPE_GREATER,
-	TYPE_GREATER_OR,
-	TYPE_LOWER,
-	TYPE_LOWER_OR,
-	TYPE_EQUAL,
-	TYPE_NOT_EQUAL,
-	TYPE_ASSIGN,
-	TYPE_AND,
-	TYPE_OR,
-	TYPE_ERROR,
+	TYPE_UNKNOWN,			//0
+	TYPE_DECIMAL,			//1
+	TYPE_OCTAL,				//2
+	TYPE_HEXA,				//3
+	TYPE_VARIABLE,			//4
+	TYPE_TIME,				//5
+	TYPE_DIVIDE,			//6
+	TYPE_MODULO,			//7
+	TYPE_ADD,				//8
+	TYPE_SUBSTRACT,			//9
+	TYPE_OPEN_P,			//10
+	TYPE_CLOSE_P,			//11
+	TYPE_INCREMENT,			//12
+	TYPE_DECREMENT,			//13
+	TYPE_GREATER,			//14
+	TYPE_GREATER_OR,		//15
+	TYPE_LOWER,				//16
+	TYPE_LOWER_OR,			//17
+	TYPE_EQUAL,				//18
+	TYPE_NOT_EQUAL,			//19
+	TYPE_ASSIGN,			//20
+	TYPE_AND,				//21
+	TYPE_OR,				//22
+	TYPE_ERROR,				//23
 };
 
 enum				e_rpn
