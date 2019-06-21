@@ -21,11 +21,14 @@ void			print_lst(t_list *lst, int fd, char *prefix, t_option flag)
 		variable = (t_variable *)lst->data;
 		if (variable->flag & flag)
 		{
-			if (*variable->data != '\0')
+			if ((flag & EXPORT_VAR) && (variable->flag & SET_VAR) == FALSE)
+				ft_dprintf(fd, "%s%s\n", prefix,
+							variable->name, variable->data);
+			else if (*variable->data != '\0')
 				ft_dprintf(fd, "%s%s=%s\n", prefix,
 							variable->name, variable->data);
 			else
-				ft_dprintf(fd, "%s%s\n", prefix, variable->name);
+				ft_dprintf(fd, "%s%s=\n", prefix, variable->name);
 		}
 		lst = lst->next;
 	}
