@@ -7,7 +7,7 @@ static char	*get_entry_by_id(t_history *history, int id, uint64_t option)
 
 	if (id == -1)
 		id = history->nb_of_entries - 1;
-	real_id = option & REL ? id : history->nb_of_entries - id;
+	real_id = option & REL ? id - 1 : history->nb_of_entries - id;
 	entry = history->entry;
 	while (entry != NULL)
 	{
@@ -16,8 +16,8 @@ static char	*get_entry_by_id(t_history *history, int id, uint64_t option)
 		entry = entry->prev;
 		real_id--;
 	}
-	ft_dprintf(2, "42sh: No history entry with %s ID %d\n",
-			option & REL ? "relative" : "absolute", id);
+	//ft_dprintf(2, "42sh: No history entry with %s ID %d\n",
+	//		option & REL ? "relative" : "absolute", id);
 	return (NULL);
 }
 
@@ -84,8 +84,9 @@ char		*get_entry(t_history *history, char *search, uint64_t option)
 		return (NULL);
 	else if (option & BY_ID)
 	{
-		return (get_entry_by_id(history, search == NULL ?
-					history->nb_of_entries : ft_atoi(search), option));
+		if (search == NULL || *search == '\0')
+			return (NULL);
+		return (get_entry_by_id(history, ft_atoi(search), option));
 	}
 	else if (option & BY_NAME)
 	{

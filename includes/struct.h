@@ -22,7 +22,7 @@
 *****************************************************
 */
 
-extern const char		**g_grammar; // TEMP
+extern const char		**g_grammar;
 
 typedef uint64_t		t_option;
 
@@ -63,37 +63,23 @@ extern t_registry		*g_shell;
 *****************************************************
 */
 
-typedef struct s_lexer	t_lexer;
-typedef void			(*t_lexing)(t_lexer *);
-typedef enum e_type		t_type;
-
 typedef struct			s_token
 {
 	char				*data;
 	enum e_type			type;
 }						t_token;
 
-typedef struct			s_lexinfo
+typedef struct			s_lexer
 {
-	t_lexing			lexing[STATENBR];
-	enum e_type			duplicate[TOKEN_WITH_DATA];
-	enum e_type			special_signs[SPECIAL_SIGNS];
-}						t_lexinfo;
-
-struct					s_lexer
-{
+	t_list				*tokens;
 	t_vector			*buffer;
 	t_vector			*input;
-	t_vector			*origin_input;
-	t_lexinfo			*lexinfo;
-	char				*data;
-	t_list				*tokens;
+	size_t				index;
 	enum e_lexer_state	state;
-	enum e_quote		quote;
-	enum e_type			last_lexer;
-	enum e_assign		assign_detect;
-	int					io_detect;
-};
+	enum e_type			token_type;
+	uint16_t			inhibitor;
+	uint8_t				assignation;
+}						t_lexer;
 
 /*
 *****************************************************

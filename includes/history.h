@@ -39,4 +39,12 @@ t_entry	*create_entry(char *cmd);
 void	free_history(t_entry *entry);
 void	pop_entry(t_entry **entry, t_entry **head);
 
+/*
+*****************
+*** EXPANSION ***
+*****************
+*/
+
+int8_t		history_expansion(t_vector *input);
+
 #endif

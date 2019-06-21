@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/20 12:32:36 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/20 16:58:17 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,8 +130,7 @@ P_EXPANSION += module/expansion/parsers/
 
 P_LEXER += module/lexer/
 P_LEXER += module/lexer/debug/
-P_LEXER += module/lexer/init/
-P_LEXER += module/lexer/state_machine/
+P_LEXER += module/lexer/process/
 
 P_LOGGING += module/logging/
 
@@ -178,7 +177,7 @@ CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += $(IFLAGS)
 DFLAGS += $(CFLAGS)
-DFLAGS += -fsanitize=address,undefined
+#DFLAGS += -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
@@ -244,6 +243,7 @@ LOGGING += print_debug.c
 #						- - - - -   History   - - - - -						   #
 
 HISTORY += history.c
+HISTORY += history_expansion.c
 HISTORY += histfile.c
 HISTORY += entry_manager.c
 HISTORY += get_entry.c
@@ -323,6 +323,8 @@ SLE += load_sle_struct.c
 
 #Prompt
 SLE += prompt.c
+SLE += prompt_subroutine.c
+SLE += prompt_subroutine_tools.c
 SLE += prompt_expansion.c
 SLE += prompt_tools.c
 
@@ -397,13 +399,10 @@ EXPANSION += parameter_parser.c
 
 LEXER += lexer.c
 LEXER += tmp_display.c
-LEXER += init_lexer.c
-LEXER += generate_token.c
-LEXER += machine_interface.c
-LEXER += quotes_states.c
-LEXER += redirect_states.c
-LEXER += sign_states.c
-LEXER += states.c
+LEXER += lexer_tools.c
+LEXER += checker_module.c
+LEXER += lexer_interface.c
+LEXER += set_inhibitor.c
 
 #						     - - - - Parser  - - - -                           #
 

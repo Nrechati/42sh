@@ -7,8 +7,8 @@ void		add_new_entry(t_history *history, char *new)
 	if (new == NULL || *new == '\0')
 		return ;
 	len = ft_strlen(new);
-	while (len > 0 && new[len - 1] == '\n')
-		new[--len] = '\0';
+	if (len > 0 && new[len - 1] == '\n')
+		new[len - 1] = '\0';
 	if (*new == '\0')
 		return ;
 	add_entry(&history->entry, create_entry(new));

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/17 14:56:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:07:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,38 @@
 # define LEXER_H
 
 t_list		*lexer(t_vector *line);
-t_lexinfo	*init_lexinfo(void);
+void		set_inhibitor(t_lexer *lexer);
 
-int			assign_special(t_lexer *machine);
-void		space_lexer(t_lexer *machine);
-void		start_lexer(t_lexer *machine);
-void		end_machine(t_lexer *machine);
-void		out_lexer(t_lexer *machine);
-void		string_machine(t_lexer *machine);
-void		number_machine(t_lexer *machine);
-void		sign_machine(t_lexer *machine);
-void		expansion_machine(t_lexer *machine);
-void		backslash_machine(t_lexer *machine);
-void		single_quote_machine(t_lexer *machine);
-void		double_quote_machine(t_lexer *machine);
-void		double_sign_machine(t_lexer *machine);
-void		and_machine(t_lexer *machine);
-void		greater_machine(t_lexer *machine);
-void		greatand_machine(t_lexer *machine);
-void		lesser_machine(t_lexer *machine);
-void		lessand_machine(t_lexer *machine);
-void		tilde_machine(t_lexer *machine);
-t_token		generate_token(t_lexer *machine);
+/*
+*****************************************************
+******************** INTERFACE **********************
+*****************************************************
+*/
 
+void		process_lexer(t_lexer *lexer);
+void		out_lexer(t_lexer *lexer);
+
+/*
+*****************************************************
+********************* CHECKER ***********************
+*****************************************************
+*/
+
+uint8_t	is_assignation(t_lexer *lexer);
+uint8_t	is_input_end(t_lexer *lexer);
+uint8_t	is_delimiter(t_lexer *lexer);
+uint8_t	is_io_number(t_lexer *lexer);
+uint8_t	token_checker(t_lexer *lexer, int start, int end);
+
+/*
+*****************************************************
+********************** TOOLS ************************
+*****************************************************
+*/
+
+void		init_lexer(t_lexer *lexer, t_vector *input);
+void		add_to_buffer(t_lexer *lexer);
+char		get_input(t_lexer *lexer, uint8_t pos);
 
 /*
 *****************************************************

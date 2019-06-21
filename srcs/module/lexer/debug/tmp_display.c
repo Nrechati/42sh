@@ -18,14 +18,15 @@ void		print_token(void *data)
 
 	token = data;
 	ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
-				token->type, g_grammar[token->type], token->data);
+				token->type, token->type == E_NEWLINE ? "\\n"
+				: g_grammar[token->type], token->data);
 }
 
 void		lexer_print_debug(t_registry *shell, t_list *token_list)
 {
 	if (token_list != NULL && (shell->option.option & DEBUG_OPT) != FALSE)
 	{
-		ft_putendl("\n\033[34m-------------- LEXER ---------------");
+		ft_putendl("\n\033[36m-------------- LEXER ---------------");
 		ft_lstiter(token_list, print_token);
 		ft_putendl("------------------------------------\033[0m");
 	}
