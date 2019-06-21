@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 12:44:51 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:24:37 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,10 @@ void		variable_math(t_arithmetic *math)
 void		sign_math(t_arithmetic *math)	// * / %
 {
 	if (ft_strequ(math->source + math->index, "))"))
+	{
 		math->state = MATH_END;
+		return ;
+	}
 	if (ft_strchr(SINGLE_SIGN_SET, math->source[math->index]))
 	{
 		if (math->source[math->index] == '*')
@@ -152,6 +155,7 @@ void		sign_math(t_arithmetic *math)	// * / %
 			math->type = TYPE_CLOSE_P;
 		vct_add(math->buffer, math->source[math->index]);
 		math->index++;
+		math->state = MATH_OUT;
 		return ;
 	}
 	vct_add(math->buffer, math->source[math->index]);
