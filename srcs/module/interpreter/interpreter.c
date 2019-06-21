@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 20:45:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/21 02:37:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,15 @@ static void		run_process(void *context, void *data)
 		run_builtin(shell, process);
 	else
 		fork_process(shell, process);
+
+//	sleep(1);
+	pid_t ctl_proc = tcgetpgrp(STDOUT_FILENO);
+	ft_dprintf(3, "Controlling process id is :%d\n", ctl_proc);
+
 	return;
 }
+
+t_job		*g_current_job;
 
 static void		run_job(void *context, void *data)
 {
@@ -106,11 +113,12 @@ static void		run_job(void *context, void *data)
 	else
 		setup_pipe(job->processes);
 
-
 	job->state |= RUNNING;
+	g_current_job = job;
 	ft_lstiter_ctx(job->processes, shell, run_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	waiter(shell, job);
+	g_current_job = NULL;
 	return ;
 }
 
@@ -118,15 +126,12 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 {
 	static t_list	*job_lst;
 
-	if (flag == 18)
-	{
-		jobctl(g_shell, job_lst, JCTL_PUTBG);
-	}
-	else if (flag > 0)
+	if (flag > 0)
 	{
 		ft_lstiter_ctx(job_lst, &flag, set_signaled);
 		return (SUCCESS);
 	}
+	ft_dprintf(3, "\n");
 
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
 

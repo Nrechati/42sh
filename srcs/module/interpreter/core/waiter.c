@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 11:36:36 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 04:35:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ static void		set_status(t_registry *shell, t_process *current, int status)
 	char	*exit_status;
 
 	exit_status = NULL;
+	if (WIFSTOPPED(status))
+	{
+		ft_printf("PID[%d] PGID[%d] has been stopped by keyboard\n",
+						current->pid, *current->pgid);
+		current->stopped = TRUE;
+		jobctl(shell, *current->pgid, JOBCTL_PUTINBG);
+	}
 	if (WIFEXITED(status))
 	{
 		exit_status = ft_itoa(WEXITSTATUS(status)); //PROTECT ?
@@ -90,7 +97,7 @@ int8_t			waiter(t_registry *shell, t_job *job)
 		if (job->state & KILLED)
 			ft_lstiter_ctx(job->processes, &job->signo, kill_process);
 		status = 0;
-		pid = wait(&status);
+		pid = waitpid(-1, &status, WNOHANG | WUNTRACED);
 		if (pid)
 			update_pid(shell, job, pid, status);
 	}
@@ -99,5 +106,9 @@ int8_t			waiter(t_registry *shell, t_job *job)
 													, job->pgid
 													, job->signo);
 	job->state ^= (RUNNING | ENDED);
+
+	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
+	ft_dprintf(3, "Attaching shell back to terminal\n");
+
 	return (SUCCESS);
 }

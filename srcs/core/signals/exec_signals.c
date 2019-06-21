@@ -26,7 +26,7 @@ void	sigcont_exec(__unused int signo)
 void	sigtstp_exec(__unused int signo)
 {
 	// put current foreground job to background
-	interpreter(NULL, NULL, signo);
+//	interpreter(NULL, NULL, signo);
 }
 
 

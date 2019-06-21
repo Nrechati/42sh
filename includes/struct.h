@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/20 19:33:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/20 22:46:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef struct			s_registry
 	t_opt				option;
 	t_hashmap			hash;
 
-	t_list				*job_list;
+	pid_t				pid;
+//	t_list				*job_list;
 
 	struct termios		*sle_mode;
 	struct termios		*exec_mode;
@@ -190,6 +191,8 @@ struct					s_resolution
 	enum e_analyzer_state	state;
 	int					valid;
 };
+
+extern t_job 			*g_current_job;
 
 /*
 *****************************************************

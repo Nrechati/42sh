@@ -307,11 +307,10 @@
 *****************************************************
 */
 
-# define JCTL_LIST					0x00
-# define JCTL_PUTBG					0x01
-# define JCTL_PUTFG					0x02
-
-
+# define JOBCTL_LIST					0x00 /* List jobs in bg | Builtin jobs */
+# define JOBCTL_PUTINBG					0x01 /* Save job to jobctl module */
+# define JOBCTL_PUTINFG					0x02 /* Restore bg job to fg | builtin fg */
+# define JOBCTL_EXECINBG				0x04 /* Exec a bg job in bg | builtin bg */
 
 /*
 *****************************************************
