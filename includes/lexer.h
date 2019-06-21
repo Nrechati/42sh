@@ -14,6 +14,7 @@
 # define LEXER_H
 
 t_list		*lexer(t_vector *line);
+void		set_inhibitor(t_lexer *lexer);
 
 /*
 *****************************************************
@@ -23,7 +24,18 @@ t_list		*lexer(t_vector *line);
 
 void		process_lexer(t_lexer *lexer);
 void		out_lexer(t_lexer *lexer);
-void		set_inhibitor(t_lexer *lexer);
+
+/*
+*****************************************************
+********************* CHECKER ***********************
+*****************************************************
+*/
+
+uint8_t	is_assignation(t_lexer *lexer);
+uint8_t	is_input_end(t_lexer *lexer);
+uint8_t	is_delimiter(t_lexer *lexer);
+uint8_t	is_io_number(t_lexer *lexer);
+uint8_t	token_checker(t_lexer *lexer, int start, int end);
 
 /*
 *****************************************************
@@ -31,10 +43,9 @@ void		set_inhibitor(t_lexer *lexer);
 *****************************************************
 */
 
+void		init_lexer(t_lexer *lexer, t_vector *input);
 void		add_to_buffer(t_lexer *lexer);
-char		get_buffer(t_lexer *lexer, uint8_t pos);
 char		get_input(t_lexer *lexer, uint8_t pos);
-
 
 /*
 *****************************************************

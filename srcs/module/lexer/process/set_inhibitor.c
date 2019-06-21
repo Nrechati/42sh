@@ -1,13 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_inhibitor.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/21 17:28:40 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/06/21 19:20:35 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 static void	set_doublequoteflag(t_lexer *lexer)
 {
-	if (get_input(lexer, CUR_CHAR) == '\\')
-	{
-		lexer->inhibitor |= BACKSLASH_FLAG;
-		lexer->index++;
-	}
-	else if (get_input(lexer, CUR_CHAR) == '\"')
+	if (get_input(lexer, CUR_CHAR) == '\"')
 		lexer->inhibitor &= ~DOUBLEQUOTE_FLAG;
 	else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '{')
@@ -40,12 +47,7 @@ static void	set_braceparamflag(t_lexer *lexer)
 
 static void	set_noflag(t_lexer *lexer)
 {
-	if (get_input(lexer, CUR_CHAR) == '\\')
-	{
-		lexer->inhibitor |= BACKSLASH_FLAG;
-		lexer->index++;
-	}
-	else if (get_input(lexer, CUR_CHAR) == '\'')
+	if (get_input(lexer, CUR_CHAR) == '\'')
 		lexer->inhibitor |= SINGLEQUOTE_FLAG;
 	else if (get_input(lexer, CUR_CHAR) == '\"')
 		lexer->inhibitor |= DOUBLEQUOTE_FLAG;
@@ -62,7 +64,12 @@ void		set_inhibitor(t_lexer *lexer)
 {
 	if (lexer->inhibitor & BACKSLASH_FLAG)
 		lexer->inhibitor &= ~BACKSLASH_FLAG;
-	if (lexer->inhibitor == NO_FLAG)
+	if (get_input(lexer, CUR_CHAR) == '\\')
+	{
+		add_to_buffer(lexer);
+		lexer->inhibitor |= BACKSLASH_FLAG;
+	}
+	else if (lexer->inhibitor == NO_FLAG)
 		set_noflag(lexer);
 	else if (lexer->inhibitor & BRACEPARAM_FLAG)
 		set_braceparamflag(lexer);

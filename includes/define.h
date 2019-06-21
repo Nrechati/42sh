@@ -174,6 +174,11 @@
 
 # define NB_OF_TOKENS				50
 
+# define START_OPERATOR				29
+# define END_OPERATOR				1
+# define START_RESERVED_WORD		42
+# define END_RESERVED_WORD			30
+
 # define CUR_CHAR					0x01
 # define NEXT_CHAR					0x02
 # define NEXT_NEXT_CHAR				0x04

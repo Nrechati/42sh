@@ -128,6 +128,7 @@ P_EXPANSION += module/expansion/
 
 P_LEXER += module/lexer/
 P_LEXER += module/lexer/debug/
+P_LEXER += module/lexer/process/
 
 P_LOGGING += module/logging/
 
@@ -390,6 +391,8 @@ EXPANSION += variable.c
 
 LEXER += lexer.c
 LEXER += tmp_display.c
+LEXER += lexer_tools.c
+LEXER += checker_module.c
 LEXER += lexer_interface.c
 LEXER += set_inhibitor.c
 
