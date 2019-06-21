@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:55:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:00:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t		ak_ctrl_t(__unused t_registry *shell, t_sle *sle)
+int8_t		ak_ctrl_t(__unused t_registry *shell, __unused t_sle *sle)
 {
 	sle->state = STATE_SEARCH;
 	sle->search_type = NEXT;

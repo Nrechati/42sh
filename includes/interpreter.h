@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 12:36:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:35:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void			del_command(void *data);
 void			del_action(void *data);
 void			del_redirects(void *data);
 void			del_process(void *data);
+void			del_job(void *data);
 
 void			print_process(void *data);
 void			print_job(void *data);

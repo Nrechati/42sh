@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 04:36:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:44:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,12 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	signal (SIGTTOU, SIG_IGN);
 
 	process->pid = getpid();
-	setpgid(getpid(), *process->pgid);
+	if (*process->pgid == 0)
+		*process->pgid = process->pid;
 
-	if (g_current_job != NULL && g_current_job->pgid == 0)
-		g_current_job->pgid = process->pid;
-
+	setpgid(process->pid, *process->pgid);
 //	ft_dprintf(3, "|->  Child process pid is %d\n", process->pid);
 //	ft_dprintf(3, "|--> Child process grp is %d\n", *process->pgid);
-
 	if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
 	{
 		tcsetpgrp(STDOUT_FILENO, *process->pgid);
@@ -44,7 +42,6 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 //						*process->pgid);
 	}
 
-//ft_dprintf(3, "\n");
 	if (process->process_type & IS_BLT)
 	{
 		run_builtin(shell, process);
@@ -66,10 +63,7 @@ static void	parent_process(t_registry *shell, t_process *process, char ***env)
 		ft_hmap_hits(&shell->hash.bin, process->av[0]);
 	ft_lstiter(process->redirects, close_redirect);
 
-//	ft_dprintf(3, "|---> Parent process pid is %d\n", getpid());
-
-	if (g_current_job != NULL && g_current_job->pgid == 0)
-		g_current_job->pgid = process->pid;
+	ft_dprintf(3, "|---> Parent process pid is %d\n", getpid());
 
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;

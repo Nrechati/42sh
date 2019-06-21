@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 22:18:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:50:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		*group_to_job(void *context, void *data)
 	job.job_type = group->type;
 	job.processes = ft_lstmap(group->command_list, context, cmd_to_process, del_command);
 
-	job.pgid = 0;
+	//job.pgid = 0;
 
 	node = ft_lstnew(&job, sizeof(t_job));
 	ft_lstiter_ctx(job.processes, node->data, set_process_pgid);

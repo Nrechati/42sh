@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 21:33:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/20 20:57:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:51:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_process_pgid(void *context, void *data)
 	t_process	*process;
 
 	job = context;
-//	job->pgid = 0;
+	job->pgid = 0;
 	process = data;
 	process->pgid = &job->pgid;
 	ft_dprintf(3, "Process pgid set to: %ld \n", job->pgid);

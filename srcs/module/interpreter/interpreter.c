@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 02:37:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:41:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,12 @@ static void		run_job(void *context, void *data)
 		setup_pipe(job->processes);
 
 	job->state |= RUNNING;
-	g_current_job = job;
+
 	ft_lstiter_ctx(job->processes, shell, run_process);
+	ft_lstiter(job->processes, print_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	waiter(shell, job);
-	g_current_job = NULL;
+	del_job(job);
 	return ;
 }
 
