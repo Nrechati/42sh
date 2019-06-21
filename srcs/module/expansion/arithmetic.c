@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 16:01:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:42:10 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,71 +186,67 @@ void		sign_math(t_arithmetic *math)	// * / %
 
 void		logical_math(t_arithmetic *math)
 {
-
-	if (ft_strchr(LOGICAL_SET, math->source[math->index]) == NULL)
+	vct_add(math->buffer, math->source[math->index]);
+	math->index++;
+	if (math->buffer->buffer[0] == '<')
 	{
-		vct_add(math->buffer, math->source[math->index]);
-		math->index++;
-		if (math->buffer->buffer[0] == '<')
+		if (math->source[math->index] == '=')
 		{
-			if (math->source[math->index] == '=')
-			{
-				math->type = TYPE_LOWER_OR;
-				math->index++;
-			}
-			else
-				math->type = TYPE_LOWER;
+			math->type = TYPE_LOWER_OR;
+			math->index++;
 		}
-		else if (math->buffer->buffer[0] == '>')
+		else
+			math->type = TYPE_LOWER;
+	}
+	else if (math->buffer->buffer[0] == '>')
+	{
+		if (math->source[math->index] == '=')
 		{
-			if (math->source[math->index] == '=')
-			{
-				math->type = TYPE_GREATER_OR;
-				math->index++;
-			}
-			else
-				math->type = TYPE_GREATER;
+			math->type = TYPE_GREATER_OR;
+			math->index++;
 		}
-		else if (math->buffer->buffer[0] == '!')
+		else
+			math->type = TYPE_GREATER;
+	}
+	else if (math->buffer->buffer[0] == '!')
+	{
+		if (math->source[math->index] == '=')
 		{
-			if (math->source[math->index] == '=')
-			{
-				math->type = TYPE_NOT_EQUAL;
-				math->index++;
-			}
-			else
-				math->type = TYPE_ERROR;
+			math->type = TYPE_NOT_EQUAL;
+			math->index++;
 		}
-		else if (math->buffer->buffer[0] == '=')
+		else
+			math->type = TYPE_ERROR;
+	}
+	else if (math->buffer->buffer[0] == '=')
+	{
+		if (math->source[math->index] == '=')
 		{
-			if (math->source[math->index] == '=')
-			{
-				math->type = TYPE_EQUAL;
-				math->index++;
-			}
-			else
-				math->type = TYPE_ASSIGN;
+			math->type = TYPE_EQUAL;
+			math->index++;
 		}
-		else if (math->buffer->buffer[0] == '&')
+		else
+			math->type = TYPE_ASSIGN;
+	}
+	else if (math->buffer->buffer[0] == '&')
+	{
+		if (math->source[math->index] == '&')
 		{
-			if (math->source[math->index] == '&')
-			{
-				math->type = TYPE_AND;
-				math->index++;
-			}
-			else
-				math->type = TYPE_ERROR;
+			math->type = TYPE_AND;
+			math->index++;
 		}
-		else if (math->buffer->buffer[0] == '|')
+		else
+			math->type = TYPE_ERROR;
+	}
+	else if (math->buffer->buffer[0] == '|')
+	{
+		if (math->source[math->index] == '|')
 		{
-			if (math->source[math->index] == '|')
-			{
-				math->type = TYPE_OR;
-				math->index++;
-			}
-			else
-				math->type = TYPE_ERROR;
+			math->type = TYPE_OR;
+			math->index++;
 		}
+		else
+			math->type = TYPE_ERROR;
 	}
 	math->state = MATH_OUT;
 	return ;
