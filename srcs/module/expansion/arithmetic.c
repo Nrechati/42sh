@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 09:47:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 09:54:46 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,6 @@ void		decimal_math(t_arithmetic *math)
 	}
 }
 
-void		logical_math(t_arithmetic *math)
-{
-
-}
-
 void		variable_math(t_arithmetic *math)
 {
 	if (math->buffer->size == 0
@@ -166,6 +161,11 @@ void		sign_math(t_arithmetic *math)	// * / %
 	return ;
 }
 
+void		logical_math(t_arithmetic *math)
+{
+	return ;
+}
+
 void		start_math(t_arithmetic *math)
 {
 	if (ft_isspace(math->source[math->index]) == TRUE)
@@ -189,6 +189,8 @@ static void	init_mathexp(t_mathexp state[MATH_STATES])
 	state[MATH_OCTAL] = octal_math;
 	state[MATH_HEXA] = hexa_math;
 	state[MATH_VARIABLE] = variable_math;
+	state[MATH_SIGN] = variable_math;
+	state[MATH_LOGICAL] = logical_math;
 	state[MATH_OUT] = out_math;
 	state[MATH_END] = NULL;
 }
