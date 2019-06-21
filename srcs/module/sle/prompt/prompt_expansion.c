@@ -14,7 +14,6 @@
 
 void		p_insert_missing(t_sle *sle, t_vector *text, uint64_t index)
 {
-	ft_printf("replacing missing char : %s\n", sle->prompt.missing_char);
 	if (sle->prompt.missing_char != NULL)
 		vct_replace_string(text, index, index + 2,
 						sle->prompt.missing_char);

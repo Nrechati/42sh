@@ -104,7 +104,6 @@ void	double_quote_routine(t_sle *sle, size_t *i)
 	{
 		if (vct_charat(sle->line, *i) == '\0')
 		{
-			ft_putendl("wefwef");
 			subprompt_call(sle, PRINT_DQUOTE);
 			continue ;
 		}
