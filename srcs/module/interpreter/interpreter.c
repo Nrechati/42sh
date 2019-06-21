@@ -52,7 +52,7 @@ void			run_builtin(t_registry *shell, t_process *process)
 	if (process->process_type & IS_ALONE)
 		default_io(std, tty_name);
 	ft_lstiter(process->redirects, close_redirect);
-	add_var(&shell->intern, "?", status, SET_VAR);
+	add_var(&shell->intern, "?", status, READONLY_VAR); ///
 	process->completed = 1;
 	ft_strdel(&status);
 	return ;
@@ -98,10 +98,10 @@ static void		run_job(void *context, void *data)
 	if (job == NULL || do_i_run(shell, job
 			, ft_atoi(get_var(shell->intern, "job_type"))) == FALSE)
 	{
-		add_var(&shell->intern, "job_type", job_type, SET_VAR);
+		add_var(&shell->intern, "job_type", job_type, READONLY_VAR);
 		return;
 	}
-	add_var(&shell->intern, "job_type", job_type, SET_VAR);
+	add_var(&shell->intern, "job_type", job_type, READONLY_VAR);
 	head = job->processes->data;
 	if (job->processes->next == NULL)
 		head->process_type |= IS_ALONE;
@@ -127,6 +127,6 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 	ft_lstdel(cmd_group, del_group);
 	load_signal_profile(EXEC_PROFILE);
 	ft_lstiter_ctx(job_lst, shell, run_job);
-	add_var(&shell->intern, "job_type", "0", SET_VAR);
+	add_var(&shell->intern, "job_type", "0", READONLY_VAR);
 	return (SUCCESS);
 }
