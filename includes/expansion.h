@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/20 16:07:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:01:15 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@
 # define PEX_NEXT_DELIM " ${}?=+%#"
 
 /* ********************** ARITHMETIC *********************/
-# define MATH_STATES		8
+# define MATH_STATES		16
 
-# define HEXA_CHARSET		"0123456789"
 # define HEXA_CHARSET 		"0123456789abcdefABCDEF"
 # define OCTAL_CHARSET		"012345678"
 # define SIGN_SET			"+-*/%()"
@@ -44,7 +43,7 @@
 
 # define OPENED 	0x002
 # define CLOSED 	0x004
-# define ERROR 		0x008
+# define FAIL 		0x008
 /* ******************************************************/
 
 typedef struct	s_parameter	t_parameter;
@@ -92,12 +91,11 @@ enum				e_mathexp
 	MATH_END,
 };
 
-enum e_mathtype
+enum			e_mathtype
 {
 	TYPE_DECIMAL,
 	TYPE_OCTAL,
 	TYPE_HEXA,
-	TYPE_DECIMAL,
 	TYPE_VARIABLE,
 	TYPE_TIME,
 	TYPE_DIVIDE,
@@ -108,6 +106,16 @@ enum e_mathtype
 	TYPE_CLOSE_P,
 	TYPE_INCREMENT,
 	TYPE_DECREMENT,
+	TYPE_GREATER,
+	TYPE_GREATER_OR,
+	TYPE_LOWER,
+	TYPE_LOWER_OR,
+	TYPE_EQUAL,
+	TYPE_NOT_EQUAL,
+	TYPE_ASSIGN,
+	TYPE_AND,
+	TYPE_OR,
+	TYPE_ERROR,
 };
 
 enum				e_rpn
@@ -125,7 +133,7 @@ typedef union 		u_value
 
 typedef struct		s_math
 {
-	enum e_mathexp	type;
+	enum e_mathtype	type;
 	char			*value;
 }					t_math;
 
@@ -143,8 +151,8 @@ struct	s_arithmetic
 	char			*source;
 	size_t			index;
 	uint8_t			modifier;
-	enum e_mathexp	type;
 	enum e_mathexp	state;
+	enum e_mathtype type;
 };
 /* ******************************************************/
 
@@ -165,6 +173,8 @@ void		generate_pex_token(t_parameter *param);
 void		pex_word(t_parameter *param);
 
 /* ********************** ARITHMETIC *********************/
+
+char		*arithmetic_expansion(t_list *intern, char *input);
 
 /* ******************************************************/
 

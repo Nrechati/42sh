@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 09:54:46 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 10:57:36 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void		out_math(t_arithmetic *math)
 	token.type = math->type;
 	token.value = ft_strdup(math->buffer->buffer);
 	node = ft_lstnew(&token, sizeof(t_math));
-	ft_lstaddback(math->tokens, node);
+	ft_lstaddback(&math->tokens, node);
 	vct_del(&math->buffer);
 	math->buffer = vct_new(DEFAULT_BUFFER);
 }
 
 void		hexa_math(t_arithmetic *math)
 {
-	if (ft_strchr(HEXA_CHARSET, math->source[math->index]) == FALSE)
+	if (ft_strchr(HEXA_CHARSET, math->source[math->index]) == NULL)
 	{
 		math->state = MATH_OUT;
 		math->type = TYPE_HEXA;
@@ -58,13 +58,13 @@ void		hexa_math(t_arithmetic *math)
 
 void		octal_math(t_arithmetic *math)
 {
-	if (ft_strchr(math->source[math->index], "xX") && math->buffer->size == 1)
+	if (ft_strchr("xX", math->source[math->index]) && math->buffer->size == 1)
 	{
 		math->state = MATH_HEXA;
 		vct_add(math->buffer, math->source[math->index]);
 		math->index++;
 	}
-	else if (ft_strchr(OCTAL_CHARSET, math->source[math->index]) == FALSE)
+	else if (ft_strchr(OCTAL_CHARSET, math->source[math->index]) == NULL)
 	{
 		math->state = MATH_OUT;
 		math->type = TYPE_OCTAL;
@@ -120,17 +120,17 @@ void		variable_math(t_arithmetic *math)
 
 void		sign_math(t_arithmetic *math)	// * / %
 {
-	if (ft_strchr(SINGLE_SIGN_SET, math->source[math->index]) == TRUE)
+	if (ft_strchr(SINGLE_SIGN_SET, math->source[math->index]))
 	{
-		if (math->source[math->index], "*")
+		if (math->source[math->index] == '*')
 			math->type = TYPE_TIME;
-		else if (math->source[math->index], "/")
+		else if (math->source[math->index] == '/')
 			math->type = TYPE_DIVIDE;
-		else if (math->source[math->index], "%")
+		else if (math->source[math->index] == '%')
 			math->type = TYPE_MODULO;
-		else if (math->source[math->index], "(")
+		else if (math->source[math->index] == '(')
 			math->type = TYPE_OPEN_P;
-		else if (math->source[math->index], ")")
+		else if (math->source[math->index] == ')')
 			math->type = TYPE_CLOSE_P;
 		vct_add(math->buffer, math->source[math->index]);
 		math->index++;
@@ -148,7 +148,7 @@ void		sign_math(t_arithmetic *math)	// * / %
 		else
 			math->type = TYPE_ADD;
 	}
-	if (math->buffer->buffer[0] == '-')
+	else if (math->buffer->buffer[0] == '-')
 	{
 		if (math->source[math->index] == '-')
 		{
@@ -158,11 +158,79 @@ void		sign_math(t_arithmetic *math)	// * / %
 		else
 			math->type = TYPE_SUBSTRACT;
 	}
+	math->state = MATH_OUT; // OK ?
 	return ;
 }
 
 void		logical_math(t_arithmetic *math)
 {
+
+	if (ft_strchr(LOGICAL_SET, math->source[math->index]) == NULL)
+	{
+		vct_add(math->buffer, math->source[math->index]);
+		math->index++;
+		if (math->buffer->buffer[0] == '<')
+		{
+			if (math->source[math->index] == '=')
+			{
+				math->type = TYPE_LOWER_OR;
+				math->index++;
+			}
+			else
+				math->type = TYPE_LOWER;
+		}
+		else if (math->buffer->buffer[0] == '>')
+		{
+			if (math->source[math->index] == '=')
+			{
+				math->type = TYPE_GREATER_OR;
+				math->index++;
+			}
+			else
+				math->type = TYPE_GREATER;
+		}
+		else if (math->buffer->buffer[0] == '!')
+		{
+			if (math->source[math->index] == '=')
+			{
+				math->type = TYPE_NOT_EQUAL;
+				math->index++;
+			}
+			else
+				math->type = TYPE_ERROR;
+		}
+		else if (math->buffer->buffer[0] == '=')
+		{
+			if (math->source[math->index] == '=')
+			{
+				math->type = TYPE_EQUAL;
+				math->index++;
+			}
+			else
+				math->type = TYPE_ASSIGN;
+		}
+		else if (math->buffer->buffer[0] == '&')
+		{
+			if (math->source[math->index] == '&')
+			{
+				math->type = TYPE_AND;
+				math->index++;
+			}
+			else
+				math->type = TYPE_ERROR;
+		}
+		else if (math->buffer->buffer[0] == '|')
+		{
+			if (math->source[math->index] == '|')
+			{
+				math->type = TYPE_OR;
+				math->index++;
+			}
+			else
+				math->type = TYPE_ERROR;
+		}
+	}
+	math->state = MATH_OUT; // OK ?
 	return ;
 }
 
@@ -199,13 +267,15 @@ void		arithmetic_lexer(t_arithmetic *math)
 {
 	static t_mathexp	state[MATH_STATES];
 
-	if (state[0] = NULL)
+	ft_printf("coucou\n");
+	exit(0);
+	if (state[0] == NULL)
 		init_mathexp(state);
 	while (math->state != MATH_END)
 		state[math->state](math);
 }
 
-int			arithmetic(t_list *intern, char **output, int i)
+int			arithmetic(__unused t_list *intern, char **output, int i)
 {
 	t_arithmetic	math;
 
@@ -214,16 +284,17 @@ int			arithmetic(t_list *intern, char **output, int i)
 	math.index = 3;
 	math.buffer = vct_new(DEFAULT_BUFFER);
 	arithmetic_lexer(&math);
+	return (SUCCESS);
 }
 
-static int	check_expansion(t_list *intern, char **output, int i, t_quote quote)
+static int	check_expansion(t_list *intern, char **output, int i, __unused t_quote quote)
 {
 	int		check;
 
 	check = 0;
 	if ((*output)[i] != '$')
 		return (0);
-	if (ft_strnequ(*output[i + 1], "((", 2) == TRUE)
+	if (ft_strnequ(output[i + 1], "((", 2) == TRUE)
 		check = arithmetic(intern, output, i);
 	return (check);
 }
