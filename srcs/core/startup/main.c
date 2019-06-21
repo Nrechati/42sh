@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 17:04:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:07:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,16 @@ static int8_t	init_shell(t_registry *shell, char **arg, char **env)
 
 int				main(int ac, char **av, char **env)
 {
+	char			*dest = NULL;
 	t_registry		shell;
+
 
 	(void)ac;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
-
-/*	shell_pid = getpid();
+	dest = arithmetic_expansion(shell.intern, av[3]);
+	exit(0);
+	/*	shell_pid = getpid();
 	if (setpgid(shell_pid, shell_pid) < 0)
 	{
 		ft_dprintf(2, "Failed Setpgid\n");

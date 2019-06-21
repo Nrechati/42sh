@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/21 11:11:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:04:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ char	*expansion_pipeline(t_list *intern_var, char *str)
 
 	if ((dest = tilde(intern_var, str)) == NULL)
 		return (NULL);
-	expanded = arithmetic_expansion(intern_var, dest);			//Switch
+	expanded = variable_expansion(intern_var, dest);			//Switch
 	ft_strdel(&dest);
 	if (expanded == NULL)
 		return (NULL);
-	dest = variable_expansion(intern_var, expanded);			//Switch
+	dest = arithmetic_expansion(intern_var, expanded);			//Switch
 	ft_strdel(&expanded);
 	if (dest == NULL)
 		return (NULL);

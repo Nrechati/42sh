@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 14:24:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:01:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ void		logical_math(t_arithmetic *math)
 				math->type = TYPE_ERROR;
 		}
 	}
-	math->state = MATH_OUT; // OK ?
+	math->state = MATH_OUT;
 	return ;
 }
 
@@ -260,7 +260,7 @@ void		start_math(t_arithmetic *math)
 {
 	if (ft_isspace(math->source[math->index]) == TRUE)
 		trim_space(math);
-	else if (ft_isdigit(math->source[math->index]) == TRUE)
+	if (ft_isdigit(math->source[math->index]) == TRUE)
 		math->state = MATH_DECIMAL;
 	else if (ft_isalpha(math->source[math->index]) == TRUE)
 		math->state = MATH_VARIABLE;
