@@ -12,16 +12,37 @@
 
 #include "sh21.h"
 
+static void	prompt_pre_process(t_sle *sle)
+{
+	sle->state = STATE_STD;
+	vct_reset(sle->line);
+	vct_reset(sle->window.displayed_line);
+	history(NULL, NULL, RESET_HEAD);
+	update_window(sle);
+}
+
+static void	prompt_post_process(t_registry *shell, t_sle *sle)
+{
+	if (sle->state == STATE_SEARCH)
+		sle->line = sle->search_line;
+	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
+		vct_reset(sle->line);
+	sle->state = STATE_STD;
+	autocompletion(NULL, shell, sle->window.cols, RESET_RESULT);
+	history(NULL, NULL, RESET_HEAD);
+	vct_add(sle->line, '\n');
+	set_redraw_flags(sle, RD_LINE | RD_CEND);
+	redraw(shell, sle);
+	if (sle->prompt.state == INT_PS1)
+		verif_line(sle);
+}
+
 t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
 	char		character[READ_SIZE + 1];
 
-	sle->state = STATE_STD;
+	prompt_pre_process(sle);
 	ft_bzero(character, READ_SIZE + 1);
-	vct_reset(sle->line);
-	vct_reset(sle->window.displayed_line);
-	history(shell, NULL, RESET_HEAD);
-	update_window(sle);
 	print_prompt(shell, sle);
 	while (is_separator(character) == FALSE
 		 && is_eof(vct_get_string(sle->line)) == FALSE)
@@ -32,18 +53,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
 	}
-	if (sle->state == STATE_SEARCH)
-		sle->line = sle->search_line;
-	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
-		vct_reset(sle->line);
-	sle->state = STATE_STD;
-	autocompletion(NULL, shell, sle->window.cols, RESET_RESULT);
-	history(shell, NULL, RESET_HEAD);
-	vct_add(sle->line, '\n');
-	set_redraw_flags(sle, RD_LINE | RD_CEND);
-	redraw(shell, sle);
-	if (sle->prompt.state == INT_PS1)
-		verif_line(sle);
+	prompt_post_process(shell, sle);
 	return (vct_dup(sle->line));
 }
 

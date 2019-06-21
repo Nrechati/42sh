@@ -321,6 +321,7 @@ SLE += load_sle_struct.c
 #Prompt
 SLE += prompt.c
 SLE += prompt_subroutine.c
+SLE += prompt_subroutine_tools.c
 SLE += prompt_expansion.c
 SLE += prompt_tools.c
 
