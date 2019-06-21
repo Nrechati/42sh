@@ -30,10 +30,12 @@ void				interactive_mode(t_registry *shell)
 	{
 		term_mode(TERMMODE_DFLT);
 		load_signal_profile(DFLT_PROFILE);
-
-		execution_pipeline(shell, input);
+		if (history_expansion(input) == SUCCESS)
+		{
+			history(NULL, NULL, RESET_HEAD);
+			execution_pipeline(shell, input);
+		}
 		vct_del(&input);
-
 		load_signal_profile(SLE_PROFILE);
 	}
 }

@@ -241,6 +241,7 @@ LOGGING += print_debug.c
 #						- - - - -   History   - - - - -						   #
 
 HISTORY += history.c
+HISTORY += history_expansion.c
 HISTORY += histfile.c
 HISTORY += entry_manager.c
 HISTORY += get_entry.c

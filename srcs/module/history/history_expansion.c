@@ -1,52 +1,126 @@
 
 #include "sh21.h"
 
-void	call_history(t_lexer *lexer, size_t initial_scale, uint64_t option)
+static uint8_t	is_history_end(t_vector *input, size_t offset)
 {
-	char	*search;
-	char	*replace;
-	size_t	len;
+	size_t	len_op;
+	int		type;
+	char	*current;
 
-	search = NULL;
-	if (lexer->input->buffer[lexer->index + initial_scale - 1] == '!')
-		replace = history(NULL, NULL, option);
-	else
+	type = START_OPERATOR;
+	current = input->buffer + offset;
+	if (*current == ' ' || *current == '\t')
+		return (TRUE);
+	while (type >= 0)
 	{
-		search = get_search(lexer->input->buffer
-				+ lexer->index + initial_scale);
-		if (ft_isnumeric(search) == TRUE)
-			replace = history(NULL, search, option | BY_ID);
-		else
-			replace = history(NULL, search, option | BY_NAME);
+		len_op = ft_strlen(g_grammar[type]);
+		if (ft_strnequ(g_grammar[type], current, len_op) == TRUE)
+			return (TRUE);
+		type--;
 	}
-	if (replace != NULL)
-	{
-		len = ft_strlen(search) + initial_scale;
-		vct_replace_string(lexer->input, lexer->index,
-				lexer->index + len, replace);
-	}
-	else
-	{
-		ft_dprintf(2, "42sh: %s: event not found", search);
-		/// EXIT LEXER
-	}
-	history(NULL, NULL, RESET_HEAD);
-	ft_strdel(&replace);
-	ft_strdel(&search);
+	return (FALSE);
 }
 
-
-void	history_replace(t_lexer *lexer)
+static int		searching(t_vector *input, t_vector *to_replace, size_t i,
+					uint64_t *option)
 {
-	if (get_input(lexer, CUR_CHAR) == '!')
+	int scale;
+
+	scale = 0;
+	if (vct_charat(input, i + scale) == '!')
+		scale++;
+	if (vct_charat(input, i + scale) == '-')
 	{
-		ft_printf("'%c'\n", get_input(lexer, NEXT_CHAR));
-		if (get_input(lexer, NEXT_CHAR) == '!')
-			call_history(lexer, 2, GET_ENTRY | PREV);
-		else if (ft_isalnum(get_input(lexer, NEXT_CHAR)) == TRUE)
-			call_history(lexer, 2, GET_ENTRY);
-		else if (get_input(lexer, NEXT_CHAR) == '-'
-			&& ft_isalnum(get_input(lexer, NEXT_NEXT_CHAR)) == TRUE)
-			call_history(lexer, 3, GET_ENTRY | REL);
+		*option |= REL;
+		scale++;
 	}
+	while (vct_charat(input, i + scale) != '\0')
+	{
+		if (is_history_end(input, i + scale) == TRUE)
+			break ;
+		vct_add(to_replace, vct_charat(input, i + scale));
+		scale++;
+	}
+	if (ft_isnumeric(to_replace->buffer) == TRUE)
+		*option |= BY_ID;
+	else
+		*option |= BY_NAME;
+	return (scale);
+}
+
+static char	*get_history_return(t_vector *to_replace, uint64_t option)
+{
+	char		*search;
+
+	search = history(NULL, to_replace->buffer, option);
+	if (search == NULL
+			|| ((option & PREV) == FALSE && *to_replace->buffer == '\0'))
+	{
+		if (option & REL)
+			vct_push(to_replace, '-');
+		else if (option & PREV)
+			vct_push(to_replace, '!');
+		vct_push(to_replace, '!');
+		ft_dprintf(2, "42sh: %s: event not found\n", to_replace->buffer);
+		vct_del(&to_replace);
+		return (NULL);
+	}
+	vct_del(&to_replace);	
+	return (search);
+}
+
+static int	process_history_expansion(t_vector *input, size_t i)
+{
+	uint64_t	option;
+	t_vector	*to_replace;
+	int			scale;
+	char		*search;
+
+	option = GET_ENTRY;
+	to_replace = vct_new(0);
+	scale = 0;
+	if (vct_charat(input, i + 1) == '!')
+	{
+		scale += 2;
+		option |= PREV;
+	}
+	else if (ft_isalnum(vct_charat(input, i + 1)) == TRUE)
+		scale = searching(input, to_replace, i, &option);
+	else if (vct_charat(input, i + 1) == '-')
+		scale = searching(input, to_replace, i, &option);
+	else
+		return (SUCCESS);
+	if ((search = get_history_return(to_replace, option)) == NULL)
+		return (FAILURE);
+	vct_replace_string(input, i, i + scale, search);
+	return (scale);
+}
+
+int8_t		history_expansion(t_vector *input)
+{
+	uint16_t	flag;
+	size_t		i;
+	int			ret;
+
+	i = 0;
+	flag = NO_FLAG;
+	while (vct_charat(input, i) != '\0')
+	{
+		if (flag & BACKSLASH_FLAG)
+			flag &= ~ BACKSLASH_FLAG;
+		if (vct_charat(input, i) == '\\' && flag == NO_FLAG && i++)
+			flag |= BACKSLASH_FLAG;
+		if (vct_charat(input, i) == '\'' && flag == NO_FLAG)
+			flag |= SINGLEQUOTE_FLAG;
+		else if (vct_charat(input, i) == '\'' && (flag & SINGLEQUOTE_FLAG))
+			flag &= ~SINGLEQUOTE_FLAG;
+		else if (vct_charat(input, i) == '!' && flag == NO_FLAG)
+		{
+			if ((ret = process_history_expansion(input, i)) == FAILURE)
+				return (FAILURE);
+			i += ret;
+		}
+		i++;
+	}
+	return (SUCCESS);
 }
