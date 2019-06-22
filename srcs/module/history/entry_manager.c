@@ -27,7 +27,7 @@ void	pop_entry(t_entry **entry, t_entry **head)
 		(*head)->next = NULL;
 	}
 	ft_strdel(&cur->cmd);
-	free(cur);
+	ft_free(cur);
 }
 
 /*
@@ -40,7 +40,7 @@ void	free_history(t_entry *entry)
 	{
 		free_history(entry->prev);
 		ft_strdel(&entry->cmd);
-		free(entry);
+		ft_free(entry);
 	}
 }
 
@@ -54,7 +54,7 @@ t_entry			*create_entry(char *cmd)
 
 	if (cmd == NULL)
 		return (NULL);
-	entry = (t_entry *)malloc(sizeof(t_entry));
+	entry = (t_entry *)ft_malloc(sizeof(t_entry));
 	if (entry == NULL)
 		return (NULL);
 	entry->next = NULL;

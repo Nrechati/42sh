@@ -30,9 +30,9 @@ static void	sle_destroy(__unused t_sle *sle)
 /*	unset_terminal_mode(shell);
 	{
 	if (shell->interface.orig_mode != NULL)
-		free(shell->interface.orig_mode);
+		ft_free(shell->interface.orig_mode);
 	if (shell->interface.term_mode != NULL)
-		free(shell->interface.term_mode);
+		ft_free(shell->interface.term_mode);
 	}
 
 
