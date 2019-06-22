@@ -50,24 +50,20 @@ static int8_t	init_shell(t_registry *shell, char **arg, char **env)
 	return (SUCCESS);
 }
 
-int				main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env) // noreturn (proto into sh21.h)
 {
 	t_registry		shell;
 
 	(void)ac;
+	g_shell = &shell;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
-		return (FAILURE);
-
+		shell_exit_routine(&shell, FAILURE);
 /*	shell_pid = getpid();
 	if (setpgid(shell_pid, shell_pid) < 0)
 	{
 		ft_dprintf(2, "Failed Setpgid\n");
-		exit(0);
+		shell_exit_routine(&shell, FAILURE);
 	}*/
-	g_shell = &shell;
-
 	launch_shell(&shell);
-	shell_exit_routine(&shell);
-	ft_flush_memory();
-	return (SUCCESS);
+	shell_exit_routine(&shell, SUCCESS);
 }

@@ -67,16 +67,11 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 		}
 	}
 	if ((shell->option.option & HELP_OPT) != FALSE)
-	{
-		shell_usage();
-		/////FREE
-		ft_flush_memory();
-		exit(0);
-	}
+		return (shell_usage());
 	get_env(&shell->intern, env);
 	shell->hash.bin = ft_hmap_init(HMAP_BIN_SIZE);
 	shell->hash.blt = ft_hmap_init(HMAP_BLT_SIZE);
-	generate_grammar();	//TEMP
+	generate_grammar();
 	if (set_shlvl(shell) == FAILURE)
 		return (FAILURE);
 	hash_builtin(shell);

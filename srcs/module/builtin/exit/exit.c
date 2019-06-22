@@ -24,8 +24,8 @@ int8_t			exit_blt(t_registry *shell, char **av)
 			ft_putendl_fd("exit", STDERR_FILENO);
 			ft_putendl_fd("42sh: exit: %s: numeric argument required",
 					STDERR_FILENO);
-			shell_exit_routine(shell);
-			exit(FAILURE);
+			shell_exit_routine(shell, FAILURE);
+			return (FAILURE); // Never reaches this point
 		}
 		else if (*(av + 1) != NULL)
 		{
@@ -34,8 +34,11 @@ int8_t			exit_blt(t_registry *shell, char **av)
 		}
 	}
 	ret = *av == NULL ? SUCCESS : ft_atoi(*av);
-	shell_exit_routine(shell);
-	ft_flush_memory();
 	ft_putendl_fd("exit", STDERR_FILENO);
-	exit(ret);
+	shell_exit_routine(shell, ret);
+	return (SUCCESS); // Never reaches this point
 }
+//// into calling function:
+////	if exit returned value is '1',
+////	free process list and
+////	call 'shell_exit_routine(shell, ret)

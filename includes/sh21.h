@@ -34,6 +34,10 @@
 # include "autocompletion.h"
 # include "log.h"
 
+
+int		main(int ac, char **av, char **env) __attribute__
+			((noreturn));
+
 /*
 *****************************************************
 ******************** TERM MODES *********************
@@ -49,7 +53,7 @@ int16_t			term_mode(uint8_t flag);
 */
 int8_t			set_environment(t_registry *shell, char **av, char **env);
 int8_t			shell_usage(void);
-void			shell_exit_routine(t_registry *shell);
+void			shell_exit_routine(t_registry *shell, int8_t ret);
 int8_t			parse_arg(char **av, t_opt *option);
 void			generate_grammar(void); // TEMP
 
