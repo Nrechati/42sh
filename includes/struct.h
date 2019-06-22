@@ -22,8 +22,6 @@
 *****************************************************
 */
 
-extern const char		**g_grammar;
-
 typedef uint64_t		t_option;
 
 typedef struct			s_opt
@@ -47,6 +45,7 @@ typedef	struct			s_hashmap
 
 typedef struct			s_registry
 {
+	const char			**grammar;
 	t_list				*intern;
 	t_opt				option;
 	t_hashmap			hash;
@@ -91,13 +90,6 @@ typedef struct			s_graph
 {
 	enum e_type			*good_type;
 }						t_graph;
-
-typedef struct		s_parser
-{
-	t_graph			*graph;
-	const char		**grammar;
-}					t_parser;
-
 
 /*
 *****************************************************

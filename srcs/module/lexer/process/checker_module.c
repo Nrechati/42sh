@@ -24,8 +24,8 @@ uint8_t	token_checker(t_lexer *lexer, int start, int end)
 	current = lexer->input->buffer + lexer->index;
 	while (type >= end)
 	{
-		len_op = ft_strlen(g_grammar[type]);
-		if (ft_strnequ(g_grammar[type], current, len_op) == TRUE)
+		len_op = ft_strlen(g_shell->grammar[type]);
+		if (ft_strnequ(g_shell->grammar[type], current, len_op) == TRUE)
 		{
 			if (lexer->token_type != E_DEFAULT)
 				out_lexer(lexer);

@@ -20,6 +20,8 @@ static uint8_t	manage_error_and_subprompt(t_vector *input,
 		parser_subprompt(state, input, lst);
 		return (TRUE);
 	}
+	ft_dprintf(2, "42sh: syntax error near unexpected token `%s'\n",
+				type == E_NEWLINE ? "\\n" : g_shell->grammar[type]);
 	return (FALSE);
 }
 
@@ -43,27 +45,25 @@ static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
 	return (FALSE);
 }
 
-int8_t			process_parser(t_vector *input, t_parser *parser, t_list *lst)
+int8_t			parser(t_vector *input, t_list *lst)
 {
 	t_token		*token;
 	t_list		*tmp;
 	enum e_type	state;
+	static t_graph	*graph = NULL;
 
+	if (graph == NULL)
+		graph = init_parser();
 	state = E_START;
 	tmp = lst;
 	while (lst != NULL)
 	{
 		token = (t_token *)lst->data;
-		if ((state_is_ok(token->type, &state,
-						parser->graph[state].good_type)) == FALSE)
+		if ((state_is_ok(token->type, &state, graph[state].good_type)) == FALSE)
 		{
 			if (manage_error_and_subprompt(input,
 						state, token->type, &tmp) == FALSE)
-			{
-				ft_dprintf(2, "42sh: syntax error near unexpected token `%s'\n",
-					token->type == E_NEWLINE ? "\\n" : parser->grammar[token->type]);
 				return (FAILURE);
-			}
 			lst = tmp;
 		}
 		else
@@ -71,13 +71,4 @@ int8_t			process_parser(t_vector *input, t_parser *parser, t_list *lst)
 		lst = lst->next;
 	}
 	return (SUCCESS);
-}
-
-int8_t			parser(t_vector *input, t_list *lst)
-{
-	static t_parser	*parser = NULL;
-
-	if (parser == NULL)
-		parser = init_parser();
-	return (process_parser(input, parser, lst));
 }

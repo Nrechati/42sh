@@ -32,7 +32,7 @@ void	error_analyzer(t_resolution *resolve)
 	else
 	{
 		ft_dprintf(2, "42sh: analyze error near unexpected token `%s'\n",
-				g_grammar[resolve->token.type]);
+				g_shell->grammar[resolve->token.type]);
 	}
 	resolve->state = P_ERROR;
 	resolve->valid = -1;

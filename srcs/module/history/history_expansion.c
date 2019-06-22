@@ -13,8 +13,8 @@ static uint8_t	is_history_end(t_vector *input, size_t offset)
 		return (TRUE);
 	while (type >= 0)
 	{
-		len_op = ft_strlen(g_grammar[type]);
-		if (ft_strnequ(g_grammar[type], current, len_op) == TRUE)
+		len_op = ft_strlen(g_shell->grammar[type]);
+		if (ft_strnequ(g_shell->grammar[type], current, len_op) == TRUE)
 			return (TRUE);
 		type--;
 	}

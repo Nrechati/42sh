@@ -217,35 +217,35 @@
 # define E_START					E_DEFAULT
 
 # define N_DB_QUOTE					"\""
-# define N_PIPE						"|"  //
+# define N_PIPE						"|"
 # define N_PARENT_OPEN				"("
 # define N_PARENT_CLOSE				")" 
-# define N_GREAT					">"  //
-# define N_LESS						"<"  //
-# define N_SEMICOLON				";"  //
+# define N_GREAT					">"
+# define N_LESS						"<"
+# define N_SEMICOLON				";"
 # define N_BACKQUOTE				"`"
-# define N_AND						"&"  //
-# define N_HOOK_OPEN				"{"  //
-# define N_HOOK_CLOSE				"}"  //
-# define N_BRACKET_OPEN				"["  //
-# define N_BRACKET_CLOSE			"]"  //
+# define N_AND						"&"
+# define N_HOOK_OPEN				"{"
+# define N_HOOK_CLOSE				"}"
+# define N_BRACKET_OPEN				"["
+# define N_BRACKET_CLOSE			"]"
 # define N_HASH						"#"
 # define N_PERCENT					"%"
-# define N_NEWLINE					"\n" //
-# define N_DAND						"&&"  //
-# define N_OR						"||"  //
-# define N_DSEMI					";;"  //
-# define N_DLESS					"<<"  //
-# define N_DGREAT					">>"  //
-# define N_LESSAND					"<&"  //
-# define N_GREATAND					">&"  //
-# define N_LESSGREAT				"<>"  //
-# define N_ANDDGREAT				"&>>" //
-# define N_ANDGREAT					"&>"  //
-# define N_DLESSDASH				"<<-" //
-# define N_CLOBBER					">|"  //
-# define N_DEQ						"=="  //
-# define N_NOTEQ					"!="  //
+# define N_NEWLINE					"\n"
+# define N_DAND						"&&"
+# define N_OR						"||"
+# define N_DSEMI					";;"
+# define N_DLESS					"<<"
+# define N_DGREAT					">>"
+# define N_LESSAND					"<&"
+# define N_GREATAND					">&"
+# define N_LESSGREAT				"<>"
+# define N_ANDDGREAT				"&>>"
+# define N_ANDGREAT					"&>"
+# define N_DLESSDASH				"<<-"
+# define N_CLOBBER					">|"
+# define N_DEQ						"=="
+# define N_NOTEQ					"!="
 # define N_CASE						"case"
 # define N_DO						"do"
 # define N_DONE						"done"

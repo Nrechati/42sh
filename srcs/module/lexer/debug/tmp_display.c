@@ -19,7 +19,7 @@ void		print_token(void *data)
 	token = data;
 	ft_printf("type_id = [ %2d ] | type_name = [ %5s ] | data = [ %s ]\n",
 				token->type, token->type == E_NEWLINE ? "\\n"
-				: g_grammar[token->type], token->data);
+				: g_shell->grammar[token->type], token->data);
 }
 
 void		lexer_print_debug(t_registry *shell, t_list *token_list)

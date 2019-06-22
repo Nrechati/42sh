@@ -12,8 +12,6 @@
 
 #include "sh21.h"
 
-const char	**g_grammar;
-
 void		generate_grammar(void)
 {
 	static const char	*grammar[NB_OF_TOKENS] = { N_DB_QUOTE, N_PIPE,
@@ -26,5 +24,5 @@ void		generate_grammar(void)
 			N_IF, N_IN, N_THEN, N_UNTIL, N_WHILE, N_IO_NUMBER, N_ASSIGN,
 			N_STRING, N_SPSTRING, N_END, N_ERROR, N_START};
 
-	g_grammar = grammar;
+	g_shell->grammar = grammar;
 }
