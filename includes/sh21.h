@@ -34,10 +34,6 @@
 # include "autocompletion.h"
 # include "log.h"
 
-
-int		main(int ac, char **av, char **env) __attribute__
-			((noreturn));
-
 /*
 *****************************************************
 ******************** TERM MODES *********************

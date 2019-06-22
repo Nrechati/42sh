@@ -36,7 +36,7 @@ void				shell_exit_routine(t_registry *shell, int8_t ret)
 {
 	if (shell != NULL)
 	{
-		if (shell->option.option & RECORD_HISTORY)
+		if (shell->option.option & RECORD_HISTORY_OPT)
 		{
 			history(shell, NULL, WRITE_HISTFILE);
 			history(shell, NULL, FREE_HISTORY);
@@ -48,6 +48,9 @@ void				shell_exit_routine(t_registry *shell, int8_t ret)
 			close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));
 		free_registry(shell);
 	}
-	ft_flush_memory();
+	if (shell->option.option & GARBAGE_COLLECTOR_OPT)
+		ft_flush_memory(PRINT);
+	else
+		ft_flush_memory(SILENCE);
 	exit(ret);
 }

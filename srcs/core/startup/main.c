@@ -50,7 +50,7 @@ static int8_t	init_shell(t_registry *shell, char **arg, char **env)
 	return (SUCCESS);
 }
 
-int		main(int ac, char **av, char **env) // noreturn (proto into sh21.h)
+int		main(int ac, char **av, char **env) // exit by shell_exit_routine
 {
 	t_registry		shell;
 
@@ -66,4 +66,5 @@ int		main(int ac, char **av, char **env) // noreturn (proto into sh21.h)
 	}*/
 	launch_shell(&shell);
 	shell_exit_routine(&shell, SUCCESS);
+	return (SUCCESS); // Never reaches this point
 }

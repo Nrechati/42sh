@@ -28,6 +28,8 @@ static int8_t	shell_option_letter(t_opt *option, char *arg)
 			option->option |= HELP_OPT;
 		else if (*arg == 'd')
 			option->option |= DEBUG_OPT;
+		else if (*arg == 'g')
+			option->option |= GARBAGE_COLLECTOR_OPT;
 		else
 		{
 			ft_dprintf(2, "42sh: -%c: invalid option\n", *arg);

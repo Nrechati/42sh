@@ -66,7 +66,7 @@ void		io_append(t_registry *shell, t_redirect *redirect
 	else
 	{
 		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, open_flags, 0766)) == -1)
+		if ((redirect->to = open(filename, open_flags, 0766)) == FAILURE)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
 			redirect->type |= FD_OPEN_ERROR;
@@ -90,8 +90,8 @@ void		io_truncate(t_registry *shell, t_redirect *redirect
 		redirect->type |= FD_CRITICAL_ERROR;
 	else
 	{
-		open_flags = O_RDWR | O_TRUNC | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, O_RDWR | O_TRUNC | O_CREAT, 0766)) == -1)
+		open_flags = O_RDWR | O_TRUNC | O_CREAT;
+		if ((redirect->to = open(filename, open_flags, 0766)) == FAILURE)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
 			redirect->type |= FD_OPEN_ERROR;

@@ -44,7 +44,7 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 
 	if ((setup_report & SETUP_DONE) == FALSE)
 	{
-		shell->option.option |= RECORD_HISTORY;
+		shell->option.option |= RECORD_HISTORY_OPT;
 		history(shell, NULL, INIT_HISTORY);
 		setup_report = sle_setup(shell, sle);
 		if (setup_report & CRITICAL_ERROR)

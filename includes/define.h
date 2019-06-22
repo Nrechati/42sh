@@ -47,7 +47,8 @@
 # define COMMAND_OPT				0x0002
 # define DEBUG_OPT					0x0004
 # define INTERACTIVE_OPT			0x0008
-# define RECORD_HISTORY				0x0010
+# define RECORD_HISTORY_OPT			0x0010
+# define GARBAGE_COLLECTOR_OPT		0x0020
 
 # define NO_FLAG					0x0000
 # define EXPORT_VAR					0x0001
