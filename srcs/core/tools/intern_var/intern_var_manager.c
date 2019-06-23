@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 13:46:59 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/23 02:40:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ char		*get_var(t_list *intern, char *name)
 	if ((node = ft_lstfind(intern, name, find_var)))
 		return (((t_variable *)node->data)->data);
 	return (NULL);
+}
+
+int			get_var_status(t_list *intern, char *name)
+{
+	t_list 		*node;
+
+	if ((node = ft_lstfind(intern, name, find_var)))
+		return (((t_variable *)node->data)->flag);
+	return (FAILURE);
 }
 
 int8_t		add_var(t_list **intern, char *name, char *data, t_option flag)

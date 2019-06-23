@@ -6,22 +6,32 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:16:54 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/20 10:47:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/23 02:53:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
+static int end_parameter(t_parameter *param)
+{
+	if (ft_strlen(param->buffer->buffer) == 0)
+	{
+		if (!ft_isalpha(param->source[param->index])
+				&& param->source[param->index] != '#')
+			return (TRUE);
+	}
+	else if (ft_strchr(PEX_PARAM_INTERUPT, param->source[param->index]))
+		return (TRUE);
+	return (FALSE);
+}
+
 static void	pex_parameter(t_parameter *param)
 {
-	if (ft_strchr(PEX_PARAM_INTERUPT, param->source[param->index]))
+	if (end_parameter(param) == TRUE)
 	{
 		generate_pex_token(param);
 		if (param->source[param->index] == '}')
-		{
-			param->index++;
 			param->state = PEX_END;
-		}
 		else
 			param->state = PEX_DELIM;
 	}
@@ -38,10 +48,7 @@ static void	pex_delimiter(t_parameter *param)
 	{
 		generate_pex_token(param);
 		if (param->source[param->index] == '}')
-		{
-			param->index++;
 			param->state = PEX_END;
-		}
 		else
 			param->state = PEX_WORD;
 	}
@@ -50,14 +57,6 @@ static void	pex_delimiter(t_parameter *param)
 		vct_add(param->buffer, param->source[param->index]);
 		param->index++;
 	}
-}
-
-static void	init_paramexp(t_paramexp state[PEX_STATES])
-{
-	state[PEX_PARAM] = pex_parameter;
-	state[PEX_DELIM] = pex_delimiter;
-	state[PEX_WORD] = pex_word;
-	state[PEX_END] = NULL;
 }
 
 void	generate_pex_token(t_parameter *param)
@@ -84,7 +83,12 @@ void	parameter_lexer(t_parameter *parameter)
 	static t_paramexp	state[PEX_STATES];
 
 	if (state[0] == NULL)
-		init_paramexp(state);
+	{
+		state[PEX_PARAM] = pex_parameter;
+		state[PEX_DELIM] = pex_delimiter;
+		state[PEX_WORD] = pex_word;
+	}
 	while (parameter->state != PEX_END)
 		state[parameter->state](parameter);
+	parameter_print_debug(parameter->tokens);
 }
