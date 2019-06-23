@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jobctl.h                                           :+:      :+:    :+:   */
+/*   bg.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/23 14:57:48 by skuppers         ###   ########.fr       */
+/*   Created: 2019/06/23 15:39:38 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/23 15:42:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOBCTL_H
-# define JOBCTL_H
-#include "struct.h"
+#include "sh21.h"
 
-void	jobctl(t_registry *shell, t_job *job, uint8_t flag);
+int8_t	bg_blt(__unused t_registry *shell, __unused char **av)
+{
 
-#endif
+	return (0);
+}

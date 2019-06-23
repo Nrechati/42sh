@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 22:47:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/23 15:38:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int				main(int ac, char **av, char **env)
 		return (FAILURE);
 
 	shell.pid = getpid();
+	shell.active_jobs = 0;
 	if (setpgid(shell.pid, shell.pid) < 0)
 	{
 		ft_dprintf(2, "Failed Setpgid\n");

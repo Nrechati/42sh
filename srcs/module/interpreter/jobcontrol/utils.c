@@ -6,17 +6,17 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 17:28:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/21 03:51:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/23 15:29:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "sh21.h"
 
-t_job	*find_job(t_list *joblist, pid_t pgid)
+t_job	*find_job(pid_t pgid)
 {
 	t_list *job;
 
-	job = joblist;
+	job = g_shell->job_list;
 	while (job != NULL)
 	{
 		if (((t_job*)job->data)->pgid == pgid)

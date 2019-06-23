@@ -6,24 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 16:35:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/23 16:05:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void			job_to_registry(t_registry *shell, t_job *job)
-{
-	t_list		*data;
-	t_job		job_cpy;
-
-	ft_bzero(&job_cpy, sizeof(t_job));
-	ft_memcpy(&job_cpy, job, sizeof(t_job));
-	job->processes = NULL;
-	job->term_modes = NULL;
-	data = ft_lstnew(&job_cpy, sizeof(t_job));
-	ft_lstaddback(&shell->job_list, data);
-}
 
 static void		set_status(t_registry *shell, t_job *job,
 						t_process *current, int status)
@@ -33,11 +21,10 @@ static void		set_status(t_registry *shell, t_job *job,
 	exit_status = NULL;
 	if (WIFSTOPPED(status))
 	{
-		ft_printf("PID[%d] PGID[%d] has been stopped by keyboard\n",
-						current->pid, *current->pgid);
+	//	ft_printf("PID[%d] PGID[%d] has been stopped by keyboard\n",
+	//					current->pid, *current->pgid);
 		current->stopped = TRUE;
-		job_to_registry(shell, job);
-
+		jobctl(shell, job, JOBCTL_PUTINBG);
 	}
 	if (WIFEXITED(status))
 	{

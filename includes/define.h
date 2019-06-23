@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 19:45:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/23 16:49:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,10 +307,16 @@
 *****************************************************
 */
 
-# define JOBCTL_LIST					0x00 /* List jobs in bg | Builtin jobs */
-# define JOBCTL_PUTINBG					0x01 /* Save job to jobctl module */
-# define JOBCTL_PUTINFG					0x02 /* Restore bg job to fg | builtin fg */
-# define JOBCTL_EXECINBG				0x04 /* Exec a bg job in bg | builtin bg */
+# define JOBCTL_PLUS					0x01
+# define JOBCTL_MINUS					0x02
+
+# define JOBCTL_LIST					0x01 /* List jobs in bg | Builtin jobs */
+# define JOBCTL_LONG					0x02
+# define JOBCTL_ID						0x04
+
+# define JOBCTL_PUTINBG					0x08 /* Save job to jobctl module */
+# define JOBCTL_PUTINFG					0x10 /* Restore bg job to fg | builtin fg */
+# define JOBCTL_RUNINBG					0x20 /* Exec a bg job in bg | builtin bg */
 
 /*
 *****************************************************
