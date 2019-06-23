@@ -22,7 +22,6 @@ void			log_print(t_registry *shell, const char *importance,
 
 	if (shell == NULL)
 		return ;
-	fd = -1;
 	fd = ft_atoi(get_var(shell->intern, INT_DBG_FD));
 	if (fd == STDIN_FILENO)
 		fd = -1;
@@ -50,7 +49,6 @@ static void		debug_logger_extend(t_registry *shell,
 	char	*tmp;
 	int		debug_fd;
 
-	debug_fd = -1;
 	if ((home_path = get_var(shell->intern, "HOME")) == NULL)
 	{
 		home_path = ft_itoa(-1);

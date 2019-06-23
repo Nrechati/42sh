@@ -73,7 +73,6 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
-	sle_flag &= ~SLE_PS2_PROMPT;
 	return (vct_dup(sle->sub_line));
 }
 

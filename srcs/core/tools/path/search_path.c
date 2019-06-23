@@ -48,6 +48,7 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
 	int8_t		ret;
 	char		**tab;
 
+	ret = NOT_FOUND;
 	if (get_var(shell->intern, "PATH") == NULL)
 		return (NOT_FOUND);
 	tab = ft_strsplit(get_var(shell->intern, "PATH"), ":");

@@ -62,6 +62,7 @@ static uint8_t            prompt_need_alignment(void)
     i = 0;
     ch = 0;
     x = 0;
+	ft_bzero(buff, 30);
     write(1, "\033[6n", 4);
     while (ch != 'R')
     {

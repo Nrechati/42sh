@@ -48,7 +48,7 @@ void				shell_exit_routine(t_registry *shell, int8_t ret)
 			close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));
 		free_registry(shell);
 	}
-	if (shell->option.option & GARBAGE_COLLECTOR_OPT)
+	if (shell != NULL && shell->option.option & GARBAGE_COLLECTOR_OPT)
 		ft_flush_memory(PRINT);
 	else
 		ft_flush_memory(SILENCE);

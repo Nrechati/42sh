@@ -20,7 +20,6 @@ int8_t		ak_ctrl_right(__unused t_registry *shell, t_sle *sle)
 		return (FAILURE);
 	if (sle->cursor.index == vct_len(sle->line))
 		return (FAILURE);
-	next_char = 0;
 	next_char = get_next_char(sle->line->buffer,
 					          sle->cursor.index, 1);
 	set_redraw_flags(sle, RD_NONE | RD_CMOVE);
@@ -38,7 +37,6 @@ int8_t		ak_ctrl_left(__unused t_registry *shell, t_sle *sle)
 		return (FAILURE);
 	if (sle->cursor.index == 0)
 		return (FAILURE);
-	next_char = 0;
 	next_char = get_next_char(sle->line->buffer,
 					          sle->cursor.index, - 1);
 	set_redraw_flags(sle, RD_NONE | RD_CMOVE);

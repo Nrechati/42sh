@@ -40,7 +40,6 @@ void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index)
 	char	*cwd;
 	char	*home;
 
-	len = 0;
 	cwd = vct_get_string(sle->interns.pwd);
 	home = vct_get_string(sle->interns.home);
 	vct_replace_string(text, index, index + 2, cwd);

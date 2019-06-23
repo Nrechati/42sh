@@ -49,7 +49,6 @@ uint64_t			compute_mask(char c[READ_SIZE])
 	shift = 56;
 	index = 0;
 	value = 0;
-	tmp = 0;
 	while (index < 8 && c[index] != '\0')
 	{
 		tmp = c[index++];

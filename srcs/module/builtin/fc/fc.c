@@ -75,7 +75,6 @@ int8_t			fc_blt(t_registry *shell, char **av)
 	int			ret;
 
 	++av;
-	ret = SUCCESS;
 	option = 0;
 	editor = get_fc_options(&av, &option);
 	if (option == ERROR_OPT)

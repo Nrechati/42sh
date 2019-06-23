@@ -58,7 +58,6 @@ char		*tilde(t_list *intern_var, char *str)
 	char		*expanded;
 	uint32_t	i;
 
-	i = 0;
 	if (ft_strbeginswith(str, "~") == FALSE)
 		return (ft_strdup(str));
 	i = ft_strcspn(str, "/");

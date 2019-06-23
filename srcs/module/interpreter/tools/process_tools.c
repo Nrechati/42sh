@@ -36,7 +36,6 @@ int8_t	get_process_type(t_registry *shell, t_process *process)
 	int8_t		ret;
 	char		*pathname;
 
-	ret = 0;
 	pathname = NULL;
 	if (process->process_type & IS_ASSIGN)
 		return (SUCCESS);
