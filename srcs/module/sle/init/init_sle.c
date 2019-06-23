@@ -35,6 +35,7 @@ uint64_t    get_terminal_info(t_registry *shell)
 
 uint64_t    init_termcaps(t_termcaps *termcap)
 {
+ 	//// strdup ? 
     termcap->standout_on = ft_strdup(tgetstr("so", NULL));
     termcap->standout_off = ft_strdup(tgetstr("se", NULL));
     termcap->clear = ft_strdup(tgetstr("cl", NULL));

@@ -175,9 +175,12 @@ LDFLAGS = -L $(LPATH)
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
+GC ?= 1
+ifneq ($(GC), 0)
+	CFLAGS += -D GC
+endif
 CFLAGS += $(IFLAGS)
-DFLAGS += $(CFLAGS)
-#DFLAGS += -fsanitize=address,undefined
+DFLAGS += -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #
