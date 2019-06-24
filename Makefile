@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/20 16:58:17 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/06/24 16:20:29 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 
 CC = clang
 LINK = $(CC)
-LINKD = $(CC) -g3
+LINKD = $(CC) -g3 -fsanitize=address,undefined
 COMPILE = $(CC) -c
 DEBUG = $(CC) -g3 -c
 
@@ -180,6 +180,7 @@ ifneq ($(GC), 0)
 	CFLAGS += -D GC
 endif
 CFLAGS += $(IFLAGS)
+DFLAGS = $(CFLAGS)
 DFLAGS += -fsanitize=address,undefined
 LFLAGS = -ltermcap
 
@@ -439,7 +440,7 @@ test : $(NAMET)
 #					 - - - - - Normal Compilation - - - - -                    #
 
 $(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS)
-	$(LINK) $(OBJS) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
+	$(LINK) $(OBJS) $(CFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJS) : $(OPATH)%.o : %.c $(INCS) Makefile
@@ -452,7 +453,7 @@ $(LIB) : FORCE
 #					 - - - - - Debug Compilation - - - - -                     #
 
 $(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
-	$(LINKD) $(OBJD) $(DFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@
+	$(LINKD) $(OBJD) $(DFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
 $(OBJD) : $(OPATH)db%.o : %.c $(INCS) Makefile
