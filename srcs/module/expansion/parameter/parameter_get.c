@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 00:09:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 15:47:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:00:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,26 @@ int		advanced_expansion(t_list *intern, t_parameter *parameter)
 	param = parameter->tokens->data;
 	word = parameter->tokens->next->next->data;
 	delim = get_delimiter(parameter, parameter->tokens->next->data);
-	if (delim < 0)
+	if (delim < 0 || param->data[0] == '#')
 	{
-		ft_dprintf(2, "42sh: bad substitution\n");
+		ft_dprintf(2, "42sh: %s: bad substitution\n", parameter->source);
 		return (-1);
 	}
 	else
 		return (expansion[delim](intern, parameter));
 }
 
+int		double_parameter(__unused t_list *intern,__unused t_parameter *parameter)
+{
+	return (-1);
+}
+
 int		parameter_get(t_list *intern, t_parameter *parameter)
 {
 	if (ft_lstlen(parameter->tokens) == 1)
 		return(single_parameter(intern, parameter));
+	else if (ft_lstlen(parameter->tokens) == 2)
+		return (double_parameter(intern, parameter));
 	else if (ft_lstlen(parameter->tokens) == 3)
 		return(advanced_expansion(intern, parameter));
 	return (-1);

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:16:54 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/23 02:53:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:04:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@ static int end_parameter(t_parameter *param)
 {
 	if (ft_strlen(param->buffer->buffer) == 0)
 	{
-		if (!ft_isalpha(param->source[param->index])
+		if (ft_strchr(PEX_SPECIAL, param->source[param->index]))
+		{
+			vct_add(param->buffer, param->source[param->index]);
+			param->index++;
+			return (TRUE);
+		}
+		else if (!ft_isalpha(param->source[param->index])
 				&& param->source[param->index] != '#')
 			return (TRUE);
 	}

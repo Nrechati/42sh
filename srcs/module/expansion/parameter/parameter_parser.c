@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:31:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 15:10:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:11:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	parameter_check(t_pex_token *token)
 		ft_dprintf(2, "42sh: bad substitution\n");
 		return (-1);
 	}
+	if (ft_strequ(token->data, "0"))
+		return (0);
 	if (ft_isdigit(token->data[0]))
 		return (-1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 02:49:33 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 16:07:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:05:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 
 void	suffix_match(t_parameter *param, char *to_search, char *to_find)
 {
-	char	*expanded;
 	int		diff;
 
-	expanded = NULL;
 	diff = ft_strlen(to_search) - ft_strlen(to_find);
 	if (ft_strequ(to_search + diff, to_find) == TRUE)
 		ft_asprintf(&param->expanded, "%.*s", diff, to_search);
+	else
+		param->expanded = ft_strdup(to_search);
+}
+
+void	preffix_match(t_parameter *param, char *to_search, char *to_find)
+{
+	int		diff;
+
+	diff = ft_strlen(to_find);
+	if (ft_strnequ(to_search, to_find, diff))
+		ft_asprintf(&param->expanded, "%s", to_search + diff);
 	else
 		param->expanded = ft_strdup(to_search);
 }
@@ -36,12 +45,12 @@ int		suffix_expansion(t_list *intern, t_parameter *param)
 	word = param->tokens->next->next->data;
 	status = get_var_status(intern, parameter->data);
 	if (status < 0)
-		param->expanded = ft_strdup(word->data);
+		param->expanded = ft_strdup("");
 	else if ((data = get_var(intern, parameter->data)) == NULL)
 		param->expanded = ft_strdup("");
 	else
 		suffix_match(param, data, word->data);
-	return (-1);
+	return (0);
 }
 
 int		prefix_expansion(t_list *intern, t_parameter *param)
@@ -55,12 +64,10 @@ int		prefix_expansion(t_list *intern, t_parameter *param)
 	word = param->tokens->next->next->data;
 	status = get_var_status(intern, parameter->data);
 	if (status < 0)
-		param->expanded = ft_strdup(word->data);
+		param->expanded = ft_strdup("");
 	else if ((data = get_var(intern, parameter->data)) == NULL)
 		param->expanded = ft_strdup("");
 	else
-	{
-
-	}
-	return (-1);
+		preffix_match(param, data, word->data);
+	return (0);
 }
