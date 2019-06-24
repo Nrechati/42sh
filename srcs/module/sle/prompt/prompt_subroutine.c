@@ -6,23 +6,41 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:58:14 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/20 21:17:15 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:12:39 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	maths_exp_routine(t_sle *sle, size_t *i)
+static void	parenthesis(t_sle *sle, size_t *i)
 {
-	(*i) += 3;
-	while (vct_charat(sle->line, *i) != ')'
-			&& vct_charat(sle->line, *i + 1) != ')')
+	uint8_t	par;
+
+	par = FALSE;
+	while (par == FALSE)
 	{
 		if (vct_charat(sle->line, *i) == '\0')
 			subprompt_call(sle, PRINT_MATHS);
+		else if (vct_charat(sle->line, *i) == ')')
+		{
+			(*i)++;
+			par = TRUE;
+		}
+		else if (vct_charat(sle->line, *i) == '(')
+		{
+			(*i)++;
+			parenthesis(sle, i);
+		}
 		else
 			(*i)++;
 	}
+}
+
+void	maths_exp_routine(t_sle *sle, size_t *i)
+{
+	(*i) += 3;
+	parenthesis(sle, i);
+	parenthesis(sle, i);
 }
 
 void	brace_exp_routine(t_sle *sle, size_t *i)
