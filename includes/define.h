@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/23 16:49:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:31:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,7 @@
 # define KILLED						0x04
 # define SUCCEDED					0x08
 # define FAILED						0x10
+# define STOPPED					0x20
 
 # define TRIM_OFF					0x00
 # define TRIM_ON					0x01

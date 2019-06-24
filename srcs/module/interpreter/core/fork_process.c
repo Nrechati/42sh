@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 15:44:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/23 14:56:43 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	signal (SIGQUIT, SIG_DFL);
 	signal (SIGPIPE, SIG_DFL);
 	signal (SIGCHLD, SIG_DFL);
-
 	signal (SIGTSTP, SIG_DFL);
 	signal (SIGCONT, SIG_DFL);
 	signal (SIGTTIN, SIG_DFL);

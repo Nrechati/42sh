@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/21 16:15:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:13:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 *****************************************************
 */
 
+int8_t	fg_blt(t_registry *shell, char **av);
 int8_t	jobs_blt(t_registry *shell, char **av);
 
 /*
@@ -167,5 +168,13 @@ int8_t		get_first_last(char **av, char **param);
 int8_t		fc_redo(t_registry *shell, char **av, t_option option);
 int8_t		fc_editor(t_registry *shell, char **av, char *editor,
 					t_option option);
+
+/*
+*****************************************************
+*********************** JOBS ************************
+*****************************************************
+*/
+
+t_option		get_option_jobs(char *s, t_option option);
 
 #endif

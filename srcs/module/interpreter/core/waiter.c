@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/23 16:05:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:37:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ static void		set_status(t_registry *shell, t_job *job,
 	exit_status = NULL;
 	if (WIFSTOPPED(status))
 	{
-	//	ft_printf("PID[%d] PGID[%d] has been stopped by keyboard\n",
-	//					current->pid, *current->pgid);
+
+		job->state = STOPPED;
+		job->signo = WSTOPSIG(status);
 		current->stopped = TRUE;
+
+		shell->active_jobs++;
+		job->id = (shell->active_jobs);
+
 		jobctl(shell, job, JOBCTL_PUTINBG);
 	}
 	if (WIFEXITED(status))

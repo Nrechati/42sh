@@ -6,11 +6,44 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/23 16:51:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:04:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "sh21.h"
+
+static void state_to_str(uint8_t state, char **str)
+{
+	*str = ft_strnew(32);
+
+	if (state == PENDING)
+		ft_strcpy(*str, "Pending");
+	else if (state == RUNNING)
+		ft_strcpy(*str, "Running");
+	else if (state == STOPPED)
+		ft_strcpy(*str, "Stopped");
+	else
+		ft_strcpy(*str, "Unknown");
+}
+
+static void	av_to_str(t_process *process, char **str)
+{
+	uint32_t	avnb;
+
+	avnb = 0;
+	*str = ft_strnew(256);
+	while (process->av[avnb] != NULL)
+	{
+		if (*str == NULL)
+			ft_strcpy(*str, process->av[avnb]);
+		else
+		{
+			ft_strcat(*str, " ");
+			ft_strcat(*str, process->av[avnb]);
+		}
+		++avnb;
+	}
+}
 
 static void			job_to_registry(t_registry *shell, t_job *job)
 {
@@ -23,54 +56,70 @@ static void			job_to_registry(t_registry *shell, t_job *job)
 	job->term_modes = NULL;
 	data = ft_lstnew(&job_cpy, sizeof(t_job));
 	ft_lstaddback(&shell->job_list, data);
-	shell->active_jobs++;
+	job->current = '+';
+	ft_printf("Job with id %d has been added to %d total jobs.\n",
+						job->id, shell->active_jobs);
 }
 
-//Format:		[id]-/+ status	\t					av[0]
-//Long Format:	[id]-/+ [job_pid] status:signal \t	av[0]
+static void	print_jobinfo(__unused t_job *job, uint8_t __unused flag)
+{
+	char		*state;
+	char		*command;
+
+	state_to_str(job->state, &state);
+	av_to_str(((t_process*)job->processes->data), &command);
+
+	if (flag & JOBCTL_LONG)
+		ft_printf("[%d] %c %ld %s:%d \t %s\n", job->id, job->current,
+						job->pgid, state, job->signo, command);
+	else if (flag & JOBCTL_ID)
+		ft_printf("%d\n", job->pgid);
+	else
+		ft_printf("[%d] %c %s \t %s\n", job->id, job->current, state, command);
+
+	ft_strdel(&state);
+	ft_strdel(&command);
+}
+
 static void	print_joblist(__unused uint8_t flag)
 {
+	char		*state;
+	char		*command;
 	t_list		*job_ptr;
-	uint64_t	job_id;
-	char		current;
+	t_job		*job;
 
-	job_id = 1;
 	job_ptr = g_shell->job_list;
 	while (job_ptr != NULL)
 	{
-//		if (job_id == g_shell->active_jobs)
-			current = '+';
-//		else if (job_id == g_shell->active_jobs - 1)
-//			current = '-';
-//		else
-//			current = ' ';
+		state = NULL;
+		command = NULL;
 
-//		if (flag & JOBCTL_LONG)
-			ft_printf("[%lu] %c %ld %d \t %s\n", job_id, current,
-							((t_job*)job_ptr->data)->pgid,
-							((t_job*)job_ptr->data)->state,
-					((t_process*)((t_job*)job_ptr->data)->processes->data)->av[0]);
+		job = ((t_job*)job_ptr->data);
 
-//		else if (flag & JOBCTL_ID)
-//			ft_printf("%d\n", ((t_job*)job_ptr->data)->pgid);
+		state_to_str(job->state, &state);
+		av_to_str(((t_process*)job->processes->data), &command);
 
-//		else
-//			ft_printf("[%lu] %c %d \t %s\n", job_id, current,
-//							((t_job*)job_ptr->data)->state,
-//					((t_process*)((t_job*)job_ptr->data)->processes->data)->av[0]);
+		if (flag & JOBCTL_LONG)
+			ft_printf("[%d] %c %ld %s:%d \t %s\n", job->id, job->current,
+							job->pgid, state, job->signo, command);
+		else if (flag & JOBCTL_ID)
+			ft_printf("%d\n", job->pgid);
+		else
+			ft_printf("[%d] %c %s \t %s\n", job->id, job->current, state, command);
 
-		++job_id;
+		ft_strdel(&state);
+		ft_strdel(&command);
+
 		job_ptr = job_ptr->next;
 	}
-
 }
 
 void	print_jobs(__unused t_job *job,__unused uint8_t flag)
 {
 	if (job == NULL)
 		print_joblist(flag);
-//	else
-//		print_jobinfo(job, flag);
+	else
+		print_jobinfo(job, flag);
 }
 
 void	save_job_to_bg(__unused t_list *joblist, __unused pid_t job_pgid)
@@ -88,5 +137,4 @@ void	jobctl(__unused t_registry *shell, t_job *job, uint8_t flag)
 
 	else if (flag & JOBCTL_PUTINFG)
 		;
-
 }

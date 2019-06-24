@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/21 16:33:52 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/24 16:15:16 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,8 +125,8 @@ P_BUILTIN += module/builtin/type/
 P_BUILTIN += module/builtin/unset/
 P_BUILTIN += module/builtin/fc/
 P_BUILTIN += module/builtin/jobs/
-P_BUILTIN += module/builtin/fg/
-P_BUILTIN += module/builtin/bg/
+#P_BUILTIN += module/builtin/fg/
+#P_BUILTIN += module/builtin/bg/
 
 P_EXPANSION += module/expansion/
 P_EXPANSION += module/expansion/lexers/
@@ -271,6 +271,7 @@ BUILTIN += blt_options.c
 
 #JOBS
 BUILTIN += jobs.c
+BUILTIN += fg.c
 
 #CD
 BUILTIN += cd.c

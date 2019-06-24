@@ -6,14 +6,6 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 16:55:29 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/23 16:58:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:10:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "sh21.h"
-
-int8_t	fg_blt(__unused t_registry *shell, __unused char **av)
-{
-
-	return (0);
-}
