@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 15:37:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:27:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		set_status(t_registry *shell, t_job *job,
 			current->completed = ERROR;
 		else
 			current->completed = TRUE;
-		tcsetpgrp(STDOUT_FILENO, job->pgid);
+//		tcsetpgrp(STDOUT_FILENO, job->pgid);
 	}
 	if (WIFSIGNALED(status))
 	{

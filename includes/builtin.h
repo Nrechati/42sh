@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 16:13:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:11:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 
 int8_t	fg_blt(t_registry *shell, char **av);
 int8_t	jobs_blt(t_registry *shell, char **av);
+
+void	print_jobs(t_job *job, uint8_t flag);
+
+t_job	*parse_jobid(char *param);
+t_job	*parse_jobname(char *jobname);
+t_job	*get_current_job(char c);
+t_job	*id_to_job(uint64_t job_id);
 
 /*
 *****************************************************

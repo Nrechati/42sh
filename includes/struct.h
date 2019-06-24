@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 15:00:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:11:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct			s_registry
 
 	t_list				*job_list;
 	uint64_t			active_jobs;
+	t_list				*current_plus;
+	t_list				*current_minus;
 
 	struct termios		*sle_mode;
 	struct termios		*exec_mode;
@@ -180,8 +182,8 @@ typedef struct			s_job
 	uint8_t				job_type;
 	uint32_t			signo;
 
-	char				current;
 	uint64_t			id;
+	char				current;
 
 	struct termios		*term_modes;	/* Saved termios mode 	*/
 }						t_job;
