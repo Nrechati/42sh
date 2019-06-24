@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:55:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:03:26 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int8_t		ak_hightab(t_registry *shell, t_sle *sle)
 
 	if (sle->state != STATE_STD)
 		return (FAILURE);
-	ret_completion = autocompletion(vct_get_string(sle->line), shell,
-			sle->window.cols, NEW_SEARCH);
+	ret_completion = NULL;
+	if (autocompletion(vct_get_string(sle->line), shell,
+			&ret_completion, NEW_SEARCH) == NOT_FOUND)
+		 return (FAILURE);
 	if (ret_completion != NULL)
 		vct_scat(sle->line, ret_completion, ft_strlen(ret_completion));
 	else

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 21:17:13 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:56:00 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	prompt_post_process(t_registry *shell, t_sle *sle)
 	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
 		vct_reset(sle->line);
 	sle->state = STATE_STD;
-	autocompletion(NULL, shell, sle->window.cols, RESET_RESULT);
+	autocompletion(NULL, shell, NULL, RESET_RESULT);
 	history(NULL, NULL, RESET_HEAD);
 	vct_add(sle->line, '\n');
 	set_redraw_flags(sle, RD_LINE | RD_CEND);

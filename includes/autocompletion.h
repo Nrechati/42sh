@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:22:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 11:25:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:55:11 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,8 @@ typedef struct			s_autocomplete
 
 
 typedef 		void (t_completion_fct)(char *, t_autocomplete *, t_registry *);
-
-
-
-
-char				*autocompletion(char *input, t_registry *shell,
-										int col, uint64_t option);
-
+int8_t			autocompletion(char *input, t_registry *shell,
+					char **completion, uint64_t option);
 enum e_result_type	get_result_type(char *input);
 char				*get_start_input(char *input, enum e_result_type type);
 
@@ -48,7 +43,7 @@ char				*get_start_input(char *input, enum e_result_type type);
 **** Print
 */
 
-void				print_possibilities(t_autocomplete *result, int col);
+void				print_possibilities(t_autocomplete *result);
 
 /*
 **** Tools

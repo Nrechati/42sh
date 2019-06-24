@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 19:24:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:03:01 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,36 +88,36 @@ static char		*get_completion(char *input, t_registry *shell,
 	return (NULL);
 }
 
-char		*autocompletion(char *input, t_registry *shell,
-								int col, uint64_t option)
+int8_t			autocompletion(char *input, t_registry *shell,
+								char **completion, uint64_t option)
 {
-	char						*completion;
 	static t_autocomplete		result;
 	char						*cpy_input;
 
-	completion = NULL;
 	if ((option & RESET_RESULT) || (option & NEW_SEARCH))
 	{
-		ft_lstdel(&result.list, NULL); // IS GOOD ?
+		ft_lstdel(&result.list, NULL);
 		ft_bzero(&result, sizeof(t_autocomplete));
 		if (option & RESET_RESULT)
-			return (NULL);
+			return (SUCCESS);
 	}
 	cpy_input = ft_strdup(input);
-	if (get_completion(cpy_input, shell, &result, &completion) != NULL)
+	if (get_completion(cpy_input, shell, &result, completion) != NULL)
 	{
 		ft_strdel(&cpy_input);
-		return (completion);
+		return (SUCCESS);
 	}
-	if (result.nb == 1)
+	if (result.nb == 1 || result.nb == 0)
 	{
 		ft_strdel(&cpy_input);
-		return (send_rest(&result, completion, shell));
+		if (result.nb == 0)
+			return (NOT_FOUND);
+		*completion = send_rest(&result, *completion, shell);
+		return (SUCCESS);
 	}
 	ft_mergesort(&result.list, lst_strcmp);
-	(void)col;
-	print_possibilities(&result, col);
+	print_possibilities(&result);
 	ft_strdel(&cpy_input);
-	ft_strdel(&completion);
-	return (NULL);
+	ft_strdel(completion);
+	return (FAILURE);
 }
