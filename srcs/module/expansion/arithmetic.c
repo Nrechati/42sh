@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 16:42:10 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/24 10:17:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,6 @@ void		arithmetic_lexer(t_arithmetic *math)
 	while (math->state != MATH_END)
 		state[math->state](math);
 	print_token_lst(math);
-	exit(0);
 }
 
 int			arithmetic(__unused t_list *intern, char **output, int i)
