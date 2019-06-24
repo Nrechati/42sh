@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 15:06:04 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:21:26 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,11 @@ static int8_t		export_process(t_registry *shell, char **av)
 	while (*av != NULL)
 	{
 		variable = (t_variable *)ft_malloc(sizeof(t_variable));
-		if (variable == NULL)
+		if (variable == NULL || variable->name == NULL)
 			return (FAILURE);
 		get_name_and_data(variable, *av);
-		if (ft_isnumeric(variable->name) == TRUE)
+		if (ft_isnumeric(variable->name) == TRUE
+			|| ft_strchr("!?$-", *variable->name))
 			ft_dprintf(STDERR_FILENO,
 					"42sh: export: `%s': not a valid identifier\n", *av);
 		else
