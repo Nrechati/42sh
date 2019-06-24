@@ -6,27 +6,29 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 19:17:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:48:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int		expand_process(t_list *intern, char **av)
+int		expand_process(t_list *intern, t_process *process)
 {
 	int		index;
 	char	*holder;
 
-	if (av[0] == NULL)
+	if (process->process_type & IS_ASSIGN)
+		return (SUCCESS);
+	if (process->av[0] == NULL)
 		return (FAILURE);
 	index = 0;
 	holder = NULL;
-	while(av[index])
+	while(process->av[index])
 	{
-		if ((holder = expansion_pipeline(intern, av[index])) == NULL)
+		if ((holder = expansion_pipeline(intern, process->av[index])) == NULL)
 			return (FAILURE);
-		ft_strdel(&av[index]);
-		av[index++] = holder;
+		ft_strdel(&process->av[index]);
+		process->av[index++] = holder;
 	}
 	return (0);
 }

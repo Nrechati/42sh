@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/18 15:06:36 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:20:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,20 @@ int		copy_var(void *src, void *dest)
 	return (0);
 }
 
-void	variable_update(void *context, void *data)
+int		variable_update(void *context, void *data)
 {
 	t_list 		*tmp_env;
 	t_variable	*variable;
+	char		*holder;
 
 	tmp_env = context;
 	variable = data;
+	if ((holder = expansion_pipeline(g_shell->intern, variable->data)) == NULL)
+		return (-1);
+	ft_strdel(&variable->data);
+	variable->data = holder;
 	add_var(&tmp_env, variable->name, variable->data, variable->flag);
+	return (0);
 }
 
 char	*variable_to_tab(void *data)
@@ -61,7 +67,8 @@ char	**generate_env(t_registry *shell, t_list *local_env)
 	t_list	*tmp_env;
 
 	tmp_env = ft_lstfilter(shell->intern, NULL, is_export, copy_var);
-	ft_lstiter_ctx(local_env, tmp_env, variable_update);
+	if (ft_lstiter_ctx(local_env, tmp_env, variable_update) == -1)
+		return (NULL);
 	env = ft_lsttotab(tmp_env, variable_to_tab);
 	ft_lstdel(&tmp_env, free_node);
 	return (env);

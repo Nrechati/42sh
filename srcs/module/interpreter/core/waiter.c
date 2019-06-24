@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 11:36:36 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:13:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static uint8_t	all_is_done(t_list *processes)
 	return (TRUE);
 }
 
-void			kill_process(void *context, void *data)
+int			kill_process(void *context, void *data)
 {
 	uint32_t	*signo;
 	t_process	*process;
@@ -77,7 +77,7 @@ void			kill_process(void *context, void *data)
 	process = data;
 	if (process->completed == FALSE)
 		kill(process->pid, *signo);
-	return ;
+	return (SUCCESS);
 }
 
 int8_t			waiter(t_registry *shell, t_job *job)

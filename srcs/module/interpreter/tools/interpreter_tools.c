@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:30:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 18:40:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:11:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		set_stopped(void *data)
 	return ;
 }
 
-void		set_signaled(void *context, void *data)
+int			set_signaled(void *context, void *data)
 {
 	t_job		*job;
 	uint32_t	*signo;
@@ -82,5 +82,5 @@ void		set_signaled(void *context, void *data)
 	job->state |= KILLED;
 	job->signo = *signo;
 	ft_lstiter(job->processes, set_stopped);
-	return ;
+	return (0);
 }
