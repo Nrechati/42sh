@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 18:16:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:19:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static void		default_variable(t_list **intern, char *name)
 
 	str = NULL;
 	ft_asprintf(&str, "%d", getpid());
-	add_var(intern, "0", name, SET_VAR);
-	add_var(intern, "$", str, SET_VAR);
-	add_var(intern, "?", "0", SET_VAR);
+	add_var(intern, "0", name, READONLY_VAR);
+	add_var(intern, "$", str, READONLY_VAR);
+	add_var(intern, "?", "0", READONLY_VAR);
 	ft_strdel(&str);
 }
 

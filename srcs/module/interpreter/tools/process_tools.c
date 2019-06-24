@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 18:31:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:17:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int		expand_process(t_list *intern, char **av)
 	int		index;
 	char	*holder;
 
-	if (av == NULL)
-		return (0);
+	if (av[0] == NULL)
+		return (FAILURE);
 	index = 0;
 	holder = NULL;
 	while(av[index])
