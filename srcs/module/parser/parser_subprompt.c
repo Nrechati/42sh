@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 16:19:43 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:25:01 by ffoissey         ###   ########.fr       */
 
 /*                                                                            */
 /* ************************************************************************** */
@@ -54,7 +54,7 @@ void				parser_subprompt(enum e_type state,
 	while (new_token == NULL)
 	{
 		sle(g_shell, &line, option);
-		new_token = lexer(line);
+		new_token = lexer(line, SHELL);
 		if (line != NULL && line->buffer != NULL && *line->buffer != '\0')
 			vct_ncat(input, line, vct_len(line));
 		vct_del(&line);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 21:07:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:47:05 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,16 +173,24 @@
 *****************************************************
 */
 
+# define SHELL						0x01
+# define MATHS						0x02
+
+# define CUR_CHAR					0x01
+# define NEXT_CHAR					0x02
+# define NEXT_NEXT_CHAR				0x04
+
+/*
+** SHELL
+*/
+
 # define NB_OF_TOKENS				50
+# define NB_OF_MTOKENS				22
 
 # define START_OPERATOR				29
 # define END_OPERATOR				1
 # define START_RESERVED_WORD		42
 # define END_RESERVED_WORD			30
-
-# define CUR_CHAR					0x01
-# define NEXT_CHAR					0x02
-# define NEXT_NEXT_CHAR				0x04
 
 # define NO_FLAG					0x0000
 # define BACKSLASH_FLAG				0x0001
@@ -194,6 +202,10 @@
 # define POSSIBLE					0
 # define IMPOSSIBLE					1
 # define LISTEN						2
+
+/*
+** MATHS
+*/
 
 /*
 *****************************************************
@@ -216,6 +228,16 @@
 # define WORD						E_STRING, E_SPSTRING, E_DB_QUOTE
 # define END_CMD					E_NEWLINE, E_END, E_SEMICOLON
 # define E_START					E_DEFAULT
+
+/*
+*****************************************************
+********************* GRAMMAR ***********************
+*****************************************************
+*/
+
+/*
+** SHELL GRAMMAR
+*/
 
 # define N_DB_QUOTE					"\""
 # define N_PIPE						"|"
@@ -267,6 +289,33 @@
 # define N_END						"end"
 # define N_ERROR					"ERROR"
 # define N_START					"START"
+
+/*
+** SHELL MATHS
+*/
+
+# define M_TIMES					"*"
+# define M_DIVIDE					"/"
+# define M_MODULO					"%"
+# define M_PLUS						"+"
+# define M_MINUS					"-"
+# define M_OPENP					"("
+# define M_CLOSEP					")"
+# define M_LESS						"<"
+# define M_GREAT					">"
+# define M_LESSOR					"<="
+# define M_GREATOR					">="
+# define M_EQUAL					"=="
+# define M_NEQUAL					"!="
+# define M_AND						"&&"
+# define M_OR						"||"
+# define M_ASSIGN					"(=)"
+# define M_STRING					"word"
+# define M_NB_DEC					"nb dec"
+# define M_NB_OCT					"nb oct"
+# define M_NB_HEX					"nb hex"
+# define M_END						"end"
+# define M_START					"START"
 
 /*
 *****************************************************

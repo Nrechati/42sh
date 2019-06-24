@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/20 16:58:17 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/06/24 13:20:09 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -406,6 +406,8 @@ LEXER += lexer_tools.c
 LEXER += checker_module.c
 LEXER += lexer_interface.c
 LEXER += set_inhibitor.c
+
+LEXER += lexer_maths_interface.c
 
 #						     - - - - Parser  - - - -                           #
 

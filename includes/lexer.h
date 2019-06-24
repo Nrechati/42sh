@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 18:07:24 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:43:06 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-t_list		*lexer(t_vector *line);
+t_list		*lexer(t_vector *line, uint8_t opt);
 void		set_inhibitor(t_lexer *lexer);
 
 /*
@@ -22,6 +22,8 @@ void		set_inhibitor(t_lexer *lexer);
 *****************************************************
 */
 
+void		process_maths_lexer(t_lexer *lexer);
+void		out_lexer_m(t_lexer *lexer);
 void		process_lexer(t_lexer *lexer);
 void		out_lexer(t_lexer *lexer);
 
@@ -54,6 +56,8 @@ char		get_input(t_lexer *lexer, uint8_t pos);
 */
 
 void		print_token(void *data);
+void		print_mtoken(void *data);
 void		lexer_print_debug(t_registry *shell, t_list *token_list);
+void		lexer_m_print_debug(t_registry *shell, t_list *token_list);
 
 #endif
