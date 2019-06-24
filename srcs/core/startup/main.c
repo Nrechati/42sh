@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 18:06:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:15:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,11 @@ static int8_t	init_shell(t_registry *shell, char **av, char **env)
 int		main(int ac, char **av, char **env) // exit by shell_exit_routine
 {
 	t_registry		shell;
-	char			*expanded;
 
 	(void)ac;
 	g_shell = &shell;
 	if (init_shell(&shell, av, env) == FAILURE)
 		shell_exit_routine(&shell, FAILURE);
-	expanded =  expansion_pipeline(shell.intern, av[3]);
-	ft_printf("Before expansion: %s \n After expansion : %s\n", av[3], expanded);
-	exit(0);
 /*	shell_pid = getpid();
 	if (setpgid(shell_pid, shell_pid) < 0)
 	{
