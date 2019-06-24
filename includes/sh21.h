@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 02:55:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/23 02:40:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int8_t			execution_pipeline(t_registry *shell, t_vector *input);
 */
 
 char			*get_var(t_list *intern, char *name);
+int				get_var_status(t_list *intern, char *name);
 int8_t			add_var(t_list **intern, char *name, char *data, t_option flag);
 int8_t			add_nbr_var(t_list **intern, char *name,
 						int data, t_option flag);

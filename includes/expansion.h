@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/20 10:57:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:07:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 # define EXPANSION_H
 # include "struct.h"
 
-# define PEX_STATES 4
+# define COLON_ON			0x1
+# define LONGEST_ON			0x2
+# define PEX_STATES 		4
+# define PEX_DELIMITERS 	12
+# define PEX_ADVANCED_EXP 	6
+# define PEX_SPECIAL		"$0?"
 # define PEX_PARAM_INTERUPT " ${}:-?=+%#\"\'"
-# define PEX_VALID_DELIM " ${:-?=+%#"
-# define PEX_FIRST_DELIM " ${}-?=+%#"
+# define PEX_VALID_DELIM " :-?=+%#"
+# define PEX_FIRST_DELIM " {}-?=+%#"
 # define PEX_NEXT_DELIM " ${}?=+%#"
 # define DEFAULT_PEX_BUFFER 64
+
 typedef struct	s_parameter	t_parameter;
 typedef void	(*t_paramexp)(t_parameter *);
+typedef int		(*t_advanced_pex)(t_list *, t_parameter *);
 
 enum	e_paramexp
 {
@@ -55,6 +62,7 @@ char		*variable_expansion(t_list *intern_var, char *str);
 void		quote_removal(char *str);
 char		character_swap(char swapped);
 t_quote		select_quoting(t_quote quote, char c);
+int			check_backslash(char *dest, t_quote quote, int i);
 
 
 int			parameter_expansion(t_list *intern, char **dest, int i);
@@ -63,4 +71,12 @@ int			parameter_parse(t_list *intern, t_parameter *parameter);
 void		parameter_lexer(t_parameter *parameter);
 void		generate_pex_token(t_parameter *param);
 void		pex_word(t_parameter *param);
+int			get_delimiter(t_parameter *param, t_pex_token *token);
+int			prefix_expansion(t_list *intern, t_parameter *param);
+int			suffix_expansion(t_list *intern, t_parameter *param);
+int			replace_expansion(t_list *intern, t_parameter *param);
+int			exists_expansion(t_list *intern, t_parameter *param);
+int			assign_expansion(t_list *intern, t_parameter *param);
+int			default_expansion(t_list *intern, t_parameter *param);
+void		parameter_print_debug(t_list *token_list);
 #endif

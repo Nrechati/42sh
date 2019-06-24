@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/24 17:19:18 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/06/24 18:13:15 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ CC = clang
 LINK = $(CC)
 LINKD = $(CC) -g3 -fsanitize=address,undefined
 COMPILE = $(CC) -c
-DEBUG = $(CC) -g3 -c
+DEBUG = $(CC) -g3 -c -fsanitize=address
 
 # ---------------------------------------------------------------------------- #
 #									Commands                                   #
@@ -125,7 +125,7 @@ P_BUILTIN += module/builtin/unset/
 P_BUILTIN += module/builtin/fc/
 
 P_EXPANSION += module/expansion/
-P_EXPANSION += module/expansion/lexers/
+P_EXPANSION += module/expansion/parameter/
 P_EXPANSION += module/expansion/parsers/
 
 P_LEXER += module/lexer/
@@ -391,6 +391,7 @@ INTERPRETER += print_tools.c
 #						   - - - - Expansion - - - -                           #
 
 EXPANSION += expansion.c
+EXPANSION += expansion_debug.c
 EXPANSION += quoting.c
 EXPANSION += tilde.c
 EXPANSION += variable.c
@@ -398,6 +399,10 @@ EXPANSION += parameter.c
 EXPANSION += parameter_lexer.c
 EXPANSION += parameter_lexer_word.c
 EXPANSION += parameter_parser.c
+EXPANSION += parameter_get.c
+EXPANSION += parameter_actions.c
+EXPANSION += parameter_suffix_prefix.c
+
 
 #						   - - - -   Lexer   - - - -                           #
 

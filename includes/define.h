@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 15:47:05 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:13:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,10 @@
 *****************************************************
 */
 
-# define EXP_INTERUPT				" \t\'\"`$/"
+# define EXP_INTERUPT				" \\\t\'\"`$/"
+# define EXP_CHECK					" \\\t\'\"`/"
+# define BACKSLASH_DQUOTE			"\\$\"\n"
+# define EXP_SPECIAL				"$0?"
 
 /*
 *****************************************************
@@ -242,7 +245,7 @@
 # define N_DB_QUOTE					"\""
 # define N_PIPE						"|"
 # define N_PARENT_OPEN				"("
-# define N_PARENT_CLOSE				")" 
+# define N_PARENT_CLOSE				")"
 # define N_GREAT					">"
 # define N_LESS						"<"
 # define N_SEMICOLON				";"

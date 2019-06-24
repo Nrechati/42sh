@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:51:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/20 10:51:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:09:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	delete_parameter(t_parameter *parameter)
 int		error_parameter(char **dest, t_parameter *parameter)
 {
 	ft_strdel(dest);
+	ft_strdel(&parameter->expanded);
 	delete_parameter(parameter);
 	return (-1);
 }
@@ -58,10 +59,7 @@ int 	parameter_expansion(t_list *intern, char **dest, int i)
 	if (parameter_parse(intern, &parameter))
 		return (error_parameter(dest, &parameter));
 	if (parameter_get(intern, &parameter))
-	{
-		ft_dprintf(2, "42sh: bad substitution\n");
 		return (error_parameter(dest, &parameter));
-	}
 	if (parameter_replace(dest, i, &parameter))
 		return (error_parameter(dest, &parameter));
 	delete_parameter(&parameter);
