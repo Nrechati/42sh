@@ -1,4 +1,5 @@
 #include "sh21.h"
+#include <sys/ioctl.h>
 
 void	post_process(t_autocomplete *result)
 {
@@ -40,15 +41,19 @@ static size_t	get_elem_by_col(t_autocomplete *result, int elem_by_line)
 	return (elem_by_col);
 }
 
-void		print_possibilities(t_autocomplete *result, int col)
+void		print_possibilities(t_autocomplete *result)
 {
-	t_list		*tmp;
-	t_list		*lst;
-	size_t		i;
-	size_t		j;
-	size_t		elem_by_col;
-	size_t		elem_by_line;
+	t_list			*tmp;
+	t_list			*lst;
+	size_t			i;
+	size_t			j;
+	size_t			elem_by_col;
+	size_t			elem_by_line;
+	int				col;
+	struct	winsize	w;
 
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) != FAILURE) 
+		col = w.ws_col;
 	result->max_len++;
 	if (result->list == NULL || result->nb == 0)
 		return ;
