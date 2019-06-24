@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 21:33:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/20 11:13:12 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:18:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	default_io(const uint8_t std, char *tty_name)
 	return ;
 }
 
-void	set_process_pgid(void *context, void *data)
+int		set_process_pgid(void *context, void *data)
 {
 	t_job		*job;
 	t_process	*process;
@@ -37,5 +37,5 @@ void	set_process_pgid(void *context, void *data)
 	job = context;
 	process = data;
 	process->pgid = &job->pgid;
-	return ;
+	return (SUCCESS);
 }

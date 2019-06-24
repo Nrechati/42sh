@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 19:21:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:34:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ void		fork_process(t_registry *shell, t_process *process)
 {
 	char			**env;
 
-	env = generate_env(shell, process->env);
+	if ((env = generate_env(shell, process->env)) == NULL)
+	{
+		process->process_type |= IS_EXP_ERROR;
+		return ;
+	}
 	if ((process->pid = fork()) < 0) // IF ERREUR
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
@@ -68,12 +72,34 @@ void		fork_process(t_registry *shell, t_process *process)
 		parent_process(shell, process, &env);
 }
 
-static void	update_intern(t_variable *variable, char *data)
+static int	update_intern(t_variable *variable, char *data)
 {
+	if (variable->flag & READONLY_VAR)
+	{
+		ft_dprintf(STDERR_FILENO,"42sh:`%s': not a valid identifier\n"
+				, variable->name);
+		return (FAILURE);
+	}
 	ft_strdel(&variable->data);
-	variable->data = ft_strdup(data);
+	variable->data = expansion_pipeline(g_shell->intern, data);
 	if (variable->flag == EXPORT_VAR)
 		variable->flag |= SET_VAR;
+	return (SUCCESS);
+}
+
+int			insert_intern(t_list **intern, t_list *node)
+{
+	t_variable 	*variable;
+	char		*holder;
+
+	variable = node->data;
+	if ((holder = expansion_pipeline(*intern, variable->data)) == NULL)
+		return (FAILURE);
+	ft_strdel(&variable->data);
+	variable->data = holder;
+	node->next = NULL;
+	ft_lstadd(intern, node);
+	return (SUCCESS);
 }
 
 int			assign_intern(t_registry *shell, t_list **assign)
@@ -83,18 +109,22 @@ int			assign_intern(t_registry *shell, t_list **assign)
 
 	if (*assign == NULL)
 		return (1);
-	assign_intern(shell, &(*assign)->next);
-	to_find = (*assign)->data;
-	if ((node = ft_lstfind(shell->intern, to_find->name, find_var)))
+	if (assign_intern(shell, &(*assign)->next) == 1)
 	{
-		update_intern(node->data, to_find->data);
-		ft_lstdelone(assign, free_node);
+		to_find = (*assign)->data;
+		if ((node = ft_lstfind(shell->intern, to_find->name, find_var)))
+		{
+			if (update_intern(node->data, to_find->data) == FAILURE)
+				return (FAILURE);
+			ft_lstdelone(assign, free_node);
+		}
+		else
+		{
+			if (insert_intern(&shell->intern, *assign) == FAILURE)
+				return (FAILURE);
+		}
+		*assign = NULL;
+		return (SUCCESS);
 	}
-	else
-	{
-		(*assign)->next = NULL;
-		ft_lstadd(&shell->intern, (*assign));
-	}
-	*assign = NULL;
-	return (1);
+	return (FAILURE);
 }

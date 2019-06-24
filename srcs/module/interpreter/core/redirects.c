@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/19 21:13:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:13:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-void	check_redirect_error(void *context, void *data)
+int		check_redirect_error(void *context, void *data)
 {
 	t_process		*process;
 	t_redirect		*redirect;
@@ -29,6 +29,7 @@ void	check_redirect_error(void *context, void *data)
 		ft_dprintf(2, SH_GENERAL_ERROR SH_MALLOC_ERROR);
 		process->process_type |= IS_CRITICAL;
 	}
+	return (SUCCESS);
 }
 
 int		redirect_or_other(__unused void *context, void *data)
