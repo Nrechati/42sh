@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 12:37:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:36:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ static void		run_process(void *context, void *data)
 
 	shell = context;
 	process = data;
-	if (expand_process(shell->intern, process->av))
+	if (expand_process(shell->intern, process->av) == FAILURE)
+	{
+		process->process_type |= IS_EXP_ERROR;
 		return ;
+	}
 	if (get_process_type(shell, process) == FAILURE)
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR SH_MALLOC_ERROR);

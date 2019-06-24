@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:16:54 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 18:04:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:28:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	pex_parameter(t_parameter *param)
 
 static void	pex_delimiter(t_parameter *param)
 {
-	if (ft_strchr(PEX_VALID_DELIM, param->source[param->index]) == NULL)
+	if (ft_strlen(param->buffer->buffer) == 2
+			|| ft_strchr(PEX_VALID_DELIM, param->source[param->index]) == NULL)
 	{
 		generate_pex_token(param);
 		if (param->source[param->index] == '}')

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 18:13:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:35:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,6 +360,7 @@
 # define IS_OPEN_FAILED				0x040
 # define IS_DUP_FAILED				0x080
 # define IS_CRITICAL				0x100
+# define IS_EXP_ERROR				0x200
 
 /*
 *****************************************************

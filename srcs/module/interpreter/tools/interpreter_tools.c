@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:30:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/20 11:28:20 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:40:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 int			get_failed_process(void *data, void *context)
 {
 	t_process	*current;
+	uint16_t		errors;
 
 	(void)context;
 	current = data;
-	if (current->process_type & (IS_NOTFOUND | IS_OPEN_FAILED | IS_CRITICAL))
+	errors = 0;
+	errors = (IS_NOTFOUND | IS_EXP_ERROR | IS_OPEN_FAILED | IS_CRITICAL);
+	if (current->process_type & errors)
 		return (TRUE);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 15:09:35 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 18:40:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ typedef struct			s_process
 	char				**av;
 	t_list				*env;
 	t_list				*redirects;
-	uint8_t				process_type;
+	uint16_t			process_type;
 	uint8_t				completed;
 	uint8_t				stopped;
 	pid_t				pid;
