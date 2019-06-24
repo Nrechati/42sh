@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/20 12:37:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:38:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,20 @@ char			*get_filename(t_list *node)
 {
 	t_token		*token;
 	char		*filename;
+	char		*holder;
 
 	token = node->data;
-	filename = NULL;
-	if (token->data[0] == '/' || ft_strnequ("./", token->data, 2))
-		filename = ft_strdup(token->data);
+	holder = NULL;
+	if ((filename = expansion_pipeline(g_shell->intern, node->data)) == NULL)
+		return (NULL);
+	if (filename[0] == '/' || ft_strnequ("./", filename, 2))
+		return (filename);
 	else
-		ft_asprintf(&filename, "./%s", token->data);
-	return (filename);
+	{
+		ft_asprintf(&holder, "./%s", filename);
+		ft_strdel(&filename);
+		return (holder);
+	}
 }
 
 int				get_io(t_list *node)
@@ -74,10 +80,13 @@ int				write_heredoc(t_list *intern_var, t_vector **vector, int fd
 
 	index = 0;
 	string = expansion_pipeline(intern_var, (*vector)->buffer);
-	while (trim == TRIM_ON && ft_strchr(" \t", string[index]))
-		index++;
-	ft_putstr_fd(string + index, fd);
-	ft_strdel(&string);
-	vct_del(vector);
+	if (string)
+	{
+		while (trim == TRIM_ON && ft_strchr(" \t", string[index]))
+			index++;
+		ft_putstr_fd(string + index, fd);
+		ft_strdel(&string);
+		vct_del(vector);
+	}
 	return (0);
 }
