@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 16:13:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:15:25 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ t_quote	select_quoting(t_quote quote, const char c)
 	return (quote);
 }
 
-t_list			*tokens;
-
 char	*expansion_pipeline(t_list *intern_var, char *str)
 {
 	char		*dest;
@@ -46,9 +44,6 @@ char	*expansion_pipeline(t_list *intern_var, char *str)
 	ft_strdel(&dest);
 	if (expanded == NULL)
 		return (NULL);
-	arithmetic_exp(intern_var, expanded);
-
-	tokens = lexer(input, SHELL);
 	quote_removal(expanded);
 	return (expanded);
 }
