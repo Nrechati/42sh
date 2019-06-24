@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/20 07:54:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:07:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*variable_replace(t_list *lst, t_vector *str, uint32_t start_idx)
 	return (sub);
 }
 
-static int variable_concat(t_list *lst, char **dest, int i)
+static int 	variable_concat(t_list *lst, char **dest, int i)
 {
 	t_vector	*vector;
 
@@ -43,6 +43,28 @@ static int variable_concat(t_list *lst, char **dest, int i)
 	if ((*dest = variable_replace(lst, vector, i)) == NULL)
 		return (-1);
 	vct_del(&vector);
+	return (1);
+}
+
+static int	variable_special(t_list *intern, char **dest, int i)
+{
+	t_vector	*vector;
+	char		*expanded;
+
+	expanded = NULL;
+	vector = vct_dups(*dest);
+	if ((*dest)[i + 1] == '0')
+		expanded = get_var(intern, "0");
+	else if ((*dest)[i + 1] == '$')
+		expanded = get_var(intern, "$");
+	else
+		expanded = get_var(intern, "?");
+	ft_strdel(dest);
+	if (expanded)
+		vct_replace_string(vector, i, i + 2, expanded);
+	else
+		vct_replace_string(vector, i, i + 2, "");
+	*dest = ft_strdup(vct_get_string(vector));
 	return (1);
 }
 
@@ -55,9 +77,11 @@ static int	check_expansion(t_list *intern, char **dest, int i, t_quote quote)
 		return (0);
 	if ((*dest)[i + 1] == '{')
 		check = parameter_expansion(intern, dest, i);
+	else if (ft_strchr(EXP_SPECIAL, (*dest)[i + 1]))
+		check = variable_special(intern, dest, i);
 	else if ((*dest)[i + 1] != '\0')
 	{
-		if (ft_strchr(EXP_INTERUPT, (*dest)[i + 1]))
+		if (ft_strchr(EXP_CHECK, (*dest)[i + 1]))
 			check = 0;
 		else if (quote != QUOTE_SINGLE)
 			check = variable_concat(intern, dest, i);
@@ -81,7 +105,9 @@ char		*variable_expansion(t_list *intern_var, char *str)
 	{
 		if (ft_strchr("\'\"", dest[i]))
 			quote = select_quoting(quote, dest[i]);
-		if ((result = check_expansion(intern_var, &dest, i, quote)) == 1)
+		if (dest[i] == '\\' && (quote == QUOTE_OFF || quote == QUOTE_DOUBLE))
+			i = check_backslash(dest, quote, i);
+		else if ((result = check_expansion(intern_var, &dest, i, quote)) == 1)
 			len = ft_strlen(dest);
 		else if (result == -1)
 			return (NULL);

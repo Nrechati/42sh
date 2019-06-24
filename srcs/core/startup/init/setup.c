@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:13:32 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:58:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,23 @@ static t_list	*get_env(t_list **alst, char **env)
 	return (get_env(alst, ++env));
 }
 
+static void		default_variable(t_list **intern, char *name)
+{
+	char		*str;
+
+	str = NULL;
+	ft_asprintf(&str, "%d", getpid());
+	add_var(intern, "0", name, SET_VAR);
+	add_var(intern, "$", str, SET_VAR);
+	add_var(intern, "?", "0", SET_VAR);
+	ft_strdel(&str);
+}
+
 int8_t			set_environment(t_registry *shell, char **av, char **env)
 {
 	if (*av != NULL)
 	{
-		if (parse_arg(av, &shell->option) == FAILURE)
+		if (parse_arg(av + 1, &shell->option) == FAILURE)
 		{
 			ft_strdel(&(shell->option.command_str));
 			return (FAILURE);
@@ -69,6 +81,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 	if ((shell->option.option & HELP_OPT) != FALSE)
 		return (shell_usage());
 	get_env(&shell->intern, env);
+	default_variable(&shell->intern, av[0]);
 	shell->hash.bin = ft_hmap_init(HMAP_BIN_SIZE);
 	shell->hash.blt = ft_hmap_init(HMAP_BLT_SIZE);
 	generate_grammar();

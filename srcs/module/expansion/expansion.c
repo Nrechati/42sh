@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/20 03:46:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:07:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,19 @@ char	character_swap(const char swapped)
 	c = previous;
 	previous = swapped;
 	return (c);
+}
+
+int		check_backslash(char *dest, t_quote quote, int i)
+{
+	if (quote == QUOTE_DOUBLE)
+	{
+		if (ft_strchr(BACKSLASH_DQUOTE, dest[i + 1]))
+			return (i + 1);
+		else
+			return (i);
+	}
+	else
+		return (i + 1);
 }
 
 t_quote	select_quoting(t_quote quote, const char c)

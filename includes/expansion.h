@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/23 02:52:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:07:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char		*variable_expansion(t_list *intern_var, char *str);
 void		quote_removal(char *str);
 char		character_swap(char swapped);
 t_quote		select_quoting(t_quote quote, char c);
+int			check_backslash(char *dest, t_quote quote, int i);
 
 
 int			parameter_expansion(t_list *intern, char **dest, int i);

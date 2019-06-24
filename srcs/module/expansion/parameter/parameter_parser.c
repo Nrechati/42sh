@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:31:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/23 02:49:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:10:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int			get_delimiter(t_parameter *param, t_pex_token *token)
 		}
 		index++;
 	}
+	ft_dprintf(2, "42sh: bad substitution\n");
 	return (-1);
 }
 
