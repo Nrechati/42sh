@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 19:19:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:36:00 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static t_list	*get_env(t_list **alst, char **env)
 static void		default_variable(t_list **intern, char *name)
 {
 	char		*str;
+	t_vector	*option;
 
 	str = NULL;
 	ft_asprintf(&str, "%d", getpid());
@@ -66,6 +67,15 @@ static void		default_variable(t_list **intern, char *name)
 	add_var(intern, "$", str, READONLY_VAR);
 	add_var(intern, "?", "0", READONLY_VAR);
 	ft_strdel(&str);
+	option = vct_new(0);
+	if (g_shell->option.option & COMMAND_OPT) 
+		vct_add(option, 'c');
+	if (g_shell->option.option & DEBUG_OPT) 
+		vct_add(option, 'd');
+	if (g_shell->option.option & GARBAGE_COLLECTOR_OPT) 
+		vct_add(option, 'g');
+	add_var(intern, "-", vct_get_string(option), READONLY_VAR);
+	vct_del(&option);
 }
 
 int8_t			set_environment(t_registry *shell, char **av, char **env)
