@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 19:12:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:09:35 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef	struct			s_hashmap
 typedef struct			s_registry
 {
 	const char			**grammar;
+	const char			**grammar_m;
 	t_list				*intern;
 	t_opt				option;
 	t_hashmap			hash;
@@ -65,7 +66,7 @@ extern t_registry		*g_shell;
 typedef struct			s_token
 {
 	char				*data;
-	enum e_type			type;
+	int					type;
 }						t_token;
 
 typedef struct			s_lexer
@@ -75,7 +76,9 @@ typedef struct			s_lexer
 	t_vector			*input;
 	size_t				index;
 	enum e_lexer_state	state;
+	enum e_mtype		last_token_mtype;
 	enum e_type			token_type;
+	enum e_mtype		token_mtype;
 	uint16_t			inhibitor;
 	uint8_t				assignation;
 }						t_lexer;

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:24:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:15:01 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 	t_resolution	resolve;
 	t_list			*tokens;
 
-	tokens = lexer(input);
+	tokens = lexer(input, SHELL);
 	resolve = init_resolve(tokens);
 	while (resolve.tokens)
 	{

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 18:08:49 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:47:40 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,32 @@ typedef enum	e_type
 	E_ERROR,
 	E_DEFAULT,
 }				t_type;
+
+typedef enum	e_mtype
+{
+	E_M_TIMES,
+	E_M_DIVIDE,
+	E_M_MODULO,
+	E_M_PLUS,
+	E_M_MINUS,
+	E_M_OPENP,
+	E_M_CLOSEP,
+	E_M_LESS,
+	E_M_GREAT,
+	E_M_LESSOR,
+	E_M_GREATOR,
+	E_M_EQUAL,
+	E_M_NEQUAL,
+	E_M_AND,
+	E_M_OR,
+	E_M_ASSIGN,
+	E_M_STRING,
+	E_M_NB_DEC,
+	E_M_NB_OCT,
+	E_M_NB_HEX,
+	E_M_END,
+	E_M_DEFAULT
+}				t_mtype;
 
 /*
 *****************************************************
