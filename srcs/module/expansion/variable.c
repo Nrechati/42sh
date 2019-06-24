@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 15:07:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:37:32 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static int	variable_special(t_list *intern, char **dest, int i)
 		expanded = get_var(intern, "0");
 	else if ((*dest)[i + 1] == '$')
 		expanded = get_var(intern, "$");
+	else if ((*dest)[i + 1] == '-')
+		expanded = get_var(intern, "-");
 	else
 		expanded = get_var(intern, "?");
 	ft_strdel(dest);

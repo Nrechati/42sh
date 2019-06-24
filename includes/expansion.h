@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 18:07:50 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:37:08 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define PEX_STATES 		4
 # define PEX_DELIMITERS 	12
 # define PEX_ADVANCED_EXP 	6
-# define PEX_SPECIAL		"$0?"
+# define PEX_SPECIAL		"$0?-"
 # define PEX_PARAM_INTERUPT " ${}:-?=+%#\"\'"
 # define PEX_VALID_DELIM " :-?=+%#"
 # define PEX_FIRST_DELIM " {}-?=+%#"
