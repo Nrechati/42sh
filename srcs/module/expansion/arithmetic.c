@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 18:05:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:32:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int		arithmetic(__unused t_list *intern, char **output, int i)
 	if (arithmetic_analyzer(&arithmetic) == FAILURE)
 		return (FAILURE);
 	arithmetic_replace(&arithmetic, output, i);
-	return (SUCCESS);
+	return (1);
 }
 
 static int		check_math_expansion(t_list *intern, char **buff, int i, __unused t_quote quote)

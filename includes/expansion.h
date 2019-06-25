@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 19:10:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:24:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ struct	s_parameter
 /* ********************** ARITHMETIC *********************/
 
 #define	MATH_TOKEN		22
-#define	MATH_STATE		4
+#define	MATH_STATE		15
 #define OCTAL_BASE		"012345678"
 #define HEX_BASE		"0123456789ABCDEF"
 #define DEC_BASE		"0123456789"

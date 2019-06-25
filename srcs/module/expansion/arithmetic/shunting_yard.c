@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:38:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 18:12:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:23:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn)
 			if (handle_operator(curr, &operator, rpn) == FAILURE)
 				return (FAILURE);
 		}
-		else if (curr->type == RPN_PARENTHESIS)
+		else if (curr->type == RPN_PARENT_OPEN || curr->type == RPN_PARENT_CLOSE)
 		{
 			if (handle_bracket(curr, &operator, rpn) == FAILURE)
 				return (FAILURE);

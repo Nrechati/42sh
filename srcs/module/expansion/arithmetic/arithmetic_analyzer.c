@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 21:17:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:22:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void		del_infix(t_infix *infix)
 {
-
-
+	ft_stckdestroy(&infix->calcul, NULL);
 }
 
 void		m_get_token(t_arithmetic *arithmetic)
@@ -218,6 +217,7 @@ int8_t		push_solution(t_arithmetic *arithmetic, t_infix *infix)
 	if (calculator(infix) == FAILURE)
 		return (FAILURE);
 	token.value.digit = infix->result;
+	del_infix(infix);
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstaddback(&arithmetic->solving, node);
 	return (SUCCESS);
