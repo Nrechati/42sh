@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 09:33:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 09:43:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 static int	arithmetic(__unused t_list *intern, char **output, int i)
 {
+	t_list			*token_list;
 	t_arithmetic	math;
 
+	token_list = NULL;
 	ft_bzero(&math, sizeof(t_arithmetic));
 	math.source = *output + i;
 	math.index = 3;
 	math.buffer = vct_new(DEFAULT_BUFFER);
-	lexer(math.buffer, MATHS);
+	token_list = lexer(math.buffer, MATHS);
 	return (SUCCESS);
 }
 
