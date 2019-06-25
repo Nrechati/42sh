@@ -33,7 +33,8 @@ static void	prompt_post_process(t_registry *shell, t_sle *sle)
 	vct_add(sle->line, '\n');
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
-	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
+	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE
+			&& (shell->option.option & INTERACTIVE_OPT) == FALSE)
 		verif_line(sle);
 }
 

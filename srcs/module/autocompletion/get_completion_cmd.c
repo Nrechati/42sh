@@ -57,7 +57,7 @@ void			find_builtin(char * input, t_autocomplete *result)
 	char				*data;
 	size_t				len;
 	int					i;
-	static const char	*blt[] = {"echo", "cd", "hash", "exit",
+	static const char	*blt[] = {"echo", "cd", "hash", "exit", "kill"
 									"type", "export", "set", "unset",
 									"pwd", "fc", "bg", "fg", "jobs", NULL}; //ADD ALL BUILTIN
 

@@ -47,7 +47,7 @@ void					batch_mode(t_registry *shell)
 
 	cmd = get_input_cmd(shell);
 	if (cmd == NULL || ft_strcheck(vct_get_string(cmd), ft_isprint) == FALSE)
-		ft_dprintf(2, "42sh: Not a valid input.\n");
+		ft_putendl_fd("42sh: Not a valid input", 2);
 	else
 	{
 		execution_pipeline(shell, cmd);

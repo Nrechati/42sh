@@ -33,7 +33,7 @@ static int8_t			find_bin(char *path, char *bin, char **buf)
 	ft_asprintf(buf, "%s/%s", path, bin);
 	if (*buf == NULL)
 	{
-		ft_dprintf(2, HASH_GENERAL_ERROR HASH_MALLOC_ERROR);
+		ft_putendl_fd(HASH_GENERAL_ERROR HASH_MALLOC_ERROR, 2);
 		return (FAILURE);
 	}
 	if (ft_exists_and_is_exec(*buf) == TRUE)
@@ -54,7 +54,7 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
 	tab = ft_strsplit(get_var(shell->intern, "PATH"), ":");
 	if (tab == NULL)
 	{
-		ft_dprintf(2, HASH_GENERAL_ERROR HASH_MALLOC_ERROR);
+		ft_putendl_fd(HASH_GENERAL_ERROR HASH_MALLOC_ERROR, 2);
 		return (FAILURE);
 	}
 	i = 0;

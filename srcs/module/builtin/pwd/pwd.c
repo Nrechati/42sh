@@ -16,8 +16,8 @@
 
 char			*get_pwd(t_registry *shell, const t_option option)
 {
-	char	*pwd;
-	char	*env_value_pwd;
+	const char	*env_value_pwd;
+	char		*pwd;
 
 	pwd = NULL;
 	if ((option & P_OPT) == FALSE)
@@ -31,14 +31,14 @@ char			*get_pwd(t_registry *shell, const t_option option)
 	else
 		pwd = getcwd(pwd, PATH_MAX);
 	if (pwd == NULL)
-		ft_dprintf(STDERR_FILENO, "42sh: getcwd(): An error occurred\n");
+		ft_putendl_fd("42sh: getcwd(): An error occurred", STDERR_FILENO);
 	return (pwd);
 }
 
 t_option		get_option_pwd(char *s, t_option option)
 {
 	option = 0;
-	while (*s)
+	while (*s != '\0')
 	{
 		if (*s == 'L')
 			option |= L_OPT;
@@ -48,7 +48,7 @@ t_option		get_option_pwd(char *s, t_option option)
 		{
 			ft_dprintf(STDERR_FILENO,
 					"42sh: pwd: -%c: invalid option\n", *s);
-			ft_dprintf(STDERR_FILENO, "pwd: usage: pwd [-LP]\n");
+			ft_putendl_fd("pwd: usage: pwd [-LP]", STDERR_FILENO);
 			return (ERROR_OPT);
 		}
 		s++;
