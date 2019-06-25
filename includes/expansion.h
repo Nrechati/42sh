@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 17:35:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:10:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ enum				e_mathstate
 	MATH_CLOSE_PARENT,
 	MATH_PLUS,
 	MATH_MINUS,
+	MATH_PREFIX_PLUS,
+	MATH_PREFIX_MINUS,
+	MATH_DOUBLE_PLUS,
+	MATH_DOUBLE_MINUS,
 	MATH_STOP,
 	MATH_ERROR,
 	MATH_END
@@ -96,7 +100,8 @@ enum				e_mathstate
 enum				e_rpn
 {
 	RPN_OPERATOR,
-	RPN_PARENTHESIS,
+	RPN_PARENT_OPEN,
+	RPN_PARENT_CLOSE,
 	RPN_NUMBER,
 };
 
@@ -125,8 +130,11 @@ struct				s_arithmetic
 	t_list			*tokens;
 	t_list			*current;
 	t_token			*curr_token;
+	t_stack			compare;
 	t_stack			processing;
+	t_stack			sign;
 	t_list			*solving;
+	int				parenthesis;
 	t_mathstate		state;
 	char			*expanded;
 	size_t			end;
@@ -168,6 +176,7 @@ void		m_parenthesis_analyzer(t_arithmetic *arithmetic);
 void		m_variable_analyzer(t_arithmetic *arithmetic);
 void		m_plus_minus_analyzer(t_arithmetic *arithmetic);
 void		m_end_analyzer(t_arithmetic *arithmetic);
+void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic);
 
 int8_t		calculator(t_infix *infix);
 uint8_t		need_pop_operator(t_rpn_tk *curr, t_stack *operator);

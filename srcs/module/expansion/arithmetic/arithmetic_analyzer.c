@@ -6,11 +6,17 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 17:48:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:17:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void		del_infix(t_infix *infix)
+{
+
+
+}
 
 void		m_get_token(t_arithmetic *arithmetic)
 {
@@ -19,7 +25,6 @@ void		m_get_token(t_arithmetic *arithmetic)
 	arithmetic->current->next = NULL;
 	arithmetic->curr_token = arithmetic->current->data;
 }
-
 
 void		convert_number(t_rpn_tk *current, t_token *token)
 {
@@ -55,7 +60,10 @@ void		m_number_analyzer(t_arithmetic *arithmetic)
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
-	ft_lstaddback(&arithmetic->solving, node);
+	if (arithmetic->parenthesis > 0)
+		ft_stckpushnode(&arithmetic->processing, node);
+	else
+		ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic);
 }
 
@@ -68,17 +76,19 @@ void		m_parenthesis_analyzer(t_arithmetic *arithmetic)
 	if (arithmetic->curr_token->type == E_M_OPENP)
 	{
 		arithmetic->state = MATH_OPEN_PARENT;
-		token.type = RPN_PARENTHESIS;
+		arithmetic->parenthesis++;
+		token.type = RPN_PARENT_OPEN;
 	}
 	else
 	{
 		arithmetic->state = MATH_CLOSE_PARENT;
-		token.type = RPN_PARENTHESIS;
+		arithmetic->parenthesis++;
+		token.type = RPN_PARENT_CLOSE;
 	}
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
-	ft_lstaddback(&arithmetic->solving, node);
+	ft_stckpushnode(&arithmetic->processing, node);
 	m_get_token(arithmetic);
 }
 
@@ -108,7 +118,10 @@ void		m_operator_analyzer(t_arithmetic *arithmetic)
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
-	ft_lstaddback(&arithmetic->solving, node);
+	if (arithmetic->parenthesis > 0)
+		ft_stckpushnode(&arithmetic->processing, node);
+	else
+		ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic);
 }
 
@@ -144,6 +157,21 @@ void		m_end_analyzer(t_arithmetic *arithmetic)
 	arithmetic->curr_token = NULL;
 }
 
+void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic)
+{
+	ft_stckpushnode(&arithmetic->processing, arithmetic->current);
+	if (arithmetic->curr_token->type == E_M_PLUS)
+		arithmetic->state = MATH_PREFIX_PLUS;
+	else
+		arithmetic->state = MATH_PREFIX_MINUS;
+	m_get_token(arithmetic);
+}
+
+void		m_stop_analyzer(t_arithmetic *arithmetic)
+{
+	arithmetic->state = MATH_STOP;
+}
+
 char		*package_expression(t_arithmetic *arithmetic)
 {
 	char		*output;
@@ -163,6 +191,49 @@ char		*package_expression(t_arithmetic *arithmetic)
 	return (output);
 }
 
+void		flush_processing(t_arithmetic *arithmetic, t_infix *infix)
+{
+	t_list		*node;
+	t_rpn_tk	*token;
+
+	node = NULL;
+	token = NULL;
+	while (token->type != RPN_PARENT_OPEN)
+	{
+		node = ft_stckpopnode(&arithmetic->processing);
+		token = node->data;
+		ft_lstadd(&infix->calcul.head, node);
+	}
+}
+
+int8_t		push_solution(t_arithmetic *arithmetic, t_infix *infix)
+{
+	t_list 			*node;
+	t_rpn_tk		token;
+
+	token.type = RPN_NUMBER;
+	infix->calcul.size = ft_lstlen(arithmetic->solving);
+	infix->calcul.head = arithmetic->solving;
+	arithmetic->solving = NULL;
+	if (calculator(infix) == FAILURE)
+		return (FAILURE);
+	token.value.digit = infix->result;
+	node = ft_lstnew(&token, sizeof(t_rpn_tk));
+	ft_lstaddback(&arithmetic->solving, node);
+	return (SUCCESS);
+}
+
+void		process_current_arithmetic(t_arithmetic *arithmetic)
+{
+	t_infix		infix;
+
+	ft_bzero(&infix, sizeof(t_infix));
+	if (arithmetic->parenthesis)
+		flush_processing(arithmetic, &infix);
+	else
+		push_solution(arithmetic, &infix);
+}
+
 int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
 {
 	static t_ar_analyzer	*analyzer = NULL;
@@ -171,7 +242,11 @@ int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
 		analyzer = init_math_analyzer();
 	m_get_token(arithmetic);
 	while (arithmetic->state != MATH_END && arithmetic->state != MATH_ERROR)
+	{
+		if (arithmetic->state == MATH_STOP)
+			process_current_arithmetic(arithmetic);
 		(*analyzer)[arithmetic->state][arithmetic->curr_token->type](arithmetic);
+	}
 	arithmetic->expanded = package_expression(arithmetic);
 	if (arithmetic->expanded == NULL)
 		return (FAILURE);

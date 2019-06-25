@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 17:35:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:05:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int8_t	find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t 
 	return (FAILURE);
 }
 
-int		arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
+int				arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 {
 	t_vector *vector;
 
@@ -57,7 +57,7 @@ int		arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 	return (0);
 }
 
-static int	arithmetic(__unused t_list *intern, char **output, int i)
+static int		arithmetic(__unused t_list *intern, char **output, int i)
 {
 	t_list			*token_list;
 	t_arithmetic	arithmetic;
@@ -76,7 +76,7 @@ static int	arithmetic(__unused t_list *intern, char **output, int i)
 	return (SUCCESS);
 }
 
-static int	check_math_expansion(t_list *intern, char **buff, int i, __unused t_quote quote)
+static int		check_math_expansion(t_list *intern, char **buff, int i, __unused t_quote quote)
 {
 	char	*input;
 	int		check;
