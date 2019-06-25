@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 16:03:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:28:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void		set_status(t_registry *shell, t_job *job,
 	exit_status = NULL;
 	if (WIFSTOPPED(status))
 	{
-
 		job->state = STOPPED;
 		job->signo = WSTOPSIG(status);
 		current->stopped = TRUE;
@@ -39,7 +38,6 @@ static void		set_status(t_registry *shell, t_job *job,
 	}
 	if (WIFSIGNALED(status))
 	{
-//		ft_printf("%s terminated with status %d by %d\n", current->av[0], status, WTERMSIG(status));
 		exit_status = ft_itoa(WTERMSIG(status) + 128);
 		current->stopped = TRUE;
 	}

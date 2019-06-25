@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 20:54:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:42:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "sh21.h"
 
-static void			remove_job_from_active_list(t_list **list, t_job *job)
+void			remove_job_from_active_list(t_list **list, t_job *job)
 {
 	t_list	*ptr;
 	t_list	*job_ptr;
@@ -37,7 +37,8 @@ static void			remove_job_from_active_list(t_list **list, t_job *job)
 
 void	update_currents(t_registry *shell, t_job *job)
 {
-	if (shell->job_list == NULL)
+	t_list *jobs;
+  	if (shell->job_list == NULL)
 	{
 		shell->current_minus = NULL;
 		shell->current_plus = NULL;
@@ -46,9 +47,15 @@ void	update_currents(t_registry *shell, t_job *job)
 	{
 		if (job != (t_job*)shell->current_minus->data)
 			shell->current_plus = shell->current_minus;
-		for (t_list *job = shell->job_list; job != NULL; job = job->next)
-			if (job != shell->current_plus && job != NULL)
-				shell->current_minus = job;
+		jobs = shell->job_list;
+		while (jobs != NULL)
+		{
+			if (jobs != shell->current_plus && jobs != NULL)
+				shell->current_minus = jobs;
+			jobs = jobs->next;
+		}
+		if (shell->job_list->next == NULL)
+			shell->current_minus = NULL;
 	}
 }
 
@@ -123,6 +130,7 @@ void	job_run_background(__unused t_registry *shell, t_job *job)
 		job->state = RUNNING;
 		job->signo = SIGCONT;
 		killpg(job->pgid, SIGCONT);
+		waiter(shell, job);
 	}
 }
 

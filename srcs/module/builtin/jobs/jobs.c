@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 16:03:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 21:12:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:20:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ t_option		get_option_jobs(char *s, t_option option)
 	return (option);
 }
 
+void		jobs(t_registry *shell, t_job *job, t_option option)
+{
+	if (option & L_OPT)
+		jobctl(shell, job, JOBCTL_LIST | JOBCTL_LONG);
+	else if (option & P_OPT)
+		jobctl(shell, job, JOBCTL_LIST | JOBCTL_ID);
+	else
+		jobctl(shell, job, JOBCTL_LIST);
+}
 
 int8_t		jobs_blt(t_registry *shell, char **av)
 {
@@ -41,30 +50,24 @@ int8_t		jobs_blt(t_registry *shell, char **av)
 	int8_t		result;
 
 	++av;
-	option = 0;
 	if ((option = set_options(&av, get_option_jobs)) == ERROR_OPT)
 		return (FAILURE);
-
-
-	while (av != NULL)
+	if (*av == NULL)
+		jobs(shell, NULL, option);
+	else
 	{
-		job = NULL;
-		result = parse_jobid(&job, *av);
-
-		if (job == NULL)
-		if (result == FAILURE)
+		while (*av != NULL)
 		{
-			ft_printf("jobs: no such job.\n");
+			result = parse_jobid(&job, *av);
+			if (result == FAILURE)
+			{
+				ft_printf("jobs: %s: no such job.\n", *av);
+				++av;
+				continue ;
+			}
+			jobs(shell, job, option);
 			++av;
-			continue ;
 		}
-		if (option & L_OPT)
-			jobctl(shell, job, JOBCTL_LIST | JOBCTL_LONG);
-		else if (option & P_OPT)
-			jobctl(shell, job, JOBCTL_LIST | JOBCTL_ID);
-		else
-			jobctl(shell, job, JOBCTL_LIST);
-		++av;
 	}
 	return (SUCCESS);
 }

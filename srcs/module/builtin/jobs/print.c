@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:59:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 16:15:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:45:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,21 @@ static void	print_joblist(__unused uint8_t flag)
 	}
 }
 
+void	remove_done_jobs(t_registry *shell)
+{
+	t_job	*job;
+	t_list	*job_ptr;
+
+	job_ptr = shell->job_list;
+	while (job_ptr != NULL)
+	{
+		job = (t_job*)job_ptr->data;
+		if (job->state & ENDED)
+			remove_job_from_active_list(&shell->job_list, job);
+		job_ptr = job_ptr->next;
+	}
+}
+
 void	print_jobs(t_job *job, uint8_t flag)
 {
 	t_list	*job_ptr;
@@ -101,4 +116,6 @@ void	print_jobs(t_job *job, uint8_t flag)
 		print_joblist(flag);
 	else
 		print_jobinfo(job, flag);
+	update_job_ids(g_shell);
+	remove_done_jobs(g_shell);
 }

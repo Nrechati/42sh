@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:16:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 18:15:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:08:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int8_t			parse_jobid(t_job **job, char *param)
 {
 	uint32_t	job_id;
 
+	*job = NULL;
 	if (param == NULL)
 		return (SUCCESS);
 	if (*param == '%')
@@ -105,9 +106,7 @@ int8_t			parse_jobid(t_job **job, char *param)
 				return (get_current_job(job, *param));
 			else
 				return (parse_jobname(job, param));
-
 		}
 	}
 	return (FAILURE);
 }
-

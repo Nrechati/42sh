@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 15:39:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 21:03:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:20:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,25 @@ int8_t	bg_blt(t_registry *shell, __unused char **av)
 	int8_t	result;
 
 	++av;
-	while (av != NULL)
+	if (*av == NULL)
 	{
-		job = NULL;
-		result = parse_jobid(&job, *av);
-
-		if (result == FAILURE || (result == SUCCESS && shell->current_plus == NULL))
-			ft_printf("bg: no such job.\n");
-		else if (job == NULL && shell->current_plus != NULL)
+		if (shell->current_plus != NULL)
 			job = ((t_job*)(shell->current_plus)->data);
+		else
+		{
+			ft_printf("bg: no current job.\n");
+			return (FAILURE);
+		}
 		jobctl(shell, job, JOBCTL_RUNINBG);
+	}
+	while (*av != NULL)
+	{
+		result = parse_jobid(&job, *av);
+		if (result == FAILURE || (result == SUCCESS && shell->current_plus == NULL))
+			ft_printf("bg: %s: no such job.\n", *av);
+		else
+			jobctl(shell, job, JOBCTL_RUNINBG);
 		++av;
 	}
-	return (0);
+	return (SUCCESS);
 }
