@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fg.c                                               :+:      :+:    :+:   */
+/*   get_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/24 15:37:48 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 16:02:41 by skuppers         ###   ########.fr       */
+/*   Created: 2019/06/25 15:01:21 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/25 15:44:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t	fg_blt(__unused t_registry *shell, char **av)
+void state_to_str(uint8_t state, char **str)
 {
-	t_job	*job;
+	*str = ft_strnew(32);
 
-	++av;
-	job = parse_jobid(*av);
-
-	if (job == NULL && shell->current_plus != NULL)
-		job = ((t_job *)shell->current_plus->data);
-	if (job == NULL)
-		ft_printf("fg: no current job.\n");
+	if (state == PENDING)
+		ft_strcpy(*str, "Pending");
+	else if (state == RUNNING)
+		ft_strcpy(*str, "Running");
+	else if (state == STOPPED)
+		ft_strcpy(*str, "Stopped");
 	else
-		jobctl(shell, job, JOBCTL_PUTINFG);
-	return (0);
+		ft_strcpy(*str, "Unknown");
 }

@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/24 18:14:17 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/25 15:49:33 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -270,9 +270,12 @@ AUTOCOMPLETION += print_result.c
 BUILTIN += blt_options.c
 
 #JOBS
+BUILTIN += bg.c
 BUILTIN += fg.c
 BUILTIN += jobs.c
 BUILTIN += print.c
+BUILTIN += get_state.c
+BUILTIN += get_avs.c
 #BUILTIN += utils.c
 
 

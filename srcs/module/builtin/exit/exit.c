@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:59:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 11:42:25 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:07:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ int8_t			exit_blt(t_registry *shell, char **av)
 {
 	int		ret;
 
+	if (shell->job_list != NULL)
+	{
+		ft_printf("They are stopped jobs.\n");
+		return (FAILURE);
+	}
 	++av;
 	if (*av != NULL)
 	{

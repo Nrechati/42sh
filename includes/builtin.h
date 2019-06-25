@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 18:11:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 15:44:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,16 @@
 *****************************************************
 */
 
+int8_t	bg_blt(t_registry *shell, char **av);
 int8_t	fg_blt(t_registry *shell, char **av);
 int8_t	jobs_blt(t_registry *shell, char **av);
 
 void	print_jobs(t_job *job, uint8_t flag);
+
+void	av_to_str(t_process);
+void	state_to_str(uint8_t state, char **str);
+void	get_job_av(t_job *job, char **str);
+void	get_process_av(t_process *proc, char **str);
 
 t_job	*parse_jobid(char *param);
 t_job	*parse_jobname(char *jobname);

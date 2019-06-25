@@ -6,14 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:16:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 19:07:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:02:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-
-//void	remove_job_from_joblist();
 
 t_job	*id_to_job(uint64_t job_id)
 {
@@ -31,10 +28,12 @@ t_job	*id_to_job(uint64_t job_id)
 
 t_job			*get_current_job(char c)
 {
-	if (c == '+')
-		return ((t_job *)g_shell->current_plus->data);
-	else
-		return ((t_job *)g_shell->current_minus->data);
+
+	if (c == '+' && g_shell->current_plus != NULL)
+		return (((t_job *)g_shell->current_plus->data));
+	else if (g_shell->current_minus != NULL)
+		return (((t_job *)g_shell->current_minus->data));
+	return (NULL);
 }
 
 t_job			*parse_jobname(char *jobname)
@@ -74,7 +73,7 @@ t_job			*parse_jobid(char *param)
 		}
 		else
 		{
-			if (*param == '-' || *param == '+')
+			if (*param == '-')
 				return (get_current_job(*param));
 			else
 				return (parse_jobname(param));

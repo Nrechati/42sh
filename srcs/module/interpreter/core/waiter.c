@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 18:27:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:03:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ static void		set_status(t_registry *shell, t_job *job,
 		job->state = STOPPED;
 		job->signo = WSTOPSIG(status);
 		current->stopped = TRUE;
-
 		shell->active_jobs++;
 		job->id = (shell->active_jobs);
-
 		jobctl(shell, job, JOBCTL_PUTINBG);
 	}
 	if (WIFEXITED(status))
@@ -38,11 +36,10 @@ static void		set_status(t_registry *shell, t_job *job,
 			current->completed = ERROR;
 		else
 			current->completed = TRUE;
-//		tcsetpgrp(STDOUT_FILENO, job->pgid);
 	}
 	if (WIFSIGNALED(status))
 	{
-		ft_printf("%s terminated with status %d by %d\n", current->av[0], status, WTERMSIG(status));
+//		ft_printf("%s terminated with status %d by %d\n", current->av[0], status, WTERMSIG(status));
 		exit_status = ft_itoa(WTERMSIG(status) + 128);
 		current->stopped = TRUE;
 	}
