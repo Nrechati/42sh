@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 15:44:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:33:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	state_to_str(uint8_t state, char **str);
 void	get_job_av(t_job *job, char **str);
 void	get_process_av(t_process *proc, char **str);
 
-t_job	*parse_jobid(char *param);
-t_job	*parse_jobname(char *jobname);
-t_job	*get_current_job(char c);
-t_job	*id_to_job(uint64_t job_id);
+int8_t	parse_jobid(t_job **job, char *param);
+//t_job	*parse_jobname(char *jobname);
+//t_job	*get_current_job(char c);
+//t_job	*id_to_job(uint64_t job_id);
 
 /*
 *****************************************************

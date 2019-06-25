@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 16:03:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 19:58:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:12:57 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,34 @@ t_option		get_option_jobs(char *s, t_option option)
 int8_t		jobs_blt(t_registry *shell, char **av)
 {
 	t_option	option;
-	t_job		*job_to_display;
+	t_job		*job;
+	int8_t		result;
 
 	++av;
 	option = 0;
-
 	if ((option = set_options(&av, get_option_jobs)) == ERROR_OPT)
 		return (FAILURE);
 
-	job_to_display = parse_jobid(*av);
 
-	if (option & L_OPT)
-		jobctl(shell, job_to_display, JOBCTL_LIST | JOBCTL_LONG);
-	else if (option & P_OPT)
-		jobctl(shell, job_to_display, JOBCTL_LIST | JOBCTL_ID);
-	else
-		jobctl(shell, job_to_display, JOBCTL_LIST);
+	while (av != NULL)
+	{
+		job = NULL;
+		result = parse_jobid(&job, *av);
+
+		if (job == NULL)
+		if (result == FAILURE)
+		{
+			ft_printf("jobs: no such job.\n");
+			++av;
+			continue ;
+		}
+		if (option & L_OPT)
+			jobctl(shell, job, JOBCTL_LIST | JOBCTL_LONG);
+		else if (option & P_OPT)
+			jobctl(shell, job, JOBCTL_LIST | JOBCTL_ID);
+		else
+			jobctl(shell, job, JOBCTL_LIST);
+		++av;
+	}
 	return (SUCCESS);
 }

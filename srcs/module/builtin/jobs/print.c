@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:59:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 15:57:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:15:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	print_jobinfo(__unused t_job *job, uint8_t __unused flag)
 	else if (flag & JOBCTL_ID)
 		ft_printf("%d\n", job->pgid);
 	else
-		ft_printf("[%d] %c %s \t %s\n", job->id, job->current, state, command);
+		ft_printf("[%d]%c %s \t %s\n", job->id, job->current, state, command);
 	ft_strdel(&state);
 	ft_strdel(&command);
 }
@@ -74,7 +74,7 @@ static void	print_joblist(__unused uint8_t flag)
 		else if (flag & JOBCTL_ID)
 			ft_printf("%d\n", job->pgid);
 		else
-			ft_printf("[%d] %c %s \t %s\n", job->id, job->current,
+			ft_printf("[%d]%c %s \t %s\n", job->id, job->current,
 							state, avs);
 		ft_strdel(&state);
 		ft_strdel(&avs);
