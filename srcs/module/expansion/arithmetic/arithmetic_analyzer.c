@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 17:46:09 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:48:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,10 @@ void		m_end_analyzer(t_arithmetic *arithmetic)
 
 char		*package_expression(t_arithmetic *arithmetic)
 {
-	char		*ouput;
+	char		*output;
 	t_infix		infix;
 
-	ouput = NULL;
+	output = NULL;
 	ft_bzero(&infix, sizeof(t_infix));
 	if (ft_stcksize(&arithmetic->processing) > 0)
 		;
@@ -159,8 +159,8 @@ char		*package_expression(t_arithmetic *arithmetic)
 	infix.calcul.head = arithmetic->solving;
 	if (calculator(&infix) == FAILURE)
 		return (NULL);
-	ft_asprintf(&ouput, "%ld", infix.result);
-	return (ouput);
+	ft_asprintf(&output, "%ld", infix.result);
+	return (output);
 }
 
 int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
