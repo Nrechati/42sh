@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 13:13:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:17:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int8_t	find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t 
 	ft_dprintf(2, "No end of expansion token\n");
 	return (FAILURE);
 }
-
 
 static int	arithmetic(__unused t_list *intern, char **output, int i)
 {
