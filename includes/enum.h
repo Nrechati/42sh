@@ -116,6 +116,7 @@ typedef enum	e_mtype
 	E_M_NB_DEC,
 	E_M_NB_OCT,
 	E_M_NB_HEX,
+	E_M_DELIMITER,
 	E_M_END,
 	E_M_DEFAULT
 }				t_mtype;

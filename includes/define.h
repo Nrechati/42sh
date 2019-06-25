@@ -185,7 +185,7 @@
 */
 
 # define NB_OF_TOKENS				50
-# define NB_OF_MTOKENS				22
+# define NB_OF_MTOKENS				23
 
 # define START_OPERATOR				29
 # define END_OPERATOR				1
@@ -317,6 +317,7 @@
 # define M_NB_DEC					"nb dec"
 # define M_NB_OCT					"nb oct"
 # define M_NB_HEX					"nb hex"
+# define M_DELIMITER				"blank"
 # define M_END						"end"
 # define M_START					"START"
 

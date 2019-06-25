@@ -75,7 +75,8 @@ uint8_t	is_input_end_m(t_lexer *lexer)
 {
 	if (get_input(lexer, CUR_CHAR) == '\0')
 	{
-		if (lexer->token_mtype != E_M_DEFAULT)
+		if (lexer->token_mtype != E_M_DEFAULT
+				&& lexer->token_mtype != E_M_DELIMITER)
 			out_lexer_m(lexer);
 		lexer->token_mtype = E_M_END;
 		return (TRUE);
@@ -124,7 +125,13 @@ uint8_t	is_delimiter_m(t_lexer *lexer)
 	else if (get_input(lexer, CUR_CHAR) == '\n')
 		ret = TRUE;
 	if (ret == TRUE && lexer->token_mtype != E_M_DEFAULT)
-		out_lexer_m(lexer);
+	{
+		if (lexer->token_mtype != E_M_DELIMITER)
+			out_lexer_m(lexer);
+		lexer->token_mtype = E_M_DELIMITER;
+		//if (lexer->last_token_mtype != E_M_DELIMITER)
+			out_lexer_m(lexer);
+	}
 	return (ret);
 }
 
