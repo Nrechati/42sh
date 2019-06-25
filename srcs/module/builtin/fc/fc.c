@@ -27,7 +27,7 @@ t_option		get_option_fc(char *s, t_option option)
 	return (option);
 }
 
-static char			*get_fc_options(char ***av, t_option *option)
+static char		*get_fc_options(char ***av, t_option *option)
 {
 	char	*editor;
 

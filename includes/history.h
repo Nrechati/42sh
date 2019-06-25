@@ -20,8 +20,6 @@
 */
 
 char		*history(t_registry *shell, char *name, uint64_t option);
-void		add_new_entry(t_history *history, char *new);
-void		delete_entry(t_history *history, int id);
 char		*get_entry(t_history *history, char *search, uint64_t option);
 void		print_history(t_history *history, char *elem, uint64_t option);
 void		read_histfile(t_registry *shell, t_history *history);
@@ -46,5 +44,14 @@ void	pop_entry(t_entry **entry, t_entry **head);
 */
 
 int8_t		history_expansion(t_vector *input);
+
+/*
+*****************
+***** TOOLS *****
+*****************
+*/
+
+t_entry		*entry_roll_back(t_entry *entry);
+void		int_swap(int *nb1, int *nb2);
 
 #endif

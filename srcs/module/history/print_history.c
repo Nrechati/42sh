@@ -1,16 +1,5 @@
 #include "sh21.h"
 
-t_entry		*entry_roll_back(t_entry *entry)
-{
-	while (entry != NULL)
-	{
-		if (entry->prev == NULL)
-			return (entry);
-		entry = entry->prev;
-	}
-	return (entry);
-}
-
 static void		print_output(char *cmd, int fd, int line, uint64_t option)
 {
 	if (option & PRINT_ID)
@@ -53,15 +42,6 @@ static void		print_standard(t_history *history, t_param *param,
 		entry = entry->next;
 		i++;
 	}
-}
-
-void		int_swap(int *nb1, int *nb2)
-{
-	int		tmp;
-
-	tmp = *nb1;
-	*nb1 = *nb2;
-	*nb2 = tmp;
 }
 
 static void	get_elem(t_history *history, char *elem, t_param *param)

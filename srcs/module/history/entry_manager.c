@@ -48,7 +48,7 @@ void	free_history(t_entry *entry)
 ** create new entry
 */
 
-t_entry			*create_entry(char *cmd)
+t_entry	*create_entry(char *cmd)
 {
 	t_entry		*entry;
 

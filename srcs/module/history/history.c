@@ -1,6 +1,6 @@
 #include "sh21.h"
 
-void		add_new_entry(t_history *history, char *new)
+static void	add_new_entry(t_history *history, char *new)
 {
 	size_t		len;
 
@@ -16,7 +16,7 @@ void		add_new_entry(t_history *history, char *new)
 	history->nb_of_entries++;
 }
 
-void		delete_entry(t_history *history, int id)
+static void	delete_entry(t_history *history, int id)
 {
 	t_entry		*entry;
 	int			rel_id;

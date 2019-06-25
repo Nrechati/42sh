@@ -24,7 +24,7 @@ static uint8_t	is_history_end(t_vector *input, size_t offset)
 static int		searching(t_vector *input, t_vector *to_replace, size_t i,
 					uint64_t *option)
 {
-	int scale;
+	int	scale;
 
 	scale = 0;
 	if (vct_charat(input, i + scale) == '!')
@@ -48,7 +48,7 @@ static int		searching(t_vector *input, t_vector *to_replace, size_t i,
 	return (scale);
 }
 
-static char	*get_history_return(t_vector *to_replace, uint64_t option)
+static char		*get_history_return(t_vector *to_replace, uint64_t option)
 {
 	char		*search;
 
@@ -65,11 +65,11 @@ static char	*get_history_return(t_vector *to_replace, uint64_t option)
 		vct_del(&to_replace);
 		return (NULL);
 	}
-	vct_del(&to_replace);	
+	vct_del(&to_replace);
 	return (search);
 }
 
-static int	process_history_expansion(t_vector *input, size_t i)
+static int		process_history_expansion(t_vector *input, size_t i)
 {
 	uint64_t	option;
 	t_vector	*to_replace;
@@ -96,7 +96,7 @@ static int	process_history_expansion(t_vector *input, size_t i)
 	return (scale);
 }
 
-int8_t		history_expansion(t_vector *input)
+int8_t			history_expansion(t_vector *input)
 {
 	uint16_t	flag;
 	size_t		i;

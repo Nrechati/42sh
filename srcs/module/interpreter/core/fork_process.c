@@ -36,9 +36,14 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	else
 		pathname = process->av[0];
 	ft_lstiter(process->redirects, do_redirect);
+#ifndef NOEXEC
 	execve(pathname, process->av, env);
 	ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_EXECVE_ERROR);
 	exit(FAILURE);
+#else
+	(void)env;
+	exit(SUCCESS);
+#endif
 }
 
 static void	parent_process(t_registry *shell, t_process *process, char ***env)

@@ -1,6 +1,6 @@
 #include "sh21.h"
 
- char		*extract_path(char *input)
+static char		*extract_path(char *input)
 {
 	char	*path;
 	size_t	len;
@@ -21,11 +21,26 @@
 	return (path);
 }
 
+static void		add_file_to_list(t_autocomplete *result,
+						char *dirname, char *d_name)
+{
+	char				*data;
+
+	data = NULL;
+	if (is_a_directory(dirname, d_name) == TRUE)
+		ft_asprintf(&data, "%s/", d_name);
+	else
+		ft_asprintf(&data, "%s ", d_name);
+	ft_lstadd(&result->list, ft_lstnew(data, ft_strlen(data) + 1));
+	result->max_len = get_maxlen(result->max_len, ft_strlen(data));
+	ft_strdel(&data);
+	result->nb++;
+}
+
 static void		get_file_list(char *dirname, char *input,
 						t_autocomplete *result, DIR *dir)
 {
 	struct dirent		*mydir;
-	char				*data;
 	char				*fusion;
 	size_t				len;
 
@@ -43,17 +58,7 @@ static void		get_file_list(char *dirname, char *input,
 		else
 			ft_asprintf(&fusion, "%s/%s", dirname, mydir->d_name);
 		if (len == 0 || ft_strnequ(fusion, input, len) == TRUE)
-		{
-			data = NULL;
-			if (is_a_directory(dirname, mydir->d_name) == TRUE)
-				ft_asprintf(&data, "%s/", mydir->d_name);
-			else
-				ft_asprintf(&data, "%s ", mydir->d_name);
-			ft_lstadd(&result->list, ft_lstnew(data, ft_strlen(data) + 1));
-			result->max_len = get_maxlen(result->max_len, ft_strlen(data));
-			ft_strdel(&data);
-			result->nb++;
-		}
+			add_file_to_list(result, dirname, mydir->d_name);
 		ft_strdel(&fusion);
 	}
 }

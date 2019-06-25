@@ -11,20 +11,9 @@
 /* ************************************************************************** */
 
 #include "sh21.h"
-/*
-static void		debug_autocompletion(t_autocomplete *result, char *input,  ////DEBUG
-					char *completion)
-{
-	ft_printf("\ninput: '%s', modif_input: '%s', type: '", input, completion);
-	if (result->type == 0)
-		ft_printf("CMD'\n");
-	else if (result->type == 3)
-		ft_printf("FILE'\n");
-	else
-		ft_printf("VAR'\n");
-}*/
 
-static char	*active_completion(char *input, char *completion, t_registry *shell)
+static char		*active_completion(char *input, char *completion,
+						t_registry *shell)
 {
 	int		i;
 	char	*tmp;
@@ -50,7 +39,8 @@ static char	*active_completion(char *input, char *completion, t_registry *shell)
 	return (NULL);
 }
 
-static char	*send_rest(t_autocomplete *result, char *input, t_registry *shell)
+static char		*send_rest(t_autocomplete *result, char *input,
+					t_registry *shell)
 {
 	char	*completion;
 
@@ -88,19 +78,26 @@ static char		*get_completion(char *input, t_registry *shell,
 	return (NULL);
 }
 
+static uint8_t	init_and_reset(t_autocomplete *result, uint64_t option)
+{
+	if ((option & RESET_RESULT) || (option & NEW_SEARCH))
+	{
+		ft_lstdel(&result->list, NULL);
+		ft_bzero(result, sizeof(t_autocomplete));
+		if (option & RESET_RESULT)
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
 int8_t			autocompletion(char *input, t_registry *shell,
 								char **completion, uint64_t option)
 {
 	static t_autocomplete		result;
 	char						*cpy_input;
 
-	if ((option & RESET_RESULT) || (option & NEW_SEARCH))
-	{
-		ft_lstdel(&result.list, NULL);
-		ft_bzero(&result, sizeof(t_autocomplete));
-		if (option & RESET_RESULT)
-			return (SUCCESS);
-	}
+	if (init_and_reset(&result, option) == TRUE)
+		return (SUCCESS);
 	cpy_input = ft_strdup(input);
 	if (get_completion(cpy_input, shell, &result, completion) != NULL)
 	{

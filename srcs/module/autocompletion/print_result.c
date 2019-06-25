@@ -1,7 +1,7 @@
 #include "sh21.h"
 #include <sys/ioctl.h>
 
-void	post_process(t_autocomplete *result)
+static void			post_process(t_autocomplete *result)
 {
 	t_list	*lst;
 	char	*data;
@@ -19,7 +19,7 @@ void	post_process(t_autocomplete *result)
 	}
 }
 
-static size_t	get_elem_by_line(t_autocomplete *result, int col)
+static size_t		get_elem_by_line(t_autocomplete *result, int col)
 {
 	size_t	elem_by_line;
 
@@ -31,38 +31,32 @@ static size_t	get_elem_by_line(t_autocomplete *result, int col)
 	return (elem_by_line);
 }
 
-static size_t	get_elem_by_col(t_autocomplete *result, int elem_by_line)
+static size_t		get_elem_by_col(t_autocomplete *result)
 {
-	size_t		elem_by_col;
+	size_t			elem_by_col;
+	size_t			elem_by_line;
+	struct winsize	w;
+	int				col;
 
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) != FAILURE) 
+		col = w.ws_col;
+	else
+		col = 0;
+	elem_by_line = get_elem_by_line(result, col);
 	elem_by_col = result->nb / elem_by_line;
 	if (result->nb % elem_by_line)
 		elem_by_col++;
 	return (elem_by_col);
 }
 
-void		print_possibilities(t_autocomplete *result)
+static void			process_print(t_list *lst, size_t elem_by_col)
 {
-	t_list			*tmp;
-	t_list			*lst;
 	size_t			i;
 	size_t			j;
-	size_t			elem_by_col;
-	size_t			elem_by_line;
-	int				col;
-	struct	winsize	w;
+	t_list			*tmp;
 
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) != FAILURE) 
-		col = w.ws_col;
-	result->max_len++;
-	if (result->list == NULL || result->nb == 0)
-		return ;
-	post_process(result);
-	elem_by_line = get_elem_by_line(result, col);
-	elem_by_col = get_elem_by_col(result, elem_by_line);
-	ft_putchar('\n');
-	lst = result->list;
 	i = 0;
+	ft_putchar('\n');
 	while (i < elem_by_col)
 	{
 		tmp = lst;
@@ -82,4 +76,16 @@ void		print_possibilities(t_autocomplete *result)
 		if (i != elem_by_col)
 			ft_putchar('\n');
 	}
+}
+
+void				print_possibilities(t_autocomplete *result)
+{
+	size_t			elem_by_col;
+
+	result->max_len++;
+	if (result->list == NULL || result->nb == 0)
+		return ;
+	post_process(result);
+	elem_by_col = get_elem_by_col(result);
+	process_print(result->list, elem_by_col);
 }

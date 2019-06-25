@@ -1,7 +1,7 @@
 #include "sh21.h"
 #include <fcntl.h>
 
-static char	*get_histfile(t_registry *shell)
+static char		*get_histfile(t_registry *shell)
 {
 	char	*home;
 	char	*histfile;
@@ -34,7 +34,7 @@ static int		get_histsize(t_registry *shell)
 	return (histsize);
 }
 
-void	read_histfile(t_registry *shell, t_history *history)
+void			read_histfile(t_registry *shell, t_history *history)
 {
 	char	*histfile;
 	char	*cmd;
@@ -58,7 +58,7 @@ void	read_histfile(t_registry *shell, t_history *history)
 	close(fd);
 }
 
-void	write_histfile(t_registry *shell, t_history *history)
+void			write_histfile(t_registry *shell, t_history *history)
 {
 	t_entry	*entry;
 	char	*histfile;

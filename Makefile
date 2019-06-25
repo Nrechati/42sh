@@ -179,6 +179,10 @@ GC ?= 1
 ifneq ($(GC), 0)
 	CFLAGS += -D GC
 endif
+EXEC ?= 1
+ifeq ($(EXEC), 0)
+	CFLAGS += -D NOEXEC
+endif
 CFLAGS += $(IFLAGS)
 DFLAGS = $(CFLAGS)
 DFLAGS += -fsanitize=address,undefined
@@ -247,6 +251,7 @@ LOGGING += print_debug.c
 #						- - - - -   History   - - - - -						   #
 
 HISTORY += history.c
+HISTORY += history_tools.c
 HISTORY += history_expansion.c
 HISTORY += histfile.c
 HISTORY += entry_manager.c
@@ -257,6 +262,7 @@ HISTORY += print_history.c
 
 AUTOCOMPLETION += autocompletion.c
 AUTOCOMPLETION += autocompletion_tools.c
+AUTOCOMPLETION += autocompletion_tools2.c
 AUTOCOMPLETION += get_completion_cmd.c
 AUTOCOMPLETION += get_completion_file.c
 AUTOCOMPLETION += get_completion_var.c

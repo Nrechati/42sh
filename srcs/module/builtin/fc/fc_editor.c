@@ -1,7 +1,7 @@
 #include "sh21.h"
 #include <fcntl.h>
 
-static void			add_fd_to_param(char **param, int fd)
+static void		add_fd_to_param(char **param, int fd)
 {
 	char	*tmp;
 	char	*fd_str;
@@ -20,8 +20,7 @@ static void			add_fd_to_param(char **param, int fd)
 	ft_strdel(&fd_str);
 }
 
-
-static void			launch_edition(t_registry *shell, char *editor)
+static void		launch_edition(t_registry *shell, char *editor)
 {
 	t_vector	*cmd;
 	char		*out;
@@ -40,7 +39,7 @@ static void			launch_edition(t_registry *shell, char *editor)
 	history(NULL, NULL, POP_ENTRY);
 }
 
-static int8_t		write_file(t_registry *shell, char **av, char *editor)
+static int8_t	write_file(t_registry *shell, char **av, char *editor)
 {
 	int		fd;
 	char	*param;
@@ -67,7 +66,7 @@ static int8_t		write_file(t_registry *shell, char **av, char *editor)
 	return (SUCCESS);
 }
 
-int8_t			exec_new_pipeline(t_registry *shell)
+static int8_t	exec_new_pipeline(t_registry *shell)
 {
 	int			fd;
 	t_vector	*cmd;

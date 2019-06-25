@@ -16,8 +16,6 @@ static char	*get_entry_by_id(t_history *history, int id, uint64_t option)
 		entry = entry->prev;
 		real_id--;
 	}
-	//ft_dprintf(2, "42sh: No history entry with %s ID %d\n",
-	//		option & REL ? "relative" : "absolute", id);
 	return (NULL);
 }
 
