@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/25 08:44:53 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/25 08:47:10 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -399,14 +399,11 @@ EXPANSION += parameter.c
 EXPANSION += parameter_lexer.c
 EXPANSION += parameter_lexer_word.c
 EXPANSION += parameter_parser.c
-<<<<<<< HEAD
 EXPANSION += parameter_get.c
 EXPANSION += parameter_actions.c
 EXPANSION += parameter_suffix_prefix.c
 
-=======
 EXPANSION += arithmetic.c
->>>>>>> maths
 
 #						   - - - -   Lexer   - - - -                           #
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 08:44:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 09:32:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ struct	s_parameter
 };
 
 /* ********************** ARITHMETIC *********************/
+
+#define	DEFAULT_BUFFER	32
+
 enum e_mathexp
 {
 	MATH_START,
@@ -162,4 +165,7 @@ int			exists_expansion(t_list *intern, t_parameter *param);
 int			assign_expansion(t_list *intern, t_parameter *param);
 int			default_expansion(t_list *intern, t_parameter *param);
 void		parameter_print_debug(t_list *token_list);
+
+char		*arithmetic_expansion(t_list *intern, char *input);
+
 #endif
