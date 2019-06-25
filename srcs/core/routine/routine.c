@@ -30,7 +30,8 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 	t_resolution	resolve;
 	t_list			*tokens;
 
-	tokens = lexer(input, SHELL);
+	tokens = lexer(input, MATHS);
+	exit(FAILURE);
 	resolve = init_resolve(tokens);
 	while (resolve.tokens)
 	{
