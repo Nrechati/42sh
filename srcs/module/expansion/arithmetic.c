@@ -6,23 +6,62 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 09:43:51 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 12:17:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
+int8_t		get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start)
+{
+	char		*str;
+
+	str = NULL;
+	ft_asprintf(&str, "%.*s", arithmetic->end - start - 1, input + start);
+	if (str == NULL)
+	{
+		ft_dprintf(2, "Malloc Error on get_expansion_input\n");
+		return (FAILURE);
+	}
+	arithmetic->input = vct_dups(str);
+	return (SUCCESS);
+}
+
+int8_t		find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t start)
+{
+	size_t		end;
+
+	end = ft_strcspn(input + start, "$") + start;
+	while (end > start)
+	{
+		if (input[end] == ')' && input[end - 1] == ')')
+		{
+			arithmetic->end = end;
+			return (SUCCESS);
+		}
+		end--;
+	}
+	ft_dprintf(2, "No end of expansion token\n");
+	return (FAILURE);
+}
+
+
 static int	arithmetic(__unused t_list *intern, char **output, int i)
 {
 	t_list			*token_list;
-	t_arithmetic	math;
+	t_arithmetic	arithmetic;
 
 	token_list = NULL;
-	ft_bzero(&math, sizeof(t_arithmetic));
-	math.source = *output + i;
-	math.index = 3;
-	math.buffer = vct_new(DEFAULT_BUFFER);
-	token_list = lexer(math.buffer, MATHS);
+	ft_bzero(&arithmetic, sizeof(t_arithmetic));
+	if (find_expansion_end(&arithmetic, *output, i + 3) == FAILURE)
+		return (FAILURE);
+	if (get_expansion_input(&arithmetic, *output, i + 3) == FAILURE)
+		return (FAILURE);
+	ft_printf("Expansion buffer : %s\n", arithmetic.input->buffer);
+	arithmetic.tokens = lexer(arithmetic.input, MATHS);
+
+	exit(0);
+
 	return (SUCCESS);
 }
 

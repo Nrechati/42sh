@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/25 08:45:28 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 11:30:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ static int	check_expansion(t_list *intern, char **dest, int i, t_quote quote)
 		return (0);
 	if ((*dest)[i + 1] == '{')
 		check = parameter_expansion(intern, dest, i);
+	else if (ft_strnequ((*dest) + i + 1, "((", 2))
+		check = 0;
 	else if (ft_strchr(EXP_SPECIAL, (*dest)[i + 1]))
 		check = variable_special(intern, dest, i);
 	else if ((*dest)[i + 1] != '\0')
