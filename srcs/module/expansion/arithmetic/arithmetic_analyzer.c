@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 16:42:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:46:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,32 +144,36 @@ void		m_end_analyzer(t_arithmetic *arithmetic)
 	arithmetic->curr_token = NULL;
 }
 
-void		generate_math_group(t_arithmetic *arithmetic, t_list **math_group)
+char		*package_expression(t_arithmetic *arithmetic)
 {
-	t_list		*node;
+	char		*ouput;
 	t_infix		infix;
 
+	ouput = NULL;
 	ft_bzero(&infix, sizeof(t_infix));
 	if (ft_stcksize(&arithmetic->processing) > 0)
 		;
 	else
 		infix.type = 0;
+	infix.calcul.size = ft_lstlen(arithmetic->solving);
 	infix.calcul.head = arithmetic->solving;
-	node = ft_lstnew(&infix, sizeof(t_infix));
-	ft_lstaddback(math_group, node);
+	if (calculator(&infix) == FAILURE)
+		return (NULL);
+	ft_asprintf(&ouput, "%ld", infix.result);
+	return (ouput);
 }
 
-t_list		*arithmetic_analyzer(t_arithmetic *arithmetic)
+int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
 {
 	static t_ar_analyzer	*analyzer = NULL;
-	t_list					*math_group;
 
-	math_group = NULL;
 	if (analyzer == NULL)
 		analyzer = init_math_analyzer();
 	m_get_token(arithmetic);
 	while (arithmetic->state != MATH_END && arithmetic->state != MATH_ERROR)
 		(*analyzer)[arithmetic->state][arithmetic->curr_token->type](arithmetic);
-	generate_math_group(arithmetic, &math_group);
-	return (math_group);
+	arithmetic->expanded = package_expression(arithmetic);
+	if (arithmetic->expanded == NULL)
+		return (FAILURE);
+	return (SUCCESS);
 }

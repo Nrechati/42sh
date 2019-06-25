@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/25 17:18:27 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/25 17:36:53 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -407,7 +407,7 @@ EXPANSION += arithmetic.c
 EXPANSION += arithmetic_analyzer.c
 EXPANSION += math_analyzer.c
 
-EXPANSION += arithmetic_calculator.c
+EXPANSION += calculator.c
 EXPANSION += shunting_yard.c
 EXPANSION += calculate_rpn.c
 

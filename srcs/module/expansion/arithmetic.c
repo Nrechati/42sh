@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 14:17:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:35:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ static int8_t	find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t 
 	return (FAILURE);
 }
 
+int		arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
+{
+	t_vector *vector;
+
+	vector = vct_dups(*output);
+	vct_replace_string(vector, i, i + arithmetic->end + 1, arithmetic->expanded);
+	ft_strdel(output);
+	*output = ft_strdup(vct_get_string(vector));
+	vct_del(&vector);
+	return (0);
+}
+
 static int	arithmetic(__unused t_list *intern, char **output, int i)
 {
 	t_list			*token_list;
@@ -58,9 +70,9 @@ static int	arithmetic(__unused t_list *intern, char **output, int i)
 		return (FAILURE);
 	ft_printf("Expansion buffer : %s\n", arithmetic.input->buffer);
 	arithmetic.tokens = lexer(arithmetic.input, MATHS);
-
-	exit(0);
-
+	if (arithmetic_analyzer(&arithmetic) == FAILURE)
+		return (FAILURE);
+	arithmetic_replace(&arithmetic, output, i);
 	return (SUCCESS);
 }
 

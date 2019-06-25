@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:35:33 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 17:17:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:21:44 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ uint8_t		need_pop_operator(t_rpn_tk *curr, t_stack *operator)
 	return (FALSE);
 }
 
-int8_t			arithmetic_calculator(t_infix *infix)
+int8_t			calculator(t_infix *infix)
 {
 	t_stack		rpn;
 

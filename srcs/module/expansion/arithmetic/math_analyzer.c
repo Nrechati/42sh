@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:31:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 17:02:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:42:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ t_ar_analyzer	*init_math_analyzer(void)
 
 	bzero_analyzer(analyzer);
 	init_m_start(analyzer);
+	init_m_number(analyzer);
+	init_m_operator(analyzer);
 	return (&analyzer);
 }
