@@ -32,7 +32,7 @@ static void	set_mathsflag(t_lexer *lexer)
 	{
 		add_to_buffer(lexer);
 		add_to_buffer(lexer);
-		lexer->inhibitor &= ~BRACEPARAM_FLAG;
+		lexer->inhibitor &= ~MATHS_FLAG;
 	}
 }
 
