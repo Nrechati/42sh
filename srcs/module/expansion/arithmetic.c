@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 12:17:09 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 13:12:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t		get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start)
+static int8_t	get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start)
 {
 	char		*str;
 
@@ -27,7 +27,7 @@ int8_t		get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start
 	return (SUCCESS);
 }
 
-int8_t		find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t start)
+static int8_t		find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t start)
 {
 	size_t		end;
 
