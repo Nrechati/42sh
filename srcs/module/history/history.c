@@ -16,7 +16,7 @@ static void	add_new_entry(t_history *history, char *new)
 	history->nb_of_entries++;
 }
 
-static void	delete_entry(t_history *history, int id)
+static void	delete_entry(t_history *history, const int id)
 {
 	t_entry		*entry;
 	int			rel_id;
@@ -39,9 +39,8 @@ static void	delete_entry(t_history *history, int id)
 }
 
 static void	init_and_reset(t_registry *shell,
-					t_history *history, uint64_t option)
+					t_history *history, const uint64_t option)
 {
-	(void)shell;
 	if (option & INIT_HISTORY)
 	{
 		ft_bzero(history, sizeof(t_history));
@@ -55,14 +54,14 @@ static void	init_and_reset(t_registry *shell,
 	}
 }
 
-char		*history(t_registry *shell, char *name, uint64_t option)
+char		*history(t_registry *shell, const char *name, const uint64_t option)
 {
 	static t_history	history;
 
 	if ((option & INIT_HISTORY) || (option & RESET_HEAD))
 		init_and_reset(shell, &history, option);
 	else if (option & ADD_ENTRY)
-		add_new_entry(&history, name);
+		add_new_entry(&history, (char *)name);
 	else if (option & POP_ENTRY)
 	{
 		delete_entry(&history, (name == NULL || *name == '\0')

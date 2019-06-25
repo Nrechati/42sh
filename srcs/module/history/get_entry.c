@@ -1,6 +1,6 @@
 #include "sh21.h"
 
-static char	*get_entry_by_id(t_history *history, int id, uint64_t option)
+static char	*get_entry_by_id(t_history *history, int id, const uint64_t option)
 {
 	t_entry		*entry;
 	int			real_id;
@@ -19,7 +19,7 @@ static char	*get_entry_by_id(t_history *history, int id, uint64_t option)
 	return (NULL);
 }
 
-static char	*get_entry_by_name_prev(t_history *history, char *name)
+static char	*get_entry_by_name_prev(t_history *history, const char *name)
 {
 	t_entry		*entry;
 
@@ -36,7 +36,7 @@ static char	*get_entry_by_name_prev(t_history *history, char *name)
 	return (NULL);
 }
 
-static char	*get_entry_by_name_next(t_history *history, char *name)
+static char	*get_entry_by_name_next(t_history *history, const char *name)
 {
 	t_entry		*entry;
 
@@ -53,7 +53,7 @@ static char	*get_entry_by_name_next(t_history *history, char *name)
 	return (NULL);
 }
 
-static char	*get_next_or_prev_entry(t_history *history, uint64_t option)
+static char	*get_next_or_prev_entry(t_history *history, const uint64_t option)
 {
 	if (history->first_search == TRUE)
 	{
@@ -76,7 +76,8 @@ static char	*get_next_or_prev_entry(t_history *history, uint64_t option)
 	return (history->head_ptr->cmd);
 }
 
-char		*get_entry(t_history *history, char *search, uint64_t option)
+char		*get_entry(t_history *history, const char *search,
+				const uint64_t option)
 {
 	if (history->head_ptr == NULL)
 		return (NULL);

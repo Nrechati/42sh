@@ -3,8 +3,8 @@
 
 static char		*get_histfile(t_registry *shell)
 {
-	char	*home;
-	char	*histfile;
+	const char	*home;
+	char		*histfile;
 
 	home = get_var(shell->intern, "HOME");
 	histfile = get_var(shell->intern, "HISTFILE");
@@ -21,8 +21,8 @@ static char		*get_histfile(t_registry *shell)
 
 static int		get_histsize(t_registry *shell)
 {
-	char	*tmp;
-	int		histsize;
+	const char	*tmp;
+	int			histsize;
 
 	tmp = get_var(shell->intern, "HISTSIZE");
 	if (tmp == NULL)
@@ -60,11 +60,11 @@ void			read_histfile(t_registry *shell, t_history *history)
 
 void			write_histfile(t_registry *shell, t_history *history)
 {
-	t_entry	*entry;
-	char	*histfile;
-	int		histsize;
-	int		i;
-	int		fd;
+	t_entry		*entry;
+	char		*histfile;
+	int			histsize;
+	int			fd;
+	int			i;
 
 	histfile = get_histfile(shell);
 	if (histfile == NULL)

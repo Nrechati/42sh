@@ -1,6 +1,7 @@
 #include "sh21.h"
 
-static void		print_output(char *cmd, int fd, int line, uint64_t option)
+static void		print_output(const char *cmd,
+					const int fd, const int line, uint64_t const option)
 {
 	if (option & PRINT_ID)
 		ft_dprintf(fd, "%d\t%s\n", line, cmd);
@@ -11,7 +12,7 @@ static void		print_output(char *cmd, int fd, int line, uint64_t option)
 }
 
 static void		print_reverse(t_history *history, t_param *param,
-					uint64_t option)
+					const uint64_t option)
 {
 	t_entry		*entry;
 	int			i;
@@ -28,7 +29,7 @@ static void		print_reverse(t_history *history, t_param *param,
 }
 
 static void		print_standard(t_history *history, t_param *param,
-					uint64_t option)
+					const uint64_t option)
 {
 	t_entry		*entry;
 	int			i;
@@ -44,7 +45,7 @@ static void		print_standard(t_history *history, t_param *param,
 	}
 }
 
-static void	get_elem(t_history *history, char *elem, t_param *param)
+static void	get_elem(t_history *history, const char *elem, t_param *param)
 {
 	char	*cur;
 
@@ -74,7 +75,8 @@ static void	get_elem(t_history *history, char *elem, t_param *param)
 }
 
 
-void		print_history(t_history *history, char *elem, uint64_t option)
+void		print_history(t_history *history,
+				const char *elem, uint64_t option)
 {
 	t_param	param;
 

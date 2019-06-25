@@ -1,7 +1,6 @@
-
 #include "sh21.h"
 
-static uint8_t	is_history_end(t_vector *input, size_t offset)
+static uint8_t	is_history_end(t_vector *input, const size_t offset)
 {
 	size_t	len_op;
 	int		type;
@@ -21,7 +20,7 @@ static uint8_t	is_history_end(t_vector *input, size_t offset)
 	return (FALSE);
 }
 
-static int		searching(t_vector *input, t_vector *to_replace, size_t i,
+static int		searching(t_vector *input, t_vector *to_replace, const size_t i,
 					uint64_t *option)
 {
 	int	scale;
@@ -48,9 +47,9 @@ static int		searching(t_vector *input, t_vector *to_replace, size_t i,
 	return (scale);
 }
 
-static char		*get_history_return(t_vector *to_replace, uint64_t option)
+static char		*get_history_return(t_vector *to_replace, const uint64_t option)
 {
-	char		*search;
+	char	*search;
 
 	search = history(NULL, to_replace->buffer, option);
 	if (search == NULL
@@ -69,12 +68,12 @@ static char		*get_history_return(t_vector *to_replace, uint64_t option)
 	return (search);
 }
 
-static int		process_history_expansion(t_vector *input, size_t i)
+static int		process_history_expansion(t_vector *input, const size_t i)
 {
-	uint64_t	option;
 	t_vector	*to_replace;
-	int			scale;
 	char		*search;
+	uint64_t	option;
+	int			scale;
 
 	option = GET_ENTRY;
 	to_replace = vct_new(0);
@@ -98,9 +97,9 @@ static int		process_history_expansion(t_vector *input, size_t i)
 
 int8_t			history_expansion(t_vector *input)
 {
-	uint16_t	flag;
 	size_t		i;
 	int			ret;
+	uint16_t	flag;
 
 	i = 0;
 	flag = NO_FLAG;

@@ -19,9 +19,12 @@
 *****************
 */
 
-char		*history(t_registry *shell, char *name, uint64_t option);
-char		*get_entry(t_history *history, char *search, uint64_t option);
-void		print_history(t_history *history, char *elem, uint64_t option);
+char		*history(t_registry *shell, const char *name,
+					const uint64_t option);
+char		*get_entry(t_history *history, const char *search,
+					const uint64_t option);
+void		print_history(t_history *history, const char *elem,
+					uint64_t option);
 void		read_histfile(t_registry *shell, t_history *history);
 void		write_histfile(t_registry *shell, t_history *history);
 t_entry		*entry_roll_back(t_entry *entry);
@@ -33,7 +36,7 @@ t_entry		*entry_roll_back(t_entry *entry);
 */
 
 void	add_entry(t_entry **head, t_entry *new_entry);
-t_entry	*create_entry(char *cmd);
+t_entry	*create_entry(const char *cmd);
 void	free_history(t_entry *entry);
 void	pop_entry(t_entry **entry, t_entry **head);
 
