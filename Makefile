@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/25 13:11:25 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/25 13:33:29 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -404,7 +404,8 @@ EXPANSION += parameter_actions.c
 EXPANSION += parameter_suffix_prefix.c
 
 EXPANSION += arithmetic.c
-
+EXPANSION += arithmetic_analyzer.c
+EXPANSION += math_analyzer.c
 
 #						   - - - -   Lexer   - - - -                           #
 

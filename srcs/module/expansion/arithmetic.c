@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 13:12:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 13:13:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int8_t	get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t
 	return (SUCCESS);
 }
 
-static int8_t		find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t start)
+static int8_t	find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t start)
 {
 	size_t		end;
 

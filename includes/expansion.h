@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 12:08:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:08:10 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,21 @@ struct	s_parameter
 
 /* ********************** ARITHMETIC *********************/
 
-#define	DEFAULT_BUFFER	32
+#define	MATH_TOKEN		22
+#define	MATH_STATE		4
+
+typedef struct	s_arithmetic t_arithmetic;
+typedef void	(*t_arithmexp)(t_arithmetic *);
+typedef t_arithmexp	 t_ar_analyzer[MATH_STATE][MATH_TOKEN];
+typedef enum e_mathstate	t_mathstate;
+
+enum				e_mathstate
+{
+	MATH_START,
+	MATH_NUMBER,
+	MATH_STOP,
+
+};
 
 enum				e_rpn
 {
@@ -72,24 +86,24 @@ typedef union 		u_value
 	uint16_t		type;
 }					t_value;
 
-typedef struct		s_math
-{
-	char			*value;
-}					t_math;
-
 typedef struct		s_rpn_tk
 {
 	enum e_rpn		token;
 	t_value			value;
 }					t_rpn_tk;
 
-typedef struct		s_arithmetic
+struct				s_arithmetic
 {
 	t_vector		*input;
 	t_list			*tokens;
+	t_list			*current;
+	t_token			*curr_token;
+	t_stack			processing;
+	t_stack			solving;
+	t_mathstate		state;
 	char			*expanded;
 	size_t			end;
-}					t_arithmetic;
+};
 /* ******************************************************/
 
 char		*expansion_pipeline(t_list *intern_var, char *str);
@@ -118,5 +132,11 @@ int			default_expansion(t_list *intern, t_parameter *param);
 void		parameter_print_debug(t_list *token_list);
 
 char		*arithmetic_expansion(t_list *intern, char *input);
+t_list		*arithmetic_analyzer(t_arithmetic *arithmetic);
+void		m_error_analyzer(t_arithmetic *arithmetic);
+void		m_number_analyzer(t_arithmetic *arithmetic);
+
+t_ar_analyzer	*init_math_analyzer(void);
+
 
 #endif
