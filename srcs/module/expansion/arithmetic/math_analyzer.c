@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:31:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 18:47:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 23:12:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void 		init_m_number(t_ar_analyzer analyzer)
 	analyzer[MATH_NUMBER][E_M_TIMES] = m_operator_analyzer;
 	analyzer[MATH_NUMBER][E_M_MODULO] = m_operator_analyzer;
 	analyzer[MATH_NUMBER][E_M_DIVIDE] = m_operator_analyzer;
-	analyzer[MATH_START][E_M_OPENP] = m_parenthesis_analyzer;
-	analyzer[MATH_START][E_M_CLOSEP] = m_parenthesis_analyzer;
+	analyzer[MATH_NUMBER][E_M_OPENP] = m_parenthesis_analyzer;
+	analyzer[MATH_NUMBER][E_M_CLOSEP] = m_parenthesis_analyzer;
 	analyzer[MATH_NUMBER][E_M_END] = m_end_analyzer;
 }
 
@@ -79,6 +79,31 @@ void		init_m_stop(t_ar_analyzer analyzer)
 	analyzer[MATH_STOP][E_M_STRING] = m_variable_analyzer;
 }
 
+void		init_m_preffix_plus(t_ar_analyzer analyzer)
+{
+	analyzer[MATH_PREFIX_PLUS][E_M_PLUS] = m_preffix_plus_minus_analyzer;
+	analyzer[MATH_PREFIX_PLUS][E_M_DELIMITER] = m_flush_sign_analyzer;
+}
+
+void		init_m_flush_sign(t_ar_analyzer analyzer)
+{
+	analyzer[MATH_FLUSH_SIGN][E_M_NB_DEC] = m_preffixed_number_analyzer;
+	analyzer[MATH_FLUSH_SIGN][E_M_NB_OCT] = m_preffixed_number_analyzer;
+	analyzer[MATH_FLUSH_SIGN][E_M_NB_HEX] = m_preffixed_number_analyzer;
+}
+
+void		init_m_preffixed_number(t_ar_analyzer analyzer)
+{
+	analyzer[MATH_PREFFIXED_NUMBER][E_M_PLUS] = m_plus_minus_analyzer;
+	analyzer[MATH_PREFFIXED_NUMBER][E_M_MINUS] = m_plus_minus_analyzer;
+	analyzer[MATH_PREFFIXED_NUMBER][E_M_TIMES] = m_operator_analyzer;
+	analyzer[MATH_PREFFIXED_NUMBER][E_M_MODULO] = m_operator_analyzer;
+	analyzer[MATH_PREFFIXED_NUMBER][E_M_DIVIDE] = m_operator_analyzer;
+	analyzer[MATH_PREFFIXED_NUMBER][E_M_OPENP] = m_parenthesis_analyzer;
+	analyzer[MATH_PREFFIXED_NUMBER][E_M_CLOSEP] = m_parenthesis_analyzer;
+	analyzer[MATH_PREFFIXED_NUMBER][E_M_END] = m_end_analyzer;
+}
+
 t_ar_analyzer	*init_math_analyzer(void)
 {
 	static	t_ar_analyzer analyzer;
@@ -88,5 +113,10 @@ t_ar_analyzer	*init_math_analyzer(void)
 	init_m_number(analyzer);
 	init_m_operator(analyzer);
 	init_m_close_parent(analyzer);
+	init_m_start(analyzer);
+	init_m_preffix_plus(analyzer);
+	//init_m_preffix_minus(analyzer);
+	init_m_flush_sign(analyzer);
+	init_m_preffixed_number(analyzer);
 	return (&analyzer);
 }

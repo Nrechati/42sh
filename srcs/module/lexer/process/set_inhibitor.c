@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 17:28:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/21 19:20:35 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:00:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	set_mathsflag(t_lexer *lexer)
 	{
 		add_to_buffer(lexer);
 		add_to_buffer(lexer);
-		lexer->inhibitor &= ~BRACEPARAM_FLAG;
+		lexer->inhibitor &= ~MATHS_FLAG;
 	}
 }
 

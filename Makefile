@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/25 17:36:53 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/25 23:25:56 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -405,6 +405,8 @@ EXPANSION += parameter_suffix_prefix.c
 
 EXPANSION += arithmetic.c
 EXPANSION += arithmetic_analyzer.c
+EXPANSION += arithmetic_base_states.c
+EXPANSION += arithmetic_tools.c
 EXPANSION += math_analyzer.c
 
 EXPANSION += calculator.c
