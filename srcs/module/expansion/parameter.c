@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:51:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 08:45:23 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:19:39 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int 	parameter_expansion(t_list *intern, char **dest, int i)
 	ft_bzero(&parameter, sizeof(t_parameter));
 	parameter.source = *dest + i;
 	parameter.index = 2;
-	parameter.buffer = vct_new(DEFAULT_BUFFER);
+	parameter.buffer = vct_new(DEFAULT_PEX_BUFFER);
 	parameter_lexer(&parameter);
 	if (parameter_parse(intern, &parameter))
 		return (error_parameter(dest, &parameter));

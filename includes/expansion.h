@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 16:30:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:17:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,12 @@ void		m_parenthesis_analyzer(t_arithmetic *arithmetic);
 void		m_variable_analyzer(t_arithmetic *arithmetic);
 void		m_plus_minus_analyzer(t_arithmetic *arithmetic);
 void		m_end_analyzer(t_arithmetic *arithmetic);
+
+int8_t			arithmetic_calculator(t_infix *infix);
+uint8_t		need_pop_operator(t_rpn_tk *curr, t_stack *operator);
+uint8_t		is_left_p(t_stack *operator);
+int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn);
+int32_t			calculate_rpn(t_stack *rpn);
 
 t_ar_analyzer	*init_math_analyzer(void);
 
