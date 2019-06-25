@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 18:15:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 08:45:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ static int8_t	init_shell(t_registry *shell, char **av, char **env)
 
 int		main(int ac, char **av, char **env) // exit by shell_exit_routine
 {
+	char			*dest = NULL;
 	t_registry		shell;
+
 
 	(void)ac;
 	g_shell = &shell;

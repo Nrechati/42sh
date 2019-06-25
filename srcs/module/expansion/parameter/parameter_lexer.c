@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parameter_lexer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:16:54 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 18:28:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 08:45:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	generate_pex_token(t_parameter *param)
 	node = ft_lstnew(&token, sizeof(t_pex_token));
 	ft_lstaddback(&param->tokens, node);
 	vct_del(&param->buffer);
-	param->buffer = vct_new(DEFAULT_PEX_BUFFER);
+	param->buffer = vct_new(DEFAULT_BUFFER);
 }
 
 void	parameter_lexer(t_parameter *parameter)

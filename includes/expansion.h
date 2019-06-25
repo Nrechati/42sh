@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 19:37:08 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/25 08:44:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 typedef struct	s_parameter	t_parameter;
 typedef void	(*t_paramexp)(t_parameter *);
 typedef int		(*t_advanced_pex)(t_list *, t_parameter *);
+
+typedef struct	s_arithmetic t_arithmetic;
+typedef void	(*t_mathexp)(t_arithmetic *);
 
 enum	e_paramexp
 {
@@ -54,6 +57,86 @@ struct	s_parameter
 	uint8_t			modifier;
 	enum e_paramexp	state;
 };
+
+/* ********************** ARITHMETIC *********************/
+enum e_mathexp
+{
+	MATH_START,
+	MATH_DECIMAL,
+	MATH_OCTAL,
+	MATH_HEXA,
+	MATH_VARIABLE,
+	MATH_SIGN,
+	MATH_LOGICAL,
+	MATH_OUT,
+	MATH_END,
+};
+
+enum e_mathtype
+{
+	TYPE_UNKNOWN,			//0
+	TYPE_DECIMAL,			//1
+	TYPE_OCTAL,				//2
+	TYPE_HEXA,				//3
+	TYPE_VARIABLE,			//4
+	TYPE_TIME,				//5
+	TYPE_DIVIDE,			//6
+	TYPE_MODULO,			//7
+	TYPE_ADD,				//8
+	TYPE_SUBSTRACT,			//9
+	TYPE_OPEN_P,			//10
+	TYPE_CLOSE_P,			//11
+	TYPE_INCREMENT,			//12
+	TYPE_DECREMENT,			//13
+	TYPE_GREATER,			//14
+	TYPE_GREATER_OR,		//15
+	TYPE_LOWER,				//16
+	TYPE_LOWER_OR,			//17
+	TYPE_EQUAL,				//18
+	TYPE_NOT_EQUAL,			//19
+	TYPE_ASSIGN,			//20
+	TYPE_AND,				//21
+	TYPE_OR,				//22
+	TYPE_ERROR,				//23
+};
+
+enum				e_rpn
+{
+	RPN_OPERATOR,
+	RPN_BRACKET,
+	RPN_NUMBER,
+};
+
+typedef union 		u_value
+{
+	int64_t			digit;
+	uint16_t		type;
+}					t_value;
+
+typedef struct		s_math
+{
+	enum e_mathtype	type;
+	char			*value;
+}					t_math;
+
+typedef struct		s_rpn_tk
+{
+	enum e_rpn		token;
+	t_value			value;
+}					t_rpn_tk;
+
+struct	s_arithmetic
+{
+	t_vector		*buffer;
+	t_list			*tokens;
+	char			*expanded;
+	char			*source;
+	size_t			index;
+	uint8_t			modifier;
+	enum e_mathexp	state;
+	enum e_mathtype type;
+};
+/* ******************************************************/
 
 char		*expansion_pipeline(t_list *intern_var, char *str);
 char		*expand_string(t_list *lst, char *str);

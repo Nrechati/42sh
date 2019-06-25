@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 18:14:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 08:45:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ char	*expansion_pipeline(t_list *intern_var, char *str)
 	ft_strdel(&dest);
 	if (expanded == NULL)
 		return (NULL);
-	quote_removal(expanded);
-	return (expanded);
+	dest = arithmetic_expansion(intern_var, expanded);
+	ft_strdel(&expanded);
+	if (dest == NULL)
+		return (NULL);
+	quote_removal(dest);
+	return (dest);
 }
