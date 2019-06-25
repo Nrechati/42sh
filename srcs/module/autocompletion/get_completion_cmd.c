@@ -75,7 +75,7 @@ void			find_builtin(char * input, t_autocomplete *result)
 	int					i;
 	static const char	*blt[] = {"echo", "cd", "hash", "exit",
 									"type", "export", "set", "unset",
-									"pwd", "fc", NULL}; //ADD ALL BUILTIN
+									"pwd", "fc", "bg", "fg", "jobs", NULL}; //ADD ALL BUILTIN
 
 	len = input == NULL ? 0 : ft_strlen(input);
 	i = 0;
