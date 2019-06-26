@@ -49,18 +49,20 @@ int8_t		ak_hightab(__unused t_registry *shell, t_sle *sle)
 	}
 	if (ret_completion != NULL)
 	{
-		ft_strdel(&substring);
 		vct_insert_string(sle->line, ret_completion, sle->cursor.index);
 		set_redraw_flags(sle, RD_FPTP | RD_CMOVE);
-		set_cursor_pos(sle, sle->cursor.index);
+		set_cursor_pos(sle, sle->cursor.index + ft_strlen(ret_completion));
+		ft_strdel(&ret_completion);
+		ft_strdel(&substring);
 	}
 	else
 	{
-		ft_strdel(&substring);
 		ft_putendl("");
 		update_window(sle);
 		print_prompt(shell, sle);
-		set_redraw_flags(sle, RD_FPTE | RD_CEND);
+		set_redraw_flags(sle, RD_FSTP | RD_CMOVE);
+		set_cursor_pos(sle, sle->cursor.index + ft_strlen(substring));
+		ft_strdel(&substring);
 	}
 	set_redraw_bounds(sle, sle->cursor.index - 1, vct_len(sle->line));
 	return (SUCCESS);
