@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 17:47:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:54:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int8_t		ak_hightab(__unused t_registry *shell, t_sle *sle)
 	{
 		ft_strdel(&substring);
 		vct_insert_string(sle->line, ret_completion, sle->cursor.index);
+		set_redraw_flags(sle, RD_FPTP | RD_CMOVE);
+		set_cursor_pos(sle, sle->cursor.index);
 	}
 	else
 	{
@@ -58,8 +60,8 @@ int8_t		ak_hightab(__unused t_registry *shell, t_sle *sle)
 		ft_putendl("");
 		update_window(sle);
 		print_prompt(shell, sle);
+		set_redraw_flags(sle, RD_FPTE | RD_CEND);
 	}
-	set_redraw_flags(sle, RD_FPTE | RD_CEND);
 	set_redraw_bounds(sle, sle->cursor.index - 1, vct_len(sle->line));
 	return (SUCCESS);
 }
