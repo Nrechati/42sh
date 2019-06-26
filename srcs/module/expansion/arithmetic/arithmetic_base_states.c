@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:40:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 23:11:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 01:13:16 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void		m_number_analyzer(t_arithmetic *arithmetic)
 		ft_stckpushnode(&arithmetic->processing, node);
 	else
 		ft_lstaddback(&arithmetic->solving, node);
-	m_get_token(arithmetic);
+	m_get_token(arithmetic, NULL);
 	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic);
+		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		apply_preffix(t_token *preffix, t_rpn_tk *token)
@@ -81,9 +81,9 @@ void		m_preffixed_number_analyzer(t_arithmetic *arithmetic)
 		ft_stckpushnode(&arithmetic->processing, node);
 	else
 		ft_lstaddback(&arithmetic->solving, node);
-	m_get_token(arithmetic);
+	m_get_token(arithmetic, NULL);
 	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic);
+		m_get_token(arithmetic, &arithmetic->current);
 
 }
 
@@ -117,9 +117,9 @@ void		m_operator_analyzer(t_arithmetic *arithmetic)
 		ft_stckpushnode(&arithmetic->processing, node);
 	else
 		ft_lstaddback(&arithmetic->solving, node);
-	m_get_token(arithmetic);
+	m_get_token(arithmetic, NULL);
 	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic);
+		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_parenthesis_analyzer(t_arithmetic *arithmetic)
@@ -144,5 +144,5 @@ void		m_parenthesis_analyzer(t_arithmetic *arithmetic)
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
 	ft_stckpushnode(&arithmetic->processing, node);
-	m_get_token(arithmetic);
+	m_get_token(arithmetic, NULL);
 }

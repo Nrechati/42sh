@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:11 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/25 23:25:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/25 23:29:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			out_lexer_m(t_lexer *lexer)
 	}
 	ft_lstaddback(&lexer->tokens, node);
 	lexer->state = lexer->token_mtype == E_M_END ? L_FINISH : L_PROCESS;
-	lexer->last_token_mtype = E_M_DEFAULT;
+	lexer->last_token_mtype = lexer->token_mtype;
 	lexer->token_mtype = E_M_DEFAULT;
 	vct_reset(lexer->buffer);
 }
@@ -77,7 +77,7 @@ uint8_t	is_input_end_m(t_lexer *lexer)
 	if (get_input(lexer, CUR_CHAR) == '\0')
 	{
 		if (lexer->token_mtype != E_M_DEFAULT
-				&& lexer->last_token_mtype != E_M_DELIMITER)
+				&& lexer->token_mtype != E_M_DELIMITER)
 			out_lexer_m(lexer);
 		lexer->token_mtype = E_M_END;
 		return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 23:13:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 01:46:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void		m_variable_analyzer(t_arithmetic *arithmetic)
 {
 	arithmetic->state = MATH_VARIABLE;
 	ft_stckpushnode(&arithmetic->processing, arithmetic->current);
-	m_get_token(arithmetic);
+	m_get_token(arithmetic, NULL);
 }
 
 void		m_plus_minus_analyzer(t_arithmetic *arithmetic)
 {
-	ft_stckpushnode(&arithmetic->processing, arithmetic->current);
+	ft_stckpushnode(&arithmetic->sign, arithmetic->current);
 	if (arithmetic->curr_token->type == E_M_PLUS)
 		arithmetic->state = MATH_PLUS;
 	else
 		arithmetic->state = MATH_MINUS;
-	m_get_token(arithmetic);
+	m_get_token(arithmetic, NULL);
 }
 
 void		m_error_analyzer(t_arithmetic *arithmetic)
@@ -51,7 +51,7 @@ void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic)
 		arithmetic->state = MATH_PREFIX_PLUS;
 	else
 		arithmetic->state = MATH_PREFIX_MINUS;
-	m_get_token(arithmetic);
+	m_get_token(arithmetic, NULL);
 }
 
 void		m_double_plus_analyzer(t_arithmetic *arithmetic)
@@ -68,12 +68,14 @@ void		convert_plus_minus(t_token *token, t_rpn_tk *current)
 		current->value.type |= (MINUS | LOW);
 }
 
-void		m_flush_sign_analyzer(t_arithmetic *arithmetic)
+void		m_flush_preffix_sign_analyzer(t_arithmetic *arithmetic)
 {
 	t_list		*node;
 	t_rpn_tk	token;
 
+
 	node = ft_stckpopnode(&arithmetic->sign);
+	arithmetic->state = MATH_FLUSH_PREFFIX_SIGN;
 	ft_bzero(&token, sizeof(t_rpn_tk));
 	token.type = RPN_OPERATOR;
 	convert_plus_minus(node->data, &token);
@@ -82,14 +84,34 @@ void		m_flush_sign_analyzer(t_arithmetic *arithmetic)
 		ft_stckpushnode(&arithmetic->processing, node);
 	else
 		ft_lstaddback(&arithmetic->solving, node);
-	m_get_token(arithmetic);
 	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic);
+		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_stop_analyzer(t_arithmetic *arithmetic)
 {
 	arithmetic->state = MATH_STOP;
+}
+
+void		m_flush_sign_analyzer(t_arithmetic *arithmetic)
+{
+	t_list		*node;
+	t_rpn_tk	token;
+
+
+	node = ft_stckpopnode(&arithmetic->sign);
+	arithmetic->state = MATH_FLUSH_SIGN;
+	ft_bzero(&token, sizeof(t_rpn_tk));
+	token.type = RPN_OPERATOR;
+	convert_plus_minus(node->data, &token);
+	ft_lstdelone(&node, NULL);
+	node = ft_lstnew(&token, sizeof(t_rpn_tk));
+	if (arithmetic->parenthesis > 0)
+		ft_stckpushnode(&arithmetic->processing, node);
+	else
+		ft_lstaddback(&arithmetic->solving, node);
+	if (arithmetic->curr_token->type == E_M_DELIMITER)
+		m_get_token(arithmetic, &arithmetic->current);
 }
 
 char		*package_expression(t_arithmetic *arithmetic)
@@ -107,7 +129,7 @@ char		*package_expression(t_arithmetic *arithmetic)
 	infix.calcul.head = arithmetic->solving;
 	if (calculator(&infix) == FAILURE)
 		return (NULL);
-	ft_asprintf(&output, "%ld", infix.result);
+	ft_asprintf(&output, "%lld", infix.result);
 	return (output);
 }
 
@@ -159,9 +181,11 @@ int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
 {
 	static t_ar_analyzer	*analyzer = NULL;
 
-	if (analyzer == NULL)
+	if (*analyzer == NULL)
 		analyzer = init_math_analyzer();
-	m_get_token(arithmetic);
+	m_get_token(arithmetic, NULL);
+	if (arithmetic->curr_token->type == E_M_DELIMITER)
+		m_get_token(arithmetic, &arithmetic->current);
 	while (arithmetic->state != MATH_END && arithmetic->state != MATH_ERROR)
 	{
 		if (arithmetic->state == MATH_STOP)

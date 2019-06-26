@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 23:07:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 02:30:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ enum				e_mathstate
 	MATH_PREFIX_MINUS,
 	MATH_DOUBLE_PLUS,
 	MATH_DOUBLE_MINUS,
+	MATH_FLUSH_PREFFIX_SIGN,
 	MATH_FLUSH_SIGN,
 	MATH_STOP,
 	MATH_ERROR,
@@ -109,7 +110,7 @@ enum				e_rpn
 
 typedef union 		u_value
 {
-	int32_t			digit;
+	int64_t			digit;
 	uint16_t		type;
 }					t_value;
 
@@ -122,7 +123,7 @@ typedef struct		s_rpn_tk
 typedef struct		s_infix
 {
 	uint8_t			type;
-	int32_t			result;
+	int64_t			result;
 	t_stack			calcul;
 }					t_infix;
 
@@ -179,11 +180,12 @@ void		m_variable_analyzer(t_arithmetic *arithmetic);
 void		m_plus_minus_analyzer(t_arithmetic *arithmetic);
 void		m_end_analyzer(t_arithmetic *arithmetic);
 void		m_flush_sign_analyzer(t_arithmetic *arithmetic);
+void		m_flush_preffix_sign_analyzer(t_arithmetic *arithmetic);
 void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic);
 void		m_preffixed_number_analyzer(t_arithmetic *arithmetic);
 
 
-void		m_get_token(t_arithmetic *arithmetic);
+void		m_get_token(t_arithmetic *arithmetic, t_list **node);
 void		del_infix(t_infix *infix);
 
 int8_t		calculator(t_infix *infix);
