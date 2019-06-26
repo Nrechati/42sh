@@ -52,15 +52,14 @@ uint8_t	is_operator_m(t_lexer *lexer)
 	char	*current;
 
 	i = 0;
-	type = 14;
+	type = 16;
 	current = lexer->input->buffer + lexer->index;
 	while (type >= 0)
 	{
 		len_op = ft_strlen(g_shell->grammar_m[type]);
 		if (ft_strnequ(g_shell->grammar_m[type], current, len_op) == TRUE)
 		{
-			if (lexer->token_mtype != E_M_DEFAULT
-					&& lexer->last_token_mtype != E_M_DELIMITER)
+			if (lexer->token_mtype != E_M_DEFAULT)
 				out_lexer_m(lexer);
 			while (i++ < len_op)
 				add_to_buffer(lexer);
@@ -76,8 +75,7 @@ uint8_t	is_input_end_m(t_lexer *lexer)
 {
 	if (get_input(lexer, CUR_CHAR) == '\0')
 	{
-		if (lexer->token_mtype != E_M_DEFAULT
-				&& lexer->token_mtype != E_M_DELIMITER)
+		if (lexer->token_mtype != E_M_DEFAULT)
 			out_lexer_m(lexer);
 		lexer->token_mtype = E_M_END;
 		return (TRUE);
@@ -127,11 +125,8 @@ uint8_t	is_delimiter_m(t_lexer *lexer)
 		ret = TRUE;
 	if (ret == TRUE)
 	{
-		if (lexer->token_mtype != E_M_DEFAULT
-			&& lexer->token_mtype != E_M_DELIMITER)
+		if (lexer->token_mtype != E_M_DEFAULT)
 			out_lexer_m(lexer);
-		lexer->token_mtype = E_M_DELIMITER;
-		lexer->index++;
 	}
 	return (ret);
 }
@@ -141,10 +136,7 @@ void			process_maths_lexer(t_lexer *lexer)
 	if (is_input_end_m(lexer) == TRUE)
 		lexer->state = L_OUT;
 	else if (is_delimiter_m(lexer) == TRUE)
-	{
-		if (lexer->last_token_mtype != E_M_DELIMITER)
-			lexer->state = L_OUT;
-	}
+		lexer->index++;
 	else if (is_operator_m(lexer) == TRUE)
 		lexer->state = L_OUT;
 	else if (is_number_m(lexer) == TRUE)

@@ -26,16 +26,16 @@ void		m_double_preffix_plus_analyzer(t_arithmetic *arithmetic)
 {
 	arithmetic->state = MATH_PREFFIX_DOUBLE_PLUS;
 	m_get_token(arithmetic, NULL);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_double_preffix_minus_analyzer(t_arithmetic *arithmetic)
 {
 	arithmetic->state = MATH_PREFFIX_DOUBLE_MINUS;
 	m_get_token(arithmetic, NULL);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		convert_plus_minus(t_token *token, t_rpn_tk *current)
@@ -62,8 +62,8 @@ void		m_flush_preffix_sign_analyzer(t_arithmetic *arithmetic)
 		ft_stckpushnode(&arithmetic->processing, node);
 	else
 		ft_lstaddback(&arithmetic->solving, node);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_preffix_delimiter_analyzer(t_arithmetic *arithmetic)
@@ -101,8 +101,8 @@ void		m_preincrement_analyzer(t_arithmetic *arithmetic)
 	else
 		ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic, NULL);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_predecrement_analyzer(t_arithmetic *arithmetic)
@@ -135,6 +135,6 @@ void		m_predecrement_analyzer(t_arithmetic *arithmetic)
 	else
 		ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic, NULL);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 }

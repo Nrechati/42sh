@@ -18,9 +18,10 @@ static void	generate_maths_grammar(void)
 										M_PLUS, M_MINUS, M_OPENP, M_CLOSEP,
 										M_LESS, M_GREAT,
 										M_LESSOR, M_GREATOR, M_EQUAL, M_NEQUAL,
-										M_AND, M_OR, M_ASSIGN, M_STRING,
+										M_AND, M_OR, M_DPLUS, M_DMINUS,
+										M_ASSIGN, M_STRING,
 										M_NB_DEC, M_NB_OCT, M_NB_HEX,
-										M_DELIMITER, M_END, M_START};
+										M_END, M_START};
 
 	g_shell->grammar_m = grammar;
 }

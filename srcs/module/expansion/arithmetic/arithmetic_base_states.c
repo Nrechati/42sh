@@ -51,8 +51,8 @@ void		m_number_analyzer(t_arithmetic *arithmetic)
 	else
 		ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic, NULL);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		apply_preffix(t_token *preffix, t_rpn_tk *token)
@@ -82,8 +82,8 @@ void		m_preffixed_number_analyzer(t_arithmetic *arithmetic)
 	else
 		ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic, NULL);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 
 }
 
@@ -118,8 +118,8 @@ void		m_operator_analyzer(t_arithmetic *arithmetic)
 	else
 		ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic, NULL);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_parenthesis_analyzer(t_arithmetic *arithmetic)

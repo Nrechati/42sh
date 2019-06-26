@@ -111,12 +111,13 @@ typedef enum	e_mtype
 	E_M_NEQUAL,
 	E_M_AND,
 	E_M_OR,
+	E_M_DPLUS,
+	E_M_DMINUS,
 	E_M_ASSIGN,
 	E_M_STRING,
 	E_M_NB_DEC,
 	E_M_NB_OCT,
 	E_M_NB_HEX,
-	E_M_DELIMITER,
 	E_M_END,
 	E_M_DEFAULT
 }				t_mtype;

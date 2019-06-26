@@ -17,8 +17,8 @@ void		m_variable_analyzer(t_arithmetic *arithmetic)
 	arithmetic->state = MATH_VARIABLE;
 	ft_stckpushnode(&arithmetic->processing, arithmetic->current);
 	m_get_token(arithmetic, NULL);
-	if (arithmetic->curr_token->type == E_M_DELIMITER)
-		m_get_token(arithmetic, &arithmetic->current);
+//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+//		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_flush_variable_analyzer(t_arithmetic *arithmetic)

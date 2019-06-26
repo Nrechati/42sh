@@ -185,7 +185,7 @@
 */
 
 # define NB_OF_TOKENS				50
-# define NB_OF_MTOKENS				23
+# define NB_OF_MTOKENS				24
 
 # define START_OPERATOR				29
 # define END_OPERATOR				1
@@ -312,6 +312,8 @@
 # define M_NEQUAL					"!="
 # define M_AND						"&&"
 # define M_OR						"||"
+# define M_DPLUS					"++"
+# define M_DMINUS					"--"
 # define M_ASSIGN					"(=)"
 # define M_STRING					"word"
 # define M_NB_DEC					"nb dec"

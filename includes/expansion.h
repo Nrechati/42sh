@@ -57,7 +57,7 @@ struct	s_parameter
 
 /* ********************** ARITHMETIC *********************/
 
-#define	MATH_TOKEN		22
+#define	MATH_TOKEN		NB_OF_MTOKENS
 #define	MATH_STATE		29
 #define OCTAL_BASE		"012345678"
 #define HEX_BASE		"0123456789ABCDEF"

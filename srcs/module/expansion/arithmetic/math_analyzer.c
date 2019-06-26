@@ -84,13 +84,13 @@ void		init_m_stop(t_ar_analyzer analyzer)
 void		init_m_preffix_plus(t_ar_analyzer analyzer)
 {
 	analyzer[MATH_PREFIX_PLUS][E_M_PLUS] = m_double_preffix_plus_analyzer;
-	analyzer[MATH_PREFIX_PLUS][E_M_DELIMITER] = m_flush_preffix_sign_analyzer;
+	//analyzer[MATH_PREFIX_PLUS][E_M_DELIMITER] = m_flush_preffix_sign_analyzer;
 }
 
 void		init_m_preffix_minus(t_ar_analyzer analyzer)
 {
 	analyzer[MATH_PREFIX_MINUS][E_M_MINUS] = m_double_preffix_minus_analyzer;
-	analyzer[MATH_PREFIX_PLUS][E_M_DELIMITER] = m_flush_preffix_sign_analyzer;
+//	analyzer[MATH_PREFIX_PLUS][E_M_DELIMITER] = m_flush_preffix_sign_analyzer;
 	analyzer[MATH_PREFIX_MINUS][E_M_NB_DEC] = m_preffixed_number_analyzer;
 	analyzer[MATH_PREFIX_MINUS][E_M_NB_OCT] = m_preffixed_number_analyzer;
 	analyzer[MATH_PREFIX_MINUS][E_M_NB_HEX] = m_preffixed_number_analyzer;
@@ -117,24 +117,26 @@ void		init_m_preffixed_number(t_ar_analyzer analyzer)
 
 void		init_m_plus(t_ar_analyzer analyzer)
 {
-	analyzer[MATH_PLUS][E_M_DELIMITER] = m_flush_sign_analyzer;
+	(void)analyzer;
+	//analyzer[MATH_PLUS][E_M_DELIMITER] = m_flush_sign_analyzer;
 }
 
 void		init_m_minus(t_ar_analyzer analyzer)
 {
-	analyzer[MATH_MINUS][E_M_DELIMITER] = m_flush_sign_analyzer;
+	(void)analyzer;
+	//analyzer[MATH_MINUS][E_M_DELIMITER] = m_flush_sign_analyzer;
 }
 
 void		init_m_suffix_plus(t_ar_analyzer analyzer)
 {
 	analyzer[MATH_SUFFIX_PLUS][E_M_PLUS] = m_double_suffix_plus_analyzer;
-	analyzer[MATH_SUFFIX_PLUS][E_M_DELIMITER] = m_flush_preffix_sign_analyzer;
+//	analyzer[MATH_SUFFIX_PLUS][E_M_DELIMITER] = m_flush_preffix_sign_analyzer;
 }
 
 void		init_m_suffix_minus(t_ar_analyzer analyzer)
 {
 	analyzer[MATH_SUFFIX_MINUS][E_M_MINUS] = m_double_suffix_minus_analyzer;
-	analyzer[MATH_SUFFIX_MINUS][E_M_DELIMITER] = m_flush_preffix_sign_analyzer;
+//	analyzer[MATH_SUFFIX_MINUS][E_M_DELIMITER] = m_flush_preffix_sign_analyzer;
 }
 
 void		init_m_flush_sign(t_ar_analyzer analyzer)
