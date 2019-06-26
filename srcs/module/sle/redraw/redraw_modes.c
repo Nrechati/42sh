@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:51:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 16:57:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,14 @@ void	redrawmode_last(t_sle *sle)
 
 	if (sle->rd_info.line_len >= sle->rd_info.disp_len)
 	{
-		sle->rd_info.prompt_len += sle->rd_info.line_len - 1;
-		index_to_coord(sle, sle->rd_info.prompt_len, &co);
+		index_to_coord(sle, sle->rd_info.prompt_len + sle->rd_info.line_len-1, &co);
 		move_cursor_to_coord(sle, co.x, co.y);
 		print_char(sle, vct_charat(sle->line,
 						vct_len(sle->line) - 1));
 	}
 	else
 	{
-		sle->rd_info.prompt_len += sle->rd_info.line_len - 1;
-		index_to_coord(sle, sle->rd_info.prompt_len, &co);
+		index_to_coord(sle, sle->rd_info.prompt_len+sle->rd_info.line_len-1, &co);
 		move_cursor_to_coord(sle, co.x, co.y);
 		print_char(sle, ' ');
 	}

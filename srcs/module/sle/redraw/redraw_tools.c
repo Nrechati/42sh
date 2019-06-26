@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:51:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:36:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
 {
 	if (sle->window.cols == 0)
 		return ;
+
 	if (index > sle->rd_info.line_len + sle->rd_info.prompt_len + 1)
 		index =	sle->rd_info.line_len + sle->rd_info.prompt_len;
+
 	if (sle->window.cols != 0)
 	{
 		co->x = (index % sle->window.cols);
 		co->y = (index / sle->window.cols);
 	}
+	ft_dprintf(3, "ITC call x:%lu y:%lu\n", co->x, co->y);
 }
 
 void		print_char(t_sle *sle, char c)
@@ -92,6 +95,6 @@ void	print_prompt_to_window(t_sle *sle, t_vector *text)
 			sle->cursor.x = 0;
 		}
 	}
-	sle->prompt.length = (sle->cursor.y * sle->window.cols)
-			+ sle->cursor.x;
+	sle->prompt.length = (sle->cursor.y * sle->window.cols) + sle->cursor.x;
+	ft_dprintf(3, "Plength y*cols=%lu | x:%lu | y+x=%lu\n", (sle->cursor.y * sle->window.cols), sle->cursor.x, sle->prompt.length);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 14:45:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:07:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 uint64_t	get_prompt_length(t_prompt *prompt)
 {
+	ft_dprintf(3, "Prompt text: |%s|\n", prompt->text->buffer);
+	ft_dprintf(3, "Prompt length: |%lu|\n", vct_len(prompt->text));
 	return (prompt->length);
 }
 
@@ -24,9 +26,6 @@ static void	expand_prompt(t_sle *sle, t_vector *text)
 	int64_t	index;
 
 	index = -1;
-
-//	text = sle->interns.ps2;
-
 	length = vct_len(text);
 	while (index < length)
 	{
