@@ -14,7 +14,6 @@ char			*get_home_input(char *input, t_registry *shell)
 		ft_asprintf(&new_input, "%s%s", var, input + 1);
 	else
 		new_input = ft_strdup(input);
-	ft_strdel(&input);
 	return (new_input);
 }
 

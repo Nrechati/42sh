@@ -27,12 +27,12 @@ static char		*active_completion(t_autocomplete *result,
 	{
 		if (start[i] != completion[i])
 		{
-			ft_strdel(&input);
+			ft_strdel(&start);
 			return (ft_strdup(completion + i));
 		}
 		i++;
 	}
-	ft_strdel(&input);
+	ft_strdel(&start);
 	return (NULL);
 }
 
