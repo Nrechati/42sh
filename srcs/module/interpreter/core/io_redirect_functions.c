@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_redirect_functions.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 20:38:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:58:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		io_readfile(t_registry *shell, t_redirect *redirect
 		redirect->type |= FD_CRITICAL_ERROR;
 	else
 	{
-		if ((redirect->to = open(filename, O_RDWR, 0766)) == -1)
+		if ((redirect->to = open(filename, O_RDWR, 0744)) == -1)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
 			redirect->type |= FD_OPEN_ERROR;
@@ -66,7 +66,7 @@ void		io_append(t_registry *shell, t_redirect *redirect
 	else
 	{
 		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, open_flags, 0766)) == FAILURE)
+		if ((redirect->to = open(filename, open_flags, 0744)) == FAILURE)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
 			redirect->type |= FD_OPEN_ERROR;
@@ -91,7 +91,7 @@ void		io_truncate(t_registry *shell, t_redirect *redirect
 	else
 	{
 		open_flags = O_RDWR | O_TRUNC | O_CREAT;
-		if ((redirect->to = open(filename, open_flags, 0766)) == FAILURE)
+		if ((redirect->to = open(filename, open_flags, 0744)) == FAILURE)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
 			redirect->type |= FD_OPEN_ERROR;
