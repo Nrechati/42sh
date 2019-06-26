@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 06:07:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 06:52:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ struct	s_parameter
 /* ********************** ARITHMETIC *********************/
 
 #define	MATH_TOKEN		22
-#define	MATH_STATE		18
+#define	MATH_STATE		21
 #define OCTAL_BASE		"012345678"
 #define HEX_BASE		"0123456789ABCDEF"
 #define DEC_BASE		"0123456789"
@@ -103,8 +103,10 @@ enum				e_mathstate
 	MATH_PREFIX_PLUS,
 	MATH_PREFIX_MINUS,
 	MATH_PREFFIX_DELIMITER,
-	MATH_DOUBLE_PLUS,
-	MATH_DOUBLE_MINUS,
+	MATH_PREFFIX_DOUBLE_PLUS,
+	MATH_PREFFIX_DOUBLE_MINUS,
+	MATH_PREINCREMENT,
+	MATH_PREDECREMENT,
 	MATH_FLUSH_PREFFIX_SIGN,
 	MATH_FLUSH_SIGN,
 	MATH_STOP,
@@ -207,6 +209,10 @@ void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic);
 void		m_preffixed_number_analyzer(t_arithmetic *arithmetic);
 void		m_preffix_delimiter_analyzer(t_arithmetic *arithmetic);
 void		m_flush_variable_analyzer(t_arithmetic *arithmetic);
+void		m_double_plus_analyzer(t_arithmetic *arithmetic);
+void		m_preincrement_analyzer(t_arithmetic *arithmetic);
+void		m_double_minus_analyzer(t_arithmetic *arithmetic);
+void		m_predecrement_analyzer(t_arithmetic *arithmetic);
 
 void		m_get_token(t_arithmetic *arithmetic, t_list **node);
 void		del_infix(t_infix *infix);

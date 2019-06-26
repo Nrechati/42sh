@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 06:18:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 06:55:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,74 @@ void		m_flush_variable_analyzer(t_arithmetic *arithmetic)
 		ft_stckpushnode(&arithmetic->processing, node);
 	else
 		ft_lstaddback(&arithmetic->solving, node);
+}
+
+void		m_preincrement_analyzer(t_arithmetic *arithmetic)
+{
+	t_list		*node;
+	t_rpn_tk	token;
+	t_token		*current;
+	char		*data;
+
+	arithmetic->state = MATH_PREINCREMENT;
+	ft_bzero(&token, sizeof(t_rpn_tk));
+	current = arithmetic->curr_token;
+	token.type = RPN_NUMBER;
+	if ((data = get_var(g_shell->intern, current->data)))
+	{
+		token.value.digit = ft_atoll_base(data, DEC_BASE) + 1;
+		data = ft_llitoa(token.value.digit);
+	}
+	else
+	{
+		data = ft_strdup("1");
+		token.value.digit = 1;
+	}
+	add_var(&g_shell->intern, current->data, data, SET_VAR);
+	ft_strdel(&data);
+	ft_lstdelone(&arithmetic->current, NULL);
+	node = ft_lstnew(&token, sizeof(t_rpn_tk));
+	if (arithmetic->parenthesis > 0)
+		ft_stckpushnode(&arithmetic->processing, node);
+	else
+		ft_lstaddback(&arithmetic->solving, node);
+	m_get_token(arithmetic, NULL);
+	if (arithmetic->curr_token->type == E_M_DELIMITER)
+		m_get_token(arithmetic, &arithmetic->current);
+}
+
+void		m_predecrement_analyzer(t_arithmetic *arithmetic)
+{
+	t_list		*node;
+	t_rpn_tk	token;
+	t_token		*current;
+	char		*data;
+
+	arithmetic->state = MATH_PREDECREMENT;
+	ft_bzero(&token, sizeof(t_rpn_tk));
+	current = arithmetic->curr_token;
+	token.type = RPN_NUMBER;
+	if ((data = get_var(g_shell->intern, current->data)))
+	{
+		token.value.digit = ft_atoll_base(data, DEC_BASE) - 1;
+		data = ft_llitoa(token.value.digit);
+	}
+	else
+	{
+		data = ft_strdup("-1");
+		token.value.digit = -1;
+	}
+	add_var(&g_shell->intern, current->data, data, SET_VAR);
+	ft_strdel(&data);
+	ft_lstdelone(&arithmetic->current, NULL);
+	node = ft_lstnew(&token, sizeof(t_rpn_tk));
+	if (arithmetic->parenthesis > 0)
+		ft_stckpushnode(&arithmetic->processing, node);
+	else
+		ft_lstaddback(&arithmetic->solving, node);
+	m_get_token(arithmetic, NULL);
+	if (arithmetic->curr_token->type == E_M_DELIMITER)
+		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_plus_minus_analyzer(t_arithmetic *arithmetic)
@@ -82,7 +150,18 @@ void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic)
 
 void		m_double_plus_analyzer(t_arithmetic *arithmetic)
 {
-	arithmetic->state = MATH_DOUBLE_PLUS;
+	arithmetic->state = MATH_PREFFIX_DOUBLE_PLUS;
+	m_get_token(arithmetic, NULL);
+	if (arithmetic->curr_token->type == E_M_DELIMITER)
+		m_get_token(arithmetic, &arithmetic->current);
+}
+
+void		m_double_minus_analyzer(t_arithmetic *arithmetic)
+{
+	arithmetic->state = MATH_PREFFIX_DOUBLE_MINUS;
+	m_get_token(arithmetic, NULL);
+	if (arithmetic->curr_token->type == E_M_DELIMITER)
+		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		convert_plus_minus(t_token *token, t_rpn_tk *current)
