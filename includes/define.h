@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 11:31:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 12:41:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,9 +417,6 @@
 # define STATE_VISUAL	0x01
 # define STATE_SEARCH	0x02
 # define STATE_AUTOCP	0x04
-
-# define START_FILTER	">...."
-# define END_FILTER		"<...."
 
 # define PROMPT_PIPE	"pipe"
 # define PROMPT_QUOTE	"quote"

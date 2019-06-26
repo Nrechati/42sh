@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 19:56:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/26 12:41:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->prompt.state = INT_PS2;
 	prompt(shell, sle);
 	sle->line = linesave;
+	vct_reset((sle->prompt.text));
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
 	return (vct_dup(sle->sub_line));
@@ -86,6 +87,7 @@ t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	sle->prompt.state = INT_PS3;
 	prompt(shell, sle);
 	sle->line = linesave;
+	vct_reset((sle->prompt.text));
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
 	//vct_add(sle->sub_line, '\n');
