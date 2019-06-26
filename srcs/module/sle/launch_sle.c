@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 12:41:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:29:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		sle.state = STATE_STD;
 		set_redraw_flags(&sle, RD_LINE | RD_CEND);
 		redraw(shell, &sle);
+		vct_reset(sle.line);
 		update_window(&sle);
 		print_prompt(NULL, &sle);
 	}
