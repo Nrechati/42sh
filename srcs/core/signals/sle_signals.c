@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:44:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 11:09:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:44:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	sigtstp_sle(int signo)
 
 void	sigint_sle(__unused int signo)
 {
-	sle(NULL, NULL, SLE_RD_PROMPT);
+	sle(NULL, NULL, SLE_RD_PROMPT | SLE_CC);
 }
 
 void	sigwinch_sle(__unused int signo)

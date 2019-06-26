@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 16:42:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:43:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int16_t          init_term_modes(struct termios *sle,
 
     sle->c_lflag &= ~(ICANON);
 	sle->c_lflag &= ~(ECHO);
+	sle->c_lflag |= ISIG;
 	sle->c_cc[VMIN] = 1;
 	sle->c_cc[VTIME] = 0;
     return (SUCCESS);

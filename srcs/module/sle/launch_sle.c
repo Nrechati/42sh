@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 14:29:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:43:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		*in = invoke_ps2prompt(shell, &sle, sle_flag);
 	else if (sle_flag & SLE_PS3_PROMPT)
 		*in = invoke_ps3prompt(shell, &sle);
-	else if (sle_flag == SLE_RD_PROMPT)
+	else if (sle_flag & SLE_RD_PROMPT)
 	{
 		sle.state = STATE_STD;
 		set_redraw_flags(&sle, RD_LINE | RD_CEND);
 		redraw(shell, &sle);
 		vct_reset(sle.line);
 		update_window(&sle);
+		if (sle_flag & SLE_CC)
+			ft_putstr("^C");
 		print_prompt(NULL, &sle);
 	}
 	else if (sle_flag & SLE_SIZE_UPDATE)
