@@ -16,24 +16,24 @@ static char		*active_completion(char *input, char *completion,
 						t_registry *shell)
 {
 	int		i;
+	int		len;
 	char	*tmp;
 
 	if (input == NULL || completion == NULL || *completion == '\0')
 		return (NULL);
-	i = 0;
 	tmp = input;
 	if (input[0] == '~')
 		input = get_home_input(input, shell);
-	while (input[0] != '\0' && input[0] != completion[0])
-		input++;
-	while (completion[i] != '\0')
+	i = ft_strlen(completion) - 1;
+	len = ft_strlen(input) - 1;
+	while (i >= 0)
 	{
-		if (input[i] != completion[i])
+		if (i == 0 || input[len] == completion[i])
 		{
 			ft_strdel(&tmp);
-			return (ft_strdup(completion + i));
+			return (ft_strdup(completion + i + 1));
 		}
-		i++;
+		i--;
 	}
 	ft_strdel(&tmp);
 	return (NULL);
