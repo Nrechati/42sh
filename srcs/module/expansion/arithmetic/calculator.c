@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arithmetic_calculator.c                            :+:      :+:    :+:   */
+/*   calculator.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:35:33 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 17:21:44 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:34:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,19 @@ uint8_t		is_left_p(t_stack *operator)
 	return (FALSE);
 }
 
-uint8_t		need_pop_operator(t_rpn_tk *curr, t_stack *operator)
+uint8_t need_pop_operator(t_rpn_tk *curr, t_stack *operator)
 {
-	t_rpn_tk 	*top;
+	t_rpn_tk *top;
 
 	if (ft_stcksize(operator) == 0)
 		return (FALSE);
 	top = ft_stcktop(operator);
 	if (!(top->value.type & LEFT_P))
 	{
-		if (curr->value.type & LOW && top->value.type & HIGH)
-			return (TRUE);
-		if (curr->value.type & LOW && top->value.type & LOW)
-			return (TRUE);
-		if (curr->value.type & HIGH && top->value.type & HIGH)
-			return (TRUE);
+		if ((curr->value.type & PRECEDENCE) <= (top->value.type & PRECEDENCE))
+		return (TRUE);
+		else
+			return (FALSE);
 	}
 	return (FALSE);
 }
