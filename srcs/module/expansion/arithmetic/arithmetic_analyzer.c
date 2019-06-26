@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 01:46:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 06:18:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,32 @@ void		m_variable_analyzer(t_arithmetic *arithmetic)
 	arithmetic->state = MATH_VARIABLE;
 	ft_stckpushnode(&arithmetic->processing, arithmetic->current);
 	m_get_token(arithmetic, NULL);
+	if (arithmetic->curr_token->type == E_M_DELIMITER)
+		m_get_token(arithmetic, &arithmetic->current);
+}
+
+void		m_flush_variable_analyzer(t_arithmetic *arithmetic)
+{
+	t_list		*node;
+	t_rpn_tk	token;
+	t_token		*current;
+	char		*data;
+
+	arithmetic->state = MATH_VARIABLE_FLUSH;
+	ft_bzero(&token, sizeof(t_rpn_tk));
+	node = ft_stckpopnode(&arithmetic->processing);
+	current = node->data;
+	token.type = RPN_NUMBER;
+	if ((data = get_var(g_shell->intern, current->data)))
+		token.value.digit = ft_atoll_base(data, DEC_BASE);
+	else
+		token.value.digit = 0;
+	ft_lstdelone(&node, NULL);
+	node = ft_lstnew(&token, sizeof(t_rpn_tk));
+	if (arithmetic->parenthesis > 0)
+		ft_stckpushnode(&arithmetic->processing, node);
+	else
+		ft_lstaddback(&arithmetic->solving, node);
 }
 
 void		m_plus_minus_analyzer(t_arithmetic *arithmetic)
@@ -57,7 +83,6 @@ void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic)
 void		m_double_plus_analyzer(t_arithmetic *arithmetic)
 {
 	arithmetic->state = MATH_DOUBLE_PLUS;
-
 }
 
 void		convert_plus_minus(t_token *token, t_rpn_tk *current)
@@ -86,6 +111,11 @@ void		m_flush_preffix_sign_analyzer(t_arithmetic *arithmetic)
 		ft_lstaddback(&arithmetic->solving, node);
 	if (arithmetic->curr_token->type == E_M_DELIMITER)
 		m_get_token(arithmetic, &arithmetic->current);
+}
+
+void		m_preffix_delimiter_analyzer(t_arithmetic *arithmetic)
+{
+	arithmetic->state = MATH_PREFFIX_DELIMITER;
 }
 
 void		m_stop_analyzer(t_arithmetic *arithmetic)

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 02:30:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 06:07:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,30 @@ struct	s_parameter
 /* ********************** ARITHMETIC *********************/
 
 #define	MATH_TOKEN		22
-#define	MATH_STATE		16
+#define	MATH_STATE		18
 #define OCTAL_BASE		"012345678"
 #define HEX_BASE		"0123456789ABCDEF"
 #define DEC_BASE		"0123456789"
 
-# define TIMES        0x001
-# define DIVIDE        0x002
-# define MODULO        0x004
-# define PLUS       0x008
-# define MINUS        0x010
-# define HIGH        0x020
-# define LOW        0x040
-# define LEFT_P        0x080
-# define RIGHT_P    0x100
+# define PLUS			0x01000001
+# define MINUS			0x01000002
+# define TIMES			0x02000010
+# define DIVIDE			0x02000020
+# define MODULO			0x02000040
+# define DIFF			0x04000100
+# define EQUAL			0x04000200
+# define LESSEQ			0x04001000
+# define GREATEQ		0x04002000
+# define LESS			0x04004000
+# define GREAT			0x04008000
+# define PRE_INCRE		0x08010000
+# define POST_INCRE		0x08020000
+# define PRE_DECRE		0x08040000
+# define POST_DECRE		0x08080000
+# define LEFT_P			0x10100000
+# define RIGHT_P		0x10200000
+# define LOW			0x20000000
+# define HIGH			0x40000000
 
 typedef struct	s_arithmetic t_arithmetic;
 typedef void	(*t_arithmexp)(t_arithmetic *);
@@ -85,12 +95,14 @@ enum				e_mathstate
 	MATH_PREFFIXED_NUMBER,
 	MATH_OPERATOR,
 	MATH_VARIABLE,
+	MATH_VARIABLE_FLUSH,
 	MATH_OPEN_PARENT,
 	MATH_CLOSE_PARENT,
 	MATH_PLUS,
 	MATH_MINUS,
 	MATH_PREFIX_PLUS,
 	MATH_PREFIX_MINUS,
+	MATH_PREFFIX_DELIMITER,
 	MATH_DOUBLE_PLUS,
 	MATH_DOUBLE_MINUS,
 	MATH_FLUSH_PREFFIX_SIGN,
@@ -143,6 +155,16 @@ struct				s_arithmetic
 	size_t			end;
 };
 
+typedef struct				s_math
+{
+	t_vector		*input;
+	t_list			*tokens;
+	t_token			*current_token;
+	t_stack			sign;
+	t_stack			operand;
+	char			*expanded;
+}					t_math;
+
 /* ******************************************************/
 
 char		*expansion_pipeline(t_list *intern_var, char *str);
@@ -183,7 +205,8 @@ void		m_flush_sign_analyzer(t_arithmetic *arithmetic);
 void		m_flush_preffix_sign_analyzer(t_arithmetic *arithmetic);
 void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic);
 void		m_preffixed_number_analyzer(t_arithmetic *arithmetic);
-
+void		m_preffix_delimiter_analyzer(t_arithmetic *arithmetic);
+void		m_flush_variable_analyzer(t_arithmetic *arithmetic);
 
 void		m_get_token(t_arithmetic *arithmetic, t_list **node);
 void		del_infix(t_infix *infix);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 22:01:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 04:23:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ int				arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 
 static int		arithmetic(__unused t_list *intern, char **output, int i)
 {
-	t_list			*token_list;
 	t_arithmetic	arithmetic;
 
-	token_list = NULL;
 	ft_bzero(&arithmetic, sizeof(t_arithmetic));
 	if (find_expansion_end(&arithmetic, *output, i + 3) == FAILURE)
 		return (FAILURE);
