@@ -54,9 +54,12 @@ uint8_t				parser_subprompt(enum e_type state,
 	sle(g_shell, &line, option);
 	if (line == NULL)
 		return (FALSE);
+	if (line->buffer == NULL || ft_strequ(line->buffer, "\n") == TRUE)
+		return (parser_subprompt(state, input, lst));
+	vct_pop(input);
+	vct_add(input, ' ');
 	new_token = lexer(line, SHELL);
-	if (line != NULL && line->buffer != NULL && *line->buffer != '\0')
-		vct_ncat(input, line, vct_len(line));
+	vct_ncat(input, line, vct_len(line));
 	vct_del(&line);
 	free_one_node_token(&(*lst)->next);
 	(*lst)->next = new_token;

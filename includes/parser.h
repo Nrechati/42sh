@@ -15,7 +15,7 @@
 
 int8_t		parser(t_vector *input, t_list *lst);
 uint8_t		need_subprompt(enum e_type state, enum e_type type);
-void		parser_subprompt(enum e_type state, t_vector *input, t_list **lst);
+uint8_t		parser_subprompt(enum e_type state, t_vector *input, t_list **lst);
 
 /*
 *************** INIT
