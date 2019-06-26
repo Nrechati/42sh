@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:15:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 11:25:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:59:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ inline uint8_t		is_separator(char character[READ_SIZE + 1])
 
 inline uint8_t		is_printable(char c[READ_SIZE])
 {
-	if (c[1] == 0 && ft_isprint(c[0]))
+	if (c[1] == 0 && c[0] != '\n' && ft_isprint(c[0]))
 		return (TRUE);
 	return (FALSE);
 }
