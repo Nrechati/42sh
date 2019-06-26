@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 19:10:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:31:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,6 +365,23 @@
 
 /*
 *****************************************************
+******************** JOBCONTROL *********************
+*****************************************************
+*/
+
+# define JOBCTL_PLUS					0x01
+# define JOBCTL_MINUS					0x02
+
+# define JOBCTL_LIST					0x01 /* List jobs in bg | Builtin jobs */
+# define JOBCTL_LONG					0x02
+# define JOBCTL_ID						0x04
+
+# define JOBCTL_PUTINBG					0x08 /* Save job to jobctl module */
+# define JOBCTL_PUTINFG					0x10 /* Restore bg job to fg | builtin fg */
+# define JOBCTL_RUNINBG					0x20 /* Exec a bg job in bg | builtin bg */
+
+/*
+*****************************************************
 ******************** INTERPRETER ********************
 *****************************************************
 */
@@ -381,6 +398,7 @@
 # define KILLED						0x04
 # define SUCCEDED					0x08
 # define FAILED						0x10
+# define STOPPED					0x20
 
 # define TRIM_OFF					0x00
 # define TRIM_ON					0x01

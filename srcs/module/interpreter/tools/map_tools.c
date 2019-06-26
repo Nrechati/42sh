@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 21:33:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 20:18:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:51:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		set_process_pgid(void *context, void *data)
 	t_process	*process;
 
 	job = context;
+	job->pgid = 0;
 	process = data;
 	process->pgid = &job->pgid;
 	return (SUCCESS);

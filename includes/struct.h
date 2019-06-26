@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/25 08:47:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/26 10:20:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ typedef struct			s_registry
 	t_list				*intern;
 	t_opt				option;
 	t_hashmap			hash;
+
+	pid_t				pid;
+
+	t_list				*job_list;
+	uint64_t			active_jobs;
+	t_list				*current_plus;
+	t_list				*current_minus;
+
 	struct termios		*sle_mode;
 	struct termios		*exec_mode;
 	struct termios		*orig_mode;
@@ -149,12 +157,16 @@ typedef struct			s_process
 
 typedef struct			s_job
 {
-	pid_t				pgid;
-	t_list				*processes;
-	uint8_t				state;
+	pid_t				pgid;			/* Job process group id */
+	t_list				*processes;		/* Job process list		*/
+	uint8_t				state;			/* RUNNING | PENDING */
 	uint8_t				job_type;
 	uint32_t			signo;
-	struct termios		*term_modes;
+
+	uint64_t			id;
+	char				current;
+
+	struct termios		*term_modes;	/* Saved termios mode 	*/
 }						t_job;
 
 struct					s_resolution
@@ -168,6 +180,8 @@ struct					s_resolution
 	enum e_analyzer_state	state;
 	int					valid;
 };
+
+extern t_job 			*g_current_job;
 
 /*
 *****************************************************

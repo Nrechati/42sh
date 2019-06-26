@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:30:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/13 17:43:59 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:59:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ void	print_process(void *data)
 
 	process = data;
 	ft_showtab(process->av);
-//	ft_printf("\x1b[33mprocess->type: %d | process->pid: %d | process->pgid: %d\n\x1b[0m"
-//			, process->process_type, process->pid, *process->pgid);
+	ft_printf("\x1b[33mprocess->type: %d | process->pid: %d | process->pgid: %d\n\x1b[0m"
+			, process->process_type, process->pid, *process->pgid);
 }
 
 void	print_job(void *data)
 {
-	(void)data;
-//	t_job *job;
+	t_job *job;
 
-//	job = data;
-//	ft_printf("\x1b[33mpgid : %s | job_type: %u\n\x1b[0m"
-//			, job->pgid
-//			, job->job_type);
+	job = data;
+	ft_printf("\x1b[33mpgid : %ld | job_type: %u\n\x1b[0m"
+			, job->pgid
+			, job->job_type);
 }

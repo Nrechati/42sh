@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 20:43:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:37:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int		run_process(void *context, void *data)
 	else
 		fork_process(shell, process);
 	return (SUCCESS);
+	pid_t ctl_proc = tcgetpgrp(STDOUT_FILENO);
 }
 
 static int		run_job(void *context, void *data)
@@ -109,10 +110,14 @@ static int		run_job(void *context, void *data)
 		head->process_type |= IS_ALONE;
 	else
 		setup_pipe(job->processes);
+
 	job->state |= RUNNING;
+
 	ft_lstiter_ctx(job->processes, shell, run_process);
+//	ft_lstiter(job->processes, print_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	waiter(shell, job);
+	del_job(job);
 	return (SUCCESS);
 }
 
@@ -125,9 +130,13 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 		ft_lstiter_ctx(job_lst, &flag, set_signaled);
 		return (SUCCESS);
 	}
+
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
+
 	ft_lstdel(cmd_group, del_group);
+
 	load_signal_profile(EXEC_PROFILE);
+
 	ft_lstiter_ctx(job_lst, shell, run_job);
 	add_var(&shell->intern, "job_type", "0", READONLY_VAR);
 	ft_lstdel(&job_lst, del_job);

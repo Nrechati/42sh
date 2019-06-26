@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 08:47:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/25 10:01:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,19 @@ int		main(int ac, char **av, char **env) // exit by shell_exit_routine
 
 
 	(void)ac;
-	g_shell = &shell;
-	if (init_shell(&shell, av, env) == FAILURE)
-		shell_exit_routine(&shell, FAILURE);
-/*	shell_pid = getpid();
-	if (setpgid(shell_pid, shell_pid) < 0)
+	if (init_shell(&shell, av + 1, env) == FAILURE)
+		return (FAILURE);
+
+	shell.pid = getpid();
+	shell.active_jobs = 0;
+	if (setpgid(shell.pid, shell.pid) < 0)
 	{
 		ft_dprintf(2, "Failed Setpgid\n");
-		shell_exit_routine(&shell, FAILURE);
-	}*/
+		exit(-1);
+	}
+	tcsetpgrp(STDOUT_FILENO, shell.pid);
+	g_shell = &shell;
+
 	launch_shell(&shell);
 	shell_exit_routine(&shell, SUCCESS);
 	return (SUCCESS); // Never reaches this point

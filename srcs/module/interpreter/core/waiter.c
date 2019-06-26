@@ -6,17 +6,28 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 20:13:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:32:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void		set_status(t_registry *shell, t_process *current, int status)
+
+static void		set_status(t_registry *shell, t_job *job,
+						t_process *current, int status)
 {
 	char	*exit_status;
 
 	exit_status = NULL;
+	if (WIFSTOPPED(status))
+	{
+		job->state = STOPPED;
+		job->signo = WSTOPSIG(status);
+		current->stopped = TRUE;
+		shell->active_jobs++;
+		job->id = (shell->active_jobs);
+		jobctl(shell, job, JOBCTL_PUTINBG);
+	}
 	if (WIFEXITED(status))
 	{
 		exit_status = ft_itoa(WEXITSTATUS(status)); //PROTECT ?
@@ -27,7 +38,6 @@ static void		set_status(t_registry *shell, t_process *current, int status)
 	}
 	if (WIFSIGNALED(status))
 	{
-		ft_printf("%s terminated with status %d by %d\n", current->av[0], status, WTERMSIG(status));
 		exit_status = ft_itoa(WTERMSIG(status) + 128);
 		current->stopped = TRUE;
 	}
@@ -46,7 +56,7 @@ static void		update_pid(t_registry *shell, t_job *job, pid_t pid, int status)
 		current = processes->data;
 		if (current->pid == pid)
 		{
-			set_status(shell, current, status);
+			set_status(shell, job, current, status);
 			return ;
 		}
 		processes = processes->next;
@@ -90,7 +100,7 @@ int8_t			waiter(t_registry *shell, t_job *job)
 		if (job->state & KILLED)
 			ft_lstiter_ctx(job->processes, &job->signo, kill_process);
 		status = 0;
-		pid = wait(&status);
+		pid = waitpid(-1, &status, WNOHANG | WUNTRACED);
 		if (pid)
 			update_pid(shell, job, pid, status);
 	}
@@ -99,5 +109,6 @@ int8_t			waiter(t_registry *shell, t_job *job)
 													, job->pgid
 													, job->signo);
 	job->state ^= (RUNNING | ENDED);
+	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
 	return (SUCCESS);
 }

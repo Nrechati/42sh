@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 13:13:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 13:36:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/21 02:08:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ void		launch_job(t_registry *shell, t_list *joblst);
 //void		link_pipes(t_list *process, t_filedesc *io, int my_pipe[2]);
 int8_t		launch_process(t_job *job, t_process *process, t_registry *shell);
 void		wait_for_job(t_job *job);
+
 uint8_t		job_is_stopped(t_job *job);
 uint8_t		job_is_completed(t_job *job);
+t_job		*find_job();
+
 void		shell_is_interactive(t_registry *shell, uint8_t term);
 void		redirect(void *data);
 void		get_blt_fd(void *data);
