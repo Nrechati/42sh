@@ -205,6 +205,8 @@ typedef struct			s_termcaps
 	char				*right;
 	char				*left;
 	char				*up;
+	char				*hidden_cursor;
+	char				*normal_cursor;
 }						t_termcaps;
 
 typedef struct			s_prompt

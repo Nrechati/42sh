@@ -43,5 +43,7 @@ uint64_t    init_termcaps(t_termcaps *termcap)
     termcap->down = ft_strdup(tgetstr("do", NULL));
     termcap->left = ft_strdup(tgetstr("le", NULL));
     termcap->right = ft_strdup(tgetstr("nd", NULL));
+    termcap->hidden_cursor = ft_strdup(tgetstr("vi", NULL));
+    termcap->normal_cursor = ft_strdup(tgetstr("ve", NULL));
     return (SUCCESS);
 }
