@@ -35,7 +35,7 @@ uint8_t				need_subprompt(enum e_type state, enum e_type type)
 	return (FALSE);
 }
 
-void				parser_subprompt(enum e_type state,
+uint8_t				parser_subprompt(enum e_type state,
 						t_vector *input, t_list **lst)
 {
 	t_vector	*line;
@@ -51,14 +51,14 @@ void				parser_subprompt(enum e_type state,
 		option |= PRINT_AND;
 	else if (state == E_OR)
 		option |= PRINT_OR;
-	while (new_token == NULL)
-	{
-		sle(g_shell, &line, option);
-		new_token = lexer(line, SHELL);
-		if (line != NULL && line->buffer != NULL && *line->buffer != '\0')
-			vct_ncat(input, line, vct_len(line));
-		vct_del(&line);
-	}
+	sle(g_shell, &line, option);
+	if (line == NULL)
+		return (FALSE);
+	new_token = lexer(line, SHELL);
+	if (line != NULL && line->buffer != NULL && *line->buffer != '\0')
+		vct_ncat(input, line, vct_len(line));
+	vct_del(&line);
 	free_one_node_token(&(*lst)->next);
 	(*lst)->next = new_token;
+	return (TRUE);
 }
