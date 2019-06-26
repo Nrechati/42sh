@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 14:43:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:48:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		vct_reset(sle.line);
 		update_window(&sle);
 		if (sle_flag & SLE_CC)
-			ft_putstr("^C");
+			ft_putendl("^C");
 		print_prompt(NULL, &sle);
 	}
 	else if (sle_flag & SLE_SIZE_UPDATE)
