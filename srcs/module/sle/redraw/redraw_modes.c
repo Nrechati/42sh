@@ -56,10 +56,12 @@ void	redrawmode_line(t_sle *sle)
 	{
 		sl = vct_get_string(sle->sub_line);
 		search = history(NULL, sl, GET_ENTRY | BY_NAME | sle->search_type);
-		if (search == NULL)
+		if (search == NULL && sl != NULL && *sl != '\0')
 			sle->search_line = vct_dups("Failed");
-		else
+		else if (search != NULL)
 			sle->search_line = vct_dups(search);
+		else
+			sle->search_line = vct_dups("");
 		search = NULL;
 		ft_asprintf(&search, "%s`%s`:%s",
 					(sle->search_type == NEXT) ? INC_SEARCH : REV_SEARCH,
