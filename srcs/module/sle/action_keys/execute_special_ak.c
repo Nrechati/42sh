@@ -32,18 +32,29 @@ int8_t		ak_ctrl_r(__unused t_registry *shell, t_sle *sle)
 
 int8_t		ak_hightab(t_registry *shell, t_sle *sle)
 {
-	char	*ret_completion;
+	char		*ret_completion;
+	char		*substring;
 
 	if (sle->state != STATE_STD)
 		return (FAILURE);
 	ret_completion = NULL;
-	if (autocompletion(vct_get_string(sle->line), shell,
+	substring = ft_strdup(vct_get_string(sle->line));
+	if (substring != NULL && ft_strlen(substring) > sle->cursor.index)
+		substring[sle->cursor.index] = '\0';
+	if (autocompletion(substring, shell,
 			&ret_completion, NEW_SEARCH) == NOT_FOUND)
-		 return (FAILURE);
+	{
+		ft_strdel(&substring);
+		return (FAILURE);
+	}
 	if (ret_completion != NULL)
-		vct_scat(sle->line, ret_completion, ft_strlen(ret_completion));
+	{
+		ft_strdel(&substring);
+		vct_insert_string(sle->line, ret_completion, sle->cursor.index);
+	}
 	else
 	{
+		ft_strdel(&substring);
 		ft_putendl("");
 		print_prompt(shell, sle);
 	}

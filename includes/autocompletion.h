@@ -30,6 +30,7 @@ typedef struct			s_autocomplete
 	size_t				nb;
 	size_t				max_len;
 	enum e_result_type	type;
+	size_t				index;
 }						t_autocomplete;
 
 
