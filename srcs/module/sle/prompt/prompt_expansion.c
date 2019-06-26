@@ -48,7 +48,6 @@ void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index)
 		len = ft_strlen(home);
 		vct_replace_string(text, index, index + len, "~");
 	}
-	ft_strdel(&cwd);
 }
 
 void		p_insert_host(t_vector *text, uint64_t index)

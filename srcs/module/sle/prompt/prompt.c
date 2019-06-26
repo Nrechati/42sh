@@ -72,7 +72,6 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->prompt.state = INT_PS2;
 	prompt(shell, sle);
 	sle->line = linesave;
-	vct_reset((sle->prompt.text));
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
 	return (vct_dup(sle->sub_line));
@@ -87,7 +86,6 @@ t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	sle->prompt.state = INT_PS3;
 	prompt(shell, sle);
 	sle->line = linesave;
-	vct_reset((sle->prompt.text));
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
 	//vct_add(sle->sub_line, '\n');

@@ -78,7 +78,6 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		*in = invoke_ps3prompt(shell, &sle);
 	else if (sle_flag == SLE_RD_PROMPT)
 	{
-		vct_reset(sle.line);
 		sle.state = STATE_STD;
 		set_redraw_flags(&sle, RD_LINE | RD_CEND);
 		redraw(shell, &sle);
