@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 16:12:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 16:15:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = sle->sub_line;
 	sle->prompt.missing_char = (char *)prompt_type[sle_flag & ~SLE_PS2_PROMPT];
 	sle->prompt.state = INT_PS2;
-	prompt(shell, sle);
+	if (prompt(shell, sle) == NULL)
+		return (NULL);
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
@@ -93,7 +94,8 @@ t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	linesave = sle->line;
 	sle->line = sle->sub_line;
 	sle->prompt.state = INT_PS3;
-	prompt(shell, sle);
+	if (prompt(shell, sle) == NULL)
+		return (NULL);
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
