@@ -6,27 +6,27 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 17:36:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 23:20:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 # include <termcap.h>
 
-void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
+void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co,
+				__unused uint32_t carriage_ret)
 {
 	if (sle->window.cols == 0)
 		return ;
 
 	if (index > sle->rd_info.line_len + sle->rd_info.prompt_len + 1)
 		index =	sle->rd_info.line_len + sle->rd_info.prompt_len;
-
+//	index += (carriage_ret * sle->window.cols);
 	if (sle->window.cols != 0)
 	{
 		co->x = (index % sle->window.cols);
 		co->y = (index / sle->window.cols);
 	}
-	ft_dprintf(3, "ITC call x:%lu y:%lu\n", co->x, co->y);
 }
 
 void		print_char(t_sle *sle, char c)
@@ -34,9 +34,15 @@ void		print_char(t_sle *sle, char c)
 	write(1, &c, 1);
 	sle->cursor.x++;
 	sle->cursor.index++;
-	if (sle->cursor.x == sle->window.cols)
+	if (sle->cursor.x == sle->window.cols || c == '\n')
 	{
-		tputs(sle->termcaps.down, 2, &ft_putc);
+		if (c != '\n')
+			tputs(sle->termcaps.down, 2, &ft_putc);
+		else
+		{
+			sle->window.drawed_lines++;
+			ft_dprintf(3, "Inc dl\n");
+		}
 		sle->cursor.y++;
 		sle->cursor.x = 0;
 	}
@@ -96,5 +102,4 @@ void	print_prompt_to_window(t_sle *sle, t_vector *text)
 		}
 	}
 	sle->prompt.length = (sle->cursor.y * sle->window.cols) + sle->cursor.x;
-	ft_dprintf(3, "Plength y*cols=%lu | x:%lu | y+x=%lu\n", (sle->cursor.y * sle->window.cols), sle->cursor.x, sle->prompt.length);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 21:17:15 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:04:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void		set_cursor_pos(t_sle *sle, uint64_t index);
 void		move_cursor(t_sle *sle);
 void		move_cursor_to_coord(t_sle *sle, uint64_t x, uint64_t y);
 
-
 void		update_window(t_sle *sle);
 void		redraw_window(t_sle *sle);
 
@@ -80,22 +79,18 @@ void		redrawmode_fptp(t_sle *sle);
 void		redrawmode_fstp(t_sle *sle);
 void		redrawmode_fpte(t_sle *sle);
 void		redrawmode_visual(t_sle *sle);
-//void		redrawmode_visual_off(t_sle *sle);
 
 void		define_interface_signals(void);
 void		interface_resize_handler(const int signo);
-
 
 void		print_char(t_sle *sle, char c);
 void		print_loop(t_sle *sle, char *str);
 void		print_prompt(t_registry *shell, t_sle *sle);
 void		print_prompt_to_window(t_sle *sle, t_vector *text);
 
-
-
-
 uint64_t	get_prompt_length(t_prompt *prompt);
-void		index_to_coord(t_sle *sle, uint64_t indx, t_coord *co);
+void		index_to_coord(t_sle *sle, uint64_t indx, t_coord *co,
+				uint32_t carriage_return);
 
 
 void		p_insert_name(t_vector *text, uint64_t index);

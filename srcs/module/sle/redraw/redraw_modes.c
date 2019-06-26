@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 16:57:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:49:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ void	redrawmode_last(t_sle *sle)
 
 	if (sle->rd_info.line_len >= sle->rd_info.disp_len)
 	{
-		index_to_coord(sle, sle->rd_info.prompt_len + sle->rd_info.line_len-1, &co);
+		index_to_coord(sle, sle->rd_info.prompt_len + sle->rd_info.line_len-1, &co,
+						sle->window.drawed_lines);
 		move_cursor_to_coord(sle, co.x, co.y);
 		print_char(sle, vct_charat(sle->line,
 						vct_len(sle->line) - 1));
 	}
 	else
 	{
-		index_to_coord(sle, sle->rd_info.prompt_len+sle->rd_info.line_len-1, &co);
+		index_to_coord(sle, sle->rd_info.prompt_len+sle->rd_info.line_len-1,
+						&co, sle->window.drawed_lines);
 		move_cursor_to_coord(sle, co.x, co.y);
 		print_char(sle, ' ');
 	}
@@ -68,13 +70,19 @@ void	redrawmode_line(t_sle *sle)
 	t_coord		co;
 	int64_t		diff;
 
-	index_to_coord(sle, sle->rd_info.prompt_len, &co);
+	index_to_coord(sle, sle->rd_info.prompt_len, &co, sle->window.drawed_lines);
 	move_cursor_to_coord(sle, co.x, co.y);
+
 	if (sle->state == STATE_SEARCH)
 		state_search(sle);
 	else
 		tputs(sle->termcaps.normal_cursor, 1, &ft_putc);
+
 	diff = vct_len(sle->line) - (vct_len(sle->window.displayed_line)) - 1;
+	if (sle->window.drawed_lines != -1)
+		diff -= (sle->window.drawed_lines * sle->window.cols);
+	sle->window.drawed_lines = 0;
+
 	print_loop(sle, vct_get_string(sle->line));
 	if (diff <= 0)
 	{
@@ -90,7 +98,8 @@ void	redrawmode_fptp(t_sle *sle)
 	int64_t		length;
 	int64_t		tmp;
 
-	index_to_coord(sle, sle->window.point1 + sle->rd_info.prompt_len, &co);
+	index_to_coord(sle, sle->window.point1 + sle->rd_info.prompt_len,
+					&co, sle->window.drawed_lines);
 	move_cursor_to_coord(sle, co.x, co.y);
 	length = sle->window.point2 - (sle->window.point1 + 1);
 	tmp = sle->window.point1;

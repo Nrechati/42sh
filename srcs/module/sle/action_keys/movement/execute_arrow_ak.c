@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:29 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:57:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:10:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int8_t				ak_arrow_up(__unused t_registry *shell, t_sle *sle)
 	if (hist_cmd == NULL)
 		return (FAILURE);
 	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
-	vct_replace_string(sle->line, 0, len ,hist_cmd);
+	vct_replace_string(sle->line, 0, len, hist_cmd);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	return (FAILURE);
 }
