@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/26 10:20:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 16:00:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct			s_registry
 	uint64_t			active_jobs;
 	t_list				*current_plus;
 	t_list				*current_minus;
+
+	uint8_t				sigint;
 
 	struct termios		*sle_mode;
 	struct termios		*exec_mode;
@@ -272,17 +274,13 @@ typedef struct			s_sle
 
 	t_intern			interns;
 
-	//history
 	t_vector			*line_save;
 
-	// inc search
 	t_vector			*search_line;
 	uint16_t			search_type;
 
-	//visual mode
 	int64_t				vis_start;
 	int64_t				vis_stop;
-
 	t_vector			*clip;
 }						t_sle;
 
