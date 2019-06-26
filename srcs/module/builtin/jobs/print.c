@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:59:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 22:45:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:32:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		print_longformat(t_job *job, char *state)
 
 	proc = job->processes->data;
 	get_process_av(proc, &avs);
-	ft_printf("[%d] %c %d %s:%d \t %s\n", job->id, job->current,
+	ft_printf("[%d]%c %d %s:%d \t %s\n", job->id, job->current,
 				(uint32_t)job->pgid, state, job->signo,
 				avs);
 	ft_strdel(&avs);
@@ -28,7 +28,8 @@ static void		print_longformat(t_job *job, char *state)
 	while (process != NULL)
 	{
 		get_process_av(process->data, &avs);
-		ft_printf("      %d \t \t| %s\n", (uint32_t)((t_process*)process->data)->pid,
+		ft_printf("      %d \t \t| %s\n",
+						(uint32_t)((t_process*)process->data)->pid,
 						avs);
 		ft_strdel(&avs);
 		process = process->next;
@@ -42,10 +43,8 @@ static void	print_jobinfo(__unused t_job *job, uint8_t __unused flag)
 
 	state_to_str(job->state, &state);
 	get_job_av(job, &command);
-
 	if (flag & JOBCTL_LONG)
 		print_longformat(job, state);
-
 	else if (flag & JOBCTL_ID)
 		ft_printf("%d\n", job->pgid);
 	else
@@ -82,40 +81,12 @@ static void	print_joblist(__unused uint8_t flag)
 	}
 }
 
-void	remove_done_jobs(t_registry *shell)
+void	print_jobs(t_registry *shell, t_job *job, uint8_t flag)
 {
-	t_job	*job;
-	t_list	*job_ptr;
-
-	job_ptr = shell->job_list;
-	while (job_ptr != NULL)
-	{
-		job = (t_job*)job_ptr->data;
-		if (job->state & ENDED)
-			remove_job_from_active_list(&shell->job_list, job);
-		job_ptr = job_ptr->next;
-	}
-}
-
-void	print_jobs(t_job *job, uint8_t flag)
-{
-	t_list	*job_ptr;
-
-	job_ptr = g_shell->job_list;
-	while (job_ptr != NULL)
-	{
-		if (g_shell->current_plus == job_ptr)
-			((t_job*)job_ptr->data)->current = '+';
-		else if (g_shell->current_minus == job_ptr)
-			((t_job*)job_ptr->data)->current = '-';
-		else
-			((t_job*)job_ptr->data)->current = ' ';
-		job_ptr = job_ptr->next;
-	}
+	update_jobinfos(shell);
 	if (job == NULL)
 		print_joblist(flag);
 	else
 		print_jobinfo(job, flag);
-	update_job_ids(g_shell);
-	remove_done_jobs(g_shell);
+	remove_done_jobs(shell);
 }

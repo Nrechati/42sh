@@ -6,24 +6,22 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 22:42:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:32:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "sh21.h"
 
-void			remove_job_from_active_list(t_list **list, t_job *job)
+void			remove_job_from_list(t_list **list, t_job *job)
 {
 	t_list	*ptr;
 	t_list	*job_ptr;
 
-	if (job == NULL)
+	if (job == NULL || *list == NULL)
 		return ;
 	job_ptr = *list;
-
 	while (job_ptr != NULL && (t_job*)job_ptr->data != job)
 		job_ptr = job_ptr->next;
-
 	if (job_ptr == *list)
 		*list = (job_ptr->next);
 	else
@@ -32,30 +30,6 @@ void			remove_job_from_active_list(t_list **list, t_job *job)
 		while (ptr->next != NULL && ptr->next != job_ptr)
 			ptr = ptr->next;
 		ptr->next = ptr->next->next;
-	}
-}
-
-void	update_currents(t_registry *shell, t_job *job)
-{
-	t_list *jobs;
-  	if (shell->job_list == NULL)
-	{
-		shell->current_minus = NULL;
-		shell->current_plus = NULL;
-	}
-	else
-	{
-		if (job != (t_job*)shell->current_minus->data)
-			shell->current_plus = shell->current_minus;
-		jobs = shell->job_list;
-		while (jobs != NULL)
-		{
-			if (jobs != shell->current_plus && jobs != NULL)
-				shell->current_minus = jobs;
-			jobs = jobs->next;
-		}
-		if (shell->job_list->next == NULL)
-			shell->current_minus = NULL;
 	}
 }
 
@@ -76,45 +50,21 @@ static void			job_to_registry(t_registry *shell, t_job *job)
 	job->term_modes = NULL;
 	data = ft_lstnew(&job_cpy, sizeof(t_job));
 	ft_lstaddback(&shell->job_list, data);
-
-	shell->current_minus = shell->current_plus;
-	shell->current_plus = data;
-
-}
-
-void	update_job_ids(t_registry *shell)
-{
-	uint32_t	id;
-	t_job		*job;
-	t_list		*job_ptr;
-
-	id = 1;
-	job_ptr = shell->job_list;
-
-	while (id <= shell->active_jobs && job_ptr != NULL)
-	{
-		job = job_ptr->data;
-		job->id = id;
-		++id;
-		job_ptr = job_ptr->next;
-	}
+	push_current_job(shell, data);
 }
 
 void	job_to_foreground(t_registry *shell, t_job *job)
 {
 	char	*avs;
 
-	if (job == NULL)
+	if (job == NULL || job->processes == NULL)
 		return ;
 	job->state = RUNNING;
 	((t_process*)job->processes->data)->stopped = FALSE;
-
-	remove_job_from_active_list(&shell->job_list, job);
+	remove_job_from_list(&shell->job_list, job);
 	shell->active_jobs--;
-
-	update_job_ids(shell);
-	update_currents(shell, job);
-
+	update_jobinfos(shell);
+	pop_current_job(shell, job);
 	get_job_av(job, &avs);
 	ft_printf("%s\n", avs);
 	ft_strdel(&avs);
@@ -137,15 +87,11 @@ void	job_run_background(__unused t_registry *shell, t_job *job)
 void	jobctl(__unused t_registry *shell, t_job *job, uint8_t flag)
 {
 	if (flag & JOBCTL_LIST)
-		print_jobs(job, flag);
-
+		print_jobs(shell, job, flag);
 	else if (flag & JOBCTL_PUTINBG)
 		job_to_registry(shell, job);
-
 	else if (flag & JOBCTL_PUTINFG)
 		job_to_foreground(shell, job);
-
 	else if (flag & JOBCTL_RUNINBG)
 		job_run_background(shell, job);
-
 }

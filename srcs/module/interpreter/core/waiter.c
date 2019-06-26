@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/25 22:28:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:32:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,6 @@ int8_t			waiter(t_registry *shell, t_job *job)
 													, job->pgid
 													, job->signo);
 	job->state ^= (RUNNING | ENDED);
-
 	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
-	ft_dprintf(3, "Attaching shell back to terminal\n");
-
 	return (SUCCESS);
 }

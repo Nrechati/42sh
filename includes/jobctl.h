@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 22:42:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:25:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 
 void	jobctl(t_registry *shell, t_job *job, uint8_t flag);
 
-void	update_job_ids(t_registry *shell);
-void	update_currents(t_registry *shell, t_job *job);
+void	update_jobinfos(t_registry *shell);
+void	push_current_job(t_registry *shell, t_list *job);
+void	pop_current_job(t_registry *shell, t_job *job);
+void	remove_job_from_list(t_list **joblst, t_job *job);
+void	remove_done_jobs(t_registry *shell);
 
-void	remove_job_from_active_list(t_list **joblst, t_job *job);
 
-void	print_jobs(t_job *job, uint8_t flag);
+void	print_jobs(t_registry *shell, t_job *job, uint8_t flag);
 void	av_to_str(t_process);
 void	state_to_str(uint8_t state, char **str);
 void	get_job_av(t_job *job, char **str);

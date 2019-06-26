@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 18:11:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 10:20:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ typedef struct			s_job
 {
 	pid_t				pgid;			/* Job process group id */
 	t_list				*processes;		/* Job process list		*/
-	uint8_t				state;			/* RUNNIG | PENDING */
+	uint8_t				state;			/* RUNNING | PENDING */
 	uint8_t				job_type;
 	uint32_t			signo;
 
