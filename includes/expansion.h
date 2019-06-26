@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 17:33:50 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:54:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,25 @@ struct	s_parameter
 #define HEX_BASE		"0123456789ABCDEF"
 #define DEC_BASE		"0123456789"
 
-# define PRECEDENCE		0x11110000
+# define PRECEDENCE		0xffff0000
 
 # define AND 			0x00010001
 # define OR 			0x00010002
 # define DIFF			0x00020004
 # define EQUAL			0x00020008
+
 # define LESSEQ			0x00020010
 # define GREATEQ		0x00020020
 # define LESS			0x00020040
 # define GREAT			0x00020080
+
 # define PLUS			0x00040100
 # define MINUS			0x00040200
 # define TIMES			0x00080400
 # define DIVIDE			0x00080800
+
 # define MODULO			0x00081000
 # define UNARY			0x00102000
-
 
 # define PRE_INCRE		0x08010000
 # define POST_INCRE		0x08020000
