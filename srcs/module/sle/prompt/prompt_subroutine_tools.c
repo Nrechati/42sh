@@ -12,13 +12,16 @@
 
 #include "sh21.h"
 
-void			subprompt_call(t_sle *sle, uint32_t option)
+uint8_t		subprompt_call(t_sle *sle, uint32_t option)
 {
 	t_vector	*new_input;
 
 	new_input = invoke_ps2prompt(g_shell, sle, option);
+	if (new_input == NULL)
+		return (FALSE);
 	vct_ncat(sle->line, new_input, vct_len(new_input));
 	vct_del(&new_input);
+	return (TRUE);
 }
 
 uint8_t			is_end_backslash(t_sle *sle, int index)

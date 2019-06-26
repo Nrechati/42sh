@@ -22,16 +22,16 @@
 */
 
 void		verif_line(t_sle *sle);
-void		double_quote_routine(t_sle *sle, size_t *i);
-void		single_quote_routine(t_sle *sle, size_t *i);
-void		brace_exp_routine(t_sle *sle, size_t *i);
-void		maths_exp_routine(t_sle *sle, size_t *i);
+uint8_t		double_quote_routine(t_sle *sle, size_t *i);
+uint8_t		single_quote_routine(t_sle *sle, size_t *i);
+uint8_t		brace_exp_routine(t_sle *sle, size_t *i);
+uint8_t		maths_exp_routine(t_sle *sle, size_t *i);
 
 void		backslash_process(t_sle *sle);
 uint8_t		is_maths_exp(t_sle *sle, int index);
 uint8_t		is_brace_exp(t_sle *sle, int index);
 uint8_t		is_end_backslash(t_sle *sle, int index);
-void		subprompt_call(t_sle *sle, uint32_t option);
+uint8_t		subprompt_call(t_sle *sle, uint32_t option);
 
 /*
 *****************************************************
