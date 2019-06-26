@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 00:34:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:33:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ typedef enum	e_mtype
 	E_M_OPENP,
 	E_M_CLOSEP,
 	E_M_LESS,
+	E_M_LESSEQ,
 	E_M_GREAT,
-	E_M_LESSOR,
-	E_M_GREATOR,
+	E_M_GREATEQ,
 	E_M_EQUAL,
 	E_M_NEQUAL,
 	E_M_AND,

@@ -6,21 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 07:53:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:40:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-void		m_plus_minus_analyzer(t_arithmetic *arithmetic)
-{
-	ft_stckpushnode(&arithmetic->sign, arithmetic->current);
-	if (arithmetic->curr_token->type == E_M_PLUS)
-		arithmetic->state = MATH_PLUS;
-	else
-		arithmetic->state = MATH_MINUS;
-	m_get_token(arithmetic, NULL);
-}
 
 void		m_error_analyzer(t_arithmetic *arithmetic)
 {
@@ -28,6 +18,8 @@ void		m_error_analyzer(t_arithmetic *arithmetic)
 	ft_dprintf(2, "42sh: %s : error token near %s "
 			, arithmetic->input->buffer
 			, arithmetic->curr_token->data);
+	ft_lstdelone(&arithmetic->current, del_token);
+	arithmetic->curr_token = NULL;
 }
 
 void		m_end_analyzer(t_arithmetic *arithmetic)
@@ -37,127 +29,7 @@ void		m_end_analyzer(t_arithmetic *arithmetic)
 	arithmetic->curr_token = NULL;
 }
 
-void		m_stop_analyzer(t_arithmetic *arithmetic)
-{
-	arithmetic->state = MATH_STOP;
-}
-
-void		m_flush_sign_analyzer(t_arithmetic *arithmetic)
-{
-	t_list		*node;
-	t_rpn_tk	token;
-
-
-	node = ft_stckpopnode(&arithmetic->sign);
-	arithmetic->state = MATH_FLUSH_SIGN;
-	ft_bzero(&token, sizeof(t_rpn_tk));
-	token.type = RPN_OPERATOR;
-	convert_plus_minus(node->data, &token);
-	ft_lstdelone(&node, NULL);
-	node = ft_lstnew(&token, sizeof(t_rpn_tk));
-	if (arithmetic->parenthesis > 0)
-		ft_stckpushnode(&arithmetic->processing, node);
-	else
-		ft_lstaddback(&arithmetic->solving, node);
-//	if (arithmetic->curr_token->type == E_M_DELIMITER)
-//		m_get_token(arithmetic, &arithmetic->current);
-}
-
-void		m_suffix_plus_minus_analyzer(t_arithmetic *arithmetic)
-{
-	ft_stckpushnode(&arithmetic->sign, arithmetic->current);
-	if (arithmetic->curr_token->type == E_M_PLUS)
-		arithmetic->state = MATH_SUFFIX_PLUS;
-	else
-		arithmetic->state = MATH_SUFFIX_MINUS;
-	m_get_token(arithmetic, NULL);
-}
-
-void		m_double_suffix_plus_analyzer(t_arithmetic *arithmetic)
-{
-	arithmetic->state = MATH_SUFFIX_DOUBLE_PLUS;
-	m_get_token(arithmetic, NULL);
-//	if (arithmetic->curr_token->type == E_M_DELIMITER)
-//		m_get_token(arithmetic, &arithmetic->current);
-}
-
-void		m_double_suffix_minus_analyzer(t_arithmetic *arithmetic)
-{
-	arithmetic->state = MATH_SUFFIX_DOUBLE_MINUS;
-	m_get_token(arithmetic, NULL);
-//	if (arithmetic->curr_token->type == E_M_DELIMITER)
-//		m_get_token(arithmetic, &arithmetic->current);
-}
-
-void		m_postincrement_analyzer(t_arithmetic *arithmetic)
-{
-	t_list		*node;
-	t_rpn_tk	token;
-	t_token		*current;
-	char		*data;
-
-	arithmetic->state = MATH_PREINCREMENT;
-	ft_bzero(&token, sizeof(t_rpn_tk));
-	node = ft_stckpopnode(&arithmetic->processing);
-	current = node->data;
-	token.type = RPN_NUMBER;
-	if ((data = get_var(g_shell->intern, current->data)))
-	{
-		token.value.digit = ft_atoll_base(data, DEC_BASE);
-		data = ft_llitoa(token.value.digit + 1);
-	}
-	else
-	{
-		data = ft_strdup("0");
-		token.value.digit = 0;
-	}
-	add_var(&g_shell->intern, current->data, data, SET_VAR);
-	ft_strdel(&data);
-	ft_lstdelone(&node, NULL);
-	node = ft_lstnew(&token, sizeof(t_rpn_tk));
-	if (arithmetic->parenthesis > 0)
-		ft_stckpushnode(&arithmetic->processing, node);
-	else
-		ft_lstaddback(&arithmetic->solving, node);
-//	if (arithmetic->curr_token->type == E_M_DELIMITER)
-//		m_get_token(arithmetic, &arithmetic->current);
-}
-
-void		m_postdecrement_analyzer(t_arithmetic *arithmetic)
-{
-	t_list		*node;
-	t_rpn_tk	token;
-	t_token		*current;
-	char		*data;
-
-	arithmetic->state = MATH_PREDECREMENT;
-	ft_bzero(&token, sizeof(t_rpn_tk));
-	node = ft_stckpopnode(&arithmetic->processing);
-	current = node->data;
-	token.type = RPN_NUMBER;
-	if ((data = get_var(g_shell->intern, current->data)))
-	{
-		token.value.digit = ft_atoll_base(data, DEC_BASE);
-		data = ft_llitoa(token.value.digit - 1);
-	}
-	else
-	{
-		data = ft_strdup("0");
-		token.value.digit = 0;
-	}
-	add_var(&g_shell->intern, current->data, data, SET_VAR);
-	ft_strdel(&data);
-	ft_lstdelone(&node, NULL);
-	node = ft_lstnew(&token, sizeof(t_rpn_tk));
-	if (arithmetic->parenthesis > 0)
-		ft_stckpushnode(&arithmetic->processing, node);
-	else
-		ft_lstaddback(&arithmetic->solving, node);
-//	if (arithmetic->curr_token->type == E_M_DELIMITER)
-//		m_get_token(arithmetic, &arithmetic->current);
-}
-
-char		*package_expression(t_arithmetic *arithmetic)
+char		*solve_expression(t_arithmetic *arithmetic)
 {
 	char		*output;
 	t_infix		infix;
@@ -176,50 +48,6 @@ char		*package_expression(t_arithmetic *arithmetic)
 	return (output);
 }
 
-void		flush_processing(t_arithmetic *arithmetic, t_infix *infix)
-{
-	t_list		*node;
-	t_rpn_tk	*token;
-
-	node = NULL;
-	token = NULL;
-	while (token->type != RPN_PARENT_OPEN)
-	{
-		node = ft_stckpopnode(&arithmetic->processing);
-		token = node->data;
-		ft_lstadd(&infix->calcul.head, node);
-	}
-}
-
-int8_t		push_solution(t_arithmetic *arithmetic, t_infix *infix)
-{
-	t_list 			*node;
-	t_rpn_tk		token;
-
-	token.type = RPN_NUMBER;
-	infix->calcul.size = ft_lstlen(arithmetic->solving);
-	infix->calcul.head = arithmetic->solving;
-	arithmetic->solving = NULL;
-	if (calculator(infix) == FAILURE)
-		return (FAILURE);
-	token.value.digit = infix->result;
-	del_infix(infix);
-	node = ft_lstnew(&token, sizeof(t_rpn_tk));
-	ft_lstaddback(&arithmetic->solving, node);
-	return (SUCCESS);
-}
-
-void		process_current_arithmetic(t_arithmetic *arithmetic)
-{
-	t_infix		infix;
-
-	ft_bzero(&infix, sizeof(t_infix));
-	if (arithmetic->parenthesis)
-		flush_processing(arithmetic, &infix);
-	else
-		push_solution(arithmetic, &infix);
-}
-
 int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
 {
 	static t_ar_analyzer	*analyzer = NULL;
@@ -227,15 +55,9 @@ int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
 	if (*analyzer == NULL)
 		analyzer = init_math_analyzer();
 	m_get_token(arithmetic, NULL);
-//	if (arithmetic->curr_token->type == E_M_DELIMITER)
-//		m_get_token(arithmetic, &arithmetic->current);
 	while (arithmetic->state != MATH_END && arithmetic->state != MATH_ERROR)
-	{
-		if (arithmetic->state == MATH_STOP)
-			process_current_arithmetic(arithmetic);
 		(*analyzer)[arithmetic->state][arithmetic->curr_token->type](arithmetic);
-	}
-	arithmetic->expanded = package_expression(arithmetic);
+	arithmetic->expanded = solve_expression(arithmetic);
 	if (arithmetic->expanded == NULL)
 		return (FAILURE);
 	return (SUCCESS);

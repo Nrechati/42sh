@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 18:15:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:43:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,12 @@ struct	s_parameter
 /* ********************** ARITHMETIC *********************/
 
 #define	MATH_TOKEN		NB_OF_MTOKENS
-#define	MATH_STATE		29
+#define	MATH_STATE		13
 #define OCTAL_BASE		"012345678"
 #define HEX_BASE		"0123456789ABCDEF"
 #define DEC_BASE		"0123456789"
 
 # define PRECEDENCE		0xffff0000
-# define LOW		0
-# define HIGH		0
 
 # define AND 			0x00010001
 # define OR 			0x00010002
@@ -83,7 +81,8 @@ struct	s_parameter
 # define DIVIDE			0x00080800
 
 # define MODULO			0x00081000
-# define UNARY			0x00102000
+# define UNARY_PLUS		0x00102000
+# define UNARY_MINUS	0x00104000
 
 # define PRE_INCRE		0x08010000
 # define POST_INCRE		0x08020000
@@ -101,31 +100,15 @@ enum				e_mathstate
 {
 	MATH_START,
 	MATH_NUMBER,
-	MATH_PREFFIXED_NUMBER,
+	MATH_UNARY,
 	MATH_OPERATOR,
+	MATH_LOGICAL_OPERATOR,
+	MATH_PREFFIX,
+	MATH_SUFFIX,
 	MATH_VARIABLE,
 	MATH_VARIABLE_FLUSH,
 	MATH_OPEN_PARENT,
 	MATH_CLOSE_PARENT,
-	MATH_PLUS,
-	MATH_MINUS,
-	MATH_SUFFIX_PLUS,
-	MATH_SUFFIX_MINUS,
-	MATH_SUFFIX_DELIMITER,
-	MATH_PREFFIX_DELIMITER,
-	MATH_SUFFIX_DOUBLE_PLUS,
-	MATH_SUFFIX_DOUBLE_MINUS,
-	MATH_POSTINCREMENT,
-	MATH_POSTDECREMENT,
-	MATH_PREFIX_PLUS,
-	MATH_PREFIX_MINUS,
-	MATH_PREFFIX_DOUBLE_PLUS,
-	MATH_PREFFIX_DOUBLE_MINUS,
-	MATH_PREINCREMENT,
-	MATH_PREDECREMENT,
-	MATH_FLUSH_PREFFIX_SIGN,
-	MATH_FLUSH_SIGN,
-	MATH_STOP,
 	MATH_ERROR,
 	MATH_END
 };
@@ -212,28 +195,17 @@ void		parameter_print_debug(t_list *token_list);
 
 char		*arithmetic_expansion(t_list *intern, char *input);
 int8_t		arithmetic_analyzer(t_arithmetic *arithmetic);
-void		m_error_analyzer(t_arithmetic *arithmetic);
 void		m_number_analyzer(t_arithmetic *arithmetic);
+void		m_unary_analyzer(t_arithmetic *arithmetic);
 void		m_operator_analyzer(t_arithmetic *arithmetic);
+void		m_logical_operator(t_arithmetic *arithmetic);
+void		m_preffix(t_arithmetic *arithmetic);
+void		m_suffix(t_arithmetic *arithmetic);
 void		m_parenthesis_analyzer(t_arithmetic *arithmetic);
 void		m_variable_analyzer(t_arithmetic *arithmetic);
-void		m_plus_minus_analyzer(t_arithmetic *arithmetic);
-void		m_end_analyzer(t_arithmetic *arithmetic);
-void		m_flush_sign_analyzer(t_arithmetic *arithmetic);
-void		m_flush_preffix_sign_analyzer(t_arithmetic *arithmetic);
-void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic);
-void		m_preffixed_number_analyzer(t_arithmetic *arithmetic);
-void		m_preffix_delimiter_analyzer(t_arithmetic *arithmetic);
 void		m_flush_variable_analyzer(t_arithmetic *arithmetic);
-void		m_double_preffix_plus_analyzer(t_arithmetic *arithmetic);
-void		m_preincrement_analyzer(t_arithmetic *arithmetic);
-void		m_double_preffix_minus_analyzer(t_arithmetic *arithmetic);
-void		m_predecrement_analyzer(t_arithmetic *arithmetic);
-void		m_suffix_plus_minus_analyzer(t_arithmetic *arithmetic);
-void		m_double_suffix_plus_analyzer(t_arithmetic *arithmetic);
-void		m_double_suffix_minus_analyzer(t_arithmetic *arithmetic);
-void		m_postincrement_analyzer(t_arithmetic *arithmetic);
-void		m_postdecrement_analyzer(t_arithmetic *arithmetic);
+void		m_error_analyzer(t_arithmetic *arithmetic);
+void		m_end_analyzer(t_arithmetic *arithmetic);
 
 void		convert_plus_minus(t_token *token, t_rpn_tk *current);
 void		m_get_token(t_arithmetic *arithmetic, t_list **node);
