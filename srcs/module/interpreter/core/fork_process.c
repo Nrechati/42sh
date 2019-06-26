@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/23 14:56:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:29:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int			assign_intern(t_registry *shell, t_list **assign)
 				return (FAILURE);
 		}
 		*assign = NULL;
-		return (SUCCESS);
+		return (TRUE);
 	}
 	return (FAILURE);
 }

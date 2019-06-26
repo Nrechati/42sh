@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 19:56:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:55:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,19 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
-			return (NULL);
+		{
+			if (shell->sigint == TRUE)
+			{
+//				sle->prompt.state = INT_PS1;
+				shell->sigint = FALSE;
+
+				vct_reset(sle->line);
+				vct_add(sle->line, 4);
+				return (vct_dup(sle->line));
+			}
+			else
+				return (NULL);
+		}
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
 	}

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 21:16:12 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:42:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static void	expand_prompt(t_sle *sle, t_vector *text)
 	int64_t	index;
 
 	index = -1;
+
+//	text = sle->interns.ps2;
+
 	length = vct_len(text);
 	while (index < length)
 	{
@@ -80,7 +83,7 @@ static uint8_t            prompt_need_alignment(void)
 	}
     return ((x != 1) ? TRUE : FALSE);
 }
-static void		align_prompt(t_sle *sle)
+static void		align_prompt(__unused t_sle *sle)
 {
 	tputs(sle->termcaps.standout_on, 1, &ft_putc);
 	write(1, "%\n", 2);
@@ -93,17 +96,20 @@ inline void		print_prompt(__unused t_registry *shell, t_sle *sle)
 
 	if (prompt_need_alignment() == TRUE)
 		align_prompt(sle);
+
 	ptext = NULL;
 	if (ft_strequ(sle->prompt.state, INT_PS1))
-		ptext = sle->interns.ps1;
+		ptext = vct_dup(sle->interns.ps1);
 	else if (ft_strequ(sle->prompt.state, INT_PS2))
-		ptext = sle->interns.ps2;
+		ptext = vct_dup(sle->interns.ps2);
 	else if (ft_strequ(sle->prompt.state, INT_PS3))
-		ptext = sle->interns.ps3;
+		ptext = vct_dup(sle->interns.ps3);
+
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
 		expand_prompt(sle, ptext);
 	sle->prompt.text = ptext;
 	print_prompt_to_window(sle, sle->prompt.text);
+	vct_reset((sle->prompt.text));
 }

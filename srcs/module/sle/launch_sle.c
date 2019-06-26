@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:49:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:55:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,25 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
+void		handle_cc(t_registry *shell, t_sle *sl, t_vector **in, uint32_t flag)
+{
+	if (sl->prompt.state == INT_PS1)
+	{
+		sl->state = STATE_STD;
+		set_redraw_flags(sl, RD_LINE | RD_CEND);
+		redraw(shell, sl);
+		vct_reset(sl->line);
+		update_window(sl);
+		if (flag & SLE_CC)
+			ft_putendl("^C");
+		sle(shell, in, SLE_PS3_PROMPT);
+	}
+	else
+	{
+
+	}
+}
+
 uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 {
 	static t_sle		sle;
@@ -76,14 +95,15 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		*in = invoke_ps2prompt(shell, &sle, sle_flag);
 	else if (sle_flag & SLE_PS3_PROMPT)
 		*in = invoke_ps3prompt(shell, &sle);
-	else if (sle_flag == SLE_RD_PROMPT)
+	else if (sle_flag & SLE_RD_PROMPT)
 	{
-		vct_reset(sle.line);
 		sle.state = STATE_STD;
 		set_redraw_flags(&sle, RD_LINE | RD_CEND);
 		redraw(shell, &sle);
+		vct_reset(sle.line);
 		update_window(&sle);
-		print_prompt(NULL, &sle);
+		if (sle_flag & SLE_CC)
+			ft_putendl("^C");
 	}
 	else if (sle_flag & SLE_SIZE_UPDATE)
 		redraw_window(&sle);

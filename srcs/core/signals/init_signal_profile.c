@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 18:23:42 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/21 00:11:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:49:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		init_tab_signal_sle(struct sigaction tab_signal[NB_SIGNALS])
 	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 
-	tab_signal[SIGINT] = set_sigaction_struct(sigint_sle, SA_RESTART, sigset);
+	tab_signal[SIGINT] = set_sigaction_struct(sigint_sle, 0, sigset);
 	tab_signal[SIGWINCH] = set_sigaction_struct(sigwinch_sle, SA_RESTART, sigset);
 }
 

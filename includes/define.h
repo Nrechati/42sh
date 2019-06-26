@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 11:31:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:42:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,9 +418,6 @@
 # define STATE_SEARCH	0x02
 # define STATE_AUTOCP	0x04
 
-# define START_FILTER	">...."
-# define END_FILTER		"<...."
-
 # define PROMPT_PIPE	"pipe"
 # define PROMPT_QUOTE	"quote"
 # define PROMPT_DQUOTE	"dquote"
@@ -434,9 +431,10 @@
 # define SLE_GET_INPUT		0x0100
 # define SLE_PS2_PROMPT		0x0200
 # define SLE_PS3_PROMPT		0x0400
-# define SLE_SIZE_UPDATE	0x0800
+# define SLE_CC				0x0800
 # define SLE_RD_PROMPT		0x1000
-# define SLE_EXIT			0x2000
+# define SLE_SIZE_UPDATE	0x2000
+# define SLE_EXIT			0x4000
 
 # define RD_NONE        0x001 /* No redraw at all*/
 # define RD_CLEAR       0x002 /* Redraw th entire window*/
