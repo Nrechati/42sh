@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 06:52:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 07:32:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ struct	s_parameter
 /* ********************** ARITHMETIC *********************/
 
 #define	MATH_TOKEN		22
-#define	MATH_STATE		21
+#define	MATH_STATE		29
 #define OCTAL_BASE		"012345678"
 #define HEX_BASE		"0123456789ABCDEF"
 #define DEC_BASE		"0123456789"
@@ -100,9 +100,16 @@ enum				e_mathstate
 	MATH_CLOSE_PARENT,
 	MATH_PLUS,
 	MATH_MINUS,
+	MATH_SUFFIX_PLUS,
+	MATH_SUFFIX_MINUS,
+	MATH_SUFFIX_DELIMITER,
+	MATH_PREFFIX_DELIMITER,
+	MATH_SUFFIX_DOUBLE_PLUS,
+	MATH_SUFFIX_DOUBLE_MINUS,
+	MATH_POSTINCREMENT,
+	MATH_POSTDECREMENT,
 	MATH_PREFIX_PLUS,
 	MATH_PREFIX_MINUS,
-	MATH_PREFFIX_DELIMITER,
 	MATH_PREFFIX_DOUBLE_PLUS,
 	MATH_PREFFIX_DOUBLE_MINUS,
 	MATH_PREINCREMENT,
@@ -209,11 +216,17 @@ void		m_preffix_plus_minus_analyzer(t_arithmetic *arithmetic);
 void		m_preffixed_number_analyzer(t_arithmetic *arithmetic);
 void		m_preffix_delimiter_analyzer(t_arithmetic *arithmetic);
 void		m_flush_variable_analyzer(t_arithmetic *arithmetic);
-void		m_double_plus_analyzer(t_arithmetic *arithmetic);
+void		m_double_preffix_plus_analyzer(t_arithmetic *arithmetic);
 void		m_preincrement_analyzer(t_arithmetic *arithmetic);
-void		m_double_minus_analyzer(t_arithmetic *arithmetic);
+void		m_double_preffix_minus_analyzer(t_arithmetic *arithmetic);
 void		m_predecrement_analyzer(t_arithmetic *arithmetic);
+void		m_suffix_plus_minus_analyzer(t_arithmetic *arithmetic);
+void		m_double_suffix_plus_analyzer(t_arithmetic *arithmetic);
+void		m_double_suffix_minus_analyzer(t_arithmetic *arithmetic);
+void		m_postincrement_analyzer(t_arithmetic *arithmetic);
+void		m_postdecrement_analyzer(t_arithmetic *arithmetic);
 
+void		convert_plus_minus(t_token *token, t_rpn_tk *current);
 void		m_get_token(t_arithmetic *arithmetic, t_list **node);
 void		del_infix(t_infix *infix);
 
