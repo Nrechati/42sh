@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:31:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 06:57:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 07:04:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ void		init_m_minus(t_ar_analyzer analyzer)
 
 void		init_m_flush_sign(t_ar_analyzer analyzer)
 {
+	analyzer[MATH_FLUSH_SIGN][E_M_PLUS] = m_preffix_plus_minus_analyzer;
+	analyzer[MATH_FLUSH_SIGN][E_M_MINUS] = m_preffix_plus_minus_analyzer;
 	analyzer[MATH_FLUSH_SIGN][E_M_NB_DEC] = m_number_analyzer;
 	analyzer[MATH_FLUSH_SIGN][E_M_NB_OCT] = m_number_analyzer;
 	analyzer[MATH_FLUSH_SIGN][E_M_NB_HEX] = m_number_analyzer;
