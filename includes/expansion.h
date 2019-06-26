@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 17:54:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/26 18:15:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ struct	s_parameter
 #define DEC_BASE		"0123456789"
 
 # define PRECEDENCE		0xffff0000
+# define LOW		0
+# define HIGH		0
 
 # define AND 			0x00010001
 # define OR 			0x00010002
