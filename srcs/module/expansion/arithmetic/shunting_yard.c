@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:38:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 17:30:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:58:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *operator, t_stack *rpn)
 
 static int8_t	handle_bracket(t_rpn_tk *curr, t_stack *operator, t_stack *rpn)
 {
-	if (curr->value.type & LEFT_P)
+	if (curr->value.type == OPEN_P)
 	{
 		if (ft_stckpush(operator, curr, sizeof(t_rpn_tk)) == FAILURE)
 			return (FAILURE);

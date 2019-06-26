@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 21:43:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 23:07:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ struct	s_parameter
 #define DEC_BASE		"0123456789"
 
 # define PRECEDENCE		0xffff0000
+# define OPERATOR		0x0000ffff
 
 # define AND 			0x00010001
 # define OR 			0x00010002
@@ -88,8 +89,8 @@ struct	s_parameter
 # define POST_INCRE		0x08020000
 # define PRE_DECRE		0x08040000
 # define POST_DECRE		0x08080000
-# define LEFT_P			0x10100000
-# define RIGHT_P		0x10200000
+# define OPEN_P			0x10100000
+# define CLOSE_P		0x10200000
 
 typedef struct	s_arithmetic t_arithmetic;
 typedef void	(*t_arithmexp)(t_arithmetic *);
@@ -124,7 +125,7 @@ enum				e_rpn
 typedef union 		u_value
 {
 	int64_t			digit;
-	uint16_t		type;
+	uint64_t		type;
 }					t_value;
 
 typedef struct		s_rpn_tk

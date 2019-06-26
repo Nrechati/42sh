@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 17:31:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/26 23:12:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,33 @@ static void		do_the_math(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
 			return;
 		}
 	}
-	if (curr->value.type & AND)
+	if (curr->value.type & (OPERATOR & AND))
 		first->value.digit = (first->value.digit && second->value.digit);
-	else if (curr->value.type & OR)
+	else if (curr->value.type & (OPERATOR & OR))
 		first->value.digit = (first->value.digit || second->value.digit);
-	else if (curr->value.type & LESS)
+	else if (curr->value.type & (OPERATOR & LESS))
 		first->value.digit = (first->value.digit < second->value.digit);
-	else if (curr->value.type & LESSEQ)
+	else if (curr->value.type & (OPERATOR & LESSEQ))
 		first->value.digit = (first->value.digit <= second->value.digit);
-	else if (curr->value.type & GREAT)
+	else if (curr->value.type & (OPERATOR & GREAT))
 		first->value.digit = (first->value.digit > second->value.digit);
-		else if (curr->value.type & GREATEQ)
+		else if (curr->value.type & (OPERATOR & GREATEQ))
 		first->value.digit = (first->value.digit >= second->value.digit);
-	else if (curr->value.type &EQUAL)
+	else if (curr->value.type & (OPERATOR & EQUAL))
 		first->value.digit = (first->value.digit == second->value.digit);
-	else if (curr->value.type & DIFF)
+	else if (curr->value.type & (OPERATOR & DIFF))
 		first->value.digit = (first->value.digit != second->value.digit);
-	else if (curr->value.type & EQUAL)
+	else if (curr->value.type & (OPERATOR & EQUAL))
 		first->value.digit = (first->value.digit == second->value.digit);
-	else if (curr->value.type & TIMES)
+	else if (curr->value.type & (OPERATOR & TIMES))
 		first->value.digit *= second->value.digit;
-	else if (curr->value.type & DIVIDE)
+	else if (curr->value.type & (OPERATOR & DIVIDE))
 		first->value.digit /= second->value.digit;
-	else if (curr->value.type & MODULO)
+	else if (curr->value.type & (OPERATOR & MODULO))
 		first->value.digit %= second->value.digit;
-	else if (curr->value.type & PLUS)
+	else if (curr->value.type & (OPERATOR & PLUS))
 		first->value.digit += second->value.digit;
-	else if (curr->value.type & MINUS)
+	else if (curr->value.type & (OPERATOR & MINUS))
 		first->value.digit -= second->value.digit;
 }
 

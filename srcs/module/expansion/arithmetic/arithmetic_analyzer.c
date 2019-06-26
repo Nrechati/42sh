@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 21:40:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 23:03:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
 	m_get_token(arithmetic, NULL);
 	while (arithmetic->state != MATH_END && arithmetic->state != MATH_ERROR)
 		(*analyzer)[arithmetic->state][arithmetic->curr_token->type](arithmetic);
-	arithmetic->expanded = solve_expression(arithmetic);
-	if (arithmetic->expanded == NULL)
-		return (FAILURE);
-	return (SUCCESS);
+	if (arithmetic->state == MATH_END)
+	{
+		arithmetic->expanded = solve_expression(arithmetic);
+		return (arithmetic->expanded == NULL ? FAILURE : SUCCESS);
+	}
+	return (FAILURE);
 }

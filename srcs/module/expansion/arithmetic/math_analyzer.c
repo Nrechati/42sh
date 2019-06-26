@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:31:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 21:40:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:36:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void 		init_m_operator(t_ar_analyzer analyzer)
 	analyzer[MATH_OPERATOR][E_M_NB_OCT] = m_number_analyzer;
 	analyzer[MATH_OPERATOR][E_M_NB_HEX] = m_number_analyzer;
 	analyzer[MATH_OPERATOR][E_M_PLUS] = m_unary_analyzer;
-	analyzer[MATH_OPERATOR][E_M_MINUS] = m_unary_analyzer;
+	analyzer[MATH_OPERATOR][E_M_OPENP] = m_parenthesis_analyzer;
+	analyzer[MATH_OPERATOR][E_M_CLOSEP] = m_parenthesis_analyzer;
 	analyzer[MATH_OPERATOR][E_M_DPLUS] = m_preffix;
 	analyzer[MATH_OPERATOR][E_M_DMINUS] = m_preffix;
 }
@@ -157,6 +158,9 @@ void		init_m_open_parent(t_ar_analyzer analyzer)
 {
 	analyzer[MATH_OPEN_PARENT][E_M_PLUS] = m_unary_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_MINUS] = m_unary_analyzer;
+	analyzer[MATH_OPEN_PARENT][E_M_NB_DEC] = m_number_analyzer;
+	analyzer[MATH_OPEN_PARENT][E_M_NB_OCT] = m_number_analyzer;
+	analyzer[MATH_OPEN_PARENT][E_M_NB_HEX] = m_number_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_OPENP] = m_parenthesis_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_CLOSEP] = m_parenthesis_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_DPLUS] = m_preffix;
@@ -180,6 +184,7 @@ void		init_m_close_parent(t_ar_analyzer analyzer)
 	analyzer[MATH_CLOSE_PARENT][E_M_OR] = m_logical_operator;
 	analyzer[MATH_CLOSE_PARENT][E_M_OPENP] = m_parenthesis_analyzer;
 	analyzer[MATH_CLOSE_PARENT][E_M_CLOSEP] = m_parenthesis_analyzer;
+	analyzer[MATH_CLOSE_PARENT][E_M_END] = m_end_analyzer;
 }
 
 void		init_m_logical_operator(t_ar_analyzer analyzer)
@@ -205,6 +210,7 @@ t_ar_analyzer	*init_math_analyzer(void)
 	init_m_logical_operator(analyzer);
 	init_m_preffix(analyzer);
 	init_m_suffix(analyzer);
+	init_m_open_parent(analyzer);
 	init_m_close_parent(analyzer);
 	init_m_start(analyzer);
 	init_m_variable(analyzer);

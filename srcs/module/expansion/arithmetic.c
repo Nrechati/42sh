@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 21:42:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:22:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,24 @@ char		*arithmetic_expansion(t_list *intern, char *input)
 	uint32_t	i;
 	uint32_t	len;
 	t_quote		quote;
-	char		*output;
+	char		*dest;
 	int			result;
 
 	i = 0;
 	quote = 0;
-	output = ft_strdup(input);
-	len = ft_strlen(output);
+	dest = ft_strdup(input);
+	len = ft_strlen(dest);
 	while (i < len)
 	{
-		if (ft_strchr("\'\"", output[i]))
-			quote = select_quoting(quote, output[i]);
-		if ((result = check_math_expansion(intern, &output, i, quote)) == 1)
-			len = ft_strlen(output);
+		if (ft_strchr("\'\"", dest[i]))
+			quote = select_quoting(quote, dest[i]);
+		if (dest[i] == '\\' && (quote == QUOTE_OFF || quote == QUOTE_DOUBLE))
+			i = check_backslash(dest, quote, i);
+		else if ((result = check_math_expansion(intern, &dest, i, quote)) == 1)
+			len = ft_strlen(dest);
 		else if (result == -1)
 			return (NULL);
 		++i;
 	}
-	return (output);
+	return (dest);
 }

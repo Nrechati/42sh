@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:35:33 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 17:34:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:42:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ uint8_t		is_left_p(t_stack *operator)
 	if (ft_stcksize(operator) == 0)
 		return (FALSE);
 	top = ft_stcktop(operator);
-	if (top->value.type & LEFT_P)
+	if (top->value.type & OPEN_P)
 		return (TRUE);
 	return (FALSE);
 }
@@ -31,7 +31,7 @@ uint8_t need_pop_operator(t_rpn_tk *curr, t_stack *operator)
 	if (ft_stcksize(operator) == 0)
 		return (FALSE);
 	top = ft_stcktop(operator);
-	if (!(top->value.type & LEFT_P))
+	if (!(top->value.type & OPEN_P))
 	{
 		if ((curr->value.type & PRECEDENCE) <= (top->value.type & PRECEDENCE))
 		return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 07:20:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 21:23:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:52:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ void		m_parenthesis_analyzer(t_arithmetic *arithmetic)
 		arithmetic->state = MATH_OPEN_PARENT;
 		arithmetic->parenthesis++;
 		token.type = RPN_PARENT_OPEN;
+		token.value.type = OPEN_P;
 	}
 	else
 	{
 		arithmetic->state = MATH_CLOSE_PARENT;
 		arithmetic->parenthesis--;
 		token.type = RPN_PARENT_CLOSE;
+		token.value.type = CLOSE_P;
 	}
 	if (arithmetic->parenthesis < 0)
 		return(m_error_analyzer(arithmetic));
