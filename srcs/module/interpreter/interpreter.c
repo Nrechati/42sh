@@ -85,7 +85,6 @@ static int		run_process(void *context, void *data)
 	else
 		fork_process(shell, process);
 	return (SUCCESS);
-	pid_t ctl_proc = tcgetpgrp(STDOUT_FILENO);
 }
 
 static int		run_job(void *context, void *data)
