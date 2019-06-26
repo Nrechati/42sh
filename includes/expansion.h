@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 07:32:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:33:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,30 @@ struct	s_parameter
 #define HEX_BASE		"0123456789ABCDEF"
 #define DEC_BASE		"0123456789"
 
-# define PLUS			0x01000001
-# define MINUS			0x01000002
-# define TIMES			0x02000010
-# define DIVIDE			0x02000020
-# define MODULO			0x02000040
-# define DIFF			0x04000100
-# define EQUAL			0x04000200
-# define LESSEQ			0x04001000
-# define GREATEQ		0x04002000
-# define LESS			0x04004000
-# define GREAT			0x04008000
+# define PRECEDENCE		0x11110000
+
+# define AND 			0x00010001
+# define OR 			0x00010002
+# define DIFF			0x00020004
+# define EQUAL			0x00020008
+# define LESSEQ			0x00020010
+# define GREATEQ		0x00020020
+# define LESS			0x00020040
+# define GREAT			0x00020080
+# define PLUS			0x00040100
+# define MINUS			0x00040200
+# define TIMES			0x00080400
+# define DIVIDE			0x00080800
+# define MODULO			0x00081000
+# define UNARY			0x00102000
+
+
 # define PRE_INCRE		0x08010000
 # define POST_INCRE		0x08020000
 # define PRE_DECRE		0x08040000
 # define POST_DECRE		0x08080000
 # define LEFT_P			0x10100000
 # define RIGHT_P		0x10200000
-# define LOW			0x20000000
-# define HIGH			0x40000000
 
 typedef struct	s_arithmetic t_arithmetic;
 typedef void	(*t_arithmexp)(t_arithmetic *);
@@ -234,7 +239,7 @@ int8_t		calculator(t_infix *infix);
 uint8_t		need_pop_operator(t_rpn_tk *curr, t_stack *operator);
 uint8_t		is_left_p(t_stack *operator);
 int8_t		ft_shunting_yds(t_stack *infix, t_stack *rpn);
-int32_t		calculate_rpn(t_stack *rpn);
+int64_t		calculate_rpn(t_stack *rpn);
 
 t_ar_analyzer	*init_math_analyzer(void);
 
