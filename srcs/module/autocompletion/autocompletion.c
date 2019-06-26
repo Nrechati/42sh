@@ -21,7 +21,6 @@ static char		*active_completion(t_autocomplete *result,
 	if (input == NULL || completion == NULL || *completion == '\0')
 		return (NULL);
 	start = input + result->index;
-	ft_printf("\ninput: %s\nstart: %s\ncompletion: %s\n", input, start, completion);
 	start = get_home_input(start, shell);
 	i = 0;
 	while (completion[i] != '\0')
