@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 14:46:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:52:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ int64_t			calculate_rpn(t_stack *rpn)
 		if (curr->type == RPN_NUMBER)
 			ft_stckpush(&solve, curr, sizeof(t_rpn_tk));
 		else if (curr->type == RPN_OPERATOR)
-			handle_operator(curr, &solve);
-		else
-			ft_dprintf(2, "Wrong token in RPN stack\n");
+		{
+			if (handle_operator(curr, &solve))
+				return (FAILURE);
+		}
 	}
 	if (ft_stcksize(&solve) != 1 )
 	{
