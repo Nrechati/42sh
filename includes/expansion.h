@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/27 11:03:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:48:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,12 @@ uint8_t		need_pop_operator(t_rpn_tk *curr, t_stack *operator);
 uint8_t		is_left_p(t_stack *operator);
 int8_t		ft_shunting_yds(t_stack *infix, t_stack *rpn);
 int64_t		calculate_rpn(t_stack *rpn);
+void		do_logical(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr);
+void		do_compare(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr);
+void		do_high_op(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr);
+void		do_low_op(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr);
+void		do_unary(t_rpn_tk *number, t_rpn_tk *curr);
+
 
 t_ar_analyzer	*init_math_analyzer(void);
 

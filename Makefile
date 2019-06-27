@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/26 07:27:30 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/27 14:47:21 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -414,6 +414,7 @@ EXPANSION += math_analyzer.c
 EXPANSION += calculator.c
 EXPANSION += shunting_yard.c
 EXPANSION += calculate_rpn.c
+EXPANSION += math.c
 
 #						   - - - -   Lexer   - - - -                           #
 

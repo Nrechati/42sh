@@ -6,60 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 14:43:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:46:48 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-static void		do_logical(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
-{
-	if (curr->value.type & (OPERATOR & AND))
-		first->value.digit = (first->value.digit && second->value.digit);
-	else if (curr->value.type & (OPERATOR & OR))
-		first->value.digit = (first->value.digit || second->value.digit);
-}
-
-static void		do_compare(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
-{
-	if (curr->value.type & (OPERATOR & LESS))
-		first->value.digit = (first->value.digit < second->value.digit);
-	else if (curr->value.type & (OPERATOR & LESSEQ))
-		first->value.digit = (first->value.digit <= second->value.digit);
-	else if (curr->value.type & (OPERATOR & GREAT))
-		first->value.digit = (first->value.digit > second->value.digit);
-	else if (curr->value.type & (OPERATOR & GREATEQ))
-		first->value.digit = (first->value.digit >= second->value.digit);
-	else if (curr->value.type & (OPERATOR & EQUAL))
-		first->value.digit = (first->value.digit == second->value.digit);
-	else if (curr->value.type & (OPERATOR & DIFF))
-		first->value.digit = (first->value.digit != second->value.digit);
-	else if (curr->value.type & (OPERATOR & EQUAL))
-		first->value.digit = (first->value.digit == second->value.digit);
-}
-
-static void		do_high_op(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
-{
-	if (curr->value.type & (OPERATOR & TIMES))
-		first->value.digit *= second->value.digit;
-	else
-	{
-		if (second->value.digit == 0)
-			ft_printf("Division by zero");
-		else if (curr->value.type & (OPERATOR & DIVIDE))
-			first->value.digit /= second->value.digit;
-		else if (curr->value.type & (OPERATOR & MODULO))
-			first->value.digit %= second->value.digit;
-	}
-}
-
-static void		do_low_op(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
-{
-	if (curr->value.type & (OPERATOR & PLUS))
-		first->value.digit += second->value.digit;
-	else if (curr->value.type & (OPERATOR & MINUS))
-		first->value.digit -= second->value.digit;
-}
 
 static void		do_math(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
 {
@@ -71,14 +22,6 @@ static void		do_math(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
 		do_high_op(first, second, curr);
 	else if (curr->value.type & (PRECEDENCE & PLUS))
 		do_low_op(first, second, curr);
-}
-
-static void		do_unary(t_rpn_tk *number, t_rpn_tk *curr)
-{
-	if (curr->value.type & (OPERATOR & UNARY_MINUS))
-		number->value.digit = -1 * number->value.digit;
-	else if (curr->value.type & (OPERATOR & UNARY_PLUS))
-		number->value.digit = 1 * number->value.digit;
 }
 
 static int8_t 	handle_operator(t_rpn_tk *curr, t_stack *solve)
