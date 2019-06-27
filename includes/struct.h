@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 14:44:49 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 19:58:13 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,8 @@ typedef struct			s_coord
 
 typedef struct			s_termcaps
 {
-	char				*ring;
+	char				*clear_line;
+	char				*clear_screen;
 	char				*standout_on;
 	char				*standout_off;
 	char				*clear;
@@ -239,8 +240,6 @@ typedef struct			s_window
 	uint64_t			point_cursor;
 	uint64_t			point1;
 	uint64_t			point2;
-	int64_t				drawed_lines;
-	int64_t				last_line_len;
 	t_vector			*displayed_line;
 }						t_window;
 

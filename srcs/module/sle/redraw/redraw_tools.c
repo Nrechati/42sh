@@ -6,22 +6,20 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 13:37:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:06:30 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 # include <termcap.h>
 
-void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co,
-				__unused uint32_t carriage_ret)
+void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
 {
 	if (sle->window.cols == 0)
 		return ;
 
 	if (index > sle->rd_info.line_len + sle->rd_info.prompt_len + 1)
 		index =	sle->rd_info.line_len + sle->rd_info.prompt_len;
-//	index += (carriage_ret * sle->window.cols);
 	if (sle->window.cols != 0)
 	{
 		co->x = (index % sle->window.cols);
@@ -37,15 +35,7 @@ void		print_char(t_sle *sle, char c)
 	if (sle->cursor.x == sle->window.cols || c == '\n')
 	{
 		if (c != '\n')
-		{
-			sle->window.last_line_len++;
 			tputs(sle->termcaps.down, 2, &ft_putc);
-		}
-		else
-		{
-			sle->window.drawed_lines++;
-			ft_dprintf(3, "Inc dl\n");
-		}
 		sle->cursor.y++;
 		sle->cursor.x = 0;
 	}

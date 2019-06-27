@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 22:04:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:27:48 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 **************** PROMPT_SUBROUTINE ******************
 *****************************************************
 */
+
+void		find_multiline_coord(t_sle *sle, int8_t offset);
 
 void		verif_line(t_sle *sle);
 uint8_t		double_quote_routine(t_sle *sle, size_t *i);
@@ -89,9 +91,7 @@ void		print_prompt(t_registry *shell, t_sle *sle);
 void		print_prompt_to_window(t_sle *sle, t_vector *text);
 
 uint64_t	get_prompt_length(t_prompt *prompt);
-void		index_to_coord(t_sle *sle, uint64_t indx, t_coord *co,
-				uint32_t carriage_return);
-
+void		index_to_coord(t_sle *sle, uint64_t indx, t_coord *co);
 
 void		p_insert_name(t_vector *text, uint64_t index);
 void		p_insert_username(t_sle *sle, t_vector *text, uint64_t index);

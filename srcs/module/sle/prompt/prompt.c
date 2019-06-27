@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 14:16:03 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:07:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	prompt_pre_process(t_sle *sle)
 {
-//	sle->window.last_line_len = 0;
-	sle->window.drawed_lines = 0;
 	sle->state = STATE_STD;
 	vct_reset(sle->line);
 	vct_reset(sle->window.displayed_line);
