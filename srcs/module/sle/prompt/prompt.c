@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 22:07:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 10:56:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	prompt_post_process(t_registry *shell, t_sle *sle)
 	vct_add(sle->line, '\n');
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
+	ft_putendl("");
 	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE
 			&& (shell->option.option & INTERACTIVE_OPT))
 		verif_line(sle);

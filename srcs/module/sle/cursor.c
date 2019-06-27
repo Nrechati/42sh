@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:34:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 23:20:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:11:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,15 @@ void     move_cursor(t_sle *sle)
     uint64_t    rd_flag;
 	uint64_t	offset;
 
-
 	offset = 0;
     rd_flag = sle->window.rd_flag;
     if (rd_flag & RD_CEND)
     {
-		offset = (sle->window.drawed_lines * sle->window.cols);
-
-		ft_dprintf(3, "OFFSET is |%lu|\n", offset);
-
+		offset = 0;//(sle->window.drawed_lines * sle->window.cols);
 		index_to_coord(sle, get_prompt_length(&sle->prompt)
 						+ vct_len(sle->line)
 						+ offset, &coord,
 						sle->window.drawed_lines);
-
 		move_cursor_to_coord(sle, coord.x, coord.y);
 		sle->cursor.index = vct_len(sle->line);
     }
