@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 23:12:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 10:43:39 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		do_the_math(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
 		first->value.digit = (first->value.digit <= second->value.digit);
 	else if (curr->value.type & (OPERATOR & GREAT))
 		first->value.digit = (first->value.digit > second->value.digit);
-		else if (curr->value.type & (OPERATOR & GREATEQ))
+	else if (curr->value.type & (OPERATOR & GREATEQ))
 		first->value.digit = (first->value.digit >= second->value.digit);
 	else if (curr->value.type & (OPERATOR & EQUAL))
 		first->value.digit = (first->value.digit == second->value.digit);
