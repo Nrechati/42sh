@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic_base_states.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:40:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/27 15:54:27 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:32:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		convert_number(t_rpn_tk *current, t_token *token)
 	}
 	else
 		current->value.digit = ft_atoll_base(token->data, DEC_BASE);
+
 }
 
 void		m_number_analyzer(t_arithmetic *arithmetic)
@@ -65,11 +66,9 @@ void		m_unary_analyzer(t_arithmetic *arithmetic)
 	ft_bzero(&token, sizeof(t_rpn_tk));
 	arithmetic->state = MATH_UNARY;
 	token.type = RPN_OPERATOR;
-	convert_number(&token, arithmetic->curr_token);
+	set_unary(arithmetic->curr_token, &token);
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
-	node = ft_stckpopnode(&arithmetic->sign);
-	set_unary(node->data, &token);
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic, NULL);
@@ -78,7 +77,7 @@ void		m_unary_analyzer(t_arithmetic *arithmetic)
 void		convert_logical_operator(t_arithmetic *arithmetic, t_rpn_tk *token)
 {
 	if (arithmetic->curr_token->type == E_M_LESS)
-		token->value.type |= LESS;
+		token->value.type |= LESS ;
 	else if (arithmetic->curr_token->type == E_M_GREAT)
 		token->value.type |= GREAT;
 	else if (arithmetic->curr_token->type == E_M_LESSEQ)

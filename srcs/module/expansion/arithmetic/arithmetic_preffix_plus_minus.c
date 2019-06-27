@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 07:18:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 21:09:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:18:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		m_postincrement_analyzer(t_arithmetic *arithmetic)
 	}
 	else
 	{
-		data = ft_strdup("0");
+		data = ft_strdup("1");
 		token.value.digit = 0;
 	}
 	add_var(&g_shell->intern, current->data, data, SET_VAR);
@@ -114,7 +114,7 @@ void		m_postdecrement_analyzer(t_arithmetic *arithmetic)
 	}
 	else
 	{
-		data = ft_strdup("0");
+		data = ft_strdup("-1");
 		token.value.digit = 0;
 	}
 	add_var(&g_shell->intern, current->data, data, SET_VAR);
@@ -146,18 +146,19 @@ void		m_preffix(t_arithmetic *arithmetic)
 
 void		m_suffix(t_arithmetic *arithmetic)
 {
-	t_list		*node;
+	int			control;
 	t_token		*token;
 
-	node = ft_stcktop(&arithmetic->processing);
-	token = node->data;
+	token = ft_stcktop(&arithmetic->processing);
 	arithmetic->state = MATH_SUFFIX;
+	control = arithmetic->curr_token->type;
+	m_get_token(arithmetic, NULL);
 	if (token->type == E_M_STRING)
 	{
-		if (arithmetic->curr_token->type == E_M_DPLUS)
-			m_preincrement_analyzer(arithmetic);
-		else if (arithmetic->curr_token->type == E_M_DMINUS)
-			m_predecrement_analyzer(arithmetic);
+		if (control == E_M_DPLUS)
+			m_postincrement_analyzer(arithmetic);
+		else if (control == E_M_DMINUS)
+			m_postdecrement_analyzer(arithmetic);
 	}
 	else
 		m_error_analyzer(arithmetic);
