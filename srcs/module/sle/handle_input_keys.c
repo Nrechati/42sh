@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:49:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 20:11:21 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,22 @@ static void		handle_printable_char(t_sle *sle, const char c)
 		vct_push(line, c);
 		set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 		set_cursor_pos(sle, 1);
+		find_multiline_coord(sle, 1);
 	}
 	else if (cursor->index == vct_len(line))
 	{
 		vct_add(line, c);
-		set_redraw_flags(sle, RD_LAST | RD_CEND);
+		set_redraw_flags(sle, RD_LINE | RD_CEND);
+		find_multiline_coord(sle, 1);
 	}
 	else
 	{
 		vct_insert_char(line, c, cursor->index);
-		set_redraw_flags(sle, RD_FPTP | RD_CMOVE);
+		set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 		set_redraw_bounds(sle, cursor->index,
 						vct_len(sle->line) + 1);
 		set_cursor_pos(sle, cursor->index + 1);
+		find_multiline_coord(sle, 1);
 	}
 }
 

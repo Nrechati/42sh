@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:14 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:53:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 19:45:23 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ uint64_t    get_terminal_info(t_registry *shell)
 
 uint64_t    init_termcaps(t_termcaps *termcap)
 {
- 	//// strdup ? 
+	termcap->clear_line = ft_strdup(tgetstr("ce", NULL));
+	termcap->clear_screen = ft_strdup(tgetstr("cd", NULL));
     termcap->standout_on = ft_strdup(tgetstr("so", NULL));
     termcap->standout_off = ft_strdup(tgetstr("se", NULL));
     termcap->clear = ft_strdup(tgetstr("cl", NULL));
