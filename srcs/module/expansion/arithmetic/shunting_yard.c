@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:38:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 15:06:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:58:18 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ static int8_t	handle_infix_token(t_rpn_tk *curr
 	}
 	else if (curr->type == RPN_OPERATOR)
 	{
-		if (handle_operator(curr, &operator, rpn) == FAILURE)
+		if (handle_operator(curr, operator, rpn) == FAILURE)
 			return (FAILURE);
 	}
 	else if (curr->type == RPN_PARENT_OPEN || curr->type == RPN_PARENT_CLOSE)
 	{
-		if (handle_bracket(curr, &operator, rpn) == FAILURE)
+		if (handle_bracket(curr, operator, rpn) == FAILURE)
 			return (FAILURE);
 	}
 	return (SUCCESS);
