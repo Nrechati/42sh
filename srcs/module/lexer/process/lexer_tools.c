@@ -24,6 +24,7 @@ void		init_lexer(t_lexer *lexer, t_vector *input)
 	lexer->token_mtype = E_M_DEFAULT;
 	lexer->inhibitor = NO_FLAG;
 	lexer->assignation = POSSIBLE;
+	lexer->parenthesis = 0;
 }
 
 char	get_input(t_lexer *lexer, uint8_t pos)

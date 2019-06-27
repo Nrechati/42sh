@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 17:28:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/21 19:20:35 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:58:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ static void	set_doublequoteflag(t_lexer *lexer)
 
 static void	set_mathsflag(t_lexer *lexer)
 {
-	if (get_input(lexer, CUR_CHAR) == ')'
-			&& get_input(lexer, NEXT_CHAR) == ')')
+	if (get_input(lexer, CUR_CHAR) == ')')
+		lexer->parenthesis--;
+	else if (get_input(lexer, CUR_CHAR) == '(')
+		lexer->parenthesis++;
+	if (lexer->parenthesis == 0)
 	{
 		add_to_buffer(lexer);
-		add_to_buffer(lexer);
 		lexer->inhibitor &= ~MATHS_FLAG;
+		set_inhibitor(lexer);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 15:29:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:57:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int			assign_intern(t_registry *shell, t_list **assign)
 	t_variable	*to_find;
 
 	if (*assign == NULL)
-		return (1);
+		return (TRUE);
 	if (assign_intern(shell, &(*assign)->next) == 1)
 	{
 		to_find = (*assign)->data;

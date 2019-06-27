@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 20:39:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:59:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	stdin_readfile(t_registry *shell, t_redirect *redirect
 		redirect->type |= FD_CRITICAL_ERROR;
 	else
 	{
-		if ((redirect->to = open(filename, O_RDWR | O_CLOEXEC, 0766)) == -1)
+		if ((redirect->to = open(filename, O_RDWR | O_CLOEXEC, 0744)) == -1)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
 			redirect->type |= FD_OPEN_ERROR;
@@ -56,7 +56,7 @@ void	stdout_append(t_registry *shell, t_redirect *redirect
 	else
 	{
 		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, open_flags, 0766)) == -1)
+		if ((redirect->to = open(filename, open_flags, 0744)) == -1)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
 			redirect->type |= FD_OPEN_ERROR;
@@ -81,7 +81,7 @@ void	stdout_truncate(t_registry *shell, t_redirect *redirect
 	else
 	{
 		open_flags = O_RDWR | O_TRUNC | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, open_flags, 0766)) == -1)
+		if ((redirect->to = open(filename, open_flags, 0744)) == -1)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
 			redirect->type |= FD_OPEN_ERROR;

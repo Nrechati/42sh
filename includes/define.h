@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 11:08:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:56:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@
 */
 
 # define NB_OF_TOKENS				50
-# define NB_OF_MTOKENS				23
+# define NB_OF_MTOKENS				24
 
 # define START_OPERATOR				29
 # define END_OPERATOR				1
@@ -312,6 +312,8 @@
 # define M_NEQUAL					"!="
 # define M_AND						"&&"
 # define M_OR						"||"
+# define M_DPLUS					"++"
+# define M_DMINUS					"--"
 # define M_ASSIGN					"(=)"
 # define M_STRING					"word"
 # define M_NB_DEC					"nb dec"

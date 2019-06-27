@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/26 10:50:52 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/27 18:53:56 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,7 +132,7 @@ P_BUILTIN += module/builtin/bg/
 
 P_EXPANSION += module/expansion/
 P_EXPANSION += module/expansion/parameter/
-P_EXPANSION += module/expansion/parsers/
+P_EXPANSION += module/expansion/arithmetic/
 
 P_LEXER += module/lexer/
 P_LEXER += module/lexer/debug/
@@ -433,6 +433,17 @@ EXPANSION += parameter_actions.c
 EXPANSION += parameter_suffix_prefix.c
 
 EXPANSION += arithmetic.c
+EXPANSION += arithmetic_analyzer.c
+EXPANSION += arithmetic_variable.c
+EXPANSION += arithmetic_base_states.c
+EXPANSION += arithmetic_preffix_plus_minus.c
+EXPANSION += arithmetic_tools.c
+EXPANSION += math_analyzer.c
+
+EXPANSION += calculator.c
+EXPANSION += shunting_yard.c
+EXPANSION += calculate_rpn.c
+EXPANSION += math.c
 
 #						   - - - -   Lexer   - - - -                           #
 

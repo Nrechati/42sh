@@ -89,6 +89,7 @@ typedef struct			s_lexer
 	enum e_mtype		last_token_mtype;
 	enum e_type			token_type;
 	enum e_mtype		token_mtype;
+	uint32_t			parenthesis;
 	uint16_t			inhibitor;
 	uint8_t				assignation;
 }						t_lexer;

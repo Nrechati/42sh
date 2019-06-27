@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:11 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 16:10:44 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:58:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ uint8_t	is_operator_m(t_lexer *lexer)
 	char	*current;
 
 	i = 0;
-	type = 14;
+	type = 16;
 	current = lexer->input->buffer + lexer->index;
 	while (type >= 0)
 	{
@@ -127,11 +127,8 @@ uint8_t	is_delimiter_m(t_lexer *lexer)
 		ret = TRUE;
 	if (ret == TRUE)
 	{
-		if (lexer->token_mtype != E_M_DEFAULT
-			&& lexer->token_mtype != E_M_DELIMITER)
+		if (lexer->token_mtype != E_M_DEFAULT)
 			out_lexer_m(lexer);
-		lexer->token_mtype = E_M_DELIMITER;
-		lexer->index++;
 	}
 	return (ret);
 }
