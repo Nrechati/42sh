@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 15:00:57 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:03:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 
 	first = NULL;
 	second = NULL;
-	if (ft_stcksize(solve) < 2)
+	if (curr->value.type & (PRECEDENCE & UNARY_MINUS) && ft_stcksize(solve) > 0)
 	{
-		if ((curr->value.type & OPERATOR) == UNARY_MINUS
-				|| (curr->value.type & OPERATOR) == UNARY_PLUS)
-		{
-			ft_dprintf(2, "Expression unsolvable\n");
-			return (FAILURE);
-		}
 		first = ft_stckpop(solve);
 		do_unary(first, curr);
+	}
+	else if (ft_stcksize(solve) < 2)
+	{
+		ft_dprintf(2, "Expression unsolvable\n");
+		return (FAILURE);
 	}
 	else
 	{

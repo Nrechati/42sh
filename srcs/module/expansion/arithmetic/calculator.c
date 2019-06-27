@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:35:33 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 15:09:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:46:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int8_t		calculator(t_infix *infix)
 		return (FAILURE);
 	ft_lstrev(&rpn.head);
 	infix->result = calculate_rpn(&rpn);
-	ft_stckdestroy(&rpn, ft_free);
-	ft_stckdestroy(&infix->calcul, ft_free);
+	ft_stckdestroy(&rpn, NULL);
+	ft_stckdestroy(&infix->calcul, NULL);
 	return (SUCCESS);
 }
