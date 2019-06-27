@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 23:20:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:37:19 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void		print_char(t_sle *sle, char c)
 	if (sle->cursor.x == sle->window.cols || c == '\n')
 	{
 		if (c != '\n')
+		{
+			sle->window.last_line_len++;
 			tputs(sle->termcaps.down, 2, &ft_putc);
+		}
 		else
 		{
 			sle->window.drawed_lines++;

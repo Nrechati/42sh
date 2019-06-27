@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/26 22:38:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:51:16 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,8 @@ typedef struct			s_cursor
 {
 	uint64_t			x;
 	uint64_t			y;
+	uint64_t			x2;
+	uint64_t			y2;
 	uint64_t			index;
 }						t_cursor;
 
@@ -235,7 +237,8 @@ typedef struct			s_window
 	uint64_t			point_cursor;
 	uint64_t			point1;
 	uint64_t			point2;
-	int64_t			drawed_lines;
+	int64_t				drawed_lines;
+	int64_t				last_line_len;
 	t_vector			*displayed_line;
 }						t_window;
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:34:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 11:11:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:28:06 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,19 @@ static inline void cursor_move(t_sle *sle)
 
 	if (sle->window.point_cursor > vct_len(sle->line))
 		return ;
-	index_to_coord(sle, get_prompt_length(&sle->prompt)
-						+ sle->window.point_cursor, &coord,
-						sle->window.drawed_lines);
+	
+	if (sle->window.drawed_lines > 0)
+	{
+		ft_dprintf(3, "cursor y2: %d, cursor x2: %d\n", sle->cursor.y2, sle->cursor.x2);
+		coord.x = sle->cursor.x2;
+		coord.y = sle->cursor.y2;
+	}
+	else
+	{
+		index_to_coord(sle, get_prompt_length(&sle->prompt)
+							+ sle->window.point_cursor, &coord,
+							sle->window.drawed_lines);
+	}
 	move_cursor_to_coord(sle, coord.x, coord.y);
 	sle->cursor.index = sle->window.point_cursor;
 }
@@ -84,11 +94,19 @@ void     move_cursor(t_sle *sle)
     rd_flag = sle->window.rd_flag;
     if (rd_flag & RD_CEND)
     {
-		offset = 0;//(sle->window.drawed_lines * sle->window.cols);
-		index_to_coord(sle, get_prompt_length(&sle->prompt)
-						+ vct_len(sle->line)
-						+ offset, &coord,
-						sle->window.drawed_lines);
+		if (sle->window.drawed_lines > 0)
+		{
+			ft_dprintf(3, "cursor y2: %d, cursor x2: %d\n", sle->cursor.y2, sle->cursor.x2);
+			coord.x = sle->cursor.x2;;
+			coord.y = sle->cursor.y2;
+		}
+		else
+		{
+			index_to_coord(sle, get_prompt_length(&sle->prompt)
+							+ vct_len(sle->line)
+							+ offset, &coord,
+							sle->window.drawed_lines);
+		}
 		move_cursor_to_coord(sle, coord.x, coord.y);
 		sle->cursor.index = vct_len(sle->line);
     }
