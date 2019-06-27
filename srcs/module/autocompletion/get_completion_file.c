@@ -71,12 +71,22 @@ void			get_completion_file(char *input, t_autocomplete *result,
 	DIR		*dir;
 
 	if (input == NULL || *input == '\0')
+	{
 		transform = ft_strdup("./");
+		path = extract_path(transform);
+	}
 	else if (input != NULL && *input != '/')
+	{
 		transform = ft_strjoin("./", input);
+		path = extract_path(transform);
+		result->index += ft_strlen(path) - 2;
+	}
 	else
+	{
 		transform = ft_strdup(input);
-	path = extract_path(transform);
+		path = extract_path(transform);
+		result->index += ft_strlen(path);
+	}
 	if ((dir = opendir(transform)) != NULL)
 	{
 		ft_strdel(&path);

@@ -24,6 +24,8 @@ uint8_t	token_checker(t_lexer *lexer, int start, int end)
 	current = lexer->input->buffer + lexer->index;
 	while (type >= end)
 	{
+		if (type == E_PERCENT)
+			type-- ;
 		len_op = ft_strlen(g_shell->grammar[type]);
 		if (ft_strnequ(g_shell->grammar[type], current, len_op) == TRUE)
 		{

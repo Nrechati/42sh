@@ -12,30 +12,27 @@
 
 #include "sh21.h"
 
-static char		*active_completion(char *input, char *completion,
-						t_registry *shell)
+static char		*active_completion(t_autocomplete *result,
+					char *input, char *completion, t_registry *shell)
 {
 	int		i;
-	char	*tmp;
+	char	*start;
 
 	if (input == NULL || completion == NULL || *completion == '\0')
 		return (NULL);
+	start = input + result->index;
+	start = get_home_input(start, shell);
 	i = 0;
-	tmp = input;
-	if (input[0] == '~')
-		input = get_home_input(input, shell);
-	while (input[0] != '\0' && input[0] != completion[0])
-		input++;
 	while (completion[i] != '\0')
 	{
-		if (input[i] != completion[i])
+		if (start[i] != completion[i])
 		{
-			ft_strdel(&tmp);
+			ft_strdel(&start);
 			return (ft_strdup(completion + i));
 		}
 		i++;
 	}
-	ft_strdel(&tmp);
+	ft_strdel(&start);
 	return (NULL);
 }
 
@@ -49,24 +46,30 @@ static char		*send_rest(t_autocomplete *result, char *input,
 		completion += 2;
 	else if (result->type == VARIABLE_TYPE)
 		completion++;
-	return (active_completion(input, completion, shell));
+	return (active_completion(result, input, completion, shell));
 }
 
-static char		*get_completion(char *input, t_registry *shell,
+static char		*get_completion(char **input, t_registry *shell,
 					t_autocomplete *result, char **completion)
 {
 	static t_completion_fct		*get_completion[] = {get_completion_cmd,
 									get_completion_var, get_completion_var,
 									get_completion_file};
+	char	*tmp;
 
-	if (ft_strequ(".", input) == TRUE)
+	if (ft_strequ(".", *input) == TRUE)
 	{
 		*completion = ft_strdup("/");
 		return (*completion);
 	}
-	result->type = get_result_type(input);
-	*completion = get_start_input(input, result->type);
+	result->type = get_result_type(*input);
+	*completion = get_start_input(*input, result->type);
+	result->index = ft_strlen(*input) - ft_strlen(*completion);
 	*completion = get_home_input(*completion, shell);
+	tmp = *input;
+	tmp[result->index] = '\0';
+	*input = ft_strjoin(tmp, *completion);
+	ft_strdel(&tmp);
 	if (result->type == FILE_TYPE && slash_is_missing(*completion) == TRUE
 		&& ft_strequ(".", *completion) == FALSE)
 	{
@@ -99,17 +102,20 @@ int8_t			autocompletion(char *input, t_registry *shell,
 	if (init_and_reset(&result, option) == TRUE)
 		return (SUCCESS);
 	cpy_input = ft_strdup(input);
-	if (get_completion(cpy_input, shell, &result, completion) != NULL)
+	if (get_completion(&cpy_input, shell, &result, completion) != NULL)
 	{
 		ft_strdel(&cpy_input);
 		return (SUCCESS);
 	}
 	if (result.nb == 1 || result.nb == 0)
 	{
-		ft_strdel(&cpy_input);
 		if (result.nb == 0)
+		{
+			ft_strdel(&cpy_input);
 			return (NOT_FOUND);
-		*completion = send_rest(&result, *completion, shell);
+		}
+		*completion = send_rest(&result, cpy_input, shell);
+		ft_strdel(&cpy_input);
 		return (SUCCESS);
 	}
 	ft_mergesort(&result.list, lst_strcmp);

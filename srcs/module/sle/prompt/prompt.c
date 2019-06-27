@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 15:55:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:07:28 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,14 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
 		{
-			if (shell->sigint == TRUE)
+			if (g_shell->sigint == TRUE && sle->prompt.state != INT_PS1)
 			{
-//				sle->prompt.state = INT_PS1;
-				shell->sigint = FALSE;
-
-				vct_reset(sle->line);
-				vct_add(sle->line, 4);
-				return (vct_dup(sle->line));
+				g_shell->sigint = FALSE;
+				sle->prompt.state = INT_PS1;
+				return (NULL);
 			}
 			else
-				return (NULL);
+				return (prompt(shell, sle));
 		}
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
@@ -82,7 +79,8 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = sle->sub_line;
 	sle->prompt.missing_char = (char *)prompt_type[sle_flag & ~SLE_PS2_PROMPT];
 	sle->prompt.state = INT_PS2;
-	prompt(shell, sle);
+	if (prompt(shell, sle) == NULL)
+		return (NULL);
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);
@@ -96,7 +94,8 @@ t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	linesave = sle->line;
 	sle->line = sle->sub_line;
 	sle->prompt.state = INT_PS3;
-	prompt(shell, sle);
+	if (prompt(shell, sle) == NULL)
+		return (NULL);
 	sle->line = linesave;
 	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
 		return (NULL);

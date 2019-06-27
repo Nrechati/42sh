@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-static void	parenthesis(t_sle *sle, size_t *i)
+static uint8_t	parenthesis(t_sle *sle, size_t *i)
 {
 	uint8_t	par;
 
@@ -20,7 +20,10 @@ static void	parenthesis(t_sle *sle, size_t *i)
 	while (par == FALSE)
 	{
 		if (vct_charat(sle->line, *i) == '\0')
-			subprompt_call(sle, PRINT_MATHS);
+		{
+			if (subprompt_call(sle, PRINT_MATHS) == FALSE)
+				return (FALSE);
+		}
 		else if (vct_charat(sle->line, *i) == ')')
 		{
 			(*i)++;
@@ -29,93 +32,121 @@ static void	parenthesis(t_sle *sle, size_t *i)
 		else if (vct_charat(sle->line, *i) == '(')
 		{
 			(*i)++;
-			parenthesis(sle, i);
+			if (parenthesis(sle, i) == FALSE)
+				return (FALSE);
 		}
 		else
 			(*i)++;
 	}
+	return (TRUE);
 }
 
-void	maths_exp_routine(t_sle *sle, size_t *i)
+uint8_t			maths_exp_routine(t_sle *sle, size_t *i)
 {
 	(*i) += 3;
-	parenthesis(sle, i);
-	parenthesis(sle, i);
+	if (parenthesis(sle, i) == FALSE)
+		return (FALSE);
+	if (parenthesis(sle, i) == FALSE)
+		return (FALSE);
+	return (TRUE);
 }
 
-void	brace_exp_routine(t_sle *sle, size_t *i)
+uint8_t			brace_exp_routine(t_sle *sle, size_t *i)
 {
+	uint8_t	ret;
+
 	(*i) += 2;
+	ret = TRUE;
 	while (vct_charat(sle->line, *i) != '}')
 	{
 		if (vct_charat(sle->line, *i) == '\0')
 		{
-			subprompt_call(sle, PRINT_BRACE);
+			if (subprompt_call(sle, PRINT_BRACE) == FALSE)
+				return (FALSE);
 			continue ;
 		}
 		else if (is_end_backslash(sle, *i) == TRUE)
 			backslash_process(sle);
 		else if (vct_charat(sle->line, *i) == '\"')
-			double_quote_routine(sle, i);
+			ret = double_quote_routine(sle, i);
+		if (ret == FALSE)
+			return (FALSE);
 		(*i)++;
 	}
+	return (TRUE);
 }
 
-void	single_quote_routine(t_sle *sle, size_t *i)
+uint8_t			single_quote_routine(t_sle *sle, size_t *i)
 {
 	(*i)++;
 	while (vct_charat(sle->line, *i) != '\'')
 	{
 		if (vct_charat(sle->line, *i) == '\0')
-			subprompt_call(sle, PRINT_QUOTE);
+		{
+			if (subprompt_call(sle, PRINT_QUOTE) == FALSE)
+				return (FALSE);
+		}
 		else
 			(*i)++;
 	}
+	return (TRUE);
 }
 
-void	double_quote_routine(t_sle *sle, size_t *i)
+uint8_t			double_quote_routine(t_sle *sle, size_t *i)
 {
+	uint8_t	ret;
+
 	(*i)++;
+	ret = TRUE;
 	while (vct_charat(sle->line, *i) != '\"')
 	{
 		if (vct_charat(sle->line, *i) == '\0')
 		{
-			subprompt_call(sle, PRINT_DQUOTE);
+			if (subprompt_call(sle, PRINT_DQUOTE) == FALSE)
+				return (FALSE);
 			continue ;
 		}
 		else if (is_brace_exp(sle, *i) == TRUE)
-			brace_exp_routine(sle, i);
+			ret = brace_exp_routine(sle, i);
 		else if (is_maths_exp(sle, *i) == TRUE)
-			maths_exp_routine(sle, i);
+			ret = maths_exp_routine(sle, i);
 		else if (vct_charat(sle->line, *i) == '\\')
 			(*i)++;
+		if (ret == FALSE)
+			return (FALSE);
 		(*i)++;
 	}
+	return (TRUE);
 }
 
 void				verif_line(t_sle *sle)
 {
 	size_t		i;
+	uint8_t		ret;
 
+	ret = TRUE;
 	i = 0;
 	while (vct_charat(sle->line, i) != '\0')
 	{
 		if (is_end_backslash(sle, i) == TRUE)
 		{
 			backslash_process(sle);
-			subprompt_call(sle, PRINT_NL);
+			if (subprompt_call(sle, PRINT_NL) == FALSE)
+				return ;
 			continue ;
 		}
 		else if (is_brace_exp(sle, i) == TRUE)
-			brace_exp_routine(sle, &i);
+			ret = brace_exp_routine(sle, &i);
 		else if (is_maths_exp(sle, i) == TRUE)
-			maths_exp_routine(sle, &i);
+			ret = maths_exp_routine(sle, &i);
 		else if (vct_charat(sle->line, i) == '\'')
-			single_quote_routine(sle, &i);
+			ret = single_quote_routine(sle, &i);
 		else if (vct_charat(sle->line, i) == '\"')
-			double_quote_routine(sle, &i);
+			ret = double_quote_routine(sle, &i);
 		else if (vct_charat(sle->line, i) == '\\')
 			i++;
+		if (ret == FALSE)
+			return ;
 		i++;
 	}
 }

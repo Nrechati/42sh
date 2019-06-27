@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:51:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/26 22:49:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,46 +28,61 @@ void	redrawmode_last(t_sle *sle)
 
 	if (sle->rd_info.line_len >= sle->rd_info.disp_len)
 	{
-		sle->rd_info.prompt_len += sle->rd_info.line_len - 1;
-		index_to_coord(sle, sle->rd_info.prompt_len, &co);
+		index_to_coord(sle, sle->rd_info.prompt_len + sle->rd_info.line_len-1, &co,
+						sle->window.drawed_lines);
 		move_cursor_to_coord(sle, co.x, co.y);
 		print_char(sle, vct_charat(sle->line,
 						vct_len(sle->line) - 1));
 	}
 	else
 	{
-		sle->rd_info.prompt_len += sle->rd_info.line_len - 1;
-		index_to_coord(sle, sle->rd_info.prompt_len, &co);
+		index_to_coord(sle, sle->rd_info.prompt_len+sle->rd_info.line_len-1,
+						&co, sle->window.drawed_lines);
 		move_cursor_to_coord(sle, co.x, co.y);
 		print_char(sle, ' ');
 	}
+}
+
+static void	state_search(t_sle *sle)
+{
+	char		*search;
+	char 		*sl;
+
+	tputs(sle->termcaps.hidden_cursor, 1, &ft_putc);
+	sl = vct_get_string(sle->sub_line);
+	search = history(NULL, sl, GET_ENTRY | BY_NAME | sle->search_type);
+	if (search == NULL && sl != NULL && *sl != '\0')
+		sle->search_line = vct_dups("Failed");
+	else if (search != NULL)
+		sle->search_line = vct_dups(search);
+	else
+		sle->search_line = vct_dups("");
+	search = NULL;
+	ft_asprintf(&search, "%s`%s`:%s",
+				(sle->search_type == NEXT) ? INC_SEARCH : REV_SEARCH,
+				vct_get_string(sle->sub_line),
+				vct_get_string(sle->search_line));
+	sle->line = vct_dups(search);
 }
 
 void	redrawmode_line(t_sle *sle)
 {
 	t_coord		co;
 	int64_t		diff;
-	char		*search;
-	char 		*sl;
 
-	index_to_coord(sle, sle->rd_info.prompt_len, &co);
+	index_to_coord(sle, sle->rd_info.prompt_len, &co, sle->window.drawed_lines);
 	move_cursor_to_coord(sle, co.x, co.y);
+
 	if (sle->state == STATE_SEARCH)
-	{
-		sl = vct_get_string(sle->sub_line);
-		search = history(NULL, sl, GET_ENTRY | BY_NAME | sle->search_type);
-		if (search == NULL)
-			sle->search_line = vct_dups("Failed");
-		else
-			sle->search_line = vct_dups(search);
-		search = NULL;
-		ft_asprintf(&search, "%s`%s`:%s",
-					(sle->search_type == NEXT) ? INC_SEARCH : REV_SEARCH,
-					vct_get_string(sle->sub_line),
-					vct_get_string(sle->search_line));
-		sle->line = vct_dups(search);
-	}
+		state_search(sle);
+	else
+		tputs(sle->termcaps.normal_cursor, 1, &ft_putc);
+
 	diff = vct_len(sle->line) - (vct_len(sle->window.displayed_line)) - 1;
+	if (sle->window.drawed_lines != -1)
+		diff -= (sle->window.drawed_lines * sle->window.cols);
+	sle->window.drawed_lines = 0;
+
 	print_loop(sle, vct_get_string(sle->line));
 	if (diff <= 0)
 	{
@@ -83,7 +98,8 @@ void	redrawmode_fptp(t_sle *sle)
 	int64_t		length;
 	int64_t		tmp;
 
-	index_to_coord(sle, sle->window.point1 + sle->rd_info.prompt_len, &co);
+	index_to_coord(sle, sle->window.point1 + sle->rd_info.prompt_len,
+					&co, sle->window.drawed_lines);
 	move_cursor_to_coord(sle, co.x, co.y);
 	length = sle->window.point2 - (sle->window.point1 + 1);
 	tmp = sle->window.point1;

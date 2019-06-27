@@ -16,10 +16,7 @@ static uint8_t	manage_error_and_subprompt(t_vector *input,
 					enum e_type state, enum e_type type, t_list **lst)
 {
 	if (need_subprompt(state, type) == TRUE)
-	{
-		parser_subprompt(state, input, lst);
-		return (TRUE);
-	}
+		return (parser_subprompt(state, input, lst));
 	ft_dprintf(2, "42sh: syntax error near unexpected token `%s'\n",
 				type == E_NEWLINE ? "\\n" : g_shell->grammar[type]);
 	return (FALSE);

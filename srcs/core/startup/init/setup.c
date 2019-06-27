@@ -82,7 +82,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 {
 	if (*av != NULL)
 	{
-		if (parse_arg(av + 1, &shell->option) == FAILURE)
+		if (parse_arg(av, &shell->option) == FAILURE)
 		{
 			ft_strdel(&(shell->option.command_str));
 			return (FAILURE);

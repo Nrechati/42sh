@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 15:42:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:06:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 uint64_t	get_prompt_length(t_prompt *prompt)
 {
+	ft_dprintf(3, "Prompt text: |%s|\n", prompt->text->buffer);
+	ft_dprintf(3, "Prompt length: |%lu|\n", vct_len(prompt->text));
 	return (prompt->length);
 }
 
