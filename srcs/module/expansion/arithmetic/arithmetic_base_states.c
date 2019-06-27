@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic_base_states.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:40:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 21:34:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:54:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void		convert_number(t_rpn_tk *current, t_token *token)
 	}
 	else
 		current->value.digit = ft_atoll_base(token->data, DEC_BASE);
-
 }
 
 void		m_number_analyzer(t_arithmetic *arithmetic)
@@ -79,7 +78,7 @@ void		m_unary_analyzer(t_arithmetic *arithmetic)
 void		convert_logical_operator(t_arithmetic *arithmetic, t_rpn_tk *token)
 {
 	if (arithmetic->curr_token->type == E_M_LESS)
-		token->value.type |= LESS ;
+		token->value.type |= LESS;
 	else if (arithmetic->curr_token->type == E_M_GREAT)
 		token->value.type |= GREAT;
 	else if (arithmetic->curr_token->type == E_M_LESSEQ)

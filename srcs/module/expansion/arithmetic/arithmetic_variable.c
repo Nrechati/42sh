@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic_variable.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 07:20:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 22:52:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:53:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		convert_operator(t_arithmetic *arithmetic, t_rpn_tk *token)
 {
 	if (arithmetic->curr_token->type == E_M_PLUS)
-		token->value.type |= PLUS ;
+		token->value.type |= PLUS;
 	else if (arithmetic->curr_token->type == E_M_MINUS)
 		token->value.type |= MINUS;
 	else if (arithmetic->curr_token->type == E_M_TIMES)
@@ -63,7 +63,7 @@ void		m_parenthesis_analyzer(t_arithmetic *arithmetic)
 		token.value.type = CLOSE_P;
 	}
 	if (arithmetic->parenthesis < 0)
-		return(m_error_analyzer(arithmetic));
+		return (m_error_analyzer(arithmetic));
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
@@ -76,8 +76,8 @@ void		m_variable_analyzer(t_arithmetic *arithmetic)
 	arithmetic->state = MATH_VARIABLE;
 	ft_stckpushnode(&arithmetic->processing, arithmetic->current);
 	m_get_token(arithmetic, NULL);
-//	if (arithmetic->curr_token->type == E_M_DELIMITER)
-//		m_get_token(arithmetic, &arithmetic->current);
+	//	if (arithmetic->curr_token->type == E_M_DELIMITER)
+	//		m_get_token(arithmetic, &arithmetic->current);
 }
 
 void		m_flush_variable_analyzer(t_arithmetic *arithmetic)
