@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 13:51:16 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:44:49 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,8 @@ typedef struct			s_cursor
 	uint64_t			y;
 	uint64_t			x2;
 	uint64_t			y2;
+	uint64_t			x3;
+	uint64_t			y3;
 	uint64_t			index;
 }						t_cursor;
 

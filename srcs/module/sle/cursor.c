@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:34:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 14:28:06 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:04:45 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void     move_cursor(t_sle *sle)
 		if (sle->window.drawed_lines > 0)
 		{
 			ft_dprintf(3, "cursor y2: %d, cursor x2: %d\n", sle->cursor.y2, sle->cursor.x2);
-			coord.x = sle->cursor.x2;;
-			coord.y = sle->cursor.y2;
+			coord.x = sle->cursor.x3;
+			coord.y = sle->cursor.y3;
 		}
 		else
 		{
