@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:31:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 18:25:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:42:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void		init_m_unary(t_ar_analyzer analyzer)
 	analyzer[MATH_UNARY][E_M_NB_HEX] = m_number_analyzer;
 	analyzer[MATH_UNARY][E_M_PLUS] = m_unary_analyzer;
 	analyzer[MATH_UNARY][E_M_MINUS] = m_unary_analyzer;;
+	analyzer[MATH_UNARY][E_M_OPENP] = m_parenthesis_analyzer;
 	analyzer[MATH_UNARY][E_M_DPLUS] = m_preffix;
 	analyzer[MATH_UNARY][E_M_DMINUS] = m_preffix;
 }
@@ -172,6 +173,7 @@ void		init_m_open_parent(t_ar_analyzer analyzer)
 	analyzer[MATH_OPEN_PARENT][E_M_NB_DEC] = m_number_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_NB_OCT] = m_number_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_NB_HEX] = m_number_analyzer;
+	analyzer[MATH_OPEN_PARENT][E_M_STRING] = m_variable_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_OPENP] = m_parenthesis_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_CLOSEP] = m_parenthesis_analyzer;
 	analyzer[MATH_OPEN_PARENT][E_M_DPLUS] = m_preffix;
