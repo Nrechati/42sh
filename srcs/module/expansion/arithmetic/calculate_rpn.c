@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 14:52:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:00:57 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		do_math(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
 		do_low_op(first, second, curr);
 }
 
-static int8_t 	handle_operator(t_rpn_tk *curr, t_stack *solve)
+static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 {
 	t_rpn_tk		*first;
 	t_rpn_tk		*second;
@@ -49,7 +49,7 @@ static int8_t 	handle_operator(t_rpn_tk *curr, t_stack *solve)
 		do_math(first, second, curr);
 	}
 	ft_stckpush(solve, first, sizeof(t_rpn_tk));
-	//destroy second;
+	ft_free(&second);
 	return (SUCCESS);
 }
 
@@ -71,7 +71,7 @@ int64_t			calculate_rpn(t_stack *rpn)
 				return (FAILURE);
 		}
 	}
-	if (ft_stcksize(&solve) != 1 )
+	if (ft_stcksize(&solve) != 1)
 	{
 		ft_dprintf(2, "Expression unsolvable\n");
 		return (FAILURE);

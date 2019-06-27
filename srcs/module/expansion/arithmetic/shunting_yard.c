@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:38:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 22:58:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:06:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,27 @@ static int8_t	handle_bracket(t_rpn_tk *curr, t_stack *operator, t_stack *rpn)
 	return (SUCCESS);
 }
 
+static int8_t	handle_infix_token(t_rpn_tk *curr
+						, t_stack *rpn, t_stack *operator)
+{
+	if (curr->type == RPN_NUMBER)
+	{
+		if (ft_stckpush(rpn, curr, sizeof(t_rpn_tk)) == FAILURE)
+			return (FAILURE);
+	}
+	else if (curr->type == RPN_OPERATOR)
+	{
+		if (handle_operator(curr, &operator, rpn) == FAILURE)
+			return (FAILURE);
+	}
+	else if (curr->type == RPN_PARENT_OPEN || curr->type == RPN_PARENT_CLOSE)
+	{
+		if (handle_bracket(curr, &operator, rpn) == FAILURE)
+			return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn)
 {
 	t_rpn_tk	*curr;
@@ -54,25 +75,13 @@ int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn)
 	while (ft_stcksize(infix) > 0)
 	{
 		curr = ft_stckpop(infix);
-		if (curr->type == RPN_NUMBER)
-		{
-			if (ft_stckpush(rpn, curr, sizeof(t_rpn_tk)) == FAILURE)
-				return (FAILURE);
-		}
-		else if (curr->type == RPN_OPERATOR)
-		{
-			if (handle_operator(curr, &operator, rpn) == FAILURE)
-				return (FAILURE);
-		}
-		else if (curr->type == RPN_PARENT_OPEN || curr->type == RPN_PARENT_CLOSE)
-		{
-			if (handle_bracket(curr, &operator, rpn) == FAILURE)
-				return (FAILURE);
-		}
+		if (handle_infix_token(curr, rpn, &operator) == FAILURE)
+			return (FAILURE);
 	}
 	while (ft_stcksize(&operator) > 0)
-		if (ft_stckpush(rpn, ft_stckpop(&operator), sizeof(t_rpn_tk)) == FAILURE)
+		if (ft_stckpush(rpn, ft_stckpop(&operator)
+				, sizeof(t_rpn_tk)) == FAILURE)
 			return (FAILURE);
-	//free operator stack;
+	ft_stckdestroy(&operator, ft_free);
 	return (SUCCESS);
 }
