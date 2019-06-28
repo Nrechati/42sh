@@ -6,25 +6,33 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 21:27:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 23:16:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static int		do_nofork_redirect(void *context, void *data)
+void			set_context(uint8_t *std, t_redirect *redirect)
 {
-	uint8_t		*std;
-	t_redirect	*redirect;
-
-	redirect = data;
-	std = context;
 	if (redirect->from == STDIN_FILENO)
 		*std |= CLOSED_STDIN;
 	if (redirect->from == STDOUT_FILENO)
 		*std |= CLOSED_STDOUT;
 	if (redirect->from == STDERR_FILENO)
 		*std |= CLOSED_STDERR;
+	if (redirect->type == FD_CLOSE_SPECIAL)
+	{
+		*std |= CLOSED_STDERR;
+		*std |= CLOSED_STDOUT;
+	}
+}
+
+static int		do_nofork_redirect(void *context, void *data)
+{
+	t_redirect	*redirect;
+
+	redirect = data;
+	set_context(context, data);
 	if (redirect->type & FD_DUP)
 		dup2(redirect->to, redirect->from);
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
@@ -34,6 +42,11 @@ static int		do_nofork_redirect(void *context, void *data)
 	}
 	else if (redirect->type & FD_CLOSE)
 		close(redirect->from);
+	else if (redirect->type & FD_CLOSE_SPECIAL)
+	{
+		close(STDOUT_FILENO);
+		close(STDERR_FILENO);
+	}
 	return (SUCCESS);
 }
 

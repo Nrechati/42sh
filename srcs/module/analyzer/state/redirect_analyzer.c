@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 23:36:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 23:00:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	dup_stderr(t_resolution *resolve)
 
 enum e_actions	define_redirect(t_token *token)
 {
-	if (token->type == E_GREAT || token->type == E_ANDGREAT
-			|| token->type == E_GREATAND)
+	if (token->type == E_GREAT || token->type == E_ANDGREAT)
 		return (A_STDOUT_TRUNCATE_FILE);
+	if (token->type == E_GREATAND)
+		return (A_STDOUT_TRUNCATE_FILE_SPECIAL);
 	if (token->type == E_DGREAT || token->type == E_ANDDGREAT)
 		return (A_STDOUT_APPEND_FILE);
 	if (token->type == E_LESS)
@@ -52,19 +53,20 @@ void			flush_redirect(t_resolution *resolve)
 	enum e_type	type;
 	t_list		*node;
 	t_action	action;
+	t_token		*token;
 
 	resolve->state = P_REDIRECT_FLUSH;
 	ft_bzero(&action, sizeof(t_action));
 	node = ft_stckpopnode(&resolve->stack);
+	token = node->data;
 	ft_lstaddback(&action.data, node);
 	node = ft_stckpopnode(&resolve->stack);
 	action.type = define_redirect(node->data);
 	type = ((t_token *)node->data)->type;
 	ft_lstdelone(&node, NULL);
-	node = ft_lstnew(&action, sizeof(t_action));
-	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 	if (type == E_ANDGREAT || type == E_ANDDGREAT || type == E_GREATAND)
 		dup_stderr(resolve);
+	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 }
 
 void			redirect_and_analyzer(t_resolution *resolve)

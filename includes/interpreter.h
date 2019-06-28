@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 21:06:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 22:36:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void			move_fd(t_registry *shell, t_redirect *redirect
 void			duplicate_fd(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 void			io_readfd(t_registry *shell, t_redirect *redirect
+					, t_action *action);
+void			stdout_truncate_special(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 
 void			*token_to_var(void *context, void *data);
