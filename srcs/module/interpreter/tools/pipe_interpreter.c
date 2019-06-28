@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 07:10:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 22:03:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,8 @@ int8_t	launch_pipeline(t_registry *shell, t_list *process)
 		ft_lstadd(&next->redirects, pipe_node);
 	}
 	run_process(shell, process->data);
-	return (launch_pipeline(shell, process->next));
+	close(pipe_fd[1]);
+	launch_pipeline(shell, process->next);
+	close(pipe_fd[0]);
+	return (SUCCESS);
 }
