@@ -21,11 +21,11 @@ void			free_node(void *node)
 	{
 		ft_free(variable->name);
 		ft_free(variable->data);
-		ft_free(variable);
+		//ft_free(variable);
 	}
 }
 
-static int8_t	del_node(t_list *intern, const char *name)
+static int8_t	del_node(t_list *intern, char *name)
 {
 	t_list	*tmp;
 
@@ -46,7 +46,7 @@ static int8_t	del_node(t_list *intern, const char *name)
 	return (FAILURE);
 }
 
-int8_t			free_var(t_list **alst, const char *name)
+int8_t			free_var(t_list **alst, char *name)
 {
 	t_list		*intern;
 	t_variable	*var;

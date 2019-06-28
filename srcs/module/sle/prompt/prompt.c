@@ -38,6 +38,18 @@ static void	prompt_post_process(t_registry *shell, t_sle *sle)
 		verif_line(sle);
 }
 
+static inline t_vector *read_error(t_registry *shell, t_sle *sle)
+{
+	if (ft_strequ(sle->prompt.state, INT_PS1) == FALSE)
+	{
+		g_shell->sigint = FALSE;
+		sle->prompt.state = INT_PS1;
+		return (NULL);
+	}
+	vct_del(&(sle->prompt.text));
+	return (prompt(shell, sle));
+}
+
 t_vector	*prompt(t_registry *shell, t_sle *sle)
 {
 	char		character[READ_SIZE + 1];
@@ -50,20 +62,12 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 	{
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
-		{
-			if (ft_strequ(sle->prompt.state, INT_PS1) == FALSE)
-			{
-				g_shell->sigint = FALSE;
-				sle->prompt.state = INT_PS1;
-				return (NULL);
-			}
-			else
-				return (prompt(shell, sle));
-		}
+			return (read_error(shell, sle));
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
 	}
 	prompt_post_process(shell, sle);
+	vct_del(&(sle->prompt.text));
 	return (vct_dup(sle->line));
 }
 

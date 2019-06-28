@@ -78,12 +78,12 @@ int8_t			add_nbr_var(t_list **intern, char *name,
 						int data, t_option flag);
 size_t			list_export_size(t_list *lst);
 void			print_lst(t_list *lst, int fd, char *prefix, t_option flag);
-int8_t			create_node(t_list **alst, const char *var, const char *data,
+int8_t			create_node(t_list **alst, char *var, char *data,
 					t_option flag);
-int8_t			change_node(t_list **alst, const char *var, char *data,
+int8_t			change_node(t_list **alst, char *var, char *data,
 					t_option flag);
 int				find_var(void *data, void *to_find);
-int8_t			free_var(t_list **alst, const char *var);
+int8_t			free_var(t_list **alst, char *var);
 
 /*
 *****************************************************

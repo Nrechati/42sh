@@ -54,19 +54,26 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-void		handle_cc(t_registry *shell, t_sle *sl, t_vector **in, uint32_t flag)
+void		handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 {
-	if (ft_strequ(sl->prompt.state, INT_PS1) == TRUE)
-	{
-		sl->state = STATE_STD;
-		set_redraw_flags(sl, RD_LINE | RD_CEND);
-		redraw(shell, sl);
-		vct_reset(sl->line);
-		update_window(sl);
-		if (flag & SLE_CC)
-			ft_putendl("^C");
-		sle(shell, in, SLE_PS3_PROMPT);
-	}
+	sl->state = STATE_STD;
+	set_redraw_flags(sl, RD_LINE | RD_CEND);
+	redraw(shell, sl);
+	vct_reset(sl->line);
+	update_window(sl);
+	if (flag & SLE_CC)
+		ft_putendl("^C");
+}
+
+static uint8_t		sle_get_input(t_registry *shell, t_sle *sle, t_vector **in)
+{
+	sle->prompt.state = INT_PS1;
+	*in = prompt(shell, sle);
+	if (*in == NULL || is_eof(vct_get_string(*in)))
+		return (FAILURE);
+	if (ft_strequ(vct_get_string(*in), "\0"))
+		return (LINE_FAIL);
+	return (SUCCESS);
 }
 
 uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
@@ -79,28 +86,13 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	term_mode(TERMMODE_SLE);
 	sle.state = STATE_STD;
 	if (sle_flag == SLE_GET_INPUT)
-	{
-		sle.prompt.state = INT_PS1;
-		*in = prompt(shell, &sle);
-		if (*in == NULL || is_eof(vct_get_string(*in)))
-			return (FAILURE);
-		if (ft_strequ(vct_get_string(*in), "\0"))
-			return (LINE_FAIL);
-	}
+		return (sle_get_input(shell, &sle, in));
 	else if (sle_flag & SLE_PS2_PROMPT)
 		*in = invoke_ps2prompt(shell, &sle, sle_flag);
 	else if (sle_flag & SLE_PS3_PROMPT)
 		*in = invoke_ps3prompt(shell, &sle);
 	else if (sle_flag & SLE_RD_PROMPT)
-	{
-		sle.state = STATE_STD;
-		set_redraw_flags(&sle, RD_LINE | RD_CEND);
-		redraw(shell, &sle);
-		vct_reset(sle.line);
-		update_window(&sle);
-		if (sle_flag & SLE_CC)
-			ft_putendl("^C");
-	}
+		handle_cc(g_shell, &sle, sle_flag);
 	else if (sle_flag & SLE_SIZE_UPDATE)
 	{
 		redraw_window(&sle);

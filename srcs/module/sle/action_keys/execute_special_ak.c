@@ -64,7 +64,8 @@ int8_t		ak_hightab(__unused t_registry *shell, t_sle *sle)
 		set_cursor_pos(sle, sle->cursor.index + ft_strlen(substring));
 		ft_strdel(&substring);
 	}
-	set_redraw_bounds(sle, sle->cursor.index - 1, vct_len(sle->line));
+	set_redraw_bounds(sle, sle->cursor.index == 0 ? 0
+			: sle->cursor.index - 1, vct_len(sle->line));
 	return (SUCCESS);
 }
 
@@ -81,6 +82,8 @@ int8_t		ak_delete(__unused t_registry *shell, t_sle *sle)
 
 int8_t		ak_backspace(__unused t_registry *shell, t_sle *sle)
 {
+	uint64_t	index;
+
 	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
 		return (FAILURE);
 	if (sle->state == STATE_SEARCH)
@@ -91,10 +94,11 @@ int8_t		ak_backspace(__unused t_registry *shell, t_sle *sle)
 	}
 	if (sle->cursor.index == 0)
 		return (FAILURE);
-	vct_del_char(sle->line, sle->cursor.index - 1);
+	index = sle->cursor.index <= 0 ? 0 : sle->cursor.index - 1;
+	vct_del_char(sle->line, index);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
-	set_cursor_pos(sle, sle->cursor.index - 1);
-	find_multiline_coord(sle, sle->cursor.index == 0 ? 0 : -1);
+	set_cursor_pos(sle, index);
+	find_multiline_coord(sle, index);
 	return (SUCCESS);
 }
 

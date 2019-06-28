@@ -107,13 +107,9 @@ int8_t			autocompletion(char *input, t_registry *shell,
 		ft_strdel(&cpy_input);
 		return (SUCCESS);
 	}
-	if (result.nb == 1 || result.nb == 0)
+	ft_strdel(completion);
+	if (result.nb == 1)
 	{
-		if (result.nb == 0)
-		{
-			ft_strdel(&cpy_input);
-			return (NOT_FOUND);
-		}
 		*completion = send_rest(&result, cpy_input, shell);
 		ft_strdel(&cpy_input);
 		return (SUCCESS);
@@ -121,6 +117,5 @@ int8_t			autocompletion(char *input, t_registry *shell,
 	ft_mergesort(&result.list, lst_strcmp);
 	print_possibilities(&result);
 	ft_strdel(&cpy_input);
-	ft_strdel(completion);
-	return (FAILURE);
+	return (result.nb == 0 ? NOT_FOUND : FAILURE);
 }
