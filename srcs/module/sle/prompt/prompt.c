@@ -58,12 +58,16 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 				return (NULL);
 			}
 			else
+			{
+				vct_del(&(sle->prompt.text));
 				return (prompt(shell, sle));
+			}
 		}
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
 	}
 	prompt_post_process(shell, sle);
+	vct_del(&(sle->prompt.text));
 	return (vct_dup(sle->line));
 }
 
