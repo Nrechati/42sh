@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 15:37:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 21:34:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			run_builtin(t_registry *shell, t_process *process)
 	if (process->process_type & IS_ALONE)
 		default_io(std, tty_name);
 	ft_lstiter(process->redirects, close_redirect);
-	add_var(&shell->intern, "?", status, READONLY_VAR); ///
+	add_var(&shell->intern, "?", status, READONLY_VAR);
 	process->completed = 1;
 	ft_strdel(&status);
 	return ;
@@ -111,9 +111,7 @@ static int		run_job(void *context, void *data)
 		setup_pipe(job->processes);
 
 	job->state |= RUNNING;
-
 	ft_lstiter_ctx(job->processes, shell, run_process);
-//	ft_lstiter(job->processes, print_process);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	waiter(shell, job);
 	del_job(job);

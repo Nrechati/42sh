@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 22:45:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/27 21:05:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 *****************************************************
 */
 
+int8_t	kill_blt(t_registry *shell, char **av);
 int8_t	bg_blt(t_registry *shell, char **av);
 int8_t	fg_blt(t_registry *shell, char **av);
 int8_t	jobs_blt(t_registry *shell, char **av);
