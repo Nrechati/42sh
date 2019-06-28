@@ -24,7 +24,8 @@ static void            find_x3_coord(t_sle *sle, uint32_t prompt_len)
 	sle->cursor.y3 = 0;
 	line = NULL;
 	tmp = sle->line->buffer;
-	while ((tmp2 = ft_strchr(tmp + 1, '\n')) != NULL)
+	while (tmp != NULL && *tmp != '\0' &&
+			(tmp2 = ft_strchr(tmp + 1, '\n')) != NULL)
 	{
 		if (line == NULL)
 			sup = (tmp2 - tmp + prompt_len) / sle->window.cols;
@@ -61,7 +62,8 @@ static void            find_x2_coord(t_sle *sle, uint32_t prompt_len,
 	cmd_offset = ft_strsub(sle->line->buffer, 0, sle->cursor.index + offset);
 	tmp = cmd_offset;
 	line = NULL;
-	while ((tmp2 = ft_strchr(tmp + 1, '\n')) != NULL)
+	while (tmp != NULL && *tmp != '\0' &&
+			(tmp2 = ft_strchr(tmp + 1, '\n')) != NULL)
 	{
 		if (line == NULL)
 			sup = (tmp2 - tmp + prompt_len) / sle->window.cols;

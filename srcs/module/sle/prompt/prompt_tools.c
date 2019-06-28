@@ -98,7 +98,6 @@ inline void		print_prompt(__unused t_registry *shell, t_sle *sle)
 
 	if (prompt_need_alignment() == TRUE)
 		align_prompt(sle);
-
 	ptext = NULL;
 	if (ft_strequ(sle->prompt.state, INT_PS1))
 		ptext = vct_dup(sle->interns.ps1);
@@ -113,5 +112,4 @@ inline void		print_prompt(__unused t_registry *shell, t_sle *sle)
 		expand_prompt(sle, ptext);
 	sle->prompt.text = ptext;
 	print_prompt_to_window(sle, sle->prompt.text);
-	vct_reset((sle->prompt.text));
 }

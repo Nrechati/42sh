@@ -34,7 +34,7 @@ void			print_lst(t_list *lst, int fd, char *prefix, t_option flag)
 	}
 }
 
-int8_t			create_node(t_list **alst, const char *name, const char *data,
+int8_t			create_node(t_list **alst, char *name, char *data,
 					t_option flag)
 {
 	t_variable	variable;
@@ -54,7 +54,7 @@ int8_t			create_node(t_list **alst, const char *name, const char *data,
 	return (SUCCESS);
 }
 
-int8_t			change_node(t_list **alst, const char *name, char *data,
+int8_t			change_node(t_list **alst, char *name, char *data,
 					t_option flag)
 {
 	t_list *ptr;
@@ -67,7 +67,7 @@ int8_t			change_node(t_list **alst, const char *name, char *data,
 		if (ft_strequ(((t_variable *)ptr->data)->name, name) == TRUE)
 		{
 			ft_free(((t_variable *)ptr->data)->data);
-			((t_variable *)ptr->data)->data = data;
+			((t_variable *)ptr->data)->data = ft_strdup(data);
 			((t_variable *)ptr->data)->flag = flag;
 			return (SUCCESS);
 		}

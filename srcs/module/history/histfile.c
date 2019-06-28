@@ -45,7 +45,10 @@ void			read_histfile(t_registry *shell, t_history *history)
 		return ;
 	if ((fd = open(histfile, O_CREAT | O_RDONLY,
 					S_IRUSR | S_IWUSR)) == FAILURE)
+	{
+		ft_strdel(&histfile);
 		return ;
+	}
 	ft_strdel(&histfile);
 	cmd = NULL;
 	while (get_next_line(fd, &cmd) > 0)
@@ -72,7 +75,10 @@ void			write_histfile(t_registry *shell, t_history *history)
 		return ;
 	if ((fd = open(histfile, O_CREAT | O_WRONLY | O_TRUNC,
 					S_IRUSR | S_IWUSR)) == FAILURE)
+	{
+		ft_strdel(&histfile);
 		return ;
+	}
 	ft_strdel(&histfile);
 	entry = entry_roll_back(history->entry); 
 	histsize = get_histsize(shell);

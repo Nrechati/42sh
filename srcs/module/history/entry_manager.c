@@ -59,7 +59,7 @@ t_entry	*create_entry(const char *cmd)
 		return (NULL);
 	entry->next = NULL;
 	entry->prev = NULL;
-	entry->cmd = ft_strdup(cmd);
+	entry->cmd = ft_strdup(cmd); // dup ?
 	return (entry);
 }
 
