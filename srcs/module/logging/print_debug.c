@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 20:50:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 22:40:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void		print_action(void *data)
 {
 	t_action		*action;
-	static char		*action_tab[18] = {"A_STDOUT_TRUNCATE_FILE",
+	static char		*action_tab[19] = {"A_STDOUT_TRUNCATE_FILE",
+										"A_STDOUT_TRUNCATE_FILE_SPECIAL",
 										"A_STDOUT_APPEND_FILE",
 										"A_STDIN_READ_FILE",
 										"A_STDIN_READ_FD",

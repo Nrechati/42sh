@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 21:08:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 23:13:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,63 @@ void	stdout_truncate(t_registry *shell, t_redirect *redirect
 	(void)shell;
 	filename = get_filename(action->data);
 	if (filename == NULL)
+		redirect->type = FD_CRITICAL_ERROR;
+	else if (*filename == '\0')
+		set_ambigous_redirect(redirect, action->data);
+	else
+	{
+		open_flags = O_RDWR | O_TRUNC | O_CREAT | O_CLOEXEC;
+		if ((redirect->to = open(filename, open_flags, 0644)) == -1)
+		{
+			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
+			redirect->type = FD_OPEN_ERROR;
+		}
+		else
+			redirect->type = FD_REDIRECT;
+		redirect->from = STDOUT_FILENO;
+	}
+	ft_strdel(&filename);
+}
+
+int		get_filename_special(t_list *node, char **file)
+{
+	int			action_type;
+	t_token		*token;
+	char		*filename;
+
+	token = node->data;
+	if ((filename = expansion_pipeline(g_shell->intern, token->data)) == NULL)
+		return (FAILURE);
+	if ((action_type = define_io_dup_move(token)) != A_AMBIGOUS_REDIRECT)
+		return (action_type);
+	*file = filename;
+	return (SUCCESS);
+}
+
+void	set_filename_special(t_redirect *redirect, char *filename, int type)
+{
+	redirect->to = ft_atoi(filename);
+	redirect->from = STDOUT_FILENO;
+	if (type == A_CLOSE)
+		redirect->type = FD_CLOSE_SPECIAL;
+	else if (type == A_MOVE)
+		redirect->type = FD_MOVE;
+	else
+		redirect->type = FD_DUP;
+}
+
+void	stdout_truncate_special(t_registry *shell, t_redirect *redirect
+					, t_action *action)
+{
+	char		*filename;
+	int			open_flags;
+	int			type;
+
+	(void)shell;
+	filename = NULL;
+	if ((type = get_filename_special(action->data, &filename)) > 0)
+		set_filename_special(redirect, filename, type);
+	else if (type == FAILURE)
 		redirect->type = FD_CRITICAL_ERROR;
 	else if (*filename == '\0')
 		set_ambigous_redirect(redirect, action->data);

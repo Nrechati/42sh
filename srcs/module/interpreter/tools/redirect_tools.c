@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 20:54:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 22:37:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_redirection	*redirecter_init(void)
 	static t_redirection	redirecter;
 
 	redirecter[A_STDOUT_TRUNCATE_FILE] = stdout_truncate;
+	redirecter[A_STDOUT_TRUNCATE_FILE_SPECIAL] = stdout_truncate_special;
 	redirecter[A_STDOUT_APPEND_FILE] = stdout_append;
 	redirecter[A_STDIN_READ_FILE] = stdin_readfile;
 	redirecter[A_STDIN_READ_FD] = stdin_readfd;
