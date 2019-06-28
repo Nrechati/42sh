@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 13:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/06 11:29:51 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:43:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
 	char		**tab;
 
 	ret = NOT_FOUND;
-	if (get_var(shell->intern, "PATH") == NULL)
+	if (get_var(shell->intern, "PATH") == NULL
+			|| ft_strequ("", get_var(shell->intern, "PATH")))
 		return (NOT_FOUND);
 	tab = ft_strsplit(get_var(shell->intern, "PATH"), ":");
 	if (tab == NULL)
