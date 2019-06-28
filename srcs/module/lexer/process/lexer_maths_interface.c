@@ -38,6 +38,7 @@ void			out_lexer_m(t_lexer *lexer)
 		return ;
 	}
 	ft_lstaddback(&lexer->tokens, node);
+	ft_strdel(&token.data);
 	lexer->state = lexer->token_mtype == E_M_END ? L_FINISH : L_PROCESS;
 	lexer->last_token_mtype = lexer->token_mtype;
 	lexer->token_mtype = E_M_DEFAULT;
