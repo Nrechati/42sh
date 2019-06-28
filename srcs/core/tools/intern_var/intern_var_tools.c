@@ -34,7 +34,7 @@ void			print_lst(t_list *lst, int fd, char *prefix, t_option flag)
 	}
 }
 
-int8_t			create_node(t_list **alst, const char *name, const char *data,
+int8_t			create_node(t_list **alst, char *name, char *data,
 					t_option flag)
 {
 	t_variable	variable;
@@ -44,7 +44,7 @@ int8_t			create_node(t_list **alst, const char *name, const char *data,
 		return (FAILURE);
 	ft_bzero(&variable, sizeof(t_variable));
 	variable.name = ft_strdup(name);
-	variable.data = ft_strdup(data);
+	variable.data = data;
 	variable.flag = flag;
 	if (variable.name == NULL || variable.data == NULL)
 		return (FAILURE);
@@ -54,7 +54,7 @@ int8_t			create_node(t_list **alst, const char *name, const char *data,
 	return (SUCCESS);
 }
 
-int8_t			change_node(t_list **alst, const char *name, char *data,
+int8_t			change_node(t_list **alst, char *name, char *data,
 					t_option flag)
 {
 	t_list *ptr;
