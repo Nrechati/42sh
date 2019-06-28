@@ -51,7 +51,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
 		{
-			if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
+			if (ft_strequ(sle->prompt.state, INT_PS1) == FALSE)
 			{
 				g_shell->sigint = FALSE;
 				sle->prompt.state = INT_PS1;
