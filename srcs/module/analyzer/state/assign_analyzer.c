@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 00:37:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/17 12:11:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 23:26:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	assign_data_analyzer(t_resolution *resolve)
 
 void	assign_name_analyzer(t_resolution *resolve)
 {
-	resolve->state = P_ASSIGN_NAME;
+	if (ft_isdigit(*resolve->token.data))
+		resolve->state = P_STRING;
+	else
+		resolve->state = P_ASSIGN_NAME;
 	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 	get_token(resolve);
 }

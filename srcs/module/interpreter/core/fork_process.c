@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 22:02:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 23:22:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int			assign_intern(t_registry *shell, t_list **assign)
 
 	if (*assign == NULL)
 		return (TRUE);
-	if (assign_intern(shell, &(*assign)->next) == 1)
+	if (assign_intern(shell, &(*assign)->next) == TRUE)
 	{
 		to_find = (*assign)->data;
 		if (ft_strequ(to_find->name, "PATH"))
