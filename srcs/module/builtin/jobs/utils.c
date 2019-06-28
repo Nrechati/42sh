@@ -46,11 +46,9 @@ int8_t			get_current_job(t_job **job, char c)
 
 int8_t			parse_jobname(t_job **job, char *jobname)
 {
-	uint32_t	i;
 	t_list		*job_ptr;
 	char		*jobav;
 
-	i = 1;
 	job_ptr = g_shell->job_list;
 	if (*jobname == '?')
 	{

@@ -48,7 +48,7 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 		do_math(first, second, curr);
 	}
 	ft_stckpush(solve, first, sizeof(t_rpn_tk));
-	ft_free(&second);
+	//ft_free(&second); ALLOUER SUR LA STACK !!
 	return (SUCCESS);
 }
 

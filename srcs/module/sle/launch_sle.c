@@ -56,7 +56,7 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 
 void		handle_cc(t_registry *shell, t_sle *sl, t_vector **in, uint32_t flag)
 {
-	if (sl->prompt.state == INT_PS1)
+	if (ft_strequ(sl->prompt.state, INT_PS1) == TRUE)
 	{
 		sl->state = STATE_STD;
 		set_redraw_flags(sl, RD_LINE | RD_CEND);

@@ -34,8 +34,7 @@ static void	prompt_post_process(t_registry *shell, t_sle *sle)
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
 	ft_putendl("");
-	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE
-			&& (shell->option.option & INTERACTIVE_OPT))
+	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
 		verif_line(sle);
 }
 
@@ -52,7 +51,7 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		ft_bzero(character, READ_SIZE);
 		if (read(0, character, READ_SIZE) == FAILURE)
 		{
-			if (g_shell->sigint == TRUE && sle->prompt.state != INT_PS1)
+			if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
 			{
 				g_shell->sigint = FALSE;
 				sle->prompt.state = INT_PS1;

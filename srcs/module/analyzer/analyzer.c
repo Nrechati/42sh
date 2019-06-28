@@ -74,7 +74,7 @@ static int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 	ft_bzero(&group, sizeof(t_group));
 	action = ft_stckpop(tree_node);
 	set_group_type(&group, action);
-	ft_free(&action);
+	///	ft_free(&action); !! ALLOUER  SUR LA STACK
 	while (ft_stcksize(tree_node) > 0)
 	{
 		if ((node = generate_cmd_list(tree_node)) == NULL)

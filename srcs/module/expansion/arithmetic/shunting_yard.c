@@ -14,6 +14,7 @@
 
 static int8_t	close_bracket(t_rpn_tk *curr, t_stack *operator, t_stack *rpn)
 {
+	(void)curr;
 	while (is_left_p(operator) == FALSE)
 		if (ft_stckpush(rpn, ft_stckpop(operator)
 				, sizeof(t_rpn_tk)) == FAILURE)

@@ -55,12 +55,12 @@ int		advanced_expansion(t_list *intern, t_parameter *parameter)
 	static t_advanced_pex	expansion[PEX_ADVANCED_EXP];
 	int						delim;
 	t_pex_token 			*param;
-	t_pex_token 			*word;
+//	t_pex_token 			*word;
 
 	if (expansion[0] == NULL)
 		init_advanced_pex(expansion);
 	param = parameter->tokens->data;
-	word = parameter->tokens->next->next->data;
+//	word = parameter->tokens->next->next->data;
 	delim = get_delimiter(parameter, parameter->tokens->next->data);
 	if (delim < 0 || param->data[0] == '#')
 	{
