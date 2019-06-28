@@ -40,7 +40,7 @@ void			out_lexer(t_lexer *lexer)
 		return ;
 	}
 	ft_lstaddback(&lexer->tokens, node);
-	ft_strdel(&token.data);
+	//ft_strdel(&token.data);
 	lexer->state = lexer->token_type == E_END ? L_FINISH : L_PROCESS;
 	if (lexer->assignation == LISTEN || lexer->token_type != E_STRING)
 		lexer->assignation = POSSIBLE;
