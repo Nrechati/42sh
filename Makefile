@@ -43,9 +43,9 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 
 CC = clang
 LINK = $(CC)
-LINKD = $(CC) -g3 -fsanitize=address,undefined
+LINKD = $(CC) -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
 COMPILE = $(CC) -c
-DEBUG = $(CC) -g3 -c -fsanitize=address
+DEBUG = $(CC) -g3 -c -fsanitize=address,undefined -fno-omit-frame-pointer
 
 # ---------------------------------------------------------------------------- #
 #									Commands                                   #
