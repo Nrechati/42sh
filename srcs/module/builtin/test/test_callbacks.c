@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 10:20:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 10:32:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,12 +222,31 @@ uint8_t		test_w_cb(void *data, __unused void *more)
 	if (!data)
 		return (ERROR);
 	pathname = data;
-	ft_bzero(&stat, sizeof(stat));
-	if (access(pathname, F_OK) != TRUE)
-		return (FALSE);
-	if (lstat(pathname, &stat) == FAILURE);
+	if (access(pathname, F_OK) && access(pathname, W_OK))
+		return (TRUE);
+	return (FALSE);
+}
+
+uint8_t		test_x_cb(void *data, __unused void *more)
+{
+	char			*pathname;
+
+	if (!data)
 		return (ERROR);
-	if (S_ISREG(stat.st_mode) == FALSE)
-		return (FALSE);
+	pathname = data;
+	if (access(pathname, F_OK) && access(pathname, X_OK))
+		return (TRUE);
+	return (FALSE);
+}
+
+uint8_t		test_z_cb(void *data, __unused void *more)
+{
+	char			*str;
+
+	if (!data)
+		return (ERROR);
+	str = data;
+	if (ft_strlen(str) == 0)
+		return (TRUE);
 	return (FALSE);
 }
