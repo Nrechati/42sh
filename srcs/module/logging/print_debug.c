@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 03:45:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 20:16:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void		print_command(void *data)
 	t_command		*command;
 
 	command = data;
-	if (command->type & A_ARGS)
+	if (command->type & COMMAND_RUN)
 	{
 		ft_lstiter(command->av, print_token);
 		ft_dprintf(2, "--------------------ACTIONS-------------------\n");
 		ft_lstiter(command->actions, print_action);
 	}
-	else if (command->type & A_ASSIGN)
+	else if (command->type & COMMAND_ASSIGN)
 		ft_lstiter(command->av, print_action);
 }
 

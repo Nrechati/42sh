@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 03:32:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 20:17:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		command_assign(t_stack *tree_node, t_command *command)
 	t_list		*node;
 
 
-	command->type |= COMMAND_ASSIGN;
+	command->type = COMMAND_ASSIGN;
 	while (ft_stcksize(tree_node) > 0)
 	{
 		node = ft_stckpopnode(tree_node);
@@ -29,7 +29,7 @@ static void		command_args(t_stack *tree_node, t_command *command)
 {
 	t_list		*node;
 
-	command->type |= COMMAND_RUN;
+	command->type = COMMAND_RUN;
 	while (ft_stcksize(tree_node) > 0)
 	{
 		if (((t_action *)ft_stcktop(tree_node))->type == A_ARGS)

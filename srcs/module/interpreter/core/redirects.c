@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 06:51:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 20:34:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ int		check_redirect_error(void *context, void *data)
 	process = context;
 	redirect = data;
 	if (redirect->type & FD_OPEN_ERROR)
-		process->process_type |= IS_OPEN_FAILED;
+		process->process_type = IS_OPEN_FAILED;
 	if (redirect->type & FD_DUP_ERROR)
-		process->process_type |= IS_DUP_FAILED;
+		process->process_type = IS_DUP_FAILED;
 	if (redirect->type & FD_CRITICAL_ERROR)
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR SH_MALLOC_ERROR);
-		process->process_type |= IS_CRITICAL;
+		process->process_type = IS_CRITICAL;
 	}
 	if (redirect->type & FD_BAD_DESCRIPTOR)
 	{
-		ft_dprintf(2, SH_GENERAL_ERROR "%d: bad filedescriptor", redirect->to);
-		process->process_type |= IS_DUP_FAILED;
+		ft_dprintf(2, SH_GENERAL_ERROR "%d: bad filedescriptor\n", redirect->to);
+		process->process_type = IS_DUP_FAILED;
 	}
 	return (SUCCESS);
 }
