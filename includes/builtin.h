@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/28 08:07:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:08:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,32 @@ int8_t		unset_blt(t_registry *shell, char **av);
 */
 
 int8_t		test_blt(t_registry *shell, char **av);
+
+uint8_t		test_u_cb(void *data, __unused void *more);
+uint8_t		test_g_cb(void *data, __unused void *more);
+uint8_t		test_r_cb(void *data, __unused void *more);
+uint8_t		test_w_cb(void *data, __unused void *more);
+uint8_t		test_x_cb(void *data, __unused void *more);
+uint8_t		test_caps_s_cb(void *data, __unused void *more);
+uint8_t		test_caps_l_cb(void *data, __unused void *more);
+uint8_t		test_b_cb(void *data, __unused void *more);
+uint8_t		test_p_cb(void *data, __unused void *more);
+uint8_t		test_c_cb(void *data, __unused void *more);
+uint8_t		test_f_cb(void *data, __unused void *more);
+uint8_t		test_d_cb(void *data, __unused void *more);
+uint8_t		test_e_cb(void *data, __unused void *more);
+uint8_t		test_s_cb(void *data, __unused void *more);
+uint8_t		test_z_cb(void *data, __unused void *more);
+
+uint8_t		test_equal_cb(void *data, void *more);
+uint8_t		test_diff_cb(void *data, void *more);
+uint8_t		test_eq_cb(void *data, void *more);
+uint8_t		test_ne_cb(void *data, void *more);
+uint8_t		test_gt_cb(void *data, void *more);
+uint8_t		test_ge_cb(void *data, void *more);
+uint8_t		test_lt_cb(void *data, void *more);
+uint8_t		test_le_cb(void *data, void *more);
+
 
 /*
 *****************************************************
