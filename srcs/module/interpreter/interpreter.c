@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/24 15:37:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/28 04:31:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ static int		do_nofork_redirect(void *context, void *data)
 	if (redirect->type & FD_DUP)
 		dup2(redirect->to, redirect->from);
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
+	{
 		dup2(redirect->to, redirect->from);
+		close(redirect->to);
+	}
 	else if (redirect->type & FD_CLOSE)
 		close(redirect->from);
 	return (SUCCESS);

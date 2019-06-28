@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/20 12:32:50 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 01:42:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void		reset_analyzer(t_registry *shell, t_resolution *resolve);
 t_analyzer	*init_analyzer(void);
 void		delete_analyzer(t_resolution *resolve);
 void		start_analyzer(t_resolution *resolve);
-void		separator_analyzer(t_resolution *resolve);
 void		stop_analyzer(t_resolution *resolve);
 void		end_analyzer(t_resolution *resolve);
 void		error_analyzer(t_resolution *resolve);
@@ -48,6 +47,7 @@ void		io_dup_move_analyzer(t_resolution *resolve);
 void		io_filename_analyzer(t_resolution *resolve);
 void		io_and_redirect_flush(t_resolution *resolve);
 void		io_redirect_flush(t_resolution *resolve);
+int			 define_io_dup_move(t_token *token);
 
 void		heredoc_analyzer(t_resolution *resolve);
 void		io_heredoc_analyzer(t_resolution *resolve);

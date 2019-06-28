@@ -6,19 +6,19 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 14:48:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 03:45:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-
 void		print_action(void *data)
 {
 	t_action		*action;
-	char			*action_tab[16] = {"A_STDOUT_TRUNCATE_FILE",
+	static char		*action_tab[17] = {"A_STDOUT_TRUNCATE_FILE",
 										"A_STDOUT_APPEND_FILE",
 										"A_STDIN_READ_FILE",
+										"A_STDIN_READ_FD",
 										"A_IO_TRUNCATE_FILE",
 										"A_IO_APPEND_FILE",
 										"A_IO_READ_FILE",

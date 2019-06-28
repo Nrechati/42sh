@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 18:52:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 04:40:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	io_redirect_analyzer(t_resolution *resolve)
 	get_token(resolve);
 }
 
-enum e_actions define_io_dup_move(t_token *token)
+int		 define_io_dup_move(t_token *token)
 {
 	int		len;
 	int		index;
@@ -97,9 +97,9 @@ void	io_and_redirect_flush(t_resolution *resolve)
 	ft_lstdelone(&node, NULL);
 	node = ft_stckpopnode(&resolve->stack);
 	if (type == E_GREATAND)
-		ft_lstadd(&action.data, node);
-	else if (type == E_LESSAND)
 		ft_lstaddback(&action.data, node);
+	else if (type == E_LESSAND)
+		ft_lstadd(&action.data, node);
 	node = ft_lstnew(&action, sizeof(t_action));
 	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 }

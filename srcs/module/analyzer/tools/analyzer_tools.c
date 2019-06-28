@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:37:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/20 10:24:08 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/27 23:23:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,6 @@ void	set_group_type(t_group *group, t_action *action)
 		group->type |= GROUP_OR;
 	else if (action->type == A_END)
 		group->type |= GROUP_RUN;
+	else if (action->type == A_AND)
+		group->type |= GROUP_BG;
 }

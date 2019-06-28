@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 21:33:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 03:22:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef enum	e_type
 	E_IO_NUMBER,
 	E_ASSIGN,
 	E_STRING,
-	E_SPSTRING,
 	E_END,
 	E_ERROR,
 	E_DEFAULT,
@@ -142,9 +141,11 @@ enum e_actions
 	A_STDOUT_TRUNCATE_FILE,
 	A_STDOUT_APPEND_FILE,
 	A_STDIN_READ_FILE,
+	A_STDIN_READ_FD,
 	A_IO_TRUNCATE_FILE,
 	A_IO_APPEND_FILE,
 	A_IO_READ_FILE,
+	A_IO_READ_FD,
 	A_DUP,
 	A_CLOSE,
 	A_MOVE,
@@ -155,6 +156,7 @@ enum e_actions
 	A_AMBIGOUS_REDIRECT,
 	A_ARGS,
 	A_ASSIGN,
+	A_AND,
 	A_DAND,
 	A_OR,
 	A_END,
@@ -167,16 +169,13 @@ enum	e_analyzer_state
 	P_STOP,
 	P_ERROR,
 	P_STRING,
-	P_SPSTRING,
 	P_STRING_FLUSH,
-	P_SEPARATOR,
 	P_REDIRECT,
 	P_REDIRECT_AND,
 	P_DUP_MOVE,
 	P_REDIRECT_FLUSH,
 	P_REDIRECT_FLUSH_AND,
 	P_FILENAME,
-	P_SPFILENAME,
 	P_IO,
 	P_IO_REDIRECT,
 	P_IO_REDIRECT_AND,

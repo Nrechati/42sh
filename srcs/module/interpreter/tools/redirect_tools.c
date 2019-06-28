@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/26 23:23:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 04:08:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ t_redirection	*redirecter_init(void)
 	redirecter[A_STDOUT_TRUNCATE_FILE] = stdout_truncate;
 	redirecter[A_STDOUT_APPEND_FILE] = stdout_append;
 	redirecter[A_STDIN_READ_FILE] = stdin_readfile;
+	redirecter[A_STDIN_READ_FD] = stdin_readfd;
 	redirecter[A_IO_TRUNCATE_FILE] = io_truncate;
 	redirecter[A_IO_APPEND_FILE] = io_append;
 	redirecter[A_IO_READ_FILE] = io_readfile;
+	redirecter[A_IO_READ_FD] = io_readfd;
 	redirecter[A_DUP] = duplicate_fd;
 	redirecter[A_CLOSE] = close_fd;
 	redirecter[A_MOVE] = move_fd;
@@ -89,4 +91,29 @@ int				write_heredoc(t_list *intern_var, t_vector **vector, int fd
 		vct_del(vector);
 	}
 	return (0);
+}
+
+int		get_custom_fd(char **str, t_list *node)
+{
+	t_token		*token;
+	int			action_type;
+	char		*holder;
+
+	token = node->data;
+	if ((holder = expansion_pipeline(g_shell->intern, token->data)) == NULL)
+		return (FAILURE);
+	if (ft_strequ(holder, ""))
+	{
+		ft_dprintf(2, SH_GENERAL_ERROR "%s: ambigous redirect\n", token->data);
+		ft_strdel(&holder);
+		return (-2);
+	}
+	if ((action_type = define_io_dup_move(token)) == A_AMBIGOUS_REDIRECT)
+	{
+		ft_dprintf(2, SH_GENERAL_ERROR "%s: ambigous redirect\n", holder);
+		ft_strdel(&holder);
+		return (-2);
+	}
+	*str = holder;
+	return (action_type);
 }
