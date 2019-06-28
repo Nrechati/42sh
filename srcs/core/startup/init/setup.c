@@ -66,6 +66,7 @@ static void		default_variable(t_list **intern, char *name)
 	add_var(intern, "0", name, READONLY_VAR);
 	add_var(intern, "$", str, READONLY_VAR);
 	add_var(intern, "?", "0", READONLY_VAR);
+	add_var(intern, "!", "", READONLY_VAR);
 	ft_strdel(&str);
 	option = vct_new(0);
 	if (g_shell->option.option & COMMAND_OPT)

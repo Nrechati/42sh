@@ -59,6 +59,8 @@ static int	variable_special(t_list *intern, char **dest, int i)
 		expanded = get_var(intern, "$");
 	else if ((*dest)[i + 1] == '-')
 		expanded = get_var(intern, "-");
+	else if ((*dest)[i + 1] == '!')
+		expanded = get_var(intern, "!");
 	else
 		expanded = get_var(intern, "?");
 	ft_strdel(dest);
