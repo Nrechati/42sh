@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 22:37:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 23:56:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int				get_io(t_list *node)
 
 int				check_delimiter(char **delimiter, t_vector **vector, int fd)
 {
-	if (ft_strequ((*vector)->buffer, *delimiter) == TRUE)
+	if (!(*vector) || ft_strequ((*vector)->buffer, *delimiter) == TRUE)
 	{
 		close(fd);
 		ft_strdel(delimiter);
