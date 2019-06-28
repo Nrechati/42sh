@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_rpn.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 17:03:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 19:10:11 by Nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ static void		do_math(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
 		do_high_op(first, second, curr);
 	else if (curr->value.type & (PRECEDENCE & PLUS))
 		do_low_op(first, second, curr);
+}
+
+static int8_t	check_forbidden_operation(t_rpn_tk *curr, t_rpn_tk *second)
+{
+	if (curr->value.type & (OPERATOR & DIVIDE)
+			|| curr->value.type & (OPERATOR & MODULO))
+		if (second->value.digit == 0)
+		{
+			ft_dprintf(2, "Division by zero\n");
+			return (FALSE);
+		}
+	return (TRUE);
 }
 
 static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
@@ -45,16 +57,16 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 	{
 		second = ft_stckpop(solve);
 		first = ft_stckpop(solve);
+		if (check_forbidden_operation(curr, second) == FALSE)
+			return (FAILURE);
 		do_math(first, second, curr);
 	}
 	ft_stckpush(solve, first, sizeof(t_rpn_tk));
-	//ft_free(&second); ALLOUER SUR LA STACK !!
 	return (SUCCESS);
 }
 
-int64_t			calculate_rpn(t_stack *rpn)
+int8_t			calculate_rpn(t_stack *rpn, t_infix  *infix)
 {
-	int64_t		result;
 	t_stack		solve;
 	t_rpn_tk	*curr;
 
@@ -66,7 +78,7 @@ int64_t			calculate_rpn(t_stack *rpn)
 			ft_stckpush(&solve, curr, sizeof(t_rpn_tk));
 		else if (curr->type == RPN_OPERATOR)
 		{
-			if (handle_operator(curr, &solve))
+			if (handle_operator(curr, &solve) == FAILURE)
 				return (FAILURE);
 		}
 	}
@@ -75,6 +87,6 @@ int64_t			calculate_rpn(t_stack *rpn)
 		ft_dprintf(2, "Expression unsolvable\n");
 		return (FAILURE);
 	}
-	result = ((t_rpn_tk*)solve.head->data)->value.digit;
-	return (result);
+	infix->result = ((t_rpn_tk*)solve.head->data)->value.digit;
+	return (SUCCESS);
 }
