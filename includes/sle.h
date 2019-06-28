@@ -21,19 +21,22 @@
 *****************************************************
 */
 
-void		find_multiline_coord(t_sle *sle, int8_t offset);
+void			find_multiline_coord(t_sle *sle, int8_t offset);
+t_vector		*read_error(t_registry *shell, t_sle *sle);
+uint64_t		get_prompt_length(t_prompt *prompt);
 
-void		verif_line(t_sle *sle);
-uint8_t		double_quote_routine(t_sle *sle, size_t *i);
-uint8_t		single_quote_routine(t_sle *sle, size_t *i);
-uint8_t		brace_exp_routine(t_sle *sle, size_t *i);
-uint8_t		maths_exp_routine(t_sle *sle, size_t *i);
+void			verif_line(t_sle *sle);
+uint8_t			double_quote_routine(t_sle *sle, size_t *i);
+uint8_t			single_quote_routine(t_sle *sle, size_t *i);
+uint8_t			brace_exp_routine(t_sle *sle, size_t *i);
+uint8_t			maths_exp_routine(t_sle *sle, size_t *i);
 
-void		backslash_process(t_sle *sle);
-uint8_t		is_maths_exp(t_sle *sle, int index);
-uint8_t		is_brace_exp(t_sle *sle, int index);
-uint8_t		is_end_backslash(t_sle *sle, int index);
-uint8_t		subprompt_call(t_sle *sle, uint32_t option);
+void			backslash_process(t_sle *sle);
+uint8_t			is_maths_exp(t_sle *sle, int index);
+uint8_t			is_brace_exp(t_sle *sle, int index);
+uint8_t			is_end_backslash(t_sle *sle, int index);
+uint8_t			subprompt_call(t_sle *sle, uint32_t option);
+
 
 /*
 *****************************************************

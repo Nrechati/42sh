@@ -33,6 +33,14 @@ uint64_t    get_terminal_info(t_registry *shell)
     return (SUCCESS);
 }
 
+static uint64_t validate_termcaps(t_termcaps *tc)
+{
+    if (tc->clear_line == NULL)
+        ft_printf("TC:|%s|\n", tc->clear_line);
+  //  (tc->clear_line == NULL) ?  : ;
+    return (SUCCESS);
+}
+
 uint64_t    init_termcaps(t_termcaps *termcap)
 {
 	termcap->clear_line = ft_strdup(tgetstr("ce", NULL));
@@ -46,5 +54,5 @@ uint64_t    init_termcaps(t_termcaps *termcap)
     termcap->right = ft_strdup(tgetstr("nd", NULL));
     termcap->hidden_cursor = ft_strdup(tgetstr("vi", NULL));
     termcap->normal_cursor = ft_strdup(tgetstr("ve", NULL));
-    return (SUCCESS);
+    return (validate_termcaps(termcap));
 }

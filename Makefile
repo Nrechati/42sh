@@ -41,7 +41,7 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 #									Compiler                                   #
 # ---------------------------------------------------------------------------- #
 
-CC = clang
+CC = gcc
 LINK = $(CC)
 LINKD = $(CC) -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
 COMPILE = $(CC) -c
@@ -356,6 +356,8 @@ SLE += load_sle_struct.c
 
 #Prompt
 SLE += prompt.c
+SLE += get_prompt_length.c
+SLE += prompt_error.c
 SLE += prompt_subroutine.c
 SLE += prompt_subroutine_tools.c
 SLE += prompt_expansion.c
