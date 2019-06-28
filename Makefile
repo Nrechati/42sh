@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/28 08:08:00 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/28 10:59:55 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -321,7 +321,12 @@ BUILTIN += set.c
 
 #SET
 BUILTIN += test.c
-BUILTIN += test_callbacks.c
+BUILTIN += test_comparison_cb.c
+BUILTIN += test_equality_cb.c
+BUILTIN += test_other_type_cb.c
+BUILTIN += test_permission_cb.c
+BUILTIN += test_simple_type_cb.c
+BUILTIN += test_size_cb.c
 
 #TYPE
 BUILTIN += type.c
