@@ -263,28 +263,22 @@ typedef struct 			s_intern
 
 typedef struct			s_sle
 {
+	int64_t				vis_start;
+	int64_t				vis_stop;
+	uint64_t			ak_masks[AK_AMOUNT];
+	uint16_t			search_type;
 	uint8_t				state;
-
+	int8_t				(*actionkeys[AK_AMOUNT])(t_registry *shell, struct s_sle *sle);
 	t_termcaps			termcaps;
 	t_window			window;
 	t_prompt			prompt;
 	t_cursor			cursor;
-
 	t_redrawinfo		rd_info;
-	uint64_t			ak_masks[AK_AMOUNT];
-	int8_t				(*actionkeys[AK_AMOUNT])(t_registry *shell, struct s_sle *sle);
+	t_intern			interns;
 	t_vector			*line;
 	t_vector			*sub_line;
-
-	t_intern			interns;
-
 	t_vector			*line_save;
-
 	t_vector			*search_line;
-	uint16_t			search_type;
-
-	int64_t				vis_start;
-	int64_t				vis_stop;
 	t_vector			*clip;
 }						t_sle;
 

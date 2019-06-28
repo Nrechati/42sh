@@ -25,7 +25,6 @@ void				interactive_mode(t_registry *shell)
 
 	input = NULL;
 	load_signal_profile(SLE_PROFILE);
-
 	while (is_input_valid(sle(shell, &input, SLE_GET_INPUT)) == TRUE)
 	{
 		term_mode(TERMMODE_DFLT);
