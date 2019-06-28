@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/27 14:47:21 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/28 07:57:34 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,6 +120,7 @@ P_BUILTIN += module/builtin/export/
 P_BUILTIN += module/builtin/hash/
 P_BUILTIN += module/builtin/pwd/
 P_BUILTIN += module/builtin/set/
+P_BUILTIN += module/builtin/test/
 P_BUILTIN += module/builtin/type/
 P_BUILTIN += module/builtin/unset/
 P_BUILTIN += module/builtin/fc/
@@ -293,6 +294,10 @@ BUILTIN += pwd.c
 
 #SET
 BUILTIN += set.c
+
+#SET
+BUILTIN += test.c
+BUILTIN += test_callbacks.c
 
 #TYPE
 BUILTIN += type.c
