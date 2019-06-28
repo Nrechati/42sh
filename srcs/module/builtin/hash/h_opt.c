@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:29 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/04 14:05:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:48:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int8_t		hash_all_path(t_registry *shell)
 
 	if (shell->hash.bin.used > 0)
 		ft_hmap_free_content(&(shell->hash.bin), ft_free);
-	if (get_var(shell->intern, "PATH") != NULL)
+	if (get_var(shell->intern, "PATH") != NULL
+		&& !ft_strequ("", get_var(shell->intern, "PATH")))
 	{
 		tabs = ft_strsplit(get_var(shell->intern, "PATH"), ":");
 		if (tabs == NULL)
