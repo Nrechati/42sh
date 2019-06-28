@@ -138,10 +138,7 @@ void			process_maths_lexer(t_lexer *lexer)
 	if (is_input_end_m(lexer) == TRUE)
 		lexer->state = L_OUT;
 	else if (is_delimiter_m(lexer) == TRUE)
-	{
-		if (lexer->last_token_mtype != E_M_DELIMITER)
-			lexer->state = L_OUT;
-	}
+		lexer->index++;
 	else if (is_operator_m(lexer) == TRUE)
 		lexer->state = L_OUT;
 	else if (is_number_m(lexer) == TRUE)
