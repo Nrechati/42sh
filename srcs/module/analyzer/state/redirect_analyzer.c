@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 18:39:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 23:36:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ enum e_actions	define_redirect(t_token *token)
 		return (A_STDOUT_APPEND_FILE);
 	if (token->type == E_LESS)
 		return (A_STDIN_READ_FILE);
+	if (token->type == E_LESSAND)
+		return (A_STDIN_READ_FD);
 	return (-1);
 }
 

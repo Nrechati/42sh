@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 21:15:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/28 10:25:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,8 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 		*process->pgid = process->pid;
 
 	setpgid(process->pid, *process->pgid);
-//	ft_dprintf(3, "|->  Child process pid is %d\n", process->pid);
-//	ft_dprintf(3, "|--> Child process grp is %d\n", *process->pgid);
 	if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-	{
 		tcsetpgrp(STDOUT_FILENO, *process->pgid);
-//		ft_dprintf(3, "Attaching pid %d to the controlling terminal\n",
-//						*process->pgid);
-	}
 
 	if (process->process_type & IS_BLT)
 	{
@@ -51,6 +45,7 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	else
 		pathname = process->av[0];
 	ft_lstiter(process->redirects, do_redirect);
+	ft_lstiter(process->redirects, close_redirect);
 #ifndef NOEXEC
 	execve(pathname, process->av, env);
 	ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_EXECVE_ERROR);

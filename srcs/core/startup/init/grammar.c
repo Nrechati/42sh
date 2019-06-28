@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:01 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 18:57:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 06:24:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	generate_shell_grammar(void)
 			N_ANDDGREAT, N_ANDGREAT, N_DLESSDASH, N_CLOBBER, N_DEQ,
 			N_NOTEQ, N_CASE, N_DO, N_DONE, N_ELIF, N_ELSE, N_ESAC, N_FI, N_FOR,
 			N_IF, N_IN, N_THEN, N_UNTIL, N_WHILE, N_IO_NUMBER, N_ASSIGN,
-			N_STRING, N_SPSTRING, N_END, N_ERROR, N_START};
+			N_STRING, N_END, N_ERROR, N_START};
 
 	g_shell->grammar = grammar;
 }

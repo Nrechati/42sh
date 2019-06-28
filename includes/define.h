@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 18:56:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 06:24:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@
 ** SHELL
 */
 
-# define NB_OF_TOKENS				50
+# define NB_OF_TOKENS				49
 # define NB_OF_MTOKENS				24
 
 # define START_OPERATOR				29
@@ -228,7 +228,7 @@
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT
 # define REDIR_DB					E_DGREAT, E_DLESS, E_DLESSDASH, E_ANDDGREAT
 # define ALL_REDIRECT				REDIR, REDIR_DB, REDIR_AND
-# define WORD						E_STRING, E_SPSTRING, E_DB_QUOTE
+# define WORD						E_STRING, E_DB_QUOTE
 # define END_CMD					E_NEWLINE, E_END, E_SEMICOLON
 # define E_START					E_DEFAULT
 
@@ -288,7 +288,6 @@
 # define N_IO_NUMBER				"IO nb"
 # define N_ASSIGN					"(=)"
 # define N_STRING					"word"
-# define N_SPSTRING					"spword"
 # define N_END						"end"
 # define N_ERROR					"ERROR"
 # define N_START					"START"
@@ -339,6 +338,7 @@
 # define FD_OPEN_ERROR				0x040
 # define FD_DUP_ERROR				0x080
 # define FD_CRITICAL_ERROR			0x100
+# define FD_BAD_DESCRIPTOR			0x200
 
 # define COMMAND_ASSIGN				0x001
 # define COMMAND_RUN				0x002
@@ -388,7 +388,7 @@
 *****************************************************
 */
 
-# define REDIRECT_ACTION			14
+# define REDIRECT_ACTION			16
 
 # define CLOSED_STDIN				0x001
 # define CLOSED_STDOUT				0x002

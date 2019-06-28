@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 16:42:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/28 06:51:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int		check_redirect_error(void *context, void *data)
 		ft_dprintf(2, SH_GENERAL_ERROR SH_MALLOC_ERROR);
 		process->process_type |= IS_CRITICAL;
 	}
+	if (redirect->type & FD_BAD_DESCRIPTOR)
+	{
+		ft_dprintf(2, SH_GENERAL_ERROR "%d: bad filedescriptor", redirect->to);
+		process->process_type |= IS_DUP_FAILED;
+	}
 	return (SUCCESS);
 }
 
@@ -42,29 +47,26 @@ int		redirect_or_other(__unused void *context, void *data)
 	return (TRUE);
 }
 
-void	del_redirects(void *data)
-{
-	t_redirect	*redirect;
-
-	redirect = data;
-	close_redirect(redirect);
-	ft_free(redirect->file);
-}
-
 void	close_redirect(void *data)
 {
 	t_redirect	*redirect;
 
 	redirect = data;
-	if (redirect->type & FD_PIPE_OUT || redirect->type & FD_PIPE_IN)
-		close(redirect->to);
-	if (redirect->type & (FD_DUP | FD_MOVE | FD_REDIRECT))
+	if (redirect->type & (FD_REDIRECT | FD_PIPE_IN | FD_PIPE_OUT))
 	{
-		if (redirect->from >= 3)
-			close(redirect->from);
 		if (redirect->to >= 3)
 			close(redirect->to);
+		if (redirect->from >= 3)
+			close(redirect->from);
 	}
+}
+
+void	del_process_redirect(void *data)
+{
+	t_process	*process;
+
+	process = data;
+	ft_lstiter(process->redirects, close_redirect);
 }
 
 void	do_redirect(void *data)
@@ -74,21 +76,22 @@ void	do_redirect(void *data)
 	redirect = data;
 	if (redirect->type & FD_PIPE_OUT)
 	{
-		dup2(redirect->to, STDOUT_FILENO);
 		close(redirect->from);
-		close(redirect->to);
+		dup2(redirect->to, STDOUT_FILENO);
 	}
 	else if (redirect->type & FD_PIPE_IN)
 	{
-		dup2(redirect->to, STDIN_FILENO);
 		close(redirect->from);
-		close(redirect->to);
+		dup2(redirect->to, STDIN_FILENO);
 	}
 	else if (redirect->type & FD_DUP)
+	{
 		dup2(redirect->to, redirect->from);
+		return;
+	}
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
-	{dup2(redirect->to, redirect->from);
-		close(redirect->to);}
+		dup2(redirect->to, redirect->from);
 	else if (redirect->type & FD_CLOSE)
 		close(redirect->from);
+	close(redirect->to);
 }

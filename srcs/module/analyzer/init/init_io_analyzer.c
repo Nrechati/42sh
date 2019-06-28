@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:54:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/19 19:26:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 23:14:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	init_io(t_analyzer analyzer)
 void	init_io_filename(t_analyzer analyzer)
 {
 	analyzer[P_IO_FILENAME][E_STRING] = io_redirect_flush;
-	analyzer[P_IO_FILENAME][E_SPSTRING] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_GREAT] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_GREATAND] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_LESS] = io_redirect_flush;
@@ -36,6 +35,9 @@ void	init_io_filename(t_analyzer analyzer)
 	analyzer[P_IO_FILENAME][E_PIPE] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_IO_NUMBER] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_SEMICOLON] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_AND] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_DAND] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_OR] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_NEWLINE] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_END] = io_redirect_flush;
 }
@@ -43,13 +45,11 @@ void	init_io_filename(t_analyzer analyzer)
 void	init_io_filename_and(t_analyzer analyzer)
 {
 	analyzer[P_IO_REDIRECT_AND][E_STRING] = io_dup_move_analyzer;
-	analyzer[P_IO_REDIRECT_AND][E_SPSTRING] = io_dup_move_analyzer;
 }
 
 void	init_io_flush(t_analyzer analyzer)
 {
 	analyzer[P_IO_FLUSH][E_STRING] = string_analyzer;
-	analyzer[P_IO_FLUSH][E_SPSTRING] = special_string_analyzer;
 	analyzer[P_IO_FLUSH][E_GREAT] = redirect_analyzer;
 	analyzer[P_IO_FLUSH][E_GREATAND] = redirect_analyzer;
 	analyzer[P_IO_FLUSH][E_LESS] = redirect_analyzer;
@@ -59,6 +59,9 @@ void	init_io_flush(t_analyzer analyzer)
 	analyzer[P_IO_FLUSH][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_IO_FLUSH][E_PIPE] = flush_string;
 	analyzer[P_IO_FLUSH][E_SEMICOLON] = flush_string;
+	analyzer[P_IO_FLUSH][E_AND] = flush_string;
+	analyzer[P_IO_FLUSH][E_DAND] = flush_string;
+	analyzer[P_IO_FLUSH][E_OR] = flush_string;
 	analyzer[P_IO_FLUSH][E_NEWLINE] = flush_string;
 	analyzer[P_IO_FLUSH][E_END] = flush_string;
 }
@@ -66,7 +69,6 @@ void	init_io_flush(t_analyzer analyzer)
 void	init_io_flush_and(t_analyzer analyzer)
 {
 	analyzer[P_IO_FLUSH_AND][E_STRING] = string_analyzer;
-	analyzer[P_IO_FLUSH_AND][E_SPSTRING] = special_string_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_GREAT] = redirect_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_GREATAND] = redirect_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_LESS] = redirect_analyzer;
@@ -76,6 +78,7 @@ void	init_io_flush_and(t_analyzer analyzer)
 	analyzer[P_IO_FLUSH_AND][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_PIPE] = flush_string;
 	analyzer[P_IO_FLUSH_AND][E_SEMICOLON] = flush_string;
+	analyzer[P_IO_FLUSH_AND][E_AND] = flush_string;
 	analyzer[P_IO_FLUSH_AND][E_NEWLINE] = flush_string;
 	analyzer[P_IO_FLUSH_AND][E_END] = flush_string;
 }

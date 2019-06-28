@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 19:13:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/27 23:28:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,9 @@ void	flush_string(t_resolution *resolve)
 	return ;
 }
 
-void	special_string_analyzer(t_resolution *resolve)
-{
-	resolve->state = P_SPSTRING;
-	resolve->token.type = E_STRING;
-	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
-	get_token(resolve);
-}
-
 void	string_analyzer(t_resolution *resolve)
 {
 	resolve->state = P_STRING;
 	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
 	get_token(resolve);
 }
-

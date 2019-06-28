@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/21 15:35:28 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/28 06:43:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@ int				set_process_pgid(void *context, void *data);
 t_redirection	*redirecter_init(void);
 int				check_redirect_error(void *context, void *data);
 int				redirect_or_other(void *action, __unused void *data);
+void			del_process_redirect(void *data);
 void			close_redirect(void *data);
+void			close_pipe(void *data);
 void			do_redirect(void *data);
+int8_t			launch_pipeline(t_registry *shell, t_list *processess);
+int				run_process(t_registry *shell, t_process *process);
 
 int				check_delimiter(char **delimiter, t_vector **vector, int fd);
 
@@ -45,7 +49,6 @@ uint8_t			do_i_run(t_registry *shell, t_job *job, int job_type);
 void			set_stopped(void *data);
 int				set_signaled(void *context, void *data);
 
-int8_t			setup_pipe(t_list *processess);
 void			*group_to_job(void *context, void *data);
 
 int8_t			waiter(t_registry *shell, t_job *job);
@@ -53,6 +56,7 @@ int				expand_process(t_list *intern, t_process *process);
 
 char			*get_filename(t_list *node);
 int 			get_io(t_list *node);
+int				get_custom_fd(char **str, t_list *node);
 
 void			heredoc(t_registry *shell, t_redirect *redirect, t_action *action);
 void			heredoc_trim(t_registry *shell, t_redirect *redirect, t_action *action);
@@ -68,6 +72,8 @@ void			stdout_append(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 void			stdin_readfile(t_registry *shell, t_redirect *redirect
 					, t_action *action);
+void			stdin_readfd(t_registry *shell, t_redirect *redirect
+					, t_action *action);
 void			io_append(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 void			io_truncate(t_registry *shell, t_redirect *redirect
@@ -79,6 +85,8 @@ void			close_fd(t_registry *shell, t_redirect *redirect
 void			move_fd(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 void			duplicate_fd(t_registry *shell, t_redirect *redirect
+					, t_action *action);
+void			io_readfd(t_registry *shell, t_redirect *redirect
 					, t_action *action);
 
 void			*token_to_var(void *context, void *data);

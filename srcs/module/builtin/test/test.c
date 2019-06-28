@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ways_graph_word.c                                  :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/24 16:42:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 23:19:53 by cempassi         ###   ########.fr       */
+/*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
+/*   Updated: 2019/06/28 08:04:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		set_word_token(t_graph *tab_tokens)
+int8_t		test_blt(__unused t_registry *shell, __unused char **av)
 {
-	static enum e_type tab_good_type[] = {WORD, ALL_REDIRECT, E_ASSIGN,
-										E_IO_NUMBER, E_PIPE, E_DAND, E_OR,
-										END_CMD, E_AND, E_ERROR};
-
-	tab_tokens[E_STRING].good_type = tab_good_type;
-	tab_tokens[E_DB_QUOTE].good_type = tab_good_type;
+	return (SUCCESS);
 }
+

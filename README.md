@@ -1,11 +1,27 @@
 # 42sh
 42sh Project for 42
 
-INTERPRETER :
-	- Expansion
-	- Redirection
-	- signaux -> Builtin
-	- && et ||
-	- reset termios
-	- redirect setup on builtin
-	- Assignations
+Test :
+	-b
+	-c
+	-d
+	-e
+	-f
+	-g
+	-L
+	-p
+	-r
+	-S
+	-s
+	-u
+	-w
+	-x
+	-z
+	=
+	!=
+	-eq
+	-ne
+	-ge
+	-lt
+	-le
+	-Simple operand
