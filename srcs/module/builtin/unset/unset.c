@@ -20,9 +20,13 @@ int8_t				unset_blt(t_registry *shell, char **av)
 		ft_putendl_fd(UNSET_USAGE, STDERR_FILENO);
 		return (FAILURE);
 	}
-	if (shell->intern != NULL)
-		free_var(&shell->intern, *av);
-	if (ft_strequ(*av, "PATH") == TRUE)
-		ft_hmap_free_content(&(shell->hash.bin), ft_free);
+	while (*av != NULL)
+	{
+		if (shell->intern != NULL)
+			free_var(&shell->intern, *av);
+		if (ft_strequ(*av, "PATH") == TRUE)
+			ft_hmap_free_content(&(shell->hash.bin), ft_free);
+		av++;
+	}
 	return (SUCCESS);
 }
