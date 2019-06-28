@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/28 06:24:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 12:25:33 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@
 *****************************************************
 */
 
+# define TEST_CB					25
+
+
 # define A_OPT						0x0001
 # define E_OPT						0x0002
 # define F_OPT						0x0004
@@ -102,7 +105,7 @@
 # define P_LOW_OPT					0x0400
 # define ERROR_OPT					0x8000
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
-# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
+# define CD_ERROR_OLDPWD_NOTSET		"42sh: cd: OLDPWD not set\n"
 # define NOFI 						"No such file or directory\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
