@@ -21,6 +21,7 @@ void			free_node(void *node)
 	{
 		ft_free(variable->name);
 		ft_free(variable->data);
+		ft_free(variable);
 	}
 }
 

@@ -30,30 +30,31 @@ static int		set_shlvl(t_registry *shell)
 	return (SUCCESS);
 }
 
-static t_list	*get_env(t_list **alst, char **env)
+static int8_t	get_env(t_list **alst, char **env)
 {
 	t_list		*node;
 	t_variable	variable;
 	size_t		pos;
 
-	if (*env == NULL)
-		return (*alst);
-	pos = ft_strcspn(*env, "=");
-	variable.name = ft_strsub(*env, 0, pos);
-	variable.data = ft_strdup(*env + pos + 1);
-	variable.flag = SET_VAR | EXPORT_VAR;
-	if (variable.name == NULL || variable.data == NULL)
+	while (*env != NULL)
 	{
-		ft_dprintf(2, "[ERROR] - Env malloc failed.\n");
-		return (NULL);
+		pos = ft_strcspn(*env, "=");
+		variable.name = ft_strsub(*env, 0, pos);
+		variable.data = ft_strdup(*env + pos + 1);
+		variable.flag = SET_VAR | EXPORT_VAR;
+		if (variable.name == NULL || variable.data == NULL)
+			return (FAILURE);
+		if ((node = ft_lstnew(&variable, sizeof(t_variable))) == NULL)
+		{
+			ft_free(variable.data);
+			ft_free(variable.name);
+			return (FAILURE);
+		}
+		ft_lstaddback(alst, node);
+		free_node((void *)node);
+		env++;
 	}
-	if (!(node = ft_lstnew(&variable, sizeof(t_variable))))
-	{
-		ft_dprintf(2, "[ERROR] - Env malloc error.\n");
-		return (NULL);
-	}
-	ft_lstaddback(alst, node);
-	return (get_env(alst, ++env));
+	return (TRUE);
 }
 
 static void		default_variable(t_list **intern, char *name)
@@ -90,7 +91,11 @@ int8_t			set_environment(t_registry *shell, char **av, char **env)
 	}
 	if ((shell->option.option & HELP_OPT) != FALSE)
 		return (shell_usage());
-	get_env(&shell->intern, env);
+	if (get_env(&shell->intern, env) == FAILURE)
+	{
+		ft_dprintf(2, "[ERROR] - Env malloc failed.\n");
+		return (FAILURE);
+	}
 	default_variable(&shell->intern, av[0]);
 	shell->hash.bin = ft_hmap_init(HMAP_BIN_SIZE);
 	shell->hash.blt = ft_hmap_init(HMAP_BLT_SIZE);
