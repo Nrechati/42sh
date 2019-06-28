@@ -51,7 +51,6 @@ static int8_t	get_env(t_list **alst, char **env)
 			return (FAILURE);
 		}
 		ft_lstaddback(alst, node);
-		free_node((void *)node);
 		env++;
 	}
 	return (TRUE);

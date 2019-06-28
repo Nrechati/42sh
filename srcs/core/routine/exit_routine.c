@@ -24,10 +24,25 @@ static void		free_hash(t_hash hashmap, void (*del)(void *))
 	hashmap.map = NULL;
 }
 
+static void		free_intern_var(t_list *lst)
+{
+	if (lst != NULL)
+	{
+		if (lst->next != NULL)
+			free_intern_var(lst->next);
+		if (lst->data)
+		{
+			free_node(lst->data);
+			ft_free(lst);
+			lst = NULL;
+		}
+	}
+}
+
 static void		free_registry(t_registry *shell)
 {
 	free_opt(shell->option);
-	ft_lstdel(&shell->intern, free_node);
+	free_intern_var(shell->intern);
 	free_hash(shell->hash.bin, ft_free);
 	free_hash(shell->hash.blt, NULL);
 }
