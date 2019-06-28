@@ -102,8 +102,11 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 			ft_putendl("^C");
 	}
 	else if (sle_flag & SLE_SIZE_UPDATE)
+	{
 		redraw_window(&sle);
-
+		find_multiline_coord(&sle, 0);
+		set_cursor_pos(&sle, sle.cursor.index);
+	}
 	else if (sle_flag == SLE_EXIT)
 		sle_teardown(&sle);
 	return (SUCCESS);
