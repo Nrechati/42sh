@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 07:58:10 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 08:04:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t		test_blt(t_registry *shell, char **av)
+int8_t		test_blt(__unused t_registry *shell, __unused char **av)
 {
 	return (SUCCESS);
 }
