@@ -87,12 +87,12 @@ void	print_prompt_to_window(t_sle *sle, t_vector *text)
 			index += write_esc_sequence(str, index);
 		write(1, &str[index], 1);
 		++index;
-		sle->cursor.x++;
 		if (sle->cursor.x == sle->window.cols)
 		{
 			sle->cursor.y++;
 			sle->cursor.x = 0;
 		}
+		sle->cursor.x++;
 	}
 	sle->prompt.length = (sle->cursor.y * sle->window.cols) + sle->cursor.x;
 }

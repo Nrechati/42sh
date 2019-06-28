@@ -55,6 +55,7 @@ void			read_histfile(t_registry *shell, t_history *history)
 		history->head_ptr = history->entry;
 		history->nb_of_entries++;
 	}
+	ft_strdel(&cmd);
 	close(fd);
 }
 

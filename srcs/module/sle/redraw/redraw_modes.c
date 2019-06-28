@@ -28,14 +28,14 @@ void	redrawmode_last(t_sle *sle)
 
 	if (sle->rd_info.line_len >= sle->rd_info.disp_len)
 	{
-		index_to_coord(sle, sle->rd_info.prompt_len + sle->rd_info.line_len-1, &co);
+		index_to_coord(sle, sle->rd_info.prompt_len + sle->rd_info.line_len - 1, &co);
 		move_cursor_to_coord(sle, co.x, co.y);
 		print_char(sle, vct_charat(sle->line,
 						vct_len(sle->line) - 1));
 	}
 	else
 	{
-		index_to_coord(sle, sle->rd_info.prompt_len+sle->rd_info.line_len-1,
+		index_to_coord(sle, sle->rd_info.prompt_len+sle->rd_info.line_len - 1,
 						&co);
 		move_cursor_to_coord(sle, co.x, co.y);
 		print_char(sle, ' ');

@@ -85,9 +85,7 @@ void     move_cursor(t_sle *sle)
 {
 	t_coord		coord;
 	uint64_t    rd_flag;
-	uint64_t	offset;
 
-	offset = 0;
 	rd_flag = sle->window.rd_flag;
 	if (rd_flag & RD_CEND)
 	{
@@ -99,15 +97,14 @@ void     move_cursor(t_sle *sle)
 		else
 		{
 			index_to_coord(sle, get_prompt_length(&sle->prompt)
-					+ vct_len(sle->line)
-					+ offset, &coord);
+					+ vct_len(sle->line), &coord);
 		}
 		move_cursor_to_coord(sle, coord.x, coord.y);
 		sle->cursor.index = vct_len(sle->line);
 	}
 	else if (rd_flag & RD_CHOME)
 	{
-		index_to_coord(sle, get_prompt_length(&sle->prompt) , &coord);
+		index_to_coord(sle, get_prompt_length(&sle->prompt), &coord);
 		move_cursor_to_coord(sle, coord.x, coord.y);
 		sle->cursor.index = 0;
 	}

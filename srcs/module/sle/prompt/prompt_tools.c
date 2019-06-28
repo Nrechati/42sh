@@ -79,7 +79,7 @@ static uint8_t            prompt_need_alignment(void)
 	pow = 1;
 	while (buff[i] != ';')
 	{
-       x = x + ( buff[i] - '0' ) * pow;
+       x = x + (buff[i] - '0' ) * pow;
 	   pow *= 10;
 	   --i;
 	}
