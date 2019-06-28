@@ -44,7 +44,7 @@ int8_t			create_node(t_list **alst, char *name, char *data,
 		return (FAILURE);
 	ft_bzero(&variable, sizeof(t_variable));
 	variable.name = ft_strdup(name);
-	variable.data = data;
+	variable.data = ft_strdup(data);
 	variable.flag = flag;
 	if (variable.name == NULL || variable.data == NULL)
 		return (FAILURE);
@@ -67,7 +67,7 @@ int8_t			change_node(t_list **alst, char *name, char *data,
 		if (ft_strequ(((t_variable *)ptr->data)->name, name) == TRUE)
 		{
 			ft_free(((t_variable *)ptr->data)->data);
-			((t_variable *)ptr->data)->data = data;
+			((t_variable *)ptr->data)->data = ft_strdup(data);
 			((t_variable *)ptr->data)->flag = flag;
 			return (SUCCESS);
 		}

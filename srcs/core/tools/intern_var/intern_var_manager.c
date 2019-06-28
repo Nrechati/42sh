@@ -42,13 +42,16 @@ int			get_var_status(t_list *intern, char *name)
 
 int8_t		add_var(t_list **intern, char *name, char *data, t_option flag)
 {
-	return (change_node(intern, name, ft_strdup(data), flag));
+	return (change_node(intern, name, data, flag));
 }
 
 int8_t		add_nbr_var(t_list **intern, char *name, int data, t_option flag)
 {
 	char	*data_str;
+	uint8_t	ret;
 
 	data_str = ft_itoa(data);
-	return (add_var(intern, ft_strdup(name), data_str, flag));
+	ret = add_var(intern, name, data_str, flag);
+	ft_strdel(&data_str);
+	return (ret);
 }
