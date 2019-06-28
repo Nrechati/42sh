@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 04:31:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 06:46:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,8 @@ void			run_builtin(t_registry *shell, t_process *process)
 	return ;
 }
 
-static int		run_process(void *context, void *data)
+int				run_process(t_registry *shell, t_process *process)
 {
-	t_registry	*shell;
-	t_process	*process;
-
-	shell = context;
-	process = data;
 	if (expand_process(shell->intern, process) == FAILURE)
 	{
 		process->process_type |= IS_EXP_ERROR;
@@ -108,15 +103,15 @@ static int		run_job(void *context, void *data)
 	}
 	add_var(&shell->intern, "job_type", job_type, READONLY_VAR);
 	head = job->processes->data;
-	if (job->processes->next == NULL)
-		head->process_type |= IS_ALONE;
-	else
-		setup_pipe(job->processes);
-
 	job->state |= RUNNING;
-
-	ft_lstiter_ctx(job->processes, shell, run_process);
-//	ft_lstiter(job->processes, print_process);
+	if (job->processes->next == NULL)
+	{
+		head->process_type |= IS_ALONE;
+		run_process(shell, head);
+	}
+	else
+		launch_pipeline(shell, job->processes);
+	ft_lstiter(job->processes, del_process_redirect);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	waiter(shell, job);
 	del_job(job);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/28 03:23:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 06:24:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@
 ** SHELL
 */
 
-# define NB_OF_TOKENS				50
+# define NB_OF_TOKENS				49
 # define NB_OF_MTOKENS				24
 
 # define START_OPERATOR				29
@@ -288,7 +288,6 @@
 # define N_IO_NUMBER				"IO nb"
 # define N_ASSIGN					"(=)"
 # define N_STRING					"word"
-# define N_SPSTRING					"spword"
 # define N_END						"end"
 # define N_ERROR					"ERROR"
 # define N_START					"START"

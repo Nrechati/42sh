@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 19:58:13 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/28 06:47:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,11 @@ typedef struct			s_process
 	t_list				*env;
 	t_list				*redirects;
 	uint16_t			process_type;
-	uint8_t				completed;
-	uint8_t				stopped;
 	pid_t				pid;
 	pid_t				*pgid;
 	int					status;
+	uint8_t				completed;
+	uint8_t				stopped;
 }						t_process;
 
 typedef struct			s_job
