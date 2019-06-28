@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 20:28:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 20:44:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	stdin_readfd(__unused t_registry *shell, t_redirect *redirect
 			redirect->type = FD_DUP;
 		else if (action_type == A_MOVE)
 			redirect->type = FD_MOVE;
+		else if (action_type == A_CLOSE)
+			redirect->type = FD_CLOSE;
 		else
 			redirect->type = FD_BAD_DESCRIPTOR;
 		redirect->from = STDIN_FILENO;
