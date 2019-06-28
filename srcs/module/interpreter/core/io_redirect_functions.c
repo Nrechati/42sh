@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 20:44:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 21:07:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void		io_append(t_registry *shell, t_redirect *redirect
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
+	else if (*filename == '\0')
+		set_ambigous_redirect(redirect, action->data);
 	else
 	{
 		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
@@ -65,6 +67,8 @@ void		io_truncate(t_registry *shell, t_redirect *redirect
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type |= FD_CRITICAL_ERROR;
+	else if (*filename == '\0')
+		set_ambigous_redirect(redirect, action->data);
 	else
 	{
 		open_flags = O_RDWR | O_TRUNC | O_CREAT;
@@ -89,6 +93,8 @@ void		io_readfile(t_registry *shell, t_redirect *redirect
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
+	else if (*filename == '\0')
+		set_ambigous_redirect(redirect, action->data);
 	else
 	{
 		if ((redirect->to = open(filename, O_RDWR, 0644)) == -1)

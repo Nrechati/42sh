@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 20:44:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 21:08:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	stdin_readfile(t_registry *shell, t_redirect *redirect
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
+	else if (*filename == '\0')
+		set_ambigous_redirect(redirect, action->data);
 	else
 	{
 		if ((redirect->to = open(filename, O_RDWR | O_CLOEXEC, 0644)) == -1)
@@ -82,6 +84,8 @@ void	stdout_append(t_registry *shell, t_redirect *redirect
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
+	else if (*filename == '\0')
+		set_ambigous_redirect(redirect, action->data);
 	else
 	{
 		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
@@ -107,6 +111,8 @@ void	stdout_truncate(t_registry *shell, t_redirect *redirect
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
+	else if (*filename == '\0')
+		set_ambigous_redirect(redirect, action->data);
 	else
 	{
 		open_flags = O_RDWR | O_TRUNC | O_CREAT | O_CLOEXEC;

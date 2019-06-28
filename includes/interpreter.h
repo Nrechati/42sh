@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 06:43:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 21:06:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int8_t			waiter(t_registry *shell, t_job *job);
 int				expand_process(t_list *intern, t_process *process);
 
 char			*get_filename(t_list *node);
+void			set_ambigous_redirect(t_redirect *redirect, t_list *node);
 int 			get_io(t_list *node);
 int				get_custom_fd(char **str, t_list *node);
 

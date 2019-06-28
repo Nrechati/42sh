@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 04:08:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 20:54:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char			*get_filename(t_list *node)
 	holder = NULL;
 	if ((filename = expansion_pipeline(g_shell->intern, token->data)) == NULL)
 		return (NULL);
+	if (*filename == '\0')
+		return (filename);
 	if (filename[0] == '/' || ft_strnequ("./", filename, 2))
 		return (filename);
 	else

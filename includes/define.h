@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/28 06:24:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 20:57:58 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,7 @@
 # define FD_DUP_ERROR				0x080
 # define FD_CRITICAL_ERROR			0x100
 # define FD_BAD_DESCRIPTOR			0x200
+# define FD_AMBIGOUS_REDIRECT		0x400
 
 # define COMMAND_ASSIGN				0x001
 # define COMMAND_RUN				0x002

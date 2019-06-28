@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 20:34:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 21:16:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,20 @@ int		check_redirect_error(void *context, void *data)
 		ft_dprintf(2, SH_GENERAL_ERROR "%d: bad filedescriptor\n", redirect->to);
 		process->process_type = IS_DUP_FAILED;
 	}
+	if (redirect->type & FD_AMBIGOUS_REDIRECT)
+		process->process_type = IS_DUP_FAILED;
+	if (process->process_type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
+		return (FAILURE);
 	return (SUCCESS);
+}
+
+void	set_ambigous_redirect(t_redirect *redirect, t_list *node)
+{
+	t_token		*token;
+
+	token = node->data;
+	ft_dprintf(2, SH_GENERAL_ERROR "%s: ambigous_redirect\n", token->data);
+	redirect->type = FD_AMBIGOUS_REDIRECT;
 }
 
 int		redirect_or_other(__unused void *context, void *data)

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 20:33:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 21:23:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,16 @@ void		set_process(t_process *proc, t_command *command, void *context)
 
 	redirect = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
 	proc->redirects = ft_lstmap(redirect, context, set_redirect, del_action);
-	ft_lstiter_ctx(proc->redirects, proc, check_redirect_error);
+	if (ft_lstiter_ctx(proc->redirects, proc, check_redirect_error) == FAILURE)
+	{
+		ft_lstdel(&redirect, del_action);
+		ft_lstdel(&proc->redirects, NULL);
+		return;
+	}
 	proc->av = ft_lsttotab(command->av, token_to_str);
 	proc->env = ft_lstmap(command->actions, context, token_to_var, free_node);
 	ft_lstdel(&redirect, del_action);
+	return;
 }
 
 void		*cmd_to_process(void *context, void *data)

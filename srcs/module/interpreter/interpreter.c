@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 10:28:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/28 21:27:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void			run_builtin(t_registry *shell, t_process *process)
 
 int				run_process(t_registry *shell, t_process *process)
 {
+	if (process->process_type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
+		return (process->completed = FAILURE);
 	if (expand_process(shell->intern, process) == FAILURE)
 	{
 		process->process_type |= IS_EXP_ERROR;
