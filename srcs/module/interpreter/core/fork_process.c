@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 07:08:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:28:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,8 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 		*process->pgid = process->pid;
 
 	setpgid(process->pid, *process->pgid);
-//	ft_dprintf(3, "|->  Child process pid is %d\n", process->pid);
-//	ft_dprintf(3, "|--> Child process grp is %d\n", *process->pgid);
 	if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-	{
 		tcsetpgrp(STDOUT_FILENO, *process->pgid);
-//		ft_dprintf(3, "Attaching pid %d to the controlling terminal\n",
-//						*process->pgid);
-	}
 
 	if (process->process_type & IS_BLT)
 	{
@@ -66,7 +60,7 @@ static void	parent_process(t_registry *shell, t_process *process, char ***env)
 {
 	if (process->process_type & IS_BIN)
 		ft_hmap_hits(&shell->hash.bin, process->av[0]);
-	ft_dprintf(3, "|---> Parent process pid is %d\n", getpid());
+//	ft_lstiter(process->redirects, close_redirect);
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
@@ -82,7 +76,7 @@ void		fork_process(t_registry *shell, t_process *process)
 		process->process_type |= IS_EXP_ERROR;
 		return ;
 	}
-	if ((process->pid = fork()) < 0) // IF ERREUR
+	if ((process->pid = fork()) < 0)
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
 		return;

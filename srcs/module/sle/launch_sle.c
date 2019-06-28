@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 11:07:40 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/27 21:50:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,6 @@ void		handle_cc(t_registry *shell, t_sle *sl, t_vector **in, uint32_t flag)
 		if (flag & SLE_CC)
 			ft_putendl("^C");
 		sle(shell, in, SLE_PS3_PROMPT);
-	}
-	else
-	{
-
 	}
 }
 

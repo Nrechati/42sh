@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/28 08:07:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 10:25:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 *****************************************************
 */
 
+int8_t	kill_blt(t_registry *shell, char **av);
 int8_t	bg_blt(t_registry *shell, char **av);
 int8_t	fg_blt(t_registry *shell, char **av);
 int8_t	jobs_blt(t_registry *shell, char **av);
