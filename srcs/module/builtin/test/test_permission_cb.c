@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:44:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 10:44:27 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:02:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ uint8_t		test_u_cb(void *data, __unused void *more)
 	ft_bzero(&stat, sizeof(stat));
 	if (access(pathname, F_OK) != TRUE)
 		return (FALSE);
-	if (lstat(pathname, &stat) == FAILURE);
+	if (lstat(pathname, &stat) == FAILURE)
 		return (ERROR);
 	if (stat.st_mode & S_ISUID)
 		return (TRUE);
@@ -42,9 +42,9 @@ uint8_t		test_g_cb(void *data, __unused void *more)
 	ft_bzero(&stat, sizeof(stat));
 	if (access(pathname, F_OK) != TRUE)
 		return (FALSE);
-	if (lstat(pathname, &stat) == FAILURE);
+	if (lstat(pathname, &stat) == FAILURE)
 		return (ERROR);
-	if (stat.st_mode & S_ISGID == TRUE)
+	if (stat.st_mode & S_ISGID)
 		return (TRUE);
 	return (FALSE);
 }

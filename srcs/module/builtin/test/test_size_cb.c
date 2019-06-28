@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:47:10 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 10:51:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:01:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ uint8_t		test_s_cb(void *data, __unused void *more)
 	ft_bzero(&stat, sizeof(stat));
 	if (access(pathname, F_OK) != TRUE)
 		return (FALSE);
-	if (lstat(pathname, &stat) == FAILURE);
+	if (lstat(pathname, &stat) == FAILURE)
 		return (ERROR);
 	if (stat.st_size > 0)
 		return (TRUE);
