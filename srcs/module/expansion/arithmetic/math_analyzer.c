@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_analyzer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:31:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 18:42:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 17:55:15 by Nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void 		init_m_start(t_ar_analyzer analyzer)
 	analyzer[MATH_START][E_M_STRING] = m_variable_analyzer;
 	analyzer[MATH_START][E_M_DPLUS] = m_preffix;
 	analyzer[MATH_START][E_M_DMINUS] = m_preffix;
+	analyzer[MATH_START][E_M_END] = m_end_analyzer;
 }
 
 void 		init_m_number(t_ar_analyzer analyzer)

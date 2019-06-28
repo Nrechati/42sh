@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/26 22:22:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 17:56:08 by Nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int		arithmetic(__unused t_list *intern, char **output, int i)
 		return (FAILURE);
 	if (get_expansion_input(&arithmetic, *output, i + 3) == FAILURE)
 		return (FAILURE);
-	ft_printf("Expansion buffer : %s\n", arithmetic.input->buffer);
+//	ft_printf("Expansion buffer : %s\n", arithmetic.input->buffer);
 	arithmetic.tokens = lexer(arithmetic.input, MATHS);
 	if (arithmetic_analyzer(&arithmetic) == FAILURE)
 		return (FAILURE);

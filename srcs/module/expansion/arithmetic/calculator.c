@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculator.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:35:33 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 16:46:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/28 17:54:51 by Nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int8_t		calculator(t_infix *infix)
 	t_stack		rpn;
 
 	ft_stckinit(&rpn);
+	if (ft_stcksize(&infix->calcul) == 0)
+		return (SUCCESS);
 	if (ft_shunting_yds(&infix->calcul, &rpn) == FAILURE)
 		return (FAILURE);
 	ft_lstrev(&rpn.head);
