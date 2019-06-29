@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 23:56:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:10:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,7 @@ char			*get_filename(t_list *node)
 	if (filename[0] == '/' || ft_strnequ("./", filename, 2))
 		return (filename);
 	else
-	{
-		ft_asprintf(&holder, "./%s", filename);
-		ft_strdel(&filename);
-		return (holder);
-	}
+		return (filename);
 }
 
 int				get_io(t_list *node)

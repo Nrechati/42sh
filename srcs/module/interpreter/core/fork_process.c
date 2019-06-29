@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 23:22:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:23:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,12 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	signal (SIGCONT, SIG_DFL);
 	signal (SIGTTIN, SIG_DFL);
 	signal (SIGTTOU, SIG_IGN);
-
 	process->pid = getpid();
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
-
 	setpgid(process->pid, *process->pgid);
 	if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
 		tcsetpgrp(STDOUT_FILENO, *process->pgid);
-
 	if (process->process_type & IS_BLT)
 	{
 		run_builtin(shell, process);
@@ -47,11 +44,15 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	ft_lstiter(process->redirects, do_redirect);
 	ft_lstiter(process->redirects, close_redirect);
 #ifndef NOEXEC
-	execve(pathname, process->av, env);
-	ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_EXECVE_ERROR);
-	exit(FAILURE);
+	if (access(pathname, F_OK) == SUCCESS)
+	{
+		if(access(pathname, X_OK) == SUCCESS)
+			execve(pathname, process->av, env);
+		else
+			ft_dprintf(2, SH_GENERAL_ERROR "%s: permission denied\n", process->av[0]);
+		exit(FAILURE);
+	}
 #else
-	(void)env;
 	exit(SUCCESS);
 #endif
 }

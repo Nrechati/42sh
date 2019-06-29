@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 18:00:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:18:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,70 @@ void		close_fd(t_registry *shell, t_redirect *redirect, t_action *action)
 	redirect->from = get_io(action->data);
 }
 
-void	open_file(t_redirect *redirect, char *filename, int flag)
+void	open_write_file(t_redirect *redirect, char *filename, int flag)
 {
-	if ((redirect->to = open(filename, flag, 0644)) == -1)
+	if (flag & O_WRONLY)
 	{
-		ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
-		redirect->type = FD_OPEN_ERROR;
+		if (access(filename, F_OK) == SUCCESS)
+		{
+			if (access(filename, W_OK) == FAILURE)
+			{
+				ft_dprintf(2, SH_GENERAL_ERROR "%s: permission denied\n", filename);
+				redirect->type = FD_OPEN_ERROR;
+				return;
+			}
+		}
+		if ((redirect->to = open(filename, flag, 0644)) == -1)
+		{
+			ft_dprintf(2, SH_GENERAL_ERROR "%s: open error\n", filename);
+			redirect->type = FD_OPEN_ERROR;
+		}
+		else
+			redirect->type = FD_REDIRECT;
+		redirect->from = STDOUT_FILENO;
 	}
-	else
-		redirect->type = FD_REDIRECT;
-	redirect->from = STDIN_FILENO;
-
 }
+
+void	open_read_file(t_redirect *redirect, char *filename, int flag)
+{
+	if (access(filename, F_OK) == SUCCESS)
+	{
+		if (access(filename, R_OK) == FAILURE)
+		{
+			ft_dprintf(2, SH_GENERAL_ERROR "%s: permission denied\n", filename);
+			redirect->type = FD_OPEN_ERROR;
+			return;
+		}
+		if ((redirect->to = open(filename, flag, 0644)) == -1)
+		{
+			ft_dprintf(2, SH_GENERAL_ERROR "%s: open error\n", filename);
+			redirect->type = FD_OPEN_ERROR;
+		}
+		else
+			redirect->type = FD_REDIRECT;
+		redirect->from = STDIN_FILENO;
+		return ;
+	}
+	ft_dprintf(2, SH_GENERAL_ERROR "%s: no such file or directory\n", filename);
+	redirect->type = FD_OPEN_ERROR;
+	return;
+}
+
 void	stdin_readfile(t_registry *shell, t_redirect *redirect
 		, t_action *action)
 {
 	char		*filename;
+	int			open_flag;
 
 	(void)shell;
 	filename = get_filename(action->data);
+	open_flag = O_RDONLY | O_CLOEXEC;
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
 	else if (*filename == '\0')
 		set_ambigous_redirect(redirect, action->data);
 	else
-	{
-		//O_RDWR | O_CLOEXEC
-	}
+		open_read_file(redirect, filename, open_flag);
 	ft_strdel(&filename);
 }
 
@@ -87,22 +124,13 @@ void	stdout_append(t_registry *shell, t_redirect *redirect
 
 	(void)shell;
 	filename = get_filename(action->data);
+	open_flags = O_WRONLY | O_APPEND | O_CREAT | O_CLOEXEC;
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
 	else if (*filename == '\0')
 		set_ambigous_redirect(redirect, action->data);
 	else
-	{
-		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, open_flags, 0644)) == -1)
-		{
-			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
-			redirect->type = FD_OPEN_ERROR;
-		}
-		else
-			redirect->type = FD_REDIRECT;
-		redirect->from = STDOUT_FILENO;
-	}
+		open_write_file(redirect, filename, open_flags);
 	ft_strdel(&filename);
 }
 
@@ -114,22 +142,13 @@ void	stdout_truncate(t_registry *shell, t_redirect *redirect
 
 	(void)shell;
 	filename = get_filename(action->data);
+	open_flags = O_WRONLY | O_TRUNC | O_CREAT | O_CLOEXEC;
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
 	else if (*filename == '\0')
 		set_ambigous_redirect(redirect, action->data);
 	else
-	{
-		open_flags = O_RDWR | O_TRUNC | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, open_flags, 0644)) == -1)
-		{
-			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
-			redirect->type = FD_OPEN_ERROR;
-		}
-		else
-			redirect->type = FD_REDIRECT;
-		redirect->from = STDOUT_FILENO;
-	}
+		open_write_file(redirect, filename, open_flags);
 	ft_strdel(&filename);
 }
 
@@ -169,6 +188,7 @@ void	stdout_truncate_special(t_registry *shell, t_redirect *redirect
 
 	(void)shell;
 	filename = NULL;
+	open_flags = O_WRONLY | O_TRUNC | O_CREAT | O_CLOEXEC;
 	if ((type = get_filename_special(action->data, &filename)) > 0)
 		set_filename_special(redirect, filename, type);
 	else if (type == FAILURE)
@@ -176,16 +196,6 @@ void	stdout_truncate_special(t_registry *shell, t_redirect *redirect
 	else if (*filename == '\0')
 		set_ambigous_redirect(redirect, action->data);
 	else
-	{
-		open_flags = O_RDWR | O_TRUNC | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, open_flags, 0644)) == -1)
-		{
-			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
-			redirect->type = FD_OPEN_ERROR;
-		}
-		else
-			redirect->type = FD_REDIRECT;
-		redirect->from = STDOUT_FILENO;
-	}
+		open_write_file(redirect, filename, open_flags);
 	ft_strdel(&filename);
 }
