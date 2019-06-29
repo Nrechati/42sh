@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 11:40:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:33:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int				run_process(t_registry *shell, t_process *process)
 		return (process->completed = FAILURE);
 	if (expand_process(shell->intern, process) == FAILURE)
 	{
-		process->process_type |= IS_EXP_ERROR;
+		process->process_type = IS_EXP_ERROR;
 		return (FAILURE);
 	}
 	if (get_process_type(shell, process) == FAILURE)

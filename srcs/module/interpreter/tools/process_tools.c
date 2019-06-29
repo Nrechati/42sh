@@ -6,11 +6,29 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 06:36:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:28:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void	remove_empty(char **av)
+{
+	char		*holder;
+	int			index;
+
+	holder = NULL;
+	index = 0;
+	while (av[index + 1])
+	{
+		holder = av[index + 1];
+		av[index + 1] = av[index];
+		av[index + 1] = holder;
+	}
+	holder = av[index];
+	av[index] = NULL;
+	ft_strdel(&holder);
+}
 
 int		expand_process(t_list *intern, t_process *process)
 {
@@ -19,17 +37,22 @@ int		expand_process(t_list *intern, t_process *process)
 
 	if (process->process_type & IS_ASSIGN)
 		return (SUCCESS);
-	if (process->av[0] == NULL)
-		return (FAILURE);
 	index = 0;
 	holder = NULL;
 	while(process->av[index])
 	{
 		if ((holder = expansion_pipeline(intern, process->av[index])) == NULL)
 			return (FAILURE);
+		if (*holder == '\0')
+		{
+			remove_empty(&process->av[index]);
+			continue;
+		}
 		ft_strdel(&process->av[index]);
 		process->av[index++] = holder;
 	}
+	if (process->av[0] == NULL)
+		return (FAILURE);
 	return (0);
 }
 

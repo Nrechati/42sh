@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 19:53:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:06:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ typedef struct			s_process
 	uint32_t			process_type;
 	pid_t				pid;
 	pid_t				*pgid;
-	int					status;
+	uint16_t			status;
 	uint8_t				completed;
 	uint8_t				stopped;
 }						t_process;
