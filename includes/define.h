@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:35:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:43:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,6 +456,7 @@
 # define RD_VISUAL		0x400
 # define RD_SEARCH      0x800
 
+# define BAD_PERCENTAGE		0x001
 # define CRITICAL_ERROR     0x001
 # define MALLOC_FAIL        0x002
 # define VCT_FAIL           0x004
@@ -467,6 +468,7 @@
 # define WINDOW_FAIL        0x100
 # define CURSOR_FAIL        0x200
 # define PRMPT_FAIL         0x400
+# define INVALID_TERMCAPS	0x800
 
 # define SETUP_DONE			0x800
 

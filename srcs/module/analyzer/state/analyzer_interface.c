@@ -14,6 +14,8 @@
 
 int		check_token(t_resolution *resolve)
 {
+	if (resolve->tokens == NULL)
+		return (0);
 	if (resolve->token.type == E_SEMICOLON)
 		return (0);
 	if (resolve->token.type == E_PIPE)

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:37:48 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 22:23:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:21:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ uint8_t	fg_blt(__unused t_registry *shell, char **av)
 	ret = SUCCESS;
 	if (av != NULL)
 		result = parse_jobid(&job, *av);
-	if (result == FAILURE || (result == SUCCESS && shell->current_plus == NULL))
+	if (result == BAD_PERCENTAGE || result == FAILURE
+				|| (result == SUCCESS && shell->current_plus == NULL))
 	{
+		if (result == BAD_PERCENTAGE)
+			ft_printf("fg: usage: fg [%%jobID]\n");
 		ft_printf("42sh: fg: no current job\n");
 		ret = 1;
 	}

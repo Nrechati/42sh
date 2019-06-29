@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:16:28 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 11:32:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:14:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int8_t			parse_jobid(t_job **job, char *param)
 	*job = NULL;
 	if (param == NULL)
 		return (SUCCESS);
+	if (*param != '%')
+		return (BAD_PERCENTAGE);
 	if (*param == '%')
 	{
 		param++;
