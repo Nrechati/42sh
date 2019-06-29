@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:54:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 23:14:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:17:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_io_filename(t_analyzer analyzer)
 	analyzer[P_IO_FILENAME][E_PIPE] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_IO_NUMBER] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_SEMICOLON] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_PIPE] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_AND] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_DAND] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_OR] = io_redirect_flush;
