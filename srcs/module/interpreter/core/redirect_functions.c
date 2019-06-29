@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 23:13:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:00:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,20 @@ void		close_fd(t_registry *shell, t_redirect *redirect, t_action *action)
 	redirect->from = get_io(action->data);
 }
 
+void	open_file(t_redirect *redirect, char *filename, int flag)
+{
+	if ((redirect->to = open(filename, flag, 0644)) == -1)
+	{
+		ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
+		redirect->type = FD_OPEN_ERROR;
+	}
+	else
+		redirect->type = FD_REDIRECT;
+	redirect->from = STDIN_FILENO;
+
+}
 void	stdin_readfile(t_registry *shell, t_redirect *redirect
-					, t_action *action)
+		, t_action *action)
 {
 	char		*filename;
 
@@ -33,20 +45,13 @@ void	stdin_readfile(t_registry *shell, t_redirect *redirect
 		set_ambigous_redirect(redirect, action->data);
 	else
 	{
-		if ((redirect->to = open(filename, O_RDWR | O_CLOEXEC, 0644)) == -1)
-		{
-			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
-			redirect->type = FD_OPEN_ERROR;
-		}
-		else
-			redirect->type = FD_REDIRECT;
-		redirect->from = STDIN_FILENO;
+		//O_RDWR | O_CLOEXEC
 	}
 	ft_strdel(&filename);
 }
 
 void	stdin_readfd(__unused t_registry *shell, t_redirect *redirect
-					, t_action *action)
+		, t_action *action)
 {
 	int		action_type;
 	int		fd;
@@ -75,7 +80,7 @@ void	stdin_readfd(__unused t_registry *shell, t_redirect *redirect
 }
 
 void	stdout_append(t_registry *shell, t_redirect *redirect
-					, t_action *action)
+		, t_action *action)
 {
 	char		*filename;
 	int			open_flags;
@@ -102,7 +107,7 @@ void	stdout_append(t_registry *shell, t_redirect *redirect
 }
 
 void	stdout_truncate(t_registry *shell, t_redirect *redirect
-					, t_action *action)
+		, t_action *action)
 {
 	char		*filename;
 	int			open_flags;
@@ -156,7 +161,7 @@ void	set_filename_special(t_redirect *redirect, char *filename, int type)
 }
 
 void	stdout_truncate_special(t_registry *shell, t_redirect *redirect
-					, t_action *action)
+		, t_action *action)
 {
 	char		*filename;
 	int			open_flags;
