@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 16:27:48 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/29 14:21:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 *****************************************************
 */
 
+void			save_intern_vars(t_registry *shell, t_sle *sle);
 void			find_multiline_coord(t_sle *sle, int8_t offset);
 t_vector		*read_error(t_registry *shell, t_sle *sle);
 uint64_t		get_prompt_length(t_prompt *prompt);

@@ -6,37 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 21:50:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 14:21:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
-
-void		save_intern_vars(t_registry *shell, t_sle *sle)
-{
-	if (shell != NULL)
-	{
-		if (sle->interns.ps1 != NULL)
-			vct_del(&sle->interns.ps1);
-		if (sle->interns.ps2 != NULL)
-			vct_del(&sle->interns.ps2);
-		if (sle->interns.ps3 != NULL)
-			vct_del(&sle->interns.ps3);
-		if (sle->interns.pwd != NULL)
-			vct_del(&sle->interns.pwd);
-		if (sle->interns.username != NULL)
-			vct_del(&sle->interns.username);
-		if (sle->interns.home != NULL)
-			vct_del(&sle->interns.home);
-		sle->interns.ps1 = vct_dups(get_var(shell->intern, INT_PS1));
-		sle->interns.ps2 = vct_dups(get_var(shell->intern, INT_PS2));
-		sle->interns.ps3 = vct_dups(get_var(shell->intern, INT_PS3));
-		sle->interns.pwd = vct_dups(get_var(shell->intern, "PWD"));
-		sle->interns.username = vct_dups(get_var(shell->intern, "USER"));
-		sle->interns.home = vct_dups(get_var(shell->intern, "HOME"));
-	}
-}
 
 uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 {
@@ -49,8 +24,8 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 		setup_report = sle_setup(shell, sle);
 		if (setup_report & CRITICAL_ERROR)
 			return (CRITICAL_ERROR);
+		save_intern_vars(shell, sle);
 	}
-	save_intern_vars(shell, sle);
 	return (SUCCESS);
 }
 

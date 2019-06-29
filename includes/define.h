@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/28 06:24:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 13:10:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,6 +465,7 @@
 # define WINDOW_FAIL        0x100
 # define CURSOR_FAIL        0x200
 # define PRMPT_FAIL         0x400
+# define INVALID_TERMCAPS 	0x800
 
 # define SETUP_DONE			0x800
 
