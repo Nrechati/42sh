@@ -13,7 +13,7 @@
 #include "sh21.h"
 #include <unistd.h>
 
-static inline uint8_t	is_shell_interactive(t_registry *shell)
+inline uint8_t	is_shell_interactive(t_registry *shell)
 {
 	if ((shell->option.option & COMMAND_OPT) == FALSE
 			&& isatty(STDIN_FILENO) != 0)

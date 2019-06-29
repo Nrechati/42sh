@@ -35,6 +35,9 @@
 # include "log.h"
 # include "jobctl.h"
 
+
+uint8_t is_shell_interactive(t_registry *shell);
+
 /*
 *****************************************************
 ******************** TERM MODES *********************

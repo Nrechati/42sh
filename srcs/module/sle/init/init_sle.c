@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:14 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 19:45:23 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/29 13:18:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,25 @@ uint64_t    get_terminal_info(t_registry *shell)
     return (SUCCESS);
 }
 
+static uint64_t validate_termcaps(t_termcaps *tc)
+{
+	uint64_t	error;
+
+	error = 0;
+   	error += (tc->clear_line == NULL) ? 1 : 0;
+   	error += (tc->clear_screen == NULL) ? 1 : 0;
+   	error += (tc->standout_on == NULL) ? 1 : 0;
+   	error += (tc->standout_off == NULL) ? 1 : 0;
+   	error += (tc->clear == NULL) ? 1 : 0;
+   	error += (tc->up == NULL) ? 1 : 0;
+   	error += (tc->down == NULL) ? 1 : 0;
+   	error += (tc->left == NULL) ? 1 : 0;
+   	error += (tc->right == NULL) ? 1 : 0;
+   	error += (tc->hidden_cursor == NULL) ? 1 : 0;
+   	error += (tc->normal_cursor == NULL) ? 1 : 0;
+    return ((error != 0) ? (CRITICAL_ERROR | INVALID_TERMCAPS) : SUCCESS);
+}
+
 uint64_t    init_termcaps(t_termcaps *termcap)
 {
 	termcap->clear_line = ft_strdup(tgetstr("ce", NULL));
@@ -46,5 +65,5 @@ uint64_t    init_termcaps(t_termcaps *termcap)
     termcap->right = ft_strdup(tgetstr("nd", NULL));
     termcap->hidden_cursor = ft_strdup(tgetstr("vi", NULL));
     termcap->normal_cursor = ft_strdup(tgetstr("ve", NULL));
-    return (SUCCESS);
+    return (validate_termcaps(termcap));
 }

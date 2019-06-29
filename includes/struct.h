@@ -52,12 +52,10 @@ typedef struct			s_registry
 	t_hashmap			hash;
 
 	pid_t				pid;
-
 	t_list				*job_list;
 	uint64_t			active_jobs;
 	t_list				*current_plus;
 	t_list				*current_minus;
-
 	uint8_t				sigint;
 
 	struct termios		*sle_mode;

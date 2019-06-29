@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:22:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:57:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 13:02:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t	ak_copy_selection(__unused t_registry *shell, t_sle *sle)
+int8_t	ak_copy_selection(t_registry *shell, t_sle *sle)
 {
 	char			*tmp;
 	uint64_t		start;

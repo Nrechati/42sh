@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/28 08:08:00 by nrechati         ###   ########.fr        #
+#    Updated: 2019/06/29 14:27:16 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,10 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 #									Compiler                                   #
 # ---------------------------------------------------------------------------- #
 
-CC = clang
-LINK = $(CC)
+CC = gcc
+LINK = $(CC) -g3
 LINKD = $(CC) -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
-COMPILE = $(CC) -c
+COMPILE = $(CC) -c -g3
 DEBUG = $(CC) -g3 -c -fsanitize=address,undefined -fno-omit-frame-pointer
 
 # ---------------------------------------------------------------------------- #
@@ -353,9 +353,12 @@ SLE += init_sle.c
 SLE += load_sle.c
 SLE += load_sle_modules.c
 SLE += load_sle_struct.c
+SLE += save_interns.c
 
 #Prompt
 SLE += prompt.c
+SLE += get_prompt_length.c
+SLE += prompt_error.c
 SLE += prompt_subroutine.c
 SLE += prompt_subroutine_tools.c
 SLE += prompt_expansion.c

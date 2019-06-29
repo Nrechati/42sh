@@ -6,14 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:54:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:59:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-int8_t	ak_enter_visual_mode(__unused t_registry *shell, t_sle *sle)
+int8_t					ak_enter_visual_mode(__unused t_registry *shell,
+				t_sle *sle)
 {
 	if (sle->state != STATE_STD)
 		return (FAILURE);
@@ -23,7 +24,7 @@ int8_t	ak_enter_visual_mode(__unused t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t	ak_exit_modes(__unused t_registry *shell, t_sle *sle)
+int8_t					ak_exit_modes(__unused t_registry *shell, t_sle *sle)
 {
 	if (sle->state == STATE_SEARCH)
 	{
@@ -36,7 +37,7 @@ int8_t	ak_exit_modes(__unused t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-static inline uint8_t visual_bounds_valid(t_sle *sle)
+static inline uint8_t	visual_bounds_valid(t_sle *sle)
 {
 	if (sle->vis_start < 0
 		|| sle->vis_stop < 0
@@ -46,7 +47,7 @@ static inline uint8_t visual_bounds_valid(t_sle *sle)
 	return (TRUE);
 }
 
-void	redrawmode_visual(t_sle *sle)
+void					redrawmode_visual(t_sle *sle)
 {
 	if (visual_bounds_valid(sle) == FALSE)
 		return ;

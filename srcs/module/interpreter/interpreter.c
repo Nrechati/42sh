@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 23:16:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:40:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ static int		run_job(void *context, void *data)
 	}
 	add_var(&shell->intern, "job_type", job_type, READONLY_VAR);
 	head = job->processes->data;
+
 	job->state |= RUNNING;
 	if (job->processes->next == NULL)
 	{
@@ -130,6 +131,7 @@ static int		run_job(void *context, void *data)
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	waiter(shell, job);
 	del_job(job);
+
 	return (SUCCESS);
 }
 

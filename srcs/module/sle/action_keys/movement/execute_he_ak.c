@@ -6,16 +6,17 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:55:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 13:06:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t	ak_home(__unused t_registry *shell, t_sle *sle)
+int8_t	ak_home(t_registry *shell, t_sle *sle)
 {
 	int64_t	x;
 
+	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
 	set_redraw_flags(sle, RD_NONE | RD_CHOME);
@@ -29,10 +30,11 @@ int8_t	ak_home(__unused t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t	ak_end(__unused t_registry *shell, t_sle *sle)
+int8_t	ak_end(t_registry *shell, t_sle *sle)
 {
 	int64_t x;
 
+	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
 	set_redraw_flags(sle, RD_NONE | RD_CEND);

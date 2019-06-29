@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_clipboard_paste.c                          :+:      :+:    :+:   */
+/*   get_prompt_length.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 17:23:25 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 13:03:38 by skuppers         ###   ########.fr       */
+/*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
+/*   Updated: 2019/06/27 11:06:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int8_t				ak_paste_clipboard(t_registry *shell, t_sle *sle)
+uint64_t	get_prompt_length(t_prompt *prompt)
 {
-	(void)shell;
-	if (sle->state != STATE_STD)
-		return (FALSE);
-	vct_insert_string(sle->line, vct_get_string(sle->clip),
-					sle->cursor.index);
-	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
-	set_cursor_pos(sle, sle->cursor.index + vct_len(sle->clip));
-	return (SUCCESS);
+	return (prompt->length);
 }
