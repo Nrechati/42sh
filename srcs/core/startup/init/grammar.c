@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:42:01 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 06:24:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 14:47:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	generate_maths_grammar(void)
 {
 	static const char	*grammar[NB_OF_MTOKENS] = {M_TIMES, M_DIVIDE, M_MODULO,
 										M_PLUS, M_MINUS, M_OPENP, M_CLOSEP,
-										M_LESS, M_GREAT,
-										M_LESSOR, M_GREATOR, M_EQUAL, M_NEQUAL,
+										M_LESS, M_LESSEQ,
+										M_GREAT, M_GREATEQ, M_EQUAL, M_NEQUAL,
 										M_AND, M_OR, M_DPLUS, M_DMINUS,
 										M_ASSIGN, M_STRING,
 										M_NB_DEC, M_NB_OCT, M_NB_HEX,

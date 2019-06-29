@@ -19,6 +19,8 @@ void	heredoc(t_registry *shell, t_redirect *redirect, t_action *action)
 	int			fd[2];
 	t_vector	*vector;
 
+	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+		return ;
 	vector = NULL;
 	delimiter = NULL;
 	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
@@ -44,6 +46,8 @@ void	heredoc_trim(t_registry *shell, t_redirect *redirect, t_action *action)
 	int			fd[2];
 	t_vector	*vector;
 
+	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+		return ;
 	vector = NULL;
 	delimiter = NULL;
 	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
@@ -70,6 +74,8 @@ void	io_heredoc(t_registry *shell, t_redirect *redirect, t_action *action)
 	int			fd[2];
 	t_vector	*vector;
 
+	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+		return ;
 	vector = NULL;
 	delimiter = NULL;
 	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
@@ -98,6 +104,8 @@ void	io_heredoc_trim(t_registry *shell, t_redirect *redirect
 	int			fd[2];
 	t_vector	*vector;
 
+	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+		return ;
 	vector = NULL;
 	delimiter = NULL;
 	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
