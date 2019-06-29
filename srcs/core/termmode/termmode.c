@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 16:03:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:30:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ static int16_t          init_term_modes(struct termios *sle,
 {
     if ((tcgetattr(STDIN_FILENO, original)) == FAILURE)
         return (CRITICAL_ERROR | TERMMDE_FAIL);
+
     if ((tcgetattr(STDIN_FILENO, exec)) == FAILURE)
         return (CRITICAL_ERROR | TERMMDE_FAIL);
-    if ((tcgetattr(STDIN_FILENO, sle)) == FAILURE)
+
+	if ((tcgetattr(STDIN_FILENO, sle)) == FAILURE)
         return (CRITICAL_ERROR | TERMMDE_FAIL);
 
     sle->c_lflag &= ~(ICANON);
@@ -34,27 +36,34 @@ static int16_t          init_term_modes(struct termios *sle,
     return (SUCCESS);
 }
 
-static int16_t          set_mode(struct termios *mode)
+static int16_t          set_mode(__unused struct termios *mode)
 {
-    if (tcsetattr(STDIN_FILENO, TCSANOW, mode) == FAILURE)
+//	if (mode == NULL)
+//		return (FAILURE);
+	if (tcsetattr(STDOUT_FILENO, TCSANOW, mode) == FAILURE)
 		return (FAILURE | TERMMDE_FAIL);
 	return (SUCCESS);
+//	return (FAILURE);
 }
 
 int16_t          term_mode(uint8_t mode_flag)
 {
-    static struct termios		sle_mode;
-	static struct termios		exec_mode;
-	static struct termios		orig_mode;
+	static struct termios	sle_ios;
+	static struct termios	exe_ios;
+	static struct termios	dfl_ios;
 
     if (mode_flag == TERMMODE_INIT)
-        return (init_term_modes(&sle_mode, &exec_mode, &orig_mode));
-    else if (mode_flag == TERMMODE_DFLT)
-        return (set_mode(&orig_mode));
-    else if (mode_flag == TERMMODE_SLE)
-        return (set_mode(&sle_mode));
-    else if (mode_flag == TERMMODE_EXEC)
-        return (set_mode(&exec_mode));
-    else
-        return (FAILURE);
+		return (init_term_modes(&sle_ios,
+								&exe_ios,
+								&dfl_ios));
+
+	else if (mode_flag == TERMMODE_DFLT)
+        return (set_mode(&dfl_ios));
+
+	else if (mode_flag == TERMMODE_SLE)
+        return (set_mode(&sle_ios));
+
+	else if (mode_flag == TERMMODE_EXEC)
+        return (set_mode(&exe_ios));
+	return (SUCCESS);
 }

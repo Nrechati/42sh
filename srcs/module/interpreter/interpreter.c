@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 17:10:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:12:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,15 @@ static int		run_job(void *context, void *data)
 	}
 	else
 		launch_pipeline(shell, job->processes);
+
 	ft_lstiter(job->processes, del_process_redirect);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
+
+
+
 	waiter(shell, job);
-	del_job(job);
+//	del_job(job);
+
 	return (SUCCESS);
 }
 
