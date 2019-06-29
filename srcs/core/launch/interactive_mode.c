@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:29:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:44:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void				interactive_mode(t_registry *shell)
 		vct_del(&input);
 		load_signal_profile(SLE_PROFILE);
 	}
+
 }
