@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 11:06:27 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:02:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static uint8_t            prompt_need_alignment(void)
 {
     int         i;
 	int			pow;
-    char        buff[30];
+    char        buff[256];
     char        ch;
     uint32_t    x;
 
     i = 0;
     ch = 0;
     x = 0;
-	ft_bzero(buff, 30);
+	ft_bzero(buff, 256);
     write(1, "\033[6n", 4);
     while (ch != 'R')
     {

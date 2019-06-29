@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:41:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 19:11:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:04:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 uint64_t	update_winsize(t_sle *sle)
 {
-	struct winsize w;
+	struct winsize	w;
+	uint16_t		debug_size;
 
+	debug_size = (g_shell->option.option & DEBUG_OPT) ? 80 : 1;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
         return (CRITICAL_ERROR | WINDOW_FAIL);
-	sle->window.rows = (w.ws_row <= 0) ? 1 : w.ws_row;
-	sle->window.cols = (w.ws_col <= 0) ? 1 : w.ws_col;
+	sle->window.rows = (w.ws_row <= 0) ? debug_size : w.ws_row;
+	sle->window.cols = (w.ws_col <= 0) ? debug_size : w.ws_col;
     sle->window.max_chars = sle->window.rows * sle->window.cols;
 	return (SUCCESS);
 }
