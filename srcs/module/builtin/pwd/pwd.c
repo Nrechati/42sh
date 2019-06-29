@@ -56,7 +56,7 @@ t_option		get_option_pwd(char *s, t_option option)
 	return (option);
 }
 
-int8_t			pwd_blt(t_registry *shell, char **av)
+uint8_t			pwd_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 	char		*pwd;
@@ -64,10 +64,10 @@ int8_t			pwd_blt(t_registry *shell, char **av)
 	++av;
 	option = set_options(&av, get_option_pwd);
 	if (option == ERROR_OPT)
-		return (FAILURE);
+		return (2);
 	pwd = get_pwd(shell, option);
 	if (pwd == NULL)
-		return (FAILURE);
+		return (1);
 	ft_putendl(pwd);
 	ft_strdel(&pwd);
 	return (SUCCESS);

@@ -36,14 +36,12 @@ t_option		get_option_cd(char *s, t_option option)
 	return (option);
 }
 
-int8_t			exit_cd(t_registry *shell, char **old_pwd,
-					char **curpath, int8_t ret)
+uint8_t			exit_cd(t_registry *shell, char **old_pwd,
+					char **curpath, uint8_t ret)
 {
 	(void)shell;
 	ft_strdel(old_pwd);
 	ft_strdel(curpath);
-//	if (ret == SUCCESS)
-//		get_prompt_ps1(shell);
 	return (ret);
 }
 

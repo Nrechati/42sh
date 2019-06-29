@@ -12,9 +12,8 @@
 
 #include "sh21.h"
 
-int8_t				set_blt(t_registry *shell, char **av)
+uint8_t				set_blt(t_registry *shell, __unused char **av)
 {
-	(void)av;
 	print_lst(shell->intern, STDOUT_FILENO, "", SET_VAR);
 	return (SUCCESS);
 }

@@ -66,10 +66,12 @@ static void			get_name_and_data(t_variable *variable, char *arg)
 	}
 }
 
-static int8_t		export_process(t_registry *shell, char **av)
+static uint8_t		export_process(t_registry *shell, char **av)
 {
 	t_variable	*variable;
+	uint8_t		ret;
 
+	ret = SUCCESS;
 	while (*av != NULL)
 	{
 		variable = (t_variable *)ft_malloc(sizeof(t_variable));
@@ -77,25 +79,28 @@ static int8_t		export_process(t_registry *shell, char **av)
 			return (FAILURE);
 		get_name_and_data(variable, *av);
 		if (ft_isnumeric(variable->name) == TRUE
-			|| ft_strchr("!?$-", *variable->name))
+			|| multi_strchr("!?$-=", variable->name) == TRUE)
+		{
 			ft_dprintf(STDERR_FILENO,
 					"42sh: export: `%s': not a valid identifier\n", *av);
+			ret = 2;
+		}
 		else
 			export_var(shell, variable);
 		free_node((void *)variable);
 		av++;
 	}
-	return (SUCCESS);
+	return (ret);
 }
 
-int8_t				export_blt(t_registry *shell, char **av)
+uint8_t				export_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 
 	av++;
 	option = 0;
 	if (((option |= set_options(&av, get_option_export)) == ERROR_OPT))
-		return (FAILURE);
+		return (2);
 	if (*av == NULL)
 	{
 		print_lst(shell->intern, STDOUT_FILENO,

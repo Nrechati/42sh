@@ -68,7 +68,7 @@ static char		*get_default_editor(t_registry *shell)
 	return (editor);
 }
 
-int8_t			fc_blt(t_registry *shell, char **av)
+uint8_t			fc_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 	char		*editor;
@@ -78,16 +78,16 @@ int8_t			fc_blt(t_registry *shell, char **av)
 	option = 0;
 	editor = get_fc_options(&av, &option);
 	if (option == ERROR_OPT)
-		ret = FAILURE;
+		ret = 2;
 	else if (option & S_OPT)
-		ret = fc_redo(shell, av, option);
+		ret = fc_redo(shell, av);
 	else if (option & L_OPT)
 		ret = fc_list(av, option);
 	else
 	{
 		if (editor == NULL)
 			editor = get_default_editor(shell);
-		ret = fc_editor(shell, av, editor, option);
+		ret = fc_editor(shell, av, editor);
 	}
 	history(shell, NULL, RESET_HEAD);
 	ft_strdel(&editor);

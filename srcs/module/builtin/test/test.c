@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-int8_t		test_blt(__unused t_registry *shell, __unused char **av)
+uint8_t		test_blt(__unused t_registry *shell, __unused char **av)
 {
 	return (SUCCESS);
 }

@@ -81,9 +81,8 @@ char			*make_curpath_simple(char *curpath)
 	return (new_path);
 }
 
-uint8_t			one_only_arg(t_registry *shell, char **arg)
+uint8_t			one_only_arg(char **arg)
 {
-	(void)shell;
 	if (*arg == NULL)
 		return (TRUE);
 	if (*(arg + 1) != NULL)

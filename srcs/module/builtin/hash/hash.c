@@ -52,28 +52,28 @@ static int16_t	hash_handle_opt(t_registry *shell, t_option opt)
 		return (SUCCESS);
 }
 
-int8_t			hash_blt(t_registry *shell, char **av)
+uint8_t			hash_blt(t_registry *shell, char **av)
 {
 	int			i;
 	int8_t		ret;
 	t_option	opt;
 
 	opt = 0;
-	if (av == NULL)
+	if (av == NULL || av[0] == NULL)
 	{
 		ft_dprintf(2, HASH_GENERAL_ERROR HASH_NO_AV);
 		return (1);
 	}
-	if (!av[1])
+	else if (av[1] == NULL)
 	{
 		ft_simplified_hash_print(&(shell->hash.bin));
-		return (0);
+		return (SUCCESS);
 	}
-	if ((i = hash_get_opt(1, av, &opt)) == 1)
-		return (1);
+	if ((i = hash_get_opt(1, av, &opt)) == FAILURE)
+		return (2);
 	if (hash_handle_opt(shell, opt) == H_HELP)
-		return (0);
-	while (av[i])
+		return (2);
+	while (av[i] != NULL)
 	{
 		ret = hash_args(shell, av[i]);
 		if (ret == NOT_FOUND)
@@ -82,5 +82,5 @@ int8_t			hash_blt(t_registry *shell, char **av)
 			return (1);
 		i++;
 	}
-	return (0);
+	return (SUCCESS);
 }

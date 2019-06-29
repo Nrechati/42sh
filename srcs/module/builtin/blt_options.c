@@ -44,3 +44,16 @@ t_option					set_options(char ***av, t_get_option get_option)
 	}
 	return (option);
 }
+
+uint8_t multi_strchr(char *search, char *target)
+{
+	if (target == NULL || search == NULL)
+		return (TRUE);
+	while (*search != '\0')
+	{
+		if (ft_strchr(target, *search) != NULL)
+			return (TRUE);
+		search++;
+	}
+	return (FALSE);
+}

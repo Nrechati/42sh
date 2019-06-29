@@ -68,9 +68,9 @@ static int8_t	write_file(t_registry *shell, char **av, char *editor)
 
 static int8_t	exec_new_pipeline(t_registry *shell)
 {
-	int			fd;
 	t_vector	*cmd;
 	char		*line;
+	int			fd;
 	
 	if ((fd = open(FC_FILE_TMP, O_RDONLY)) == FAILURE)
 	{
@@ -92,15 +92,13 @@ static int8_t	exec_new_pipeline(t_registry *shell)
 	return (SUCCESS);
 }
 
-int8_t			fc_editor(t_registry *shell, char **av, char *editor,
-						t_option option)
+uint8_t			fc_editor(t_registry *shell, char **av, char *editor)
 {
-	(void)option;
 	history(NULL, NULL, POP_ENTRY);
 	if (write_file(shell, av, editor) == FAILURE)
-		return (FAILURE);
+		return (1);
 	if (exec_new_pipeline(shell) == FAILURE)
-		return (FAILURE);
+		return (1);
 	return (SUCCESS);
 }
 

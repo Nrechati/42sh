@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-int8_t				echo_blt(t_registry *shell, char **av)
+uint8_t				echo_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 

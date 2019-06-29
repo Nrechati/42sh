@@ -12,21 +12,25 @@
 
 #include "sh21.h"
 
-int8_t				unset_blt(t_registry *shell, char **av)
+uint8_t				unset_blt(t_registry *shell, char **av)
 {
+	uint8_t ret;
+
 	++av;
-	if (*av == NULL)
-	{
-		ft_putendl_fd(UNSET_USAGE, STDERR_FILENO);
-		return (FAILURE);
-	}
+	ret = SUCCESS;
 	while (*av != NULL)
 	{
-		if (shell->intern != NULL)
+		if (ft_isnumeric(*av) == TRUE || multi_strchr("!?$-=", *av) == TRUE)
+		{
+			ft_dprintf(STDERR_FILENO,
+					"42sh: unset: `%s': not a valid identifier\n", *av);
+			ret = 2;
+		}
+		else if (shell->intern != NULL)
 			free_var(&shell->intern, *av);
 		if (ft_strequ(*av, "PATH") == TRUE)
 			ft_hmap_free_content(&(shell->hash.bin), ft_free);
 		av++;
 	}
-	return (SUCCESS);
+	return (ret);
 }

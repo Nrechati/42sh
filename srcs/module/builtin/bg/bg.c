@@ -12,10 +12,11 @@
 
 #include "sh21.h"
 
-int8_t	bg_blt(t_registry *shell, __unused char **av)
+uint8_t		bg_blt(t_registry *shell, __unused char **av)
 {
 	t_job	*job;
 	int8_t	result;
+	uint8_t	ret;
 
 	++av;
 	if (*av == NULL)
@@ -24,19 +25,24 @@ int8_t	bg_blt(t_registry *shell, __unused char **av)
 			job = ((t_job*)(shell->current_plus)->data);
 		else
 		{
-			ft_printf("bg: no current job.\n");
-			return (FAILURE);
+			ft_printf("42sh: bg: no current job\n");
+			return (1);
 		}
 		jobctl(shell, job, JOBCTL_RUNINBG);
 	}
+	ret = SUCCESS;
 	while (*av != NULL)
 	{
 		result = parse_jobid(&job, *av);
-		if (result == FAILURE || (result == SUCCESS && shell->current_plus == NULL))
-			ft_printf("bg: %s: no such job.\n", *av);
+		if (result == FAILURE
+				|| (result == SUCCESS && shell->current_plus == NULL))
+		{
+			ft_printf("42sh: bg: %s: no such job\n", *av);
+			ret = 1;
+		}
 		else
 			jobctl(shell, job, JOBCTL_RUNINBG);
 		++av;
 	}
-	return (SUCCESS);
+	return (ret);
 }

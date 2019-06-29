@@ -74,18 +74,17 @@ static int8_t			get_cmd(t_registry *shell, char **av, char **cmd)
 	return (SUCCESS);
 }
 
-int8_t			fc_redo(t_registry *shell, char **av, t_option option)
+uint8_t			fc_redo(t_registry *shell, char **av)
 {
 	char		*cmd;
 	t_vector	*vct_cmd;
 
 	cmd = NULL;
-	(void)option;
 	history(shell, NULL, POP_ENTRY);
 	if (get_cmd(shell, av, &cmd) == FAILURE)
-		return (FAILURE);
+		return (1);
 	if (cmd == NULL)
-		return (FAILURE);
+		return (1);
 	ft_putendl(cmd);
 	vct_cmd = vct_dups(cmd);
 	execution_pipeline(shell, vct_cmd);

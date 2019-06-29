@@ -59,7 +59,7 @@ static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
 	add_var(&shell->intern, "OLDPWD", old_pwd, SET_VAR | EXPORT_VAR);
 }
 
-static int8_t		change_directory(t_registry *shell, char *curpath,
+static uint8_t		change_directory(t_registry *shell, char *curpath,
 						const char *path_give_by_user, const t_option option)
 {
 	char		*old_pwd;
@@ -72,7 +72,7 @@ static int8_t		change_directory(t_registry *shell, char *curpath,
 			ft_printf("%s\n", get_var(shell->intern, "PWD"));
 		return (exit_cd(shell, &old_pwd, &curpath, SUCCESS));
 	}
-	return (exit_cd(shell, &old_pwd, &curpath, FAILURE));
+	return (exit_cd(shell, &old_pwd, &curpath, 1));
 }
 
 static int8_t		is_root(char *path)
@@ -92,7 +92,7 @@ static int8_t		is_root(char *path)
 	return (TRUE);
 }
 
-int8_t				cd_blt(t_registry *shell, char **av)
+uint8_t				cd_blt(t_registry *shell, char **av)
 {
 	char		*curpath;
 	t_option	option;
@@ -100,20 +100,20 @@ int8_t				cd_blt(t_registry *shell, char **av)
 	av++;
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
 		|| (curpath = ft_get_curpath(shell, *av)) == NULL
-		|| one_only_arg(shell, av) == FALSE)
-		return (FAILURE);
+		|| one_only_arg(av) == FALSE)
+		return (2);
 	if (is_root(curpath) == FALSE && curpath[ft_strlen(curpath) - 1] == '/')
 		curpath[ft_strlen(curpath) - 1] = '\0';
 	if ((option & P_OPT) == FALSE)
 	{
 		if (*curpath != '/')
 			if ((curpath = concat_pwd_with_curpath(shell, &curpath)) == NULL)
-				return (FAILURE);
+				return (3);
 		if ((curpath = make_curpath_simple(curpath)) == NULL)
 		{
 			ft_dprintf(STDERR_FILENO, "42sh: cd: %s: %s", ft_strequ(*av,
 					"-") ? get_var(shell->intern, "OLDPWD") : *av, NOFI);
-			return (FAILURE);
+			return (1);
 		}
 		else if (ft_strlen(curpath) + 1 >= PATH_MAX)
 			curpath = get_relative_path(&curpath);

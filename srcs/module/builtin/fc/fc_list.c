@@ -26,7 +26,7 @@ int8_t			get_first_last(char **av, char **param)
 	return (SUCCESS);
 }
 
-int8_t			fc_list(char **av, t_option option)
+uint8_t			fc_list(char **av, t_option option)
 {
 	char		*param;
 	uint64_t	opt_history;
@@ -42,7 +42,7 @@ int8_t			fc_list(char **av, t_option option)
 		ft_dprintf(STDERR_FILENO,
 				"42sh: fc: history specification out of range\n");
 		ft_strdel(&param);
-		return (FAILURE);
+		return (1);
 	}
 	history(NULL, param, opt_history);
 	ft_strdel(&param);

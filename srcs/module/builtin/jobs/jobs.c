@@ -43,15 +43,17 @@ void		jobs(t_registry *shell, t_job *job, t_option option)
 		jobctl(shell, job, JOBCTL_LIST);
 }
 
-int8_t		jobs_blt(t_registry *shell, char **av)
+uint8_t		jobs_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 	t_job		*job;
 	int8_t		result;
+	uint8_t		ret;
 
 	++av;
 	if ((option = set_options(&av, get_option_jobs)) == ERROR_OPT)
-		return (FAILURE);
+		return (2);
+	ret = SUCCESS;
 	if (*av == NULL)
 		jobs(shell, NULL, option);
 	else
@@ -62,6 +64,7 @@ int8_t		jobs_blt(t_registry *shell, char **av)
 			if (result == FAILURE)
 			{
 				ft_printf("jobs: %s: no such job.\n", *av);
+				ret = 1;
 				++av;
 				continue ;
 			}
@@ -69,5 +72,5 @@ int8_t		jobs_blt(t_registry *shell, char **av)
 			++av;
 		}
 	}
-	return (SUCCESS);
+	return (ret);
 }

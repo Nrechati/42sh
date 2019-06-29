@@ -12,10 +12,10 @@
 
 #include "sh21.h"
 
-int8_t				type_blt(t_registry *shell, char **av)
+uint8_t				type_blt(t_registry *shell, char **av)
 {
 	char		*path_bin;
-	int8_t		error;
+	uint8_t		error;
 
 	av++;
 	error = SUCCESS;
@@ -30,7 +30,7 @@ int8_t				type_blt(t_registry *shell, char **av)
 			ft_printf("%s is %s\n", *av, path_bin);
 		else
 		{
-			error = FAILURE;
+			error = 1;
 			ft_dprintf(STDERR_FILENO, "42sh: type: %s: not found\n", *av);
 		}
 		av++;

@@ -70,6 +70,8 @@ int			hash_get_opt(int i, char **av, t_option *opt)
 	while (av[i] && av[i][0] == '-')
 	{
 		j = 1;
+		if (ft_strequ(av[i], "--") == TRUE)
+			return (i + 1);
 		while (av[i][j])
 		{
 			if (av[i][j] == 'r' && (*opt & H_WIPE) == FALSE)
@@ -81,6 +83,7 @@ int			hash_get_opt(int i, char **av, t_option *opt)
 			else
 			{
 				ft_dprintf(2, "%s%s%s", HASH_GENERAL_ERROR, av[i], HASH_INVALID_OPT);
+				/// MISS USAGE
 				return (FAILURE);
 			}
 			j++;
