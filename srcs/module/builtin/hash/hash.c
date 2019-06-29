@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/25 14:01:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 09:50:31 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,25 @@ int8_t			hash_blt(t_registry *shell, char **av)
 	if (av == NULL)
 	{
 		ft_dprintf(2, HASH_GENERAL_ERROR HASH_NO_AV);
-		return (FAILURE);
+		return (1);
 	}
 	if (!av[1])
 	{
 		ft_simplified_hash_print(&(shell->hash.bin));
-		return (SUCCESS);
+		return (0);
 	}
-	if ((i = hash_get_opt(1, av, &opt)) == FAILURE)
-		return (FAILURE);
+	if ((i = hash_get_opt(1, av, &opt)) == 1)
+		return (1);
 	if (hash_handle_opt(shell, opt) == H_HELP)
-		return (SUCCESS);
+		return (0);
 	while (av[i])
 	{
 		ret = hash_args(shell, av[i]);
 		if (ret == NOT_FOUND)
 			ft_dprintf(2, HASH_GENERAL_ERROR "%s" HASH_NOT_FOUND, av[i]);
-		else if (ret == FAILURE)
-			return (FAILURE);
+		else if (ret == 1)
+			return (1);
 		i++;
 	}
-	return (SUCCESS);
+	return (0);
 }
