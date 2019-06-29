@@ -48,7 +48,7 @@ t_option					set_options(char ***av, t_get_option get_option)
 uint8_t multi_strchr(char *search, char *target)
 {
 	if (target == NULL || search == NULL)
-		return (TRUE);
+		return (FALSE);
 	while (*search != '\0')
 	{
 		if (ft_strchr(target, *search) != NULL)

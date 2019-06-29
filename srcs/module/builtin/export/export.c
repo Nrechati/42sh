@@ -78,7 +78,7 @@ static uint8_t		export_process(t_registry *shell, char **av)
 		if (variable == NULL || variable->name == NULL)
 			return (FAILURE);
 		get_name_and_data(variable, *av);
-		if (ft_isnumeric(variable->name) == TRUE
+		if (ft_isdigit(variable->name[0]) == TRUE
 			|| multi_strchr("!?$-=", variable->name) == TRUE)
 		{
 			ft_dprintf(STDERR_FILENO,
