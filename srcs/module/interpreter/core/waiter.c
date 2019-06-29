@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 21:48:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 22:02:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void		set_status(t_registry *shell, t_job *job,
 	{
 		exit_status = ft_itoa(WTERMSIG(status) + 128);
 		current->stopped = TRUE;
+		ft_printf("SIGNALED by: %d\n", exit_status);
 	}
 	add_var(&shell->intern, "?", exit_status, READONLY_VAR);
 	ft_strdel(&exit_status);
@@ -109,8 +110,6 @@ int8_t			waiter(t_registry *shell, t_job *job)
 													, job->pgid
 													, job->signo);
 	job->state ^= (RUNNING | ENDED);
-
-//	ft_printf("Waiter skipped or job is done.\n");
 	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
 	return (SUCCESS);
 }

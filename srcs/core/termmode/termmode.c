@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 21:22:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 22:12:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int16_t          init_term_modes(struct termios *sle,
 	if ((tcgetattr(STDIN_FILENO, sle)) == FAILURE)
         return (CRITICAL_ERROR | TERMMDE_FAIL);
 
-    sle->c_lflag &= ~(ICANON);
+    sle->c_lflag &= ~(ICANON | TOSTOP);
 	sle->c_lflag &= ~(ECHO);
 	sle->c_lflag |= ISIG;
 	sle->c_cc[VMIN] = 1;

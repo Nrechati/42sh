@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 21:29:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 22:11:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,9 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 		ft_lstiter_ctx(job_lst, &flag, set_signaled);
 		return (SUCCESS);
 	}
-
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
 	ft_lstdel(cmd_group, del_group);
 	load_signal_profile(EXEC_PROFILE);
-
 	ft_lstiter_ctx(job_lst, shell, run_job);
 	add_var(&shell->intern, "job_type", "0", READONLY_VAR);
 	ft_lstdel(&job_lst, del_job);
