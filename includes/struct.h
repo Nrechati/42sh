@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/29 15:06:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:27:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,12 @@ typedef struct			s_registry
 	t_list				*intern;
 	t_opt				option;
 	t_hashmap			hash;
-
 	pid_t				pid;
 	t_list				*job_list;
 	uint64_t			active_jobs;
 	t_list				*current_plus;
 	t_list				*current_minus;
 	uint8_t				sigint;
-
-	struct termios		*sle_mode;
-	struct termios		*exec_mode;
-	struct termios		*orig_mode;
 }						t_registry;
 
 extern t_registry		*g_shell;
