@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:40:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/27 18:32:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 14:35:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,21 @@ void		m_unary_analyzer(t_arithmetic *arithmetic)
 void		convert_logical_operator(t_arithmetic *arithmetic, t_rpn_tk *token)
 {
 	if (arithmetic->curr_token->type == E_M_LESS)
-		token->value.type |= LESS ;
+		token->value.type = LESS ;
 	else if (arithmetic->curr_token->type == E_M_GREAT)
-		token->value.type |= GREAT;
+		token->value.type = GREAT;
 	else if (arithmetic->curr_token->type == E_M_LESSEQ)
-		token->value.type |= LESSEQ;
+		token->value.type = LESSEQ;
 	else if (arithmetic->curr_token->type == E_M_GREATEQ)
-		token->value.type |= GREATEQ;
+		token->value.type = GREATEQ;
 	else if (arithmetic->curr_token->type == E_M_EQUAL)
-		token->value.type |= EQUAL;
+		token->value.type = EQUAL;
 	else if (arithmetic->curr_token->type == E_M_NEQUAL)
-		token->value.type |= DIFF;
+		token->value.type = DIFF;
 	else if (arithmetic->curr_token->type == E_M_AND)
-		token->value.type |= AND;
+		token->value.type = AND;
 	else if (arithmetic->curr_token->type == E_M_OR)
-		token->value.type |= OR;
+		token->value.type = OR;
 }
 
 void		m_logical_operator(t_arithmetic *arithmetic)
