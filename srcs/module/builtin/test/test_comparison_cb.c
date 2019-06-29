@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 08:48:25 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 09:04:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/29 13:20:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ uint8_t		test_lt_cb(void *data, void *more)
 	n2 = more;
 	if (!n1 || !n2)
 		return (ERROR);
-if (ft_atoi(n1) < ft_atoi(n2))
+	if (ft_atoi(n1) < ft_atoi(n2))
 		return (TRUE);
 	return (FALSE);
 }
