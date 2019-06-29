@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:13:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 11:06:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:23:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,10 @@ static void		free_hash(t_hash hashmap, void (*del)(void *))
 	ft_free(hashmap.map);
 	hashmap.map = NULL;
 }
-/*
-void		free_intern_var(t_list *lst)
-{
-	if (lst != NULL)
-	{
-		if (lst->next != NULL)
-			free_intern_var(lst->next);
-		if (lst->data)
-			free_node(lst->data);
-		ft_free(lst);
-		lst = NULL;
-	}
-}*/
 
 static void		free_registry(t_registry *shell)
 {
 	free_opt(shell->option);
-	//free_intern_var(shell->intern);
 	ft_lstdel(&shell->intern, free_node);
 	free_hash(shell->hash.bin, ft_free);
 	free_hash(shell->hash.blt, NULL);
@@ -58,7 +44,7 @@ void				shell_exit_routine(t_registry *shell, int8_t ret)
 		}
 		if (shell->option.option & INTERACTIVE_OPT)
 			sle(shell, NULL, SLE_EXIT);
-	
+
 		if ((shell->option.option & DEBUG_OPT) != FALSE)
 			close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));
 		free_registry(shell);

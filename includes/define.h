@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:03:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:43:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,16 +356,16 @@
 # define NO_PIPE					0x008
 # define VALID_PROCESS				0x010
 
-# define IS_BLT						0x001
-# define IS_BIN						0x002
-# define IS_ABS						0x004
-# define IS_ASSIGN					0x008
-# define IS_ALONE					0x010
-# define IS_NOTFOUND				0x020
-# define IS_OPEN_FAILED				0x040
-# define IS_DUP_FAILED				0x080
-# define IS_CRITICAL				0x100
-# define IS_EXP_ERROR				0x200
+# define IS_BLT						0x0001
+# define IS_BIN						0x0002
+# define IS_ABS						0x0004
+# define IS_ASSIGN					0x0008
+# define IS_NOTFOUND				0x0010
+# define IS_OPEN_FAILED				0x0020
+# define IS_DUP_FAILED				0x0040
+# define IS_CRITICAL				0x0080
+# define IS_EXP_ERROR				0x0100
+# define IS_ALONE					0x1000
 
 /*
 *****************************************************
@@ -456,6 +456,7 @@
 # define RD_VISUAL		0x400
 # define RD_SEARCH      0x800
 
+# define BAD_PERCENTAGE		0x001
 # define CRITICAL_ERROR     0x001
 # define MALLOC_FAIL        0x002
 # define VCT_FAIL           0x004
@@ -467,7 +468,7 @@
 # define WINDOW_FAIL        0x100
 # define CURSOR_FAIL        0x200
 # define PRMPT_FAIL         0x400
-# define INVALID_TERMCAPS 	0x800
+# define INVALID_TERMCAPS	0x800
 
 # define SETUP_DONE			0x800
 

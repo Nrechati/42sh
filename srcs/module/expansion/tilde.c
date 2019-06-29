@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/26 22:17:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 17:01:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char		*tilde(t_list *intern_var, char *str)
 	if (ft_strbeginswith(str, "~") == FALSE)
 		return (ft_strdup(str));
 	i = ft_strcspn(str, "/");
+	if (str[i] == '\0' && i >= 2)
+		return (ft_strdup(str));
 	str[i] = character_swap(str[i]);
 	expanded = tilde_expansion(intern_var, str);
 	str[i] = character_swap('\0');

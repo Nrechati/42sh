@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:05:16 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 23:32:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:18:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	init_stop(t_analyzer analyzer)
 	analyzer[P_STOP][E_ANDGREAT] = redirect_analyzer;
 	analyzer[P_STOP][E_ANDDGREAT] = redirect_analyzer;
 	analyzer[P_STOP][E_IO_NUMBER] = io_analyzer;
+	analyzer[P_STOP][E_PIPE] = pipe_analyzer;
 	analyzer[P_STOP][E_SEMICOLON] = stop_analyzer;
 	analyzer[P_STOP][E_AND] = stop_analyzer;
 	analyzer[P_STOP][E_NEWLINE] = stop_analyzer;
@@ -65,6 +66,7 @@ void	init_error(t_analyzer analyzer)
 	analyzer[P_ERROR][E_ANDDGREAT] = end_analyzer;
 	analyzer[P_ERROR][E_IO_NUMBER] = end_analyzer;
 	analyzer[P_ERROR][E_SEMICOLON] = stop_analyzer;
+	analyzer[P_ERROR][E_PIPE] = pipe_analyzer;
 	analyzer[P_ERROR][E_AND] = stop_analyzer;
 	analyzer[P_ERROR][E_NEWLINE] = stop_analyzer;
 	analyzer[P_ERROR][E_END] = end_analyzer;
