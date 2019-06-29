@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 02:46:51 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/29 21:53:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 01:28:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int			default_expansion(t_list *intern, t_parameter *param, int mode)
 	word = mode & EXPANDED_PARAM ? param->tokens->next->next->data : NULL;
 	status = get_var_status(intern, parameter->data);
 	if (status < 0)
-		param->expanded = ft_strdup(word->data);
+		param->expanded = ft_strdup(word ? word->data : "");
 	else if ((data = get_var(intern, parameter->data)) == NULL)
 	{
 		if (param->modifier & COLON_ON && status & SET_VAR)
-			param->expanded = ft_strdup(word->data);
+			param->expanded = ft_strdup(word ? word->data : "");
 		else
 			param->expanded = ft_strdup("");
 	}
@@ -46,15 +46,16 @@ int			assign_expansion(t_list *intern, t_parameter *param, int mode)
 	status = get_var_status(intern, ((t_pex_token *)param->tokens->data)->data);
 	if (status < 0)
 	{
-		add_var(&intern, param->tokens->data, word->data, SET_VAR);
+		add_var(&intern, param->tokens->data, word ? word->data : "", SET_VAR);
 		param->expanded = ft_strdup(word->data);
 	}
 	else if ((data = get_var(intern, param->tokens->data)) == NULL)
 	{
 		if (param->modifier & COLON_ON && status & SET_VAR)
 		{
-			add_var(&intern, param->tokens->data, word->data, SET_VAR);
-			param->expanded = ft_strdup(word->data);
+			add_var(&intern, param->tokens->data, word ? word->data
+														: "", SET_VAR);
+			param->expanded = ft_strdup(word == NULL ? "" : word->data);
 		}
 		else
 			param->expanded = ft_strdup("");
@@ -66,7 +67,10 @@ int			assign_expansion(t_list *intern, t_parameter *param, int mode)
 
 static int	error_exists(char *parameter, char *message)
 {
-	ft_dprintf(2, "42sh: %s: %s\n", parameter, message);
+	if (message == NULL)
+		ft_dprintf(2, "42sh: %s: %s\n", parameter, PEX_NULL_DEFAULT);
+	else
+		ft_dprintf(2, "42sh: %s: %s\n", parameter, message);
 	return (-1);
 }
 
@@ -81,11 +85,11 @@ int			exists_expansion(t_list *intern, t_parameter *param, int mode)
 	word = mode & EXPANDED_PARAM ? param->tokens->next->next->data : NULL;
 	status = get_var_status(intern, parameter->data);
 	if (status < 0)
-		return (error_exists(parameter->data, word->data));
+		return (error_exists(parameter->data, word ? word->data : NULL));
 	else if ((data = get_var(intern, parameter->data)) == NULL)
 	{
 		if (param->modifier & COLON_ON && status & SET_VAR)
-			return (error_exists(parameter->data, word->data));
+			return (error_exists(parameter->data, word ? word->data : NULL));
 		else
 			param->expanded = ft_strdup("");
 	}
@@ -109,11 +113,11 @@ int			replace_expansion(t_list *intern, t_parameter *param, int mode)
 	else if (status > 0 && (data = get_var(intern, parameter->data)) == NULL)
 	{
 		if (param->modifier & COLON_ON && status & SET_VAR)
-			param->expanded = ft_strdup(word->data);
+			param->expanded = ft_strdup(word ? word->data : "");
 		else
 			param->expanded = ft_strdup("");
 	}
 	else
-		param->expanded = ft_strdup(word->data);
+		param->expanded = ft_strdup(word ? word->data : "");
 	return (0);
 }

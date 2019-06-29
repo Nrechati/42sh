@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/29 23:52:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 01:20:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define PEX_ADVANCED_EXP 	6
 # define PEX_SPECIAL		"$0?-"
 # define PEX_PARAM_INTERUPT " ${}:-?=+%#\"\'"
+# define PEX_NULL_DEFAULT	"parameter null or not set"
 # define PEX_VALID_DELIM 	" :-?=+%#"
 # define PEX_FIRST_DELIM 	" {}-?=+%#"
 # define PEX_NEXT_DELIM 	" ${}?=+%#"
