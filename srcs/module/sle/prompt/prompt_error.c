@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 16:54:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:18:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ inline t_vector *read_error(t_registry *shell, t_sle *sle)
 		ft_printf("Returning NULL\n");
 		return (NULL);
 	}
-	vct_del(&(sle->prompt.text));
-	g_shell->sigint = FALSE;
-	return (prompt(shell, sle));
+//	vct_del(&(sle->prompt.text));
+	if (g_shell->sigint == TRUE)
+	{
+		g_shell->sigint = FALSE;
+		return (prompt(shell, sle));
+	}
+	return (NULL);
 }

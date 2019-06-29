@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 16:55:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:47:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	prompt_post_process(t_registry *shell, t_sle *sle)
 	redraw(shell, sle);
 	ft_putendl("");
 	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
-		verif_line(sle);
+		verif_line(sle, sle->line);
 }
 
 t_vector	*prompt(t_registry *shell, t_sle *sle)

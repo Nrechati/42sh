@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 14:43:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 22:16:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,12 @@ void	job_to_foreground(t_registry *shell, t_job *job)
 	waiter(shell, job);
 }
 
-void	job_run_background(t_registry *shell, t_job *job)
+void	job_run_background(__unused t_registry *shell, t_job *job)
 {
-	if (job->state == STOPPED)
-	{
-		job->state = RUNNING;
-		job->signo = SIGCONT;
-		killpg(job->pgid, SIGCONT);
-		waiter(shell, job);
-	}
+	job->state = RUNNING;
+	job->signo = SIGCONT;
+	killpg(job->pgid, SIGCONT);
+	waiter(shell, job);
 }
 
 void	jobctl(__unused t_registry *shell, t_job *job, uint8_t flag)

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:43:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:37:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,11 +375,9 @@
 
 # define JOBCTL_PLUS					0x01
 # define JOBCTL_MINUS					0x02
-
 # define JOBCTL_LIST					0x01 /* List jobs in bg | Builtin jobs */
 # define JOBCTL_LONG					0x02
 # define JOBCTL_ID						0x04
-
 # define JOBCTL_PUTINBG					0x08 /* Save job to jobctl module */
 # define JOBCTL_PUTINFG					0x10 /* Restore bg job to fg | builtin fg */
 # define JOBCTL_RUNINBG					0x20 /* Exec a bg job in bg | builtin bg */
@@ -444,18 +442,14 @@
 # define RD_CLEAR       0x002 /* Redraw th entire window*/
 # define RD_LINE      	0x004 /* Redraw entire line */
 # define RD_LAST        0x008 /* redraw only last char of line vect */
-
 # define RD_FPTP        0x010 /* From point to point (index / t_coord) */
 # define RD_FPTE        0x020 /* From point to end */
 # define RD_FSTP        0x040 /* From start to point */
-
 # define RD_CEND        0x080 /* Put cursor at end */
 # define RD_CHOME       0x100 /* Put cursor at home */
 # define RD_CMOVE       0x200 /* Put cursor to point / index */
-
 # define RD_VISUAL		0x400
 # define RD_SEARCH      0x800
-
 # define BAD_PERCENTAGE		0x001
 # define CRITICAL_ERROR     0x001
 # define MALLOC_FAIL        0x002
@@ -469,12 +463,7 @@
 # define CURSOR_FAIL        0x200
 # define PRMPT_FAIL         0x400
 # define INVALID_TERMCAPS	0x800
-
 # define SETUP_DONE			0x800
-
-
-# define HIST_FAIL          999
-
 # define P_DATE				'd'
 # define P_NAME				's'
 # define P_USER				'u'
@@ -500,9 +489,11 @@
 # define AK_CTRL_D_MASK 			0x0400000000000000
 # define AK_CTRL_L_MASK				0x0c00000000000000
 # define AK_CTRL_F_MASK				0x0600000000000000
+
 # define AK_CTRL_X_MASK				0x1800000000000000
 # define AK_CTRL_B_MASK				0x0200000000000000
 # define AK_CTRL_P_MASK				0x1000000000000000
+
 # define AK_CTRL_R_MASK				0x1200000000000000
 # define AK_CTRL_T_MASK				0x1400000000000000
 # define AK_CTRL_UP_MASK			0x1b5b313b35410000

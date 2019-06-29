@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/15 15:05:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:36:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void					batch_mode(t_registry *shell)
 		ft_putendl_fd("42sh: Not a valid input", 2);
 	else
 	{
-		execution_pipeline(shell, cmd);
+		if (verif_line(NULL, cmd) == TRUE)
+			execution_pipeline(shell, cmd);
 		vct_del(&cmd);
 	}
 }
-
