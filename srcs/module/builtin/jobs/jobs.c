@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 16:03:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 22:20:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:14:41 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_option		get_option_jobs(char *s, t_option option)
 		{
 			ft_dprintf(STDERR_FILENO,
 					"42sh: jobs: -%c: invalid option\n", *s);
-			ft_dprintf(STDERR_FILENO, "jobs: usage: jobs [-l|-p] [job_id]\n");
+			ft_dprintf(STDERR_FILENO, "jobs: usage: jobs [-l|-p] [%%job_id]\n");
 			return (ERROR_OPT);
 		}
 		s++;
@@ -61,9 +61,12 @@ uint8_t		jobs_blt(t_registry *shell, char **av)
 		while (*av != NULL)
 		{
 			result = parse_jobid(&job, *av);
-			if (result == FAILURE)
+			if (result == FAILURE || result == BAD_PERCENTAGE)
 			{
-				ft_printf("jobs: %s: no such job.\n", *av);
+				if (result == FAILURE)
+					ft_printf("jobs: %s: no such job.\n", *av);
+				else
+					ft_printf("jobs: usage: jobs [-l|-p] [%%jobID]\n");
 				ret = 1;
 				++av;
 				continue ;

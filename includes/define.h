@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 13:10:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:11:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,6 +456,7 @@
 # define RD_VISUAL		0x400
 # define RD_SEARCH      0x800
 
+# define BAD_PERCENTAGE		0x001
 # define CRITICAL_ERROR     0x001
 # define MALLOC_FAIL        0x002
 # define VCT_FAIL           0x004

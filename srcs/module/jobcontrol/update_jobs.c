@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:07:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 11:32:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 14:49:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	push_current_job(t_registry *shell, t_list *job)
 {
 	shell->current_minus = shell->current_plus;
 	shell->current_plus = job;
+	add_var(&shell->intern, "!", ft_itoa(((t_job*)job->data)->pgid), READONLY_VAR);
 }
 
 void	pop_current_job(t_registry *shell, t_job *job)

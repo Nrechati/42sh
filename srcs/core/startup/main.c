@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/25 10:01:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:31:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int		main(int ac, char **av, char **env) // exit by shell_exit_routine
 {
 	t_registry		shell;
 
-
 	(void)ac;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
@@ -70,6 +69,6 @@ int		main(int ac, char **av, char **env) // exit by shell_exit_routine
 	g_shell = &shell;
 
 	launch_shell(&shell);
-	shell_exit_routine(&shell, SUCCESS);
+	exit_blt(&shell, NULL);
 	return (SUCCESS); // Never reaches this point
 }

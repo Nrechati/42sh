@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 15:39:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 21:35:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:21:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@ uint8_t		bg_blt(t_registry *shell, __unused char **av)
 	while (*av != NULL)
 	{
 		result = parse_jobid(&job, *av);
-		if (result == FAILURE
+		if (result == FAILURE || result == BAD_PERCENTAGE
 				|| (result == SUCCESS && shell->current_plus == NULL))
 		{
-			ft_printf("42sh: bg: %s: no such job\n", *av);
+			if (result == BAD_PERCENTAGE)
+				ft_printf("bg: usage: bg [%%jobID]\n");
+			else
+				ft_printf("42sh: bg: %s: no such job\n", *av);
 			ret = 1;
 		}
 		else
