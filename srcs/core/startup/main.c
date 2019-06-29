@@ -64,10 +64,10 @@ int		main(int ac, char **av, char **env) // exit by shell_exit_routine
 	if (setpgid(shell.pid, shell.pid) < 0)
 	{
 		ft_dprintf(2, "Failed Setpgid\n");
-		exit(-1);
+		shell_exit_routine(&shell, FAILURE);
 	}
-	tcsetpgrp(STDOUT_FILENO, shell.pid);
-	g_shell = &shell;
+	if (shell.option.option & INTERACTIVE_OPT)
+		tcsetpgrp(STDOUT_FILENO, shell.pid);
 
 	launch_shell(&shell);
 	shell_exit_routine(&shell, SUCCESS);
