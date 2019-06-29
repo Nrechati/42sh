@@ -20,7 +20,7 @@ uint8_t				unset_blt(t_registry *shell, char **av)
 	ret = SUCCESS;
 	while (*av != NULL)
 	{
-		if (ft_isnumeric(*av) == TRUE || multi_strchr("!?$-=", *av) == TRUE)
+		if (ft_isdigit(av[0][0]) == TRUE || multi_strchr("!?$-=", *av) == TRUE)
 		{
 			ft_dprintf(STDERR_FILENO,
 					"42sh: unset: `%s': not a valid identifier\n", *av);

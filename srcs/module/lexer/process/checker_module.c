@@ -97,6 +97,11 @@ uint8_t	is_assignation(t_lexer *lexer)
 		&& lexer->token_type == E_STRING
 		&& lexer->assignation == POSSIBLE)
 	{
+		if (lexer->buffer->buffer == NULL
+			|| lexer->buffer->buffer[0] == '\0'
+			|| ft_isdigit(lexer->buffer->buffer[0]) == TRUE
+			|| multi_strchr("!?$-=", lexer->buffer->buffer) == TRUE)
+			return (FALSE);
 		lexer->token_type = E_ASSIGN;
 		lexer->index++;
 		out_lexer(lexer);
