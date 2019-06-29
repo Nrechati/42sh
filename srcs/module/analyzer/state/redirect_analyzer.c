@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 23:00:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:42:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void			flush_redirect(t_resolution *resolve)
 	enum e_type	type;
 	t_list		*node;
 	t_action	action;
-	t_token		*token;
+//	t_token		*token;
 
 	resolve->state = P_REDIRECT_FLUSH;
 	ft_bzero(&action, sizeof(t_action));
 	node = ft_stckpopnode(&resolve->stack);
-	token = node->data;
+//	token = node->data;
 	ft_lstaddback(&action.data, node);
 	node = ft_stckpopnode(&resolve->stack);
 	action.type = define_redirect(node->data);
