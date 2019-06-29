@@ -6,12 +6,13 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:33:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 18:34:03 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:23:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_HISTORY_H
 # define FT_HISTORY_H
+# include "struct.h"
 
 /*
 *****************

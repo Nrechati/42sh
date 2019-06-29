@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:22:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 18:11:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:22:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AUTOCOMPLETION_H
 # define AUTOCOMPLETION_H
-
+# include "struct.h"
 # define RESET_RESULT	0x0001
 # define NEW_SEARCH		0x0002
 

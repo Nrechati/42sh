@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:16:54 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 17:20:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:29:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static int end_parameter(t_parameter *param)
+static int	end_parameter(t_parameter *param)
 {
 	if (ft_strlen(param->buffer->buffer) == 0)
 	{
@@ -66,7 +66,7 @@ static void	pex_delimiter(t_parameter *param)
 	}
 }
 
-void	generate_pex_token(t_parameter *param)
+void		generate_pex_token(t_parameter *param)
 {
 	t_list			*node;
 	t_pex_token		token;
@@ -85,7 +85,7 @@ void	generate_pex_token(t_parameter *param)
 	param->buffer = vct_new(DEFAULT_PEX_BUFFER);
 }
 
-void	parameter_lexer(t_parameter *parameter)
+void		parameter_lexer(t_parameter *parameter)
 {
 	static t_paramexp	state[PEX_STATES];
 

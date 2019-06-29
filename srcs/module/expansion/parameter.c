@@ -6,18 +6,18 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:51:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/25 17:19:39 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:30:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int		parameter_replace(char **dest, int index, t_parameter *param)
+int		parameter_replace(char **dest, int i, t_parameter *param)
 {
 	t_vector *vector;
 
 	vector = vct_dups(*dest);
-	vct_replace_string(vector, index, index + param->index + 1, param->expanded);
+	vct_replace_string(vector, i, i + param->index + 1, param->expanded);
 	ft_strdel(dest);
 	*dest = ft_strdup(vct_get_string(vector));
 	vct_del(&vector);
@@ -47,7 +47,7 @@ int		error_parameter(char **dest, t_parameter *parameter)
 	return (-1);
 }
 
-int 	parameter_expansion(t_list *intern, char **dest, int i)
+int		parameter_expansion(t_list *intern, char **dest, int i)
 {
 	t_parameter parameter;
 

@@ -6,12 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 16:09:16 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:23:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+# include "struct.h"
 
 int8_t		parser(t_vector *input, t_list *lst);
 uint8_t		need_subprompt(enum e_type state, enum e_type type);

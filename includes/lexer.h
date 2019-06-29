@@ -6,12 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 13:43:06 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:23:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
+# include "struct.h"
 
 t_list		*lexer(t_vector *line, uint8_t opt);
 void		set_inhibitor(t_lexer *lexer);

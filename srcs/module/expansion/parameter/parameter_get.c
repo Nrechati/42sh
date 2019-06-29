@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 00:09:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 18:27:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:41:16 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,10 @@ int		advanced_expansion(t_list *intern, t_parameter *parameter)
 	static t_advanced_pex	expansion[PEX_ADVANCED_EXP];
 	int						delim;
 	t_pex_token 			*param;
-//	t_pex_token 			*word;
 
 	if (expansion[0] == NULL)
 		init_advanced_pex(expansion);
 	param = parameter->tokens->data;
-//	word = parameter->tokens->next->next->data;
 	delim = get_delimiter(parameter, parameter->tokens->next->data);
 	if (delim < 0 || param->data[0] == '#')
 	{
@@ -71,9 +69,27 @@ int		advanced_expansion(t_list *intern, t_parameter *parameter)
 		return (expansion[delim](intern, parameter));
 }
 
-int		double_parameter(__unused t_list *intern,__unused t_parameter *parameter)
+int		double_parameter(t_list *intern, t_parameter *parameter)
 {
-	return (-1);
+	static t_advanced_pex	expansion[PEX_ADVANCED_EXP];
+	int						delim;
+	t_pex_token 			*param;
+	t_pex_token				empty;
+	t_list					*node;
+
+	if (expansion[0] == NULL)
+		init_advanced_pex(expansion);
+	empty.type = PEX_WORD;
+	empty.data = "";
+	param = parameter->tokens->data;
+	delim = get_delimiter(parameter, parameter->tokens->next->data);
+	if (delim < 0 || param->data[0] == '#')
+	{
+		ft_dprintf(2, "42sh: %s: bad substitution\n", parameter->source);
+		return (-1);
+	}
+	else
+		return (expansion[delim](intern, parameter));
 }
 
 int		parameter_get(t_list *intern, t_parameter *parameter)

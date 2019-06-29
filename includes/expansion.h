@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 18:29:32 by Nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:59:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@
 # define PEX_FIRST_DELIM 	" {}-?=+%#"
 # define PEX_NEXT_DELIM 	" ${}?=+%#"
 # define DEFAULT_PEX_BUFFER 64
+# define EXPANDED_PARAM		0x01
+# define EMPTY_PARAM		0x02
 
 typedef struct s_parameter	t_parameter;
 typedef void				(*t_paramexp)(t_parameter *);
-typedef int					(*t_advanced_pex)(t_list *, t_parameter *);
+typedef int					(*t_advanced_pex)(t_list *, t_parameter *, int);
 
 enum						e_paramexp
 {
@@ -92,6 +94,7 @@ struct						s_parameter
 # define POST_DECRE			0x08080000
 # define OPEN_P				0x10100000
 # define CLOSE_P			0x10200000
+
 
 typedef struct s_arithmetic	t_arithmetic;
 typedef void				(*t_arithmexp)(t_arithmetic *);
@@ -190,21 +193,15 @@ int							parameter_parse(t_list *intern
 void						parameter_lexer(t_parameter *parameter);
 void						generate_pex_token(t_parameter *param);
 void						pex_word(t_parameter *param);
+int			replace_expansion(t_list *intern, t_parameter *param, int mode);
+int			exists_expansion(t_list *intern, t_parameter *param, int mode);
+int			assign_expansion(t_list *intern, t_parameter *param, int mode);
+int			default_expansion(t_list *intern, t_parameter *param, int mode);
+int			prefix_expansion(t_list *intern, t_parameter *param, int mode);
+int			suffix_expansion(t_list *intern, t_parameter *param, int mode);
+
 int							get_delimiter(t_parameter *param
 													, t_pex_token *token);
-int							prefix_expansion(t_list *intern
-													, t_parameter *param);
-int							suffix_expansion(t_list *intern
-													, t_parameter *param);
-int							replace_expansion(t_list *intern
-													, t_parameter *param);
-int							exists_expansion(t_list *intern
-													, t_parameter *param);
-int							assign_expansion(t_list *intern
-													, t_parameter *param);
-int							default_expansion(t_list *intern
-													, t_parameter *param);
-void						parameter_print_debug(t_list *token_list);
 
 char						*arithmetic_expansion(t_list *intern, char *input);
 int8_t						arithmetic_analyzer(t_arithmetic *arithmetic);

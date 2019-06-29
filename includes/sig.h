@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:02:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/19 09:30:34 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:24:20 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <sys/types.h>
 #include <signal.h>
+# include "struct.h"
 
 void	load_signal_profile(uint8_t profile_flag);
 void	init_tab_signal_exec(struct sigaction tab_signal[NB_SIGNALS]);
