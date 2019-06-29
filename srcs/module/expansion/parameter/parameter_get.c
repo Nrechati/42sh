@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 00:09:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/29 21:41:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 23:50:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		advanced_expansion(t_list *intern, t_parameter *parameter)
 		return (-1);
 	}
 	else
-		return (expansion[delim](intern, parameter));
+		return (expansion[delim](intern, parameter, EXPANDED_PARAM));
 }
 
 int		double_parameter(t_list *intern, t_parameter *parameter)
@@ -75,12 +75,10 @@ int		double_parameter(t_list *intern, t_parameter *parameter)
 	int						delim;
 	t_pex_token 			*param;
 	t_pex_token				empty;
-	t_list					*node;
 
 	if (expansion[0] == NULL)
 		init_advanced_pex(expansion);
 	empty.type = PEX_WORD;
-	empty.data = "";
 	param = parameter->tokens->data;
 	delim = get_delimiter(parameter, parameter->tokens->next->data);
 	if (delim < 0 || param->data[0] == '#')
@@ -89,7 +87,7 @@ int		double_parameter(t_list *intern, t_parameter *parameter)
 		return (-1);
 	}
 	else
-		return (expansion[delim](intern, parameter));
+		return (expansion[delim](intern, parameter, EMPTY_PARAM));
 }
 
 int		parameter_get(t_list *intern, t_parameter *parameter)
