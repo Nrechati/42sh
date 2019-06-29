@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 13:10:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:03:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,9 +304,9 @@
 # define M_OPENP					"("
 # define M_CLOSEP					")"
 # define M_LESS						"<"
+# define M_LESSEQ					"<="
 # define M_GREAT					">"
-# define M_LESSOR					"<="
-# define M_GREATOR					">="
+# define M_GREATEQ					">="
 # define M_EQUAL					"=="
 # define M_NEQUAL					"!="
 # define M_AND						"&&"
