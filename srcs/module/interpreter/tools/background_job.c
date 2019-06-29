@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 21:24:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 21:43:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:48:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,18 @@
 void	run_background_job(t_registry *shell, t_job *job)
 {
 	if (job != NULL)
-		jobctl(shell, job, JOBCTL_RUNINBG);
+	{
+//		ft_printf("Running in background");
+
+		killpg(job->pgid, SIGSTOP);
+
+		job->state = STOPPED;
+		job->signo = SIGTSTP;
+		shell->active_jobs++;
+		job->id = (shell->active_jobs);
+
+		jobctl(shell, job, JOBCTL_PUTINBG);
+//		jobctl(shell, job, JOBCTL_RUNINBG);
+		tcsetpgrp(STDOUT_FILENO, shell->pid);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 18:12:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:29:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,10 @@ static int		run_job(void *context, void *data)
 	ft_lstiter(job->processes, del_process_redirect);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 
-
-
-	waiter(shell, job);
-//	del_job(job);
-
+	if (job->job_type == GROUP_BG)
+		run_background_job(shell, job);
+	else
+		waiter(shell, job);
 	return (SUCCESS);
 }
 
@@ -149,9 +148,7 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 	}
 
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
-
 	ft_lstdel(cmd_group, del_group);
-
 	load_signal_profile(EXEC_PROFILE);
 
 	ft_lstiter_ctx(job_lst, shell, run_job);

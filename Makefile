@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/29 14:27:16 by skuppers         ###   ########.fr        #
+#    Updated: 2019/06/29 19:49:58 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -418,6 +418,7 @@ INTERPRETER += map_tools.c
 INTERPRETER += interpreter_tools.c
 INTERPRETER += process_tools.c
 INTERPRETER += print_tools.c
+INTERPRETER += background_job.c
 
 #						   - - - - Jobcontrol - - - -                          #
 

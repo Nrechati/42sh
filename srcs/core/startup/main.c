@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 19:10:46 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:37:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int8_t	init_shell(t_registry *shell, char **av, char **env)
 	return (SUCCESS);
 }
 
-int		main(int ac, char **av, char **env) // exit by shell_exit_routine
+int		main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 
@@ -65,10 +65,12 @@ int		main(int ac, char **av, char **env) // exit by shell_exit_routine
 		ft_dprintf(2, "Failed Setpgid\n");
 		shell_exit_routine(&shell, FAILURE);
 	}
+
 	if (shell.option.option & INTERACTIVE_OPT)
 		tcsetpgrp(STDOUT_FILENO, shell.pid);
 
 	launch_shell(&shell);
 	exit_blt(&shell, NULL);
-	return (SUCCESS); // Never reaches this point
+	ft_printf("42sh: Unexpected shutdown.\n");
+	return (FAILURE);
 }

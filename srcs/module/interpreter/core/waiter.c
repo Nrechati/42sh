@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 21:15:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:48:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ int8_t			waiter(t_registry *shell, t_job *job)
 													, job->pgid
 													, job->signo);
 	job->state ^= (RUNNING | ENDED);
+
+//	ft_printf("Waiter skipped or job is done.\n");
 	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
 	return (SUCCESS);
 }

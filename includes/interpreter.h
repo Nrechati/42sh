@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 22:36:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:49:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 ********************** MAPING ***********************
 *****************************************************
 */
+
+void			run_background_job(t_registry *shell, t_job *job);
 
 int8_t 			interpreter(t_registry *shell, t_list **cmd_group
 					, int flag);
