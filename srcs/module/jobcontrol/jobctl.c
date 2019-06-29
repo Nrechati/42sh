@@ -73,7 +73,7 @@ void	job_to_foreground(t_registry *shell, t_job *job)
 	waiter(shell, job);
 }
 
-void	job_run_background(__unused t_registry *shell, t_job *job)
+void	job_run_background(t_registry *shell, t_job *job)
 {
 	if (job->state == STOPPED)
 	{
@@ -86,6 +86,9 @@ void	job_run_background(__unused t_registry *shell, t_job *job)
 
 void	jobctl(__unused t_registry *shell, t_job *job, uint8_t flag)
 {
+	if (is_shell_interactive(shell) == FALSE)
+		return ;
+
 	if (flag & JOBCTL_LIST)
 		print_jobs(shell, job, flag);
 	else if (flag & JOBCTL_PUTINBG)

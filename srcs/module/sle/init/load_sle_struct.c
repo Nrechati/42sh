@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 16:07:09 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/29 14:26:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ uint64_t    init_window(t_sle *sle)
     sle->window.rows = (w.ws_row <= 0) ? 1 : w.ws_row;
 	sle->window.cols = (w.ws_col <= 0) ? 1 : w.ws_col;
     if ((sle->window.displayed_line = vct_new(0)) == NULL)
-        return (CRITICAL_ERROR | WINDOW_FAIL | VCT_FAIL);
+		return (CRITICAL_ERROR | LINE_FAIL);
     return (SUCCESS);
 }
 

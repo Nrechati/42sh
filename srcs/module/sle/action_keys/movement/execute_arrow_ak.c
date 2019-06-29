@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:29 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 19:58:39 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/29 13:05:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-static void            find_x3_coord(t_sle *sle, uint32_t prompt_len)
+static void				find_x3_coord(t_sle *sle, uint32_t prompt_len)
 {
 	char    *tmp;
 	char    *tmp2;
@@ -48,7 +48,7 @@ static void            find_x3_coord(t_sle *sle, uint32_t prompt_len)
 			sle->cursor.x3++;
 }
 
-static void            find_x2_coord(t_sle *sle, uint32_t prompt_len,
+static void				find_x2_coord(t_sle *sle, uint32_t prompt_len,
 							int8_t offset)
 {
 	char		*tmp;
@@ -87,7 +87,7 @@ static void            find_x2_coord(t_sle *sle, uint32_t prompt_len,
 	ft_strdel(&cmd_offset);
 }
 
-void            find_multiline_coord(t_sle *sle, int8_t offset)
+void				find_multiline_coord(t_sle *sle, int8_t offset)
 {
 	uint32_t	prompt_len;
 
@@ -96,10 +96,11 @@ void            find_multiline_coord(t_sle *sle, int8_t offset)
 	find_x3_coord(sle, prompt_len);
 }
 
-int8_t				ak_arrow_right(__unused t_registry *shell, t_sle *sle)
+int8_t				ak_arrow_right(t_registry *shell, t_sle *sle)
 {
 	int8_t offset;
 
+	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
 	offset = 1;
@@ -113,10 +114,11 @@ int8_t				ak_arrow_right(__unused t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t				ak_arrow_left(__unused t_registry *shell, t_sle *sle)
+int8_t				ak_arrow_left(t_registry *shell, t_sle *sle)
 {
 	int8_t offset;
 
+	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
 	offset = -1;
@@ -130,11 +132,12 @@ int8_t				ak_arrow_left(__unused t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t				ak_arrow_up(__unused t_registry *shell, t_sle *sle)
+int8_t				ak_arrow_up(t_registry *shell, t_sle *sle)
 {
-	char		*hist_cmd;
 	uint64_t	len;
+	char		*hist_cmd;
 
+	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
 		return (FAILURE);
 	if (sle->state == STATE_STD && sle->line_save == NULL)
@@ -151,12 +154,12 @@ int8_t				ak_arrow_up(__unused t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-int8_t				ak_arrow_down(__unused t_registry *shell,
-		__unused t_sle *sle)
+int8_t				ak_arrow_down(t_registry *shell, t_sle *sle)
 {
 	char 		*hist_cmd;
 	uint64_t	len;
 
+	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
 		return (FAILURE);
 	if (sle->state == STATE_SEARCH)

@@ -13,22 +13,12 @@
 #include "sh21.h"
 #include <termcap.h>
 
-uint64_t	get_prompt_length(t_prompt *prompt)
-{
-	ft_dprintf(3, "Prompt text: |%s|\n", prompt->text->buffer);
-	ft_dprintf(3, "Prompt length: |%lu|\n", vct_len(prompt->text));
-	return (prompt->length);
-}
-
 static void	expand_prompt(t_sle *sle, t_vector *text)
 {
 	int64_t	length;
 	int64_t	index;
 
 	index = -1;
-
-//	text = sle->interns.ps2;
-
 	length = vct_len(text);
 	while (index < length)
 	{
@@ -85,6 +75,7 @@ static uint8_t            prompt_need_alignment(void)
 	}
     return ((x != 1) ? TRUE : FALSE);
 }
+
 static void		align_prompt(__unused t_sle *sle)
 {
 	tputs(sle->termcaps.standout_on, 1, &ft_putc);
