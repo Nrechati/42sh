@@ -37,10 +37,10 @@
 # define SH_GENERAL_ERROR			"42sh: "
 # define SH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
 
-# define SH21_USAGE_1				"Usage: 21sh [long option] [-dh] "
-# define SH21_USAGE_2				"[-c CMD]\n"
-# define SH21_USAGE_LONG_OPTION		"\n\t--help\n\t"
-# define SH21_USAGE_LONG_OPTION_2	"--debug\n"
+# define SH42_USAGE_1				"Usage: 42sh [long option] [-dh] "
+# define SH42_USAGE_2				"[-c CMD]\n"
+# define SH42_USAGE_LONG_OPTION		"\n\t--help\n\t"
+# define SH42_USAGE_LONG_OPTION_2	"--debug\n"
 
 # define NO_OPT						0x0000
 # define HELP_OPT					0x0001
@@ -102,7 +102,7 @@
 # define P_LOW_OPT					0x0400
 # define ERROR_OPT					0x8000
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
-# define CD_ERROR_OLDPWD_NOTSET		"21sh: cd: OLDPWD not set\n"
+# define CD_ERROR_OLDPWD_NOTSET		"42sh: cd: OLDPWD not set\n"
 # define NOFI 						"No such file or directory\n"
 # define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
 # define ENV_USAGE_2 				"[utility [argument]...]\n"

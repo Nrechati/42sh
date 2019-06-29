@@ -15,13 +15,23 @@
 static int		set_shlvl(t_registry *shell)
 {
 	char		*shlvl;
+	int			nb_shlvl;
 
 	shlvl = get_var(shell->intern, "SHLVL");
 	if (shlvl == NULL)
 		shlvl = ft_strdup("1");
 	else
 	{
-		shlvl = ft_itoa(ft_atoi(shlvl) + 1);
+		nb_shlvl = ft_atoi(shlvl) + 1;
+		if (nb_shlvl < 0)
+			nb_shlvl = 0;
+		else if (nb_shlvl >= 1000)
+		{
+			ft_dprintf(2, "42sh: warning: shell level"
+						" (%d) too high, resetting to 1\n", nb_shlvl);
+			nb_shlvl = 1;
+		}
+		shlvl = ft_itoa(nb_shlvl);
 		if (shlvl == NULL)
 			return (FAILURE);
 	}

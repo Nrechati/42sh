@@ -17,10 +17,10 @@ t_registry	*g_shell;
 int8_t			shell_usage(void)
 {
 	ft_dprintf(2, "%s%s\nLong options:%s%s",
-					SH21_USAGE_1,
-					SH21_USAGE_2,
-					SH21_USAGE_LONG_OPTION,
-					SH21_USAGE_LONG_OPTION_2);
+					SH42_USAGE_1,
+					SH42_USAGE_2,
+					SH42_USAGE_LONG_OPTION,
+					SH42_USAGE_LONG_OPTION_2);
 	return (FAILURE);
 }
 
