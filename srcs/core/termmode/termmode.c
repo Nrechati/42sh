@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:32:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:45:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int16_t          init_term_modes(struct termios *sle,
 
 static int16_t          set_mode(struct termios *mode)
 {
-	ft_printf("Reseting terminal mode\n");
     if (tcsetattr(STDIN_FILENO, TCSANOW, mode) == FAILURE)
 		return (FAILURE | TERMMDE_FAIL);
 	return (SUCCESS);

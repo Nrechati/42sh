@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:59:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:40:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:45:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 		return (SUCCESS);
 	}
 	kill_active_jobs(shell);
-	ft_printf("TM ret: %d\n", term_mode(TERMMODE_DFLT));
+	term_mode(TERMMODE_DFLT);
 	if (av != NULL)
 		++av;
 	if (av != NULL && *av != NULL)
