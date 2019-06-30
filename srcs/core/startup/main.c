@@ -68,7 +68,7 @@ int				main(int ac, char **av, char **env)
 	if (shell.option.option & INTERACTIVE_OPT)
 		tcsetpgrp(STDIN_FILENO, shell.pid);
 	launch_shell(&shell);
-	exit_blt(&shell, NULL);
+	//exit_blt(&shell, NULL);
 	ft_printf("42sh: Unexpected shutdown.\n");
 	term_mode(TERMMODE_DFLT);
 	shell_exit_routine(&shell, 0);
