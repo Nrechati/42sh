@@ -61,7 +61,9 @@ static void	state_search(t_sle *sle)
 				(sle->search_type == NEXT) ? INC_SEARCH : REV_SEARCH,
 				vct_get_string(sle->sub_line),
 				vct_get_string(sle->search_line));
+//	vct_del(&sle->search_line);
 	sle->line = vct_dups(search);
+	ft_strdel(&search);
 }
 
 void	redrawmode_line(t_sle *sle)
