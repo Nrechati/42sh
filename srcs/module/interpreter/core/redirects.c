@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 23:07:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 22:57:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,10 @@ void	close_redirect(void *data)
 	t_redirect	*redirect;
 
 	redirect = data;
-	if (redirect->type & (FD_REDIRECT | FD_PIPE_IN | FD_PIPE_OUT))
+	if (redirect->type & FD_REDIRECT)
 	{
 		if (redirect->to >= 3)
 			close(redirect->to);
-		if (redirect->from >= 3)
-			close(redirect->from);
 	}
 }
 

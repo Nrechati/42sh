@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:02:15 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 20:34:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 22:57:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	heredoc(t_registry *shell, t_redirect *redirect, t_action *action)
 	{
 		if (check_delimiter(&delimiter, &vector, fd[1]) == SUCCESS)
 		{
-			redirect->type |= FD_DUP;
+			redirect->type |= FD_REDIRECT;
 			redirect->from = STDIN_FILENO;
 			redirect->to = fd[0];
 			return ;
@@ -37,6 +37,9 @@ void	heredoc(t_registry *shell, t_redirect *redirect, t_action *action)
 		else
 			write_heredoc(shell->intern, &vector, fd[1], TRIM_OFF);
 	}
+	redirect->type |= FD_REDIRECT;
+	redirect->from = STDIN_FILENO;
+	close(fd[1]);
 	vct_del(&vector);
 }
 

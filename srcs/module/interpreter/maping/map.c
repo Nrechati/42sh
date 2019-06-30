@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 18:59:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 22:12:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		*cmd_to_process(void *context, void *data)
 		process.av = NULL;
 		process.env = ft_lstmap(command->av, context, set_intern, free_node);
 		process.process_type = IS_ASSIGN;
+		ft_lstdel(&command->av, del_action);
 	}
 	else
 		set_process(&process, command, context);

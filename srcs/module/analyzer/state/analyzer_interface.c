@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 23:10:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:54:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	stop_analyzer(t_resolution *resolve)
 		else if (resolve->token.type == E_OR)
 			action.type = A_OR;
 		else if (resolve->token.type == E_SEMICOLON)
+			action.type = A_END;
+		else if (resolve->token.type == E_NEWLINE)
 			action.type = A_END;
 		else if (resolve->token.type == E_AND)
 			action.type = A_AND;

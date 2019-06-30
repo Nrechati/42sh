@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/29 15:28:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 22:24:56 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ void	remove_empty(char **av)
 	{
 		holder = av[index + 1];
 		av[index + 1] = av[index];
-		av[index + 1] = holder;
+		av[index] = holder;
+		index++;
 	}
-	holder = av[index];
-	av[index] = NULL;
-	ft_strdel(&holder);
+	ft_strdel(&av[index]);
 }
 
 int		expand_process(t_list *intern, t_process *process)
@@ -46,6 +45,7 @@ int		expand_process(t_list *intern, t_process *process)
 		if (*holder == '\0')
 		{
 			remove_empty(&process->av[index]);
+			ft_strdel(&holder);;
 			continue;
 		}
 		ft_strdel(&process->av[index]);
