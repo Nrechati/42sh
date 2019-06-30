@@ -44,13 +44,18 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 		pathname = process->av[0];
 	ft_lstiter(process->redirects, do_redirect);
 	ft_lstiter(process->redirects, close_redirect);
-#ifndef NOEXEC
 	if (access(pathname, F_OK) == SUCCESS)
 	{
 		if (access(pathname, X_OK) == SUCCESS)
 		{
 			if ((dir = opendir(pathname)) == NULL)
+			{
+				#ifndef NOEXEC
 				execve(pathname, process->av, env);
+				#else
+				(void)env;
+				#endif
+			}
 			else
 			{
 				closedir(dir);
@@ -63,9 +68,6 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	else
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
 	exit(FAILURE);
-#else
-	exit(SUCCESS);
-#endif
 }
 
 static void	parent_process(t_registry *shell, t_process *process, char ***env)

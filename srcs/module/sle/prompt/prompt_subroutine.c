@@ -67,6 +67,8 @@ uint8_t			brace_exp_routine(t_sle *sle, t_vector *line, size_t *i)
 		}
 		else if (is_end_backslash(line, *i) == TRUE)
 			backslash_process(line);
+		else if (is_brace_exp(line, *i) == TRUE)
+			ret = brace_exp_routine(sle, line, i);
 		else if (vct_charat(line, *i) == '\"')
 			ret = double_quote_routine(sle, line, i);
 		if (ret == FALSE)

@@ -18,7 +18,10 @@ static void	set_doublequoteflag(t_lexer *lexer)
 		lexer->inhibitor &= ~DOUBLEQUOTE_FLAG;
 	else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '{')
+	{
 		lexer->inhibitor |= BRACEPARAM_FLAG;
+		set_inhibitor(lexer);
+	}
 	else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '('
 			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
@@ -42,9 +45,15 @@ static void	set_mathsflag(t_lexer *lexer)
 static void	set_braceparamflag(t_lexer *lexer)
 {
 	if (get_input(lexer, CUR_CHAR) == '}')
+		lexer->parenthesis--;
+	else if (get_input(lexer, CUR_CHAR) == '$'
+			&& get_input(lexer, NEXT_CHAR) == '{')
+		lexer->parenthesis++;
+	if (lexer->parenthesis == 0)
 	{
 		add_to_buffer(lexer);
 		lexer->inhibitor &= ~BRACEPARAM_FLAG;
+		set_inhibitor(lexer);
 	}
 }
 
@@ -56,7 +65,10 @@ static void	set_noflag(t_lexer *lexer)
 		lexer->inhibitor |= DOUBLEQUOTE_FLAG;
 	else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '{')
+	{
 		lexer->inhibitor |= BRACEPARAM_FLAG;
+		set_inhibitor(lexer);
+	}
 	else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '('
 			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
