@@ -71,7 +71,6 @@ int				main(int ac, char **av, char **env)
 	exit_blt(&shell, NULL);
 	ft_printf("42sh: Unexpected shutdown.\n");
 	term_mode(TERMMODE_DFLT);
-	free(shell.sle_ios);
-	free(shell.orig_ios);
+	shell_exit_routine(&shell, 0);
 	return (FAILURE);
 }

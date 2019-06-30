@@ -30,6 +30,9 @@ static void		free_registry(t_registry *shell)
 	ft_lstdel(&shell->intern, free_node);
 	free_hash(shell->hash.bin, free);
 	free_hash(shell->hash.blt, NULL);
+	free(shell->orig_ios);
+	free(shell->exe_ios);
+	free(shell->sle_ios);		
 }
 
 void				shell_exit_routine(t_registry *shell, int8_t ret)

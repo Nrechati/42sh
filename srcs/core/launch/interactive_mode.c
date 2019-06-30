@@ -35,5 +35,6 @@ void				interactive_mode(t_registry *shell)
 			execution_pipeline(shell, input);
 		}
 		load_signal_profile(SLE_PROFILE);
+		vct_del(&input);
 	}
 }

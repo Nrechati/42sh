@@ -83,7 +83,7 @@ static void		align_prompt(__unused t_sle *sle)
 	tputs(sle->termcaps.standout_off, 1, &ft_putc);
 }
 
-inline void		print_prompt(__unused t_registry *shell, t_sle *sle)
+inline void		print_prompt(t_registry *shell, t_sle *sle)
 {
 	t_vector	*ptext;
 
@@ -96,11 +96,11 @@ inline void		print_prompt(__unused t_registry *shell, t_sle *sle)
 		ptext = vct_dup(sle->interns.ps2);
 	else if (ft_strequ(sle->prompt.state, INT_PS3))
 		ptext = vct_dup(sle->interns.ps3);
-
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
 		expand_prompt(sle, ptext);
 	sle->prompt.text = ptext;
 	print_prompt_to_window(sle, sle->prompt.text);
+	//vct_del(&ptext);
 }

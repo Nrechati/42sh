@@ -91,7 +91,7 @@ uint64_t    init_line(t_sle *sle)
 		return (CRITICAL_ERROR | LINE_FAIL);
 	if ((sle->search_line = vct_new(0)) == NULL)
 		return (CRITICAL_ERROR | LINE_FAIL);
-	if ((sle->line_save = vct_new(0)) == NULL)
-		return (CRITICAL_ERROR | LINE_FAIL);
+	sle->line_save = NULL;//vct_new(0)) == NULL)
+		//return (CRITICAL_ERROR | LINE_FAIL);
 	return (SUCCESS);
 }

@@ -140,13 +140,17 @@ int8_t				ak_arrow_up(t_registry *shell, t_sle *sle)
 	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
 		return (FAILURE);
+
 	if (sle->state == STATE_STD && sle->line_save == NULL)
 		sle->line_save = vct_dup(sle->line);
+
 	if (sle->state == STATE_SEARCH)
 		sle->state = STATE_STD;
+
 	hist_cmd = history(NULL, NULL, GET_ENTRY | PREV);
 	if (hist_cmd == NULL)
 		return (FAILURE);
+
 	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 	vct_replace_string(sle->line, 0, len, hist_cmd);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
@@ -168,13 +172,17 @@ int8_t				ak_arrow_down(t_registry *shell, t_sle *sle)
 	if (hist_cmd == NULL && sle->line_save != NULL)
 	{
 		hist_cmd = vct_get_string(sle->line_save);
-		sle->line_save = NULL;
 		history(NULL, NULL, RESET_HEAD);
 	}
 	if (hist_cmd == NULL)
-		return (FAILURE);
+	{
+		history(NULL, NULL, RESET_HEAD);
+		hist_cmd = "";
+	}
 	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 	vct_replace_string(sle->line, 0, len, hist_cmd);
+	vct_del(&sle->line_save);
+	sle->line_save = NULL;
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	find_multiline_coord(sle, 0);
 	return (SUCCESS);
