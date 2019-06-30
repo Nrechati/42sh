@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 00:37:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 23:26:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:54:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	assign_flush_analyzer(t_resolution *resolve)
 	node = ft_stckpopnode(&resolve->stack);
 	ft_lstadd(&action.data, node);
 	action.type = A_ASSIGN;
-	node = ft_lstnew(&action, sizeof(t_action));
 	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 	resolve->valid = 1;
 }
