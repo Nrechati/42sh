@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/06/30 02:41:17 by cempassi         ###   ########.fr        #
+#    Updated: 2019/06/30 05:56:59 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -193,7 +193,7 @@ ifeq ($(EXEC), 0)
 endif
 CFLAGS += $(IFLAGS)
 DFLAGS = $(CFLAGS)
-DFLAGS += -fsanitize=address,undefined
+DFLAGS += #-fsanitize=address,undefined
 LFLAGS = -ltermcap
 
 # ---------------------------------------------------------------------------- #

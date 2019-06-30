@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   histfile.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/30 04:23:05 by cempassi          #+#    #+#             */
+/*   Updated: 2019/06/30 05:55:37 by cempassi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 #include <fcntl.h>
 
@@ -13,7 +25,7 @@ static char		*get_histfile(t_registry *shell)
 	if (home != NULL)
 	{
 		ft_asprintf(&histfile, "%s/%s",
-					home, histfile == NULL ? HISTFILE_DEFAULT : histfile); 
+					home, histfile == NULL ? HISTFILE_DEFAULT : histfile);
 		return (histfile);
 	}
 	return (NULL);
@@ -80,7 +92,7 @@ void			write_histfile(t_registry *shell, t_history *history)
 		return ;
 	}
 	ft_strdel(&histfile);
-	entry = entry_roll_back(history->entry); 
+	entry = entry_roll_back(history->entry);
 	histsize = get_histsize(shell);
 	i = 0;
 	while (entry != NULL)
