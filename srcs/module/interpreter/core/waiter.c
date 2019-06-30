@@ -40,7 +40,7 @@ static void		set_status(t_registry *shell, t_job *job,
 	{
 		exit_status = ft_itoa(WTERMSIG(status) + 128);
 		current->stopped = TRUE;
-		ft_printf("SIGNALED by: %d\n", exit_status);
+		//ft_printf("SIGNALED by: %d\n", exit_status);
 	}
 	add_var(&shell->intern, "?", exit_status, READONLY_VAR);
 	ft_strdel(&exit_status);
