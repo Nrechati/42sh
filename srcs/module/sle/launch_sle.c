@@ -24,8 +24,8 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 		setup_report = sle_setup(shell, sle);
 		if (setup_report & CRITICAL_ERROR)
 			return (CRITICAL_ERROR);
-		save_intern_vars(shell, sle);
 	}
+	save_intern_vars(shell, sle);
 	return (SUCCESS);
 }
 

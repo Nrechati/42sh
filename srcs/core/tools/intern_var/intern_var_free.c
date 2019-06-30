@@ -36,6 +36,7 @@ static int8_t	del_node(t_list *intern, char *name)
 		{
 			tmp->next = intern->next;
 			free_node(intern->data);
+			free(intern->data);
 			free(intern);
 			return (SUCCESS);
 		}
@@ -58,6 +59,7 @@ int8_t			free_var(t_list **alst, char *name)
 	{
 		*alst = intern->next;
 		free_node(intern->data);
+		free(intern->data);
 		free(intern);
 		return (SUCCESS);
 	}

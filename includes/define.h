@@ -108,7 +108,7 @@
 # define ENV_USAGE_2 				"[utility [argument]...]\n"
 # define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
 # define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
-# define EXPORT_USAGE 				"export: usage: export name[=value] ...\n"
+# define EXPORT_USAGE 				"export: usage: export name[=value] ..."
 # define UNSET_USAGE 				"unset: usage: unset name\n"
 
 /*
