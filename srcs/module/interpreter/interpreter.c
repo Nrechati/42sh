@@ -90,7 +90,7 @@ int				run_process(t_registry *shell, t_process *process)
 		return(FAILURE);
 	}
 	if (process->process_type & IS_NOTFOUND)
-		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTEPRETER_NOT_FOUND, process->av[0]);
+		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
 	else if (process->process_type & IS_ASSIGN)
 		process->completed = assign_intern(shell, &process->env);
 	else if (process->process_type == (IS_ALONE | IS_BLT))

@@ -46,10 +46,14 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 #ifndef NOEXEC
 	if (access(pathname, F_OK) == SUCCESS)
 	{
-		if(access(pathname, X_OK) == SUCCESS)
+		if (access(pathname, X_OK) == SUCCESS)
 			execve(pathname, process->av, env);
 		else
 			ft_dprintf(2, SH_GENERAL_ERROR "%s: permission denied\n", process->av[0]);
+	}
+	else
+	{
+		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
 		exit(FAILURE);
 	}
 #else
@@ -79,7 +83,7 @@ void		fork_process(t_registry *shell, t_process *process)
 	}
 	if ((process->pid = fork()) < 0)
 	{
-		ft_dprintf(2, SH_GENERAL_ERROR INTEPRETER_FORK_ERROR);
+		ft_dprintf(2, SH_GENERAL_ERROR INTERPRETER_FORK_ERROR);
 		return;
 	}
 	else if (process->pid == 0)
