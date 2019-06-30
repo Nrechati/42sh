@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 07:18:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/27 18:18:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 09:30:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ void		m_postincrement_analyzer(t_arithmetic *arithmetic)
 	char		*data;
 
 	ft_bzero(&token, sizeof(t_rpn_tk));
-	node = ft_stckpopnode(&arithmetic->processing);
-	current = node->data;
+	current = ft_stckpop(&arithmetic->processing);
 	token.type = RPN_NUMBER;
 	if ((data = get_var(g_shell->intern, current->data)))
 	{
@@ -91,7 +90,8 @@ void		m_postincrement_analyzer(t_arithmetic *arithmetic)
 	}
 	add_var(&g_shell->intern, current->data, data, SET_VAR);
 	ft_strdel(&data);
-	ft_lstdelone(&node, NULL);
+	ft_strdel(&current->data);
+	free(current);
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstaddback(&arithmetic->solving, node);
 }
@@ -104,8 +104,7 @@ void		m_postdecrement_analyzer(t_arithmetic *arithmetic)
 	char		*data;
 
 	ft_bzero(&token, sizeof(t_rpn_tk));
-	node = ft_stckpopnode(&arithmetic->processing);
-	current = node->data;
+	current = ft_stckpop(&arithmetic->processing);
 	token.type = RPN_NUMBER;
 	if ((data = get_var(g_shell->intern, current->data)))
 	{
@@ -119,7 +118,8 @@ void		m_postdecrement_analyzer(t_arithmetic *arithmetic)
 	}
 	add_var(&g_shell->intern, current->data, data, SET_VAR);
 	ft_strdel(&data);
-	ft_lstdelone(&node, NULL);
+	ft_strdel(&current->data);
+	free(current);
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstaddback(&arithmetic->solving, node);
 }
@@ -152,6 +152,8 @@ void		m_suffix(t_arithmetic *arithmetic)
 	token = ft_stcktop(&arithmetic->processing);
 	arithmetic->state = MATH_SUFFIX;
 	control = arithmetic->curr_token->type;
+	free(arithmetic->curr_token);
+	free(arithmetic->current);
 	m_get_token(arithmetic, NULL);
 	if (token->type == E_M_STRING)
 	{

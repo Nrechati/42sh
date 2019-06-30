@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 17:56:08 by Nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/30 10:06:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int8_t	get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t
 		return (FAILURE);
 	}
 	arithmetic->input = vct_dups(str);
+	ft_strdel(&str);
 	return (SUCCESS);
 }
 
@@ -57,6 +58,13 @@ int				arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 	return (0);
 }
 
+void			del_arithmetic(t_arithmetic *arithmetic)
+{
+	ft_lstdel(&arithmetic->tokens, del_token);
+	ft_strdel(&arithmetic->expanded);
+	vct_del(&arithmetic->input);
+}
+
 static int		arithmetic(__unused t_list *intern, char **output, int i)
 {
 	t_arithmetic	arithmetic;
@@ -71,6 +79,7 @@ static int		arithmetic(__unused t_list *intern, char **output, int i)
 	if (arithmetic_analyzer(&arithmetic) == FAILURE)
 		return (FAILURE);
 	arithmetic_replace(&arithmetic, output, i);
+	del_arithmetic(&arithmetic);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 19:10:11 by Nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/30 10:00:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,28 @@ static int8_t	check_forbidden_operation(t_rpn_tk *curr, t_rpn_tk *second)
 {
 	if (curr->value.type & (OPERATOR & DIVIDE)
 			|| curr->value.type & (OPERATOR & MODULO))
+	{
 		if (second->value.digit == 0)
 		{
+			free(curr);
+			free(second);
 			ft_dprintf(2, "Division by zero\n");
 			return (FALSE);
 		}
+	}
 	return (TRUE);
 }
 
 static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 {
-	t_rpn_tk		*first;
+	t_list			*node;
 	t_rpn_tk		*second;
 
-	first = NULL;
 	second = NULL;
 	if (curr->value.type & (PRECEDENCE & UNARY_MINUS) && ft_stcksize(solve) > 0)
 	{
-		first = ft_stckpop(solve);
-		do_unary(first, curr);
+		node = ft_stckpopnode(solve);
+		do_unary(node->data, curr);
 	}
 	else if (ft_stcksize(solve) < 2)
 	{
@@ -56,26 +59,29 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 	else
 	{
 		second = ft_stckpop(solve);
-		first = ft_stckpop(solve);
+		node = ft_stckpopnode(solve);
 		if (check_forbidden_operation(curr, second) == FALSE)
 			return (FAILURE);
-		do_math(first, second, curr);
+		do_math(node->data, second, curr);
+		free(second);
 	}
-	ft_stckpush(solve, first, sizeof(t_rpn_tk));
+	ft_stckpushnode(solve, node);
 	return (SUCCESS);
 }
 
 int8_t			calculate_rpn(t_stack *rpn, t_infix  *infix)
 {
 	t_stack		solve;
+	t_list		*node;
 	t_rpn_tk	*curr;
 
 	ft_stckinit(&solve);
 	while (ft_stcksize(rpn) > 0)
 	{
-		curr = ft_stckpop(rpn);
+		node = ft_stckpopnode(rpn);
+		curr = node->data;
 		if (curr->type == RPN_NUMBER)
-			ft_stckpush(&solve, curr, sizeof(t_rpn_tk));
+			ft_stckpushnode(&solve, node);
 		else if (curr->type == RPN_OPERATOR)
 		{
 			if (handle_operator(curr, &solve) == FAILURE)
@@ -88,5 +94,7 @@ int8_t			calculate_rpn(t_stack *rpn, t_infix  *infix)
 		return (FAILURE);
 	}
 	infix->result = ((t_rpn_tk*)solve.head->data)->value.digit;
+	ft_stckdestroy(&solve, NULL);
+	ft_lstdelone(&node, NULL);
 	return (SUCCESS);
 }

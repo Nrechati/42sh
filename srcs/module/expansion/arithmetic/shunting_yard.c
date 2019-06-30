@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:38:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 08:20:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 09:42:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static int8_t	handle_infix_token(t_rpn_tk *curr
 
 int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn)
 {
+	t_list		*node;
 	t_rpn_tk	*curr;
 	t_stack		operator;
 
@@ -78,11 +79,14 @@ int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn)
 		curr = ft_stckpop(infix);
 		if (handle_infix_token(curr, rpn, &operator) == FAILURE)
 			return (FAILURE);
+		free(curr);
 	}
 	while (ft_stcksize(&operator) > 0)
-		if (ft_stckpush(rpn, ft_stckpop(&operator)
-				, sizeof(t_rpn_tk)) == FAILURE)
+	{
+		node = ft_stckpopnode(&operator);
+		if (ft_stckpushnode(rpn, node) == FAILURE)
 			return (FAILURE);
+	}
 	ft_stckdestroy(&operator, NULL);
 	return (SUCCESS);
 }
