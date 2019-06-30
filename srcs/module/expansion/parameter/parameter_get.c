@@ -74,11 +74,9 @@ int		double_parameter(t_list *intern, t_parameter *parameter)
 	static t_advanced_pex	expansion[PEX_ADVANCED_EXP];
 	int						delim;
 	t_pex_token				*param;
-	t_pex_token				empty;
 
 	if (expansion[0] == NULL)
 		init_advanced_pex(expansion);
-	empty.type = PEX_WORD;
 	param = parameter->tokens->data;
 	delim = get_delimiter(parameter, parameter->tokens->next->data);
 	if (delim < 0 || param->data[0] == '#')

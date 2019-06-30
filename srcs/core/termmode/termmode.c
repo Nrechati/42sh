@@ -15,57 +15,51 @@
 #include <termios.h>
 #include <unistd.h>
 
-static int16_t          init_term_modes(struct termios *sle,
-                                struct termios *exec,
-                                struct termios *original)
+static int16_t          init_term_modes(void)
 {
-    if ((tcgetattr(STDIN_FILENO, original)) == FAILURE)
+	struct termios term;
+
+	if ((g_shell->orig_ios = ft_memalloc(sizeof(struct termios))) == NULL)
+		return (CRITICAL_ERROR | MALLOC_FAIL);
+	if ((g_shell->sle_ios = ft_memalloc(sizeof(struct termios))) == NULL)
+		return (CRITICAL_ERROR | MALLOC_FAIL);
+	if ((g_shell->exe_ios = ft_memalloc(sizeof(struct termios))) == NULL)
+		return (CRITICAL_ERROR | MALLOC_FAIL);
+		
+	if (tcgetattr(STDIN_FILENO, &term) != SUCCESS)
         return (CRITICAL_ERROR | TERMMDE_FAIL);
+	ft_memcpy(g_shell->orig_ios, &term, sizeof(struct termios));
 
-    if ((tcgetattr(STDIN_FILENO, exec)) == FAILURE)
-        return (CRITICAL_ERROR | TERMMDE_FAIL);
+	term.c_lflag &= ~(TOSTOP);
+	ft_memcpy(g_shell->exe_ios, &term, sizeof(struct termios));
 
-	if ((tcgetattr(STDIN_FILENO, sle)) == FAILURE)
-        return (CRITICAL_ERROR | TERMMDE_FAIL);
-
-    sle->c_lflag &= ~(ICANON | TOSTOP);
-	sle->c_lflag &= ~(ECHO);
-	sle->c_lflag |= ISIG;
-	sle->c_cc[VMIN] = 1;
-	sle->c_cc[VTIME] = 0;
-
-	exec->c_lflag &= ~TOSTOP;
+    term.c_lflag &= ~(ICANON);
+	term.c_lflag &= ~(ECHO);
+	term.c_lflag |= ISIG;
+	term.c_cc[VMIN] = 1;
+	term.c_cc[VTIME] = 0;
+	ft_memcpy(g_shell->sle_ios, &term, sizeof(struct termios));
     return (SUCCESS);
 }
 
 static int16_t          set_mode(__unused struct termios *mode)
 {
-//	if (mode == NULL)
-//		return (FAILURE);
-	if (tcsetattr(STDOUT_FILENO, TCSANOW, mode) == FAILURE)
+	if (mode == NULL)
+		ft_printf("Terminal mode is NULL\n");
+	if (tcsetattr(STDOUT_FILENO, TCSANOW, mode) != SUCCESS)
 		return (FAILURE | TERMMDE_FAIL);
 	return (SUCCESS);
-//	return (FAILURE);
 }
 
 int16_t          term_mode(uint8_t mode_flag)
 {
-	static struct termios	sle_ios;
-	static struct termios	exe_ios;
-	static struct termios	dfl_ios;
-
     if (mode_flag == TERMMODE_INIT)
-		return (init_term_modes(&sle_ios,
-								&exe_ios,
-								&dfl_ios));
-
+		return (init_term_modes());
 	else if (mode_flag == TERMMODE_DFLT)
-        return (set_mode(&dfl_ios));
-
+        return (set_mode(g_shell->orig_ios));
 	else if (mode_flag == TERMMODE_SLE)
-        return (set_mode(&sle_ios));
-
+        return (set_mode(g_shell->sle_ios));
 	else if (mode_flag == TERMMODE_EXEC)
-        return (set_mode(&exe_ios));
+        return (set_mode(g_shell->exe_ios));
 	return (SUCCESS);
 }

@@ -66,7 +66,10 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 		return (SUCCESS);
 	}
 	kill_active_jobs(shell);
-	ft_printf("Reset term mode:%d\n", term_mode(TERMMODE_EXEC));
+	ft_printf("Reset term mode:%d\n", term_mode(TERMMODE_DFLT));
+	term_mode(TERMMODE_DFLT);
+	free(shell->sle_ios);
+	free(shell->orig_ios);
 	if (av != NULL)
 		++av;
 	if (av != NULL && *av != NULL)

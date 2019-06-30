@@ -56,6 +56,10 @@ typedef struct			s_registry
 	t_list				*current_plus;
 	t_list				*current_minus;
 	uint8_t				sigint;
+
+	struct termios		*sle_ios;
+	struct termios		*orig_ios;
+	struct termios		*exe_ios;
 }						t_registry;
 
 extern t_registry		*g_shell;

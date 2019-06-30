@@ -55,10 +55,15 @@ int				main(int ac, char **av, char **env)
 	t_registry		shell;
 
 	(void)ac;
+
+	g_shell = &shell;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
+
+
 	shell.pid = getpid();
 	shell.active_jobs = 0;
+
 	if (setpgid(shell.pid, shell.pid) < 0)
 	{
 		ft_dprintf(2, "Failed Setpgid\n");
@@ -67,8 +72,16 @@ int				main(int ac, char **av, char **env)
 
 	if (shell.option.option & INTERACTIVE_OPT)
 		tcsetpgrp(STDOUT_FILENO, shell.pid);
+
+	
+
+
 	launch_shell(&shell);
 	exit_blt(&shell, NULL);
+
 	ft_printf("42sh: Unexpected shutdown.\n");
+	term_mode(TERMMODE_DFLT);
+	free(shell.sle_ios);
+	free(shell.orig_ios);
 	return (FAILURE);
 }

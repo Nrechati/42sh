@@ -39,10 +39,8 @@ char			*get_filename(t_list *node)
 {
 	t_token		*token;
 	char		*filename;
-	char		*holder;
 
 	token = node->data;
-	holder = NULL;
 	if ((filename = expansion_pipeline(g_shell->intern, token->data)) == NULL)
 		return (NULL);
 	if (*filename == '\0')
