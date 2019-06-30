@@ -38,7 +38,6 @@ static void		init_log(t_registry *shell)
 
 static int8_t	init_shell(t_registry *shell, char **av, char **env)
 {
-
 	g_shell = shell;
 	load_signal_profile(INIT_HANDLER);
 	load_signal_profile(DFLT_PROFILE);
@@ -59,26 +58,17 @@ int				main(int ac, char **av, char **env)
 	g_shell = &shell;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
-
-
 	shell.pid = getpid();
 	shell.active_jobs = 0;
-
 	if (setpgid(shell.pid, shell.pid) < 0)
 	{
-		ft_dprintf(2, "Failed Setpgid\n");
+		ft_dprintf(2, "42sh: Failed Setpgid\n");
 		shell_exit_routine(&shell, FAILURE);
 	}
-
 	if (shell.option.option & INTERACTIVE_OPT)
-		tcsetpgrp(STDOUT_FILENO, shell.pid);
-
-	
-
-
+		tcsetpgrp(STDIN_FILENO, shell.pid);
 	launch_shell(&shell);
 	exit_blt(&shell, NULL);
-
 	ft_printf("42sh: Unexpected shutdown.\n");
 	term_mode(TERMMODE_DFLT);
 	free(shell.sle_ios);

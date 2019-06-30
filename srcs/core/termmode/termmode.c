@@ -19,34 +19,29 @@ static int16_t          init_term_modes(void)
 {
 	struct termios term;
 
-	if ((g_shell->orig_ios = ft_memalloc(sizeof(struct termios))) == NULL)
+	if ((g_shell->orig_ios = malloc(sizeof(struct termios))) == NULL)
 		return (CRITICAL_ERROR | MALLOC_FAIL);
-	if ((g_shell->sle_ios = ft_memalloc(sizeof(struct termios))) == NULL)
+	if ((g_shell->sle_ios = malloc(sizeof(struct termios))) == NULL)
 		return (CRITICAL_ERROR | MALLOC_FAIL);
-	if ((g_shell->exe_ios = ft_memalloc(sizeof(struct termios))) == NULL)
+	if ((g_shell->exe_ios = malloc(sizeof(struct termios))) == NULL)
 		return (CRITICAL_ERROR | MALLOC_FAIL);
-		
 	if (tcgetattr(STDIN_FILENO, &term) != SUCCESS)
         return (CRITICAL_ERROR | TERMMDE_FAIL);
-	ft_memcpy(g_shell->orig_ios, &term, sizeof(struct termios));
-
+	memcpy(g_shell->orig_ios, &term, sizeof(struct termios));
 	term.c_lflag &= ~(TOSTOP);
-	ft_memcpy(g_shell->exe_ios, &term, sizeof(struct termios));
-
+	memcpy(g_shell->exe_ios, &term, sizeof(struct termios));
     term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
 	term.c_lflag |= ISIG;
 	term.c_cc[VMIN] = 1;
 	term.c_cc[VTIME] = 0;
-	ft_memcpy(g_shell->sle_ios, &term, sizeof(struct termios));
+	memcpy(g_shell->sle_ios, &term, sizeof(struct termios));
     return (SUCCESS);
 }
 
-static int16_t          set_mode(__unused struct termios *mode)
+static int16_t          set_mode(struct termios *mode)
 {
-	if (mode == NULL)
-		ft_printf("Terminal mode is NULL\n");
-	if (tcsetattr(STDOUT_FILENO, TCSANOW, mode) != SUCCESS)
+	if (tcsetattr(STDIN_FILENO, TCSANOW, mode) != SUCCESS)
 		return (FAILURE | TERMMDE_FAIL);
 	return (SUCCESS);
 }
