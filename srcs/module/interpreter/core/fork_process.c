@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 08:18:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 22:55:27 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	parent_process(t_registry *shell, t_process *process, char ***env)
 {
 	if (process->process_type & IS_BIN)
 		ft_hmap_hits(&shell->hash.bin, process->av[0]);
-//	ft_lstiter(process->redirects, close_redirect);
+	//ft_lstiter(process->redirects, close_redirect);
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
