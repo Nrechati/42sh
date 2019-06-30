@@ -45,10 +45,14 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 	prompt_pre_process(sle);
 	ft_bzero(character, READ_SIZE + 1);
 	print_prompt(shell, sle);
-	while (is_separator(character) == FALSE
-		 && is_eof(vct_get_string(sle->line)) == FALSE)
+	while (is_separator(character) == FALSE)
 	{
 		ft_bzero(character, READ_SIZE);
+		if (is_eof(vct_get_string(sle->line)) == TRUE)
+		{
+			ft_putchar('\n');
+			return (NULL);
+		}
 		if (read(0, character, READ_SIZE) == FAILURE)
 			return (read_error(shell, sle));
 		handle_input_key(shell, sle, character);
@@ -72,10 +76,13 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->prompt.missing_char = (char *)prompt_type[sle_flag & ~SLE_PS2_PROMPT];
 	sle->prompt.state = INT_PS2;
 	if (prompt(shell, sle) == NULL)
+	{
+		sle->line = linesave;
 		return (NULL);
+	}
 	sle->line = linesave;
-	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
-		return (NULL);
+	//if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
+	//	return (NULL);
 	return (vct_dup(sle->sub_line));
 }
 
@@ -87,10 +94,13 @@ t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	sle->line = sle->sub_line;
 	sle->prompt.state = INT_PS3;
 	if (prompt(shell, sle) == NULL)
+	{
+		sle->line = linesave;
 		return (NULL);
+	}
 	sle->line = linesave;
-	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
-		return (NULL);
+//	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
+//		return (NULL);
 	//vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }
