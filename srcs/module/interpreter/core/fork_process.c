@@ -16,6 +16,7 @@
 static void	child_process(t_registry *shell, t_process *process, char **env)
 {
 	char		*pathname;
+	DIR			*dir;
 
 	pathname = NULL;
 	signal (SIGINT,  SIG_DFL);
@@ -47,15 +48,21 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 	if (access(pathname, F_OK) == SUCCESS)
 	{
 		if (access(pathname, X_OK) == SUCCESS)
-			execve(pathname, process->av, env);
+		{
+			if ((dir = opendir(pathname)) == NULL)
+				execve(pathname, process->av, env);
+			else
+			{
+				closedir(dir);
+				ft_dprintf(2, SH_GENERAL_ERROR "%s: Is a directory\n", process->av[0]);
+			}
+		}
 		else
 			ft_dprintf(2, SH_GENERAL_ERROR "%s: permission denied\n", process->av[0]);
 	}
 	else
-	{
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
-		exit(FAILURE);
-	}
+	exit(FAILURE);
 #else
 	exit(SUCCESS);
 #endif
