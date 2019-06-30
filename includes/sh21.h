@@ -66,7 +66,7 @@ void			generate_grammar(void); // TEMP
 void			launch_shell(t_registry *shell);
 void			batch_mode(t_registry *shell);
 void			interactive_mode(t_registry *shell);
-int8_t			execution_pipeline(t_registry *shell, t_vector *input);
+int8_t			execution_pipeline(t_registry *shell, t_vector **input);
 
 /*
 *****************************************************

@@ -24,22 +24,22 @@ static t_resolution	init_resolve(t_list *tokens)
 	return (resolve);
 }
 
-int8_t				execution_pipeline(t_registry *shell, t_vector *input)
+int8_t				execution_pipeline(t_registry *shell, t_vector **input)
 {
 	t_list			*command_group;
 	t_resolution	resolve;
 	t_list			*tokens;
 
-	tokens = lexer(input, SHELL);
+	tokens = lexer(*input, SHELL);
 	resolve = init_resolve(tokens);
 	while (resolve.tokens)
 	{
 		command_group = NULL;
-		if (parser(input, resolve.tokens) == FAILURE)
+		if (parser(*input, resolve.tokens) == FAILURE)
 		{
-			history(shell, vct_get_string(input), ADD_ENTRY);
-			vct_del(&input);
+			history(shell, vct_get_string(*input), ADD_ENTRY);
 			ft_lstdel(&resolve.tokens, del_token);
+			vct_del(input);
 			return (FAILURE);
 		}
 		command_group = analyzer(&resolve);

@@ -87,7 +87,7 @@ uint8_t			fc_redo(t_registry *shell, char **av)
 		return (1);
 	ft_putendl(cmd);
 	vct_cmd = vct_dups(cmd);
-	execution_pipeline(shell, vct_cmd);
+	execution_pipeline(shell, &vct_cmd);
 	vct_del(&vct_cmd);
 	ft_strdel(&cmd);
 	return (SUCCESS);

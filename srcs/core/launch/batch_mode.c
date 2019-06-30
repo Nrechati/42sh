@@ -51,6 +51,6 @@ void					batch_mode(t_registry *shell)
 	else
 	{
 		if (verif_line(NULL, cmd) == TRUE)
-			execution_pipeline(shell, cmd);
+			execution_pipeline(shell, &cmd);
 	}
 }

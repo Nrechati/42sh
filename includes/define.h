@@ -405,9 +405,9 @@
 # define TRIM_OFF					0x00
 # define TRIM_ON					0x01
 
-# define INTEPRETER_NOT_FOUND		" command not found\n"
-# define INTEPRETER_FORK_ERROR		" fork error\n"
-# define INTEPRETER_EXECVE_ERROR	" execve fail\n"
+# define INTERPRETER_NOT_FOUND		": command not found\n"
+# define INTERPRETER_FORK_ERROR		" fork error\n"
+# define INTERPRETER_EXECVE_ERROR	" execve fail\n"
 
 /*
 *****************************************************

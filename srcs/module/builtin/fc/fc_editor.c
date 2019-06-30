@@ -32,7 +32,7 @@ static void		launch_edition(t_registry *shell, char *editor)
 	ft_strdel(&tmp);
 	cmd = vct_dups(out);
 	shell->option.option &= ~(INTERACTIVE_OPT);
-	execution_pipeline(shell, cmd);
+	execution_pipeline(shell, &cmd);
 	shell->option.option |= INTERACTIVE_OPT;
 	ft_strdel(&out);
 	vct_del(&cmd);
@@ -84,7 +84,7 @@ static int8_t	exec_new_pipeline(t_registry *shell)
 		cmd = vct_dups(line);
 		ft_strdel(&line);
 		shell->option.option &= ~(INTERACTIVE_OPT);
-		execution_pipeline(shell, cmd);
+		execution_pipeline(shell, &cmd);
 		shell->option.option |= INTERACTIVE_OPT;
 		vct_del(&cmd);
 	}
