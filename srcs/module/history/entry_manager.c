@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 04:22:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 04:27:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:21:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	pop_entry(t_entry **entry, t_entry **head)
 		(*head)->next = NULL;
 	}
 	ft_strdel(&cur->cmd);
-	ft_free(cur);
+	free(cur);
 }
 
 /*
@@ -52,7 +52,7 @@ void	free_history(t_entry *entry)
 	{
 		free_history(entry->prev);
 		ft_strdel(&entry->cmd);
-		ft_free(entry);
+		free(entry);
 	}
 }
 
@@ -66,7 +66,7 @@ t_entry	*create_entry(const char *cmd)
 
 	if (cmd == NULL)
 		return (NULL);
-	entry = (t_entry *)ft_malloc(sizeof(t_entry));
+	entry = (t_entry *)malloc(sizeof(t_entry));
 	if (entry == NULL)
 		return (NULL);
 	entry->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 22:11:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:58:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,11 @@ static int		run_job(void *context, void *data)
 			, ft_atoi(get_var(shell->intern, "job_type"))) == FALSE)
 	{
 		add_var(&shell->intern, "job_type", job_type, READONLY_VAR);
+		ft_strdel(&job_type);
 		return (FAILURE);
 	}
 	add_var(&shell->intern, "job_type", job_type, READONLY_VAR);
+	ft_strdel(&job_type);
 	head = job->processes->data;
 	job->state |= RUNNING;
 	if (job->processes->next == NULL)
@@ -126,10 +128,8 @@ static int		run_job(void *context, void *data)
 	}
 	else
 		launch_pipeline(shell, job->processes);
-
 	ft_lstiter(job->processes, del_process_redirect);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-
 	if (job->job_type == GROUP_BG)
 		run_background_job(shell, job);
 	else

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 14:21:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/30 09:11:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ static uint8_t		sle_get_input(t_registry *shell, t_sle *sle, t_vector **in)
 	sle->prompt.state = INT_PS1;
 	*in = prompt(shell, sle);
 	if (*in == NULL || is_eof(vct_get_string(*in)))
+	{
+		vct_del(in);
 		return (FAILURE);
+	}
 	if (ft_strequ(vct_get_string(*in), "\0"))
 		return (LINE_FAIL);
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 20:17:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:47:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 	ft_bzero(&group, sizeof(t_group));
 	action = ft_stckpop(tree_node);
 	set_group_type(&group, action);
-	///	ft_free(&action); !! ALLOUER  SUR LA STACK
+	free(action);
 	while (ft_stcksize(tree_node) > 0)
 	{
 		if ((node = generate_cmd_list(tree_node)) == NULL)

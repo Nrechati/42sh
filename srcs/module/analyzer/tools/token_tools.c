@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:03:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/17 12:38:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:17:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*pop_token_data(t_stack *stack)
 
 	token = ft_stckpop(stack);
 	data = token->data;
-	ft_free(token);
+	free(token);
 	return (data);
 }
 
@@ -30,7 +30,7 @@ t_type	pop_token_type(t_stack *stack)
 
 	token = ft_stckpop(stack);
 	type = token->type;
-	ft_free(token);
+	free(token);
 	return (type);
 }
 

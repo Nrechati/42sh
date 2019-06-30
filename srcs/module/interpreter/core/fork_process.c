@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 19:23:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:18:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int			assign_intern(t_registry *shell, t_list **assign)
 	{
 		to_find = (*assign)->data;
 		if (ft_strequ(to_find->name, "PATH"))
-			ft_hmap_free_content(&(shell->hash.bin), ft_free);
+			ft_hmap_free_content(&(shell->hash.bin), free);
 		if ((node = ft_lstfind(shell->intern, to_find->name, find_var)))
 		{
 			if (update_intern(node->data, to_find->data) == FAILURE)

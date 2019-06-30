@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:14:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/06 14:35:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/30 09:08:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	sle_destroy(__unused t_sle *sle)
 	ft_strdel(&sle->termcaps.clear);
 	ft_strdel(&sle->termcaps.down);
 	ft_strdel(&sle->termcaps.right);
-	ft_strdel(&sle->termcaps.left);	
+	ft_strdel(&sle->termcaps.left);
 	ft_strdel(&sle->termcaps.up);
 	ft_strdel(&sle->termcaps.hidden_cursor);
 	ft_strdel(&sle->termcaps.normal_cursor);

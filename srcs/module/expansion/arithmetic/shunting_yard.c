@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:38:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 15:58:18 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:20:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn)
 		if (ft_stckpush(rpn, ft_stckpop(&operator)
 				, sizeof(t_rpn_tk)) == FAILURE)
 			return (FAILURE);
-	ft_stckdestroy(&operator, ft_free);
+	ft_stckdestroy(&operator, NULL);
 	return (SUCCESS);
 }

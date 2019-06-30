@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:23:48 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/14 01:55:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 07:07:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void			free_node(void *node)
 	variable = (t_variable *)node;
 	if (variable != NULL)
 	{
-		ft_free(variable->name);
-		ft_free(variable->data);
-		//ft_free(variable);
+		free(variable->name);
+		free(variable->data);
 	}
 }
 
@@ -37,7 +36,7 @@ static int8_t	del_node(t_list *intern, char *name)
 		{
 			tmp->next = intern->next;
 			free_node(intern->data);
-			ft_free(intern);
+			free(intern);
 			return (SUCCESS);
 		}
 		tmp = tmp->next;
@@ -59,7 +58,7 @@ int8_t			free_var(t_list **alst, char *name)
 	{
 		*alst = intern->next;
 		free_node(intern->data);
-		ft_free(intern);
+		free(intern);
 		return (SUCCESS);
 	}
 	return (del_node(intern, name));

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/04 17:45:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/06/30 06:31:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int8_t			change_node(t_list **alst, char *name, char *data,
 	{
 		if (ft_strequ(((t_variable *)ptr->data)->name, name) == TRUE)
 		{
-			ft_free(((t_variable *)ptr->data)->data);
+			ft_strdel(&(((t_variable *)ptr->data)->data));
 			((t_variable *)ptr->data)->data = ft_strdup(data);
 			((t_variable *)ptr->data)->flag = flag;
 			return (SUCCESS);

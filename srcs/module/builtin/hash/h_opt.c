@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:29 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 11:48:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:19:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static void		hash_dir(t_registry *shell, const char *dir)
 				{
 					if (ft_hmap_insert(&(shell->hash.bin)
 							, dit->d_name, asp) == FALSE)
-						ft_free(asp);
+						free(asp);
 				}
 				else
-					ft_free(asp);
+					free(asp);
 			}
 		}
 		if (closedir(dip) == SUCCESS)
@@ -48,7 +48,7 @@ int8_t		hash_all_path(t_registry *shell)
 	char		**tabs;
 
 	if (shell->hash.bin.used > 0)
-		ft_hmap_free_content(&(shell->hash.bin), ft_free);
+		ft_hmap_free_content(&(shell->hash.bin), free);
 	if (get_var(shell->intern, "PATH") != NULL
 		&& !ft_strequ("", get_var(shell->intern, "PATH")))
 	{

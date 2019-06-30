@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/30 04:37:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:59:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,13 @@ static int8_t	init_shell(t_registry *shell, char **av, char **env)
 	return (SUCCESS);
 }
 
-int		main(int ac, char **av, char **env)
+int				main(int ac, char **av, char **env)
 {
 	t_registry		shell;
 
 	(void)ac;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
 		return (FAILURE);
-
 	shell.pid = getpid();
 	shell.active_jobs = 0;
 	if (setpgid(shell.pid, shell.pid) < 0)
@@ -68,7 +67,6 @@ int		main(int ac, char **av, char **env)
 
 	if (shell.option.option & INTERACTIVE_OPT)
 		tcsetpgrp(STDOUT_FILENO, shell.pid);
-
 	launch_shell(&shell);
 	exit_blt(&shell, NULL);
 	ft_printf("42sh: Unexpected shutdown.\n");

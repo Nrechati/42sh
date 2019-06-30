@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 16:15:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/30 09:00:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 		if (parser(input, resolve.tokens) == FAILURE)
 		{
 			history(shell, vct_get_string(input), ADD_ENTRY);
+			vct_del(&input);
 			ft_lstdel(&resolve.tokens, del_token);
 			return (FAILURE);
 		}
@@ -45,6 +46,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector *input)
 		if (command_group)
 		{
 			history(shell, vct_get_string(input), ADD_ENTRY);
+			vct_del(&input);
 			interpreter(shell, &command_group, 0);
 			load_signal_profile(DFLT_PROFILE);
 		}

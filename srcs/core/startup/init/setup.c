@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/30 04:38:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:16:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static int8_t	get_env(t_list **alst, char **env)
 			return (FAILURE);
 		if ((node = ft_lstnew(&variable, sizeof(t_variable))) == NULL)
 		{
-			ft_free(variable.data);
-			ft_free(variable.name);
+			free(variable.data);
+			free(variable.name);
 			return (FAILURE);
 		}
 		ft_lstaddback(alst, node);

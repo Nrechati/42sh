@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 11:59:34 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:18:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void			export_var(t_registry *shell, t_variable *variable)
 		add_var(&shell->intern, variable->name, variable->data,
 				EXPORT_VAR | SET_VAR);
 		if (ft_strequ(variable->name, "PATH") == TRUE)
-			ft_hmap_free_content(&(shell->hash.bin), ft_free);
+			ft_hmap_free_content(&(shell->hash.bin), free);
 	}
 	else
 	{
@@ -74,7 +74,7 @@ static uint8_t		export_process(t_registry *shell, char **av)
 	ret = SUCCESS;
 	while (*av != NULL)
 	{
-		variable = (t_variable *)ft_malloc(sizeof(t_variable));
+		variable = (t_variable *)malloc(sizeof(t_variable));
 		if (variable == NULL || variable->name == NULL)
 			return (FAILURE);
 		get_name_and_data(variable, *av);

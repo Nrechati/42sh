@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/28 05:13:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:17:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void		del_job(void *data)
 	job = data;
 	ft_lstdel(&job->processes, del_process);
 	if (job->term_modes)
-		ft_free(job->term_modes);
+		free(job->term_modes);
 }

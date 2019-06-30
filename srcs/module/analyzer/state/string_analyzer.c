@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 21:17:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 23:28:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:44:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 void	flush_string(t_resolution *resolve)
 {
-	t_token		*token;
-	t_list		*new_node;
+	t_list		*node;
 	t_action	action;
 
-	new_node = NULL;
+	node = NULL;
 	resolve->state = P_STRING_FLUSH;
 	ft_bzero(&action, sizeof(t_action));
 	action.type = A_ARGS;
 	resolve->valid = 1;
 	while (ft_stcksize(&resolve->stack) != 0)
 	{
-		token = ft_stckpop(&resolve->stack);
-		new_node = ft_lstnew(token, sizeof(t_token));
-		ft_lstadd(&action.data, new_node);
+		node = ft_stckpopnode(&resolve->stack);
+		ft_lstadd(&action.data, node);
 	}
 	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 	return ;

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 13:25:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/30 08:21:00 by cempassi         ###   ########.fr       */
 
 /*                                                                            */
 /* ************************************************************************** */
@@ -19,8 +19,8 @@ static void			free_one_node_token(t_list **token_lst)
 
 	token = (t_token *)((*token_lst)->data);
 	ft_strdel(&token->data);
-	ft_free(token);
-	ft_free(*token_lst);
+	free(token);
+	free(*token_lst);
 	*token_lst = NULL;
 }
 

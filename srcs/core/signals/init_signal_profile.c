@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 18:23:42 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 11:08:08 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/06/30 09:05:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,12 @@ void		init_tab_signal_sle(struct sigaction tab_signal[NB_SIGNALS])
 
 	ft_bzero(&sigset, sizeof(sigset_t));
 	loop_defaults(tab_signal);
-
 	tab_signal[SIGQUIT] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTERM] = set_sigaction_struct(sigterm_sle, SA_RESTART, sigset);
-
 	tab_signal[SIGCONT] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTSTP] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-
 	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-
 	tab_signal[SIGINT] = set_sigaction_struct(sigint_sle, 0, sigset);
 	tab_signal[SIGWINCH] = set_sigaction_struct(sigwinch_sle, SA_RESTART, sigset);
 }
@@ -81,13 +77,9 @@ void		init_tab_signal_exec(struct sigaction tab_signal[NB_SIGNALS])
 	tab_signal[SIGINT] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
 	tab_signal[SIGQUIT] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
 	tab_signal[SIGTERM] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
-
 	tab_signal[SIGTSTP] = set_sigaction_struct(sigtstp_exec, SA_RESTART, sigset);
 	tab_signal[SIGCONT] = set_sigaction_struct(sigtstp_exec, SA_RESTART, sigset);
-
 	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-
 	tab_signal[SIGCHLD] = set_sigaction_struct(sigchld_exec, SA_RESTART, sigset);
 }
-
