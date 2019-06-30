@@ -42,7 +42,7 @@ static void			export_var(t_registry *shell, t_variable *variable)
 	else
 	{
 		if ((variable->data = get_var(shell->intern, variable->name)) == NULL)
-			add_var(&shell->intern, variable->name, ft_strdup("\0"), EXPORT_VAR);
+			add_var(&shell->intern, variable->name, "", EXPORT_VAR);
 		else
 		{
 			variable->data = ft_strdup(variable->data);
@@ -75,8 +75,9 @@ static uint8_t		export_process(t_registry *shell, char **av)
 	while (*av != NULL)
 	{
 		variable = (t_variable *)malloc(sizeof(t_variable));
-		if (variable == NULL || variable->name == NULL)
+		if (variable == NULL)
 			return (FAILURE);
+		ft_bzero(variable, sizeof(t_variable));
 		get_name_and_data(variable, *av);
 		if (ft_isdigit(variable->name[0]) == TRUE
 			|| multi_strchr("!?$-=", variable->name) == TRUE)
@@ -88,6 +89,7 @@ static uint8_t		export_process(t_registry *shell, char **av)
 		else
 			export_var(shell, variable);
 		free_node((void *)variable);
+		free(variable);
 		av++;
 	}
 	return (ret);
