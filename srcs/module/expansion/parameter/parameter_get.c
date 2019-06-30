@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 00:09:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 01:16:45 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 01:37:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		advanced_expansion(t_list *intern, t_parameter *parameter)
 {
 	static t_advanced_pex	expansion[PEX_ADVANCED_EXP];
 	int						delim;
-	t_pex_token 			*param;
+	t_pex_token				*param;
 
 	if (expansion[0] == NULL)
 		init_advanced_pex(expansion);
@@ -73,7 +73,7 @@ int		double_parameter(t_list *intern, t_parameter *parameter)
 {
 	static t_advanced_pex	expansion[PEX_ADVANCED_EXP];
 	int						delim;
-	t_pex_token 			*param;
+	t_pex_token				*param;
 	t_pex_token				empty;
 
 	if (expansion[0] == NULL)
@@ -93,10 +93,10 @@ int		double_parameter(t_list *intern, t_parameter *parameter)
 int		parameter_get(t_list *intern, t_parameter *parameter)
 {
 	if (ft_lstlen(parameter->tokens) == 1)
-		return(single_parameter(intern, parameter));
+		return (single_parameter(intern, parameter));
 	else if (ft_lstlen(parameter->tokens) == 2)
 		return (double_parameter(intern, parameter));
 	else if (ft_lstlen(parameter->tokens) == 3)
-		return(advanced_expansion(intern, parameter));
+		return (advanced_expansion(intern, parameter));
 	return (-1);
 }

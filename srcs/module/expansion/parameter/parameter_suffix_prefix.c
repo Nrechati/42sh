@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 02:49:33 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 01:32:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 01:35:47 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	suffix_match(t_parameter *param, char *to_search, char *to_find)
 	if (to_find == NULL)
 	{
 		param->expanded = ft_strdup(to_search);
-		return;
+		return ;
 	}
 	diff = ft_strlen(to_search) - ft_strlen(to_find);
 	if (ft_strequ(to_search + diff, to_find) == TRUE)
@@ -35,7 +35,7 @@ void	preffix_match(t_parameter *param, char *to_search, char *to_find)
 	if (to_find == NULL)
 	{
 		param->expanded = ft_strdup(to_search);
-		return;
+		return ;
 	}
 	diff = ft_strlen(to_find);
 	if (ft_strnequ(to_search, to_find, diff))
@@ -63,7 +63,7 @@ int		suffix_expansion(t_list *intern, t_parameter *param, int mode)
 	return (0);
 }
 
-int		prefix_expansion(t_list *intern, t_parameter *param, __unused int mode)
+int		prefix_expansion(t_list *intern, t_parameter *param, int mode)
 {
 	t_pex_token	*parameter;
 	t_pex_token	*word;
