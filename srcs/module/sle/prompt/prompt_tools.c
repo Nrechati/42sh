@@ -87,6 +87,7 @@ inline void		print_prompt(t_registry *shell, t_sle *sle)
 {
 	t_vector	*ptext;
 
+	(void)shell;
 	if (prompt_need_alignment() == TRUE)
 		align_prompt(sle);
 	ptext = NULL;
@@ -95,7 +96,7 @@ inline void		print_prompt(t_registry *shell, t_sle *sle)
 	else if (ft_strequ(sle->prompt.state, INT_PS2))
 		ptext = vct_dup(sle->interns.ps2);
 	else if (ft_strequ(sle->prompt.state, INT_PS3))
-		ptext = vct_dup(sle->interns.ps3);
+
 	if (ptext == NULL)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
