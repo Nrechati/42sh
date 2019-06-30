@@ -32,7 +32,7 @@ void				interactive_mode(t_registry *shell)
 		if (history_expansion(input) == SUCCESS)
 		{
 			history(NULL, NULL, RESET_HEAD);
-			execution_pipeline(shell, input);
+			execution_pipeline(shell, &input);
 		}
 		load_signal_profile(SLE_PROFILE);
 	}
