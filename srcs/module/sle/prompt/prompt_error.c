@@ -21,7 +21,6 @@ inline t_vector *read_error(t_registry *shell, t_sle *sle)
 		ft_printf("Returning NULL\n");
 		return (NULL);
 	}
-	vct_del(&(sle->prompt.text));
 	if (g_shell->sigint == TRUE)
 	{
 		g_shell->sigint = FALSE;

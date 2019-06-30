@@ -29,9 +29,9 @@ void		p_insert_username(t_sle *sle, t_vector *text, uint64_t index)
 	char	*username;
 
 	username = vct_get_string(sle->interns.username);
-	if (username == NULL)
-		username = ft_strdup("user");
+	username = ft_strdup(username == NULL ? "user" : username);
 	vct_replace_string(text, index, index + 2, username);
+	ft_strdel(&username);
 }
 
 void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index)
@@ -57,7 +57,6 @@ void		p_insert_host(t_vector *text, uint64_t index)
 	size_t	host_len;
 
 	host_len = 32;
-	hostname = NULL;
 	host = ft_strnew(host_len);
 	if (gethostname(host, host_len) != 0)
 		hostname = ft_strdup("hostname");

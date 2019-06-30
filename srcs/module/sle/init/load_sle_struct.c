@@ -39,6 +39,5 @@ uint64_t    init_prompt(t_sle *sle)
 	sle->prompt.length = 0;
 	sle->prompt.state = INT_PS1;
 	sle->prompt.missing_char = NULL;
-    sle->prompt.text = NULL;
     return (SUCCESS);
 }

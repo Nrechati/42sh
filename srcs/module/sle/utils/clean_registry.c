@@ -13,8 +13,6 @@
 
 #include "sh21.h"
 
-
-
 static void	sle_destroy(__unused t_sle *sle)
 {
 	ft_strdel(&sle->termcaps.clear_line);
@@ -28,8 +26,6 @@ static void	sle_destroy(__unused t_sle *sle)
 	ft_strdel(&sle->termcaps.up);
 	ft_strdel(&sle->termcaps.hidden_cursor);
 	ft_strdel(&sle->termcaps.normal_cursor);
-	vct_del(&sle->prompt.text);
-	ft_strdel(&sle->prompt.missing_char);
 	vct_del(&sle->window.displayed_line);
 	vct_del(&sle->interns.ps1);
 	vct_del(&sle->interns.ps2);

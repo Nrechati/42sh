@@ -101,7 +101,6 @@ inline void		print_prompt(t_registry *shell, t_sle *sle)
 		ptext = vct_dups("[ 42sh ]-> ");
 	else
 		expand_prompt(sle, ptext);
-	sle->prompt.text = ptext;
-	print_prompt_to_window(sle, sle->prompt.text);
-	//vct_del(&ptext);
+	print_prompt_to_window(sle, ptext);
+	vct_del(&ptext);
 }

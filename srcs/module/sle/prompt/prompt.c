@@ -59,13 +59,13 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		redraw(shell, sle);
 	}
 	prompt_post_process(shell, sle);
-	vct_del(&(sle->prompt.text));
 	return (vct_dup(sle->line));
 }
 
 t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 {
 	t_vector	*linesave;
+	t_vector	*line;
 	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
 										PROMPT_DQUOTE, PROMPT_BQUOTE,
 										PROMPT_NL, PROMPT_AND, PROMPT_OR,
@@ -75,32 +75,31 @@ t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag)
 	sle->line = sle->sub_line;
 	sle->prompt.missing_char = (char *)prompt_type[sle_flag & ~SLE_PS2_PROMPT];
 	sle->prompt.state = INT_PS2;
-	if (prompt(shell, sle) == NULL)
+	if ((line = prompt(shell, sle)) == NULL)
 	{
 		sle->line = linesave;
 		return (NULL);
 	}
+	vct_del(&line);
 	sle->line = linesave;
-	//if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
-	//	return (NULL);
 	return (vct_dup(sle->sub_line));
 }
 
 t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 {
 	t_vector	*linesave;
+	t_vector	*line;
 
 	linesave = sle->line;
 	sle->line = sle->sub_line;
 	sle->prompt.state = INT_PS3;
-	if (prompt(shell, sle) == NULL)
+	if ((line = prompt(shell, sle)) == NULL)
 	{
 		sle->line = linesave;
 		return (NULL);
 	}
+	vct_del(&line);
 	sle->line = linesave;
-//	if (is_eof(vct_get_string(sle->sub_line)) == TRUE)
-//		return (NULL);
 	//vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }

@@ -23,12 +23,15 @@ uint8_t		subprompt_call(t_sle *sle, t_vector *line, uint32_t option)
 	if (is_shell_interactive(g_shell) == FALSE)
 	{
 		ft_printf("42sh: Unexpected EOF while looking for matching %s.\n",
-						(char*)prompt_type[option]);
+						(char *)prompt_type[option]);
 		return (FALSE);
 	}
 	new_input = invoke_ps2prompt(g_shell, sle, option);
 	if (new_input == NULL)
+	{
+		vct_del(&new_input);
 		return (FALSE);
+	}
 	vct_ncat(line, new_input, vct_len(new_input));
 	vct_del(&new_input);
 	return (TRUE);
