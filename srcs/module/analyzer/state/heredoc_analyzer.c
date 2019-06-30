@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 23:38:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/06/30 10:45:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ void		io_heredoc_analyzer(t_resolution *resolve)
 	ft_lstdelone(&node, NULL);
 	node = ft_stckpopnode(&resolve->stack);
 	ft_lstaddback(&action.data, node);
-	node = ft_lstnew(&action, sizeof(t_action));
 	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
-
 }
 
 void		heredoc_analyzer(t_resolution *resolve)
@@ -73,6 +71,5 @@ void		heredoc_analyzer(t_resolution *resolve)
 	else if (type == E_DLESSDASH)
 		action.type = A_HEREDOC_TRIM;
 	ft_lstdelone(&node, NULL);
-	node = ft_lstnew(&action, sizeof(t_action));
 	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 }
