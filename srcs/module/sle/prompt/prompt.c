@@ -16,6 +16,7 @@ static void	prompt_pre_process(t_sle *sle)
 {
 	sle->state = STATE_STD;
 	vct_reset(sle->line);
+	vct_reset(sle->sub_line);
 	vct_reset(sle->window.displayed_line);
 	history(NULL, NULL, RESET_HEAD);
 	update_window(sle);
