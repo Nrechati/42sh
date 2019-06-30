@@ -12,20 +12,6 @@
 
 #include "sh21.h"
 
-void			kill_active_jobs(t_registry *shell)
-{
-	t_list	*job_lst;
-
-	if (shell->job_list == NULL)
-		return ;
-	job_lst = shell->job_list;
-	while (job_lst != NULL)
-	{
-		kill(((t_job*)job_lst->data)->pgid, SIGKILL);
-		job_lst = job_lst->next;
-	}
-}
-
 uint8_t			verif_arg(char *s)
 {
 	static char	*long_s = "-9223372036854775808";
@@ -65,9 +51,7 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 		ft_printf("You have active background jobs.\n");
 		return (SUCCESS);
 	}
-	kill_active_jobs(shell);
-	if (av != NULL)
-		++av;
+	++av;
 	if (av != NULL && *av != NULL)
 	{
 		if (*(av + 1) != NULL)
@@ -79,8 +63,6 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 	}
 	else
 		ret = SUCCESS;
-	if (is_shell_interactive(shell) == TRUE)
-		ft_putendl_fd("exit", STDERR_FILENO);
 	shell_exit_routine(shell, ret);
 	return (SUCCESS); // Never reaches this point
 }

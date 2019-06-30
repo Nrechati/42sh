@@ -213,7 +213,6 @@ typedef struct			s_termcaps
 typedef struct			s_prompt
 {
 	uint64_t			length;
-	t_vector			*text;
 	char				*state;
 	char				*missing_char;
 }						t_prompt;
