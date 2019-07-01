@@ -29,11 +29,17 @@ void				interactive_mode(t_registry *shell)
 	{
 		term_mode(TERMMODE_DFLT);
 		load_signal_profile(DFLT_PROFILE);
-		if (history_expansion(input) == SUCCESS)
+		if (ft_strchr(input->buffer, '!') != NULL)
 		{
 			history(NULL, NULL, RESET_HEAD);
-			execution_pipeline(shell, &input);
+			if (history_expansion(input) == SUCCESS)
+			{
+				ft_putstr(input->buffer);
+				execution_pipeline(shell, &input);
+			}
 		}
+		else
+			execution_pipeline(shell, &input);
 		load_signal_profile(SLE_PROFILE);
 		vct_del(&input);
 	}
