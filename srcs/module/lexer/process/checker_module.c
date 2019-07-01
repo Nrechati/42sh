@@ -20,11 +20,12 @@ uint8_t	token_checker(t_lexer *lexer, int start, int end)
 	char	*current;
 
 	i = 0;
-	type = start;
+	type = start + 1;
 	current = lexer->input->buffer + lexer->index;
-	while (type >= end)
+	while (--type >= end)
 	{
-		if (type == E_PERCENT)
+		while (type == E_PERCENT || type == E_BRACKET_OPEN
+				|| type == E_BRACKET_CLOSE)
 			type-- ;
 		len_op = ft_strlen(g_shell->grammar[type]);
 		if (ft_strnequ(g_shell->grammar[type], current, len_op) == TRUE)
@@ -36,7 +37,6 @@ uint8_t	token_checker(t_lexer *lexer, int start, int end)
 			lexer->token_type = type;
 			return (TRUE);
 		}
-		type--;
 	}
 	return (FALSE);
 }
