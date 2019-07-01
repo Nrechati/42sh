@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 19:37:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:40:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,12 @@
 ********************** BUILTIN **********************
 *****************************************************
 */
+
+# define TEST_HASH_SIZE				32
+# define EXIT_FALSE					1
+# define EXIT_TRUE					0
+# define UNARY_OP					1
+# define BINARY_OP					2
 
 # define A_OPT						0x0001
 # define E_OPT						0x0002
