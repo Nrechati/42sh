@@ -187,7 +187,7 @@
 # define NB_OF_TOKENS				49
 # define NB_OF_MTOKENS				24
 
-# define START_OPERATOR				28
+# define START_OPERATOR				27
 # define END_OPERATOR				1
 # define START_RESERVED_WORD		42
 # define END_RESERVED_WORD			30
