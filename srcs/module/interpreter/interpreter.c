@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 08:58:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:31:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,14 @@ static int		run_job(void *context, void *data)
 	shell = context;
 	job = data;
 	job_type = ft_itoa(job->job_type);
-	if (job == NULL || do_i_run(shell, job
+	if (job == NULL)
+		return (FAILURE);
+	if (do_i_run(shell, job
 			, ft_atoi(get_var(shell->intern, "job_type"))) == FALSE)
 	{
 		add_var(&shell->intern, "job_type", job_type, READONLY_VAR);
 		ft_strdel(&job_type);
-		return (FAILURE);
+		return (SUCCESS);
 	}
 	add_var(&shell->intern, "job_type", job_type, READONLY_VAR);
 	ft_strdel(&job_type);
