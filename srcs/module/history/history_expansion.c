@@ -71,8 +71,8 @@ static char		*get_history_return(t_vector *to_replace, const uint64_t option)
 static int		process_history_expansion(t_vector *input, const size_t i)
 {
 	t_vector	*to_replace;
-	char		*search;
 	uint64_t	option;
+	char		*search;
 	int			scale;
 
 	option = GET_ENTRY;
@@ -83,12 +83,14 @@ static int		process_history_expansion(t_vector *input, const size_t i)
 		scale += 2;
 		option |= PREV;
 	}
-	else if (ft_isalnum(vct_charat(input, i + 1)) == TRUE)
-		scale = searching(input, to_replace, i, &option);
-	else if (vct_charat(input, i + 1) == '-')
+	else if (ft_isalnum(vct_charat(input, i + 1)) == TRUE
+			|| vct_charat(input, i + 1) == '-')
 		scale = searching(input, to_replace, i, &option);
 	else
+	{
+		vct_del(&to_replace);
 		return (SUCCESS);
+	}
 	if ((search = get_history_return(to_replace, option)) == NULL)
 		return (FAILURE);
 	vct_replace_string(input, i, i + scale, search);

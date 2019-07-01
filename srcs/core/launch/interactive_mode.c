@@ -19,6 +19,28 @@ static uint8_t		is_input_valid(uint8_t valid)
 	return (TRUE);
 }
 
+static int8_t		do_history_exp(t_vector **input)
+{
+	t_vector	*new;
+	int8_t		ret;
+
+	new = vct_dup(*input);
+	history(NULL, NULL, RESET_HEAD);
+	ret = history_expansion(new);
+	history(NULL, NULL, RESET_HEAD);
+	if (ret == SUCCESS)
+	{
+		if (ft_strequ(new->buffer, (*input)->buffer) == FALSE)
+			ft_putstr(new->buffer);
+		vct_del(input);
+		*input = vct_dup(new);
+	}
+	else
+		vct_del(input);
+	vct_del(&new);
+	return (ret);
+}
+
 void				interactive_mode(t_registry *shell)
 {
 	t_vector		*input;
@@ -27,19 +49,11 @@ void				interactive_mode(t_registry *shell)
 	load_signal_profile(SLE_PROFILE);
 	while (is_input_valid(sle(shell, &input, SLE_GET_INPUT)) == TRUE)
 	{
+		if (do_history_exp(&input) == FAILURE)
+			continue ;
 		term_mode(TERMMODE_DFLT);
 		load_signal_profile(DFLT_PROFILE);
-		if (ft_strchr(input->buffer, '!') != NULL)
-		{
-			history(NULL, NULL, RESET_HEAD);
-			if (history_expansion(input) == SUCCESS)
-			{
-				ft_putstr(input->buffer);
-				execution_pipeline(shell, &input);
-			}
-		}
-		else
-			execution_pipeline(shell, &input);
+		execution_pipeline(shell, &input);
 		load_signal_profile(SLE_PROFILE);
 		vct_del(&input);
 	}
