@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 12:59:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:08:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int8_t					ak_enter_visual_mode(__unused t_registry *shell,
 				t_sle *sle)
 {
-	if (sle->state != STATE_STD)
+	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
 	sle->state = STATE_VISUAL;
 	sle->vis_start = sle->cursor.index;
