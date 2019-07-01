@@ -46,6 +46,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector **input)
 		if (command_group)
 		{
 			history(shell, vct_get_string(*input), ADD_ENTRY);
+			vct_del(input);
 			interpreter(shell, &command_group, 0);
 			load_signal_profile(DFLT_PROFILE);
 		}
