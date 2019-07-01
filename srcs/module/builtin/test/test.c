@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/01 11:00:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:33:31 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int8_t			two_arg_input(t_hash *callbacks, char **av)
 		ft_dprintf(2, "42sh: test: %s: unary operator expected\n", type);
 		return (ERROR);
 	}
-	return (test(arg, NULL));
+	return (test(arg, NULL, UNARY_OP));
 }
 
 int8_t			three_arg_input(t_hash *callbacks, char **av)
@@ -68,7 +68,7 @@ int8_t			three_arg_input(t_hash *callbacks, char **av)
 		ft_dprintf(2, "42sh: test: %s: binary operator expected\n", type);
 		return (ERROR);
 	}
-	return (test(first, second));
+	return (test(first, second, BINARY_OP));
 }
 
 void			load_test_hashmap(t_hash *callbacks)

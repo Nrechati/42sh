@@ -6,17 +6,22 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:47:10 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 11:01:27 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:31:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <sys/stat.h>
 
-uint8_t		test_e_cb(void *data, __unused void *more)
+uint8_t		test_e_cb(void *data, __unused void *more, uint8_t type)
 {
 	char			*pathname;
 
+	if (type == BINARY_OP)
+	{
+		ft_dprintf(2, "42sh: test: -e: binary operator expected\n", type);
+		return (ERROR);
+	}
 	if (!data)
 		return (ERROR);
 	pathname = data;
@@ -25,11 +30,16 @@ uint8_t		test_e_cb(void *data, __unused void *more)
 	return (FALSE);
 }
 
-uint8_t		test_s_cb(void *data, __unused void *more)
+uint8_t		test_s_cb(void *data, __unused void *more, uint8_t type)
 {
 	char			*pathname;
 	struct stat		stat;
 
+	if (type == BINARY_OP)
+	{
+		ft_dprintf(2, "42sh: test: -s: binary operator expected\n", type);
+		return (ERROR);
+	}
 	if (!data)
 		return (ERROR);
 	pathname = data;
@@ -43,10 +53,15 @@ uint8_t		test_s_cb(void *data, __unused void *more)
 	return (FALSE);
 }
 
-uint8_t		test_z_cb(void *data, __unused void *more)
+uint8_t		test_z_cb(void *data, __unused void *more, uint8_t type)
 {
 	char			*str;
 
+	if (type == BINARY_OP)
+	{
+		ft_dprintf(2, "42sh: test: -z: binary operator expected\n", type);
+		return (ERROR);
+	}
 	if (!data)
 		return (ERROR);
 	str = data;

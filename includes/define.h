@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 13:04:44 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:32:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,10 @@
 # define TEST_HASH_SIZE				32
 # define EXIT_FALSE					1
 # define EXIT_TRUE					0
+# define UNARY_OP					1
+# define BINARY_OP					2
 
-typedef uint8_t (*t_test_cb)(void *, void *);
+typedef uint8_t (*t_test_cb)(void *, void *, uint8_t);
 
 # define A_OPT						0x0001
 # define E_OPT						0x0002
