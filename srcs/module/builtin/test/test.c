@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/01 13:45:55 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:34:08 by Nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int8_t				test_blt(t_registry *shell, char **av)
 	status = handle_input(&callbacks, ac, av, i);
 	if (i > 1 && ac >= 1 && status != ERROR)
 		status = test_not(status);
+	ft_hmap_free_content(&callbacks, NULL);
 	if (status == FALSE)
 		return (EXIT_FALSE);
 	else if (status == TRUE)
