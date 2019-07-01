@@ -395,6 +395,7 @@
 */
 
 # define REDIRECT_ACTION			17
+# define FREE_INTERPRETER			-1
 
 # define CLOSED_STDIN				0x001
 # define CLOSED_STDOUT				0x002

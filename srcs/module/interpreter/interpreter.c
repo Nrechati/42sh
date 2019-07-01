@@ -145,7 +145,7 @@ int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
 
 	if (flag != 0)
 	{
-		if (flag == -1)
+		if (flag == FREE_INTERPRETER)
 			ft_lstdel(&job_lst, del_job);
 		else
 			ft_lstiter_ctx(job_lst, &flag, set_signaled);

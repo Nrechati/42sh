@@ -57,6 +57,7 @@ void				shell_exit_routine(t_registry *shell, int8_t ret)
 		kill_active_jobs(shell);
 		sle(shell, NULL, SLE_EXIT);
 	}
+	interpreter(NULL, NULL, FREE_INTERPRETER);
 	term_mode(TERMMODE_DFLT);
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 		close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));
