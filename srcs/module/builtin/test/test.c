@@ -51,7 +51,7 @@ static uint8_t		handle_input(t_hash *callbacks, int ac, char **av, int i)
 		status = three_arg_input(callbacks, av + i);
 	else
 	{
-		ft_dprintf(2, "42sh: test: Too many arguments");
+		ft_dprintf(2, "42sh: test: Too many arguments\n");
 		status = ERROR;
 	}
 	return (status);
