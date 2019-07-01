@@ -13,13 +13,13 @@ t_option		get_option_fc(char *s, t_option option)
 			option |= R_OPT;
 		else if (*s == 's')
 			option |= S_OPT;
+		else if (option == 0 && ft_isdigit(*s) == TRUE)
+			return (option);
 		else
 		{
 			ft_dprintf(STDERR_FILENO,
 					"42sh: fc: -%c: invalid option\n", *s);
-			ft_dprintf(STDERR_FILENO, "%s or %s\n",
-					"fc: usage: fc [-e ename] [-lnr] [first] [last]",
-					"fc -s [pat=rep] [command]");
+			ft_dprintf(STDERR_FILENO, "%s%s or %s", FC1, FC2, FC3);
 			return (ERROR_OPT);
 		}
 		s++;
@@ -39,11 +39,7 @@ static char		*get_fc_options(char ***av, t_option *option)
 		(*av)++;
 		if (**av == NULL || ***av == '-' || ***av == '\0')
 		{
-			ft_dprintf(STDERR_FILENO,
-					"42sh: fc: -e: option requires an argument\n");
-			ft_dprintf(STDERR_FILENO, "%s or %s\n",
-					"fc: usage: fc [-e ename] [-lnr] [first] [last]",
-					"fc -s [pat=rep] [command]");
+			ft_dprintf(STDERR_FILENO, "%s\n%s%s or %s", FC_E, FC1, FC2, FC3);
 			*option = ERROR_OPT;
 		}
 		else

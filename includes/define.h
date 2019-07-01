@@ -110,12 +110,12 @@
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
 # define CD_ERROR_OLDPWD_NOTSET		"42sh: cd: OLDPWD not set\n"
 # define NOFI 						"No such file or directory\n"
-# define ENV_USAGE_1 				"env: usage: env [-i] [name=value]... "
-# define ENV_USAGE_2 				"[utility [argument]...]\n"
-# define SETENV_USAGE 				"setenv: usage: setenv [name [value]]\n"
-# define UNSETENV_USAGE 			"unsetenv: usage: unsetenv name\n"
 # define EXPORT_USAGE 				"export: usage: export name[=value] ..."
 # define UNSET_USAGE 				"unset: usage: unset name\n"
+# define FC1 						"fc: usage: fc [-e ename]"
+# define FC2 						" [-lnr] [first] [last]"
+# define FC3 						"fc -s [pat=rep] [command]\n"
+# define FC_E 						"42sh: fc: -e: option requires an argument"
 
 /*
 *****************************************************

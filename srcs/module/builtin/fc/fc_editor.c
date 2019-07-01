@@ -20,11 +20,12 @@ static void		add_fd_to_param(char **param, int fd)
 	ft_strdel(&fd_str);
 }
 
-static void		launch_edition(t_registry *shell, char *editor)
+static int8_t	launch_edition(t_registry *shell, char *editor)
 {
 	t_vector	*cmd;
 	char		*out;
 	char		*tmp;
+	char		*ret;
 
 	out = ft_strjoin(editor, " ");
 	tmp = out;
@@ -33,10 +34,14 @@ static void		launch_edition(t_registry *shell, char *editor)
 	cmd = vct_dups(out);
 	shell->option.option &= ~(INTERACTIVE_OPT);
 	execution_pipeline(shell, &cmd);
+		return (FAILURE);
 	shell->option.option |= INTERACTIVE_OPT;
 	ft_strdel(&out);
 	vct_del(&cmd);
 	history(NULL, NULL, POP_ENTRY);
+	if ((ret = get_var(shell->intern, "?")) && ft_strequ(ret, "0") == FALSE)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 static int8_t	write_file(t_registry *shell, char **av, char *editor)
@@ -63,8 +68,7 @@ static int8_t	write_file(t_registry *shell, char **av, char *editor)
 	history(NULL, param, PRINT_HISTORY | WITHOUT_SPACE);
 	ft_strdel(&param);
 	close(fd);
-	launch_edition(shell, editor);
-	return (SUCCESS);
+	return (launch_edition(shell, editor));
 }
 
 static int8_t	exec_new_pipeline(t_registry *shell)
