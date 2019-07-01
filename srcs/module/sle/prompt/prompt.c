@@ -34,7 +34,6 @@ static void	prompt_post_process(t_registry *shell, t_sle *sle)
 		vct_del(&sle->line);
 		sle->line = vct_dup(sle->sub_line);
 	}
-	vct_reset(sle->sub_line);
 	sle->state = STATE_STD;
 	autocompletion(NULL, shell, NULL, RESET_RESULT);
 	history(NULL, NULL, RESET_HEAD);
