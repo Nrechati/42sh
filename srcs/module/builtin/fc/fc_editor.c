@@ -61,6 +61,7 @@ static int8_t	write_file(t_registry *shell, char **av, char *editor)
 	}
 	add_fd_to_param(&param, fd);
 	history(NULL, param, PRINT_HISTORY | WITHOUT_SPACE);
+	ft_strdel(&param);
 	close(fd);
 	launch_edition(shell, editor);
 	return (SUCCESS);
