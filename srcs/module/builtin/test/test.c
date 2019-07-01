@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 14:51:54 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:00:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ uint8_t			test_not(uint8_t status)
 
 int8_t			test_single_arg(char *arg)
 {
-	if (*arg == 0)
+	if (!arg || ft_strequ(arg, ""))
 		return (FALSE);
 	return (TRUE);
 }
@@ -103,7 +103,7 @@ uint8_t			handle_input(t_hash *callbacks, int ac, char **av, int i)
 	uint8_t		status;
 
 	if (ac == 1)
-		status = test_single_arg(av[1]);
+		status = test_single_arg(av[i]);
 	else if (ac == 2)
 		status = two_arg_input(callbacks, av + i);
 	else if (ac == 3)
@@ -127,17 +127,16 @@ int8_t			test_blt(__unused t_registry *shell, char **av)
 	ft_bzero(&callbacks, sizeof(t_hash));
 	callbacks = ft_hmap_init(TEST_HASH_SIZE);
 	load_test_hashmap(&callbacks);
-	i = 1 + (ft_strequ(av[1], "!"));
-	ac = ft_tabsize(av) - i;
+	ac = ft_tabsize(av);
+	i = 1 + (ac > 2 && ft_strequ(av[1], "!"));
+	ac -= i;
 	if (ac == 0)
 		return (EXIT_FALSE);
 	status = handle_input(&callbacks, ac, av, i);
 	ft_hmap_free_content(&callbacks, ft_free);
 	ft_free(&callbacks);
-	ft_printf("status bf = %d | i = %d\n", status, i);
-	if (i > 1 && status != ERROR)
+	if (i > 1 && ac >= 1 && status != ERROR)
 		status = test_not(status);
-	ft_printf("status = %d | i = %d\n", status, i);
 	if (status == FALSE)
 		return (EXIT_FALSE);
 	else if (status == TRUE)
