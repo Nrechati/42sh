@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 14:45:45 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/27 14:46:40 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:47:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		do_high_op(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
 	else
 	{
 		if (second->value.digit == 0)
-			ft_printf("Division by zero");
+			ft_printf("Division by zero\n");
 		else if (curr->value.type & (OPERATOR & DIVIDE))
 			first->value.digit /= second->value.digit;
 		else if (curr->value.type & (OPERATOR & MODULO))
