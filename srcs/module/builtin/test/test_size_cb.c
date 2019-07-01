@@ -6,17 +6,19 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:47:10 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/01 11:31:59 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:50:15 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <sys/stat.h>
 
-uint8_t		test_e_cb(void *data, __unused void *more, uint8_t type)
+uint8_t		test_e_cb(void *data, void *more, uint8_t type)
 {
 	char			*pathname;
+	struct stat		stat;
 
+	(void)more;
 	if (type == BINARY_OP)
 	{
 		ft_dprintf(2, "42sh: test: -e: binary operator expected\n", type);
@@ -25,16 +27,18 @@ uint8_t		test_e_cb(void *data, __unused void *more, uint8_t type)
 	if (!data)
 		return (ERROR);
 	pathname = data;
-	if (access(pathname, F_OK) == TRUE)
-		return (TRUE);
-	return (FALSE);
+	ft_bzero(&stat, sizeof(stat));
+	if (lstat(pathname, &stat) == FAILURE)
+		return (FALSE);
+	return (TRUE);
 }
 
-uint8_t		test_s_cb(void *data, __unused void *more, uint8_t type)
+uint8_t		test_s_cb(void *data, void *more, uint8_t type)
 {
 	char			*pathname;
 	struct stat		stat;
 
+	(void)more;
 	if (type == BINARY_OP)
 	{
 		ft_dprintf(2, "42sh: test: -s: binary operator expected\n", type);
@@ -44,19 +48,18 @@ uint8_t		test_s_cb(void *data, __unused void *more, uint8_t type)
 		return (ERROR);
 	pathname = data;
 	ft_bzero(&stat, sizeof(stat));
-	if (access(pathname, F_OK) != TRUE)
-		return (FALSE);
 	if (lstat(pathname, &stat) == FAILURE)
-		return (ERROR);
+		return (FALSE);
 	if (stat.st_size > 0)
 		return (TRUE);
 	return (FALSE);
 }
 
-uint8_t		test_z_cb(void *data, __unused void *more, uint8_t type)
+uint8_t		test_z_cb(void *data, void *more, uint8_t type)
 {
 	char			*str;
 
+	(void)more;
 	if (type == BINARY_OP)
 	{
 		ft_dprintf(2, "42sh: test: -z: binary operator expected\n", type);

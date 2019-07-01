@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 06:47:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:57:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,7 @@ typedef struct			s_sle
 
 typedef int				(*t_builtin) (t_registry *, char **);
 typedef t_option		(*t_get_option)(char *s, t_option option);
+typedef uint8_t			(*t_test_cb)(void *, void *, uint8_t);
 
 /*
 *****************************************************

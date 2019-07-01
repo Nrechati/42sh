@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/01 11:33:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:58:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int				ft_tabsize(char **tab)
+int					ft_tabsize(char **tab)
 {
 	int		i;
 
@@ -22,56 +22,7 @@ int				ft_tabsize(char **tab)
 	return (i);
 }
 
-
-uint8_t			test_not(uint8_t status)
-{
-	if (status == TRUE)
-		return (FALSE);
-	return (TRUE);
-}
-
-int8_t			test_single_arg(char *arg)
-{
-	if (!arg || ft_strequ(arg, ""))
-		return (FALSE);
-	return (TRUE);
-}
-
-int8_t			two_arg_input(t_hash *callbacks, char **av)
-{
-	char		*type;
-	char		*arg;
-	t_test_cb	test;
-
-	type = av[0];
-	arg = av[1];
-	if ((test = ft_hmap_getdata(callbacks, type)) == NULL)
-	{
-		ft_dprintf(2, "42sh: test: %s: unary operator expected\n", type);
-		return (ERROR);
-	}
-	return (test(arg, NULL, UNARY_OP));
-}
-
-int8_t			three_arg_input(t_hash *callbacks, char **av)
-{
-	char		*type;
-	char		*first;
-	char		*second;
-	t_test_cb	test;
-
-	type = av[1];
-	first = av[0];
-	second = av[2];
-	if ((test = ft_hmap_getdata(callbacks, type)) == NULL)
-	{
-		ft_dprintf(2, "42sh: test: %s: binary operator expected\n", type);
-		return (ERROR);
-	}
-	return (test(first, second, BINARY_OP));
-}
-
-void			load_test_hashmap(t_hash *callbacks)
+static void			load_test_hashmap(t_hash *callbacks)
 {
 	ft_hmap_insert(callbacks, "-b", test_b_cb);
 	ft_hmap_insert(callbacks, "-c", test_c_cb);
@@ -98,7 +49,7 @@ void			load_test_hashmap(t_hash *callbacks)
 	ft_hmap_insert(callbacks, "-le", test_le_cb);
 }
 
-uint8_t			handle_input(t_hash *callbacks, int ac, char **av, int i)
+static uint8_t		handle_input(t_hash *callbacks, int ac, char **av, int i)
 {
 	uint8_t		status;
 
@@ -116,13 +67,14 @@ uint8_t			handle_input(t_hash *callbacks, int ac, char **av, int i)
 	return (status);
 }
 
-int8_t			test_blt(__unused t_registry *shell, char **av)
+int8_t				test_blt(t_registry *shell, char **av)
 {
 	int				i;
-	int 			ac;
+	int				ac;
 	uint8_t			status;
 	t_hash			callbacks;
 
+	(void)shell;
 	status = 0;
 	ft_bzero(&callbacks, sizeof(t_hash));
 	callbacks = ft_hmap_init(TEST_HASH_SIZE);
