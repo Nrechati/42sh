@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/01 13:40:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:42:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int8_t				test_blt(t_registry *shell, char **av)
 	if (ac == 0)
 		return (EXIT_FALSE);
 	status = handle_input(&callbacks, ac, av, i);
-	ft_hmap_free_content(&callbacks, ft_free);
-	ft_free(&callbacks);
+	ft_hmap_free_content(&callbacks, free);
+	free(&callbacks);
 	if (i > 1 && ac >= 1 && status != ERROR)
 		status = test_not(status);
 	if (status == FALSE)
