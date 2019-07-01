@@ -47,9 +47,12 @@ static void	state_search(t_sle *sle)
 	char		*search;
 	char 		*sl;
 
+	search = NULL;
 	tputs(sle->termcaps.hidden_cursor, 1, &ft_putc);
 	sl = vct_get_string(sle->sub_line);
 	search = history(NULL, sl, GET_ENTRY | BY_NAME | sle->search_type);
+	vct_del(&sle->search_line);
+	vct_del(&sle->line);
 	if (search == NULL && sl != NULL && *sl != '\0')
 		sle->search_line = vct_dups("Failed");
 	else if (search != NULL)
@@ -62,6 +65,7 @@ static void	state_search(t_sle *sle)
 				vct_get_string(sle->sub_line),
 				vct_get_string(sle->search_line));
 	sle->line = vct_dups(search);
+	ft_strdel(&search);
 }
 
 void	redrawmode_line(t_sle *sle)
