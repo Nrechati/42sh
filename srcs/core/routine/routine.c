@@ -52,5 +52,6 @@ int8_t				execution_pipeline(t_registry *shell, t_vector **input)
 		}
 		lexer_print_debug(shell, resolve.tokens);
 	}
+	vct_del(input);
 	return (SUCCESS);
 }
