@@ -25,9 +25,16 @@ static void	prompt_pre_process(t_sle *sle)
 static void	prompt_post_process(t_registry *shell, t_sle *sle)
 {
 	if (sle->state == STATE_SEARCH)
-		sle->line = sle->search_line;
+	{
+		vct_del(&sle->line);
+		sle->line = vct_dup(sle->search_line);
+	}
 	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
-		vct_reset(sle->line);
+	{
+		vct_del(&sle->line);
+		sle->line = vct_dup(sle->sub_line);
+	}
+	vct_reset(sle->sub_line);
 	sle->state = STATE_STD;
 	autocompletion(NULL, shell, NULL, RESET_RESULT);
 	history(NULL, NULL, RESET_HEAD);
