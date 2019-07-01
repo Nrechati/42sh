@@ -6,21 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/01 12:58:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:02:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-int					ft_tabsize(char **tab)
-{
-	int		i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
 
 static void			load_test_hashmap(t_hash *callbacks)
 {
