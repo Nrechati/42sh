@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 22:12:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:43:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,16 @@ static int16_t          init_term_modes(void)
 		return (CRITICAL_ERROR | MALLOC_FAIL);
 	if (tcgetattr(STDIN_FILENO, &term) != SUCCESS)
         return (CRITICAL_ERROR | TERMMDE_FAIL);
-	memcpy(g_shell->orig_ios, &term, sizeof(struct termios));
+	ft_memcpy(g_shell->orig_ios, &term, sizeof(struct termios));
 	term.c_lflag &= ~(TOSTOP);
-	memcpy(g_shell->exe_ios, &term, sizeof(struct termios));
+
+	ft_memcpy(g_shell->exe_ios, &term, sizeof(struct termios));
     term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
 	term.c_lflag |= ISIG;
 	term.c_cc[VMIN] = 1;
 	term.c_cc[VTIME] = 0;
-	memcpy(g_shell->sle_ios, &term, sizeof(struct termios));
+	ft_memcpy(g_shell->sle_ios, &term, sizeof(struct termios));
     return (SUCCESS);
 }
 

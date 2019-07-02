@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/07/02 11:05:15 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/07/02 16:31:41 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -290,7 +290,7 @@ BUILTIN += jobs.c
 BUILTIN += print.c
 BUILTIN += get_state.c
 BUILTIN += get_avs.c
-#BUILTIN += utils.c
+BUILTIN += jobs_utils.c
 
 
 #CD
@@ -429,8 +429,12 @@ INTERPRETER += background_job.c
 #						   - - - - Jobcontrol - - - -                          #
 
 JOBCTL += jobctl.c
-JOBCTL += utils.c
+JOBCTL += mark_jobs.c
+JOBCTL += notify_job.c
+JOBCTL += pushjob.c
+JOBCTL += remove_done_jobs.c
 JOBCTL += update_jobs.c
+JOBCTL += utils.c
 
 #						   - - - - Expansion - - - -                           #
 

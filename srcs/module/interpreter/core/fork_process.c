@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 16:10:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:36:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ uint8_t	check_cmd_path(char *data)
 	return (FALSE);
 }
 
-static void	child_process(__unused t_registry *shell, t_process *process, __unused char **env)
+static void	child_process(t_registry *shell, t_process *process, char **env,
+				uint8_t foreground)
 {
 	char		*pathname;
 
@@ -44,19 +45,26 @@ static void	child_process(__unused t_registry *shell, t_process *process, __unus
 	signal (SIGCONT, SIG_DFL);
 	signal (SIGTTIN, SIG_DFL);
 	signal (SIGTTOU, SIG_IGN);
+
 	process->pid = getpid();
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
-	if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-		tcsetpgrp(STDOUT_FILENO, *process->pgid);
+
+	if (foreground == TRUE)
+	{
+		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
+			tcsetpgrp(STDOUT_FILENO, *process->pgid);
+	}
+
 	if (process->process_type & IS_BLT)
 	{
-		run_builtin(shell, process);
+		run_builtin(shell, process, foreground);
 		exit(process->status);
 	}
 	ft_lstiter(process->redirects, do_redirect);
 	ft_lstiter(process->redirects, close_redirect);
+
 	if (process->process_type & IS_BIN)
 		pathname = ft_hmap_getdata(&shell->hash.bin, process->av[0]);
 	else if (process->process_type & IS_ABS)
@@ -66,7 +74,6 @@ static void	child_process(__unused t_registry *shell, t_process *process, __unus
 	}
 	else if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
-
 	if (pathname != NULL)
 	{
 		#ifndef NOEXEC
@@ -82,17 +89,21 @@ static void	child_process(__unused t_registry *shell, t_process *process, __unus
 	exit(FAILURE);
 }
 
-static void	parent_process(t_registry *shell, t_process *process, char ***env)
+static void	parent_process(t_registry *shell, t_process *process, char ***env,
+				uint8_t foreground)
 {
 	if (process->process_type & IS_BIN)
 		ft_hmap_hits(&shell->hash.bin, process->av[0]);
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
+	if (foreground == FALSE)
+		tcsetpgrp(STDOUT_FILENO, g_shell->pid);
 	ft_freetab(env);
 }
 
-void		fork_process(t_registry *shell, t_process *process)
+void		fork_process(t_registry *shell, t_process *process,
+					uint8_t foreground)
 {
 	char			**env;
 
@@ -107,9 +118,9 @@ void		fork_process(t_registry *shell, t_process *process)
 		return;
 	}
 	else if (process->pid == 0)
-		child_process(shell, process, env);
+		child_process(shell, process, env, foreground);
 	else
-		parent_process(shell, process, &env);
+		parent_process(shell, process, &env, foreground);
 }
 
 static int	update_intern(t_variable *variable, char *data)
