@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 17:12:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:21:30 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int		do_redirect(void *context, void *data)
 											, redirect->to);
 			return (FAILURE);
 		}
-	//	dup2(redirect->to, redirect->from);
 		return (SUCCESS);
 	}
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
