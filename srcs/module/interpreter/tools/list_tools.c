@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:56:27 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 15:33:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 22:26:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		del_action(void *data)
 {
-	t_action 	*action;
+	t_action	*action;
 
 	action = data;
 	ft_lstdel(&action->data, del_token);

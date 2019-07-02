@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 16:03:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:08:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,38 +59,7 @@ int				get_io(t_list *node)
 	return (ft_atoi(token->data));
 }
 
-int				check_delimiter(char **delimiter, t_vector **vector, int fd)
-{
-	if (!(*vector) || ft_strequ((*vector)->buffer, *delimiter) == TRUE)
-	{
-		close(fd);
-		ft_strdel(delimiter);
-		vct_del(vector);
-		return (SUCCESS);
-	}
-	return (FAILURE);
-}
-
-int				write_heredoc(t_list *intern_var, t_vector **vector, int fd
-								, int trim)
-{
-	char		*string;
-	int			index;
-
-	index = 0;
-	string = expansion_pipeline(intern_var, (*vector)->buffer);
-	if (string)
-	{
-		while (trim == TRIM_ON && ft_strchr(" \t", string[index]))
-			index++;
-		ft_putstr_fd(string + index, fd);
-		ft_strdel(&string);
-		vct_del(vector);
-	}
-	return (0);
-}
-
-int		get_custom_fd(char **str, t_list *node)
+int				get_custom_fd(char **str, t_list *node)
 {
 	t_token		*token;
 	int			action_type;

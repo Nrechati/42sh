@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/30 08:47:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:19:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void		command_assign(t_stack *tree_node, t_command *command)
 {
 	t_list		*node;
-
 
 	command->type = COMMAND_ASSIGN;
 	while (ft_stcksize(tree_node) > 0)
@@ -33,7 +32,7 @@ static void		command_args(t_stack *tree_node, t_command *command)
 	while (ft_stcksize(tree_node) > 0)
 	{
 		if (((t_action *)ft_stcktop(tree_node))->type == A_ARGS)
-			break;
+			break ;
 		node = ft_stckpopnode(tree_node);
 		ft_lstadd(&command->actions, node);
 	}
@@ -65,7 +64,7 @@ static t_list	*generate_cmd_list(t_stack *tree_node)
 
 static int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 {
-	t_group 	group;
+	t_group		group;
 	t_action	*action;
 	t_list		*node;
 
@@ -105,5 +104,5 @@ t_list			*analyzer(t_resolution *resolve)
 		if (generate_cmd_group(&command_group, &resolve->tree_node) == FAILURE)
 			return (NULL);
 	analyzer_print_debug(g_shell, command_group);
-	return	(command_group);
+	return (command_group);
 }

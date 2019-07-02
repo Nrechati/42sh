@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 20:15:15 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:21:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef void				(*t_resolve)(t_resolution *);
 typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 typedef struct s_redirect	t_redirect;
 typedef struct s_action		t_action;
-typedef void				(*t_set_redirect)(t_registry *, t_redirect *, t_action *);
+typedef void				(*t_set_redirect)(t_redirect *, t_action *);
 typedef t_set_redirect		t_redirection[REDIRECT_ACTION];
 
 struct					s_redirect
@@ -146,7 +146,7 @@ typedef struct			s_process
 	char				**av;
 	t_list				*env;
 	t_list				*redirects;
-	uint32_t			process_type;
+	uint32_t			type;
 	uint32_t			id;
 	pid_t				pid;
 	pid_t				*pgid;
@@ -160,7 +160,7 @@ typedef struct			s_job
 	pid_t				pgid;			/* Job process group id */
 	t_list				*processes;		/* Job process list		*/
 	uint8_t				state;			/* RUNNING | PENDING */
-	uint8_t				job_type;
+	uint8_t				type;
 	uint32_t			signo;
 	uint64_t			id;
 	char				current;
@@ -330,16 +330,17 @@ typedef struct	s_history
 *****************************************************
 */
 
-typedef void			(t_completion_fct)(char *,
-							t_autocomplete *, t_registry *);
+typedef struct s_autocomplete 	t_autocomplete;
+typedef void					(t_completion_fct)(char *
+								, t_autocomplete *, t_registry *);
 
-typedef struct			s_autocomplete
+struct			s_autocomplete
 {
 	t_list				*list;
 	size_t				nb;
 	size_t				max_len;
 	enum e_result_type	type;
 	size_t				index;
-}						t_autocomplete;
+};
 
 #endif

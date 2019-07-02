@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:43:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:07:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:19:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	m_get_token(t_arithmetic *arithmetic, t_list **node)
 	arithmetic->curr_token = arithmetic->current->data;
 }
 
-int8_t	get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start)
+int8_t	get_expansion_input(t_arithmetic *arithmetic, char *input, size_t start)
 {
 	char		*str;
 
@@ -47,7 +47,8 @@ int8_t	get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start)
 	}
 	if (ft_strchr(str, '.'))
 	{
-		ft_dprintf(2, "42sh: %s: syntax error\n", arithmetic->input);
+		ft_dprintf(2, "42sh: .: syntax error\n");
+		ft_strdel(&str);
 		return (FAILURE);
 	}
 	arithmetic->input = vct_dups(str);
@@ -55,7 +56,7 @@ int8_t	get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start)
 	return (SUCCESS);
 }
 
-int8_t	find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t start)
+int8_t	find_expansion_end(t_arithmetic *arithmetic, char *input, size_t start)
 {
 	size_t		end;
 

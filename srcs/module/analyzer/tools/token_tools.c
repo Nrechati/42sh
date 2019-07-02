@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:03:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 08:17:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:23:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	get_token(t_resolution *resolve)
 	ft_lstdelone(&node, NULL);
 }
 
-void	*token_to_var(__unused void *context, void *data)
+void	*token_to_var(void *context, void *data)
 {
 	t_list		*node;
 	t_list		*ptr;
@@ -54,6 +54,7 @@ void	*token_to_var(__unused void *context, void *data)
 	t_token		*data_token;
 	t_variable	var;
 
+	(void)context;
 	ptr = ((t_action *)data)->data;
 	name_token = ptr->data;
 	data_token = ptr->next->data;

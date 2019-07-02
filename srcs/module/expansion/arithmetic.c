@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 17:03:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:55:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int			arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 {
-	t_vector *vector;
+	t_vector	*vector;
+	int			diff;
 
 	vector = vct_dups(*output);
-	vct_replace_string(vector, i, i + arithmetic->end + 1, arithmetic->expanded);
+	diff = i + arithmetic->end + 1;
+	vct_replace_string(vector, i, diff, arithmetic->expanded);
 	ft_strdel(output);
 	*output = ft_strdup(vct_get_string(vector));
 	vct_del(&vector);
@@ -32,7 +34,10 @@ static int	arithmetic(char **output, int i)
 	if (find_expansion_end(&arithmetic, *output, i + 3) == FAILURE)
 		return (FAILURE);
 	if (get_expansion_input(&arithmetic, *output, i + 3) == FAILURE)
+	{
+		del_arithmetic(&arithmetic);
 		return (FAILURE);
+	}
 	arithmetic.tokens = lexer(arithmetic.input, MATHS);
 	if (arithmetic_analyzer(&arithmetic) == FAILURE)
 		return (FAILURE);

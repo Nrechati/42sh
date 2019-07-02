@@ -6,16 +6,17 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 20:20:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:32:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int		is_export(void *data, __unused void *to_find)
+int		is_export(void *data, void *to_find)
 {
 	t_variable *variable;
 
+	(void)to_find;
 	variable = data;
 	if (variable->flag & EXPORT_VAR && variable->flag & SET_VAR)
 		return (TRUE);
@@ -36,7 +37,7 @@ int		copy_var(void *src, void *dest)
 
 int		variable_update(void *context, void *data)
 {
-	t_list 		*tmp_env;
+	t_list		*tmp_env;
 	t_variable	*variable;
 	char		*holder;
 

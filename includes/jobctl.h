@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 16:03:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 22:58:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	pop_current_job(t_registry *shell, t_job *job);
 void	remove_job_from_list(t_list **joblst, t_job *job);
 void	remove_done_jobs(t_registry *shell);
 
+
+int		setup_background_job(t_job *job);
 
 void	print_jobs(t_registry *shell, t_job *job, uint8_t flag);
 void	av_to_str(t_process);

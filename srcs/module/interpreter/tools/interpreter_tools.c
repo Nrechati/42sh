@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:30:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 13:42:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:14:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int			get_failed_process(void *data, void *context)
 {
-	t_process	*current;
+	t_process		*current;
 	uint16_t		errors;
 
 	(void)context;
@@ -23,7 +23,7 @@ int			get_failed_process(void *data, void *context)
 	errors = 0;
 	errors = (IS_EXP_ERROR | IS_OPEN_FAILED
 			| IS_CRITICAL | IS_DUP_FAILED | IS_ASSIGN);
-	if ((current->process_type & ~(IS_ALONE)) & errors)
+	if ((current->type & ~(IS_ALONE)) & errors)
 		return (TRUE);
 	return (FALSE);
 }
@@ -44,11 +44,15 @@ void		re_open_std(const uint8_t std, char *tty_name)
 	return ;
 }
 
-uint8_t		do_i_run(t_registry *shell, t_job *job, int job_type)
+uint8_t		check_job(t_job *job, int job_type)
 {
 	char	*last_status;
+	char	*last_job;
 
-	last_status = get_var(shell->intern, "?");
+	last_job = ft_itoa(job->type);
+	add_var(&g_shell->intern, "job_type", last_job, READONLY_VAR);
+	ft_strdel(&last_job);
+	last_status = get_var(g_shell->intern, "?");
 	if (job->state & KILLED)
 		return (FALSE);
 	else if (job_type & GROUP_AND)
