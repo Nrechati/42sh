@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 12:43:25 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:01:18 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ static void	child_process(__unused t_registry *shell, t_process *process, __unus
 	ft_lstiter(process->redirects, close_redirect);
 	if (pathname != NULL)
 	{
-		#ifndef NOEXEC
+//		#ifndef NOEXEC
 		execve(pathname, process->av, env);
-		#else
-		(void)env;
-		#endif
+//		#else
+//		(void)env;
+//		#endif
 	}
 	exit(FAILURE);
 }

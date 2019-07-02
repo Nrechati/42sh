@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 12:50:40 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:41:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,6 @@ int				run_process(t_registry *shell, t_process *process)
 		ft_dprintf(2, SH_GENERAL_ERROR SH_MALLOC_ERROR);
 		return(FAILURE);
 	}
-//	if (process->process_type & IS_NOTFOUND)
-//	{
-//		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
-//		add_var(&shell->intern, "?", "255", READONLY_VAR);
-//	}
 	if (process->process_type & IS_ASSIGN)
 		process->completed = assign_intern(shell, &process->env);
 	else if (process->process_type == (IS_ALONE | IS_BLT))
