@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 09:35:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:12:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ char						*tilde(t_list *intern_var, char *str);
 char						*variable_expansion(t_list *intern_var, char *str);
 void						quote_removal(char *str);
 char						character_swap(char swapped);
+void						delete_character(char *str);
 t_quote						select_quoting(t_quote quote, char c);
 int							check_backslash(char *dest, t_quote quote, int i);
 

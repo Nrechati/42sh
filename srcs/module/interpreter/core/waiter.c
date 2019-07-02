@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 10:35:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:34:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		set_status(t_registry *shell, t_job *job,
 	{
 		signo = WTERMSIG(status);
 		if (signo == 2 || signo == 3)
-			interpreter(NULL, NULL, signo);
+			sigstop_exec(signo);
 		exit_status = ft_itoa((uint8_t)(signo + 128));
 		current->stopped = TRUE;
 		//ft_printf("SIGNALED by: %d\n", exit_status);

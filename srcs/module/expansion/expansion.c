@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/26 22:19:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:20:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,27 @@ t_quote	select_quoting(t_quote quote, const char c)
 	return (quote);
 }
 
+void	remove_newline(char *str)
+{
+	t_quote		quote;
+
+	quote = 0;
+	while (*str != '\0')
+	{
+		if (ft_strchr("\'\"", *str))
+			quote = select_quoting(quote, *str);
+		if (*str == '\n' && quote == QUOTE_OFF)
+			delete_character(str);
+		++str;
+	}
+}
+
 char	*expansion_pipeline(t_list *intern_var, char *str)
 {
 	char		*dest;
 	char		*expanded;
 
+	remove_newline(str);
 	if ((dest = tilde(intern_var, str)) == NULL)
 		return (NULL);
 	expanded = variable_expansion(intern_var, dest);
