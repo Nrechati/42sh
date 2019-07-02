@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 20:14:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:41:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	else if (sle_flag & SLE_SIZE_UPDATE)
 	{
 		if (sle.state == STATE_REVSEARCH || sle.state == STATE_INCSEARCH)
+		{
 			vct_reset(sle.line);
+			sle.state = STATE_STD;
+		}
 		redraw_window(&sle);
 		find_multiline_coord(&sle, 0);
 		set_cursor_pos(&sle, sle.cursor.index);

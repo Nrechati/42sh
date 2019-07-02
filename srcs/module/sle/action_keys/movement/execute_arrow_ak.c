@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:29 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:56:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:44:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,14 +172,11 @@ int8_t				ak_arrow_down(t_registry *shell, t_sle *sle)
 		hist_cmd = vct_get_string(sle->line_save);
 		history(NULL, NULL, RESET_HEAD);
 	}
-	if (hist_cmd == NULL)
-	{
-		history(NULL, NULL, RESET_HEAD);
-		hist_cmd = "";
-	}
+	else
+		return (FAILURE);
 	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 	vct_replace_string(sle->line, 0, len, hist_cmd);
-	vct_del(&sle->line_save);
+	vct_reset(sle->line_save);
 	sle->line_save = NULL;
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	find_multiline_coord(sle, 0);

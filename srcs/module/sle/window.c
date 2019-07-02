@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:41:12 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:46:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:30:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ uint64_t	update_winsize(t_sle *sle)
 	debug_size = (g_shell->option.option & DEBUG_OPT) ? 80 : 1;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
         return (CRITICAL_ERROR | WINDOW_FAIL);
-	sle->window.rows = (w.ws_row <= 0) ? debug_size : w.ws_row;
-	sle->window.cols = (w.ws_col <= 0) ? debug_size : w.ws_col;
+	sle->window.rows = (w.ws_row <= 0) ? 1 : w.ws_row;
+	sle->window.cols = (w.ws_col <= 0) ? 1 : w.ws_col;
     sle->window.max_chars = sle->window.rows * sle->window.cols;
 	return (SUCCESS);
 }
@@ -35,9 +35,10 @@ void	update_window(t_sle *sle)
 	sle->cursor.index = 0;
 }
 
-void	redraw_window(__unused  t_sle *sle)
+void	redraw_window(__unused t_sle *sle)
 {
+	set_cursor_pos(sle, sle->cursor.index);
 	update_window(sle);
-	set_redraw_flags(sle, RD_CLEAR | RD_CEND);
+	set_redraw_flags(sle, RD_CLEAR | RD_CMOVE);
 	redraw(NULL, sle);
 }
