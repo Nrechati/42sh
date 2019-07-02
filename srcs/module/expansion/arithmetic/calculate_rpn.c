@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 10:00:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 10:40:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,5 @@ int8_t			calculate_rpn(t_stack *rpn, t_infix  *infix)
 	}
 	infix->result = ((t_rpn_tk*)solve.head->data)->value.digit;
 	ft_stckdestroy(&solve, NULL);
-	ft_lstdelone(&node, NULL);
 	return (SUCCESS);
 }
