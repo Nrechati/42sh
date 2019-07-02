@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 21:41:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:14:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	io_redirect_flush(t_resolution *resolve)
 	ft_lstdelone(&node, NULL);
 	node = ft_stckpopnode(&resolve->stack);
 	ft_lstaddback(&action.data, node);
-	node = ft_lstnew(&action, sizeof(t_action));
 	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 }
 
@@ -100,7 +99,6 @@ void	io_and_redirect_flush(t_resolution *resolve)
 		ft_lstadd(&action.data, node);
 	else if (type == E_LESSAND)
 		ft_lstadd(&action.data, node);
-	node = ft_lstnew(&action, sizeof(t_action));
 	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
 }
 
