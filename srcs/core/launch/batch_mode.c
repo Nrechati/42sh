@@ -6,51 +6,53 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/30 10:08:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:42:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static t_vector			*read_input(const int fd)
+static void				read_input(t_registry *shell)
 {
-	char		buff[READ_SIZE + 1];
 	t_vector	*cmd;
-	int			ret;
+	char		*line;
 
-	cmd = vct_new(0);
-	while ((ret = read(fd, buff, READ_SIZE)) > 0)
+	line = NULL;
+	cmd = NULL;
+	while (1)
 	{
-		buff[ret] = '\0';
-		vct_scat(cmd, buff, ret);
+		get_next_line(STDIN_FILENO, &line);
+		if (ft_strcheck(line, ft_isprint) == TRUE)
+		{
+			cmd = vct_dups(line);
+			if (verif_line(NULL, cmd) == TRUE)
+				execution_pipeline(shell, &cmd);
+			vct_del(&cmd);
+		}
+		else if (line != NULL)
+			ft_putendl_fd("42sh: Not a valid input", 2);
+		///////////////////// CA DECONNNNNNNNNNE
+		ft_strdel(&line);
 	}
-	if (ret == FAILURE)
-	{
-		vct_del(&cmd);
-		return (NULL);
-	}
-	return (cmd);
-}
-
-
-static inline t_vector	*get_input_cmd(t_registry *shell)
-{
-	if (shell->option.option & COMMAND_OPT)
-		return (vct_dups(shell->option.command_str));
-	return (read_input(STDIN_FILENO));
 }
 
 void					batch_mode(t_registry *shell)
 {
 	t_vector	*cmd;
 
-	cmd = get_input_cmd(shell);
-	if (cmd == NULL || ft_strcheck(vct_get_string(cmd), ft_isprint) == FALSE)
-		ft_putendl_fd("42sh: Not a valid input", 2);
-	else
+	if (shell->option.option & COMMAND_OPT)
 	{
-		if (verif_line(NULL, cmd) == TRUE)
-			execution_pipeline(shell, &cmd);
+		if (shell->option.command_str != NULL
+			&& ft_strcheck(shell->option.command_str, ft_isprint) == TRUE)
+		{
+			cmd = vct_dups(shell->option.command_str);
+			if (verif_line(NULL, cmd) == TRUE)
+				execution_pipeline(shell, &cmd);
+		}
+		else
+			ft_putendl_fd("42sh: Not a valid input", 2);
 	}
+	else
+		read_input(shell);
 }

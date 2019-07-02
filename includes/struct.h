@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/01 13:40:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:08:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct			s_process
 	t_list				*env;
 	t_list				*redirects;
 	uint32_t			process_type;
+	uint32_t			id;
 	pid_t				pid;
 	pid_t				*pgid;
 	uint16_t			status;
@@ -162,11 +163,9 @@ typedef struct			s_job
 	uint8_t				state;			/* RUNNING | PENDING */
 	uint8_t				job_type;
 	uint32_t			signo;
-
 	uint64_t			id;
 	char				current;
-
-	struct termios		*term_modes;	/* Saved termios mode 	*/
+	struct termios		*term_modes;
 }						t_job;
 
 struct					s_resolution

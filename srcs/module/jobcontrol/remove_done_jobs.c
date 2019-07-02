@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_state.c                                        :+:      :+:    :+:   */
+/*   remove_done_jobs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/25 15:01:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:09:28 by skuppers         ###   ########.fr       */
+/*   Created: 2019/07/02 16:00:09 by skuppers          #+#    #+#             */
+/*   Updated: 2019/07/02 16:00:28 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-
-void state_to_str(t_job *job, char **str)
+void	remove_done_jobs(t_registry *shell)
 {
-	*str = ft_strnew(32);
+	t_job	*job;
+	t_list	*job_ptr;
 
-	if (job_is_completed(job) == TRUE)
-		ft_strcpy(*str, "Done");
-	else if (job_is_stopped(job) == TRUE)
-		ft_strcpy(*str, "Suspended");
-	else
-		ft_strcpy(*str, "Running");
+	job_ptr = shell->job_list;
+	while (job_ptr != NULL)
+	{
+		job = (t_job*)job_ptr->data;
+		if (job->state & ENDED)
+			remove_job_from_list(&shell->job_list, job);
+		job_ptr = job_ptr->next;
+	}
 }

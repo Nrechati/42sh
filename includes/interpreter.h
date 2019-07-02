@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 14:35:25 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:55:47 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,24 @@ void			run_background_job(t_registry *shell, t_job *job);
 
 int8_t 			interpreter(t_registry *shell, t_list **cmd_group);
 t_list			**ptr_to_job_lst(t_list **job_lst, uint8_t mode);
-void			run_builtin(t_registry *shell, t_process *process);
+
+void			fork_process(t_registry *shell, t_process *process,
+					uint8_t foreground);
+int8_t			launch_pipeline(t_registry *shell, t_list *processess,
+					uint8_t foreground);
+void			run_builtin(t_registry *shell, t_process *process,
+					uint8_t foreground);
+int				run_process(t_registry *shell, t_process *process,
+					uint8_t foreground);
+
+uint8_t			job_is_completed(t_job *job);
+uint8_t			job_is_stopped(t_job *job);
+
+
 int8_t			get_process_type(t_registry *shell, t_process *process);
 char			**generate_env(t_registry *shell, t_list *local_env);
 
 int				assign_intern(t_registry *shell, t_list **assign);
-void			fork_process(t_registry *shell, t_process *process);
 
 int				set_process_pgid(void *context, void *data);
 t_redirection	*redirecter_init(void);
@@ -39,9 +51,7 @@ int				redirect_or_other(void *action, __unused void *data);
 void			del_process_redirect(void *data);
 void			close_redirect(void *data);
 void			close_pipe(void *data);
-void			do_redirect(void *data);
-int8_t			launch_pipeline(t_registry *shell, t_list *processess);
-int				run_process(t_registry *shell, t_process *process);
+int				do_redirect(void *context, void *data);
 
 int				check_delimiter(char **delimiter, t_vector **vector, int fd);
 

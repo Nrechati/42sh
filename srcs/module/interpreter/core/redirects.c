@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 15:30:44 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:12:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ void	del_process_redirect(void *data)
 	ft_lstiter(process->redirects, close_redirect);
 }
 
-void	do_redirect(void *data)
+int		do_redirect(void *context, void *data)
 {
 	t_redirect	*redirect;
 
+	(void)context;
 	redirect = data;
 	if (redirect->type & FD_PIPE_OUT)
 		dup2(redirect->to, STDOUT_FILENO);
@@ -90,8 +91,14 @@ void	do_redirect(void *data)
 		dup2(redirect->to, STDIN_FILENO);
 	else if (redirect->type & FD_DUP)
 	{
-		dup2(redirect->to, redirect->from);
-		return;
+		if (dup2(redirect->to, redirect->from) == FAILURE)
+		{
+			ft_dprintf(2, "42sh: %d: Bad file descriptor\n"
+											, redirect->to);
+			return (FAILURE);
+		}
+	//	dup2(redirect->to, redirect->from);
+		return (SUCCESS);
 	}
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
 		dup2(redirect->to, redirect->from);
@@ -105,4 +112,5 @@ void	do_redirect(void *data)
 	if (redirect->type & (FD_PIPE_IN | FD_PIPE_OUT))
 		close(redirect->from);
 	close(redirect->to);
+	return (SUCCESS);
 }

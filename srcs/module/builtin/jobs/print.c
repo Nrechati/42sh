@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:59:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 11:32:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:12:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	print_jobinfo(__unused t_job *job, uint8_t __unused flag)
 	char		*state;
 	char		*command;
 
-	state_to_str(job->state, &state);
+	state_to_str(job, &state);
 	get_job_av(job, &command);
 	if (flag & JOBCTL_LONG)
 		print_longformat(job, state);
@@ -66,7 +66,7 @@ static void	print_joblist(__unused uint8_t flag)
 		avs = NULL;
 		state = NULL;
 		job = ((t_job*)job_ptr->data);
-		state_to_str(job->state, &state);
+		state_to_str(job, &state);
 		get_job_av(job, &avs);
 		if (flag & JOBCTL_LONG)
 			print_longformat(job, state);

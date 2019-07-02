@@ -3,28 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   waiter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 14:34:19 by nrechati         ###   ########.fr       */
+/*   Created: 2019/07/02 16:36:20 by skuppers          #+#    #+#             */
+/*   Updated: 2019/07/02 16:36:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-
 static void		set_status(t_registry *shell, t_job *job,
 						t_process *current, int status)
 {
-	int		signo;
-	char	*exit_status;
+	int			signo;
+	char		*exit_status;
 
 	exit_status = NULL;
 	if (WIFSTOPPED(status))
 	{
 		job->state = STOPPED;
 		job->signo = WSTOPSIG(status);
-		current->stopped = TRUE;
+		mark_job_as_stopped(job);
 		shell->active_jobs++;
 		job->id = (shell->active_jobs);
 		jobctl(shell, job, JOBCTL_PUTINBG);
@@ -43,7 +42,7 @@ static void		set_status(t_registry *shell, t_job *job,
 		if (signo == 2 || signo == 3)
 			sigstop_exec(signo);
 		exit_status = ft_itoa((uint8_t)(signo + 128));
-		current->stopped = TRUE;
+		mark_job_as_stopped(job);
 		//ft_printf("SIGNALED by: %d\n", exit_status);
 	}
 	add_var(&shell->intern, "?", exit_status, READONLY_VAR);
@@ -105,7 +104,7 @@ int8_t			waiter(t_registry *shell, t_job *job)
 		if (job->state & KILLED)
 			ft_lstiter_ctx(job->processes, &job->signo, kill_process);
 		status = 0;
-		pid = waitpid(-1, &status, WNOHANG | WUNTRACED);
+		pid = waitpid(-1, &status, WUNTRACED);
 		if (pid)
 			update_pid(shell, job, pid, status);
 	}
