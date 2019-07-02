@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 00:06:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 01:23:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,39 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 	return (SUCCESS);
 }
 
+static int8_t	calcul(t_stack *rpn, t_stack *solve)
+{
+	t_list		*node;
+	t_rpn_tk	*curr;
+
+	node = ft_stckpopnode(rpn);
+	curr = node->data;
+	if (curr->type == RPN_NUMBER)
+		ft_stckpushnode(solve, node);
+	else if (curr->type == RPN_OPERATOR)
+	{
+		if (handle_operator(curr, solve) == FAILURE)
+		{
+			ft_lstdel(&node, NULL);
+			return (FAILURE);
+		}
+		ft_lstdel(&node, NULL);
+	}
+	return (SUCCESS);
+}
+
 int8_t			calculate_rpn(t_stack *rpn, t_infix *infix)
 {
 	t_stack		solve;
-	t_list		*node;
-	t_rpn_tk	*curr;
 
 	ft_stckinit(&solve);
 	while (ft_stcksize(rpn) > 0)
 	{
-		node = ft_stckpopnode(rpn);
-		curr = node->data;
-		if (curr->type == RPN_NUMBER)
-			ft_stckpushnode(&solve, node);
-		else if (curr->type == RPN_OPERATOR)
+		if (calcul(rpn, &solve) == FAILURE)
 		{
-			if (handle_operator(curr, &solve) == FAILURE)
-			{
-				ft_lstdel(&node, NULL);
-				return (FAILURE);
-			}
-			ft_lstdel(&node, NULL);
+			ft_stckdestroy(&solve, NULL);
+			ft_dprintf(2, "Expression unsolvable\n");
+			return (FAILURE);
 		}
 	}
 	if (ft_stcksize(&solve) != 1)
