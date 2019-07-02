@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 16:30:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:55:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ char		*solve_expression(t_arithmetic *arithmetic)
 
 int8_t		arithmetic_analyzer(t_arithmetic *arithmetic)
 {
-	static t_ar_analyzer	*analyzer = NULL;
+	static t_ar_analyzer	*func = NULL;
 
-	if (*analyzer == NULL)
-		analyzer = init_math_analyzer();
+	if (*func == NULL)
+		func = init_math_analyzer();
 	m_get_token(arithmetic, NULL);
 	while (arithmetic->state != MATH_END && arithmetic->state != MATH_ERROR)
-		(*analyzer)[arithmetic->state][arithmetic->curr_token->type](arithmetic);
+		(*func)[arithmetic->state][arithmetic->curr_token->type](arithmetic);
 	if (arithmetic->state == MATH_END)
 	{
 		arithmetic->expanded = solve_expression(arithmetic);

@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 17:12:18 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:39:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-uint8_t	check_cmd_path(char *data)
+static uint8_t	check_cmd_path(char *data)
 {
 	struct stat	stat;
 
@@ -31,152 +31,83 @@ uint8_t	check_cmd_path(char *data)
 	return (FALSE);
 }
 
-static void	child_process(t_registry *shell, t_process *process, char **env,
-				uint8_t foreground)
+static void		run_child(t_process *process, char **env)
 {
 	char		*pathname;
 
 	pathname = NULL;
-	signal (SIGINT,  SIG_DFL);
-	signal (SIGQUIT, SIG_DFL);
-	signal (SIGPIPE, SIG_DFL);
-	signal (SIGCHLD, SIG_DFL);
-	signal (SIGTSTP, SIG_DFL);
-	signal (SIGCONT, SIG_DFL);
-	signal (SIGTTIN, SIG_DFL);
-	signal (SIGTTOU, SIG_IGN);
-
-	process->pid = getpid();
-	if (*process->pgid == 0)
-		*process->pgid = process->pid;
-	setpgid(process->pid, *process->pgid);
-
-	if (foreground == TRUE)
-	{
-		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-			tcsetpgrp(STDOUT_FILENO, *process->pgid);
-	}
-	if (process->process_type & IS_BLT)
-	{
-		run_builtin(shell, process, foreground);
-		exit(process->status);
-	}
 	if (ft_lstiter_ctx(process->redirects, NULL, do_redirect) == FAILURE)
 		exit(FAILURE);
 	ft_lstiter(process->redirects, close_redirect);
-	if (process->process_type & IS_BIN)
-		pathname = ft_hmap_getdata(&shell->hash.bin, process->av[0]);
-	else if (process->process_type & IS_ABS)
+	if (process->type & IS_BIN)
+		pathname = ft_hmap_getdata(&g_shell->hash.bin, process->av[0]);
+	else if (process->type & IS_ABS)
 	{
 		if (check_cmd_path(process->av[0]) == TRUE)
 			pathname = process->av[0];
 	}
-	else if (process->process_type & IS_NOTFOUND)
-		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
+	else if (process->type & IS_NOTFOUND)
+		ft_dprintf(2, "42sh: %s: command not found\n", process->av[0]);
 	if (pathname != NULL)
 	{
-		#ifndef NOEXEC
 		if (execve(pathname, process->av, env) == FAILURE)
 		{
-			ft_dprintf(2, SH_GENERAL_ERROR INTERPRETER_EXECVE_ERROR);
+			ft_dprintf(2, "42sh: execution error\n");
 			exit(FAILURE);
 		}
-		#else
-		(void)env;
-		#endif
 	}
 	exit(FAILURE);
 }
 
-static void	parent_process(t_registry *shell, t_process *process, char ***env,
-				uint8_t foreground)
+static void		child_process(t_process *process, char **env, uint8_t fg)
 {
-	if (process->process_type & IS_BIN)
-		ft_hmap_hits(&shell->hash.bin, process->av[0]);
+	init_exec_signals();
+	process->pid = getpid();
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
-	if (foreground == FALSE)
+	if (fg == TRUE)
+	{
+		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
+			tcsetpgrp(STDOUT_FILENO, *process->pgid);
+	}
+	if (process->type & IS_BLT)
+	{
+		run_builtin(process, fg);
+		exit(process->status);
+	}
+	else
+		run_child(process, env);
+}
+
+static void		parent_process(t_process *process, char ***env, uint8_t fg)
+{
+	if (process->type & IS_BIN)
+		ft_hmap_hits(&g_shell->hash.bin, process->av[0]);
+	if (*process->pgid == 0)
+		*process->pgid = process->pid;
+	setpgid(process->pid, *process->pgid);
+	if (fg == FALSE)
 		tcsetpgrp(STDOUT_FILENO, g_shell->pid);
 	ft_freetab(env);
 }
 
-void		fork_process(t_registry *shell, t_process *process,
-					uint8_t foreground)
+void			fork_process(t_process *process, uint8_t foreground)
 {
 	char			**env;
 
-	if ((env = generate_env(shell, process->env)) == NULL)
+	if ((env = generate_env(g_shell, process->env)) == NULL)
 	{
-		process->process_type |= IS_EXP_ERROR;
+		process->type |= IS_EXP_ERROR;
 		return ;
 	}
 	if ((process->pid = fork()) < 0)
 	{
-		ft_dprintf(2, SH_GENERAL_ERROR INTERPRETER_FORK_ERROR);
-		return;
+		ft_dprintf(2, "42sh: fork error\n");
+		return ;
 	}
 	else if (process->pid == 0)
-		child_process(shell, process, env, foreground);
+		child_process(process, env, foreground);
 	else
-		parent_process(shell, process, &env, foreground);
-}
-
-static int	update_intern(t_variable *variable, char *data)
-{
-	if (variable->flag & READONLY_VAR)
-	{
-		ft_dprintf(STDERR_FILENO,"42sh:`%s': not a valid identifier\n"
-				, variable->name);
-		return (FAILURE);
-	}
-	ft_strdel(&variable->data);
-	variable->data = expansion_pipeline(g_shell->intern, data);
-	if (variable->flag == EXPORT_VAR)
-		variable->flag |= SET_VAR;
-	return (SUCCESS);
-}
-
-int			insert_intern(t_list **intern, t_list *node)
-{
-	t_variable 	*variable;
-	char		*holder;
-
-	variable = node->data;
-	if ((holder = expansion_pipeline(*intern, variable->data)) == NULL)
-		return (FAILURE);
-	ft_strdel(&variable->data);
-	variable->data = holder;
-	node->next = NULL;
-	ft_lstadd(intern, node);
-	return (SUCCESS);
-}
-
-int			assign_intern(t_registry *shell, t_list **assign)
-{
-	t_list		*node;
-	t_variable	*to_find;
-
-	if (*assign == NULL)
-		return (TRUE);
-	if (assign_intern(shell, &(*assign)->next) == TRUE)
-	{
-		to_find = (*assign)->data;
-		if (ft_strequ(to_find->name, "PATH"))
-			ft_hmap_free_content(&(shell->hash.bin), free);
-		if ((node = ft_lstfind(shell->intern, to_find->name, find_var)))
-		{
-			if (update_intern(node->data, to_find->data) == FAILURE)
-				return (FAILURE);
-			ft_lstdelone(assign, free_node);
-		}
-		else
-		{
-			if (insert_intern(&shell->intern, *assign) == FAILURE)
-				return (FAILURE);
-		}
-		*assign = NULL;
-		return (TRUE);
-	}
-	return (FAILURE);
+		parent_process(process, &env, foreground);
 }

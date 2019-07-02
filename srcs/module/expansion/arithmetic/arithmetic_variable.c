@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 07:20:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:07:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:59:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		convert_operator(t_arithmetic *arithmetic, t_rpn_tk *token)
 {
 	if (arithmetic->curr_token->type == E_M_PLUS)
-		token->value.type |= PLUS ;
+		token->value.type |= PLUS;
 	else if (arithmetic->curr_token->type == E_M_MINUS)
 		token->value.type |= MINUS;
 	else if (arithmetic->curr_token->type == E_M_TIMES)
@@ -63,7 +63,7 @@ void		m_parenthesis_analyzer(t_arithmetic *arithmetic)
 		token.value.type = CLOSE_P;
 	}
 	if (arithmetic->parenthesis < 0)
-		return(m_error_analyzer(arithmetic));
+		return (m_error_analyzer(arithmetic));
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
@@ -94,7 +94,7 @@ void		m_flush_variable_analyzer(t_arithmetic *arithmetic)
 		token.value.digit = ft_atoll_base(data, DEC_BASE);
 	else
 		token.value.digit = 0;
-	ft_lstdelone(&node, NULL);
+	ft_lstdelone(&node, del_token);
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstaddback(&arithmetic->solving, node);
 }

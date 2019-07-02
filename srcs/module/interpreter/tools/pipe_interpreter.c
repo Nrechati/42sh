@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 16:09:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:26:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,22 @@ void	close_pipe(void *data)
 	}
 }
 
-int8_t	launch_pipeline(t_registry *shell, t_list *process, uint8_t foreground)
+int		setup_pipe(t_process *current, t_process *next, int pipe_fd[2])
+{
+	t_list		*pipe_node;
+
+	if ((pipe_node = create_pipe(pipe_fd[1], pipe_fd[0], FD_PIPE_OUT)) == NULL)
+		return (FAILURE);
+	ft_lstadd(&current->redirects, pipe_node);
+	if ((pipe_node = create_pipe(pipe_fd[0], pipe_fd[1], FD_PIPE_IN)) == NULL)
+		return (FAILURE);
+	ft_lstadd(&next->redirects, pipe_node);
+	return (SUCCESS);
+}
+
+int8_t	launch_pipeline(t_list *process, uint8_t foreground)
 {
 	int			pipe_fd[2];
-	t_list		*pipe_node;
 	t_process	*current;
 	t_process	*next;
 
@@ -57,16 +69,12 @@ int8_t	launch_pipeline(t_registry *shell, t_list *process, uint8_t foreground)
 		next = process->next->data;
 		if (pipe(pipe_fd) == FAILURE)
 			return (FAILURE);
-		if ((pipe_node = create_pipe(pipe_fd[1], pipe_fd[0], FD_PIPE_OUT)) == NULL)
+		if (setup_pipe(process->data, process->next->data, pipe_fd) == FAILURE)
 			return (FAILURE);
-		ft_lstadd(&current->redirects, pipe_node);
-		if ((pipe_node = create_pipe(pipe_fd[0], pipe_fd[1], FD_PIPE_IN)) == NULL)
-			return (FAILURE);
-		ft_lstadd(&next->redirects, pipe_node);
 	}
-	run_process(shell, process->data, foreground);
+	run_process(process->data, foreground);
 	pipe_fd[1] == 0 ? pipe_fd[1] : close(pipe_fd[1]);
-	launch_pipeline(shell, process->next, foreground);
+	launch_pipeline(process->next, foreground);
 	pipe_fd[0] == 0 ? pipe_fd[0] : close(pipe_fd[0]);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/26 22:15:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:30:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 static char	*variable_replace(t_list *lst, t_vector *str, uint32_t start_idx)
 {
 	uint32_t	i;
-	char 		*sub;
+	char		*sub;
 	char		*data;
 	char		*data_name;
 
-	sub	= ft_strsub(vct_get_string(str),
-					start_idx + 1,
-					vct_len(str) - (start_idx + 1));
+	sub = ft_strsub(vct_get_string(str), start_idx + 1
+					, vct_len(str) - (start_idx + 1));
 	i = ft_strcspn(sub, EXP_INTERUPT);
 	data_name = ft_strsub(sub, 0, i);
 	data = get_var(lst, data_name);
@@ -34,7 +33,7 @@ static char	*variable_replace(t_list *lst, t_vector *str, uint32_t start_idx)
 	return (sub);
 }
 
-static int 	variable_concat(t_list *lst, char **dest, int i)
+static int	variable_concat(t_list *lst, char **dest, int i)
 {
 	t_vector	*vector;
 

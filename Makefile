@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/07/02 17:15:59 by cempassi         ###   ########.fr        #
+#    Updated: 2019/07/02 22:37:36 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -400,6 +400,7 @@ ANALYZER += analyzer_tools.c
 ANALYZER += filename_analyzer.c
 ANALYZER += heredoc_analyzer.c
 ANALYZER += io_redirect_analyzer.c
+ANALYZER += io_redirect_and_analyzer.c
 ANALYZER += pipe_analyzer.c
 ANALYZER += redirect_analyzer.c
 ANALYZER += string_analyzer.c
@@ -414,13 +415,20 @@ INTERPRETER += list_tools.c
 INTERPRETER += generate_env.c
 INTERPRETER += pipe_interpreter.c
 INTERPRETER += fork_process.c
+INTERPRETER += assign_intern.c
 INTERPRETER += redirects.c
 INTERPRETER += redirect_functions.c
 INTERPRETER += io_redirect_functions.c
+INTERPRETER += stdout_functions.c
+INTERPRETER += special_redirect_functions.c
 INTERPRETER += redirect_tools.c
 INTERPRETER += waiter.c
+INTERPRETER += set_status.c
 INTERPRETER += heredoc_interpreter.c
+INTERPRETER += heredoc_tools.c
 INTERPRETER += map_tools.c
+INTERPRETER += builtin_redirect_tools.c
+INTERPRETER += do_redirect.c
 INTERPRETER += interpreter_tools.c
 INTERPRETER += process_tools.c
 INTERPRETER += print_tools.c

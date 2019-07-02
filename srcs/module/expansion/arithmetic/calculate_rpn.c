@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 17:07:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:06:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 	return (SUCCESS);
 }
 
-int8_t			calculate_rpn(t_stack *rpn, t_infix  *infix)
+int8_t			calculate_rpn(t_stack *rpn, t_infix *infix)
 {
 	t_stack		solve;
 	t_list		*node;
@@ -85,7 +85,11 @@ int8_t			calculate_rpn(t_stack *rpn, t_infix  *infix)
 		else if (curr->type == RPN_OPERATOR)
 		{
 			if (handle_operator(curr, &solve) == FAILURE)
+			{
+				ft_lstdel(&node, NULL);
 				return (FAILURE);
+			}
+			ft_lstdel(&node, NULL);
 		}
 	}
 	if (ft_stcksize(&solve) != 1)

@@ -6,125 +6,105 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:02:15 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 22:57:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:19:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
-void	heredoc(t_registry *shell, t_redirect *redirect, t_action *action)
+void	heredoc(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			fd[2];
 	t_vector	*vector;
 
-	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 		return ;
 	vector = NULL;
 	delimiter = NULL;
 	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
 	pipe(fd);
-	while (sle(shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
+	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
 		if (check_delimiter(&delimiter, &vector, fd[1]) == SUCCESS)
-		{
-			redirect->type |= FD_REDIRECT;
-			redirect->from = STDIN_FILENO;
-			redirect->to = fd[0];
-			return ;
-		}
+			return (valid_heredoc_setup(redirect, STDIN_FILENO, fd[0]));
 		else
-			write_heredoc(shell->intern, &vector, fd[1], TRIM_OFF);
+			write_heredoc(&vector, fd[1], TRIM_OFF);
 	}
-	redirect->type |= FD_REDIRECT;
-	redirect->from = STDIN_FILENO;
 	close(fd[1]);
-	vct_del(&vector);
+	return (valid_heredoc_setup(redirect, STDIN_FILENO, fd[0]));
 }
 
-void	heredoc_trim(t_registry *shell, t_redirect *redirect, t_action *action)
+void	heredoc_trim(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			fd[2];
 	t_vector	*vector;
 
-	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 		return ;
 	vector = NULL;
 	delimiter = NULL;
 	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
 	pipe(fd);
-	while (sle(shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
+	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
 		if (check_delimiter(&delimiter, &vector, fd[1]) == SUCCESS)
-		{
-			redirect->type |= FD_DUP;
-			redirect->from = STDIN_FILENO;
-			redirect->to = fd[0];
-			return ;
-		}
+			return (valid_heredoc_setup(redirect, STDIN_FILENO, fd[0]));
 		else
-			write_heredoc(shell->intern, &vector, fd[1], TRIM_ON);
+			write_heredoc(&vector, fd[1], TRIM_ON);
 	}
-	vct_del(&vector);
+	close(fd[1]);
+	return (valid_heredoc_setup(redirect, STDIN_FILENO, fd[0]));
 }
 
-void	io_heredoc(t_registry *shell, t_redirect *redirect, t_action *action)
+void	io_heredoc(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			io_num;
 	int			fd[2];
 	t_vector	*vector;
 
-	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 		return ;
 	vector = NULL;
 	delimiter = NULL;
 	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
 	io_num = ft_atoi(((t_token *)action->data->next->data)->data);
 	pipe(fd);
-	while (sle(shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
+	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
 		if (check_delimiter(&delimiter, &vector, fd[1]) == SUCCESS)
-		{
-			redirect->type |= FD_DUP;
-			redirect->from = io_num;
-			redirect->to = fd[0];
-			return ;
-		}
+			return (valid_heredoc_setup(redirect, io_num, fd[0]));
 		else
-			write_heredoc(shell->intern, &vector, fd[1], TRIM_OFF);
+			write_heredoc(&vector, fd[1], TRIM_OFF);
 	}
-	vct_del(&vector);
+	close(fd[1]);
+	return (valid_heredoc_setup(redirect, io_num, fd[0]));
 }
 
-void	io_heredoc_trim(t_registry *shell, t_redirect *redirect
-						, t_action *action)
+void	io_heredoc_trim(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			io_num;
 	int			fd[2];
 	t_vector	*vector;
 
-	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 		return ;
 	vector = NULL;
 	delimiter = NULL;
 	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
 	io_num = ft_atoi(((t_token *)action->data->next->data)->data);
 	pipe(fd);
-	while (sle(shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
+	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
 		if (check_delimiter(&delimiter, &vector, fd[1]) == SUCCESS)
-		{
-			redirect->type |= FD_DUP;
-			redirect->from = io_num;
-			redirect->to = fd[0];
-			return ;
-		}
+			return (valid_heredoc_setup(redirect, io_num, fd[0]));
 		else
-			write_heredoc(shell->intern, &vector, fd[1], TRIM_ON);
+			write_heredoc(&vector, fd[1], TRIM_ON);
 	}
-	vct_del(&vector);
+	close(fd[1]);
+	return (valid_heredoc_setup(redirect, io_num, fd[0]));
 }

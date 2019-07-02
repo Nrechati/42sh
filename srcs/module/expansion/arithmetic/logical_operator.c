@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 17:04:16 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:08:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:22:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		convert_logical_operator(t_arithmetic *arithmetic, t_rpn_tk *token)
 {
 	if (arithmetic->curr_token->type == E_M_LESS)
-		token->value.type = LESS ;
+		token->value.type = LESS;
 	else if (arithmetic->curr_token->type == E_M_GREAT)
 		token->value.type = GREAT;
 	else if (arithmetic->curr_token->type == E_M_LESSEQ)

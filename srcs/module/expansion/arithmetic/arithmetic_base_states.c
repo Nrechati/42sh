@@ -6,13 +6,13 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:40:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:05:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:18:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		convert_number(t_rpn_tk *current, t_token *token)
+int8_t		convert_number(t_rpn_tk *current, t_token *token)
 {
 	size_t		control;
 
@@ -20,7 +20,7 @@ void		convert_number(t_rpn_tk *current, t_token *token)
 	{
 		control = ft_strspn(token->data, OCTAL_BASE);
 		if (token->data[control] != '\0')
-			; //error
+			return (FAILURE);
 		else
 			current->value.digit = ft_atoll_base(token->data, OCTAL_BASE);
 	}
@@ -31,7 +31,7 @@ void		convert_number(t_rpn_tk *current, t_token *token)
 	}
 	else
 		current->value.digit = ft_atoll_base(token->data, DEC_BASE);
-
+	return (SUCCESS);
 }
 
 void		m_number_analyzer(t_arithmetic *arithmetic)
@@ -42,7 +42,12 @@ void		m_number_analyzer(t_arithmetic *arithmetic)
 	ft_bzero(&token, sizeof(t_rpn_tk));
 	arithmetic->state = MATH_NUMBER;
 	token.type = RPN_NUMBER;
-	convert_number(&token, arithmetic->curr_token);
+	if (convert_number(&token, arithmetic->curr_token) == FAILURE)
+	{
+		ft_lstdelone(&arithmetic->current, del_token);
+		m_error_analyzer(arithmetic);
+		return ;
+	}
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));

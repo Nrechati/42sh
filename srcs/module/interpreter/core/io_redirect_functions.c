@@ -6,37 +6,25 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 14:56:57 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:40:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
-void		move_fd(t_registry *shell, t_redirect *redirect, t_action *action)
+void	duplicate_fd(t_redirect *redirect, t_action *action)
 {
-	(void)shell;
-	redirect->type = FD_MOVE;
-	redirect->from = get_io(action->data);;
-	redirect->to = get_io(action->data->next);
-}
-
-void		duplicate_fd(t_registry *shell, t_redirect *redirect
-					, t_action *action)
-{
-	(void)shell;
 	redirect->type = FD_DUP;
 	redirect->from = get_io(action->data);
 	redirect->to = get_io(action->data->next);
 }
 
-void		io_append(t_registry *shell, t_redirect *redirect
-					, t_action *action)
+void	io_append(t_redirect *redirect, t_action *action)
 {
 	char		*filename;
 	int			open_flags;
 
-	(void)shell;
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
@@ -57,13 +45,11 @@ void		io_append(t_registry *shell, t_redirect *redirect
 	ft_strdel(&filename);
 }
 
-void		io_truncate(t_registry *shell, t_redirect *redirect
-					, t_action *action)
+void	io_truncate(t_redirect *redirect, t_action *action)
 {
 	char		*filename;
 	int			open_flags;
 
-	(void)shell;
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type |= FD_CRITICAL_ERROR;
@@ -84,12 +70,10 @@ void		io_truncate(t_registry *shell, t_redirect *redirect
 	ft_strdel(&filename);
 }
 
-void		io_readfile(t_registry *shell, t_redirect *redirect
-					, t_action *action)
+void	io_readfile(t_redirect *redirect, t_action *action)
 {
 	char		*filename;
 
-	(void)shell;
 	filename = get_filename(action->data);
 	if (filename == NULL)
 		redirect->type = FD_CRITICAL_ERROR;
@@ -109,8 +93,7 @@ void		io_readfile(t_registry *shell, t_redirect *redirect
 	ft_strdel(&filename);
 }
 
-void	io_readfd(__unused t_registry *shell, t_redirect *redirect
-					, t_action *action)
+void	io_readfd(t_redirect *redirect, t_action *action)
 {
 	int		action_type;
 	int		fd;
@@ -126,7 +109,7 @@ void	io_readfd(__unused t_registry *shell, t_redirect *redirect
 	{
 		fd = ft_atoi(str);
 		redirect->to = fd;
-		if (action_type == A_DUP && write(fd, str, 0) == 0 )
+		if (action_type == A_DUP && write(fd, str, 0) == 0)
 			redirect->type = FD_DUP;
 		else if (action_type == A_MOVE)
 			redirect->type = FD_MOVE;

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 14:08:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 22:53:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef void				(*t_resolve)(t_resolution *);
 typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 typedef struct s_redirect	t_redirect;
 typedef struct s_action		t_action;
-typedef void				(*t_set_redirect)(t_registry *, t_redirect *, t_action *);
+typedef void				(*t_set_redirect)(t_redirect *, t_action *);
 typedef t_set_redirect		t_redirection[REDIRECT_ACTION];
 
 struct					s_redirect
@@ -147,7 +147,7 @@ typedef struct			s_process
 	char				**av;
 	t_list				*env;
 	t_list				*redirects;
-	uint32_t			process_type;
+	uint32_t			type;
 	uint32_t			id;
 	pid_t				pid;
 	pid_t				*pgid;
@@ -161,7 +161,7 @@ typedef struct			s_job
 	pid_t				pgid;			/* Job process group id */
 	t_list				*processes;		/* Job process list		*/
 	uint8_t				state;			/* RUNNING | PENDING */
-	uint8_t				job_type;
+	uint8_t				type;
 	uint32_t			signo;
 	uint64_t			id;
 	char				current;

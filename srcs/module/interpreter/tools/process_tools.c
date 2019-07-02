@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 10:33:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:15:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,18 @@ int		expand_process(t_list *intern, t_process *process)
 	int		index;
 	char	*holder;
 
-	if (process->process_type & IS_ASSIGN)
+	if (process->type & IS_ASSIGN)
 		return (SUCCESS);
 	index = 0;
 	holder = NULL;
-	while(process->av[index])
+	while (process->av[index])
 	{
 		if ((holder = expansion_pipeline(intern, process->av[index])) == NULL)
 			return (FAILURE);
 		if (*holder == '\0')
 		{
 			remove_empty(&process->av[index]);
-			ft_strdel(&holder);;
+			ft_strdel(&holder);
 			continue;
 		}
 		ft_strdel(&process->av[index]);
@@ -56,7 +56,7 @@ int		expand_process(t_list *intern, t_process *process)
 	return (0);
 }
 
-int8_t	is_path_to_bin(char	*cmd)
+int8_t	is_path_to_bin(char *cmd)
 {
 	if (cmd[0] == '/')
 		return (TRUE);
@@ -71,25 +71,25 @@ int8_t	is_path_to_bin(char	*cmd)
 int8_t	get_process_type(t_registry *shell, t_process *process)
 {
 	int8_t		ret;
-	char		*pathname;
+	char		*path;
 
-	pathname = NULL;
-	if (process->process_type & IS_ASSIGN)
+	path = NULL;
+	if (process->type & IS_ASSIGN)
 		return (SUCCESS);
 	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) != NULL)
-		process->process_type |= IS_BLT;
+		process->type |= IS_BLT;
 	else if (ft_hmap_getdata(&shell->hash.bin, process->av[0]) != NULL)
-		process->process_type |= IS_BIN;
-	else if ((ret = find_in_path(shell, process->av[0], &pathname)) != NOT_FOUND)
+		process->type |= IS_BIN;
+	else if ((ret = find_in_path(shell, process->av[0], &path)) != NOT_FOUND)
 	{
 		if (ret == FAILURE)
 			return (FAILURE);
-		hash_one(shell, process->av[0], pathname);
-		process->process_type |= IS_BIN;
+		hash_one(shell, process->av[0], path);
+		process->type |= IS_BIN;
 	}
 	else if (is_path_to_bin(process->av[0]) == TRUE)
-		process->process_type |= IS_ABS;
+		process->type |= IS_ABS;
 	else
-		process->process_type |= IS_NOTFOUND;
+		process->type |= IS_NOTFOUND;
 	return (SUCCESS);
 }
