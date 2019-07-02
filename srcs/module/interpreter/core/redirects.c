@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 15:30:44 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:27:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	do_redirect(void *data)
 		dup2(redirect->to, STDIN_FILENO);
 	else if (redirect->type & FD_DUP)
 	{
+	//	if (dup2(redirect->to, redirect->from) == FAILURE)
+	//		ft_dprintf(2, "42sh: Bad file descriptor\n");
 		dup2(redirect->to, redirect->from);
 		return;
 	}
