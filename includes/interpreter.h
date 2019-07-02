@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 19:49:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:35:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 void			run_background_job(t_registry *shell, t_job *job);
 
-int8_t 			interpreter(t_registry *shell, t_list **cmd_group
-					, int flag);
+int8_t 			interpreter(t_registry *shell, t_list **cmd_group);
+t_list			**ptr_to_job_lst(t_list **job_lst, uint8_t mode);
 void			run_builtin(t_registry *shell, t_process *process);
 int8_t			get_process_type(t_registry *shell, t_process *process);
 char			**generate_env(t_registry *shell, t_list *local_env);

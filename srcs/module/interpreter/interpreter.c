@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 13:41:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:35:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,18 +137,22 @@ static int		run_job(void *context, void *data)
 	return (SUCCESS);
 }
 
-int8_t 			interpreter(t_registry *shell, t_list **cmd_group, int flag)
+t_list			**ptr_to_job_lst(t_list **job_lst, uint8_t mode)
 {
-	static t_list	*job_lst;
+	static t_list		**saved = NULL;
 
-	if (flag != 0)
-	{
-		if (flag == FREE_INTERPRETER)
-			ft_lstdel(&job_lst, del_job);
-		else
-			ft_lstiter_ctx(job_lst, &flag, set_signaled);
-		return (SUCCESS);
-	}
+	if (mode == SET_ADDR)
+		saved = job_lst;
+	else if (mode == GET_ADDR)
+		return (saved);
+	return (NULL);
+}
+
+int8_t 			interpreter(t_registry *shell, t_list **cmd_group)
+{
+	t_list		*job_lst;
+
+	ptr_to_job_lst(&job_lst, SET_ADDR);
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
 	ft_lstdel(cmd_group, del_group);
 	load_signal_profile(EXEC_PROFILE);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/30 09:04:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:33:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	sigstop_exec(int signo)
 {
-	interpreter(NULL, NULL, signo);
+	t_list		*job_lst;
+
+	job_lst = *ptr_to_job_lst(NULL, GET_ADDR);
+	ft_lstiter_ctx(job_lst, &signo, set_signaled);
 }
 
 void	sigcont_exec(__unused int signo)
@@ -26,7 +29,6 @@ void	sigcont_exec(__unused int signo)
 void	sigtstp_exec(__unused int signo)
 {
 	// put current foreground job to background
-//	interpreter(NULL, NULL, signo);
 }
 
 void	sigttin_exec(int signo)

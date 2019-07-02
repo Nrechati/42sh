@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/01 13:40:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:24:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,6 +411,9 @@
 
 # define TRIM_OFF					0x00
 # define TRIM_ON					0x01
+
+# define SET_ADDR					0x01
+# define GET_ADDR					0x02
 
 # define INTERPRETER_NOT_FOUND		": command not found\n"
 # define INTERPRETER_FORK_ERROR		" fork error\n"
