@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 21:23:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:39:10 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "struct.h"
 
 t_list		*lexer(t_vector *line, uint8_t opt);
-void		set_inhibitor(t_lexer *lexer);
 
 /*
 *****************************************************
@@ -34,11 +33,18 @@ void		out_lexer(t_lexer *lexer);
 *****************************************************
 */
 
+uint8_t	is_inhibitor(t_lexer *lexer);
 uint8_t	is_assignation(t_lexer *lexer);
 uint8_t	is_input_end(t_lexer *lexer);
 uint8_t	is_delimiter(t_lexer *lexer);
 uint8_t	is_io_number(t_lexer *lexer);
 uint8_t	token_checker(t_lexer *lexer, int start, int end);
+
+void	loop_quote(t_lexer *lexer);
+void	loop_dbquote(t_lexer *lexer);
+void	loop_braceparam(t_lexer *lexer);
+void	loop_maths(t_lexer *lexer);
+void	loop_par(t_lexer *lexer);
 
 /*
 *****************************************************

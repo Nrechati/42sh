@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 20:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 14:42:18 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:05:37 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,32 @@ uint8_t	token_checker(t_lexer *lexer, int start, int end)
 	return (FALSE);
 }
 
+static uint8_t	last_is_redirect(t_lexer *lexer)
+{
+	if (lexer->last_token_type == E_DLESS
+		|| lexer->last_token_type == E_DGREAT
+		|| lexer->last_token_type == E_LESS
+		|| lexer->last_token_type == E_GREAT
+		|| lexer->last_token_type == E_LESSAND
+		|| lexer->last_token_type == E_GREATAND
+		|| lexer->last_token_type == E_ANDGREAT
+		|| lexer->last_token_type == E_ANDDGREAT
+		|| lexer->last_token_type == E_DLESSDASH)
+		return (TRUE);
+	return (FALSE);
+}
+
 uint8_t	is_io_number(t_lexer *lexer) 
 {
 	uint8_t	ret;
 
-	ret = FALSE;
-	if (lexer->token_type != E_DEFAULT)
+	ret = TRUE;
+	if (last_is_redirect(lexer) == TRUE)
+		ret = FALSE;
+	else if (lexer->token_type != E_DEFAULT)
+		ret = FALSE;
+	else if (get_input(lexer, NEXT_CHAR) == ' '
+			|| get_input(lexer, NEXT_CHAR) == '\t')
 		ret = FALSE;
 	else if (ft_isdigit(get_input(lexer, CUR_CHAR)) == FALSE)
 		ret = FALSE;

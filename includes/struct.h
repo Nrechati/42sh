@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/01 13:40:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:01:12 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ typedef struct			s_lexer
 	enum e_lexer_state	state;
 	enum e_mtype		last_token_mtype;
 	enum e_type			token_type;
+	enum e_type			last_token_type;
 	enum e_mtype		token_mtype;
-	uint32_t			parenthesis;
-	uint16_t			inhibitor;
 	uint8_t				assignation;
 }						t_lexer;
 
