@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 19:49:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:19:16 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,24 @@ void			run_background_job(t_registry *shell, t_job *job);
 
 int8_t 			interpreter(t_registry *shell, t_list **cmd_group
 					, int flag);
-void			run_builtin(t_registry *shell, t_process *process);
+
+void			fork_process(t_registry *shell, t_process *process,
+					uint8_t foreground);
+int8_t			launch_pipeline(t_registry *shell, t_list *processess,
+					uint8_t foreground);
+void			run_builtin(t_registry *shell, t_process *process,
+					uint8_t foreground);
+int				run_process(t_registry *shell, t_process *process,
+					uint8_t foreground);
+
+uint8_t			job_is_completed(t_job *job);
+uint8_t			job_is_stopped(t_job *job);
+
+
 int8_t			get_process_type(t_registry *shell, t_process *process);
 char			**generate_env(t_registry *shell, t_list *local_env);
 
 int				assign_intern(t_registry *shell, t_list **assign);
-void			fork_process(t_registry *shell, t_process *process);
 
 int				set_process_pgid(void *context, void *data);
 t_redirection	*redirecter_init(void);
@@ -40,8 +52,6 @@ void			del_process_redirect(void *data);
 void			close_redirect(void *data);
 void			close_pipe(void *data);
 void			do_redirect(void *data);
-int8_t			launch_pipeline(t_registry *shell, t_list *processess);
-int				run_process(t_registry *shell, t_process *process);
 
 int				check_delimiter(char **delimiter, t_vector **vector, int fd);
 

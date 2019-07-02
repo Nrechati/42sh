@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/07/01 13:39:58 by nrechati         ###   ########.fr        #
+#    Updated: 2019/07/02 11:23:33 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,9 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 
 CC = clang
 LINK = $(CC) -g3
-LINKD = $(CC) -g3 #-fsanitize=address,undefined -fno-omit-frame-pointer
+LINKD = $(CC) -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
 COMPILE = $(CC) -c -g3
-DEBUG = $(CC) -g3 -c #-fsanitize=address,undefined -fno-omit-frame-pointer
+DEBUG = $(CC) -g3 -c -fsanitize=address,undefined -fno-omit-frame-pointer
 
 # ---------------------------------------------------------------------------- #
 #									Commands                                   #
@@ -290,7 +290,7 @@ BUILTIN += jobs.c
 BUILTIN += print.c
 BUILTIN += get_state.c
 BUILTIN += get_avs.c
-#BUILTIN += utils.c
+BUILTIN += jobs_utils.c
 
 
 #CD

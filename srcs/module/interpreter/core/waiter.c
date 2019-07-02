@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 09:36:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 12:37:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,29 @@
 static void		set_status(t_registry *shell, t_job *job,
 						t_process *current, int status)
 {
-	int		signo;
-	char	*exit_status;
+	int			signo;
+	char		*exit_status;
 
 	exit_status = NULL;
 	if (WIFSTOPPED(status))
 	{
 		job->state = STOPPED;
 		job->signo = WSTOPSIG(status);
+		ft_printf("Job stopped by: %d\n", job->signo);
 		current->stopped = TRUE;
+
+		t_list		*proclist;
+		t_process	*process;
+		proclist = job->processes;
+		while (proclist != NULL)
+		{
+			process = proclist->data;
+			process->status = status;
+			process->stopped = TRUE;
+			process->completed = FALSE;
+			proclist = proclist->next;
+		}
+
 		shell->active_jobs++;
 		job->id = (shell->active_jobs);
 		jobctl(shell, job, JOBCTL_PUTINBG);

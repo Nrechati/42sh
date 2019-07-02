@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/01 18:12:57 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 12:32:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int		do_nofork_redirect(void *context, void *data)
 	return (SUCCESS);
 }
 
-void			run_builtin(t_registry *shell, t_process *process)
+void			run_builtin(t_registry *shell, t_process *process,
+					uint8_t foreground)
 {
 	char			*tty_name;
 	char			*status;
@@ -58,27 +59,40 @@ void			run_builtin(t_registry *shell, t_process *process)
 	t_builtin		builtin;
 
 	std = 0;
+
+	if (foreground == TRUE)
+	{
+		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
+			tcsetpgrp(STDOUT_FILENO, *process->pgid);
+	}
+
 	tty_name = ttyname(STDIN_FILENO);
 	if (process->process_type & IS_ALONE)
 		ft_lstiter_ctx(process->redirects, &std, do_nofork_redirect);
 	else
 		ft_lstiter(process->redirects, do_redirect);
+
 	builtin = ft_hmap_getdata(&shell->hash.blt, process->av[0]);
 	process->status = builtin(shell, process->av);
+
 	status = ft_itoa(process->status);
 	if (process->process_type & IS_ALONE)
 		default_io(std, tty_name);
+
 	ft_lstiter(process->redirects, close_redirect);
 	add_var(&shell->intern, "?", status, READONLY_VAR);
+
 	process->completed = 1;
 	ft_strdel(&status);
 	return ;
 }
 
-int				run_process(t_registry *shell, t_process *process)
+int				run_process(t_registry *shell, t_process *process,
+						uint8_t foreground)
 {
 	if (process->process_type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
 		return (process->completed = FAILURE);
+
 	if (expand_process(shell->intern, process) == FAILURE)
 	{
 		process->process_type = IS_EXP_ERROR;
@@ -91,12 +105,14 @@ int				run_process(t_registry *shell, t_process *process)
 	}
 	if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
+
 	else if (process->process_type & IS_ASSIGN)
 		process->completed = assign_intern(shell, &process->env);
+
 	else if (process->process_type == (IS_ALONE | IS_BLT))
-		run_builtin(shell, process);
+		run_builtin(shell, process, foreground);
 	else
-		fork_process(shell, process);
+		fork_process(shell, process, foreground);
 	return (SUCCESS);
 }
 
@@ -106,6 +122,10 @@ static int		run_job(void *context, void *data)
 	t_job		*job;
 	t_process	*head;
 	t_registry	*shell;
+
+	uint8_t		foreground;
+
+	foreground = TRUE;
 
 	shell = context;
 	job = data;
@@ -123,19 +143,41 @@ static int		run_job(void *context, void *data)
 	ft_strdel(&job_type);
 	head = job->processes->data;
 	job->state |= RUNNING;
+
+	if (job->job_type & GROUP_BG)
+		foreground = FALSE;
+
 	if (job->processes->next == NULL)
 	{
 		head->process_type |= IS_ALONE;
-		run_process(shell, head);
+		run_process(shell, head, foreground);
 	}
 	else
-		launch_pipeline(shell, job->processes);
+		launch_pipeline(shell, job->processes, foreground);
+
+	if ((job->job_type & GROUP_BG) == TRUE)
+	{
+		t_list		*data;
+		t_job		job_cpy;
+
+		shell->active_jobs++;
+		job->id = shell->active_jobs;
+		ft_bzero(&job_cpy, sizeof(t_job));
+		ft_memcpy(&job_cpy, job, sizeof(t_job));
+		data = ft_lstnew(&job_cpy, sizeof(t_job));
+		ft_lstaddback(&shell->job_list, data);
+		push_current_job(shell, data);
+		ft_printf("[%d] %d\n", job->id, job->pgid);
+		job->processes = NULL;
+		job->term_modes = NULL;
+	}
+
 	ft_lstiter(job->processes, del_process_redirect);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
-	if (job->job_type == GROUP_BG)
-		run_background_job(shell, job);
-	else
+
+	if (foreground)
 		waiter(shell, job);
+
 	return (SUCCESS);
 }
 

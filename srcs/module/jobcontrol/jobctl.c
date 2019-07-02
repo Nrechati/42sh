@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 22:16:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 12:39:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,19 @@ static void			job_to_registry(t_registry *shell, t_job *job)
 
 	avs = NULL;
 	ft_bzero(&job_cpy, sizeof(t_job));
+
+	job->state = STOPPED;
+	t_list		*proclist;
+	t_process	*process;
+	proclist = job->processes;
+	while (proclist != NULL)
+	{
+		process = proclist->data;
+		process->stopped = TRUE;
+		process->completed = FALSE;
+		proclist = proclist->next;
+	}
+
 	ft_memcpy(&job_cpy, job, sizeof(t_job));
 	get_job_av(job, &avs);
 	ft_printf("[%d]+  Stopped(%d) \t %s\n", job->id,
@@ -59,8 +72,18 @@ void	job_to_foreground(t_registry *shell, t_job *job)
 
 	if (job == NULL || job->processes == NULL)
 		return ;
+
 	job->state = RUNNING;
-	((t_process*)job->processes->data)->stopped = FALSE;
+	t_list		*proclist;
+	t_process	*process;
+	proclist = job->processes;
+	while (proclist != NULL)
+	{
+		process = proclist->data;
+		process->stopped = FALSE;
+		proclist = proclist->next;
+	}
+
 	remove_job_from_list(&shell->job_list, job);
 	shell->active_jobs--;
 	update_jobinfos(shell);
