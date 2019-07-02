@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/30 21:54:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:03:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		check_token(t_resolution *resolve)
 void	error_analyzer(t_resolution *resolve)
 {
 	if (resolve->valid == -2)
-		ft_dprintf(2, "42sh: ambigous redirect");
+		ft_dprintf(2, "42sh: ambiguous redirect\n");
 	else
 	{
 		ft_dprintf(2, "42sh: analyze error near unexpected token `%s'\n",

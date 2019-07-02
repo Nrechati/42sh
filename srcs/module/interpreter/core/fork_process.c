@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 13:58:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:05:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ static void	child_process(__unused t_registry *shell, t_process *process, __unus
 	if (pathname != NULL)
 	{
 		#ifndef NOEXEC
-		execve(pathname, process->av, env);
+		if (execve(pathname, process->av, env) == FAILURE)
+		{
+			ft_drpintf(2, SH_GENERAL_ERROR INTERPRETER_EXECVE_ERROR);
+			exit(FAILURE);
+		}
 		#else
 		(void)env;
 		#endif

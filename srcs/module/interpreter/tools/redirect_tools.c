@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/29 19:10:38 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:03:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ int		get_custom_fd(char **str, t_list *node)
 		return (FAILURE);
 	if (ft_strequ(holder, ""))
 	{
-		ft_dprintf(2, SH_GENERAL_ERROR "%s: ambigous redirect\n", token->data);
+		ft_dprintf(2, SH_GENERAL_ERROR "%s: ambiguous redirect\n", token->data);
 		ft_strdel(&holder);
 		return (-2);
 	}
 	if ((action_type = define_io_dup_move(token)) == A_AMBIGOUS_REDIRECT)
 	{
-		ft_dprintf(2, SH_GENERAL_ERROR "%s: ambigous redirect\n", holder);
+		ft_dprintf(2, SH_GENERAL_ERROR "%s: ambiguous redirect\n", holder);
 		ft_strdel(&holder);
 		return (-2);
 	}
