@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 16:56:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:19:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,13 @@ static int		do_nofork_redirect(void *context, void *data)
 	redirect = data;
 	set_context(context, data);
 	if (redirect->type & FD_DUP)
-		dup2(redirect->to, redirect->from);
+	{
+		if (dup2(redirect->to, redirect->from) == FAILURE)
+		{
+			ft_dprintf(2, "42sh: %d: Bad file descriptor\n", redirect->to);
+			return (FAILURE);
+		}
+	}
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
 	{
 		dup2(redirect->to, redirect->from);
@@ -69,9 +75,11 @@ void			run_builtin(t_registry *shell, t_process *process,
 	tty_name = ttyname(STDIN_FILENO);
 	if (process->process_type & IS_ALONE)
 		ft_lstiter_ctx(process->redirects, &std, do_nofork_redirect);
-	else
-		ft_lstiter_ctx(process->redirects, NULL, do_redirect);
-
+	else if (ft_lstiter_ctx(process->redirects, NULL, do_redirect) == FAILURE)
+	{
+		process->status = 255;
+		return ;
+	}
 	builtin = ft_hmap_getdata(&shell->hash.blt, process->av[0]);
 	process->status = builtin(shell, process->av);
 
