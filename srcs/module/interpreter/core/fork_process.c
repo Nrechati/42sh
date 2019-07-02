@@ -6,17 +6,34 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 22:55:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:58:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static void	child_process(t_registry *shell, t_process *process, char **env)
+uint8_t	check_cmd_path(char *data)
+{
+	struct stat	stat;
+
+	if (lstat(data, &stat))
+	{
+		ft_dprintf(2, "42sh: no such file or directory: %s\n", data);
+		return (FALSE);
+	}
+	if (stat.st_mode & S_IFDIR)
+		ft_dprintf(2, "42sh: %s: Is a directory\n", data);
+	else if (!(stat.st_mode & S_IRUSR))
+		ft_dprintf(2, "42sh: %s: Permission denied\n", data);
+	else
+		return (TRUE);
+	return (FALSE);
+}
+
+static void	child_process(__unused t_registry *shell, t_process *process, __unused char **env)
 {
 	char		*pathname;
-	DIR			*dir;
 
 	pathname = NULL;
 	signal (SIGINT,  SIG_DFL);
@@ -38,35 +55,26 @@ static void	child_process(t_registry *shell, t_process *process, char **env)
 		run_builtin(shell, process);
 		exit(process->status);
 	}
-	if (process->process_type & IS_BIN)
-		pathname = ft_hmap_getdata(&shell->hash.bin, process->av[0]);
-	else
-		pathname = process->av[0];
 	ft_lstiter(process->redirects, do_redirect);
 	ft_lstiter(process->redirects, close_redirect);
-	if (access(pathname, F_OK) == SUCCESS)
+	if (process->process_type & IS_BIN)
+		pathname = ft_hmap_getdata(&shell->hash.bin, process->av[0]);
+	else if (process->process_type & IS_ABS)
 	{
-		if (access(pathname, X_OK) == SUCCESS)
-		{
-			if ((dir = opendir(pathname)) == NULL)
-			{
-				#ifndef NOEXEC
-				execve(pathname, process->av, env);
-				#else
-				(void)env;
-				#endif
-			}
-			else
-			{
-				closedir(dir);
-				ft_dprintf(2, SH_GENERAL_ERROR "%s: Is a directory\n", process->av[0]);
-			}
-		}
-		else
-			ft_dprintf(2, SH_GENERAL_ERROR "%s: permission denied\n", process->av[0]);
+		if (check_cmd_path(process->av[0]) == TRUE)
+			pathname = process->av[0];
 	}
-	else
+	else if (process->process_type & IS_NOTFOUND)
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
+
+	if (pathname != NULL)
+	{
+		#ifndef NOEXEC
+		execve(pathname, process->av, env);
+		#else
+		(void)env;
+		#endif
+	}
 	exit(FAILURE);
 }
 
@@ -74,7 +82,6 @@ static void	parent_process(t_registry *shell, t_process *process, char ***env)
 {
 	if (process->process_type & IS_BIN)
 		ft_hmap_hits(&shell->hash.bin, process->av[0]);
-	//ft_lstiter(process->redirects, close_redirect);
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);

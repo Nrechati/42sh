@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 22:24:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 10:33:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ int		expand_process(t_list *intern, t_process *process)
 	return (0);
 }
 
+int8_t	is_path_to_bin(char	*cmd)
+{
+	if (cmd[0] == '/')
+		return (TRUE);
+	else if (ft_strnequ("./", cmd, 2))
+		return (TRUE);
+	else if (ft_strnequ("../", cmd, 3))
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
 int8_t	get_process_type(t_registry *shell, t_process *process)
 {
 	int8_t		ret;
@@ -75,7 +87,7 @@ int8_t	get_process_type(t_registry *shell, t_process *process)
 		hash_one(shell, process->av[0], pathname);
 		process->process_type |= IS_BIN;
 	}
-	else if (process->av[0][0] == '.' || process->av[0][0] == '/')
+	else if (is_path_to_bin(process->av[0]) == TRUE)
 		process->process_type |= IS_ABS;
 	else
 		process->process_type |= IS_NOTFOUND;
