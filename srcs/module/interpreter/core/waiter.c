@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 09:36:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 10:35:00 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		set_status(t_registry *shell, t_job *job,
 	}
 	if (WIFEXITED(status))
 	{
-		exit_status = ft_itoa(WEXITSTATUS(status)); //PROTECT ?
+		exit_status = ft_itoa((uint8_t)WEXITSTATUS(status)); //PROTECT ?
 		if (WEXITSTATUS(status) != 0)
 			current->completed = ERROR;
 		else
@@ -42,7 +42,7 @@ static void		set_status(t_registry *shell, t_job *job,
 		signo = WTERMSIG(status);
 		if (signo == 2 || signo == 3)
 			interpreter(NULL, NULL, signo);
-		exit_status = ft_itoa(signo + 128);
+		exit_status = ft_itoa((uint8_t)(signo + 128));
 		current->stopped = TRUE;
 		//ft_printf("SIGNALED by: %d\n", exit_status);
 	}
