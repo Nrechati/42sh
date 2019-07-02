@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/30 09:00:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:52:10 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int8_t				execution_pipeline(t_registry *shell, t_vector **input)
 		{
 			history(shell, vct_get_string(*input), ADD_ENTRY);
 			vct_del(input);
-			interpreter(shell, &command_group, 0);
+			interpreter(shell, &command_group);
 			load_signal_profile(DFLT_PROFILE);
 		}
 		lexer_print_debug(shell, resolve.tokens);
