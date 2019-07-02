@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 19:44:16 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:52:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	redrawmode_line(t_sle *sle)
 
 	index_to_coord(sle, sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);
-	if (sle->state == STATE_SEARCH)
+	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 		state_search(sle);
 	else
 		tputs(sle->termcaps.normal_cursor, 1, &ft_putc);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 16:09:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:53:06 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	prompt_pre_process(t_sle *sle)
 
 static void	prompt_post_process(t_registry *shell, t_sle *sle)
 {
-	if (sle->state == STATE_SEARCH)
+	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 	{
 		vct_del(&sle->line);
 		sle->line = vct_dup(sle->search_line);

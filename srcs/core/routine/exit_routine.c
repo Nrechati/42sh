@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:13:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 15:34:13 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:08:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void		free_registry(t_registry *shell)
 
 void			shell_exit_routine(t_registry *shell, int8_t ret)
 {
+	t_list **joblst;
+
 	if (shell->option.option & RECORD_HISTORY_OPT)
 	{
 		history(shell, NULL, WRITE_HISTFILE);
@@ -57,7 +59,9 @@ void			shell_exit_routine(t_registry *shell, int8_t ret)
 		kill_active_jobs(shell);
 		sle(shell, NULL, SLE_EXIT);
 	}
-	ft_lstdel(ptr_to_job_lst(NULL, GET_ADDR), del_job);
+	joblst = ptr_to_job_lst(NULL, GET_ADDR);
+	if (joblst != NULL && *joblst != NULL)
+		ft_lstdel(joblst, del_job);
 	term_mode(TERMMODE_DFLT);
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 		close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));

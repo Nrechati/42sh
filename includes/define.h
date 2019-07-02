@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:51:12 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:00:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@
 # define N_LESS						"<"
 # define N_SEMICOLON				";"
 # define N_AND						"&"
-# define N_NEWLINE					"\n" 
+# define N_NEWLINE					"\n"
 # define N_DAND						"&&"
 # define N_OR						"||"
 # define N_DLESS					"<<"
@@ -397,10 +397,10 @@
 *****************************************************
 */
 
-# define STATE_STD		0x00
-# define STATE_VISUAL	0x01
-# define STATE_SEARCH	0x02
-# define STATE_AUTOCP	0x04
+# define STATE_STD			0x00
+# define STATE_VISUAL		0x01
+# define STATE_REVSEARCH	0x02
+# define STATE_INCSEARCH	0x04
 
 # define PROMPT_PIPE	"pipe"
 # define PROMPT_QUOTE	"quote"
