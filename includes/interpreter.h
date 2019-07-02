@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 16:34:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:55:47 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				redirect_or_other(void *action, __unused void *data);
 void			del_process_redirect(void *data);
 void			close_redirect(void *data);
 void			close_pipe(void *data);
-void			do_redirect(void *data);
+int				do_redirect(void *context, void *data);
 
 int				check_delimiter(char **delimiter, t_vector **vector, int fd);
 

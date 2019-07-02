@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 16:38:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:56:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			run_builtin(t_registry *shell, t_process *process,
 	if (process->process_type & IS_ALONE)
 		ft_lstiter_ctx(process->redirects, &std, do_nofork_redirect);
 	else
-		ft_lstiter(process->redirects, do_redirect);
+		ft_lstiter_ctx(process->redirects, NULL, do_redirect);
 
 	builtin = ft_hmap_getdata(&shell->hash.blt, process->av[0]);
 	process->status = builtin(shell, process->av);
