@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/01 13:40:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:33:49 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,11 +190,11 @@
 ** SHELL
 */
 
-# define NB_OF_TOKENS				49
+# define NB_OF_TOKENS				21
 # define NB_OF_MTOKENS				24
 
-# define START_OPERATOR				27
-# define END_OPERATOR				1
+# define START_OPERATOR				15
+# define END_OPERATOR				0
 # define START_RESERVED_WORD		42
 # define END_RESERVED_WORD			30
 
@@ -234,7 +234,7 @@
 # define REDIR_AND					E_GREATAND, E_LESSAND, E_ANDGREAT
 # define REDIR_DB					E_DGREAT, E_DLESS, E_DLESSDASH, E_ANDDGREAT
 # define ALL_REDIRECT				REDIR, REDIR_DB, REDIR_AND
-# define WORD						E_STRING, E_DB_QUOTE
+# define WORD						E_STRING
 # define END_CMD					E_NEWLINE, E_END, E_SEMICOLON
 # define E_START					E_DEFAULT
 
@@ -248,49 +248,21 @@
 ** SHELL GRAMMAR
 */
 
-# define N_DB_QUOTE					"\""
 # define N_PIPE						"|"
-# define N_PARENT_OPEN				"("
-# define N_PARENT_CLOSE				")"
 # define N_GREAT					">"
 # define N_LESS						"<"
 # define N_SEMICOLON				";"
-# define N_BACKQUOTE				"`"
 # define N_AND						"&"
-# define N_HOOK_OPEN				"{"
-# define N_HOOK_CLOSE				"}"
-# define N_BRACKET_OPEN				"["
-# define N_BRACKET_CLOSE			"]"
-# define N_HASH						"#"
-# define N_PERCENT					"%"
-# define N_NEWLINE					"\n"
+# define N_NEWLINE					"\n" 
 # define N_DAND						"&&"
 # define N_OR						"||"
-# define N_DSEMI					";;"
 # define N_DLESS					"<<"
 # define N_DGREAT					">>"
 # define N_LESSAND					"<&"
 # define N_GREATAND					">&"
-# define N_LESSGREAT				"<>"
 # define N_ANDDGREAT				"&>>"
 # define N_ANDGREAT					"&>"
 # define N_DLESSDASH				"<<-"
-# define N_CLOBBER					">|"
-# define N_DEQ						"=="
-# define N_NOTEQ					"!="
-# define N_CASE						"case"
-# define N_DO						"do"
-# define N_DONE						"done"
-# define N_ELIF						"elif"
-# define N_ELSE						"else"
-# define N_ESAC						"esac"
-# define N_FI						"fi"
-# define N_FOR						"for"
-# define N_IF						"if"
-# define N_IN						"in"
-# define N_THEN						"then"
-# define N_UNTIL					"until"
-# define N_WHILE					"while"
 # define N_IO_NUMBER				"IO nb"
 # define N_ASSIGN					"(=)"
 # define N_STRING					"word"

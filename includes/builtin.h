@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/01 13:39:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:42:21 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 */
 
 t_option	set_options(char ***av, t_get_option get_option);
-uint8_t		multi_strchr(char *search, char *target);
+uint8_t		is_valid_variable(char *name);
 
 /*
 *****************************************************

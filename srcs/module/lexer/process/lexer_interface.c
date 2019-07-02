@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 13:16:09 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:24:18 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,6 @@ static uint8_t	is_operator(t_lexer *lexer)
 	return (token_checker(lexer, START_OPERATOR, END_OPERATOR));
 }
 
-static uint8_t	is_reserved_word(t_lexer *lexer) 
-{
-	if (lexer->token_type != E_DEFAULT)
-		return (FALSE);
-	return (token_checker(lexer, START_RESERVED_WORD, END_RESERVED_WORD));
-}
-
 void			process_lexer(t_lexer *lexer)
 {
 	set_inhibitor(lexer);
@@ -81,8 +74,6 @@ void			process_lexer(t_lexer *lexer)
 		lexer->index++;
 	else if (is_operator(lexer) == TRUE)
 		lexer->state = L_OUT;
-	else if (is_reserved_word(lexer) == TRUE)
-		;
 	else if (is_assignation(lexer) == TRUE)
 		;
 	else

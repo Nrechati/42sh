@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 20:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 13:16:35 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:42:18 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ uint8_t	token_checker(t_lexer *lexer, int start, int end)
 	current = lexer->input->buffer + lexer->index;
 	while (--type >= end)
 	{
-		while (type == E_PERCENT || type == E_BRACKET_OPEN
-				|| type == E_BRACKET_CLOSE)
-			type-- ;
 		len_op = ft_strlen(g_shell->grammar[type]);
 		if (ft_strnequ(g_shell->grammar[type], current, len_op) == TRUE)
 		{
@@ -97,10 +94,7 @@ uint8_t	is_assignation(t_lexer *lexer)
 		&& lexer->token_type == E_STRING
 		&& lexer->assignation == POSSIBLE)
 	{
-		if (lexer->buffer->buffer == NULL
-			|| lexer->buffer->buffer[0] == '\0'
-			|| ft_isdigit(lexer->buffer->buffer[0]) == TRUE
-			|| multi_strchr("!?$-=", lexer->buffer->buffer) == TRUE)
+		if (is_valid_variable(lexer->buffer->buffer) == FALSE)
 			return (FALSE);
 		lexer->token_type = E_ASSIGN;
 		lexer->index++;

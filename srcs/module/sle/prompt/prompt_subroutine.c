@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:58:14 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 14:04:20 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:16:00 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ uint8_t			maths_exp_routine(t_sle *sle, t_vector *line, size_t *i)
 	par = 0;
 	while (par != 2)
 	{
-		(*i)++;
 		if (parenthesis(sle, line, i) == FALSE)
 			return (FALSE);
 		par++;

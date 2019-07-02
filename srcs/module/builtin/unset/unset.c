@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/30 08:19:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:42:17 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ uint8_t				unset_blt(t_registry *shell, char **av)
 	ret = SUCCESS;
 	while (*av != NULL)
 	{
-		if (ft_isdigit(av[0][0]) == TRUE || multi_strchr("!?$-=", *av) == TRUE)
+		if (is_valid_variable(*av) == FALSE)
 		{
 			ft_dprintf(STDERR_FILENO,
 					"42sh: unset: `%s': not a valid identifier\n", *av);

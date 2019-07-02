@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:41 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/17 14:29:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:42:47 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,20 @@ t_option					set_options(char ***av, t_get_option get_option)
 	return (option);
 }
 
-uint8_t multi_strchr(char *search, char *target)
+uint8_t						is_valid_variable(char *name)
 {
-	if (target == NULL || search == NULL)
+	if (name == NULL || *name == '\0')
 		return (FALSE);
-	while (*search != '\0')
+	if (ft_isdigit(*name) == TRUE)
+		return (FALSE);
+	while (*name != '\0')
 	{
-		if (ft_strchr(target, *search) != NULL)
-			return (TRUE);
-		search++;
+		if (ft_isalnum(*name) == FALSE)
+		{
+			if (*name != '_')
+				return (FALSE);
+		}
+		name++;
 	}
-	return (FALSE);
+	return (TRUE);
 }

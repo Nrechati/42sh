@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/28 22:19:20 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:33:41 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,55 +42,27 @@ enum	e_lexer_state
 
 typedef enum	e_type
 {
-	E_DB_QUOTE,
 	E_PIPE,
-	E_PARENT_OPEN,
-	E_PARENT_CLOSE,
 	E_GREAT,
 	E_LESS,
 	E_SEMICOLON,
-	E_BACKQUOTE,
 	E_AND,
-	E_HOOK_OPEN,
-	E_HOOK_CLOSE,
-	E_BRACKET_OPEN,
-	E_BRACKET_CLOSE,
-	E_HASH,
-	E_PERCENT,
 	E_NEWLINE,
 	E_DAND,
 	E_OR,
-	E_DSEMI,
 	E_DLESS,
 	E_DGREAT,
 	E_LESSAND,
 	E_GREATAND,
-	E_LESSGREAT,
 	E_ANDDGREAT,
 	E_ANDGREAT,
 	E_DLESSDASH,
-	E_CLOBBER,
-	E_DEQ,
-	E_NOTEQ,
-	E_CASE,
-	E_DO,
-	E_DONE,
-	E_ELIF,
-	E_ELSE,
-	E_ESAC,
-	E_FI,
-	E_FOR,
-	E_IF,
-	E_IN,
-	E_THEN,
-	E_UNTIL,
-	E_WHILE,
 	E_IO_NUMBER,
 	E_ASSIGN,
 	E_STRING,
 	E_END,
 	E_ERROR,
-	E_DEFAULT,
+	E_DEFAULT
 }				t_type;
 
 typedef enum	e_mtype

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/30 08:18:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:40:54 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ static uint8_t		export_process(t_registry *shell, char **av)
 			return (FAILURE);
 		ft_bzero(variable, sizeof(t_variable));
 		get_name_and_data(variable, *av);
-		if (ft_isdigit(variable->name[0]) == TRUE
-			|| multi_strchr("!?$-=", variable->name) == TRUE)
+		if (is_valid_variable(variable->name) == FALSE)
 		{
 			ft_dprintf(STDERR_FILENO,
 					"42sh: export: `%s': not a valid identifier\n", *av);
