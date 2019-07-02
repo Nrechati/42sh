@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 14:24:18 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:02:14 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			out_lexer(t_lexer *lexer)
 		lexer->assignation = POSSIBLE;
 	else
 		lexer->assignation = IMPOSSIBLE;
+	lexer->last_token_type = lexer->token_type;
 	lexer->token_type = E_DEFAULT;
 	vct_reset(lexer->buffer);
 }
@@ -60,14 +61,10 @@ static uint8_t	is_operator(t_lexer *lexer)
 
 void			process_lexer(t_lexer *lexer)
 {
-	set_inhibitor(lexer);
 	if (is_input_end(lexer) == TRUE)
 		lexer->state = L_OUT;
-	else if (lexer->inhibitor != NO_FLAG)
-	{
-		add_to_buffer(lexer);
+	else if (is_inhibitor(lexer) == TRUE)
 		lexer->token_type = E_STRING;
-	}
 	else if (is_io_number(lexer) == TRUE)
 		lexer->state = L_OUT;
 	else if (is_delimiter(lexer) == TRUE)

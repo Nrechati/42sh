@@ -6,114 +6,109 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 17:28:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 14:43:49 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:56:04 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void	set_doublequoteflag(t_lexer *lexer)
+void		loop_par(t_lexer *lexer)
 {
-	if (get_input(lexer, CUR_CHAR) == '\"')
-		lexer->inhibitor &= ~DOUBLEQUOTE_FLAG;
-	else if (get_input(lexer, CUR_CHAR) == '$'
-			&& get_input(lexer, NEXT_CHAR) == '{')
+	add_to_buffer(lexer);
+	while (get_input(lexer, CUR_CHAR) != ')')
 	{
-		lexer->inhibitor |= BRACEPARAM_FLAG;
-		set_inhibitor(lexer);
-	}
-	else if (get_input(lexer, CUR_CHAR) == '$'
+		if (get_input(lexer, CUR_CHAR) == '(')
+			loop_par(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '\"')
+			loop_dbquote(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '\'')
+			loop_quote(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '$'
+				&& get_input(lexer, NEXT_CHAR) == '{')
+			loop_braceparam(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '('
 			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
-		lexer->inhibitor |= MATHS_FLAG;
-}
-
-static void	set_mathsflag(t_lexer *lexer)
-{
-	if (get_input(lexer, CUR_CHAR) == ')')
-		lexer->parenthesis--;
-	else if (get_input(lexer, CUR_CHAR) == '(')
-		lexer->parenthesis++;
-	else if (get_input(lexer, CUR_CHAR) == '\'')
-		lexer->inhibitor |= SINGLEQUOTE_FLAG;
-	else if (get_input(lexer, CUR_CHAR) == '\"')
-		lexer->inhibitor |= DOUBLEQUOTE_FLAG;
-	else if (get_input(lexer, CUR_CHAR) == '$'
-			&& get_input(lexer, NEXT_CHAR) == '{')
-		lexer->inhibitor |= BRACEPARAM_FLAG;
-	else if (get_input(lexer, CUR_CHAR) == '$'
-			&& get_input(lexer, NEXT_CHAR) == '('
-			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
-		lexer->inhibitor |= MATHS_FLAG;
-	if (lexer->parenthesis == 0)
-	{
+			loop_maths(lexer);
 		add_to_buffer(lexer);
-		lexer->inhibitor &= ~MATHS_FLAG;
-		set_inhibitor(lexer);
 	}
 }
 
-static void	set_braceparamflag(t_lexer *lexer)
+void		loop_maths(t_lexer *lexer)
 {
-	if (get_input(lexer, CUR_CHAR) == '}')
-		lexer->parenthesis--;
-	else if (get_input(lexer, CUR_CHAR) == '\'')
-		lexer->inhibitor |= SINGLEQUOTE_FLAG;
-	else if (get_input(lexer, CUR_CHAR) == '\"')
-		lexer->inhibitor |= DOUBLEQUOTE_FLAG;
-	else if (get_input(lexer, CUR_CHAR) == '$'
-			&& get_input(lexer, NEXT_CHAR) == '{')
-		lexer->parenthesis++;
-	else if (get_input(lexer, CUR_CHAR) == '$'
+	uint8_t	par;
+
+	add_to_buffer(lexer);
+	add_to_buffer(lexer);
+	par = 0;
+	while (par != 2)
+	{
+		loop_par(lexer);
+		par++;
+	}
+}
+
+void		loop_braceparam(t_lexer *lexer)
+{
+	add_to_buffer(lexer);
+	add_to_buffer(lexer);
+	while (get_input(lexer, CUR_CHAR) != '}')
+	{
+		if (get_input(lexer, CUR_CHAR) == '\"')
+			loop_dbquote(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '$'
+				&& get_input(lexer, NEXT_CHAR) == '{')
+			loop_braceparam(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '('
 			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
-		lexer->inhibitor |= MATHS_FLAG;
-	if (lexer->parenthesis == 0)
-	{
+			loop_maths(lexer);
 		add_to_buffer(lexer);
-		lexer->inhibitor &= ~BRACEPARAM_FLAG;
-		set_inhibitor(lexer);
 	}
 }
 
-static void	set_noflag(t_lexer *lexer)
+void		loop_dbquote(t_lexer *lexer)
 {
-	if (get_input(lexer, CUR_CHAR) == '\'')
-		lexer->inhibitor |= SINGLEQUOTE_FLAG;
-	else if (get_input(lexer, CUR_CHAR) == '\"')
-		lexer->inhibitor |= DOUBLEQUOTE_FLAG;
-	else if (get_input(lexer, CUR_CHAR) == '$'
-			&& get_input(lexer, NEXT_CHAR) == '{')
+	add_to_buffer(lexer);
+	while (get_input(lexer, CUR_CHAR) != '\"')
 	{
-		lexer->inhibitor |= BRACEPARAM_FLAG;
-		set_inhibitor(lexer);
-	}
-	else if (get_input(lexer, CUR_CHAR) == '$'
+		if (get_input(lexer, CUR_CHAR) == '\\')
+			add_to_buffer(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '$'
+				&& get_input(lexer, NEXT_CHAR) == '{')
+			loop_braceparam(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '('
 			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
-		lexer->inhibitor |= MATHS_FLAG;
+			loop_maths(lexer);
+		add_to_buffer(lexer);
+	}
 }
 
-void		set_inhibitor(t_lexer *lexer)
+void		loop_quote(t_lexer *lexer)
 {
-	if (lexer->inhibitor & BACKSLASH_FLAG)
-		lexer->inhibitor &= ~BACKSLASH_FLAG;
+	add_to_buffer(lexer);
+	while (get_input(lexer, CUR_CHAR) != '\'')
+		add_to_buffer(lexer);
+}
+
+uint8_t		is_inhibitor(t_lexer *lexer)
+{
 	if (get_input(lexer, CUR_CHAR) == '\\')
-	{
 		add_to_buffer(lexer);
-		lexer->inhibitor |= BACKSLASH_FLAG;
-	}
-	else if (lexer->inhibitor == NO_FLAG)
-		set_noflag(lexer);
-	else if (lexer->inhibitor & BRACEPARAM_FLAG)
-		set_braceparamflag(lexer);
-	else if (lexer->inhibitor & MATHS_FLAG)
-		set_mathsflag(lexer);
-	else if (lexer->inhibitor & DOUBLEQUOTE_FLAG)
-		set_doublequoteflag(lexer);
-	else if (lexer->inhibitor & SINGLEQUOTE_FLAG)
-	{
-		if (get_input(lexer, CUR_CHAR) == '\'')
-			lexer->inhibitor &= ~SINGLEQUOTE_FLAG;
-	}
+	else if (get_input(lexer, CUR_CHAR) == '\'')
+		loop_quote(lexer);
+	else if (get_input(lexer, CUR_CHAR) == '\"')
+		loop_dbquote(lexer);
+	else if (get_input(lexer, CUR_CHAR) == '$'
+			&& get_input(lexer, NEXT_CHAR) == '{')
+		loop_braceparam(lexer);
+	else if (get_input(lexer, CUR_CHAR) == '$'
+		&& get_input(lexer, NEXT_CHAR) == '('
+		&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
+		loop_maths(lexer);
+	else
+		return (FALSE);
+	add_to_buffer(lexer);
+	return (TRUE);
 }

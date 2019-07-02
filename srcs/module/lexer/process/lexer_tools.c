@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 20:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/24 15:34:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:01:44 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ void		init_lexer(t_lexer *lexer, t_vector *input)
 	lexer->index = 0;
 	lexer->state = L_PROCESS;
 	lexer->token_type = E_DEFAULT;
+	lexer->last_token_type = E_DEFAULT;
 	lexer->last_token_mtype = E_M_DEFAULT;
 	lexer->token_mtype = E_M_DEFAULT;
-	lexer->inhibitor = NO_FLAG;
 	lexer->assignation = POSSIBLE;
-	lexer->parenthesis = 0;
 }
 
 char	get_input(t_lexer *lexer, uint8_t pos)
