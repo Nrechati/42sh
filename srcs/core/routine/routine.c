@@ -6,52 +6,42 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:52:10 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/03 01:05:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-
-static t_resolution	init_resolve(t_list *tokens)
+void				valid_command(t_vector **input, t_list **command_group)
 {
-	t_resolution	resolve;
+	history(g_shell, vct_get_string(*input), ADD_ENTRY);
+	vct_del(input);
+	interpreter(g_shell, command_group);
+	load_signal_profile(DFLT_PROFILE);
+}
 
-	ft_bzero(&resolve, sizeof(t_resolution));
-	resolve.tokens = tokens;
-	resolve.token.type = E_DEFAULT;
-	return (resolve);
+int					invalid_input(t_vector **input, t_list **tokens)
+{
+	history(g_shell, vct_get_string(*input), ADD_ENTRY);
+	ft_lstdel(tokens, del_token);
+	vct_del(input);
+	return (FAILURE);
 }
 
 int8_t				execution_pipeline(t_registry *shell, t_vector **input)
 {
 	t_list			*command_group;
-	t_resolution	resolve;
 	t_list			*tokens;
 
+	command_group = NULL;
 	tokens = lexer(*input, SHELL);
-	resolve = init_resolve(tokens);
-	while (resolve.tokens)
-	{
-		command_group = NULL;
-		if (parser(*input, resolve.tokens) == FAILURE)
-		{
-			history(shell, vct_get_string(*input), ADD_ENTRY);
-			ft_lstdel(&resolve.tokens, del_token);
-			vct_del(input);
-			return (FAILURE);
-		}
-		command_group = analyzer(&resolve);
-		if (command_group)
-		{
-			history(shell, vct_get_string(*input), ADD_ENTRY);
-			vct_del(input);
-			interpreter(shell, &command_group);
-			load_signal_profile(DFLT_PROFILE);
-		}
-		lexer_print_debug(shell, resolve.tokens);
-	}
+	lexer_print_debug(shell, tokens);
+	if (parser(*input, tokens) == FAILURE)
+		return (invalid_input(input, &tokens));
+	command_group = analyzer(&tokens);
+	if (command_group)
+		valid_command(input, &command_group);
 	vct_del(input);
 	return (SUCCESS);
 }

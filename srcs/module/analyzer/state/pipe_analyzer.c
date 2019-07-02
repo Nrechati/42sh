@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/11 13:54:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:57:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void	pipe_analyzer(t_resolution *resolve)
+void	pipe_analyzer(t_analyze *analyze)
 {
-	resolve->state = P_PIPE;
-	get_token(resolve);
+	analyze->state = P_PIPE;
+	get_token(analyze);
 }

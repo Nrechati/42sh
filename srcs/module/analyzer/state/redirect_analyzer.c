@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 18:45:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:57:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void			dup_stderr(t_resolution *resolve)
+void			dup_stderr(t_analyze *analyze)
 {
 	t_action	action;
 	t_token		token;
@@ -30,7 +30,7 @@ void			dup_stderr(t_resolution *resolve)
 	node = ft_lstnew(&token, sizeof(t_token));
 	ft_lstaddback(&action.data, node);
 	node = ft_lstnew(&token, sizeof(t_action));
-	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+	ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 }
 
 enum e_actions	define_redirect(t_token *token)
@@ -48,38 +48,38 @@ enum e_actions	define_redirect(t_token *token)
 	return (-1);
 }
 
-void			flush_redirect(t_resolution *resolve)
+void			flush_redirect(t_analyze *analyze)
 {
 	enum e_type	type;
 	t_list		*node;
 	t_action	action;
 
-	resolve->state = P_REDIRECT_FLUSH;
+	analyze->state = P_REDIRECT_FLUSH;
 	ft_bzero(&action, sizeof(t_action));
-	node = ft_stckpopnode(&resolve->stack);
+	node = ft_stckpopnode(&analyze->stack);
 	ft_lstaddback(&action.data, node);
-	node = ft_stckpopnode(&resolve->stack);
+	node = ft_stckpopnode(&analyze->stack);
 	action.type = define_redirect(node->data);
 	type = ((t_token *)node->data)->type;
 	ft_lstdelone(&node, NULL);
 	if (type == E_ANDGREAT || type == E_ANDDGREAT || type == E_GREATAND)
-		dup_stderr(resolve);
-	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+		dup_stderr(analyze);
+	ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 }
 
-void			redirect_and_analyzer(t_resolution *resolve)
+void			redirect_and_analyzer(t_analyze *analyze)
 {
-	resolve->state = P_REDIRECT_AND;
-	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
-	get_token(resolve);
+	analyze->state = P_REDIRECT_AND;
+	ft_stckpush(&analyze->stack, &analyze->token, sizeof(t_token));
+	get_token(analyze);
 }
 
-void			redirect_analyzer(t_resolution *resolve)
+void			redirect_analyzer(t_analyze *analyze)
 {
-	if (resolve->token.type == E_DLESS || resolve->token.type == E_DLESSDASH)
-		resolve->state = P_HEREDOC_REDIRECT;
+	if (analyze->token.type == E_DLESS || analyze->token.type == E_DLESSDASH)
+		analyze->state = P_HEREDOC_REDIRECT;
 	else
-		resolve->state = P_REDIRECT;
-	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
-	get_token(resolve);
+		analyze->state = P_REDIRECT;
+	ft_stckpush(&analyze->stack, &analyze->token, sizeof(t_token));
+	get_token(analyze);
 }

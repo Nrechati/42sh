@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/11 14:51:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:40:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ inline uint8_t	is_shell_interactive(t_registry *shell)
 	return (FALSE);
 }
 
-void					launch_shell(t_registry *shell)
+void			launch_shell(t_registry *shell)
 {
 	if (is_shell_interactive(shell) == TRUE)
 		interactive_mode(shell);

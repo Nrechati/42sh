@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:19:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 01:05:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,27 @@ static int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 	return (SUCCESS);
 }
 
-t_list			*analyzer(t_resolution *resolve)
+t_list			*analyzer(t_list **tokens)
 {
+	t_analyze			analyze;
 	static t_analyzer	*analyzer = NULL;
 	t_list				*command_group;
 
 	command_group = NULL;
 	if (analyzer == NULL)
 		analyzer = init_analyzer();
-	get_token(resolve);
-	while (resolve->state != P_END)
+	ft_bzero(&analyze, sizeof(t_analyze));
+	analyze.tokens = *tokens;
+	analyze.token.type = E_DEFAULT;
+	get_token(&analyze);
+	while (analyze.state != P_END)
 	{
-		if (resolve->state == P_STOP)
-			generate_cmd_group(&command_group, &resolve->tree_node);
-		(*analyzer)[resolve->state][resolve->token.type](resolve);
+		if (analyze.state == P_STOP)
+			generate_cmd_group(&command_group, &analyze.tree_node);
+		(*analyzer)[analyze.state][analyze.token.type](&analyze);
 	}
-	if (resolve->valid == 1)
-		if (generate_cmd_group(&command_group, &resolve->tree_node) == FAILURE)
+	if (analyze.valid == 1)
+		if (generate_cmd_group(&command_group, &analyze.tree_node) == FAILURE)
 			return (NULL);
 	analyzer_print_debug(g_shell, command_group);
 	return (command_group);

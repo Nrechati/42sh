@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 15:42:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:40:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void					batch_mode(t_registry *shell)
 	if (shell->option.option & COMMAND_OPT)
 	{
 		if (shell->option.command_str != NULL
-			&& ft_strcheck(shell->option.command_str, ft_isprint) == TRUE)
+				&& ft_strcheck(shell->option.command_str, ft_isprint) == TRUE)
 		{
 			cmd = vct_dups(shell->option.command_str);
 			if (verif_line(NULL, cmd) == TRUE)

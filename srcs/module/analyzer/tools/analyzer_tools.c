@@ -6,18 +6,18 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:37:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 10:56:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:57:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-int		is_ionumber(t_resolution *resolve, char *str)
+int		is_ionumber(t_analyze *analyze, char *str)
 {
 	int		len;
 
-	resolve->state = resolve->state == P_REDIRECT_AND
+	analyze->state = analyze->state == P_REDIRECT_AND
 			? P_DUP_MOVE : P_IO_DUP_MOVE;
 	if (ft_strcheck(str, ft_isdigit) == 1)
 		return (1);
@@ -28,7 +28,7 @@ int		is_ionumber(t_resolution *resolve, char *str)
 		str[len - 1] = character_swap('\0');
 		if (str[len - 1] == '-')
 		{
-			resolve->special_case ^= TO_CLOSE;
+			analyze->special_case ^= TO_CLOSE;
 			return (1);
 		}
 	}
@@ -52,19 +52,19 @@ uint8_t	check_access(char *data)
 	return (FALSE);
 }
 
-void	check_filename(t_resolution *resolve)
+void	check_filename(t_analyze *analyze)
 {
-	if (resolve->token.data == NULL
-			|| check_access(resolve->token.data) == FALSE)
+	if (analyze->token.data == NULL
+			|| check_access(analyze->token.data) == FALSE)
 	{
-		error_analyzer(resolve);
-		ft_strdel(&resolve->token.data);
+		error_analyzer(analyze);
+		ft_strdel(&analyze->token.data);
 	}
 }
 
-void	delete_analyzer(t_resolution *resolve)
+void	delete_analyzer(t_analyze *analyze)
 {
-	ft_stckdestroy(&resolve->stack, del_token);
+	ft_stckdestroy(&analyze->stack, del_token);
 }
 
 void	set_group_type(t_group *group, t_action *action)

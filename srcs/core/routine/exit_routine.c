@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:13:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 15:34:13 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:42:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void			kill_active_jobs(t_registry *shell)
+static void		kill_active_jobs(t_registry *shell)
 {
 	t_list	*job_lst;
 
@@ -44,6 +44,13 @@ static void		free_registry(t_registry *shell)
 	free(shell->sle_ios);
 }
 
+void			close_filedesc(void)
+{
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+}
+
 void			shell_exit_routine(t_registry *shell, int8_t ret)
 {
 	if (shell->option.option & RECORD_HISTORY_OPT)
@@ -64,8 +71,6 @@ void			shell_exit_routine(t_registry *shell, int8_t ret)
 	free_registry(shell);
 	if (is_shell_interactive(shell) == TRUE)
 		ft_putendl_fd("exit", STDERR_FILENO);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
+	close_filedesc();
 	exit(ret);
 }

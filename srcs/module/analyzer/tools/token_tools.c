@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:03:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 19:23:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:57:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ t_type	pop_token_type(t_stack *stack)
 	return (type);
 }
 
-void	get_token(t_resolution *resolve)
+void	get_token(t_analyze *analyze)
 {
 	t_list		*node;
 
-	if (resolve->tokens == NULL)
+	if (analyze->tokens == NULL)
 		return ;
-	node = resolve->tokens;
-	resolve->tokens = resolve->tokens->next;
-	ft_memcpy(&resolve->token, node->data, sizeof(t_token));
+	node = analyze->tokens;
+	analyze->tokens = analyze->tokens->next;
+	ft_memcpy(&analyze->token, node->data, sizeof(t_token));
 	ft_lstdelone(&node, NULL);
 }
 

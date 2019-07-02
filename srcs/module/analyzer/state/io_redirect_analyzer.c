@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 04:42:30 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:15:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:57:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,38 @@ enum e_actions	define_io_redirect(t_token *token)
 	return (-1);
 }
 
-void			io_redirect_flush(t_resolution *resolve)
+void			io_redirect_flush(t_analyze *analyze)
 {
 	t_token		*token;
 	t_list		*node;
 	t_action	action;
 
-	resolve->state = P_IO_FLUSH;
+	analyze->state = P_IO_FLUSH;
 	ft_bzero(&action, sizeof(t_action));
-	node = ft_stckpopnode(&resolve->stack);
+	node = ft_stckpopnode(&analyze->stack);
 	ft_lstaddback(&action.data, node);
-	node = ft_stckpopnode(&resolve->stack);
+	node = ft_stckpopnode(&analyze->stack);
 	token = node->data;
 	action.type = define_io_redirect(token);
 	ft_lstdelone(&node, NULL);
-	node = ft_stckpopnode(&resolve->stack);
+	node = ft_stckpopnode(&analyze->stack);
 	ft_lstaddback(&action.data, node);
-	ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+	ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 }
 
-void			io_redirect_analyzer(t_resolution *resolve)
+void			io_redirect_analyzer(t_analyze *analyze)
 {
-	if (resolve->token.type == E_DLESS || resolve->token.type == E_DLESSDASH)
-		resolve->state = P_IO_HEREDOC_REDIRECT;
+	if (analyze->token.type == E_DLESS || analyze->token.type == E_DLESSDASH)
+		analyze->state = P_IO_HEREDOC_REDIRECT;
 	else
-		resolve->state = P_IO_REDIRECT;
-	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
-	get_token(resolve);
+		analyze->state = P_IO_REDIRECT;
+	ft_stckpush(&analyze->stack, &analyze->token, sizeof(t_token));
+	get_token(analyze);
 }
 
-void			io_analyzer(t_resolution *resolve)
+void			io_analyzer(t_analyze *analyze)
 {
-	resolve->state = P_IO;
-	ft_stckpush(&resolve->stack, &resolve->token, sizeof(t_token));
-	get_token(resolve);
+	analyze->state = P_IO;
+	ft_stckpush(&analyze->stack, &analyze->token, sizeof(t_token));
+	get_token(analyze);
 }

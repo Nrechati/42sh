@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/29 21:26:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 01:03:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,52 @@
 # define ANALYZER_H
 # include "struct.h"
 
-t_list		*analyzer(t_resolution *resolve);
-void		reset_analyzer(t_registry *shell, t_resolution *resolve);
+t_list		*analyzer(t_list **tokens);
+void		reset_analyzer(t_registry *shell, t_analyze *analyze);
 t_analyzer	*init_analyzer(void);
-void		delete_analyzer(t_resolution *resolve);
-void		start_analyzer(t_resolution *resolve);
-void		stop_analyzer(t_resolution *resolve);
-void		end_analyzer(t_resolution *resolve);
-void		error_analyzer(t_resolution *resolve);
+void		delete_analyzer(t_analyze *analyze);
+void		start_analyzer(t_analyze *analyze);
+void		stop_analyzer(t_analyze *analyze);
+void		end_analyzer(t_analyze *analyze);
+void		error_analyzer(t_analyze *analyze);
 
-void		string_analyzer(t_resolution *resolve);
-void		special_string_analyzer(t_resolution *resolve);
-void		flush_string(t_resolution *resolve);
+void		string_analyzer(t_analyze *analyze);
+void		special_string_analyzer(t_analyze *analyze);
+void		flush_string(t_analyze *analyze);
 
-void		assign_name_analyzer(t_resolution *resolve);
-void		assign_data_analyzer(t_resolution *resolve);
-void		assign_flush_analyzer(t_resolution *resolve);
+void		assign_name_analyzer(t_analyze *analyze);
+void		assign_data_analyzer(t_analyze *analyze);
+void		assign_flush_analyzer(t_analyze *analyze);
 
-void		redirect_analyzer(t_resolution *resolve);
-void		redirect_and_analyzer(t_resolution *resolve);
-void		pipe_analyzer(t_resolution *resolve);
-void		filename_analyzer(t_resolution *resolve);
-void		dup_move_analyzer(t_resolution *resolve);
-void		flush_redirect(t_resolution *resolve);
-void		flush_redirect_and(t_resolution *resolve);
+void		redirect_analyzer(t_analyze *analyze);
+void		redirect_and_analyzer(t_analyze *analyze);
+void		pipe_analyzer(t_analyze *analyze);
+void		filename_analyzer(t_analyze *analyze);
+void		dup_move_analyzer(t_analyze *analyze);
+void		flush_redirect(t_analyze *analyze);
+void		flush_redirect_and(t_analyze *analyze);
 
 void		default_io(const uint8_t std, char *tty_name);
-void		io_analyzer(t_resolution *resolve);
-void		io_redirect_analyzer(t_resolution *resolve);
-void		io_redirect_and_analyzer(t_resolution *resolve);
-void		io_dup_move_analyzer(t_resolution *resolve);
-void		io_filename_analyzer(t_resolution *resolve);
-void		io_and_redirect_flush(t_resolution *resolve);
-void		io_redirect_flush(t_resolution *resolve);
+void		io_analyzer(t_analyze *analyze);
+void		io_redirect_analyzer(t_analyze *analyze);
+void		io_redirect_and_analyzer(t_analyze *analyze);
+void		io_dup_move_analyzer(t_analyze *analyze);
+void		io_filename_analyzer(t_analyze *analyze);
+void		io_and_redirect_flush(t_analyze *analyze);
+void		io_redirect_flush(t_analyze *analyze);
 int			 define_io_dup_move(t_token *token);
 
-void		heredoc_analyzer(t_resolution *resolve);
-void		io_heredoc_analyzer(t_resolution *resolve);
-void		heredoc_delimiter(t_resolution *resolve);
+void		heredoc_analyzer(t_analyze *analyze);
+void		io_heredoc_analyzer(t_analyze *analyze);
+void		heredoc_delimiter(t_analyze *analyze);
 
-int			is_ionumber(t_resolution *resolve, char *str);
-void		check_filename(t_resolution *resolve);
+int			is_ionumber(t_analyze *analyze, char *str);
+void		check_filename(t_analyze *analyze);
 void		set_group_type(t_group *group, t_action *action);
 t_type		pop_token_type(t_stack *stack);
 char		*pop_token_data(t_stack *stack);
-void		get_token(t_resolution *resolve);
-void		generate_filedesc(t_resolution *resolve, int first, int second
+void		get_token(t_analyze *analyze);
+void		generate_filedesc(t_analyze *analyze, int first, int second
 					, int action);
 
 /*

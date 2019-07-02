@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/23 02:40:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 01:15:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			find_var(void *data, void *to_find)
 
 char		*get_var(t_list *intern, char *name)
 {
-	t_list *node;
+	t_list		*node;
 
 	if ((node = ft_lstfind(intern, name, find_var)))
 		return (((t_variable *)node->data)->data);
@@ -33,7 +33,7 @@ char		*get_var(t_list *intern, char *name)
 
 int			get_var_status(t_list *intern, char *name)
 {
-	t_list 		*node;
+	t_list		*node;
 
 	if ((node = ft_lstfind(intern, name, find_var)))
 		return (((t_variable *)node->data)->flag);

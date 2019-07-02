@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 00:21:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:56:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ typedef struct			s_graph
 ********************** ANALYZER *********************
 *****************************************************
 */
-typedef struct s_resolution	t_resolution;
-typedef void				(*t_resolve)(t_resolution *);
-typedef t_resolve			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
+typedef struct s_analyze	t_analyze;
+typedef void				(*t_analyzing)(t_analyze *);
+typedef t_analyzing			t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 typedef struct s_redirect	t_redirect;
 typedef struct s_action		t_action;
 typedef void				(*t_set_redirect)(t_redirect *, t_action *);
@@ -167,16 +167,16 @@ typedef struct			s_job
 	struct termios		*term_modes;
 }						t_job;
 
-struct					s_resolution
+struct					s_analyze
 {
-	t_list				*tokens;
-	t_stack				stack;
-	t_stack				tree_node;
-	t_token				token;
-	unsigned int		special_case;
+	t_list					*tokens;
+	t_stack					stack;
+	t_stack					tree_node;
+	t_token					token;
+	unsigned int			special_case;
 	enum e_analyzer_state	last_state;
 	enum e_analyzer_state	state;
-	int					valid;
+	int						valid;
 };
 
 extern t_job 			*g_current_job;

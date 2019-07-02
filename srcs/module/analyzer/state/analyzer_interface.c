@@ -6,82 +6,82 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 16:03:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/03 00:57:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int		check_token(t_resolution *resolve)
+int		check_token(t_analyze *analyze)
 {
-	if (resolve->tokens == NULL)
+	if (analyze->tokens == NULL)
 		return (0);
-	if (resolve->token.type == E_SEMICOLON)
+	if (analyze->token.type == E_SEMICOLON)
 		return (0);
-	if (resolve->token.type == E_PIPE)
+	if (analyze->token.type == E_PIPE)
 		return (0);
-	if (resolve->token.type == E_END)
+	if (analyze->token.type == E_END)
 		return (0);
-	if (resolve->token.type == E_NEWLINE)
+	if (analyze->token.type == E_NEWLINE)
 		return (0);
 	return (1);
 }
 
-void	error_analyzer(t_resolution *resolve)
+void	error_analyzer(t_analyze *analyze)
 {
-	if (resolve->valid == -2)
+	if (analyze->valid == -2)
 		ft_dprintf(2, "42sh: ambiguous redirect\n");
 	else
 	{
 		ft_dprintf(2, "42sh: analyze error near unexpected token `%s'\n",
-				g_shell->grammar[resolve->token.type]);
+				g_shell->grammar[analyze->token.type]);
 	}
-	resolve->state = P_ERROR;
-	resolve->valid = -1;
-	ft_strdel(&resolve->token.data);
-	ft_stckdestroy(&resolve->stack, del_token);
-	ft_stckdestroy(&resolve->tree_node, del_action);
-	while (check_token(resolve))
+	analyze->state = P_ERROR;
+	analyze->valid = -1;
+	ft_strdel(&analyze->token.data);
+	ft_stckdestroy(&analyze->stack, del_token);
+	ft_stckdestroy(&analyze->tree_node, del_action);
+	while (check_token(analyze))
 	{
-		get_token(resolve);
-		ft_strdel(&resolve->token.data);
+		get_token(analyze);
+		ft_strdel(&analyze->token.data);
 	}
 }
 
-void	stop_analyzer(t_resolution *resolve)
+void	stop_analyzer(t_analyze *analyze)
 {
 	t_action	action;
 
-	resolve->state = P_STOP;
-	if (resolve->valid == 1)
+	analyze->state = P_STOP;
+	if (analyze->valid == 1)
 	{
 		ft_bzero(&action, sizeof(t_action));
-		if (resolve->token.type == E_DAND)
+		if (analyze->token.type == E_DAND)
 			action.type = A_DAND;
-		else if (resolve->token.type == E_OR)
+		else if (analyze->token.type == E_OR)
 			action.type = A_OR;
-		else if (resolve->token.type == E_SEMICOLON)
+		else if (analyze->token.type == E_SEMICOLON)
 			action.type = A_END;
-		else if (resolve->token.type == E_NEWLINE)
+		else if (analyze->token.type == E_NEWLINE)
 			action.type = A_END;
-		else if (resolve->token.type == E_AND)
+		else if (analyze->token.type == E_AND)
 			action.type = A_AND;
-		ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
-		resolve->valid = 0;
+		ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
+		analyze->valid = 0;
 	}
-	get_token(resolve);
+	get_token(analyze);
 }
 
-void	end_analyzer(t_resolution *resolve)
+void	end_analyzer(t_analyze *analyze)
 {
 	t_action	action;
 
-	resolve->state = P_END;
-	if (resolve->valid == 1)
+	analyze->state = P_END;
+	if (analyze->valid == 1)
 	{
 		ft_bzero(&action, sizeof(t_action));
 		action.type = A_END;
-		ft_stckpush(&resolve->tree_node, &action, sizeof(t_action));
+		ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 	}
-	get_token(resolve);
+	get_token(analyze);
 }

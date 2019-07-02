@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 13:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/28 11:43:25 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/03 01:14:30 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-static uint8_t			ft_exists_and_is_exec(char *path)
+static uint8_t	ft_exists_and_is_exec(char *path)
 {
 	struct stat		tmp;
 
@@ -28,12 +28,12 @@ static uint8_t			ft_exists_and_is_exec(char *path)
 	return (FALSE);
 }
 
-static int8_t			find_bin(char *path, char *bin, char **buf)
+static int8_t	find_bin(char *path, char *bin, char **buf)
 {
 	ft_asprintf(buf, "%s/%s", path, bin);
 	if (*buf == NULL)
 	{
-		ft_putendl_fd(HASH_GENERAL_ERROR HASH_MALLOC_ERROR, 2);
+		ft_putendl_fd("42sh: hash: [CRITICAL] Malloc error\n", 2);
 		return (FAILURE);
 	}
 	if (ft_exists_and_is_exec(*buf) == TRUE)
@@ -42,7 +42,7 @@ static int8_t			find_bin(char *path, char *bin, char **buf)
 	return (NOT_FOUND);
 }
 
-int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
+int8_t			find_in_path(t_registry *shell, char *bin, char **buf)
 {
 	uint32_t	i;
 	int8_t		ret;
@@ -55,7 +55,7 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
 	tab = ft_strsplit(get_var(shell->intern, "PATH"), ":");
 	if (tab == NULL)
 	{
-		ft_putendl_fd(HASH_GENERAL_ERROR HASH_MALLOC_ERROR, 2);
+		ft_putendl_fd("42sh: hash: [CRITICAL] Malloc error\n", 2);
 		return (FAILURE);
 	}
 	i = 0;
@@ -63,7 +63,7 @@ int8_t					find_in_path(t_registry *shell, char *bin, char **buf)
 	{
 		ret = find_bin(tab[i], bin, buf);
 		if (ret != NOT_FOUND)
-			break;
+			break ;
 		i++;
 	}
 	ft_freetab(&tab);
