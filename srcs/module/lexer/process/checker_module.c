@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 20:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 18:05:37 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:45:01 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ uint8_t	is_io_number(t_lexer *lexer)
 {
 	uint8_t	ret;
 
-	ret = TRUE;
+	ret = FALSE;
 	if (last_is_redirect(lexer) == TRUE)
 		ret = FALSE;
 	else if (lexer->token_type != E_DEFAULT)
