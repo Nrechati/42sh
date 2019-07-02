@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/24 20:03:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:13:37 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static char		*send_rest(t_autocomplete *result, char *input,
 static char		*get_completion(char **input, t_registry *shell,
 					t_autocomplete *result, char **completion)
 {
-	static t_completion_fct		*get_completion[] = {get_completion_cmd,
+	static	t_completion_fct		*get_completion[] = {get_completion_cmd,
 									get_completion_var, get_completion_var,
 									get_completion_file};
-	char	*tmp;
+	char							*tmp;
 
 	if (ft_strequ(".", *input) == TRUE)
 	{
@@ -70,13 +70,8 @@ static char		*get_completion(char **input, t_registry *shell,
 	tmp[result->index] = '\0';
 	*input = ft_strjoin(tmp, *completion);
 	ft_strdel(&tmp);
-	if (result->type == FILE_TYPE && slash_is_missing(*completion) == TRUE
-		&& ft_strequ(".", *completion) == FALSE)
-	{
-		ft_strdel(completion);
-		*completion = ft_strdup("/");
+	if (is_completion_dir(result, completion) == TRUE)
 		return (*completion);
-	}
 	get_completion[result->type](*completion, result, shell);
 	return (NULL);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   autocompletion_tools2.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 18:55:56 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:14:14 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 char			*get_home_input(char *input, t_registry *shell)
@@ -17,11 +29,11 @@ char			*get_home_input(char *input, t_registry *shell)
 	return (new_input);
 }
 
-uint8_t		slash_is_missing(char *completion)
+uint8_t			slash_is_missing(char *completion)
 {
 	size_t	len;
 
-	if (completion != NULL) 
+	if (completion != NULL)
 	{
 		len = ft_strlen(completion);
 		if (len > 0 && completion[len - 1] == '.')
@@ -29,7 +41,7 @@ uint8_t		slash_is_missing(char *completion)
 		else if (*completion != '\0'
 				&& (is_a_directory(completion, "\0") == TRUE)
 				&& completion[ft_strlen(completion) - 1] != '/')
-		return (TRUE);
+			return (TRUE);
 	}
 	return (FALSE);
 }

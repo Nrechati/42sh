@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_type.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:21:42 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:21:55 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 enum e_result_type			is_file_type(char *input, size_t len)
@@ -26,7 +38,7 @@ static enum e_result_type	process_get_result_type(char *input, size_t len)
 	return (process_get_result_type(input, len - 1));
 }
 
-enum e_result_type	get_result_type(char *input)
+enum e_result_type			get_result_type(char *input)
 {
 	size_t		len;
 

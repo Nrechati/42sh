@@ -6,13 +6,13 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 20:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 18:01:44 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:32:57 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		init_lexer(t_lexer *lexer, t_vector *input)
+void	init_lexer(t_lexer *lexer, t_vector *input)
 {
 	ft_bzero(lexer, sizeof(t_lexer));
 	lexer->buffer = vct_new(0);
@@ -39,4 +39,19 @@ void	add_to_buffer(t_lexer *lexer)
 {
 	vct_add(lexer->buffer, lexer->input->buffer[lexer->index]);
 	lexer->index++;
+}
+
+uint8_t	last_is_redirect(t_lexer *lexer)
+{
+	if (lexer->last_token_type == E_DLESS
+		|| lexer->last_token_type == E_DGREAT
+		|| lexer->last_token_type == E_LESS
+		|| lexer->last_token_type == E_GREAT
+		|| lexer->last_token_type == E_LESSAND
+		|| lexer->last_token_type == E_GREATAND
+		|| lexer->last_token_type == E_ANDGREAT
+		|| lexer->last_token_type == E_ANDDGREAT
+		|| lexer->last_token_type == E_DLESSDASH)
+		return (TRUE);
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/18 16:21:24 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:41:41 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
 
 int8_t			parser(t_vector *input, t_list *lst)
 {
-	t_token		*token;
-	t_list		*tmp;
-	enum e_type	state;
+	t_token			*token;
+	t_list			*tmp;
+	enum e_type		state;
 	static t_graph	*graph = NULL;
 
 	if (graph == NULL)

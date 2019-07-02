@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_history.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:26:42 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:27:21 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 static void		print_output(const char *cmd,
@@ -45,7 +57,7 @@ static void		print_standard(t_history *history, t_param *param,
 	}
 }
 
-static void	get_elem(t_history *history, const char *elem, t_param *param)
+static void		get_elem(t_history *history, const char *elem, t_param *param)
 {
 	char	*cur;
 
@@ -74,9 +86,8 @@ static void	get_elem(t_history *history, const char *elem, t_param *param)
 		param->fd = ft_atoi(cur + 3);
 }
 
-
-void		print_history(t_history *history,
-				const char *elem, uint64_t option)
+void			print_history(t_history *history,
+					const char *elem, uint64_t option)
 {
 	t_param	param;
 

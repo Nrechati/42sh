@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 22:18:22 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 22:40:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:39:14 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ void		print_command(void *data)
 
 void		print_group(void *data)
 {
-	t_group 	*group;
+	t_group		*group;
 
 	group = data;
 	ft_dprintf(2, "group type: %d\n", group->type);
 	ft_lstiter(group->command_list, print_command);
-
 }
 
 void		analyzer_print_debug(t_registry *shell, t_list *command_group)

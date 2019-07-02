@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history_expansion.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:26:08 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:26:20 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 static uint8_t	is_history_end(t_vector *input, const size_t offset)
@@ -108,7 +120,7 @@ int8_t			history_expansion(t_vector *input)
 	while (vct_charat(input, i) != '\0')
 	{
 		if (flag & BACKSLASH_FLAG)
-			flag &= ~ BACKSLASH_FLAG;
+			flag &= ~BACKSLASH_FLAG;
 		if (vct_charat(input, i) == '\\' && flag == NO_FLAG && i++)
 			flag |= BACKSLASH_FLAG;
 		if (vct_charat(input, i) == '\'' && flag == NO_FLAG)

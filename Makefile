@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/07/02 17:15:59 by cempassi         ###   ########.fr        #
+#    Updated: 2019/07/02 19:48:39 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -366,6 +366,7 @@ SLE += prompt.c
 SLE += get_prompt_length.c
 SLE += prompt_error.c
 SLE += prompt_subroutine.c
+SLE += prompt_subroutine_quotes.c
 SLE += prompt_subroutine_tools.c
 SLE += prompt_expansion.c
 SLE += prompt_tools.c
@@ -474,6 +475,7 @@ LEXER += lexer.c
 LEXER += tmp_display.c
 LEXER += lexer_tools.c
 LEXER += checker_module.c
+LEXER += checker_module_maths.c
 LEXER += lexer_interface.c
 LEXER += set_inhibitor.c
 

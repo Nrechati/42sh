@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_result.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:22:05 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:22:18 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 #include <sys/ioctl.h>
 
@@ -38,7 +50,7 @@ static size_t		get_elem_by_col(t_autocomplete *result)
 	struct winsize	w;
 	int				col;
 
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) != FAILURE) 
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) != FAILURE)
 		col = w.ws_col;
 	else
 		col = 0;

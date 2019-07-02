@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fc_editor.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:28:42 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:29:19 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 #include <fcntl.h>
 
@@ -76,7 +88,7 @@ static int8_t	exec_new_pipeline(t_registry *shell)
 	t_vector	*cmd;
 	char		*line;
 	int			fd;
-	
+
 	if ((fd = open(FC_FILE_TMP, O_RDONLY)) == FAILURE)
 	{
 		ft_dprintf(STDERR_FILENO,
@@ -107,4 +119,3 @@ uint8_t			fc_editor(t_registry *shell, char **av, char *editor)
 		return (1);
 	return (SUCCESS);
 }
-

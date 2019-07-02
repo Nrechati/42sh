@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 04:23:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 05:55:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:25:41 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ void			write_histfile(t_registry *shell, t_history *history)
 	int			fd;
 	int			i;
 
-	histfile = get_histfile(shell);
-	if (histfile == NULL)
+	if ((histfile = get_histfile(shell)) == NULL)
 		return ;
 	if ((fd = open(histfile, O_CREAT | O_WRONLY | O_TRUNC,
 					S_IRUSR | S_IWUSR)) == FAILURE)
@@ -97,9 +96,8 @@ void			write_histfile(t_registry *shell, t_history *history)
 	i = 0;
 	while (entry != NULL)
 	{
-		if (history->nb_of_entries - i <= histsize)
+		if (history->nb_of_entries - i++ <= histsize)
 			ft_putendl_fd(entry->cmd, fd);
-		i++;
 		entry = entry->next;
 	}
 	close(fd);

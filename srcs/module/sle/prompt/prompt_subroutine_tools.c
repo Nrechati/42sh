@@ -6,15 +6,15 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:04:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:43:18 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t		subprompt_call(t_sle *sle, t_vector *line, uint32_t option)
+uint8_t			subprompt_call(t_sle *sle, t_vector *line, uint32_t option)
 {
-	t_vector	*new_input;
+	t_vector			*new_input;
 	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
 										PROMPT_DQUOTE, PROMPT_BQUOTE,
 										PROMPT_NL, PROMPT_AND, PROMPT_OR,

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 04:22:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 08:21:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:22:43 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_entry	*create_entry(const char *cmd)
 		return (NULL);
 	entry->next = NULL;
 	entry->prev = NULL;
-	entry->cmd = ft_strdup(cmd); // dup ?
+	entry->cmd = ft_strdup(cmd);
 	return (entry);
 }
 

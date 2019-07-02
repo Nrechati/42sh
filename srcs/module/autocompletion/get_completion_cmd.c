@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:15 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/18 11:11:14 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:15:03 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static uint8_t	is_exclusive(t_list *result, char *data)
 {
 	while (result != NULL)
 	{
-		if (ft_strequ((char *)result->data , data) == TRUE)
+		if (ft_strequ((char *)result->data, data) == TRUE)
 			return (FALSE);
 		result = result->next;
 	}
@@ -52,14 +52,14 @@ static void		find_bin(char *input, DIR *dir, t_autocomplete *result,
 	}
 }
 
-void			find_builtin(char * input, t_autocomplete *result)
+void			find_builtin(char *input, t_autocomplete *result)
 {
 	char				*data;
 	size_t				len;
 	int					i;
 	static const char	*blt[] = {"echo", "cd", "hash", "exit", "test"
 									"type", "export", "set", "unset",
-									"pwd", "fc", "bg", "fg", "jobs", NULL}; //ADD ALL BUILTIN
+									"pwd", "fc", "bg", "fg", "jobs", NULL};
 
 	len = input == NULL ? 0 : ft_strlen(input);
 	i = 0;

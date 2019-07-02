@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:59:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 19:35:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:28:01 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 	else
 		ret = SUCCESS;
 	shell_exit_routine(shell, ret);
-	return (SUCCESS); // Never reaches this point
+	return (SUCCESS);
 }

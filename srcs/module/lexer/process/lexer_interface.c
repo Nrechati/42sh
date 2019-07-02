@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:28:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 18:02:14 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:36:56 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,30 @@ void			out_lexer(t_lexer *lexer)
 **** PROCESS LEXER PART
 */
 
-static uint8_t	is_operator(t_lexer *lexer) 
+static uint8_t	is_operator(t_lexer *lexer)
 {
 	return (token_checker(lexer, START_OPERATOR, END_OPERATOR));
+}
+
+static uint8_t	is_inhibitor(t_lexer *lexer)
+{
+	if (get_input(lexer, CUR_CHAR) == '\\')
+		add_to_buffer(lexer);
+	else if (get_input(lexer, CUR_CHAR) == '\'')
+		loop_quote(lexer);
+	else if (get_input(lexer, CUR_CHAR) == '\"')
+		loop_dbquote(lexer);
+	else if (get_input(lexer, CUR_CHAR) == '$'
+			&& get_input(lexer, NEXT_CHAR) == '{')
+		loop_braceparam(lexer);
+	else if (get_input(lexer, CUR_CHAR) == '$'
+		&& get_input(lexer, NEXT_CHAR) == '('
+		&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
+		loop_maths(lexer);
+	else
+		return (FALSE);
+	add_to_buffer(lexer);
+	return (TRUE);
 }
 
 void			process_lexer(t_lexer *lexer)

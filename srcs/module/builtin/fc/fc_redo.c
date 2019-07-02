@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fc_redo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:29:31 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:30:32 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 static void			get_target_and_result(char ***av, char **target,
@@ -10,11 +22,11 @@ static void			get_target_and_result(char ***av, char **target,
 		return ;
 	**result = '\0';
 	(*result)++;
-	(*target) = **av; 
+	(*target) = **av;
 	(*av)++;
 }
 
-static int8_t	replace_cmd(char **cmd, char *target, char *result)
+static int8_t		replace_cmd(char **cmd, char *target, char *result)
 {
 	char	*ptr_target;
 	char	*out;
@@ -39,14 +51,14 @@ static int8_t	replace_cmd(char **cmd, char *target, char *result)
 	return (SUCCESS);
 }
 
-static void				free_tools(char **target, char **result, char **param)
+static void			free_tools(char **target, char **result, char **param)
 {
 	ft_strdel(target);
 	ft_strdel(result);
 	ft_strdel(param);
 }
 
-static int8_t			get_cmd(t_registry *shell, char **av, char **cmd)
+static int8_t		get_cmd(t_registry *shell, char **av, char **cmd)
 {
 	char	*target;
 	char	*result;
@@ -74,7 +86,7 @@ static int8_t			get_cmd(t_registry *shell, char **av, char **cmd)
 	return (SUCCESS);
 }
 
-uint8_t			fc_redo(t_registry *shell, char **av)
+uint8_t				fc_redo(t_registry *shell, char **av)
 {
 	char		*cmd;
 	t_vector	*vct_cmd;

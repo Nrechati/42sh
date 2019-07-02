@@ -6,8 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/30 08:21:00 by cempassi         ###   ########.fr       */
-
+/*   Updated: 2019/07/02 19:41:19 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +34,20 @@ uint8_t				need_subprompt(enum e_type state, enum e_type type)
 	return (FALSE);
 }
 
+static uint64_t		set_option_subprompt(enum e_type state)
+{
+	uint64_t	option;
+
+	option = SLE_PS2_PROMPT;
+	if (state == E_PIPE)
+		option |= PRINT_PIPE;
+	else if (state == E_DAND)
+		option |= PRINT_AND;
+	else if (state == E_OR)
+		option |= PRINT_OR;
+	return (option);
+}
+
 uint8_t				parser_subprompt(enum e_type state,
 						t_vector *input, t_list **lst)
 {
@@ -44,13 +57,7 @@ uint8_t				parser_subprompt(enum e_type state,
 
 	new_token = NULL;
 	line = NULL;
-	option = SLE_PS2_PROMPT;
-	if (state == E_PIPE)
-		option |= PRINT_PIPE;
-	else if (state == E_DAND)
-		option |= PRINT_AND;
-	else if (state == E_OR)
-		option |= PRINT_OR;
+	option = set_option_subprompt(state);
 	sle(g_shell, &line, option);
 	if (line == NULL)
 		return (FALSE);

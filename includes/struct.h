@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 18:08:03 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:08:10 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,5 +323,20 @@ typedef struct	s_history
 	int			nb_of_entries;
 	int			first_search;
 }				t_history;
+
+/*
+*****************************************************
+******************** AUTOCOMPLETION *****************
+*****************************************************
+*/
+
+typedef struct			s_autocomplete
+{
+	t_list				*list;
+	size_t				nb;
+	size_t				max_len;
+	enum e_result_type	type;
+	size_t				index;
+}						t_autocomplete;
 
 #endif

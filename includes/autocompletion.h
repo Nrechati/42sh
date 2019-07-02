@@ -6,33 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:22:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 21:22:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:09:36 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AUTOCOMPLETION_H
 # define AUTOCOMPLETION_H
+
 # include "struct.h"
-# define RESET_RESULT	0x0001
-# define NEW_SEARCH		0x0002
-
-enum e_result_type
-{
-	CMD_TYPE,
-	VARIABLE_TYPE,
-	VARIABLE_BRACKET_TYPE,
-	FILE_TYPE
-};
-
-typedef struct			s_autocomplete
-{
-	t_list				*list;
-	size_t				nb;
-	size_t				max_len;
-	enum e_result_type	type;
-	size_t				index;
-}						t_autocomplete;
-
 
 typedef 		void (t_completion_fct)(char *, t_autocomplete *, t_registry *);
 int8_t			autocompletion(char *input, t_registry *shell,
@@ -56,6 +37,8 @@ int					lst_strcmp(void *data1, void *data2);
 uint8_t				is_a_directory(char *dirname, char *file);
 char				*get_home_input(char *input, t_registry *shell);
 uint8_t				slash_is_missing(char *completion);
+uint8_t				is_completion_dir(t_autocomplete *result,
+							char **completion);
 
 /*
 **** Get Completion

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 17:39:10 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:38:30 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void		out_lexer(t_lexer *lexer);
 *****************************************************
 */
 
-uint8_t	is_inhibitor(t_lexer *lexer);
 uint8_t	is_assignation(t_lexer *lexer);
 uint8_t	is_input_end(t_lexer *lexer);
 uint8_t	is_delimiter(t_lexer *lexer);
@@ -46,6 +45,11 @@ void	loop_braceparam(t_lexer *lexer);
 void	loop_maths(t_lexer *lexer);
 void	loop_par(t_lexer *lexer);
 
+uint8_t	is_delimiter_m(t_lexer *lexer);
+uint8_t	is_number_m(t_lexer *lexer);
+uint8_t	is_input_end_m(t_lexer *lexer);
+uint8_t	is_operator_m(t_lexer *lexer);
+
 /*
 *****************************************************
 ********************** TOOLS ************************
@@ -55,6 +59,7 @@ void	loop_par(t_lexer *lexer);
 void		init_lexer(t_lexer *lexer, t_vector *input);
 void		add_to_buffer(t_lexer *lexer);
 char		get_input(t_lexer *lexer, uint8_t pos);
+uint8_t		last_is_redirect(t_lexer *lexer);
 
 /*
 *****************************************************

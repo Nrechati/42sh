@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_completion_file.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:15:16 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:20:40 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 static char		*extract_path(char *input)
@@ -51,9 +63,9 @@ static void		get_file_list(char *dirname, char *input,
 		if ((ft_strequ(mydir->d_name, ".")
 			|| ft_strequ(mydir->d_name, ".."))
 			&& len > 0 && input[len - 1] != '.')
-				continue ;
+			continue ;
 		fusion = NULL;
-		if (dirname[ft_strlen(dirname) - 1 ] == '/' || mydir->d_name[0] == '/')
+		if (dirname[ft_strlen(dirname) - 1] == '/' || mydir->d_name[0] == '/')
 			ft_asprintf(&fusion, "%s%s", dirname, mydir->d_name);
 		else
 			ft_asprintf(&fusion, "%s/%s", dirname, mydir->d_name);
@@ -63,30 +75,39 @@ static void		get_file_list(char *dirname, char *input,
 	}
 }
 
+static void		get_path_and_transform(t_autocomplete *result, char *input,
+								char **path, char **transform)
+{
+	if (input == NULL || *input == '\0')
+	{
+		*transform = ft_strdup("./");
+		*path = extract_path(*transform);
+	}
+	else if (input != NULL && *input != '/')
+	{
+		*transform = ft_strjoin("./", input);
+		*path = extract_path(*transform);
+		result->index += ft_strlen(*path) - 2;
+	}
+	else
+	{
+		*transform = ft_strdup(input);
+		*path = extract_path(*transform);
+		result->index += ft_strlen(*path);
+	}
+}
+
 void			get_completion_file(char *input, t_autocomplete *result,
-									__unused t_registry *shell)
+									t_registry *shell)
 {
 	char	*path;
 	char	*transform;
 	DIR		*dir;
 
-	if (input == NULL || *input == '\0')
-	{
-		transform = ft_strdup("./");
-		path = extract_path(transform);
-	}
-	else if (input != NULL && *input != '/')
-	{
-		transform = ft_strjoin("./", input);
-		path = extract_path(transform);
-		result->index += ft_strlen(path) - 2;
-	}
-	else
-	{
-		transform = ft_strdup(input);
-		path = extract_path(transform);
-		result->index += ft_strlen(path);
-	}
+	(void)shell;
+	path = NULL;
+	transform = NULL;
+	get_path_and_transform(result, input, &path, &transform);
 	if ((dir = opendir(transform)) != NULL)
 	{
 		ft_strdel(&path);

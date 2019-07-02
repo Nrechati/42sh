@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   autocompletion_tools.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:01:59 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:09:37 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 #include <unistd.h>
 
 size_t	get_maxlen(size_t ref, size_t len)
 {
-	return (ref >= len ? ref: len);
+	return (ref >= len ? ref : len);
 }
 
 uint8_t	is_cmd_delimiter(char c)
@@ -34,4 +46,16 @@ uint8_t	is_a_directory(char *dirname, char *file)
 	}
 	ft_strdel(&total_name);
 	return (ok);
+}
+
+uint8_t	is_completion_dir(t_autocomplete *result, char **completion)
+{
+	if (result->type == FILE_TYPE && slash_is_missing(*completion) == TRUE
+		&& ft_strequ(".", *completion) == FALSE)
+	{
+		ft_strdel(completion);
+		*completion = ft_strdup("/");
+		return (TRUE);
+	}
+	return (FALSE);
 }

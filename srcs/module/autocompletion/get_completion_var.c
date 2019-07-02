@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_completion_var.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 19:20:59 by ffoissey          #+#    #+#             */
+/*   Updated: 2019/07/02 19:21:19 by ffoissey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh21.h"
 
 static void		add_var_to_list(t_autocomplete *result,
@@ -16,7 +28,7 @@ static void		add_var_to_list(t_autocomplete *result,
 	result->nb++;
 }
 
-void	get_completion_var(char *input,
+void			get_completion_var(char *input,
 					t_autocomplete *result, t_registry *shell)
 {
 	t_list		*env;

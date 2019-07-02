@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:33:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:08:53 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,20 @@ enum	e_action_keys
 	AK_CTRL_R,
 	AK_CTRL_T,
 	AK_TABULATION,
+};
+
+/*
+*****************************************************
+******************** AUTOCOMPLETION *****************
+*****************************************************
+*/
+
+enum e_result_type
+{
+	CMD_TYPE,
+	VARIABLE_TYPE,
+	VARIABLE_BRACKET_TYPE,
+	FILE_TYPE
 };
 
 #endif
