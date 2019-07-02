@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 17:12:18 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:58:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,15 @@ static void	child_process(t_registry *shell, t_process *process, char **env,
 		ft_dprintf(2, SH_GENERAL_ERROR "%s" INTERPRETER_NOT_FOUND, process->av[0]);
 	if (pathname != NULL)
 	{
-		#ifndef NOEXEC
+//		#ifndef NOEXEC
 		if (execve(pathname, process->av, env) == FAILURE)
 		{
 			ft_dprintf(2, SH_GENERAL_ERROR INTERPRETER_EXECVE_ERROR);
 			exit(FAILURE);
 		}
-		#else
-		(void)env;
-		#endif
+//		#else
+//		(void)env;
+//		#endif
 	}
 	exit(FAILURE);
 }
