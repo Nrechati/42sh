@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:16:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/28 23:47:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:11:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void	delete_char(char *str)
+void	delete_character(char *str)
 {
 	char	holder;
 
@@ -32,7 +32,7 @@ static int delete_backslash(char *str, t_quote quote)
 	{
 		if (ft_strchr(BACKSLASH_DQUOTE, str[1]))
 		{
-			delete_char(str);
+			delete_character(str);
 			return (TRUE);
 		}
 		else
@@ -40,7 +40,7 @@ static int delete_backslash(char *str, t_quote quote)
 	}
 	else
 	{
-		delete_char(str);
+		delete_character(str);
 		return (TRUE);
 	}
 }
@@ -60,9 +60,9 @@ void		quote_removal(char *str)
 				str++;
 		}
 		if (quote != QUOTE_DOUBLE && *str == '\'')
-			delete_char(str);
+			delete_character(str);
 		else if (quote != QUOTE_SINGLE && *str == '\"')
-			delete_char(str);
+			delete_character(str);
 		else
 			++str;
 	}
