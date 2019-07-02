@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 14:12:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:07:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ typedef struct				s_math
 */
 
 char						*expansion_pipeline(t_list *intern_var, char *str);
+char						*arithmetic_expansion(char *input);
 char						*expand_string(t_list *lst, char *str);
 char						*tilde(t_list *intern_var, char *str);
 char						*variable_expansion(t_list *intern_var, char *str);
@@ -195,19 +196,28 @@ int							parameter_parse(t_list *intern
 void						parameter_lexer(t_parameter *parameter);
 void						generate_pex_token(t_parameter *param);
 void						pex_word(t_parameter *param);
-int			replace_expansion(t_list *intern, t_parameter *param, int mode);
-int			exists_expansion(t_list *intern, t_parameter *param, int mode);
-int			assign_expansion(t_list *intern, t_parameter *param, int mode);
-int			default_expansion(t_list *intern, t_parameter *param, int mode);
-int			prefix_expansion(t_list *intern, t_parameter *param, int mode);
-int			suffix_expansion(t_list *intern, t_parameter *param, int mode);
+int							replace_expansion(t_list *intern, t_parameter *param
+							, int mode);
+int							exists_expansion(t_list *intern, t_parameter *param
+							, int mode);
+int							assign_expansion(t_list *intern, t_parameter *param
+							, int mode);
+int							default_expansion(t_list *intern, t_parameter *param
+							, int mode);
+int							prefix_expansion(t_list *intern, t_parameter *param
+							, int mode);
+int							suffix_expansion(t_list *intern, t_parameter *param
+							, int mode);
 
 int							get_delimiter(t_parameter *param
-													, t_pex_token *token);
+											, t_pex_token *token);
 
-void		parameter_print_debug(t_list *token_list);
-char						*arithmetic_expansion(t_list *intern, char *input);
+void						parameter_print_debug(t_list *token_list);
+
 int8_t						arithmetic_analyzer(t_arithmetic *arithmetic);
+int8_t	find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t start);
+int8_t	get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start);
+
 void						m_number_analyzer(t_arithmetic *arithmetic);
 void						m_unary_analyzer(t_arithmetic *arithmetic);
 void						m_operator_analyzer(t_arithmetic *arithmetic);
@@ -224,7 +234,9 @@ void						convert_plus_minus(t_token *token
 													, t_rpn_tk *current);
 void						m_get_token(t_arithmetic *arithmetic
 													, t_list **node);
+
 void						del_infix(t_infix *infix);
+void						del_arithmetic(t_arithmetic *arithmetic);
 
 int8_t						calculator(t_infix *infix);
 uint8_t						need_pop_operator(t_rpn_tk *curr
@@ -242,6 +254,15 @@ void						do_low_op(t_rpn_tk *first, t_rpn_tk *second
 													, t_rpn_tk *curr);
 void						do_unary(t_rpn_tk *number, t_rpn_tk *curr);
 
+
 t_ar_analyzer				*init_math_analyzer(void);
+void						init_m_flush_variable(t_ar_analyzer analyzer);
+void						init_m_variable(t_ar_analyzer analyzer);
+void 						init_m_number(t_ar_analyzer analyzer);
+void 						init_m_operator(t_ar_analyzer analyzer);
+void						init_m_unary(t_ar_analyzer analyzer);
+void						init_m_close_parent(t_ar_analyzer analyzer);
+void						init_m_open_parent(t_ar_analyzer analyzer);
+void 						init_m_start(t_ar_analyzer analyzer);
 
 #endif

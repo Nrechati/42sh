@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/07/02 11:05:15 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/07/02 17:08:10 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -451,9 +451,13 @@ EXPANSION += arithmetic.c
 EXPANSION += arithmetic_analyzer.c
 EXPANSION += arithmetic_variable.c
 EXPANSION += arithmetic_base_states.c
-EXPANSION += arithmetic_preffix_plus_minus.c
 EXPANSION += arithmetic_tools.c
 EXPANSION += math_analyzer.c
+EXPANSION += init_interface.c
+EXPANSION += init_operands.c
+EXPANSION += logical_operator.c
+EXPANSION += variable_preffix.c
+EXPANSION += variable_suffix.c
 
 EXPANSION += calculator.c
 EXPANSION += shunting_yard.c

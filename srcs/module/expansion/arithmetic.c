@@ -6,47 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/01 13:42:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:03:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static int8_t	get_expansion_input(t_arithmetic *arithmetic,  char *input, size_t start)
-{
-	char		*str;
-
-	str = NULL;
-	ft_asprintf(&str, "%.*s", arithmetic->end - start - 1, input + start);
-	if (str == NULL)
-	{
-		ft_dprintf(2, "Malloc Error on get_expansion_input\n");
-		return (FAILURE);
-	}
-	arithmetic->input = vct_dups(str);
-	ft_strdel(&str);
-	return (SUCCESS);
-}
-
-static int8_t	find_expansion_end(t_arithmetic *arithmetic,  char *input, size_t start)
-{
-	size_t		end;
-
-	end = ft_strcspn(input + start, "$") + start;
-	while (end > start)
-	{
-		if (input[end] == ')' && input[end - 1] == ')')
-		{
-			arithmetic->end = end;
-			return (SUCCESS);
-		}
-		end--;
-	}
-	ft_dprintf(2, "No end of expansion token\n");
-	return (FAILURE);
-}
-
-int				arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
+int			arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 {
 	t_vector *vector;
 
@@ -58,14 +24,7 @@ int				arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 	return (0);
 }
 
-void			del_arithmetic(t_arithmetic *arithmetic)
-{
-	ft_lstdel(&arithmetic->tokens, del_token);
-	ft_strdel(&arithmetic->expanded);
-	vct_del(&arithmetic->input);
-}
-
-static int		arithmetic(__unused t_list *intern, char **output, int i)
+static int	arithmetic(char **output, int i)
 {
 	t_arithmetic	arithmetic;
 
@@ -82,7 +41,7 @@ static int		arithmetic(__unused t_list *intern, char **output, int i)
 	return (1);
 }
 
-static int		check_math_expansion(t_list *intern, char **buff, int i, __unused t_quote quote)
+static int	check_math_expansion(char **buff, int i)
 {
 	char	*input;
 	int		check;
@@ -92,11 +51,11 @@ static int		check_math_expansion(t_list *intern, char **buff, int i, __unused t_
 	if (input[i] != '$')
 		return (0);
 	if (ft_strnequ(&input[i + 1], "((", 2) == TRUE)
-		check = arithmetic(intern, buff, i);
+		check = arithmetic(buff, i);
 	return (check);
 }
 
-char		*arithmetic_expansion(t_list *intern, char *input)
+char		*arithmetic_expansion(char *input)
 {
 	uint32_t	i;
 	uint32_t	len;
@@ -114,7 +73,7 @@ char		*arithmetic_expansion(t_list *intern, char *input)
 			quote = select_quoting(quote, dest[i]);
 		if (dest[i] == '\\' && (quote == QUOTE_OFF || quote == QUOTE_DOUBLE))
 			i = check_backslash(dest, quote, i);
-		else if ((result = check_math_expansion(intern, &dest, i, quote)) == 1)
+		else if ((result = check_math_expansion(&dest, i)) == 1)
 			len = ft_strlen(dest);
 		else if (result == -1)
 			return (NULL);

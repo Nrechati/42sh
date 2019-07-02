@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:38:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 09:42:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:07:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int8_t	handle_bracket(t_rpn_tk *curr, t_stack *operator, t_stack *rpn)
 }
 
 static int8_t	handle_infix_token(t_rpn_tk *curr
-						, t_stack *rpn, t_stack *operator)
+				, t_stack *rpn, t_stack *operator)
 {
 	if (curr->type == RPN_NUMBER)
 	{
