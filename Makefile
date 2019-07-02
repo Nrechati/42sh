@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/07/02 11:23:33 by skuppers         ###   ########.fr        #
+#    Updated: 2019/07/02 16:10:15 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -429,8 +429,12 @@ INTERPRETER += background_job.c
 #						   - - - - Jobcontrol - - - -                          #
 
 JOBCTL += jobctl.c
-JOBCTL += utils.c
+JOBCTL += mark_jobs.c
+JOBCTL += notify_job.c
+JOBCTL += pushjob.c
+JOBCTL += remove_done_jobs.c
 JOBCTL += update_jobs.c
+JOBCTL += utils.c
 
 #						   - - - - Expansion - - - -                           #
 

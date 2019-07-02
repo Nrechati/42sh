@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 10:17:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:09:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ int8_t	launch_pipeline(t_registry *shell, t_list *process, uint8_t foreground)
 			return (FAILURE);
 		ft_lstadd(&next->redirects, pipe_node);
 	}
-
 	run_process(shell, process->data, foreground);
-
 	pipe_fd[1] == 0 ? pipe_fd[1] : close(pipe_fd[1]);
 	launch_pipeline(shell, process->next, foreground);
 	pipe_fd[0] == 0 ? pipe_fd[0] : close(pipe_fd[0]);

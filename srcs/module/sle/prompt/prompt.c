@@ -6,71 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:30:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:09:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-#include "interpreter.h"
-
-static int32_t mark_proc_status(pid_t pid, int status)
-{
-	t_list		*joblist;
-	t_list		*proclist;
-	t_job		*job;
-	t_process	*process;
-
-	(void) pid;
-//	ft_printf("marking job status %d\n", pid);
-	if (pid <= 0)
-		return -1;
-	joblist = g_shell->job_list;
-		while (joblist != NULL)
-		{
-			job = joblist->data;
-			if (job_is_stopped(job) == FALSE)
-			{
-				proclist = job->processes;
-				while (proclist != NULL)
-				{
-					process = proclist->data;
-					process->status = status;
-//					ft_printf("Job %d is %d\n", job->pgid, status);
-					if (WIFSTOPPED(status))
-						process->stopped = TRUE;
-					else
-						process->completed = TRUE;
-					proclist = proclist->next;
-				}
-				joblist = joblist->next;
-			}
-		}
-		return (0);
-	return (FAILURE);
-}
-
-void	notify_job_info(t_list *joblst, char *info)
-{
-	t_job		*job;
-	t_list		*jobl;
-	char		*command;
-
-	jobl = joblst;
-	while (jobl != NULL)
-	{
-		job = jobl->data;
-		if (job_is_completed(job) == TRUE)
-		{
-			get_job_av(job, &command);
-			ft_printf("[%d]+ %s \t %s\n", job->id, info, command);
-			g_shell->active_jobs--;
-			remove_job_from_list(&g_shell->job_list, job);
-			update_jobinfos(g_shell);
-			ft_strdel(&command);
-		}
-		jobl = jobl->next;
-	}
-}
 
 static void	prompt_pre_process(t_sle *sle)
 {
@@ -80,7 +20,6 @@ static void	prompt_pre_process(t_sle *sle)
 	pid = waitpid(WAIT_ANY, &status, WNOHANG | WUNTRACED);
 	mark_proc_status(pid, status);
 	notify_job_info(g_shell->job_list, "Done");
-
 	sle->state = STATE_STD;
 	vct_reset(sle->line);
 	vct_reset(sle->sub_line);

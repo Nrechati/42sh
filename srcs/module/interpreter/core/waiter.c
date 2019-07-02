@@ -6,12 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 12:37:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:04:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
 
 static void		set_status(t_registry *shell, t_job *job,
 						t_process *current, int status)
@@ -24,21 +23,7 @@ static void		set_status(t_registry *shell, t_job *job,
 	{
 		job->state = STOPPED;
 		job->signo = WSTOPSIG(status);
-		ft_printf("Job stopped by: %d\n", job->signo);
-		current->stopped = TRUE;
-
-		t_list		*proclist;
-		t_process	*process;
-		proclist = job->processes;
-		while (proclist != NULL)
-		{
-			process = proclist->data;
-			process->status = status;
-			process->stopped = TRUE;
-			process->completed = FALSE;
-			proclist = proclist->next;
-		}
-
+		mark_job_as_stopped(job);
 		shell->active_jobs++;
 		job->id = (shell->active_jobs);
 		jobctl(shell, job, JOBCTL_PUTINBG);
@@ -46,6 +31,7 @@ static void		set_status(t_registry *shell, t_job *job,
 	if (WIFEXITED(status))
 	{
 		exit_status = ft_itoa(WEXITSTATUS(status)); //PROTECT ?
+
 		if (WEXITSTATUS(status) != 0)
 			current->completed = ERROR;
 		else
@@ -57,7 +43,7 @@ static void		set_status(t_registry *shell, t_job *job,
 		if (signo == 2 || signo == 3)
 			interpreter(NULL, NULL, signo);
 		exit_status = ft_itoa(signo + 128);
-		current->stopped = TRUE;
+		mark_job_as_stopped(job);
 		//ft_printf("SIGNALED by: %d\n", exit_status);
 	}
 	add_var(&shell->intern, "?", exit_status, READONLY_VAR);
@@ -119,7 +105,7 @@ int8_t			waiter(t_registry *shell, t_job *job)
 		if (job->state & KILLED)
 			ft_lstiter_ctx(job->processes, &job->signo, kill_process);
 		status = 0;
-		pid = waitpid(-1, &status, WNOHANG | WUNTRACED);
+		pid = waitpid(-1, &status, WUNTRACED);
 		if (pid)
 			update_pid(shell, job, pid, status);
 	}

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 12:05:21 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:04:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void		fork_process(t_registry *shell, t_process *process,
 		process->process_type |= IS_EXP_ERROR;
 		return ;
 	}
-
 	if ((process->pid = fork()) < 0)
 	{
 		ft_dprintf(2, SH_GENERAL_ERROR INTERPRETER_FORK_ERROR);
