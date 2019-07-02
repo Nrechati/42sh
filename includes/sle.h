@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 18:29:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:09:52 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_vector		*read_error(t_registry *shell, t_sle *sle);
 uint64_t		get_prompt_length(t_prompt *prompt);
 
 uint8_t			verif_line(t_sle *sle, t_vector *line);
+uint8_t			parenthesis(t_sle *sle, t_vector *line, size_t *i);
 uint8_t			double_quote_routine(t_sle *sle, t_vector *line, size_t *i);
 uint8_t			single_quote_routine(t_sle *sle, t_vector *line, size_t *i);
 uint8_t			brace_exp_routine(t_sle *sle, t_vector *line, size_t *i);

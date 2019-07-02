@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:07:42 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:07:08 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,6 +411,9 @@
 # define PROMPT_OR		"or"
 # define PROMPT_BRACE	"braceparam"
 # define PROMPT_MATHS	"mathsubst"
+
+# define DEFAULT_TYPE	0
+# define PAR_TYPE		1
 
 # define SLE_GET_INPUT		0x0100
 # define SLE_PS2_PROMPT		0x0200

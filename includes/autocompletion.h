@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:22:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:09:36 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:15:29 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 # include "struct.h"
 
-typedef 		void (t_completion_fct)(char *, t_autocomplete *, t_registry *);
-int8_t			autocompletion(char *input, t_registry *shell,
-					char **completion, uint64_t option);
+int8_t				autocompletion(char *input, t_registry *shell,
+						char **completion, uint64_t option);
 enum e_result_type	get_result_type(char *input);
 char				*get_start_input(char *input, enum e_result_type type);
 

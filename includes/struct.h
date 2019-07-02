@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:08:10 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:15:15 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,9 @@ typedef struct	s_history
 ******************** AUTOCOMPLETION *****************
 *****************************************************
 */
+
+typedef void			(t_completion_fct)(char *,
+							t_autocomplete *, t_registry *);
 
 typedef struct			s_autocomplete
 {

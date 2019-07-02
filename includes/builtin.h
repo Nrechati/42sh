@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:42:21 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:16:14 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_option	get_option_type(char *s, t_option option);
 */
 
 int			hash_get_opt(int i, char **av, t_option *opt);
-void 		hash_builtin(t_registry *shell);
+void		hash_builtin(t_registry *shell);
 void		hash_print_help(void);
 uint8_t		hash_blt(t_registry *reg, char **av);
 int8_t		hash_args(t_registry *shell, char *key);
@@ -149,7 +149,6 @@ uint8_t		test_gt_cb(void *data, void *more, uint8_t type);
 uint8_t		test_ge_cb(void *data, void *more, uint8_t type);
 uint8_t		test_lt_cb(void *data, void *more, uint8_t type);
 uint8_t		test_le_cb(void *data, void *more, uint8_t type);
-
 
 /*
 *****************************************************

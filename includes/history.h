@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:33:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/29 21:23:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:17:07 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ t_entry		*entry_roll_back(t_entry *entry);
 *****************
 */
 
-void	add_entry(t_entry **head, t_entry *new_entry);
-t_entry	*create_entry(const char *cmd);
-void	free_history(t_entry *entry);
-void	pop_entry(t_entry **entry, t_entry **head);
+void		add_entry(t_entry **head, t_entry *new_entry);
+t_entry		*create_entry(const char *cmd);
+void		free_history(t_entry *entry);
+void		pop_entry(t_entry **entry, t_entry **head);
 
 /*
 *****************

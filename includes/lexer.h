@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:35:44 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:38:30 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:17:31 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,22 @@ void		out_lexer(t_lexer *lexer);
 *****************************************************
 */
 
-uint8_t	is_assignation(t_lexer *lexer);
-uint8_t	is_input_end(t_lexer *lexer);
-uint8_t	is_delimiter(t_lexer *lexer);
-uint8_t	is_io_number(t_lexer *lexer);
-uint8_t	token_checker(t_lexer *lexer, int start, int end);
+uint8_t		is_assignation(t_lexer *lexer);
+uint8_t		is_input_end(t_lexer *lexer);
+uint8_t		is_delimiter(t_lexer *lexer);
+uint8_t		is_io_number(t_lexer *lexer);
+uint8_t		token_checker(t_lexer *lexer, int start, int end);
 
-void	loop_quote(t_lexer *lexer);
-void	loop_dbquote(t_lexer *lexer);
-void	loop_braceparam(t_lexer *lexer);
-void	loop_maths(t_lexer *lexer);
-void	loop_par(t_lexer *lexer);
+void		loop_quote(t_lexer *lexer);
+void		loop_dbquote(t_lexer *lexer);
+void		loop_braceparam(t_lexer *lexer);
+void		loop_maths(t_lexer *lexer);
+void		loop_par(t_lexer *lexer);
 
-uint8_t	is_delimiter_m(t_lexer *lexer);
-uint8_t	is_number_m(t_lexer *lexer);
-uint8_t	is_input_end_m(t_lexer *lexer);
-uint8_t	is_operator_m(t_lexer *lexer);
+uint8_t		is_delimiter_m(t_lexer *lexer);
+uint8_t		is_number_m(t_lexer *lexer);
+uint8_t		is_input_end_m(t_lexer *lexer);
+uint8_t		is_operator_m(t_lexer *lexer);
 
 /*
 *****************************************************
