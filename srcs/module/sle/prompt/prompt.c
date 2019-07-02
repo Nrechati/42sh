@@ -6,41 +6,46 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 12:47:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:30:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "interpreter.h"
 
-int32_t mark_proc_status(pid_t pid, int status)
+static int32_t mark_proc_status(pid_t pid, int status)
 {
 	t_list		*joblist;
 	t_list		*proclist;
 	t_job		*job;
 	t_process	*process;
 
-	if (pid > 0)
-	{
-		joblist = g_shell->job_list;
+	(void) pid;
+//	ft_printf("marking job status %d\n", pid);
+	if (pid <= 0)
+		return -1;
+	joblist = g_shell->job_list;
 		while (joblist != NULL)
 		{
 			job = joblist->data;
-			proclist = job->processes;
-			while (proclist != NULL)
+			if (job_is_stopped(job) == FALSE)
 			{
-				process = proclist->data;
-				process->status = status;
-				if (WIFSTOPPED(status) || process->stopped == TRUE)
-					process->stopped = TRUE;
-				else
-					process->completed = TRUE;
-				proclist = proclist->next;
+				proclist = job->processes;
+				while (proclist != NULL)
+				{
+					process = proclist->data;
+					process->status = status;
+//					ft_printf("Job %d is %d\n", job->pgid, status);
+					if (WIFSTOPPED(status))
+						process->stopped = TRUE;
+					else
+						process->completed = TRUE;
+					proclist = proclist->next;
+				}
+				joblist = joblist->next;
 			}
-			joblist = joblist->next;
 		}
 		return (0);
-	}
 	return (FAILURE);
 }
 
@@ -69,9 +74,8 @@ void	notify_job_info(t_list *joblst, char *info)
 
 static void	prompt_pre_process(t_sle *sle)
 {
-	pid_t	pid;
 	int		status;
-
+	pid_t	pid;
 
 	pid = waitpid(WAIT_ANY, &status, WNOHANG | WUNTRACED);
 	mark_proc_status(pid, status);

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:07:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 14:49:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:09:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,44 @@ void	remove_done_jobs(t_registry *shell)
 	}
 }
 
+int32_t mark_proc_status(pid_t pid, int status)
+{
+	t_list		*joblist;
+	t_list		*proclist;
+	t_job		*job;
+	t_process	*process;
+
+	if (pid > 0)
+	{
+		joblist = g_shell->job_list;
+		while (joblist != NULL)
+		{
+			job = joblist->data;
+			proclist = job->processes;
+			while (proclist != NULL)
+			{
+				process = proclist->data;
+				process->status = status;
+				if (WIFSTOPPED(status))
+					process->stopped = TRUE;
+				else
+					process->completed = TRUE;
+				proclist = proclist->next;
+			}
+			joblist = joblist->next;
+		}
+		return (0);
+	}
+	return (FAILURE);
+}
+
 void	update_jobinfos(t_registry *shell)
 {
+	int		status;
+	pid_t 	pid;
+
+	pid = waitpid(WAIT_ANY, &status, WNOHANG | WUNTRACED);
+	mark_proc_status(pid, status);
 	update_job_ids(shell);
 	update_current_job(shell);
 }
