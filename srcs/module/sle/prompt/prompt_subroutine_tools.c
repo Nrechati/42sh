@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 18:46:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:08:40 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ uint8_t		subprompt_call(t_sle *sle, t_vector *line, uint32_t option)
 										PROMPT_NL, PROMPT_AND, PROMPT_OR,
 										PROMPT_BRACE, PROMPT_MATHS};
 
-	if (is_shell_interactive(g_shell) == FALSE)
+	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
 		ft_printf("42sh: Unexpected EOF while looking for matching %s.\n",
 						(char *)prompt_type[option]);

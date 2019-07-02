@@ -34,12 +34,12 @@ static int8_t	launch_edition(t_registry *shell, char *editor)
 	cmd = vct_dups(out);
 	shell->option.option &= ~(INTERACTIVE_OPT);
 	execution_pipeline(shell, &cmd);
-		return (FAILURE);
 	shell->option.option |= INTERACTIVE_OPT;
 	ft_strdel(&out);
 	vct_del(&cmd);
 	history(NULL, NULL, POP_ENTRY);
-	if ((ret = get_var(shell->intern, "?")) && ft_strequ(ret, "0") == FALSE)
+	if ((ret = get_var(shell->intern, "?")) != NULL
+			&& ft_strequ(ret, "0") == FALSE)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -89,7 +89,8 @@ static int8_t	exec_new_pipeline(t_registry *shell)
 		cmd = vct_dups(line);
 		ft_strdel(&line);
 		shell->option.option &= ~(INTERACTIVE_OPT);
-		execution_pipeline(shell, &cmd);
+		if (verif_line(NULL, cmd) == TRUE)
+			execution_pipeline(shell, &cmd);
 		shell->option.option |= INTERACTIVE_OPT;
 		vct_del(&cmd);
 	}
