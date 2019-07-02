@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:31:56 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 22:02:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 09:36:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 static void		set_status(t_registry *shell, t_job *job,
 						t_process *current, int status)
 {
+	int		signo;
 	char	*exit_status;
 
 	exit_status = NULL;
@@ -38,7 +39,10 @@ static void		set_status(t_registry *shell, t_job *job,
 	}
 	if (WIFSIGNALED(status))
 	{
-		exit_status = ft_itoa(WTERMSIG(status) + 128);
+		signo = WTERMSIG(status);
+		if (signo == 2 || signo == 3)
+			interpreter(NULL, NULL, signo);
+		exit_status = ft_itoa(signo + 128);
 		current->stopped = TRUE;
 		//ft_printf("SIGNALED by: %d\n", exit_status);
 	}
@@ -105,10 +109,10 @@ int8_t			waiter(t_registry *shell, t_job *job)
 		if (pid)
 			update_pid(shell, job, pid, status);
 	}
-	if (job->state & KILLED)
-		ft_printf("\x1b[33m\n\t[1]\t%d job killed by : SIG%d\n\x1b[0m"
-													, job->pgid
-													, job->signo);
+//	if (job->state & KILLED)
+//		ft_printf("\x1b[33m\n\t[1]\t%d job killed by : SIG%d\n\x1b[0m"
+//													, job->pgid
+//													, job->signo);
 	job->state ^= (RUNNING | ENDED);
 	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
 	return (SUCCESS);
