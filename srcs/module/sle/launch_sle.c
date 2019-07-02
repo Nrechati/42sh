@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:50:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:14:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 	redraw(shell, sl);
 	vct_reset(sl->line);
 	update_window(sl);
+	find_multiline_coord(sl, sl->cursor.index);
 	if (flag & SLE_CC)
 		ft_putendl("^C");
 }
