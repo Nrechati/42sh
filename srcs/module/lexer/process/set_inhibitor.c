@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoissey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 17:28:40 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/27 18:58:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:52:09 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ static void	set_mathsflag(t_lexer *lexer)
 		lexer->parenthesis--;
 	else if (get_input(lexer, CUR_CHAR) == '(')
 		lexer->parenthesis++;
+	else if (get_input(lexer, CUR_CHAR) == '\'')
+		lexer->inhibitor |= SINGLEQUOTE_FLAG;
+	else if (get_input(lexer, CUR_CHAR) == '\"')
+		lexer->inhibitor |= DOUBLEQUOTE_FLAG;
+	else if (get_input(lexer, CUR_CHAR) == '$'
+			&& get_input(lexer, NEXT_CHAR) == '{')
+		lexer->inhibitor |= BRACEPARAM_FLAG;
+	else if (get_input(lexer, CUR_CHAR) == '$'
+			&& get_input(lexer, NEXT_CHAR) == '('
+			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
+		lexer->inhibitor |= MATHS_FLAG;
 	if (lexer->parenthesis == 0)
 	{
 		add_to_buffer(lexer);
@@ -46,9 +57,17 @@ static void	set_braceparamflag(t_lexer *lexer)
 {
 	if (get_input(lexer, CUR_CHAR) == '}')
 		lexer->parenthesis--;
+	else if (get_input(lexer, CUR_CHAR) == '\'')
+		lexer->inhibitor |= SINGLEQUOTE_FLAG;
+	else if (get_input(lexer, CUR_CHAR) == '\"')
+		lexer->inhibitor |= DOUBLEQUOTE_FLAG;
 	else if (get_input(lexer, CUR_CHAR) == '$'
 			&& get_input(lexer, NEXT_CHAR) == '{')
 		lexer->parenthesis++;
+	else if (get_input(lexer, CUR_CHAR) == '$'
+			&& get_input(lexer, NEXT_CHAR) == '('
+			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
+		lexer->inhibitor |= MATHS_FLAG;
 	if (lexer->parenthesis == 0)
 	{
 		add_to_buffer(lexer);
