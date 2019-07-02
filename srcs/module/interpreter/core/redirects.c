@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 22:57:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:30:44 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		redirect_or_other(__unused void *context, void *data)
 void	close_redirect(void *data)
 {
 	t_redirect	*redirect;
-
 	redirect = data;
 	if (redirect->type & FD_REDIRECT)
 	{

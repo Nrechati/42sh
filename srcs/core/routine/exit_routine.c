@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:13:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:29:54 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:34:13 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,8 @@ void			shell_exit_routine(t_registry *shell, int8_t ret)
 	free_registry(shell);
 	if (is_shell_interactive(shell) == TRUE)
 		ft_putendl_fd("exit", STDERR_FILENO);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 	exit(ret);
 }
