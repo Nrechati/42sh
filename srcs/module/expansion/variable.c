@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 18:30:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:19:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static int	variable_special(t_list *intern, char **dest, int i)
 	else
 		vct_replace_string(vector, i, i + 2, "");
 	*dest = ft_strdup(vct_get_string(vector));
+	vct_del(&vector);
 	return (1);
 }
 
@@ -76,7 +77,7 @@ static int	check_expansion(t_list *intern, char **dest, int i, t_quote quote)
 	int		check;
 
 	check = 0;
-	if ((*dest)[i] != '$')
+	if ((*dest)[i] != '$' || quote == QUOTE_SINGLE)
 		return (0);
 	if ((*dest)[i + 1] == '{')
 		check = parameter_expansion(intern, dest, i);
@@ -106,7 +107,7 @@ char		*variable_expansion(t_list *intern_var, char *str)
 	quote = 0;
 	dest = ft_strdup(str);
 	len = ft_strlen(dest);
-	while (i < len)
+	while (i < len && dest[i] != '\0' && (result = 0) == 0)
 	{
 		if (ft_strchr("\'\"", dest[i]))
 			quote = select_quoting(quote, dest[i]);
@@ -116,7 +117,8 @@ char		*variable_expansion(t_list *intern_var, char *str)
 			len = ft_strlen(dest);
 		else if (result == -1)
 			return (NULL);
-		++i;
+		if (result == 0)
+			++i;
 	}
 	return (dest);
 }
