@@ -69,7 +69,11 @@ static void		handle_actionkey(t_registry *shell, t_sle *sle, char c[READ_SIZE])
 void			handle_input_key(t_registry *shell, t_sle *sle, char c[READ_SIZE])
 {
 	if (is_printable(c) == TRUE)
+	{
 		handle_printable_char(sle, c[0]);
+		history(NULL, NULL, RESET_HEAD);
+		vct_del(&sle->line_save);
+	}
 	else
 		handle_actionkey(shell, sle, c);
 }
