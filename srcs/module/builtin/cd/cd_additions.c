@@ -68,11 +68,21 @@ char			*concat_pwd_with_curpath(t_registry *shell, char **path)
 
 char			*get_home_path(void)
 {
-	struct passwd	*pwd;
+	struct passwd	*passwd;
+	char			*user_name;
 	char			*home_path;
 
-	pwd = getpwuid(geteuid());
-	home_path = pwd->pw_dir;
+	if ((user_name = get_var(g_shell->intern, "USER")) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: cd: USER variable is not set\n");
+		return (NULL);
+	}
+	if ((passwd = getpwnam(user_name)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: cd: user `%s'is unknow\n", user_name);
+		return (NULL);
+	}
+	home_path = passwd->pw_dir;
 	return (home_path);
 }
 
