@@ -65,7 +65,7 @@ uint64_t	init_line(t_sle *sle)
 	return (SUCCESS);
 }
 
-uint64_t	link_keys_functions(int8_t (*actionkeys[AK_AMOUNT]) (t_registry *shell, t_sle *sle))
+uint64_t	link_keys_functions(t_actionkeys actionkeys[AK_AMOUNT])
 {
 	actionkeys[AK_ARROW_LEFT] = &ak_arrow_left;
 	actionkeys[AK_ARROW_RIGHT] = &ak_arrow_right;

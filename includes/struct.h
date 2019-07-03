@@ -279,6 +279,8 @@ typedef struct			s_sle
 	t_vector			*clip;
 }						t_sle;
 
+typedef	int8_t (*t_actionkeys)(t_registry *shell, t_sle *sle);
+
 /*
 *****************************************************
 ********************** BUILTIN **********************
