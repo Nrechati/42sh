@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:07:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 22:38:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,16 +149,14 @@ typedef struct				s_infix
 struct						s_arithmetic
 {
 	t_vector				*input;
+	char					*expanded;
 	t_list					*tokens;
 	t_list					*current;
 	t_token					*curr_token;
-	t_stack					compare;
 	t_stack					processing;
-	t_stack					sign;
 	t_list					*solving;
 	int						parenthesis;
 	t_mathstate				state;
-	char					*expanded;
 	size_t					end;
 };
 
@@ -236,7 +234,7 @@ void						m_get_token(t_arithmetic *arithmetic
 													, t_list **node);
 
 void						del_infix(t_infix *infix);
-void						del_arithmetic(t_arithmetic *arithmetic);
+int							del_arithmetic(t_arithmetic *arithmetic, char **output);
 
 int8_t						calculator(t_infix *infix);
 uint8_t						need_pop_operator(t_rpn_tk *curr

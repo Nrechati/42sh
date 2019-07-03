@@ -6,17 +6,22 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:43:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 18:19:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 22:38:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	del_arithmetic(t_arithmetic *arithmetic)
+int		del_arithmetic(t_arithmetic *arithmetic, char **output)
 {
-	ft_lstdel(&arithmetic->tokens, del_token);
-	ft_strdel(&arithmetic->expanded);
+	ft_strdel(output);
 	vct_del(&arithmetic->input);
+	ft_strdel(&arithmetic->expanded);
+	ft_lstdel(&arithmetic->tokens, del_token);
+	ft_lstdel(&arithmetic->solving, NULL);
+	ft_lstdelone(&arithmetic->current, del_token);
+	ft_stckdestroy(&arithmetic->processing, del_token);
+	return (FAILURE);
 }
 
 void	del_infix(t_infix *infix)

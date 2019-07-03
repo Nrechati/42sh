@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 17:19:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 22:39:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,13 @@ static int	arithmetic(char **output, int i)
 	if (find_expansion_end(&arithmetic, *output, i + 3) == FAILURE)
 		return (FAILURE);
 	if (get_expansion_input(&arithmetic, *output, i + 3) == FAILURE)
-	{
-		del_arithmetic(&arithmetic);
-		return (FAILURE);
-	}
+		return (del_arithmetic(&arithmetic, output));
 	arithmetic.tokens = lexer(arithmetic.input, MATHS);
 	if (arithmetic_analyzer(&arithmetic) == FAILURE)
-		return (FAILURE);
+		return (del_arithmetic(&arithmetic, output));
 	arithmetic_replace(&arithmetic, output, i);
-	del_arithmetic(&arithmetic);
-	return (1);
+	del_arithmetic(&arithmetic, NULL);
+	return (SUCCESS);
 }
 
 static int	check_math_expansion(char **buff, int i)

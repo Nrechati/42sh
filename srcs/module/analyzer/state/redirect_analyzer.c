@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 00:57:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:54:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void			dup_stderr(t_analyze *analyze)
 	token.data = ft_strdup("2");
 	node = ft_lstnew(&token, sizeof(t_token));
 	ft_lstaddback(&action.data, node);
-	node = ft_lstnew(&token, sizeof(t_action));
 	ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 }
 

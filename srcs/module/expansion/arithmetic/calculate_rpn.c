@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 01:23:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 22:57:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ static int8_t	check_forbidden_operation(t_rpn_tk *curr, t_rpn_tk *second)
 	{
 		if (second->value.digit == 0)
 		{
-			free(curr);
 			free(second);
-			ft_dprintf(2, "Division by zero\n");
+			ft_dprintf(2, "42sh : Division by zero\n");
 			return (FALSE);
 		}
 	}
@@ -82,10 +81,10 @@ static int8_t	calcul(t_stack *rpn, t_stack *solve)
 	{
 		if (handle_operator(curr, solve) == FAILURE)
 		{
-			ft_lstdel(&node, NULL);
+			ft_lstdelone(&node, NULL);
 			return (FAILURE);
 		}
-		ft_lstdel(&node, NULL);
+		ft_lstdelone(&node, NULL);
 	}
 	return (SUCCESS);
 }
@@ -100,7 +99,6 @@ int8_t			calculate_rpn(t_stack *rpn, t_infix *infix)
 		if (calcul(rpn, &solve) == FAILURE)
 		{
 			ft_stckdestroy(&solve, NULL);
-			ft_dprintf(2, "Expression unsolvable\n");
 			return (FAILURE);
 		}
 	}
