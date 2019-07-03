@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 23:55:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:19:06 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char		*arithmetic_expansion(char *input)
 	quote = 0;
 	dest = ft_strdup(input);
 	len = ft_strlen(dest);
-	while (i < len)
+	while (i < len && dest[i] != '\0' && (result = 0) == 0)
 	{
 		if (ft_strchr("\'\"", dest[i]))
 			quote = select_quoting(quote, dest[i]);
@@ -82,7 +82,8 @@ char		*arithmetic_expansion(char *input)
 			len = ft_strlen(dest);
 		else if (result == -1)
 			return (NULL);
-		++i;
+		if (result == 0)
+			++i;
 	}
 	return (dest);
 }

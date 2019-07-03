@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/29 17:01:59 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:00:46 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,27 @@ static char	*user_home(const char *str)
 	return (path);
 }
 
+static char	*get_home(void)
+{
+	char	*result;
+	char	*holder;
+
+	if ((holder = get_var(g_shell->intern, "HOME")) == NULL)
+		result = ft_strdup("~");
+	else
+		result = ft_strdup(holder);
+	return (result);
+}
+
 static char	*tilde_expansion(t_list *intern_var, const char *str)
 {
 	char	*expanded;
 
 	expanded = NULL;
 	if (ft_strequ(str, "~") == TRUE || ft_strequ(str, "~/"))
-		expanded = ft_strdup(get_var(intern_var, "HOME"));
+		expanded = get_home();
 	else if (ft_strequ(str, "~+") == TRUE)
-		expanded = ft_strdup(get_var(intern_var, "PWD"));
+		expanded = get_pwd(g_shell, NO_OPT);
 	else if (ft_strequ(str, "~-") == TRUE)
 	{
 		if ((expanded = get_var(intern_var, "OLDPWD")) != NULL)
@@ -72,5 +84,6 @@ char		*tilde(t_list *intern_var, char *str)
 	vct_replace_string(vector, 0, i, expanded);
 	source = ft_strdup(vct_get_string(vector));
 	vct_del(&vector);
+	ft_strdel(&expanded);
 	return (source);
 }
