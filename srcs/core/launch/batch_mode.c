@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 00:40:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 12:08:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ static void				read_input(t_registry *shell)
 
 	line = NULL;
 	cmd = NULL;
-	while (1)
+	while (get_next_line(STDIN_FILENO, &line) > 0)
 	{
-		get_next_line(STDIN_FILENO, &line);
 		if (ft_strcheck(line, ft_isprint) == TRUE)
 		{
 			cmd = vct_dups(line);
@@ -32,7 +31,6 @@ static void				read_input(t_registry *shell)
 		}
 		else if (line != NULL)
 			ft_putendl_fd("42sh: Not a valid input", 2);
-		///////////////////// CA DECONNNNNNNNNNE
 		ft_strdel(&line);
 	}
 }
