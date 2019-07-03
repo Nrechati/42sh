@@ -27,7 +27,10 @@ uint8_t				type_blt(t_registry *shell, char **av)
 		else if ((path_bin = ft_hmap_getdata(&shell->hash.bin, *av)) != NULL)
 			ft_printf("%s is hashed (%s)\n", *av, path_bin);
 		else if (find_in_path(shell, *av, &path_bin) == SUCCESS)
+		{
 			ft_printf("%s is %s\n", *av, path_bin);
+			ft_strdel(&path_bin);
+		}
 		else
 		{
 			error = 1;
