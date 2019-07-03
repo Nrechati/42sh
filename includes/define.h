@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 20:00:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:56:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@
 # define HASH_GENERAL_ERROR			"42sh: hash: "
 # define HASH_MALLOC_ERROR			"[CRITICAL] Malloc ERROR\n"
 # define HASH_HIT_ERROR				"error hitting bin\n"
-# define HASH_INVALID_OPT			": invalid option\n"
+# define HASH_INVALID_OPT			": invalid option (-h for help)\n"
 # define HASH_NO_AV					"NULL av given to built-in\n"
 # define HASH_NOT_FOUND				": not found\n"
 # define HASH_USAGE 				"hash: usage: hash [-ar] [utility ...]\n"
