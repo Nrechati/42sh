@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:29 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 13:05:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:44:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,19 +138,16 @@ int8_t				ak_arrow_up(t_registry *shell, t_sle *sle)
 	char		*hist_cmd;
 
 	(void)shell;
-	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
+	if (sle->state != STATE_STD && sle->state != STATE_INCSEARCH
+				&& sle->state != STATE_REVSEARCH)
 		return (FAILURE);
-
 	if (sle->state == STATE_STD && sle->line_save == NULL)
 		sle->line_save = vct_dup(sle->line);
-
-	if (sle->state == STATE_SEARCH)
+	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 		sle->state = STATE_STD;
-
 	hist_cmd = history(NULL, NULL, GET_ENTRY | PREV);
 	if (hist_cmd == NULL)
 		return (FAILURE);
-
 	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 	vct_replace_string(sle->line, 0, len, hist_cmd);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
@@ -164,9 +161,10 @@ int8_t				ak_arrow_down(t_registry *shell, t_sle *sle)
 	uint64_t	len;
 
 	(void)shell;
-	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
+	if (sle->state != STATE_STD && sle->state != STATE_REVSEARCH
+				&& sle->state != STATE_INCSEARCH)
 		return (FAILURE);
-	if (sle->state == STATE_SEARCH)
+	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 		sle->state = STATE_STD;
 	hist_cmd = history(NULL, NULL, GET_ENTRY | NEXT);
 	if (hist_cmd == NULL && sle->line_save != NULL)
@@ -174,14 +172,11 @@ int8_t				ak_arrow_down(t_registry *shell, t_sle *sle)
 		hist_cmd = vct_get_string(sle->line_save);
 		history(NULL, NULL, RESET_HEAD);
 	}
-	if (hist_cmd == NULL)
-	{
-		history(NULL, NULL, RESET_HEAD);
-		hist_cmd = "";
-	}
+	else
+		return (FAILURE);
 	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 	vct_replace_string(sle->line, 0, len, hist_cmd);
-	vct_del(&sle->line_save);
+	vct_reset(sle->line_save);
 	sle->line_save = NULL;
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	find_multiline_coord(sle, 0);

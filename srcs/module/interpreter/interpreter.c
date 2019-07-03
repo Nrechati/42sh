@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 00:23:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:07:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ int8_t		interpreter(t_registry *shell, t_list **cmd_group)
 	add_var(&shell->intern, "job_type", "0", READONLY_VAR);
 	ft_lstdel(&job_lst, del_job);
 	shell->sigint = 0;
+	ptr_to_job_lst(NULL, SET_ADDR);
 	return (SUCCESS);
 }

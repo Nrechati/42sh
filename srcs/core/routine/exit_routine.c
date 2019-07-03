@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:13:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 00:42:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 10:08:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void			close_filedesc(void)
 
 void			shell_exit_routine(t_registry *shell, int8_t ret)
 {
+	t_list **joblst;
+
 	if (shell->option.option & RECORD_HISTORY_OPT)
 	{
 		history(shell, NULL, WRITE_HISTFILE);
@@ -64,12 +66,14 @@ void			shell_exit_routine(t_registry *shell, int8_t ret)
 		kill_active_jobs(shell);
 		sle(shell, NULL, SLE_EXIT);
 	}
-	ft_lstdel(ptr_to_job_lst(NULL, GET_ADDR), del_job);
+	joblst = ptr_to_job_lst(NULL, GET_ADDR);
+	if (joblst != NULL && *joblst != NULL)
+		ft_lstdel(joblst, del_job);
 	term_mode(TERMMODE_DFLT);
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 		close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));
 	free_registry(shell);
-	if (is_shell_interactive(shell) == TRUE)
+	if (is_shell_interactive(shell) == TRUE && getpid() == shell->pid)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	close_filedesc();
 	exit(ret);

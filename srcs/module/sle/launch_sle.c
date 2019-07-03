@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/30 09:11:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:41:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 	redraw(shell, sl);
 	vct_reset(sl->line);
 	update_window(sl);
+	find_multiline_coord(sl, sl->cursor.index);
 	if (flag & SLE_CC)
 		ft_putendl("^C");
 }
@@ -62,7 +63,8 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		return (CRITICAL_ERROR);
 	load_signal_profile(SLE_PROFILE);
 	term_mode(TERMMODE_SLE);
-	sle.state = STATE_STD;
+	if (sle_flag != SLE_SIZE_UPDATE)
+		sle.state = STATE_STD;
 	if (sle_flag == SLE_GET_INPUT)
 		return (sle_get_input(shell, &sle, in));
 	else if (sle_flag & SLE_PS2_PROMPT)
@@ -73,6 +75,11 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 		handle_cc(g_shell, &sle, sle_flag);
 	else if (sle_flag & SLE_SIZE_UPDATE)
 	{
+		if (sle.state == STATE_REVSEARCH || sle.state == STATE_INCSEARCH)
+		{
+			vct_reset(sle.line);
+			sle.state = STATE_STD;
+		}
 		redraw_window(&sle);
 		find_multiline_coord(&sle, 0);
 		set_cursor_pos(&sle, sle.cursor.index);

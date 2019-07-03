@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 17:07:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:59:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ static void		handle_printable_char(t_sle *sle, const char c)
 	t_vector *line;
 	t_cursor *cursor;
 
-	if (sle->state != STATE_STD && sle->state != STATE_SEARCH)
+	if (sle->state != STATE_STD && sle->state != STATE_INCSEARCH
+			&& sle->state != STATE_REVSEARCH)
 		return ;
 	cursor = &sle->cursor;
 	line = sle->line;
-	if (sle->state == STATE_SEARCH)
+	if (sle->state == STATE_INCSEARCH || sle->state == STATE_REVSEARCH)
 	{
 		vct_add(sle->sub_line, c);
 		set_redraw_flags(sle, RD_LINE | RD_CEND);
