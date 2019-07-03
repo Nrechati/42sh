@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 17:09:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:56:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,13 @@ static int	run_job(void *context, void *data)
 int8_t		interpreter(t_registry *shell, t_list **cmd_group)
 {
 	t_list		*job_lst;
+	char		*input;
 
 	ptr_to_job_lst(&job_lst, SET_ADDR);
 	job_lst = ft_lstmap(*cmd_group, shell, group_to_job, del_group);
 	ft_lstdel(cmd_group, del_group);
+	if ((input = get_var(g_shell->intern, "_input")))
+		history(g_shell, input, ADD_ENTRY);
 	load_signal_profile(EXEC_PROFILE);
 	ft_lstiter_ctx(job_lst, shell, run_job);
 	add_var(&shell->intern, "job_type", "0", READONLY_VAR);

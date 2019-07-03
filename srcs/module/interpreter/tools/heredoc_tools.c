@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:06:45 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 20:20:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:56:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ int		check_delimiter(char **delimiter, t_vector **vector, int fd)
 	return (FAILURE);
 }
 
+void	update_input(char *string)
+{
+	t_vector	*vector;
+	char		*input;
+
+	if ((input = get_var(g_shell->intern, "_input")))
+	{
+		vector = vct_dups(input);
+		vct_scat(vector, string, ft_strlen(input));
+		vct_scat(vector, "\n", 1);
+		add_var(&g_shell->intern, "_input", vct_get_string(vector), SET_VAR);
+		vct_del(&vector);
+	}
+}
+
 int		write_heredoc(t_vector **vector, int fd, int trim)
 {
 	char		*string;
@@ -42,7 +57,8 @@ int		write_heredoc(t_vector **vector, int fd, int trim)
 	{
 		while (trim == TRIM_ON && ft_strchr(" \t", string[index]))
 			index++;
-		ft_putstr_fd(string + index, fd);
+		update_input(string + index);
+		ft_putendl_fd(string + index, fd);
 		ft_strdel(&string);
 		vct_del(vector);
 	}

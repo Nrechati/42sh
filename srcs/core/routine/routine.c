@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 01:05:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:42:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void				valid_command(t_vector **input, t_list **command_group)
 {
-	history(g_shell, vct_get_string(*input), ADD_ENTRY);
+	add_var(&g_shell->intern, "_input", vct_get_string(*input), SET_VAR);
 	vct_del(input);
 	interpreter(g_shell, command_group);
 	load_signal_profile(DFLT_PROFILE);
