@@ -84,6 +84,8 @@ uint8_t			fc_blt(t_registry *shell, char **av)
 
 	++av;
 	option = 0;
+	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+		return (SUCCESS);
 	editor = get_fc_options(&av, &option);
 	if (option == ERROR_OPT)
 		ret = 2;
