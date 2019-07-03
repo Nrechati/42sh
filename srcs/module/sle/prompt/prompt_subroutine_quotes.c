@@ -21,9 +21,9 @@ uint8_t			single_quote_routine(t_sle *sle, t_vector *line, size_t *i)
 		{
 			if (subprompt_call(sle, line, PRINT_QUOTE) == FALSE)
 				return (FALSE);
+			continue ;
 		}
-		else
-			(*i)++;
+		(*i)++;
 	}
 	return (TRUE);
 }
@@ -42,12 +42,12 @@ uint8_t			double_quote_routine(t_sle *sle, t_vector *line, size_t *i)
 				return (FALSE);
 			continue ;
 		}
+		else if (vct_charat(line, *i) == '\\')
+			(*i)++;
 		else if (is_brace_exp(line, *i) == TRUE)
 			ret = brace_exp_routine(sle, line, i);
 		else if (is_maths_exp(line, *i) == TRUE)
 			ret = maths_exp_routine(sle, line, i);
-		else if (vct_charat(line, *i) == '\\')
-			(*i)++;
 		if (ret == FALSE)
 			return (FALSE);
 		(*i)++;

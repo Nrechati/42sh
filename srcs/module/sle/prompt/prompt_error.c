@@ -18,7 +18,6 @@ inline t_vector *read_error(t_registry *shell, t_sle *sle)
 	{
 		g_shell->sigint = FALSE;
 		sle->prompt.state = INT_PS1;
-		ft_printf("Returning NULL\n");
 		return (NULL);
 	}
 	if (g_shell->sigint == TRUE)

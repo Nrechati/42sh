@@ -28,7 +28,7 @@ static void	prompt_pre_process(t_sle *sle)
 	update_window(sle);
 }
 
-static void	prompt_post_process(t_registry *shell, t_sle *sle)
+static int8_t	prompt_post_process(t_registry *shell, t_sle *sle)
 {
 	if (sle->state == STATE_SEARCH)
 	{
@@ -48,7 +48,11 @@ static void	prompt_post_process(t_registry *shell, t_sle *sle)
 	redraw(shell, sle);
 	ft_putendl("");
 	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
-		verif_line(sle, sle->line);
+	{
+		if (verif_line(sle, sle->line) == FALSE)
+			return (FAILURE); 
+	}
+	return (SUCCESS);
 }
 
 t_vector	*prompt(t_registry *shell, t_sle *sle)
@@ -71,7 +75,8 @@ t_vector	*prompt(t_registry *shell, t_sle *sle)
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
 	}
-	prompt_post_process(shell, sle);
+	if (prompt_post_process(shell, sle) == FAILURE)
+		vct_reset(sle->line);
 	return (vct_dup(sle->line));
 }
 

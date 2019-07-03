@@ -17,7 +17,9 @@ void		loop_par(t_lexer *lexer)
 	add_to_buffer(lexer);
 	while (get_input(lexer, CUR_CHAR) != ')')
 	{
-		if (get_input(lexer, CUR_CHAR) == '(')
+		if (get_input(lexer, CUR_CHAR) == '\\')
+			add_to_buffer(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '(')
 			loop_par(lexer);
 		else if (get_input(lexer, CUR_CHAR) == '\"')
 			loop_dbquote(lexer);
@@ -54,7 +56,9 @@ void		loop_braceparam(t_lexer *lexer)
 	add_to_buffer(lexer);
 	while (get_input(lexer, CUR_CHAR) != '}')
 	{
-		if (get_input(lexer, CUR_CHAR) == '\"')
+		if (get_input(lexer, CUR_CHAR) == '\\')
+			add_to_buffer(lexer);
+		else if (get_input(lexer, CUR_CHAR) == '\"')
 			loop_dbquote(lexer);
 		else if (get_input(lexer, CUR_CHAR) == '$'
 				&& get_input(lexer, NEXT_CHAR) == '{')

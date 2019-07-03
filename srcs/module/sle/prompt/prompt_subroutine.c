@@ -41,6 +41,8 @@ uint8_t			parenthesis(t_sle *sle, t_vector *line, size_t *i)
 				return (FALSE);
 			continue ;
 		}
+		else if (vct_charat(line, *i) == '\\')
+			(*i)++;
 		else if (extend_subroutine(sle, line, i, PAR_TYPE) == FALSE)
 			return (FALSE);
 		(*i)++;
@@ -74,6 +76,8 @@ uint8_t			brace_exp_routine(t_sle *sle, t_vector *line, size_t *i)
 				return (FALSE);
 			continue ;
 		}
+		else if (vct_charat(line, *i) == '\\')
+			(*i)++;
 		else if (extend_subroutine(sle, line, i, DEFAULT_TYPE) == FALSE)
 			return (FALSE);
 		(*i)++;

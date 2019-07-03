@@ -49,11 +49,14 @@ void				interactive_mode(t_registry *shell)
 	load_signal_profile(SLE_PROFILE);
 	while (is_input_valid(sle(shell, &input, SLE_GET_INPUT)) == TRUE)
 	{
-		if (do_history_exp(&input) == FAILURE)
-			continue ;
-		term_mode(TERMMODE_DFLT);
-		load_signal_profile(DFLT_PROFILE);
-		execution_pipeline(shell, &input);
-		load_signal_profile(SLE_PROFILE);
+		if (input != NULL && input->buffer != NULL && *input->buffer != '\0')
+		{
+			if (do_history_exp(&input) == FAILURE)
+				continue ;
+			term_mode(TERMMODE_DFLT);
+			load_signal_profile(DFLT_PROFILE);
+			execution_pipeline(shell, &input);
+			load_signal_profile(SLE_PROFILE);
+		}
 	}
 }
