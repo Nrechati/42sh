@@ -27,13 +27,6 @@ int8_t					ak_enter_visual_mode(t_registry *shell, t_sle *sle)
 int8_t					ak_exit_modes(t_registry *shell, t_sle *sle)
 {
 	(void)shell;
-	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
-	{
-		if (ft_strequ(vct_get_string(sle->search_line), "Failed") == TRUE)
-			vct_reset(sle->search_line);
-		vct_del(&sle->line);
-		sle->line = vct_dup(sle->search_line);
-	}
 	sle->state = STATE_STD;
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	return (SUCCESS);

@@ -14,7 +14,7 @@
 
 static void			insert_zero(t_sle *sle, char c)
 {
-	vct_add(sle->sub_line, c);
+	vct_add(sle->line, c);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 }
 

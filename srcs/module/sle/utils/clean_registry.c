@@ -35,7 +35,6 @@ static void	sle_destroy(t_sle *sle)
 	vct_del(&sle->line);
 	vct_del(&sle->sub_line);
 	vct_del(&sle->line_save);
-	vct_del(&sle->search_line);
 	vct_del(&sle->clip);
 }
 

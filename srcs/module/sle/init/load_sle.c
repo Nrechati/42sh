@@ -60,7 +60,6 @@ uint64_t	init_line(t_sle *sle)
 		return (CRITICAL_ERROR | LINE_FAIL);
 	if ((sle->clip = vct_new(0)) == NULL)
 		return (CRITICAL_ERROR | LINE_FAIL);
-	sle->search_line = NULL;
 	sle->line_save = NULL;
 	return (SUCCESS);
 }

@@ -30,11 +30,6 @@ static void				prompt_pre_process(t_sle *sle)
 
 static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 {
-	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
-	{
-		vct_del(&sle->line);
-		sle->line = vct_dup(sle->search_line);
-	}
 	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
 	{
 		vct_del(&sle->line);

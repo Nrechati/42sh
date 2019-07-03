@@ -19,8 +19,6 @@ int8_t		ak_ctrl_t(t_registry *shell, t_sle *sle)
 		return (FAILURE);
 	sle->state = STATE_INCSEARCH;
 	sle->search_type = NEXT;
-	ft_bzero(sle->line->buffer, sle->line->size);
-	ft_bzero(sle->sub_line->buffer, sle->sub_line->size);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	return (SUCCESS);
 }
@@ -32,8 +30,6 @@ int8_t		ak_ctrl_r(t_registry *shell, t_sle *sle)
 		return (FAILURE);
 	sle->state = STATE_REVSEARCH;
 	sle->search_type = PREV;
-	ft_bzero(sle->line->buffer, sle->line->size);
-	ft_bzero(sle->sub_line->buffer, sle->sub_line->size);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	return (SUCCESS);
 }

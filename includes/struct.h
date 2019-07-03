@@ -275,7 +275,6 @@ typedef struct			s_sle
 	t_vector			*line;
 	t_vector			*sub_line;
 	t_vector			*line_save;
-	t_vector			*search_line;
 	t_vector			*clip;
 }						t_sle;
 

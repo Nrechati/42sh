@@ -15,6 +15,8 @@
 int8_t		ak_delete(t_registry *shell, t_sle *sle)
 {
 	(void)shell;
+	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
+		return (ak_exit_modes(shell, sle));
 	if (sle->state != STATE_STD)
 		return (FAILURE);
 	vct_del_char(sle->line, sle->cursor.index);
@@ -34,7 +36,7 @@ int8_t		ak_backspace(t_registry *shell, t_sle *sle)
 		return (FAILURE);
 	if (sle->state == STATE_INCSEARCH || sle->state == STATE_REVSEARCH)
 	{
-		vct_pop(sle->sub_line);
+		vct_pop(sle->line);
 		set_redraw_flags(sle, RD_LINE | RD_CEND);
 		return (SUCCESS);
 	}

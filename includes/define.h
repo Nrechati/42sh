@@ -504,9 +504,9 @@
 ********************** HISTORY **********************
 *****************************************************
 */
-# define REV_SEARCH					"(rev-search)"
-# define INC_SEARCH                 "(inc-search)"
-# define SEARCH_SUFFIX		        "``:"
+# define REV_SEARCH					"(rev-search)\'"
+# define INC_SEARCH                 "(inc-search)\'"
+# define SEARCH_SUFFIX		        "`:"
 
 # define HISTFILE_DEFAULT			".42sh_history"
 # define FC_FILE_TMP				"/tmp/42sh-fc.tmp"

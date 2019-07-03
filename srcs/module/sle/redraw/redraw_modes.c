@@ -45,28 +45,29 @@ void			redrawmode_last(t_sle *sle)
 
 static void		state_search(t_sle *sle)
 {
-	char	*search;
-	char	*sl;
+	t_vector	*disp_line;
+	char		*search_hit;
 
-	search = NULL;
+	disp_line = NULL;
+	search_hit = NULL;
 	tputs(sle->termcaps.hidden_cursor, 1, &ft_putc);
-	sl = vct_get_string(sle->sub_line);
-	search = history(NULL, sl, GET_ENTRY | BY_NAME | sle->search_type);
-	vct_del(&sle->search_line);
-	vct_del(&sle->line);
-	if (search == NULL && sl != NULL && *sl != '\0')
-		sle->search_line = vct_dups("Failed");
-	else if (search != NULL)
-		sle->search_line = vct_dups(search);
+	search_hit = history(NULL, vct_get_string(sle->line),
+		GET_ENTRY | BY_NAME | sle->search_type);
+
+	disp_line = vct_dups(((sle->state == STATE_INCSEARCH) ? INC_SEARCH : REV_SEARCH));
+	vct_ncat(disp_line, sle->line, vct_len(sle->line));
+	vct_scat(disp_line, SEARCH_SUFFIX, ft_strlen(SEARCH_SUFFIX));
+	
+	if (search_hit == NULL && sle->line != NULL 
+		&& sle->line->buffer[0] != '\0')
+		vct_scat(disp_line, "Failed", 6);
+	else if (search_hit != NULL)
+		vct_scat(disp_line, search_hit, ft_strlen(search_hit));
 	else
-		sle->search_line = vct_dups("");
-	search = NULL;
-	ft_asprintf(&search, "%s`%s`:%s",
-				(sle->search_type == NEXT) ? INC_SEARCH : REV_SEARCH,
-				vct_get_string(sle->sub_line),
-				vct_get_string(sle->search_line));
-	sle->line = vct_dups(search);
-	ft_strdel(&search);
+		vct_scat(disp_line, "", 1);
+
+	print_loop(sle, vct_get_string(disp_line));
+	vct_del(&disp_line);
 }
 
 void			redrawmode_line(t_sle *sle)
@@ -75,13 +76,17 @@ void			redrawmode_line(t_sle *sle)
 
 	index_to_coord(sle, sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);
+
 	tputs(sle->termcaps.clear_screen, 1, &ft_putc);
 	tputs(sle->termcaps.clear_line, 1, &ft_putc);
+
 	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 		state_search(sle);
 	else
+	{
 		tputs(sle->termcaps.normal_cursor, 1, &ft_putc);
-	print_loop(sle, vct_get_string(sle->line));
+		print_loop(sle, vct_get_string(sle->line));
+	}
 }
 
 void			redrawmode_fptp(t_sle *sle)
