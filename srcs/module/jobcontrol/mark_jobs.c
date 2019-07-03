@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:00:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 16:26:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:38:31 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,24 @@ void	mark_job_as_completed(t_job *job)
 uint8_t	mark_proc_status(pid_t pid, int status)
 {
 	t_list		*joblist;
-	t_list		*proclist;
 	t_job		*job;
-	t_process	*process;
 
+//	ft_printf("pid:%d\n", pid);
 	if (pid <= 0)
 		return (42);
 	joblist = g_shell->job_list;
 	while (joblist != NULL)
 	{
 		job = joblist->data;
-		if (job_is_stopped(job) == FALSE)
+		if (WIFSTOPPED(status))
+			mark_job_as_stopped(job);
+		else if (WIFSIGNALED(status))
 		{
-			proclist = job->processes;
-			while (proclist != NULL)
-			{
-				process = proclist->data;
-				process->status = status;
-				if (WIFSTOPPED(status))
-					process->stopped = TRUE;
-				else
-					process->completed = TRUE;
-				proclist = proclist->next;
-			}
+			if (WTERMSIG(status) != 18 && WTERMSIG(status) != 19)
+				mark_job_as_completed(job);
 		}
+		else if (WIFEXITED(status) == 1)
+			mark_job_as_completed(job);
 		joblist = joblist->next;
 	}
 	return (42);

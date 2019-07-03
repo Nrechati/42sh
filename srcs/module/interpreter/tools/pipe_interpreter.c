@@ -56,8 +56,6 @@ int		setup_pipe(t_process *current, t_process *next, int pipe_fd[2])
 int8_t	launch_pipeline(t_list *process, uint8_t foreground)
 {
 	int			pipe_fd[2];
-	t_process	*current;
-	t_process	*next;
 
 	pipe_fd[0] = 0;
 	pipe_fd[1] = 0;
@@ -65,8 +63,6 @@ int8_t	launch_pipeline(t_list *process, uint8_t foreground)
 		return (SUCCESS);
 	if (process->next)
 	{
-		current = process->data;
-		next = process->next->data;
 		if (pipe(pipe_fd) == FAILURE)
 			return (FAILURE);
 		if (setup_pipe(process->data, process->next->data, pipe_fd) == FAILURE)

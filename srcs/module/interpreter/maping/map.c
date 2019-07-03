@@ -15,15 +15,14 @@
 void		*set_redirect(void *context, void *data)
 {
 	static t_redirection	*redirecter;
-	t_registry				*shell;
 	t_list					*node;
 	t_action				*action;
 	t_redirect				redirect;
 
+	(void)context;
 	if (redirecter == NULL)
 		redirecter = redirecter_init();
 	action = data;
-	shell = context;
 	ft_bzero(&redirect, sizeof(t_redirect));
 	(*redirecter)[action->type](&redirect, action);
 	node = ft_lstnew(&redirect, sizeof(t_redirect));

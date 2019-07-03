@@ -16,9 +16,7 @@
 uint64_t	update_winsize(t_sle *sle)
 {
 	struct winsize	w;
-	uint16_t		debug_size;
 
-	debug_size = (g_shell->option.option & DEBUG_OPT) ? 80 : 1;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) == FAILURE)
 		return (CRITICAL_ERROR | WINDOW_FAIL);
 	sle->window.rows = (w.ws_row <= 0) ? 1 : w.ws_row;

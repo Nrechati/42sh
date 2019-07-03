@@ -51,9 +51,6 @@ static void	signaled_process(t_job *job, int status)
 
 void		set_status(t_job *job, t_process *current, int status)
 {
-	char		*exit_status;
-
-	exit_status = NULL;
 	if (WIFSTOPPED(status))
 		stopped_process(job, status);
 	if (WIFEXITED(status))
