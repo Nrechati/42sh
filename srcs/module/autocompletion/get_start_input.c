@@ -21,7 +21,7 @@ static char	*get_start_input_file(char *input, size_t len)
 			return (input + len + 1);
 		len--;
 	}
-	return (input);
+	return (input + 1);
 }
 
 static char	*get_start_input_variable(char *input, size_t len, char c)
