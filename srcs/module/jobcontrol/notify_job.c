@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:01:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 16:03:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:40:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	notify_job_info(t_list *joblst, char *info)
 			get_job_av(job, &command);
 			ft_printf("[%d]+ %s \t %s\n", job->id, info, command);
 			remove_job_from_list(&g_shell->job_list, job);
-			g_shell->active_jobs--;
-			update_jobinfos(g_shell);
 			pop_current_job(g_shell, job);
+			g_shell->active_jobs--;
 			ft_strdel(&command);
 		}
 		jobl = jobl->next;
 	}
+	update_jobinfos(g_shell);
 }
