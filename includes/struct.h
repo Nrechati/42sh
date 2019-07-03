@@ -53,6 +53,7 @@ typedef struct			s_registry
 	pid_t				pid;
 	t_list				*job_list;
 	uint64_t			active_jobs;
+	uint8_t				job_notified;
 	t_list				*current_plus;
 	t_list				*current_minus;
 	uint8_t				sigint;

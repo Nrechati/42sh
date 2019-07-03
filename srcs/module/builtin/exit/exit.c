@@ -40,17 +40,24 @@ uint8_t			verif_arg(char *s)
 	return ((uint8_t)ft_atoi(s));
 }
 
+static uint8_t	job_notified(t_registry *shell)
+{
+	if (shell->job_list != NULL && shell->job_notified == 0)
+	{
+		shell->job_notified++;
+		ft_dprintf(2, "There are stopped jobs.\n");
+		return (FALSE);
+	}
+	else
+		return (TRUE);
+}
+
 uint8_t			exit_blt(t_registry *shell, char **av)
 {
-	static uint8_t	job_notified;
 	uint8_t			ret;
 
-	if (shell->job_list != NULL && job_notified == 0)
-	{
-		job_notified = 1;
-		ft_printf("You have active background jobs.\n");
+	if (job_notified(shell) == FALSE)
 		return (SUCCESS);
-	}
 	++av;
 	if (av != NULL && *av != NULL)
 	{
