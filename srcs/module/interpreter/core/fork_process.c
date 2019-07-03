@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 15:28:54 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:43:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static uint8_t	check_cmd_path(char *data)
 	}
 	if (stat.st_mode & S_IFDIR)
 		ft_dprintf(2, "42sh: %s: Is a directory\n", data);
-	else if (!(stat.st_mode & S_IRUSR) || !(stat.st_mode & S_IXUSR))
+	else if (!(stat.st_mode & S_IXUSR))
 		ft_dprintf(2, "42sh: %s: Permission denied\n", data);
 	else
 		return (TRUE);
