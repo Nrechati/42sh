@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:42:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 20:07:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:10:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			run_process(t_process *process, uint8_t foreground)
 	}
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
-	else if (process->type == (IS_ALONE | IS_BLT))
+	else if (process->type == (IS_ALONE | IS_BLT) && foreground == TRUE)
 		run_builtin(process, foreground);
 	else
 		fork_process(process, foreground);
