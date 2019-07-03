@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:13:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 20:08:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 10:08:25 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void			shell_exit_routine(t_registry *shell, int8_t ret)
 	if ((shell->option.option & DEBUG_OPT) != FALSE)
 		close(ft_atoi(get_var(shell->intern, INT_DBG_FD)));
 	free_registry(shell);
-	if (is_shell_interactive(shell) == TRUE)
+	if (is_shell_interactive(shell) == TRUE && getpid() == shell->pid)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
