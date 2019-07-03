@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 00:40:12 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:36:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ inline uint8_t	is_shell_interactive(t_registry *shell)
 
 void			launch_shell(t_registry *shell)
 {
+	if (isatty(STDOUT_FILENO) != 1)
+	{
+		ft_printf("42sh: stdout: bad file descriptor.\n");
+		return ;
+	}
 	if (is_shell_interactive(shell) == TRUE)
 		interactive_mode(shell);
 	else
