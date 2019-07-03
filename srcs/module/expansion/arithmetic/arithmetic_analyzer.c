@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 23:55:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 22:43:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void		m_error_analyzer(t_arithmetic *arithmetic)
 {
 	arithmetic->state = MATH_ERROR;
-	ft_dprintf(2, "42sh: %s : error token near %s "
+	ft_dprintf(2, "42sh: %s : error token near %s\n"
 			, arithmetic->input->buffer
-			, arithmetic->curr_token->data);
+			, g_shell->grammar_m[arithmetic->curr_token->type]);
 	ft_lstdelone(&arithmetic->current, del_token);
 	arithmetic->curr_token = NULL;
 }
