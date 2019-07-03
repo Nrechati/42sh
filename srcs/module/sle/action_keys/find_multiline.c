@@ -12,7 +12,20 @@
 
 #include "sh21.h"
 
-static void				find_x3_coord(t_sle *sle, uint32_t prompt_len)
+static void	find_x3_coord(t_sle *sle, char *line, uint32_t prompt_len)
+{
+	if (line == NULL)
+	{
+		while (sle->line->buffer[sle->cursor.x3] != '\0')
+			sle->cursor.x3++;
+		sle->cursor.x3 += prompt_len;
+	}
+	else
+		while (line[1 + sle->cursor.x3] != '\0')
+			sle->cursor.x3++;
+}
+
+static void	find_y3_coord(t_sle *sle, uint32_t prompt_len)
 {
 	char    *tmp;
 	char    *tmp2;
@@ -26,29 +39,32 @@ static void				find_x3_coord(t_sle *sle, uint32_t prompt_len)
 	while (tmp != NULL && *tmp != '\0' &&
 			(tmp2 = ft_strchr(tmp + 1, '\n')) != NULL)
 	{
-		if (line == NULL)
-			sup = (tmp2 - tmp + prompt_len) / sle->window.cols;
-		else
-			sup = (tmp2 - tmp) / sle->window.cols;
+		sup = (tmp2 - tmp + (line == NULL ? prompt_len : 0)) / sle->window.cols;
 		while (sup-- > 0)
 			sle->cursor.y3++;
 		tmp = tmp2;
 		line = tmp2;
 		sle->cursor.y3++;
 	}
-	if (line == NULL)
-	{
-		while (sle->line->buffer[sle->cursor.x3] != '\0')
-			sle->cursor.x3++;
-		sle->cursor.x3 += prompt_len;
-	}
-	else
-		while (line[1 + sle->cursor.x3] != '\0')
-			sle->cursor.x3++;
+	find_x3_coord(sle, line, prompt_len);
 }
 
-static void				find_x2_coord(t_sle *sle, uint32_t prompt_len,
-							int8_t offset)
+static void	find_x2_coord(t_sle *sle, char *line, uint32_t prompt_len,
+					char *cmd_offset)
+{
+	if (line == NULL)
+	{
+		while (cmd_offset[sle->cursor.x2] != '\0')
+			sle->cursor.x2++;
+		sle->cursor.x2 += prompt_len;
+	}
+	else
+		while (line[1 + sle->cursor.x2] != '\0')
+			sle->cursor.x2++;
+	ft_strdel(&cmd_offset);
+}
+
+static void	find_y2_coord(t_sle *sle, uint32_t prompt_len, int8_t offset)
 {
 	char		*tmp;
 	char		*tmp2;
@@ -64,26 +80,14 @@ static void				find_x2_coord(t_sle *sle, uint32_t prompt_len,
 	while (tmp != NULL && *tmp != '\0' &&
 			(tmp2 = ft_strchr(tmp + 1, '\n')) != NULL)
 	{
-		if (line == NULL)
-			sup = (tmp2 - tmp + prompt_len) / sle->window.cols;
-		else
-			sup = (tmp2 - tmp) / sle->window.cols;
+		sup = (tmp2 - tmp + (line == NULL ? prompt_len : 0)) / sle->window.cols;
 		while (sup-- > 0)
 			sle->cursor.y2++;
 		tmp = tmp2;
 		line = tmp2;
 		sle->cursor.y2++;
 	}
-	if (line == NULL)
-	{
-		while (cmd_offset[sle->cursor.x2] != '\0')
-			sle->cursor.x2++;
-		sle->cursor.x2 += prompt_len;
-	}
-	else
-		while (line[1 + sle->cursor.x2] != '\0')
-			sle->cursor.x2++;
-	ft_strdel(&cmd_offset);
+	find_x2_coord(sle, line, prompt_len, cmd_offset);
 }
 
 void					find_multiline_coord(t_sle *sle, int8_t offset)
@@ -91,6 +95,6 @@ void					find_multiline_coord(t_sle *sle, int8_t offset)
 	uint32_t	prompt_len;
 
 	prompt_len = get_prompt_length(&sle->prompt);
-	find_x2_coord(sle, prompt_len, offset);
-	find_x3_coord(sle, prompt_len);
+	find_y2_coord(sle, prompt_len, offset);
+	find_y3_coord(sle, prompt_len);
 }
