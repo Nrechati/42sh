@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:01:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 13:42:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:20:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	notify_job_info(t_list *joblst, char *info)
 		if (job_is_completed(job) == TRUE)
 		{
 			get_job_av(job, &command);
-			ft_printf("[%d]%c %s \t %s\n", job->id, job->current ,info, command);
+			ft_printf("[%d]%c %s \t %s\n", job->id, job->current, info,
+							command);
 			remove_job_from_list(&g_shell->job_list, job);
 			pop_current_job(g_shell, job);
 			g_shell->active_jobs--;

@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 18:36:05 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 14:23:32 by skuppers         ###   ########.fr       */
+/*   Created: 2019/07/03 15:05:03 by skuppers          #+#    #+#             */
+/*   Updated: 2019/07/03 15:33:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint64_t    assign_keycodes(t_sle *sle)
+uint64_t	assign_keycodes(t_sle *sle)
 {
 	sle->ak_masks[AK_ARROW_RIGHT] = AK_ARROW_RIGHT_MASK;
 	sle->ak_masks[AK_ARROW_LEFT] = AK_ARROW_LEFT_MASK;
@@ -38,12 +38,36 @@ uint64_t    assign_keycodes(t_sle *sle)
 	sle->ak_masks[AK_CTRL_R] = AK_CTRL_R_MASK;
 	sle->ak_masks[AK_CTRL_T] = AK_CTRL_T_MASK;
 	sle->ak_masks[AK_TABULATION] = AK_TAB_MASK;
-    return (SUCCESS);
+	return (SUCCESS);
 }
 
-uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_registry *shell, t_sle *sle))
+uint64_t	set_sle_internals(t_registry *shell)
 {
-    actionkeys[AK_ARROW_LEFT] = &ak_arrow_left;
+	if (add_var(&shell->intern, INT_PS1, INT_PS1_VALUE, SET_VAR) == FAILURE)
+		return (INTERNAL_FAIL);
+	if (add_var(&shell->intern, INT_PS2, INT_PS2_VALUE, SET_VAR) == FAILURE)
+		return (INTERNAL_FAIL);
+	if (add_var(&shell->intern, INT_PS3, INT_PS3_VALUE, SET_VAR) == FAILURE)
+		return (INTERNAL_FAIL);
+	return (SUCCESS);
+}
+
+uint64_t	init_line(t_sle *sle)
+{
+	if ((sle->line = vct_new(0)) == NULL)
+		return (CRITICAL_ERROR | LINE_FAIL);
+	if ((sle->sub_line = vct_new(0)) == NULL)
+		return (CRITICAL_ERROR | LINE_FAIL);
+	if ((sle->clip = vct_new(0)) == NULL)
+		return (CRITICAL_ERROR | LINE_FAIL);
+	sle->search_line = NULL;
+	sle->line_save = NULL;
+	return (SUCCESS);
+}
+
+uint64_t	link_keys_functions(int8_t (*actionkeys[AK_AMOUNT]) (t_registry *shell, t_sle *sle))
+{
+	actionkeys[AK_ARROW_LEFT] = &ak_arrow_left;
 	actionkeys[AK_ARROW_RIGHT] = &ak_arrow_right;
 	actionkeys[AK_HOME] = &ak_home;
 	actionkeys[AK_END] = &ak_end;
@@ -67,29 +91,5 @@ uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(t_registry *shel
 	actionkeys[AK_CTRL_R] = &ak_ctrl_r;
 	actionkeys[AK_CTRL_T] = &ak_ctrl_t;
 	actionkeys[AK_TABULATION] = &ak_hightab;
-    return (SUCCESS);
-}
-
-uint64_t    set_sle_internals(t_registry *shell)
-{
-	if (add_var(&shell->intern, INT_PS1, INT_PS1_VALUE, SET_VAR) == FAILURE)
-		return (INTERNAL_FAIL);
-	if (add_var(&shell->intern, INT_PS2, INT_PS2_VALUE, SET_VAR) == FAILURE)
-		return (INTERNAL_FAIL);
-	if (add_var(&shell->intern, INT_PS3, INT_PS3_VALUE, SET_VAR) == FAILURE)
-		return (INTERNAL_FAIL);
-    return (SUCCESS);
-}
-
-uint64_t    init_line(t_sle *sle)
-{
-	if ((sle->line = vct_new(0)) == NULL)
-		return (CRITICAL_ERROR | LINE_FAIL);
-	if ((sle->sub_line = vct_new(0)) == NULL)
-		return (CRITICAL_ERROR | LINE_FAIL);
- 	if ((sle->clip = vct_new(0)) == NULL)
-		return (CRITICAL_ERROR | LINE_FAIL);
-	sle->search_line = NULL;
-	sle->line_save = NULL;
 	return (SUCCESS);
 }

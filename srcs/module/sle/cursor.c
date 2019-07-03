@@ -6,18 +6,18 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:34:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 20:05:30 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:57:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-static inline void move_x(t_sle *sle, uint64_t x)
+static inline void		move_x(t_sle *sle, uint64_t x)
 {
 	int64_t x_moves;
 
-	x_moves =  (x - sle->cursor.x);
+	x_moves = (x - sle->cursor.x);
 	while (x_moves < 0)
 	{
 		++x_moves;
@@ -33,11 +33,11 @@ static inline void move_x(t_sle *sle, uint64_t x)
 	sle->cursor.x = x;
 }
 
-static inline void move_y(t_sle *sle, uint64_t y)
+static inline void		move_y(t_sle *sle, uint64_t y)
 {
 	int64_t y_moves;
 
-	y_moves =  (y - sle->cursor.y);
+	y_moves = (y - sle->cursor.y);
 	while (y_moves > 0)
 	{
 		--y_moves;
@@ -55,13 +55,14 @@ static inline void move_y(t_sle *sle, uint64_t y)
 	sle->cursor.y = y;
 }
 
-void     move_cursor_to_coord(t_sle *sle, uint64_t x, uint64_t y)
+void					move_cursor_to_coord(t_sle *sle, uint64_t x,
+				uint64_t y)
 {
 	move_y(sle, y);
 	move_x(sle, x);
 }
 
-static inline void cursor_move(t_sle *sle)
+static inline void		cursor_move(t_sle *sle)
 {
 	t_coord		coord;
 
@@ -81,10 +82,10 @@ static inline void cursor_move(t_sle *sle)
 	sle->cursor.index = sle->window.point_cursor;
 }
 
-void     move_cursor(t_sle *sle)
+void					move_cursor(t_sle *sle)
 {
 	t_coord		coord;
-	uint64_t    rd_flag;
+	uint64_t	rd_flag;
 
 	rd_flag = sle->window.rd_flag;
 	if (rd_flag & RD_CEND)
@@ -95,10 +96,8 @@ void     move_cursor(t_sle *sle)
 			coord.y = sle->cursor.y3;
 		}
 		else
-		{
 			index_to_coord(sle, get_prompt_length(&sle->prompt)
 					+ vct_len(sle->line), &coord);
-		}
 		move_cursor_to_coord(sle, coord.x, coord.y);
 		sle->cursor.index = vct_len(sle->line);
 	}

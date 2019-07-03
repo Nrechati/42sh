@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:34 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:55:27 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:23:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void						sle_error(uint64_t report)
+void					sle_error(uint64_t report)
 {
 	if (report & CRITICAL_ERROR)
 		ft_printf("42sh: One or more critical error occured: \n");
@@ -22,7 +22,7 @@ void						sle_error(uint64_t report)
 		ft_printf("Error code: %lu. See logs.\n", report);
 }
 
-static uint64_t				init_sle(t_registry *shell, t_sle *sle)
+static uint64_t			init_sle(t_registry *shell, t_sle *sle)
 {
 	uint64_t		report;
 
@@ -33,7 +33,7 @@ static uint64_t				init_sle(t_registry *shell, t_sle *sle)
 	return (report);
 }
 
-static uint64_t				load_interface(t_registry *shell, t_sle *sle)
+static uint64_t			load_interface(t_registry *shell, t_sle *sle)
 {
 	uint64_t		report;
 
@@ -52,16 +52,6 @@ static uint64_t				load_interface(t_registry *shell, t_sle *sle)
 	return (report);
 }
 
-static uint64_t				load_interface_modules(__unused t_sle *sle)
-{
-	uint64_t		report;
-
-	report = 0;
-//	report |= load_history();
-//	report |= load_autocomp();
-	return (report);
-}
-
 uint64_t				sle_setup(t_registry *shell, t_sle *sle)
 {
 	uint64_t		report;
@@ -69,7 +59,6 @@ uint64_t				sle_setup(t_registry *shell, t_sle *sle)
 	report = 0;
 	report |= init_sle(shell, sle);
 	report |= load_interface(shell, sle);
-	report |= load_interface_modules(sle);
 	sle->state = STATE_STD;
 	report |= SETUP_DONE;
 	sle_error(report);

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 22:58:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:16:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ void	notify_job_info(t_list *joblist, char *info);
 uint8_t	mark_proc_status(pid_t pid, int status);
 void	mark_job_as_stopped(t_job *job);
 void	mark_job_as_completed(t_job *job);
+void 	mark_job_as_running(t_job *job);
+
 #endif

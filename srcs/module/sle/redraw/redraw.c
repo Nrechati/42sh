@@ -6,19 +6,19 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:06 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:52:15 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:47:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-static void    redraw_line(t_registry *shell, t_sle *sle)
+static void			redraw_line(t_registry *shell, t_sle *sle)
 {
 	if (sle->state == STATE_INCSEARCH || sle->state == STATE_REVSEARCH)
 		sle->window.rd_flag = RD_LINE | RD_CEND;
 	if (sle->window.rd_flag & RD_NONE)
-        return;
+		return ;
 	if (sle->window.rd_flag & RD_CLEAR)
 	{
 		redrawmode_clear(shell, sle);
@@ -29,14 +29,14 @@ static void    redraw_line(t_registry *shell, t_sle *sle)
 	else if (sle->window.rd_flag & RD_LAST)
 		redrawmode_last(sle);
 	else if (sle->window.rd_flag & RD_FPTE)
-    	redrawmode_fpte(sle);
+		redrawmode_fpte(sle);
 	else if (sle->window.rd_flag & RD_FSTP)
 		redrawmode_fstp(sle);
 	else if (sle->window.rd_flag & RD_FPTP)
 		redrawmode_fptp(sle);
 }
 
-static inline void reset_redraw_mode(t_sle *sle)
+static inline void	reset_redraw_mode(t_sle *sle)
 {
 	vct_reset(sle->window.displayed_line);
 	vct_ncpy(sle->window.displayed_line, sle->line, vct_len(sle->line));
@@ -46,7 +46,7 @@ static inline void reset_redraw_mode(t_sle *sle)
 	sle->window.point_cursor = 0;
 }
 
-void	compute_redrawinfo(t_sle *sle, t_redrawinfo *rd_info)
+void				compute_redrawinfo(t_sle *sle, t_redrawinfo *rd_info)
 {
 	ft_memset(rd_info, 0, sizeof(t_redrawinfo));
 	rd_info->line_len = vct_len(sle->line);
@@ -55,7 +55,7 @@ void	compute_redrawinfo(t_sle *sle, t_redrawinfo *rd_info)
 	sle->rd_info = *rd_info;
 }
 
-void    redraw(t_registry *shell, t_sle *sle)
+void				redraw(t_registry *shell, t_sle *sle)
 {
 	t_redrawinfo	rd_info;
 
@@ -65,25 +65,4 @@ void    redraw(t_registry *shell, t_sle *sle)
 		redrawmode_visual(sle);
 	move_cursor(sle);
 	reset_redraw_mode(sle);
-}
-
-inline void		add_redraw_flags(t_sle *sle, uint32_t rd_flag)
-{
-	sle->window.rd_flag |= rd_flag;
-}
-
-inline void     set_redraw_flags(t_sle *sle, uint32_t rd_flag)
-{
-	sle->window.rd_flag = rd_flag;
-}
-
-inline void     set_redraw_bounds(t_sle *sle, uint64_t start, uint64_t end)
-{
-	sle->window.point1 = start;
-	sle->window.point2 = end;
-}
-
-inline void     set_cursor_pos(t_sle *sle, uint64_t index)
-{
-	sle->window.point_cursor = index;
 }

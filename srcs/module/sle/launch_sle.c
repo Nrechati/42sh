@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 20:41:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:09:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-uint8_t		launch_sle(t_registry *shell, t_sle *sle)
+uint8_t				launch_sle(t_registry *shell, t_sle *sle)
 {
 	static uint64_t		setup_report = 0;
 
@@ -33,7 +33,7 @@ uint8_t		launch_sle(t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-void		handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
+void				handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 {
 	sl->state = STATE_STD;
 	set_redraw_flags(sl, RD_LINE | RD_CEND);
@@ -43,6 +43,18 @@ void		handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 	find_multiline_coord(sl, sl->cursor.index);
 	if (flag & SLE_CC)
 		ft_putendl("^C");
+}
+
+void				handle_resize(t_sle *sle)
+{
+	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
+	{
+		vct_reset(sle->line);
+		sle->state = STATE_STD;
+	}
+	redraw_window(sle);
+	find_multiline_coord(sle, 0);
+	set_cursor_pos(sle, sle->cursor.index);
 }
 
 static uint8_t		sle_get_input(t_registry *shell, t_sle *sle, t_vector **in)
@@ -59,7 +71,7 @@ static uint8_t		sle_get_input(t_registry *shell, t_sle *sle, t_vector **in)
 	return (SUCCESS);
 }
 
-uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
+uint8_t				sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 {
 	static t_sle		sle;
 
@@ -78,16 +90,7 @@ uint8_t		sle(t_registry *shell, t_vector **in, uint32_t sle_flag)
 	else if (sle_flag & SLE_RD_PROMPT)
 		handle_cc(g_shell, &sle, sle_flag);
 	else if (sle_flag & SLE_SIZE_UPDATE)
-	{
-		if (sle.state == STATE_REVSEARCH || sle.state == STATE_INCSEARCH)
-		{
-			vct_reset(sle.line);
-			sle.state = STATE_STD;
-		}
-		redraw_window(&sle);
-		find_multiline_coord(&sle, 0);
-		set_cursor_pos(&sle, sle.cursor.index);
-	}
+		handle_resize(&sle);
 	else if (sle_flag == SLE_EXIT)
 		sle_teardown(&sle);
 	return (SUCCESS);

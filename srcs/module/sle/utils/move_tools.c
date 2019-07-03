@@ -6,13 +6,11 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:15:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/20 10:50:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:55:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "sh21.h"
-
 
 static int8_t	only_whitespaces_after(const char *str, const uint32_t index,
 					const char direction)
