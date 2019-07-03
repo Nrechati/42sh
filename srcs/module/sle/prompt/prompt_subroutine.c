@@ -96,7 +96,7 @@ uint8_t			verif_line(t_sle *sle, t_vector *line)
 		{
 			backslash_process(line);
 			if (subprompt_call(sle, line, PRINT_NL) == FALSE)
-				return (TRUE);
+				return (FALSE);
 			continue ;
 		}
 		else if (vct_charat(line, i) == '\\')
