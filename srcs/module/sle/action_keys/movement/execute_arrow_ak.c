@@ -167,17 +167,18 @@ int8_t				ak_arrow_down(t_registry *shell, t_sle *sle)
 	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 		sle->state = STATE_STD;
 	hist_cmd = history(NULL, NULL, GET_ENTRY | NEXT);
-	if (hist_cmd == NULL && sle->line_save != NULL)
+	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
+	if (hist_cmd == NULL)
 	{
-		hist_cmd = vct_get_string(sle->line_save);
+		if (sle->line_save == NULL
+			|| sle->line_save->buffer == NULL)
+			return (FAILURE);
 		history(NULL, NULL, RESET_HEAD);
+		vct_replace_string(sle->line, 0, len, vct_get_string(sle->line_save));
+		vct_del(&sle->line_save);
 	}
 	else
-		return (FAILURE);
-	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
-	vct_replace_string(sle->line, 0, len, hist_cmd);
-	vct_reset(sle->line_save);
-	sle->line_save = NULL;
+		vct_replace_string(sle->line, 0, len, hist_cmd);
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	find_multiline_coord(sle, 0);
 	return (SUCCESS);
