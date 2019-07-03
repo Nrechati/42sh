@@ -12,6 +12,18 @@
 
 #include "sh21.h"
 
+uint8_t			jobctl_is_active(t_registry *shell)
+{
+	if (((shell->option.option & INTERACTIVE_OPT) == FALSE)
+			|| isatty(STDIN_FILENO) == FALSE)
+	{
+		ft_printf("42sh: No job control.\n");
+		return (FALSE);
+	}
+			ft_printf("42sh: Job control.\n");
+	return (TRUE);
+}
+
 t_job	*find_job(pid_t pgid)
 {
 	t_list *job;

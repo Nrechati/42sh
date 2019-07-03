@@ -37,5 +37,6 @@ uint8_t	mark_proc_status(pid_t pid, int status);
 void	mark_job_as_stopped(t_job *job);
 void	mark_job_as_completed(t_job *job);
 void 	mark_job_as_running(t_job *job);
+uint8_t	jobctl_is_active(t_registry *shell);
 
 #endif

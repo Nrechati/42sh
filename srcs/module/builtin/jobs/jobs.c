@@ -50,6 +50,8 @@ uint8_t		jobs_blt(t_registry *shell, char **av)
 	int8_t		result;
 	uint8_t		ret;
 
+	if (jobctl_is_active(shell) == FALSE)
+		return (FAILURE);
 	++av;
 	if ((option = set_options(&av, get_option_jobs)) == ERROR_OPT)
 		return (2);

@@ -17,7 +17,9 @@ uint8_t	fg_blt(__unused t_registry *shell, char **av)
 	t_job	*job;
 	int8_t	result;
 	uint8_t	ret;
-
+	
+	if (jobctl_is_active(shell) == FALSE)
+		return (FAILURE);
 	++av;
 	job = NULL;
 	result = 0;
