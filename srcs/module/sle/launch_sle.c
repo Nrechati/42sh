@@ -25,10 +25,10 @@ uint8_t				launch_sle(t_registry *shell, t_sle *sle)
 		if (setup_report & CRITICAL_ERROR)
 			return (CRITICAL_ERROR);
 	}
-	if (shell->job_notified == 1)
-		shell->job_notified++;
+	if (g_shell->job_notified == 1)
+		g_shell->job_notified++;
 	else
-		shell->job_notified = 0;
+		g_shell->job_notified = 0;
 	save_intern_vars(shell, sle);
 	return (SUCCESS);
 }
