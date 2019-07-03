@@ -6,20 +6,19 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/27 16:06:30 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:50:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-# include <termcap.h>
+#include <termcap.h>
 
-void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
+void			index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
 {
 	if (sle->window.cols == 0)
 		return ;
-
 	if (index > sle->rd_info.line_len + sle->rd_info.prompt_len + 1)
-		index =	sle->rd_info.line_len + sle->rd_info.prompt_len;
+		index = sle->rd_info.line_len + sle->rd_info.prompt_len;
 	if (sle->window.cols != 0)
 	{
 		co->x = (index % sle->window.cols);
@@ -27,7 +26,7 @@ void		index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
 	}
 }
 
-void		print_char(t_sle *sle, char c)
+void			print_char(t_sle *sle, char c)
 {
 	write(1, &c, 1);
 	sle->cursor.x++;
@@ -41,13 +40,13 @@ void		print_char(t_sle *sle, char c)
 	}
 }
 
-void		print_loop(t_sle *sle, char *str)
+void			print_loop(t_sle *sle, char *str)
 {
 	while (*str != '\0')
 		print_char(sle, *str++);
 }
 
-uint32_t	write_esc_sequence(char *str, uint32_t index)
+uint32_t		write_esc_sequence(char *str, uint32_t index)
 {
 	char		*esc;
 	uint32_t	length;
@@ -74,7 +73,7 @@ uint32_t	write_esc_sequence(char *str, uint32_t index)
 	return (length + 1);
 }
 
-void	print_prompt_to_window(t_sle *sle, t_vector *text)
+void			print_prompt_to_window(t_sle *sle, t_vector *text)
 {
 	uint32_t	index;
 	char		*str;

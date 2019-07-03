@@ -6,19 +6,19 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:15:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/26 11:59:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:54:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int	ft_putc(const int c)
+int					ft_putc(const int c)
 {
 	write(1, &c, 1);
 	return (42);
 }
 
-uint8_t	is_eof(const char *buffer)
+uint8_t				is_eof(const char *buffer)
 {
 	if (buffer[0] == 4)
 		return (TRUE);

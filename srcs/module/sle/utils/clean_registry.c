@@ -6,14 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:14:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/30 09:08:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:55:46 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "sh21.h"
 
-static void	sle_destroy(__unused t_sle *sle)
+static void	sle_destroy(t_sle *sle)
 {
 	ft_strdel(&sle->termcaps.clear_line);
 	ft_strdel(&sle->termcaps.clear_screen);
@@ -40,7 +39,7 @@ static void	sle_destroy(__unused t_sle *sle)
 	vct_del(&sle->clip);
 }
 
-void	sle_teardown(t_sle *sle)
+void		sle_teardown(t_sle *sle)
 {
 	sle_destroy(sle);
 }

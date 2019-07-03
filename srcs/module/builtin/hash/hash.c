@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/01 13:40:33 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:26:18 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ uint8_t			hash_blt(t_registry *shell, char **av)
 	opt = 0;
 	if (av == NULL || av[0] == NULL)
 	{
-		ft_dprintf(2, HASH_GENERAL_ERROR HASH_NO_AV);
+		ft_dprintf(2, "%s%s"HASH_GENERAL_ERROR HASH_NO_AV);
 		return (1);
 	}
 	else if (av[1] == NULL)
@@ -78,7 +78,7 @@ uint8_t			hash_blt(t_registry *shell, char **av)
 	{
 		ret = hash_args(shell, av[i]);
 		if (ret == NOT_FOUND)
-			ft_dprintf(2, HASH_GENERAL_ERROR "%s" HASH_NOT_FOUND, av[i]);
+			ft_dprintf(2, "%s%s%s" HASH_GENERAL_ERROR, av[i], HASH_NOT_FOUND);
 		else if (ret == 1)
 			return (1);
 		i++;

@@ -6,14 +6,14 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 18:48:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:41:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-static void	expand_prompt(t_sle *sle, t_vector *text)
+static void				expand_prompt(t_sle *sle, t_vector *text)
 {
 	int64_t	length;
 	int64_t	index;
@@ -40,50 +40,50 @@ static void	expand_prompt(t_sle *sle, t_vector *text)
 	}
 }
 
-void			prompt_mode(t_prompt *prompt, char *state, char *missing)
+void					prompt_mode(t_prompt *prompt, char *state,
+				char *missing)
 {
 	prompt->state = state;
 	prompt->missing_char = missing;
 }
 
-static uint8_t            prompt_need_alignment(void)
+static uint8_t			prompt_need_alignment(void)
 {
-    int64_t		i;
+	int64_t			i;
 	uint64_t		pow;
-    char			buff[256];
-    char			ch;
-    uint64_t		x;
+	char			buff[256];
+	char			ch;
+	uint64_t		x;
 
-    i = 0;
-    ch = 0;
-    x = 0;
+	i = 0;
+	ch = 0;
+	x = 0;
 	ft_bzero(buff, 256);
-    write(1, "\033[6n", 4);
-    while (ch != 'R' && i < 255)
-    {
-        read(0, &ch, 1);
-        buff[i] = ch;
-        i++;
-    }
+	write(1, "\033[6n", 4);
+	while (ch != 'R' && i < 255)
+	{
+		read(0, &ch, 1);
+		buff[i] = ch;
+		i++;
+	}
 	i -= 2;
 	pow = 1;
 	while (i >= 0 && buff[i] != ';')
 	{
-       x = x + (buff[i] - '0' ) * pow;
-	   pow *= 10;
-	   --i;
+		x = x + (buff[i--] - '0') * pow;
+		pow *= 10;
 	}
-    return ((x != 1) ? TRUE : FALSE);
+	return ((x != 1) ? TRUE : FALSE);
 }
 
-static void		align_prompt(__unused t_sle *sle)
+static void				align_prompt(t_sle *sle)
 {
 	tputs(sle->termcaps.standout_on, 1, &ft_putc);
 	write(1, "%\n", 2);
 	tputs(sle->termcaps.standout_off, 1, &ft_putc);
 }
 
-inline void		print_prompt(t_registry *shell, t_sle *sle)
+inline void				print_prompt(t_registry *shell, t_sle *sle)
 {
 	t_vector	*ptext;
 

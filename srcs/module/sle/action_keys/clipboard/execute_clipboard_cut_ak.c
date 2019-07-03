@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:23:11 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 13:03:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:42:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int8_t				ak_cut_selection(t_registry *shell, t_sle *sle)
 	tmp = vct_sub(sle->line, start, length + 1);
 	vct_scpy(sle->clip, tmp, ft_strlen(tmp));
 	ft_strdel(&tmp);
-	vct_del_string(sle->line, start, length + 1);
+	if (start == 0 && length == vct_len(sle->line))
+		vct_reset(sle->line);
+	else
+		vct_del_string(sle->line, start, length);
 	ak_exit_modes(shell, sle);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 	set_cursor_pos(sle, start);

@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:07:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 16:02:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:28:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void	update_current_job(t_registry *shell)
+static void		update_current_job(t_registry *shell)
 {
 	t_list *jobs;
 
@@ -29,7 +29,7 @@ static void	update_current_job(t_registry *shell)
 	}
 }
 
-static void	update_job_ids(t_registry *shell)
+static void		update_job_ids(t_registry *shell)
 {
 	uint32_t	id;
 	t_job		*job;
@@ -46,11 +46,10 @@ static void	update_job_ids(t_registry *shell)
 	}
 }
 
-
-void	update_jobinfos(t_registry *shell)
+void			update_jobinfos(t_registry *shell)
 {
 	int		status;
-	pid_t 	pid;
+	pid_t	pid;
 
 	pid = waitpid(WAIT_ANY, &status, WNOHANG | WUNTRACED);
 	mark_proc_status(pid, status);

@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 18:34:36 by ffoissey          #+#    #+#              #
-#    Updated: 2019/07/02 20:45:29 by skuppers         ###   ########.fr        #
+#    Updated: 2019/07/03 15:58:58 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -352,12 +352,13 @@ SLE += clean_registry.c
 SLE += redraw.c
 SLE += redraw_modes.c
 SLE += redraw_tools.c
+SLE += redraw_utils.c
+SLE += mode_fptp.c
 
 #Init
 SLE += setup_sle.c
 SLE += init_sle.c
 SLE += load_sle.c
-SLE += load_sle_modules.c
 SLE += load_sle_struct.c
 SLE += save_interns.c
 
@@ -380,6 +381,9 @@ SLE += execute_he_ak.c
 SLE += execute_word_jumping_ak.c
 SLE += execute_special_ak.c
 SLE += visual_mode.c
+SLE += search_keys.c
+SLE += autocomp.c
+SLE += find_multiline.c
 
 SLE += window.c
 SLE += launch_sle.c

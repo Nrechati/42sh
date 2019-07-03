@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_prompt_length.c                                :+:      :+:    :+:   */
+/*   redraw_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:34:36 by skuppers         ###   ########.fr       */
+/*   Created: 2019/07/03 15:42:13 by skuppers          #+#    #+#             */
+/*   Updated: 2019/07/03 15:46:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint64_t	get_prompt_length(t_prompt *prompt)
+inline void		add_redraw_flags(t_sle *sle, uint32_t rd_flag)
 {
-	return (prompt->length);
+	sle->window.rd_flag |= rd_flag;
+}
+
+inline void		set_redraw_flags(t_sle *sle, uint32_t rd_flag)
+{
+	sle->window.rd_flag = rd_flag;
+}
+
+inline void		set_redraw_bounds(t_sle *sle, uint64_t start, uint64_t end)
+{
+	sle->window.point1 = start;
+	sle->window.point2 = end;
+}
+
+inline void		set_cursor_pos(t_sle *sle, uint64_t index)
+{
+	sle->window.point_cursor = index;
 }

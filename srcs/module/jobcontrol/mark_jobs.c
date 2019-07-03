@@ -6,13 +6,27 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:00:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 13:40:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:26:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void 	mark_job_as_stopped(t_job *job)
+void	mark_job_as_running(t_job *job)
+{
+	t_list		*proclist;
+	t_process	*process;
+
+	proclist = job->processes;
+	while (proclist != NULL)
+	{
+		process = proclist->data;
+		process->stopped = FALSE;
+		proclist = proclist->next;
+	}
+}
+
+void	mark_job_as_stopped(t_job *job)
 {
 	t_list		*proclist;
 	t_process	*process;
@@ -27,7 +41,7 @@ void 	mark_job_as_stopped(t_job *job)
 	}
 }
 
-void 	mark_job_as_completed(t_job *job)
+void	mark_job_as_completed(t_job *job)
 {
 	t_list		*proclist;
 	t_process	*process;
@@ -41,7 +55,7 @@ void 	mark_job_as_completed(t_job *job)
 	}
 }
 
-uint8_t mark_proc_status(pid_t pid, int status)
+uint8_t	mark_proc_status(pid_t pid, int status)
 {
 	t_list		*joblist;
 	t_list		*proclist;

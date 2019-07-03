@@ -6,16 +6,16 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:44:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:58:39 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:02:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
 
-int8_t					ak_enter_visual_mode(__unused t_registry *shell,
-				t_sle *sle)
+int8_t					ak_enter_visual_mode(t_registry *shell, t_sle *sle)
 {
+	(void)shell;
 	if (sle->state != STATE_STD)
 		return (FAILURE);
 	sle->state = STATE_VISUAL;
@@ -24,8 +24,9 @@ int8_t					ak_enter_visual_mode(__unused t_registry *shell,
 	return (SUCCESS);
 }
 
-int8_t					ak_exit_modes(__unused t_registry *shell, t_sle *sle)
+int8_t					ak_exit_modes(t_registry *shell, t_sle *sle)
 {
+	(void)shell;
 	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 	{
 		if (ft_strequ(vct_get_string(sle->search_line), "Failed") == TRUE)
