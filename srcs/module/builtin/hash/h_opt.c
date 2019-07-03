@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:29 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 08:19:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:02:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		hash_dir(t_registry *shell, const char *dir)
 	}
 }
 
-int8_t		hash_all_path(t_registry *shell)
+int8_t			hash_all_path(t_registry *shell)
 {
 	uint32_t	i;
 	char		**tabs;
@@ -63,9 +63,25 @@ int8_t		hash_all_path(t_registry *shell)
 	return (SUCCESS);
 }
 
-int			hash_get_opt(int i, char **av, t_option *opt)
+static int8_t	set_hash_opt(char **av, t_option *opt, int i, int j)
 {
-	int 	j;
+	if (av[i][j] == 'r' && (*opt & H_WIPE) == FALSE)
+		*opt |= H_WIPE;
+	else if (av[i][j] == 'a' && (*opt & H_ALL) == FALSE)
+		*opt |= H_ALL;
+	else if (av[i][j] == 'h' && (*opt & H_HELP) == FALSE)
+		*opt |= H_HELP;
+	else
+	{
+		ft_dprintf(2, "%s%s%s", HASH_GENERAL_ERROR, av[i], HASH_INVALID_OPT);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+int				hash_get_opt(int i, char **av, t_option *opt)
+{
+	int		j;
 
 	while (av[i] && av[i][0] == '-')
 	{
@@ -74,18 +90,8 @@ int			hash_get_opt(int i, char **av, t_option *opt)
 			return (i + 1);
 		while (av[i][j])
 		{
-			if (av[i][j] == 'r' && (*opt & H_WIPE) == FALSE)
-				*opt |= H_WIPE;
-			else if (av[i][j] == 'a' && (*opt & H_ALL) == FALSE)
-				*opt |= H_ALL;
-			else if (av[i][j] == 'h' && (*opt & H_HELP) == FALSE)
-				*opt |= H_HELP;
-			else
-			{
-				ft_dprintf(2, "%s%s%s", HASH_GENERAL_ERROR, av[i], HASH_INVALID_OPT);
-				/// MISS USAGE
+			if (set_hash_opt(av, opt, i, j) == FAILURE)
 				return (FAILURE);
-			}
 			j++;
 		}
 		i++;
