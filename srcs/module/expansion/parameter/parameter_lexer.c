@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:16:54 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/29 23:52:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:27:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,10 @@ void		parameter_lexer(t_parameter *parameter)
 		state[PEX_WORD] = pex_word;
 	}
 	while (parameter->state != PEX_END)
+	{
+		if (parameter->source[parameter->index] == '\0')
+			return;
 		state[parameter->state](parameter);
+	}
 	parameter_print_debug(parameter->tokens);
 }
