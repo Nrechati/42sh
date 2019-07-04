@@ -63,16 +63,26 @@ static uint8_t		change_directory(t_registry *shell, char *curpath,
 						const char *path_give_by_user, const t_option option)
 {
 	char		*old_pwd;
+	uint8_t		ret;
 
 	old_pwd = get_pwd(shell, NO_OPT);
+	ret = 1;
 	if (check_path(shell, curpath, path_give_by_user) == TRUE)
 	{
+		ret = SUCCESS;
 		set_oldpwd_and_pwd(shell, curpath, old_pwd, option);
 		if (ft_strequ(path_give_by_user, "-") == TRUE)
-			ft_printf("%s\n", get_var(shell->intern, "PWD"));
-		return (exit_cd(shell, &old_pwd, &curpath, SUCCESS));
+		{
+			if (write(1, NULL, 0) == FAILURE)
+			{
+				ft_putendl_fd("42sh: cd: write error: Bad file descriptor", 2);
+				ret = 1;
+			}
+			else
+				ft_printf("%s\n", get_var(shell->intern, "PWD"));
+		}
 	}
-	return (exit_cd(shell, &old_pwd, &curpath, 1));
+	return (exit_cd(shell, &old_pwd, &curpath, ret));
 }
 
 static int8_t		is_root(char *path)
