@@ -39,6 +39,8 @@ t_option					set_options(char ***av, t_get_option get_option)
 		{
 			if ((option = get_option(**av + 1, option)) == ERROR_OPT)
 				return (ERROR_OPT);
+			else if (option & STOP_OPT)
+				break ;
 		}
 		(*av)++;
 	}

@@ -106,6 +106,7 @@
 # define S_OPT						0x0100
 # define T_OPT						0x0200
 # define P_LOW_OPT					0x0400
+# define STOP_OPT					0x1000
 # define ERROR_OPT					0x8000
 # define CD_USAGE 					"cd: usage: cd [-L|-P] [dir]\n"
 # define CD_ERROR_OLDPWD_NOTSET		"42sh: cd: OLDPWD not set\n"

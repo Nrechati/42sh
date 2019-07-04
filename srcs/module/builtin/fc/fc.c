@@ -14,7 +14,8 @@
 
 t_option		get_option_fc(char *s, t_option option)
 {
-	option = 0;
+	if (ft_isnumeric(s) == TRUE)
+		return (option & STOP_OPT);
 	while (*s)
 	{
 		if (*s == 'n')
@@ -25,8 +26,8 @@ t_option		get_option_fc(char *s, t_option option)
 			option |= R_OPT;
 		else if (*s == 's')
 			option |= S_OPT;
-		else if (option == 0 && ft_isdigit(*s) == TRUE)
-			return (option);
+		else if (*s == 'e' && (option == NO_OPT))
+			return (option | E_OPT | STOP_OPT);
 		else
 		{
 			ft_dprintf(STDERR_FILENO,
@@ -44,26 +45,25 @@ static char		*get_fc_options(char ***av, t_option *option)
 	char	*editor;
 
 	editor = NULL;
-	if (*av == NULL)
+	if (*av == NULL || (*option = set_options(av, get_option_fc)) == ERROR_OPT)
 		return (NULL);
-	if (ft_strequ(**av, "-e") == TRUE)
+	if (*option & E_OPT)
 	{
-		(*av)++;
-		if (**av == NULL || ***av == '-' || ***av == '\0')
+		if (ft_strequ(**av, "-e") == TRUE && *(*av + 1) == NULL)
 		{
 			ft_dprintf(STDERR_FILENO, "%s\n%s%s or %s", FC_E, FC1, FC2, FC3);
 			*option = ERROR_OPT;
+			return (NULL);
+		}
+		if (ft_strequ(**av, "-e") == TRUE)
+		{
+			(*av)++;
+			editor = ft_strdup(**av);
 		}
 		else
-		{
-			*option = E_OPT;
-			editor = ft_strdup(**av);
-			(*av)++;
-		}
+			editor = ft_strdup(**av + 2);
+		(*av)++;
 	}
-	if (*option == ERROR_OPT)
-		return (NULL);
-	*option |= set_options(av, get_option_fc);
 	return (editor);
 }
 
@@ -84,7 +84,7 @@ uint8_t			fc_blt(t_registry *shell, char **av)
 
 	++av;
 	option = 0;
-	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
+	if ((shell->option.option & RECORD_HISTORY_OPT) == FALSE)
 		return (SUCCESS);
 	editor = get_fc_options(&av, &option);
 	if (option == ERROR_OPT)

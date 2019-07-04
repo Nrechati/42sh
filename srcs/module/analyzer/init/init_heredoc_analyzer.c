@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:07:01 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/29 16:14:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:33:56 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_heredoc_delimiter(t_analyzer analyzer)
 {
 	analyzer[P_HEREDOC_DELIMITER][E_STRING] = heredoc_analyzer;
+	analyzer[P_HEREDOC_DELIMITER][E_IO_NUMBER] = heredoc_analyzer;
 	analyzer[P_HEREDOC_DELIMITER][E_GREAT] = heredoc_analyzer;
 	analyzer[P_HEREDOC_DELIMITER][E_GREATAND] = heredoc_analyzer;
 	analyzer[P_HEREDOC_DELIMITER][E_LESS] = heredoc_analyzer;
@@ -40,6 +41,7 @@ void	init_heredoc_redirect(t_analyzer analyzer)
 void	init_io_heredoc(t_analyzer analyzer)
 {
 	analyzer[P_IO_HEREDOC][E_STRING] = string_analyzer;
+	analyzer[P_IO_HEREDOC][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_IO_HEREDOC][E_GREAT] = redirect_analyzer;
 	analyzer[P_IO_HEREDOC][E_GREATAND] = redirect_analyzer;
 	analyzer[P_IO_HEREDOC][E_LESS] = redirect_analyzer;
@@ -58,6 +60,7 @@ void	init_io_heredoc(t_analyzer analyzer)
 void	init_io_heredoc_delimiter(t_analyzer analyzer)
 {
 	analyzer[P_IO_HEREDOC_DELIMITER][E_STRING] = io_heredoc_analyzer;
+	analyzer[P_IO_HEREDOC_DELIMITER][E_IO_NUMBER] = io_heredoc_analyzer;
 	analyzer[P_IO_HEREDOC_DELIMITER][E_GREAT] = io_heredoc_analyzer;
 	analyzer[P_IO_HEREDOC_DELIMITER][E_GREATAND] = io_heredoc_analyzer;
 	analyzer[P_IO_HEREDOC_DELIMITER][E_LESS] = io_heredoc_analyzer;
@@ -76,6 +79,7 @@ void	init_io_heredoc_delimiter(t_analyzer analyzer)
 void	init_heredoc(t_analyzer analyzer)
 {
 	analyzer[P_HEREDOC][E_STRING] = string_analyzer;
+	analyzer[P_HEREDOC][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_HEREDOC][E_GREAT] = redirect_analyzer;
 	analyzer[P_HEREDOC][E_GREATAND] = redirect_analyzer;
 	analyzer[P_HEREDOC][E_LESS] = redirect_analyzer;
