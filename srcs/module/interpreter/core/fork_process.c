@@ -51,10 +51,7 @@ static void		run_child(t_process *process, char **env)
 	if (pathname != NULL)
 	{
 		if (execve(pathname, process->av, env) == FAILURE)
-		{
 			ft_dprintf(2, "42sh: execution error\n");
-			exit(FAILURE);
-		}
 	}
 	exit(FAILURE);
 }

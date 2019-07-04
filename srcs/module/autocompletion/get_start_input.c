@@ -17,10 +17,13 @@ static char	*get_start_input_file(char *input, size_t len)
 	while (len > 0)
 	{
 		if (input[len] == ' ' || input[len] == '\t'
-				|| input[len] == '>' || input[len] == '<')
+			|| input[len] == '}'
+			|| input[len] == '>' || input[len] == '<')
 			return (input + len + 1);
 		len--;
 	}
+	if (input[0] == '/' || input[0] == '.')
+		return (input);
 	return (input + 1);
 }
 

@@ -35,14 +35,15 @@ uint8_t				launch_sle(t_registry *shell, t_sle *sle)
 
 void				handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 {
-	sl->state = STATE_STD;
-	set_redraw_flags(sl, RD_LINE | RD_CEND);
+	ak_exit_modes(shell, sl);
+	set_redraw_flags(sl, RD_LINE | RD_CHOME);
 	redraw(shell, sl);
 	vct_reset(sl->line);
 	update_window(sl);
 	find_multiline_coord(sl, sl->cursor.index);
 	if (flag & SLE_CC)
 		ft_putendl("^C");
+
 }
 
 void				handle_resize(t_sle *sle)

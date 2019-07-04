@@ -15,7 +15,7 @@
 
 void				valid_command(t_vector **input, t_list **command_group)
 {
-	add_var(&g_shell->intern, "_input", vct_get_string(*input), SET_VAR);
+	add_var(&g_shell->intern, "_input", vct_get_string(*input), READONLY_VAR);
 	vct_del(input);
 	interpreter(g_shell, command_group);
 	load_signal_profile(DFLT_PROFILE);
@@ -23,7 +23,8 @@ void				valid_command(t_vector **input, t_list **command_group)
 
 int					invalid_input(t_vector **input, t_list **tokens)
 {
-	history(g_shell, vct_get_string(*input), ADD_ENTRY);
+	if (g_shell->option.option & RECORD_HISTORY_OPT)
+		history(g_shell, vct_get_string(*input), ADD_ENTRY);
 	ft_lstdel(tokens, del_token);
 	vct_del(input);
 	return (FAILURE);

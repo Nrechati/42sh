@@ -83,8 +83,8 @@ static void		default_variable(t_list **intern, char *name)
 		vct_add(option, 'c');
 	if (g_shell->option.option & DEBUG_OPT)
 		vct_add(option, 'd');
-	if (g_shell->option.option & GARBAGE_COLLECTOR_OPT)
-		vct_add(option, 'g');
+	if (g_shell->option.option & HELP_OPT)
+		vct_add(option, 'h');
 	add_var(intern, "-", vct_get_string(option), READONLY_VAR);
 	vct_del(&option);
 }

@@ -41,7 +41,8 @@ void	update_input(char *string)
 		vector = vct_dups(input);
 		vct_scat(vector, string, ft_strlen(input));
 		vct_scat(vector, "\n", 1);
-		add_var(&g_shell->intern, "_input", vct_get_string(vector), SET_VAR);
+		add_var(&g_shell->intern, "_input",
+					vct_get_string(vector), READONLY_VAR);
 		vct_del(&vector);
 	}
 }

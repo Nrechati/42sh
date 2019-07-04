@@ -28,8 +28,8 @@ static int8_t	shell_option_letter(t_opt *option, char *arg)
 			option->option |= HELP_OPT;
 		else if (*arg == 'd')
 			option->option |= DEBUG_OPT;
-		else if (*arg == 'g')
-			option->option |= GARBAGE_COLLECTOR_OPT;
+		else if (*arg == 'c')
+			option->option |= COMMAND_OPT;
 		else
 		{
 			ft_dprintf(2, "42sh: -%c: invalid option\n", *arg);
@@ -59,24 +59,21 @@ int8_t			parse_arg(char **av, t_opt *option)
 {
 	while (*av != NULL)
 	{
-		if (ft_strequ(*av, "--") == TRUE)
-			return (SUCCESS);
-		else if (ft_strequ(*av, "-c") == TRUE)
-		{
-			option->option |= COMMAND_OPT;
-			ft_strdel(&option->command_str);
-			av++;
-			if (*av == NULL || **av == '-')
-			{
-				ft_dprintf(2, "42sh: need command after -c option\n", av);
-				return (shell_usage());
-			}
-			option->command_str = ft_strdup(*av);
-		}
+		if (**av != '-' || ft_strequ(*av, "--") == TRUE)
+			break ;
 		else if (shell_option_word(option, *av) == FAILURE)
 			if (shell_option_letter(option, *av) == FAILURE)
 				return (shell_usage());
 		av++;
+	}
+	if (option->option & COMMAND_OPT)
+	{
+		if (*av == NULL)
+		{
+			ft_dprintf(2, "42sh: need command after -c option\n", av);
+			return (shell_usage());
+		}
+		option->command_str = ft_strdup(*av);
 	}
 	return (SUCCESS);
 }

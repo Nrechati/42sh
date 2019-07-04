@@ -14,7 +14,8 @@
 
 uint8_t				set_blt(t_registry *shell, char **av)
 {
-	(void)av;
-	print_lst(shell->intern, STDOUT_FILENO, "", SET_VAR);
+	av++;
+	if (*av == NULL)
+		print_lst(shell->intern, STDOUT_FILENO, "", SET_VAR);
 	return (SUCCESS);
 }
