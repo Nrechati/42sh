@@ -6,15 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:02:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 09:48:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:34:45 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIG_H
 # define SIG_H
 
-#include <sys/types.h>
-#include <signal.h>
+# include <sys/types.h>
+# include <signal.h>
 # include "struct.h"
 
 void	load_signal_profile(uint8_t profile_flag);
@@ -22,11 +22,10 @@ void	init_tab_signal_exec(struct sigaction tab_signal[NB_SIGNALS]);
 void	init_tab_signal_sle(struct sigaction tab_signal[NB_SIGNALS]);
 void	init_tab_signal_dflt(struct sigaction tab_signal[NB_SIGNALS]);
 
-
 /*
 **** HANDLER EXEC
 */
-void	sigstop_exec(int signo); //SIGINT ; SIGQUIT ; SIGTERM
+void	sigstop_exec(int signo);
 void	init_exec_signals(void);
 
 void	sigttou_exec(int signo);

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:37:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 01:20:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:31:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void		run_builtin(t_process *process, uint8_t foreground)
 int			run_process(t_process *process, uint8_t foreground)
 {
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
+	{
+		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (process->completed = FAILURE);
+	}
 	if (expand_process(g_shell->intern, process) == FAILURE)
 	{
 		process->type = IS_EXP_ERROR;
@@ -59,6 +62,7 @@ int			run_process(t_process *process, uint8_t foreground)
 	if (get_process_type(g_shell, process) == FAILURE)
 	{
 		ft_dprintf(2, "42sh: [CRITICAL] Mallox error\n");
+		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
 	if (process->type & IS_ASSIGN)

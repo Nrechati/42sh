@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 18:42:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:30:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int					invalid_input(t_vector **input, t_list **tokens)
 {
 	if (g_shell->option.option & RECORD_HISTORY_OPT)
 		history(g_shell, vct_get_string(*input), ADD_ENTRY);
+	add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 	ft_lstdel(tokens, del_token);
 	vct_del(input);
 	return (FAILURE);
