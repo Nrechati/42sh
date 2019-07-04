@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:37:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 16:29:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:22:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 void		run_builtin(t_process *process, uint8_t foreground)
 {
 	char			*tty_name;
-	char			*status;
+//	char			*status;
 	uint8_t			std;
 	t_builtin		builtin;
 
@@ -42,12 +42,9 @@ void		run_builtin(t_process *process, uint8_t foreground)
 	if (process->type & IS_ALONE)
 	{
 		default_io(std, tty_name);
-		status = ft_itoa(process->status);
-		add_var(&g_shell->intern, "?", status, READONLY_VAR);
-		ft_strdel(&status);
+		process->completed = 1;
 	}
 	ft_lstiter(process->redirects, close_redirect);
-	process->completed = 1;
 	return ;
 }
 
