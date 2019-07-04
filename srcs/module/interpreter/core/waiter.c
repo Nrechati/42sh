@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:36:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 17:22:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:44:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int				kill_process(void *context, void *data)
 	return (SUCCESS);
 }
 
-void			update_last_bin(t_list	*processes)
+void			update_last_bin(t_list *processes)
 {
 	char		*status;
 	t_process	*last;
 
-	while(processes->next != NULL)
+	while (processes->next != NULL)
 		processes = processes->next;
 	last = processes->data;
 	status = ft_itoa(last->status);
