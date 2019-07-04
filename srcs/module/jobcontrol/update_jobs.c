@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:07:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 16:28:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:13:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,7 @@ static void		update_job_ids(t_registry *shell)
 
 void			update_jobinfos(t_registry *shell)
 {
-	int		status;
-	pid_t	pid;
-
-	pid = waitpid(WAIT_ANY, &status, WNOHANG | WUNTRACED);
-	mark_proc_status(pid, status);
+	mark_proc_status();
 	update_job_ids(shell);
 	update_current_job(shell);
 }

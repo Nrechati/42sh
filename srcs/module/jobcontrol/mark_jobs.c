@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:00:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 14:33:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:13:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,36 @@ void	mark_job_as_completed(t_job *job)
 	}
 }
 
-uint8_t	mark_proc_status(pid_t pid, int status)
+void	mark_proc(pid_t pid, int status)
 {
-	t_list		*joblist;
-	t_job		*job;
+	t_job	*job;
 
-	if (pid <= 0)
-		return (42);
-	joblist = g_shell->job_list;
-	while (joblist != NULL)
-	{
-		job = joblist->data;
-		if (WIFSTOPPED(status))
-			mark_job_as_stopped(job);
-		else if (WIFSIGNALED(status))
-		{
-			if (WTERMSIG(status) != 18 && WTERMSIG(status) != 19)
-				mark_job_as_completed(job);
-		}
-		else if (WIFEXITED(status) == 1)
+	job = find_job(pid);
+	if (pid <= 0 || job == NULL)
+		return ;
+	if (WIFEXITED(status) == 1)
+		mark_job_as_completed(job);
+	if (WIFSTOPPED(status))
+		mark_job_as_stopped(job);
+	else if (WIFSIGNALED(status))
+		if (WTERMSIG(status) != 18 && WTERMSIG(status) != 19)
 			mark_job_as_completed(job);
-		joblist = joblist->next;
+}
+
+uint8_t	mark_proc_status(void)
+{
+	t_job		*job;
+	t_list		*joblst;
+	pid_t		pid;
+	int			status;
+
+	joblst = g_shell->job_list;
+	while (joblst != NULL)
+	{
+		job = joblst->data;
+		pid = waitpid(job->pgid, &status, WNOHANG);
+		mark_proc(pid, status);
+		joblst = joblst->next;
 	}
 	return (42);
 }
