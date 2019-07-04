@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 21:40:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:18:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,5 @@ void	io_readfd(t_redirect *redirect, t_action *action)
 			redirect->type = FD_BAD_DESCRIPTOR;
 		redirect->from = get_io(action->data->next);
 	}
+	ft_strdel(&str);
 }
