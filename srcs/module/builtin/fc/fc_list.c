@@ -56,6 +56,12 @@ uint8_t			fc_list(char **av, t_option option)
 		ft_strdel(&param);
 		return (1);
 	}
+	if (write(1, NULL, 0) == FAILURE)
+	{
+		ft_putendl_fd("42sh: fc: write error: Bad file descriptor", 2);
+		ft_strdel(&param);
+		return (1);
+	}
 	history(NULL, param, opt_history);
 	ft_strdel(&param);
 	return (SUCCESS);

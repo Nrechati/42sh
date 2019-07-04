@@ -16,6 +16,13 @@ uint8_t				set_blt(t_registry *shell, char **av)
 {
 	av++;
 	if (*av == NULL)
+	{
+		if (write(1, NULL, 0) == FAILURE)
+		{
+			ft_putendl_fd("42sh: set: write error: Bad file descriptor", 2);
+			return (1);
+		}
 		print_lst(shell->intern, STDOUT_FILENO, "", SET_VAR);
+	}
 	return (SUCCESS);
 }

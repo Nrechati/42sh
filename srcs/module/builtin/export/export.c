@@ -104,6 +104,11 @@ uint8_t				export_blt(t_registry *shell, char **av)
 		return (2);
 	if (*av == NULL)
 	{
+		if (write(1, NULL, 0) == FAILURE)
+		{
+			ft_putendl_fd("42sh: export: write error: Bad file descriptor", 2);
+			return (1);
+		}
 		print_lst(shell->intern, STDOUT_FILENO,
 					(option & P_OPT) ? "export " : "", EXPORT_VAR);
 	}

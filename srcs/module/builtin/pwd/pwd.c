@@ -70,5 +70,10 @@ uint8_t			pwd_blt(t_registry *shell, char **av)
 		return (1);
 	ft_putendl(pwd);
 	ft_strdel(&pwd);
+	if (write(1, NULL, 0) == FAILURE)
+	{
+		ft_putendl_fd("42sh: pwd: write error: Bad file descriptor", 2);
+		return (1);
+	}
 	return (SUCCESS);
 }

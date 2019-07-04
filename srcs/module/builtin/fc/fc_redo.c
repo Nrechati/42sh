@@ -97,6 +97,12 @@ uint8_t				fc_redo(t_registry *shell, char **av)
 		return (1);
 	if (cmd == NULL)
 		return (1);
+	if (write(1, NULL, 0) == FAILURE)
+	{
+		ft_putendl_fd("42sh: fc: write error: Bad file descriptor", 2);
+		ft_strdel(&cmd);
+		return (1);
+	}
 	ft_putendl(cmd);
 	vct_cmd = vct_dups(cmd);
 	if (verif_line(NULL, vct_cmd) == TRUE)

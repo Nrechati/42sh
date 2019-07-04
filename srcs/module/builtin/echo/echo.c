@@ -15,6 +15,7 @@
 uint8_t				echo_blt(t_registry *shell, char **av)
 {
 	t_option	option;
+	int8_t		ret;
 
 	++av;
 	(void)shell;
@@ -26,12 +27,14 @@ uint8_t				echo_blt(t_registry *shell, char **av)
 	}
 	while (*av != NULL)
 	{
-		ft_putstr(*av);
+		ret = ft_putstr(*av);
 		++av;
 		if (*av != NULL)
-			ft_putchar(' ');
+			ret = ft_putstr(" ");
 	}
 	if ((option & N_OPT) == FALSE)
-		ft_putchar('\n');
-	return (SUCCESS);
+		ret = ft_putstr("\n");
+	if (ret == FAILURE)
+		ft_putendl_fd("42sh: echo: write error: Bad file descriptor", 2);
+	return (ret == FAILURE ? 1 : SUCCESS);
 }

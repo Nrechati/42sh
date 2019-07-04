@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   waiter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:36:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 11:38:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:22:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,19 @@ int				kill_process(void *context, void *data)
 	return (SUCCESS);
 }
 
+void			update_last_bin(t_list	*processes)
+{
+	char		*status;
+	t_process	*last;
+
+	while(processes->next != NULL)
+		processes = processes->next;
+	last = processes->data;
+	status = ft_itoa(last->status);
+	add_var(&g_shell->intern, "?", status, READONLY_VAR);
+	ft_strdel(&status);
+}
+
 int8_t			waiter(t_job *job)
 {
 	int				status;
@@ -71,6 +84,7 @@ int8_t			waiter(t_job *job)
 		if (pid)
 			update_pid(job, pid, status);
 	}
+	update_last_bin(job->processes);
 	job->state ^= (RUNNING | ENDED);
 	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
 	return (SUCCESS);
