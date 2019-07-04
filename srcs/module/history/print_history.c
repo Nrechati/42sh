@@ -57,7 +57,8 @@ static void		print_standard(t_history *history, t_param *param,
 	}
 }
 
-static void		get_elem(t_history *history, const char *elem, t_param *param)
+static void		get_elem(t_history *history, const char *elem, t_param *param,
+					uint64_t option)
 {
 	char	*cur;
 
@@ -67,21 +68,19 @@ static void		get_elem(t_history *history, const char *elem, t_param *param)
 		param->first = ft_atoi(cur + 6);
 		if (param->first <= 0)
 			param->first = history->nb_of_entries + param->first + 1;
-		if (param->first > history->nb_of_entries)
-			param->first = history->nb_of_entries;
 	}
 	else
-		param->first = history->nb_of_entries - 15;
+		param->first = history->nb_of_entries
+						- ((option & WITHOUT_SPACE) ? 0 : 15);
 	if (elem != NULL && (cur = ft_strstr(elem, "last:")) != NULL)
 	{
 		param->last = ft_atoi(cur + 5);
 		if (param->last <= 0)
-			param->last = -(param->last);
-		if (param->last > history->nb_of_entries)
-			param->last = history->nb_of_entries;
+			param->last = history->nb_of_entries + param->last + 1;
 	}
 	else
-		param->last = history->nb_of_entries;
+		param->last = (option & WITHOUT_SPACE) ?
+					param->first : history->nb_of_entries;
 	if (elem != NULL && (cur = ft_strstr(elem, "fd:")) != NULL)
 		param->fd = ft_atoi(cur + 3);
 }
@@ -92,9 +91,17 @@ void			print_history(t_history *history,
 	t_param	param;
 
 	ft_bzero(&param, sizeof(t_param));
-	get_elem(history, elem, &param);
+	get_elem(history, elem, &param, option);
 	if (param.last < param.first)
 	{
+		if (param.first < 0)
+			param.first = 0;
+		else if (param.first > history->nb_of_entries)
+			param.first = history->nb_of_entries;
+		if (param.last < 0)
+			param.last = 0;
+		else if (param.last > history->nb_of_entries)
+			param.last = history->nb_of_entries;
 		option |= REVERSE;
 		int_swap(&param.first, &param.last);
 	}

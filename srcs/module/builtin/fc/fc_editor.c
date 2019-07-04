@@ -106,6 +106,7 @@ static int8_t	exec_new_pipeline(t_registry *shell)
 		shell->option.option |= INTERACTIVE_OPT;
 		vct_del(&cmd);
 	}
+	ft_strdel(&line);
 	close(fd);
 	return (SUCCESS);
 }

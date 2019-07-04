@@ -79,7 +79,7 @@ static int8_t		get_cmd(t_registry *shell, char **av, char **cmd)
 		}
 		param = ft_strdup(*av);
 	}
-	*cmd = ft_strdup(history(shell, param, GET_ENTRY | BY_ID));
+	*cmd = ft_strdup(history(shell, param, GET_ENTRY | (param ? BY_ID : PREV)));
 	while (replace_cmd(cmd, target, result) == SUCCESS)
 		;
 	free_tools(&target, &result, &param);
