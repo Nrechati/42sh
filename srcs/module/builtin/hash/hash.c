@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/04 09:41:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 09:43:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static uint8_t	protect_no_input(char **av)
 {
 	if (av == NULL || av[0] == NULL)
 	{
-		ft_dprintf(2, "%s%s" HASH_GENERAL_ERROR HASH_NO_AV);
+		ft_dprintf(2, "%s%s", HASH_GENERAL_ERROR, HASH_NO_AV);
 		return (TRUE);
 	}
 	return (FALSE);
