@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:08:53 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/04 03:48:07 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,46 @@ enum e_result_type
 	VARIABLE_TYPE,
 	VARIABLE_BRACKET_TYPE,
 	FILE_TYPE
+};
+
+/*
+*****************************************************
+*********************** EXPANSION *******************
+*****************************************************
+*/
+
+
+enum						e_mathstate
+{
+	MATH_START,
+	MATH_NUMBER,
+	MATH_UNARY,
+	MATH_OPERATOR,
+	MATH_LOGICAL_OPERATOR,
+	MATH_PREFFIX,
+	MATH_SUFFIX,
+	MATH_VARIABLE,
+	MATH_VARIABLE_FLUSH,
+	MATH_OPEN_PARENT,
+	MATH_CLOSE_PARENT,
+	MATH_ERROR,
+	MATH_END
+};
+
+enum						e_rpn
+{
+	RPN_OPERATOR,
+	RPN_PARENT_OPEN,
+	RPN_PARENT_CLOSE,
+	RPN_NUMBER,
+};
+
+enum						e_paramexp
+{
+	PEX_PARAM,
+	PEX_DELIM,
+	PEX_WORD,
+	PEX_END
 };
 
 #endif

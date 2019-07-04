@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:39:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 01:03:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 03:56:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		io_dup_move_analyzer(t_analyze *analyze);
 void		io_filename_analyzer(t_analyze *analyze);
 void		io_and_redirect_flush(t_analyze *analyze);
 void		io_redirect_flush(t_analyze *analyze);
-int			 define_io_dup_move(t_token *token);
+int			define_io_dup_move(t_token *token);
 
 void		heredoc_analyzer(t_analyze *analyze);
 void		io_heredoc_analyzer(t_analyze *analyze);

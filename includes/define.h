@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 00:15:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 03:46:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@
 # define TERMMODE_EXEC  0x04
 
 /*
+*****************************************************
 ********************** SIGNALS **********************
 *****************************************************
 */
@@ -221,7 +222,60 @@
 # define EXP_INTERUPT				" \\\t\'\"`$/="
 # define EXP_CHECK					" \\\t\'\"`/"
 # define BACKSLASH_DQUOTE			"\\$\"\n"
+
 # define EXP_SPECIAL				"$0?!"
+# define COLON_ON					0x1
+# define LONGEST_ON					0x2
+# define PEX_STATES 				4
+# define PEX_DELIMITERS 			12
+# define PEX_ADVANCED_EXP 			6
+# define PEX_SPECIAL				"$0?-"
+# define PEX_PARAM_INTERUPT 		" ${}:-?=+%#\"\'"
+# define PEX_NULL_DEFAULT			"parameter null or not set"
+# define PEX_VALID_DELIM 			" :-?=+%#"
+# define PEX_FIRST_DELIM 			" {}-?=+%#"
+# define PEX_NEXT_DELIM 			" ${}?=+%#"
+# define DEFAULT_PEX_BUFFER			 64
+# define EXPANDED_PARAM				0x01
+# define EMPTY_PARAM				0x02
+
+
+# define MATH_TOKEN					24
+# define MATH_STATE					13
+# define OCTAL_BASE					"012345678"
+# define HEX_BASE					"0123456789ABCDEF"
+# define DEC_BASE					"0123456789"
+
+# define PRECEDENCE					0xffff0000
+# define OPERATOR					0x0000ffff
+
+# define AND 						0x00010001
+# define OR 						0x00010002
+# define DIFF						0x00020004
+# define EQUAL						0x00020008
+
+# define LESSEQ						0x00020010
+# define GREATEQ					0x00020020
+# define LESS						0x00020040
+# define GREAT						0x00020080
+
+# define PLUS						0x00040100
+# define MINUS						0x00040200
+# define TIMES						0x00080400
+# define DIVIDE						0x00080800
+
+# define MODULO						0x00081000
+# define UNARY_PLUS					0x00102000
+# define UNARY_MINUS				0x00104000
+
+# define PRE_INCRE					0x08010000
+# define POST_INCRE					0x08020000
+# define PRE_DECRE					0x08040000
+# define POST_DECRE					0x08080000
+# define OPEN_P						0x10100000
+# define CLOSE_P					0x10200000
+
+
 
 /*
 *****************************************************

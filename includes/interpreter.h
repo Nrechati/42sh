@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 23:22:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 03:55:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 void			run_background_job(t_registry *shell, t_job *job);
 
-int8_t 			interpreter(t_registry *shell, t_list **cmd_group);
+int8_t			interpreter(t_registry *shell, t_list **cmd_group);
 t_list			**ptr_to_job_lst(t_list **job_lst, uint8_t mode);
 
 void			fork_process(t_process *process, uint8_t foreground);
@@ -34,7 +34,6 @@ int				run_process(t_process *process, uint8_t foreground);
 uint8_t			job_is_completed(t_job *job);
 uint8_t			job_is_stopped(t_job *job);
 
-
 int8_t			get_process_type(t_registry *shell, t_process *process);
 char			**generate_env(t_registry *shell, t_list *local_env);
 
@@ -43,12 +42,12 @@ int				assign_intern(t_registry *shell, t_list **assign);
 int				set_process_pgid(void *context, void *data);
 t_redirection	*redirecter_init(void);
 int				check_redirect_error(void *context, void *data);
-int				redirect_or_other(void *action, __unused void *data);
+int				redirect_or_other(void *action, void *data);
 void			del_process_redirect(void *data);
 void			close_redirect(void *data);
 void			close_pipe(void *data);
 int				do_redirect(void *context, void *data);
- int			builtin_redirect(void *context, void *data);
+int				builtin_redirect(void *context, void *data);
 
 int				check_delimiter(char **delimiter, t_vector **vector, int fd);
 void			valid_heredoc_setup(t_redirect *redirect, int from, int to);
@@ -67,7 +66,7 @@ int				expand_process(t_list *intern, t_process *process);
 
 char			*get_filename(t_list *node);
 void			set_ambigous_redirect(t_redirect *redirect, t_list *node);
-int 			get_io(t_list *node);
+int				get_io(t_list *node);
 int				get_custom_fd(char **str, t_list *node);
 void			open_write_file(t_redirect *redirect, char *filename, int flag);
 

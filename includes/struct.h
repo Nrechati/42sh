@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 15:33:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 03:50:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,5 +346,82 @@ struct			s_autocomplete
 	enum e_result_type	type;
 	size_t				index;
 };
+
+/*
+*****************************************************
+********************* EXPANSION *********************
+*****************************************************
+*/
+
+
+typedef struct s_parameter	t_parameter;
+typedef void				(*t_paramexp)(t_parameter *);
+typedef int					(*t_advanced_pex)(t_list *, t_parameter *, int);
+
+
+typedef struct				s_pex_token
+{
+	enum e_paramexp			type;
+	char					*data;
+}							t_pex_token;
+
+struct						s_parameter
+{
+	t_vector				*buffer;
+	t_list					*tokens;
+	char					*expanded;
+	char					*source;
+	size_t					index;
+	uint8_t					modifier;
+	enum e_paramexp			state;
+};
+
+typedef struct s_arithmetic	t_arithmetic;
+typedef void				(*t_arithmexp)(t_arithmetic *);
+typedef t_arithmexp			t_ar_analyzer[MATH_STATE][MATH_TOKEN];
+typedef enum e_mathstate	t_mathstate;
+
+typedef union				u_value
+{
+	int64_t					digit;
+	uint64_t				type;
+}							t_value;
+
+typedef struct				s_rpn_tk
+{
+	enum e_rpn				type;
+	t_value					value;
+}							t_rpn_tk;
+
+typedef struct				s_infix
+{
+	uint8_t					type;
+	int64_t					result;
+	t_stack					calcul;
+}							t_infix;
+
+struct						s_arithmetic
+{
+	t_vector				*input;
+	char					*expanded;
+	t_list					*tokens;
+	t_list					*current;
+	t_token					*curr_token;
+	t_stack					processing;
+	t_list					*solving;
+	int						parenthesis;
+	t_mathstate				state;
+	size_t					end;
+};
+
+typedef struct				s_math
+{
+	t_vector				*input;
+	t_list					*tokens;
+	t_token					*current_token;
+	t_stack					sign;
+	t_stack					operand;
+	char					*expanded;
+}							t_math;
 
 #endif

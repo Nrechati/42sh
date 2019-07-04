@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:02:15 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 02:18:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 03:41:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_heredoc_delim(char *data)
 
 	i = 0;
 	delimiter = NULL;
-	while(data[i] != '\0')
+	while (data[i] != '\0')
 	{
 		if (data[i] == '\n')
 			delete_character(data + i);
