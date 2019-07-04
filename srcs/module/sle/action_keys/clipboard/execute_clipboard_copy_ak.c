@@ -31,5 +31,6 @@ int8_t	ak_copy_selection(t_registry *shell, t_sle *sle)
 	ak_exit_modes(shell, sle);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 	set_cursor_pos(sle, start);
+	find_multiline_coord(sle, 0);
 	return (SUCCESS);
 }

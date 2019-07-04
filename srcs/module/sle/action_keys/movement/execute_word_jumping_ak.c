@@ -41,8 +41,6 @@ int8_t		ak_ctrl_left(t_registry *shell, t_sle *sle)
 	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
-	if (sle->cursor.index < 0)
-		return (FAILURE);
 	next_char = get_next_char(sle->line->buffer, sle->cursor.index, -1);
 	if (sle->state == STATE_VISUAL)
 		set_redraw_flags(sle, RD_LINE | RD_CMOVE);

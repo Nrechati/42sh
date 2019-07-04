@@ -21,5 +21,6 @@ int8_t				ak_paste_clipboard(t_registry *shell, t_sle *sle)
 					sle->cursor.index);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
 	set_cursor_pos(sle, sle->cursor.index + vct_len(sle->clip));
+	find_multiline_coord(sle, vct_len(sle->clip));
 	return (SUCCESS);
 }
