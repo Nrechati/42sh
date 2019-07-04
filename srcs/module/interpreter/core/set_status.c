@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:20:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 14:16:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:31:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,23 @@ static void	exited_process(t_process *current, int status)
 	ft_strdel(&exit_status);
 }
 
-static void print_signaled(char *command, int signo)
+static void	print_signaled(char *command, int signo)
 {
-	if (signo == SIGHUP)
-		ft_dprintf(2, "42sh: %s: terminal hangup [1]\n", command);
-	if (signo == SIGQUIT)
-		ft_dprintf(2, "42sh: %s: Quit [3]\n", command);
-	if (signo == SIGILL)
-		ft_dprintf(2, "42sh: %s: Illegal instruction [4]\n", command);
-	if (signo == SIGTRAP)
-		ft_dprintf(2, "42sh: %s: Trap [5]\n", command);
-	if (signo == SIGABRT)
-		ft_dprintf(2, "42sh: %s: Abort [6]\n", command);
-	if (signo == SIGEMT)
-		ft_dprintf(2, "42sh: %s: EMT Trap [7]\n", command);
-	if (signo == SIGFPE)
-		ft_dprintf(2, "42sh: %s: floating point exception [8]\n", command);
-	if (signo == SIGKILL)
-		ft_dprintf(2, "42sh: %s: killed [9]\n", command);
-	if (signo == SIGBUS)
-		ft_dprintf(2, "42sh: %s: bus error [10]\n", command);
-	if (signo == SIGSEGV)
-		ft_dprintf(2, "42sh: %s: segmentation fault[11]\n", command);
-	if (signo == SIGSYS)
-		ft_dprintf(2, "42sh: %s: Bad system call [12]\n", command);
-	if (signo == SIGALRM)
-		ft_dprintf(2, "42sh: %s: Alarm clock [14]\n", command);
-	if (signo == SIGTERM)
-		ft_dprintf(2, "42sh: %s: Terminated [15]\n", command);
+	static char			*signal_string[16] = { NULL, "terminal hangup", NULL
+											, "Quit"
+											, "Illegal instruction", "Trap"
+											, "Abort", "EMT Trap"
+											, "Floating point exception"
+											, "killed", "bus error"
+											, "segmentation fault"
+											, "Bad system call"
+											, NULL
+											, "Alarm clock"
+											, "Terminated"};
+
+	if (signo != 2 && signo != 13 && signo >= 1 && signo <= 15)
+		ft_dprintf(2, "42sh: %s: %s [%d]\n"
+				, command, signal_string[signo], signo);
 }
 
 static void	signaled_process(t_job *job, int status)
