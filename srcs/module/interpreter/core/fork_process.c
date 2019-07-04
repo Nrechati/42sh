@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/04 16:31:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:47:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,12 @@ static void		parent_process(t_process *process, char ***env, uint8_t fg)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
 	if (fg == FALSE)
+	{
 		tcsetpgrp(STDOUT_FILENO, g_shell->pid);
+		term_mode(TERMMODE_EXEC);
+	}
+	else
+		tcsetpgrp(STDOUT_FILENO, *process->pgid);
 	ft_freetab(env);
 }
 

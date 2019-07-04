@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 11:31:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:12:38 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	get_process_av(t_process *proc, char **str);
 int8_t	parse_jobid(t_job **job, char *param);
 
 void	notify_job_info(t_list *joblist, char *info);
-uint8_t	mark_proc_status(pid_t pid, int status);
+uint8_t	mark_proc_status(void);
+void	mark_proc(pid_t pid, int status);
 void	mark_job_as_stopped(t_job *job);
 void	mark_job_as_completed(t_job *job);
 void	mark_job_as_running(t_job *job);
