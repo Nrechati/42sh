@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 16:03:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:14:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:28:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-t_option		get_option_jobs(char *s, t_option option)
+t_option			get_option_jobs(char *s, t_option option)
 {
 	option = 0;
 	while (*s)
@@ -33,7 +33,7 @@ t_option		get_option_jobs(char *s, t_option option)
 	return (option);
 }
 
-void		jobs(t_registry *shell, t_job *job, t_option option)
+void				jobs(t_registry *shell, t_job *job, t_option option)
 {
 	if (option & L_OPT)
 		jobctl(shell, job, JOBCTL_LIST | JOBCTL_LONG);
@@ -43,11 +43,35 @@ void		jobs(t_registry *shell, t_job *job, t_option option)
 		jobctl(shell, job, JOBCTL_LIST);
 }
 
-uint8_t		jobs_blt(t_registry *shell, char **av)
+static uint8_t		get_jobname(t_registry *shell, char **av, t_option option)
+{
+	uint8_t		ret;
+	int8_t		result;
+	t_job		*job;
+
+	ret = SUCCESS;
+	while (*av != NULL)
+	{
+		result = parse_jobid(&job, *av);
+		if (result == FAILURE || result == BAD_PERCENTAGE)
+		{
+			if (result == FAILURE)
+				ft_printf("jobs: %s: no such job.\n", *av);
+			else
+				ft_printf("jobs: usage: jobs [-l|-p] [%%jobID]\n");
+			ret = 1;
+			++av;
+			continue ;
+		}
+		jobs(shell, job, option);
+		++av;
+	}
+	return (ret);
+}
+
+uint8_t				jobs_blt(t_registry *shell, char **av)
 {
 	t_option	option;
-	t_job		*job;
-	int8_t		result;
 	uint8_t		ret;
 
 	if (jobctl_is_active(shell) == FALSE)
@@ -59,23 +83,6 @@ uint8_t		jobs_blt(t_registry *shell, char **av)
 	if (*av == NULL)
 		jobs(shell, NULL, option);
 	else
-	{
-		while (*av != NULL)
-		{
-			result = parse_jobid(&job, *av);
-			if (result == FAILURE || result == BAD_PERCENTAGE)
-			{
-				if (result == FAILURE)
-					ft_printf("jobs: %s: no such job.\n", *av);
-				else
-					ft_printf("jobs: usage: jobs [-l|-p] [%%jobID]\n");
-				ret = 1;
-				++av;
-				continue ;
-			}
-			jobs(shell, job, option);
-			++av;
-		}
-	}
+		ret = get_jobname(shell, av, option);
 	return (ret);
 }

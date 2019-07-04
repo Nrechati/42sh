@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:59:16 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 14:12:20 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:30:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		print_longformat(t_job *job, char *state)
 	}
 }
 
-static void	print_jobinfo(__unused t_job *job, uint8_t __unused flag)
+static void		print_jobinfo(t_job *job, uint8_t flag)
 {
 	char		*state;
 	char		*command;
@@ -53,7 +53,7 @@ static void	print_jobinfo(__unused t_job *job, uint8_t __unused flag)
 	ft_strdel(&command);
 }
 
-static void	print_joblist(__unused uint8_t flag)
+static void		print_joblist(uint8_t flag)
 {
 	char		*state;
 	char		*avs;
@@ -81,7 +81,7 @@ static void	print_joblist(__unused uint8_t flag)
 	}
 }
 
-void	print_jobs(t_registry *shell, t_job *job, uint8_t flag)
+void			print_jobs(t_registry *shell, t_job *job, uint8_t flag)
 {
 	update_jobinfos(shell);
 	if (job == NULL)

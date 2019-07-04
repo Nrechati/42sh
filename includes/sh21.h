@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 03:48:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:46:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 /// LINUX ///
 # include <signal.h>
 # include <sys/wait.h>
+
 /////////////
 # include "libft.h"
 # include "define.h"
@@ -35,9 +36,8 @@
 # include "log.h"
 # include "jobctl.h"
 
-
-uint8_t is_shell_interactive(t_registry *shell);
-t_registry	*g_shell;
+uint8_t			is_shell_interactive(t_registry *shell);
+t_registry		*g_shell;
 
 /*
 *****************************************************
@@ -56,7 +56,7 @@ int8_t			set_environment(t_registry *shell, char **av, char **env);
 int8_t			shell_usage(void);
 void			shell_exit_routine(t_registry *shell, int8_t ret);
 int8_t			parse_arg(char **av, t_opt *option);
-void			generate_grammar(void); // TEMP
+void			generate_grammar(void);
 
 /*
 *****************************************************
@@ -95,7 +95,7 @@ int8_t			free_var(t_list **alst, char *var);
 *****************************************************
 */
 
-int8_t					find_in_path(t_registry *shell, char *bin, char **buf);
+int8_t			find_in_path(t_registry *shell, char *bin, char **buf);
 
 /*
 *****************************************************

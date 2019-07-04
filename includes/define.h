@@ -6,19 +6,19 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 03:46:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:13:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
 
-
-///// LINUX /////
+/*
+*** LINUX ***
+*/
 # ifndef __unused
 #  define __unused __attribute__((unused))
 # endif
-/////////////////
 
 /*
 *****************************************************
@@ -168,11 +168,9 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
-//#define INT_PS1_VALUE "[42sh]-> "
-# define INT_PS1_VALUE				"[\\e[32m42sh\\e[0m][\\e[31m\\u\\e[0m@\\e[2;33m\\h\\e[0m][\\e[34m\\w\\e[0m]-> "
+# define INT_PS1_VALUE				"[\\e[31m\\u\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
-
 
 /*
 *****************************************************
@@ -240,7 +238,6 @@
 # define EXPANDED_PARAM				0x01
 # define EMPTY_PARAM				0x02
 
-
 # define MATH_TOKEN					24
 # define MATH_STATE					13
 # define OCTAL_BASE					"012345678"
@@ -275,8 +272,6 @@
 # define POST_DECRE					0x08080000
 # define OPEN_P						0x10100000
 # define CLOSE_P					0x10200000
-
-
 
 /*
 *****************************************************
@@ -407,12 +402,12 @@
 
 # define JOBCTL_PLUS					0x01
 # define JOBCTL_MINUS					0x02
-# define JOBCTL_LIST					0x01 /* List jobs in bg | Builtin jobs */
+# define JOBCTL_LIST					0x01
 # define JOBCTL_LONG					0x02
 # define JOBCTL_ID						0x04
-# define JOBCTL_PUTINBG					0x08 /* Save job to jobctl module */
-# define JOBCTL_PUTINFG					0x10 /* Restore bg job to fg | builtin fg */
-# define JOBCTL_RUNINBG					0x20 /* Exec a bg job in bg | builtin bg */
+# define JOBCTL_PUTINBG					0x08
+# define JOBCTL_PUTINFG					0x10
+# define JOBCTL_RUNINBG					0x20
 
 /*
 *****************************************************
@@ -477,18 +472,18 @@
 # define SLE_SIZE_UPDATE	0x2000
 # define SLE_EXIT			0x4000
 
-# define RD_NONE        0x001 /* No redraw at all*/
-# define RD_CLEAR       0x002 /* Redraw th entire window*/
-# define RD_LINE      	0x004 /* Redraw entire line */
-# define RD_LAST        0x008 /* redraw only last char of line vect */
-# define RD_FPTP        0x010 /* From point to point (index / t_coord) */
-# define RD_FPTE        0x020 /* From point to end */
-# define RD_FSTP        0x040 /* From start to point */
-# define RD_CEND        0x080 /* Put cursor at end */
-# define RD_CHOME       0x100 /* Put cursor at home */
-# define RD_CMOVE       0x200 /* Put cursor to point / index */
-# define RD_VISUAL		0x400
-# define RD_SEARCH      0x800
+# define RD_NONE        	0x001
+# define RD_CLEAR       	0x002
+# define RD_LINE      		0x004
+# define RD_LAST        	0x008
+# define RD_FPTP        	0x010
+# define RD_FPTE        	0x020
+# define RD_FSTP        	0x040
+# define RD_CEND        	0x080
+# define RD_CHOME       	0x100
+# define RD_CMOVE       	0x200
+# define RD_VISUAL			0x400
+# define RD_SEARCH      	0x800
 # define BAD_PERCENTAGE		0x001
 # define CRITICAL_ERROR     0x001
 # define MALLOC_FAIL        0x002

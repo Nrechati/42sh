@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   sle.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 20:09:52 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:12:15 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERFACE_FUNCTIONS_H
-# define INTERFACE_FUNCTIONS_H
+#ifndef SLE_H
+# define SLE_H
 
 # include "struct.h"
 
@@ -21,24 +21,23 @@
 *****************************************************
 */
 
-void			save_intern_vars(t_registry *shell, t_sle *sle);
-void			find_multiline_coord(t_sle *sle, int8_t offset);
-t_vector		*read_error(t_registry *shell, t_sle *sle);
-uint64_t		get_prompt_length(t_prompt *prompt);
+void		save_intern_vars(t_registry *shell, t_sle *sle);
+void		find_multiline_coord(t_sle *sle, int8_t offset);
+t_vector	*read_error(t_registry *shell, t_sle *sle);
+uint64_t	get_prompt_length(t_prompt *prompt);
 
-uint8_t			verif_line(t_sle *sle, t_vector *line);
-uint8_t			parenthesis(t_sle *sle, t_vector *line, size_t *i);
-uint8_t			double_quote_routine(t_sle *sle, t_vector *line, size_t *i);
-uint8_t			single_quote_routine(t_sle *sle, t_vector *line, size_t *i);
-uint8_t			brace_exp_routine(t_sle *sle, t_vector *line, size_t *i);
-uint8_t			maths_exp_routine(t_sle *sle, t_vector *line, size_t *i);
+uint8_t		verif_line(t_sle *sle, t_vector *line);
+uint8_t		parenthesis(t_sle *sle, t_vector *line, size_t *i);
+uint8_t		double_quote_routine(t_sle *sle, t_vector *line, size_t *i);
+uint8_t		single_quote_routine(t_sle *sle, t_vector *line, size_t *i);
+uint8_t		brace_exp_routine(t_sle *sle, t_vector *line, size_t *i);
+uint8_t		maths_exp_routine(t_sle *sle, t_vector *line, size_t *i);
 
-void			backslash_process(t_vector *line);
-uint8_t			is_maths_exp(t_vector *line, int index);
-uint8_t			is_brace_exp(t_vector *line, int index);
-uint8_t			is_end_backslash(t_vector *line, int index);
-uint8_t			subprompt_call(t_sle *sle, t_vector *line, uint32_t option);
-
+void		backslash_process(t_vector *line);
+uint8_t		is_maths_exp(t_vector *line, int index);
+uint8_t		is_brace_exp(t_vector *line, int index);
+uint8_t		is_end_backslash(t_vector *line, int index);
+uint8_t		subprompt_call(t_sle *sle, t_vector *line, uint32_t option);
 
 /*
 *****************************************************
@@ -54,19 +53,19 @@ void		sle_teardown(t_sle *sle);
 uint64_t	get_terminal_info(t_registry *shell);
 uint64_t	init_termcaps(t_termcaps *termcp);
 uint64_t	assign_keycodes(t_sle *sle);
-uint64_t    link_keys_functions(int8_t (*actionkeys[AK_AMOUNT])(__unused t_registry *shell, t_sle *sle));
-uint64_t    set_sle_internals(t_registry *shell);
-uint64_t    init_line(t_sle *sle);
+uint64_t	link_keys_functions(t_actionkeys actionkeys[AK_AMOUNT]);
+uint64_t	set_sle_internals(t_registry *shell);
+uint64_t	init_line(t_sle *sle);
 
-uint64_t    init_window(t_sle *sle);
-uint64_t    init_cursor(t_sle *sle);
-uint64_t    init_prompt(t_sle *sle);
+uint64_t	init_window(t_sle *sle);
+uint64_t	init_cursor(t_sle *sle);
+uint64_t	init_prompt(t_sle *sle);
 
 t_vector	*prompt(t_registry *shell, t_sle *sle);
 t_vector	*invoke_ps2prompt(t_registry *shell, t_sle *sle, uint32_t sle_flag);
 t_vector	*invoke_ps3prompt(t_registry *shell, t_sle *sle);
 
-void		handle_input_key(t_registry *shell, t_sle *sle, char c[READ_SIZE ]);
+void		handle_input_key(t_registry *shell, t_sle *sle, char c[READ_SIZE]);
 
 void		add_redraw_flags(t_sle *sle, uint32_t flag);
 void		set_redraw_flags(t_sle *sle, uint32_t rd_flag);
@@ -110,15 +109,14 @@ void		p_insert_missing(t_sle *sle, t_vector *text, uint64_t index);
 *****************************************************
 */
 
-
 int			ft_putc(const int c);
 uint8_t		is_eof(const char *buffer);
-uint8_t		is_separator(char[READ_SIZE + 1]);
+uint8_t		is_separator(char c[READ_SIZE + 1]);
 uint8_t		is_printable(char c[READ_SIZE + 1]);
 uint64_t	compute_mask(char c[READ_SIZE]);
 
-uint32_t	get_next_char(const char *str, uint32_t index, const char direction);
-
+uint32_t	get_next_char(const char *str, uint32_t index
+						, const char direction);
 
 void		link_actions_to_keys(int8_t (*actionkeys[AK_AMOUNT])
 				(struct s_sle *sle));

@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:59:23 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 16:21:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:33:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	push_current_job(t_registry *shell, t_list *job)
+void			push_current_job(t_registry *shell, t_list *job)
 {
 	char	*pgid;
 
@@ -23,10 +23,23 @@ void	push_current_job(t_registry *shell, t_list *job)
 	ft_strdel(&pgid);
 }
 
-void	pop_current_job(t_registry *shell, t_job *job)
+static void		set_minus(t_registry *shell, t_list *jobs)
+{
+	jobs = shell->job_list;
+	shell->current_minus = NULL;
+	while (jobs != NULL)
+	{
+		if (jobs != shell->current_plus && jobs != NULL)
+			shell->current_minus = jobs;
+		jobs = jobs->next;
+	}
+}
+
+void			pop_current_job(t_registry *shell, t_job *job)
 {
 	t_list	*jobs;
 
+	jobs = NULL;
 	if (shell->current_plus == NULL)
 		return ;
 	if ((t_job*)shell->current_plus->data == job)
@@ -41,14 +54,5 @@ void	pop_current_job(t_registry *shell, t_job *job)
 		}
 	}
 	else if ((t_job*)shell->current_minus->data == job)
-	{
-		jobs = shell->job_list;
-		shell->current_minus = NULL;
-		while (jobs != NULL)
-		{
-			if (jobs != shell->current_plus && jobs != NULL)
-				shell->current_minus = jobs;
-			jobs = jobs->next;
-		}
-	}
+		set_minus(shell, jobs);
 }

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:00:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 17:38:31 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:33:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ uint8_t	mark_proc_status(pid_t pid, int status)
 	t_list		*joblist;
 	t_job		*job;
 
-//	ft_printf("pid:%d\n", pid);
 	if (pid <= 0)
 		return (42);
 	joblist = g_shell->job_list;

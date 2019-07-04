@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:20:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 22:21:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:31:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,34 @@ static void	exited_process(t_process *current, int status)
 	ft_strdel(&exit_status);
 }
 
+static void	print_signaled(char *command, int signo)
+{
+	static char			*signal_string[16] = { NULL, "terminal hangup", NULL
+											, "Quit"
+											, "Illegal instruction", "Trap"
+											, "Abort", "EMT Trap"
+											, "Floating point exception"
+											, "killed", "bus error"
+											, "segmentation fault"
+											, "Bad system call"
+											, NULL
+											, "Alarm clock"
+											, "Terminated"};
+
+	if (signo != 2 && signo != 13 && signo >= 1 && signo <= 15)
+		ft_dprintf(2, "42sh: %s: %s [%d]\n"
+				, command, signal_string[signo], signo);
+}
+
 static void	signaled_process(t_job *job, int status)
 {
 	int			signo;
 	char		*exit_status;
+	char		*command;
 
 	signo = WTERMSIG(status);
+	command = get_var(g_shell->intern, "_input");
+	print_signaled(command, signo);
 	if (signo == 2 || signo == 3)
 		sigstop_exec(signo);
 	exit_status = ft_itoa((uint8_t)(signo + 128));

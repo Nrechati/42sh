@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 09:49:08 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:56:56 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ void	sigtstp_exec(int signo)
 }
 
 void	sigttin_exec(int signo)
-{
-	(void)signo;
-}
-
-void	sigttou_exec(int signo)
 {
 	(void)signo;
 }
