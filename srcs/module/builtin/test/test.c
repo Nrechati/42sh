@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 14:50:39 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 09:25:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ static uint8_t		handle_input(t_hash *callbacks, int ac, char **av, int i)
 	return (status);
 }
 
+static uint8_t		check_no_input(t_hash *callbacks, int ac)
+{
+	if (ac == 0)
+	{
+		ft_hmap_free_content(callbacks, NULL);
+		free(callbacks->map);
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 int8_t				test_blt(t_registry *shell, char **av)
 {
 	int				i;
@@ -72,11 +83,8 @@ int8_t				test_blt(t_registry *shell, char **av)
 	ac = ft_tabsize(av);
 	i = 1 + (ac > 2 && ft_strequ(av[1], "!"));
 	ac -= i;
-	if (ac == 0)
-	{
-		ft_hmap_free_content(&callbacks, NULL);
+	if (check_no_input(&callbacks, ac) == TRUE)
 		return (EXIT_FALSE);
-	}
 	status = handle_input(&callbacks, ac, av, i);
 	if (i > 1 && ac >= 1 && status != ERROR)
 		status = test_not(status);
