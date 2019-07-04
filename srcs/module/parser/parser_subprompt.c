@@ -27,10 +27,20 @@ uint8_t				need_subprompt(enum e_type state, enum e_type type)
 {
 	if (state == E_PIPE || state == E_DAND || state == E_OR)
 	{
-		if ((type == E_NEWLINE || type == E_END)
-				&& (g_shell->option.option & INTERACTIVE_OPT))
+		if ((type == E_NEWLINE || type == E_END))
+		{
+			if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
+			{
+				ft_printf("42sh: Unexpected EOF while looking for matching "
+						"%s\n", (char *)g_shell->grammar[state]);
+				add_var(&g_shell->intern, "?", "1", READONLY_VAR);
+				return (FALSE);
+			}
 			return (TRUE);
+		}
 	}
+	ft_dprintf(2, "42sh: syntax error near unexpected token `%s'\n",
+				type == E_NEWLINE ? "\\n" : g_shell->grammar[type]);
 	return (FALSE);
 }
 
@@ -59,8 +69,13 @@ uint8_t				parser_subprompt(enum e_type state,
 	line = NULL;
 	option = set_option_subprompt(state);
 	sle(g_shell, &line, option);
-	if (line == NULL)
+//	history(g_shell, vct_get_string(input), ADD_ENTRY);
+	if (line == NULL)// || do_history_exp(&line) == FAILURE)
+	{
+//		history(g_shell, NULL, POP_ENTRY);
 		return (FALSE);
+	}
+//	history(g_shell, NULL, POP_ENTRY);
 	if (line->buffer == NULL || ft_strequ(line->buffer, "\n") == TRUE)
 		return (parser_subprompt(state, input, lst));
 	vct_pop(input);

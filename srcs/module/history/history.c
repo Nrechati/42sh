@@ -15,17 +15,23 @@
 static void	add_new_entry(t_history *history, char *new)
 {
 	size_t		len;
+	char		*dup;
 
 	if (new == NULL || *new == '\0')
 		return ;
+	dup = ft_strdup(new);
 	len = ft_strlen(new);
-	if (len > 0 && new[len - 1] == '\n')
-		new[len - 1] = '\0';
-	if (*new == '\0')
+	if (len > 0 && dup[len - 1] == '\n')
+		dup[len - 1] = '\0';
+	if (*dup == '\0')
+	{
+		ft_strdel(&dup);
 		return ;
-	add_entry(&history->entry, create_entry(new));
+	}
+	add_entry(&history->entry, create_entry(dup));
 	history->head_ptr = history->entry;
 	history->nb_of_entries++;
+	ft_strdel(&dup);
 }
 
 static void	delete_entry(t_history *history, const int id)

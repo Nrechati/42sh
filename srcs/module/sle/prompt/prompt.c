@@ -30,11 +30,6 @@ static void				prompt_pre_process(t_sle *sle)
 
 static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 {
-	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
-	{
-		vct_del(&sle->line);
-		sle->line = vct_dup(sle->sub_line);
-	}
 	sle->state = STATE_STD;
 	autocompletion(NULL, shell, NULL, RESET_RESULT);
 	history(NULL, NULL, RESET_HEAD);
@@ -42,8 +37,12 @@ static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
 	ft_putendl("");
-	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
+	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE
+		|| ft_strequ(sle->prompt.missing_char, PROMPT_PIPE) == TRUE
+		|| ft_strequ(sle->prompt.missing_char, PROMPT_OR) == TRUE
+		|| ft_strequ(sle->prompt.missing_char, PROMPT_AND) == TRUE)
 	{
+		ft_putendl(sle->line->buffer);
 		if (verif_line(sle, sle->line) == FALSE)
 			return (FAILURE);
 	}

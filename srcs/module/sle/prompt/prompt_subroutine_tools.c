@@ -22,16 +22,22 @@ uint8_t			subprompt_call(t_sle *sle, t_vector *line, uint32_t option)
 
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
-		ft_printf("42sh: Unexpected EOF while looking for matching %s.\n",
+		ft_printf("42sh: Unexpected EOF while looking for matching %s\n",
 						(char *)prompt_type[option]);
+		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FALSE);
 	}
+//	history(g_shell, vct_get_string(line), ADD_ENTRY);
 	new_input = invoke_ps2prompt(g_shell, sle, option);
-	if (new_input == NULL)
+	if (new_input == NULL)// || (option != PRINT_QUOTE && option != PRINT_DQUOTE
+				//&& do_history_exp(&new_input) == FAILURE))
 	{
 		vct_del(&new_input);
+	//	history(g_shell, NULL, POP_ENTRY);
 		return (FALSE);
 	}
+	ft_putendl(new_input->buffer);
+//	history(g_shell, NULL, POP_ENTRY);
 	vct_ncat(line, new_input, vct_len(new_input));
 	vct_del(&new_input);
 	return (TRUE);

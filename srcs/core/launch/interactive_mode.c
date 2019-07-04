@@ -19,7 +19,7 @@ static uint8_t		is_input_valid(uint8_t valid)
 	return (TRUE);
 }
 
-static int8_t		do_history_exp(t_vector **input)
+int8_t				do_history_exp(t_vector **input)
 {
 	t_vector	*new;
 	int8_t		ret;
@@ -62,5 +62,5 @@ void				interactive_mode(t_registry *shell)
 			vct_del(&input);
 	}
 	term_mode(TERMMODE_DFLT);
-	shell_exit_routine(g_shell, 0);
+	shell_exit_routine(shell, SUCCESS);
 }
