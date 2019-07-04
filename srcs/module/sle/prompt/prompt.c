@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 14:36:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:58:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void				prompt_pre_process(t_sle *sle)
 	int		status;
 	pid_t	pid;
 
-	pid = waitpid(WAIT_ANY, &status, WNOHANG | WUNTRACED);
+	pid = waitpid(WAIT_ANY, &status, WNOHANG);
 	mark_proc_status(pid, status);
 	notify_job_info(g_shell->job_list, "Done");
 	sle->state = STATE_STD;
@@ -30,11 +30,6 @@ static void				prompt_pre_process(t_sle *sle)
 
 static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 {
-	if (ft_strequ(vct_get_string(sle->line), "Failed") == TRUE)
-	{
-		vct_del(&sle->line);
-		sle->line = vct_dup(sle->sub_line);
-	}
 	sle->state = STATE_STD;
 	autocompletion(NULL, shell, NULL, RESET_RESULT);
 	history(NULL, NULL, RESET_HEAD);

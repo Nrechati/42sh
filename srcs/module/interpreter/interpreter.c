@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:37:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 16:29:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:06:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ static int	run_job(void *context, void *data)
 		launch_pipeline(job->processes, foreground);
 	if (foreground == TRUE)
 		return (waiter(job));
+	else
+		return (setup_background_job(job));
 	return (SUCCESS);
 }
 
