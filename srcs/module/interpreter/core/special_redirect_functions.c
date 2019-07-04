@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:23:24 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 20:30:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:22:03 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	get_filename_special(t_list *node, char **file)
 	token = node->data;
 	if ((filename = expansion_pipeline(g_shell->intern, token->data)) == NULL)
 		return (FAILURE);
+	*file = filename;
 	if ((action_type = define_io_dup_move(token)) != A_AMBIGOUS_REDIRECT)
 		return (action_type);
-	*file = filename;
 	return (SUCCESS);
 }
 
