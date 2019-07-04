@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:22:09 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 14:50:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:27:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int8_t		ak_ctrl_left(t_registry *shell, t_sle *sle)
 
 	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
-		return (FAILURE);
-	if (sle->cursor.index < 0)
 		return (FAILURE);
 	next_char = get_next_char(sle->line->buffer, sle->cursor.index, -1);
 	if (sle->state == STATE_VISUAL)
