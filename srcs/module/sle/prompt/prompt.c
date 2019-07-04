@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:38:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:36:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ t_vector				*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 	}
 	vct_del(&line);
 	sle->line = linesave;
-	//vct_add(sle->sub_line, '\n');
 	return (vct_dup(sle->sub_line));
 }

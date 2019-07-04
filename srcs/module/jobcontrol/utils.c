@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 17:28:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 16:28:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:34:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ uint8_t			jobctl_is_active(t_registry *shell)
 	return (TRUE);
 }
 
-t_job	*find_job(pid_t pgid)
+t_job			*find_job(pid_t pgid)
 {
 	t_list *job;
 
@@ -37,7 +37,7 @@ t_job	*find_job(pid_t pgid)
 	return (NULL);
 }
 
-uint8_t	job_is_stopped(t_job *job)
+uint8_t			job_is_stopped(t_job *job)
 {
 	t_list	*process;
 
@@ -52,7 +52,7 @@ uint8_t	job_is_stopped(t_job *job)
 	return (TRUE);
 }
 
-uint8_t	job_is_completed(t_job *job)
+uint8_t			job_is_completed(t_job *job)
 {
 	t_list	*process;
 

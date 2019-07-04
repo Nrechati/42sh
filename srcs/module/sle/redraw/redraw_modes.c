@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:54:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:38:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,17 @@ static void		state_search(t_sle *sle)
 	tputs(sle->termcaps.hidden_cursor, 1, &ft_putc);
 	search_hit = history(NULL, vct_get_string(sle->line),
 		GET_ENTRY | BY_NAME | sle->search_type);
-
-	disp_line = vct_dups(((sle->state == STATE_INCSEARCH) ? INC_SEARCH : REV_SEARCH));
+	disp_line = vct_dups(((sle->state == STATE_INCSEARCH)
+							? INC_SEARCH : REV_SEARCH));
 	vct_ncat(disp_line, sle->line, vct_len(sle->line));
 	vct_scat(disp_line, SEARCH_SUFFIX, ft_strlen(SEARCH_SUFFIX));
-	
-	if (search_hit == NULL && sle->line != NULL 
+	if (search_hit == NULL && sle->line != NULL
 		&& sle->line->buffer[0] != '\0')
 		vct_scat(disp_line, "Failed", 6);
 	else if (search_hit != NULL)
 		vct_scat(disp_line, search_hit, ft_strlen(search_hit));
 	else
 		vct_scat(disp_line, "", 1);
-
 	print_loop(sle, vct_get_string(disp_line));
 	vct_del(&disp_line);
 }
@@ -76,10 +74,8 @@ void			redrawmode_line(t_sle *sle)
 
 	index_to_coord(sle, sle->rd_info.prompt_len, &co);
 	move_cursor_to_coord(sle, co.x, co.y);
-
 	tputs(sle->termcaps.clear_screen, 1, &ft_putc);
 	tputs(sle->termcaps.clear_line, 1, &ft_putc);
-
 	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 		state_search(sle);
 	else

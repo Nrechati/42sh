@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:00:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:01:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:36:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void	find_x3_coord(t_sle *sle, char *line, uint32_t prompt_len)
+static void		find_x3_coord(t_sle *sle, char *line, uint32_t prompt_len)
 {
 	if (line == NULL)
 	{
@@ -25,11 +25,11 @@ static void	find_x3_coord(t_sle *sle, char *line, uint32_t prompt_len)
 			sle->cursor.x3++;
 }
 
-static void	find_y3_coord(t_sle *sle, uint32_t prompt_len)
+static void		find_y3_coord(t_sle *sle, uint32_t prompt_len)
 {
-	char    *tmp;
-	char    *tmp2;
-	char    *line;
+	char	*tmp;
+	char	*tmp2;
+	char	*line;
 	int		sup;
 
 	sle->cursor.x3 = 0;
@@ -49,7 +49,7 @@ static void	find_y3_coord(t_sle *sle, uint32_t prompt_len)
 	find_x3_coord(sle, line, prompt_len);
 }
 
-static void	find_x2_coord(t_sle *sle, char *line, uint32_t prompt_len,
+static void		find_x2_coord(t_sle *sle, char *line, uint32_t prompt_len,
 					char *cmd_offset)
 {
 	if (line == NULL)
@@ -64,7 +64,7 @@ static void	find_x2_coord(t_sle *sle, char *line, uint32_t prompt_len,
 	ft_strdel(&cmd_offset);
 }
 
-static void	find_y2_coord(t_sle *sle, uint32_t prompt_len, int8_t offset)
+static void		find_y2_coord(t_sle *sle, uint32_t prompt_len, int8_t offset)
 {
 	char		*tmp;
 	char		*tmp2;
@@ -90,7 +90,7 @@ static void	find_y2_coord(t_sle *sle, uint32_t prompt_len, int8_t offset)
 	find_x2_coord(sle, line, prompt_len, cmd_offset);
 }
 
-void					find_multiline_coord(t_sle *sle, int8_t offset)
+void			find_multiline_coord(t_sle *sle, int8_t offset)
 {
 	uint32_t	prompt_len;
 

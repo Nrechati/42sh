@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 17:38:35 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:34:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ static void			job_to_registry(t_registry *shell, t_job *job)
 void				job_to_foreground(t_registry *shell, t_job *job)
 {
 	char	*avs;
+	pid_t	pid;
+	int		status;
 
 	if (job == NULL || job->processes == NULL)
 		return ;
-	pid_t	pid;
-	int		status = 0;
+	status = 0;
 	pid = waitpid(job->pgid, &status, WNOHANG | WUNTRACED);
 	mark_proc_status(pid, status);
 	job->state = RUNNING;
