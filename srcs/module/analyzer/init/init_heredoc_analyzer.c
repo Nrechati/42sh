@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 22:07:01 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/04 15:33:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:04:45 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_heredoc_delimiter(t_analyzer analyzer)
 	analyzer[P_HEREDOC_DELIMITER][E_GREATAND] = heredoc_analyzer;
 	analyzer[P_HEREDOC_DELIMITER][E_LESS] = heredoc_analyzer;
 	analyzer[P_HEREDOC_DELIMITER][E_DLESS] = heredoc_analyzer;
+	analyzer[P_HEREDOC_DELIMITER][E_DLESSDASH] = heredoc_analyzer;
 	analyzer[P_HEREDOC_DELIMITER][E_LESSAND] = heredoc_analyzer;
 	analyzer[P_HEREDOC_DELIMITER][E_DGREAT] = heredoc_analyzer;
 	analyzer[P_HEREDOC_DELIMITER][E_ANDDGREAT] = heredoc_analyzer;
@@ -84,6 +85,7 @@ void	init_heredoc(t_analyzer analyzer)
 	analyzer[P_HEREDOC][E_GREATAND] = redirect_analyzer;
 	analyzer[P_HEREDOC][E_LESS] = redirect_analyzer;
 	analyzer[P_HEREDOC][E_DLESS] = redirect_analyzer;
+	analyzer[P_HEREDOC][E_DLESSDASH] = redirect_analyzer;
 	analyzer[P_HEREDOC][E_LESSAND] = redirect_analyzer;
 	analyzer[P_HEREDOC][E_DGREAT] = redirect_analyzer;
 	analyzer[P_HEREDOC][E_ANDDGREAT] = redirect_analyzer;

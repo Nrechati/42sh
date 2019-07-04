@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:54:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/29 16:17:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:21:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	init_io_filename(t_analyzer analyzer)
 	analyzer[P_IO_FILENAME][E_LESS] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_LESSAND] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_DGREAT] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_DLESS] = io_redirect_flush;
+	analyzer[P_IO_FILENAME][E_DLESSDASH] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_ANDDGREAT] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_PIPE] = io_redirect_flush;
 	analyzer[P_IO_FILENAME][E_IO_NUMBER] = io_redirect_flush;
@@ -56,6 +58,8 @@ void	init_io_flush(t_analyzer analyzer)
 	analyzer[P_IO_FLUSH][E_LESS] = redirect_analyzer;
 	analyzer[P_IO_FLUSH][E_LESSAND] = redirect_analyzer;
 	analyzer[P_IO_FLUSH][E_DGREAT] = redirect_analyzer;
+	analyzer[P_IO_FLUSH][E_DLESS] = redirect_analyzer;
+	analyzer[P_IO_FLUSH][E_DLESSDASH] = redirect_analyzer;
 	analyzer[P_IO_FLUSH][E_ANDDGREAT] = redirect_analyzer;
 	analyzer[P_IO_FLUSH][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_IO_FLUSH][E_PIPE] = flush_string;
@@ -75,6 +79,8 @@ void	init_io_flush_and(t_analyzer analyzer)
 	analyzer[P_IO_FLUSH_AND][E_LESS] = redirect_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_LESSAND] = redirect_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_DGREAT] = redirect_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_DLESS] = redirect_analyzer;
+	analyzer[P_IO_FLUSH_AND][E_DLESSDASH] = redirect_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_ANDDGREAT] = redirect_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_PIPE] = flush_string;

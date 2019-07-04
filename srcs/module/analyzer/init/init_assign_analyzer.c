@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 13:59:55 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/03 00:54:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:15:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ void	init_assign_data(t_analyzer analyzer)
 	analyzer[P_ASSIGN_DATA][E_GREATAND] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_LESS] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_LESSAND] = assign_flush_analyzer;
-	analyzer[P_ASSIGN_DATA][E_DGREAT] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_DLESS] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_DLESSDASH] = assign_flush_analyzer;
+	analyzer[P_ASSIGN_DATA][E_DGREAT] = assign_flush_analyzer;
+	analyzer[P_ASSIGN_DATA][E_DLESS] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_ANDGREAT] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_ANDDGREAT] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_IO_NUMBER] = assign_flush_analyzer;
@@ -64,9 +65,9 @@ void	init_redirect(t_analyzer analyzer)
 	analyzer[P_REDIRECT_FLUSH_AND][E_GREATAND] = redirect_and_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_LESS] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_DLESS] = redirect_analyzer;
+	analyzer[P_REDIRECT_FLUSH_AND][E_DLESSDASH] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_LESSAND] = redirect_and_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_DGREAT] = redirect_analyzer;
-	analyzer[P_REDIRECT_FLUSH_AND][E_DLESSDASH] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_ANDDGREAT] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_REDIRECT_FLUSH_AND][E_PIPE] = flush_string;
@@ -86,9 +87,9 @@ void	init_flush_redirect(t_analyzer analyzer)
 	analyzer[P_REDIRECT_FLUSH][E_GREATAND] = redirect_and_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_LESS] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_DLESS] = redirect_analyzer;
+	analyzer[P_REDIRECT_FLUSH][E_DLESSDASH] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_LESSAND] = redirect_and_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_DGREAT] = redirect_analyzer;
-	analyzer[P_REDIRECT_FLUSH][E_DLESSDASH] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_ANDDGREAT] = redirect_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_REDIRECT_FLUSH][E_PIPE] = flush_string;
@@ -108,6 +109,8 @@ void	init_dup_move(t_analyzer analyzer)
 	analyzer[P_DUP_MOVE][E_GREATAND] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_LESS] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_LESSAND] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_DLESS] = flush_redirect;
+	analyzer[P_DUP_MOVE][E_DLESSDASH] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_DGREAT] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_ANDDGREAT] = flush_redirect;
 	analyzer[P_DUP_MOVE][E_IO_NUMBER] = flush_redirect;
