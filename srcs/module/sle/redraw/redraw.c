@@ -60,9 +60,9 @@ void				redraw(t_registry *shell, t_sle *sle)
 	t_redrawinfo	rd_info;
 
 	compute_redrawinfo(sle, &rd_info);
-	redraw_line(shell, sle);
 	if (sle->state == STATE_VISUAL)
 		redrawmode_visual(sle);
+	redraw_line(shell, sle);
 	move_cursor(sle);
 	reset_redraw_mode(sle);
 }

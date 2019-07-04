@@ -19,7 +19,10 @@ int8_t	ak_home(t_registry *shell, t_sle *sle)
 	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
-	set_redraw_flags(sle, RD_NONE | RD_CHOME);
+	if (sle->state == STATE_VISUAL)
+		set_redraw_flags(sle, RD_LINE | RD_CHOME);
+	else
+		set_redraw_flags(sle, RD_NONE | RD_CHOME);
 	set_cursor_pos(sle, 0);
 	if (sle->state == STATE_VISUAL)
 	{
@@ -37,7 +40,10 @@ int8_t	ak_end(t_registry *shell, t_sle *sle)
 	(void)shell;
 	if (sle->state != STATE_STD && sle->state != STATE_VISUAL)
 		return (FAILURE);
-	set_redraw_flags(sle, RD_NONE | RD_CEND);
+	if (sle->state == STATE_VISUAL)
+		set_redraw_flags(sle, RD_LINE | RD_CEND);
+	else
+		set_redraw_flags(sle, RD_NONE | RD_CEND);
 	set_cursor_pos(sle, vct_len(sle->line));
 	if (sle->state == STATE_VISUAL)
 	{

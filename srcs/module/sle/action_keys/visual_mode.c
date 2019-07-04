@@ -36,8 +36,8 @@ static inline uint8_t	visual_bounds_valid(t_sle *sle)
 {
 	if (sle->vis_start < 0
 		|| sle->vis_stop < 0
-		|| (uint64_t)sle->vis_start > vct_len(sle->line) + 1
-		|| (uint64_t)sle->vis_stop > vct_len(sle->line) + 1)
+		|| (uint64_t)sle->vis_start > vct_len(sle->line)
+		|| (uint64_t)sle->vis_stop > vct_len(sle->line))
 		return (FALSE);
 	return (TRUE);
 }
@@ -47,11 +47,7 @@ void					redrawmode_visual(t_sle *sle)
 	if (visual_bounds_valid(sle) == FALSE)
 		return ;
 	if (sle->vis_stop < sle->vis_start)
-		set_redraw_bounds(sle, sle->vis_stop, sle->vis_start + 2);
+		set_redraw_bounds(sle, sle->vis_stop, sle->vis_start);
 	else
-		set_redraw_bounds(sle, sle->vis_start, sle->vis_stop + 1);
-	redrawmode_line(sle);
-	tputs(sle->termcaps.standout_on, 1, &ft_putc);
-	redrawmode_fptp(sle);
-	tputs(sle->termcaps.standout_off, 1, &ft_putc);
+		set_redraw_bounds(sle, sle->vis_start, sle->vis_stop);
 }

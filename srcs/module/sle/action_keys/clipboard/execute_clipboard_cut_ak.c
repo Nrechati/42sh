@@ -25,7 +25,7 @@ int8_t				ak_cut_selection(t_registry *shell, t_sle *sle)
 			? (sle->vis_start - sle->vis_stop)
 			: (sle->vis_stop - sle->vis_start);
 	vct_reset(sle->clip);
-	tmp = vct_sub(sle->line, start, length + 1);
+	tmp = vct_sub(sle->line, start, length);
 	vct_scpy(sle->clip, tmp, ft_strlen(tmp));
 	ft_strdel(&tmp);
 	if (start == 0 && length == vct_len(sle->line))

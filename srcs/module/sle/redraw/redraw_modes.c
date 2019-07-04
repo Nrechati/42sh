@@ -79,10 +79,7 @@ void			redrawmode_line(t_sle *sle)
 	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
 		state_search(sle);
 	else
-	{
-		tputs(sle->termcaps.normal_cursor, 1, &ft_putc);
 		print_loop(sle, vct_get_string(sle->line));
-	}
 }
 
 void			redrawmode_fptp(t_sle *sle)

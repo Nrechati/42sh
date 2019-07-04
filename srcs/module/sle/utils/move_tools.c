@@ -34,7 +34,7 @@ static int8_t	only_whitespaces_after(const char *str, const uint32_t index,
 			if (str[idx--] != ' ')
 				return (FALSE);
 	}
-	return (TRUE);
+	return (idx == 0 || str[idx] == '\0' || str[idx] == ' ' ? FALSE : TRUE);
 }
 
 uint32_t		get_next_char(const char *str, uint32_t index,
@@ -46,16 +46,14 @@ uint32_t		get_next_char(const char *str, uint32_t index,
 	{
 		while (str[index] != '\0' && str[index] != ' ')
 			++index;
-		while (str[index] != '\0' && str[index] == ' ')
+		while (str[index] == ' ')
 			++index;
 	}
 	else
 	{
-		while (index > 0 && str[index] != ' ')
-			--index;
-		while (index > 0 && str[index] == ' ')
-			--index;
 		while (index > 0 && str[index - 1] != ' ')
+			--index;
+		while (index > 0 && str[index - 1] == ' ')
 			--index;
 	}
 	return (index);

@@ -73,6 +73,7 @@ static char		*get_history_return(t_vector *to_replace, const uint64_t option)
 			vct_push(to_replace, '!');
 		vct_push(to_replace, '!');
 		ft_dprintf(2, "42sh: %s: event not found\n", to_replace->buffer);
+		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		vct_del(&to_replace);
 		return (NULL);
 	}

@@ -42,8 +42,30 @@ void			print_char(t_sle *sle, char c)
 
 void			print_loop(t_sle *sle, char *str)
 {
-	while (*str != '\0')
-		print_char(sle, *str++);
+	size_t		i;
+	int			active;
+
+	i = 0;
+	active = FALSE;
+	tputs(sle->termcaps.normal_cursor, 1, &ft_putc);
+	if (sle->state == STATE_VISUAL)
+		tputs(sle->termcaps.hidden_cursor, 1, &ft_putc);
+	while (str[i] != '\0')
+	{
+		if (sle->state == STATE_VISUAL && i >= sle->window.point1
+				&& i < sle->window.point2)
+		{
+			tputs(sle->termcaps.standout_on, 1, &ft_putc);
+			active = TRUE;
+		}
+		else if (active == TRUE)
+		{
+			tputs(sle->termcaps.standout_off, 1, &ft_putc);
+			active = FALSE;
+		}
+		print_char(sle, str[i++]);
+	}
+	tputs(sle->termcaps.standout_off, 1, &ft_putc);
 }
 
 uint32_t		write_esc_sequence(char *str, uint32_t index)

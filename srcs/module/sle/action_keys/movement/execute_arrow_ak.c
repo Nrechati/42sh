@@ -25,7 +25,10 @@ int8_t				ak_arrow_right(t_registry *shell, t_sle *sle)
 	if (sle->state == STATE_VISUAL)
 		sle->vis_stop = sle->cursor.index + offset;
 	set_cursor_pos(sle, sle->cursor.index + offset);
-	set_redraw_flags(sle, RD_NONE | RD_CMOVE);
+	if (sle->state == STATE_VISUAL)
+		set_redraw_flags(sle, RD_LINE | RD_CMOVE);
+	else
+		set_redraw_flags(sle, RD_NONE | RD_CMOVE);
 	find_multiline_coord(sle, offset);
 	return (SUCCESS);
 }
@@ -43,7 +46,10 @@ int8_t				ak_arrow_left(t_registry *shell, t_sle *sle)
 	if (sle->state == STATE_VISUAL && sle->cursor.index > 0)
 		sle->vis_stop = sle->cursor.index + offset;
 	set_cursor_pos(sle, sle->cursor.index + offset);
-	set_redraw_flags(sle, RD_NONE | RD_CMOVE);
+	if (sle->state == STATE_VISUAL)
+		set_redraw_flags(sle, RD_LINE | RD_CMOVE);
+	else
+		set_redraw_flags(sle, RD_NONE | RD_CMOVE);
 	find_multiline_coord(sle, offset);
 	return (SUCCESS);
 }
