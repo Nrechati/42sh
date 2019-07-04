@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_status.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:20:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 14:31:52 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:22:47 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,11 @@ static void	stopped_process(t_job *job, int status)
 
 static void	exited_process(t_process *current, int status)
 {
-	char		*exit_status;
-
-	exit_status = ft_itoa((uint8_t)WEXITSTATUS(status));
+	current->status = ((uint8_t)WEXITSTATUS(status));
 	if (WEXITSTATUS(status) != 0)
 		current->completed = ERROR;
 	else
 		current->completed = TRUE;
-	add_var(&g_shell->intern, "?", exit_status, READONLY_VAR);
-	ft_strdel(&exit_status);
 }
 
 static void	print_signaled(char *command, int signo)
@@ -57,7 +53,6 @@ static void	print_signaled(char *command, int signo)
 static void	signaled_process(t_job *job, int status)
 {
 	int			signo;
-	char		*exit_status;
 	char		*command;
 
 	signo = WTERMSIG(status);
@@ -65,10 +60,7 @@ static void	signaled_process(t_job *job, int status)
 	print_signaled(command, signo);
 	if (signo == 2 || signo == 3)
 		sigstop_exec(signo);
-	exit_status = ft_itoa((uint8_t)(signo + 128));
 	mark_job_as_stopped(job);
-	add_var(&g_shell->intern, "?", exit_status, READONLY_VAR);
-	ft_strdel(&exit_status);
 }
 
 void		set_status(t_job *job, t_process *current, int status)

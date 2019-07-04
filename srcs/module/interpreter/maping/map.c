@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 23:19:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:47:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		set_process(t_process *proc, t_command *command, void *context)
 	if (ft_lstiter_ctx(proc->redirects, proc, check_redirect_error) == FAILURE)
 	{
 		ft_lstdel(&redirect, del_action);
-		ft_lstdel(&proc->redirects, NULL);
+		ft_lstdel(&proc->redirects, close_redirect);
 		return ;
 	}
 	proc->av = ft_lsttotab(command->av, token_to_str);

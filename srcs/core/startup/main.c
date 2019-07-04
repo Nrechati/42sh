@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 15:34:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:38:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,5 @@ int				main(int ac, char **av, char **env)
 	if (shell.option.option & INTERACTIVE_OPT)
 		tcsetpgrp(STDIN_FILENO, shell.pid);
 	launch_shell(&shell);
-	term_mode(TERMMODE_DFLT);
-	shell_exit_routine(&shell, 0);
 	return (FAILURE);
 }

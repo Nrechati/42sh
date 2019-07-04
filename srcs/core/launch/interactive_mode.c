@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 00:39:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:39:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ void				interactive_mode(t_registry *shell)
 		else
 			vct_del(&input);
 	}
+	term_mode(TERMMODE_DFLT);
+	shell_exit_routine(g_shell, 0);
 }
