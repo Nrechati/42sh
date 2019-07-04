@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:37:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 18:24:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:44:11 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			run_process(t_process *process, uint8_t foreground)
 	}
 	if (get_process_type(g_shell, process) == FAILURE)
 	{
-		ft_dprintf(2, "42sh: [CRITICAL] Mallox error\n");
+		ft_dprintf(2, "42sh: [CRITICAL] Malloc error\n");
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
