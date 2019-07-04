@@ -6,12 +6,30 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:02:15 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/03 18:43:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 02:18:55 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
+
+char	*get_heredoc_delim(char *data)
+{
+	char		*delimiter;
+	int			i;
+
+	i = 0;
+	delimiter = NULL;
+	while(data[i] != '\0')
+	{
+		if (data[i] == '\n')
+			delete_character(data + i);
+		++i;
+	}
+	quote_removal(data);
+	ft_asprintf(&delimiter, "%s\n", data);
+	return (delimiter);
+}
 
 void	heredoc(t_redirect *redirect, t_action *action)
 {
@@ -22,8 +40,7 @@ void	heredoc(t_redirect *redirect, t_action *action)
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 		return ;
 	vector = NULL;
-	delimiter = NULL;
-	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
+	delimiter = get_heredoc_delim(((t_token *)action->data->data)->data);
 	pipe(fd);
 	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
@@ -45,8 +62,7 @@ void	heredoc_trim(t_redirect *redirect, t_action *action)
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 		return ;
 	vector = NULL;
-	delimiter = NULL;
-	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
+	delimiter = get_heredoc_delim(((t_token *)action->data->data)->data);
 	pipe(fd);
 	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
 	{
@@ -69,8 +85,7 @@ void	io_heredoc(t_redirect *redirect, t_action *action)
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 		return ;
 	vector = NULL;
-	delimiter = NULL;
-	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
+	delimiter = get_heredoc_delim(((t_token *)action->data->data)->data);
 	io_num = ft_atoi(((t_token *)action->data->next->data)->data);
 	pipe(fd);
 	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)
@@ -94,8 +109,7 @@ void	io_heredoc_trim(t_redirect *redirect, t_action *action)
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 		return ;
 	vector = NULL;
-	delimiter = NULL;
-	ft_asprintf(&delimiter, "%s\n", ((t_token *)action->data->data)->data);
+	delimiter = get_heredoc_delim(((t_token *)action->data->data)->data);
 	io_num = ft_atoi(((t_token *)action->data->next->data)->data);
 	pipe(fd);
 	while (sle(g_shell, &vector, SLE_PS3_PROMPT) == SUCCESS)

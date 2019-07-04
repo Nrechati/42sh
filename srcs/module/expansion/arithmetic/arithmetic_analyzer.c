@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:13:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 22:43:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 03:09:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char		*solve_expression(t_arithmetic *arithmetic)
 		infix.type = 0;
 	infix.calcul.size = ft_lstlen(arithmetic->solving);
 	infix.calcul.head = arithmetic->solving;
+	arithmetic->solving = NULL;
 	if (calculator(&infix) == FAILURE)
 		return (NULL);
 	ft_asprintf(&output, "%lld", infix.result);
