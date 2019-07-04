@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpreter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:37:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 13:31:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:28:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void		run_builtin(t_process *process, uint8_t foreground)
 	t_builtin		builtin;
 
 	std = 0;
-	setup_builtin(process, foreground, &std);
 	tty_name = ttyname(STDIN_FILENO);
+	setup_builtin(process, foreground, &std);
+	close(STDIN_FILENO);
+	std |= CLOSED_STDIN;
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
 	process->status = builtin(g_shell, process->av);
 	status = ft_itoa(process->status);
