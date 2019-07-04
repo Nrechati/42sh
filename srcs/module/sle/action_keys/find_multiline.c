@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:00:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 14:36:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:19:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ static void		find_y2_coord(t_sle *sle, uint32_t prompt_len, int8_t offset)
 
 	sle->cursor.x2 = 0;
 	sle->cursor.y2 = 0;
-	cmd_offset = ft_strsub(sle->line->buffer, 0, sle->cursor.index + offset);
+	cmd_offset = ft_strsub(sle->line->buffer, 0,
+					(((int32_t)sle->cursor.index + offset) <= 0)
+					? 1 : sle->cursor.index + offset);
 	tmp = cmd_offset;
 	line = NULL;
 	while (tmp != NULL && *tmp != '\0' &&
