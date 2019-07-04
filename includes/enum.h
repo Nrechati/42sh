@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 03:48:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:18:39 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef enum	e_quote
 	QUOTE_BACKSLASH,
 }				t_quote;
 
-enum e_actions
+enum			e_actions
 {
 	A_STDOUT_TRUNCATE_FILE,
 	A_STDOUT_TRUNCATE_FILE_SPECIAL,
@@ -174,7 +174,7 @@ enum	e_analyzer_state
 *****************************************************
 */
 
-enum	prompt_type
+enum	e_prompt_type
 {
 	PRINT_PIPE,
 	PRINT_QUOTE,
@@ -221,7 +221,7 @@ enum	e_action_keys
 *****************************************************
 */
 
-enum e_result_type
+enum	e_result_type
 {
 	CMD_TYPE,
 	VARIABLE_TYPE,
@@ -235,8 +235,7 @@ enum e_result_type
 *****************************************************
 */
 
-
-enum						e_mathstate
+enum	e_mathstate
 {
 	MATH_START,
 	MATH_NUMBER,
@@ -253,7 +252,7 @@ enum						e_mathstate
 	MATH_END
 };
 
-enum						e_rpn
+enum	e_rpn
 {
 	RPN_OPERATOR,
 	RPN_PARENT_OPEN,
@@ -261,7 +260,7 @@ enum						e_rpn
 	RPN_NUMBER,
 };
 
-enum						e_paramexp
+enum	e_paramexp
 {
 	PEX_PARAM,
 	PEX_DELIM,
