@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 16:03:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:14:41 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:21:08 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-t_option		get_option_jobs(char *s, t_option option)
+t_option			get_option_jobs(char *s, t_option option)
 {
 	option = 0;
 	while (*s)
@@ -33,7 +33,7 @@ t_option		get_option_jobs(char *s, t_option option)
 	return (option);
 }
 
-void		jobs(t_registry *shell, t_job *job, t_option option)
+void				jobs(t_registry *shell, t_job *job, t_option option)
 {
 	if (option & L_OPT)
 		jobctl(shell, job, JOBCTL_LIST | JOBCTL_LONG);
@@ -43,7 +43,7 @@ void		jobs(t_registry *shell, t_job *job, t_option option)
 		jobctl(shell, job, JOBCTL_LIST);
 }
 
-uint8_t		jobs_blt(t_registry *shell, char **av)
+uint8_t				jobs_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 	t_job		*job;

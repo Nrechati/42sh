@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 18:20:57 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:34:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:59:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	load_profile(struct sigaction signal_profile[NB_SIGNALS])
 	}
 }
 
-void		load_signal_profile(uint8_t	profile_flag)
+void		load_signal_profile(uint8_t profile_flag)
 {
 	static struct sigaction tab_signal_dflt[NB_SIGNALS];
 	static struct sigaction tab_signal_sle[NB_SIGNALS];

@@ -6,18 +6,18 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:37:48 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 15:21:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:03:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t	fg_blt(__unused t_registry *shell, char **av)
+uint8_t	fg_blt(t_registry *shell, char **av)
 {
 	t_job	*job;
 	int8_t	result;
 	uint8_t	ret;
-	
+
 	if (jobctl_is_active(shell) == FALSE)
 		return (FAILURE);
 	++av;

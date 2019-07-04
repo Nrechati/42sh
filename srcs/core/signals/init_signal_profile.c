@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 18:23:42 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 09:48:16 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:01:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 static struct sigaction	set_sigaction_struct(void (*handler)(int),
 			int flags, sigset_t mask)
 {
-		struct sigaction sigaction;
+	struct sigaction	sigaction;
 
-		sigaction.sa_handler = handler;
-		sigaction.sa_flags = flags;
-		sigaction.sa_mask = mask;
-		return (sigaction);
+	sigaction.sa_handler = handler;
+	sigaction.sa_flags = flags;
+	sigaction.sa_mask = mask;
+	return (sigaction);
 }
 
-static void	loop_defaults(struct sigaction generic[NB_SIGNALS])
+static void				loop_defaults(struct sigaction generic[NB_SIGNALS])
 {
-	int					i;
-	sigset_t			sigset;
+	int			i;
+	sigset_t	sigset;
 
 	i = 1;
 	ft_bzero(&sigset, sizeof(sigset_t));
@@ -37,7 +37,8 @@ static void	loop_defaults(struct sigaction generic[NB_SIGNALS])
 	}
 }
 
-void		init_tab_signal_dflt(struct sigaction tab_signal[NB_SIGNALS])
+void					init_tab_signal_dflt(
+							struct sigaction tab_signal[NB_SIGNALS])
 {
 	struct sigaction	ignore;
 	sigset_t			sigset;
@@ -52,34 +53,44 @@ void		init_tab_signal_dflt(struct sigaction tab_signal[NB_SIGNALS])
 	tab_signal[SIGCONT] = ignore;
 }
 
-void		init_tab_signal_sle(struct sigaction tab_signal[NB_SIGNALS])
+void					init_tab_signal_sle(
+							struct sigaction tab_signal[NB_SIGNALS])
 {
 	sigset_t			sigset;
 
 	ft_bzero(&sigset, sizeof(sigset_t));
 	loop_defaults(tab_signal);
 	tab_signal[SIGQUIT] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-	tab_signal[SIGTERM] = set_sigaction_struct(sigterm_sle, SA_RESTART, sigset);
+	tab_signal[SIGTERM] = set_sigaction_struct(sigterm_sle, SA_RESTART,
+								sigset);
 	tab_signal[SIGCONT] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-	tab_signal[SIGTSTP] = set_sigaction_struct(sigtstp_exec, SA_RESTART, sigset);
-	tab_signal[SIGTTIN] = set_sigaction_struct(sigttin_exec, SA_RESTART, sigset);
-	tab_signal[SIGTTOU] = set_sigaction_struct(sigttou_exec, SA_RESTART, sigset);
+	tab_signal[SIGTSTP] = set_sigaction_struct(sigtstp_exec, SA_RESTART,
+								sigset);
+	tab_signal[SIGTTIN] = set_sigaction_struct(sigttin_exec, SA_RESTART,
+								sigset);
+	tab_signal[SIGTTOU] = set_sigaction_struct(sigttin_exec, SA_RESTART,
+								sigset);
 	tab_signal[SIGINT] = set_sigaction_struct(sigint_sle, 0, sigset);
-	tab_signal[SIGWINCH] = set_sigaction_struct(sigwinch_sle, SA_RESTART, sigset);
+	tab_signal[SIGWINCH] = set_sigaction_struct(sigwinch_sle, SA_RESTART,
+								sigset);
 }
 
-void		init_tab_signal_exec(struct sigaction tab_signal[NB_SIGNALS])
+void					init_tab_signal_exec(
+							struct sigaction tab_signal[NB_SIGNALS])
 {
 	sigset_t			sigset;
 
 	ft_bzero(&sigset, sizeof(sigset_t));
 	loop_defaults(tab_signal);
 	tab_signal[SIGINT] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
-	tab_signal[SIGQUIT] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
-	tab_signal[SIGTERM] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
+	tab_signal[SIGQUIT] = set_sigaction_struct(sigstop_exec, SA_RESTART,
+								sigset);
+	tab_signal[SIGTERM] = set_sigaction_struct(sigstop_exec, SA_RESTART,
+								sigset);
 	tab_signal[SIGTSTP] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
 	tab_signal[SIGCONT] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
 	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
 	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-	tab_signal[SIGCHLD] = set_sigaction_struct(sigchld_exec, SA_RESTART, sigset);
+	tab_signal[SIGCHLD] = set_sigaction_struct(sigchld_exec, SA_RESTART,
+								sigset);
 }
