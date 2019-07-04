@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:37:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 15:28:49 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:29:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ void		run_builtin(t_process *process, uint8_t foreground)
 	std |= CLOSED_STDIN;
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
 	process->status = builtin(g_shell, process->av);
-	status = ft_itoa(process->status);
 	if (process->type & IS_ALONE)
+	{
 		default_io(std, tty_name);
+		status = ft_itoa(process->status);
+		add_var(&g_shell->intern, "?", status, READONLY_VAR);
+		ft_strdel(&status);
+	}
 	ft_lstiter(process->redirects, close_redirect);
-	add_var(&g_shell->intern, "?", status, READONLY_VAR);
 	process->completed = 1;
-	ft_strdel(&status);
 	return ;
 }
 
