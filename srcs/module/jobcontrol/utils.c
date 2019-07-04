@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 17:28:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 17:34:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:02:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t			jobctl_is_active(__unused t_registry *shell)
+uint8_t			jobctl_is_active(t_registry *shell)
 {
 	if (isatty(STDIN_FILENO) != 0
 					|| ((shell->option.option & INTERACTIVE_OPT) == FALSE))

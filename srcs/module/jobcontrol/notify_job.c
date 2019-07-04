@@ -6,13 +6,22 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:01:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 19:12:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:01:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	notify_job_info(t_list *joblst, char *info)
+static void	pop_job(t_job *job)
+{
+	remove_job_from_list(&g_shell->job_list, job);
+	pop_current_job(g_shell, job);
+	g_shell->active_jobs--;
+	del_job(job);
+	free(job);
+}
+
+void		notify_job_info(t_list *joblst, char *info)
 {
 	t_job		*job;
 	t_list		*to_del;
@@ -29,16 +38,9 @@ void	notify_job_info(t_list *joblst, char *info)
 			ft_printf("[%d]%c %s \t %s\n", job->id, job->current, info,
 							command);
 			ft_strdel(&command);
-
-			remove_job_from_list(&g_shell->job_list, job);
-			pop_current_job(g_shell, job);
-			g_shell->active_jobs--;
-
 			to_del = jobl;
 			jobl = jobl->next;
-
-			del_job(job);
-			free(job);
+			pop_job(job);
 			free(to_del);
 			continue ;
 		}
