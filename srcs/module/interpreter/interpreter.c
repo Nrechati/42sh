@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:37:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 18:06:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:24:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,9 @@ static int	run_job(void *context, void *data)
 	}
 	else
 		launch_pipeline(job->processes, foreground);
-	if (foreground == TRUE)
-		return (waiter(job));
-	else
+	if (foreground == FALSE)
 		return (setup_background_job(job));
-	return (SUCCESS);
+	return (waiter(job));
 }
 
 int8_t		interpreter(t_registry *shell, t_list **cmd_group)

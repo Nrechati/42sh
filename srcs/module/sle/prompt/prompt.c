@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 17:58:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:08:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 static void				prompt_pre_process(t_sle *sle)
 {
-	int		status;
-	pid_t	pid;
-
-	pid = waitpid(WAIT_ANY, &status, WNOHANG);
-	mark_proc_status(pid, status);
+	mark_proc_status();
 	notify_job_info(g_shell->job_list, "Done");
 	sle->state = STATE_STD;
 	vct_reset(sle->line);
