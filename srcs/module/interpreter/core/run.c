@@ -6,11 +6,12 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 15:39:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:46:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+#include <fcntl.h>
 
 static void	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 {
@@ -30,12 +31,18 @@ void		run_builtin(t_process *process, uint8_t foreground)
 	char			*tty_name;
 	uint8_t			std;
 	t_builtin		builtin;
+	int				fd;
 
 	std = 0;
 	tty_name = ttyname(STDIN_FILENO);
 	setup_builtin(process, foreground, &std);
 	close(STDIN_FILENO);
-	std |= CLOSED_STDIN;
+	if (ft_strequ(process->av[0], "fc"))
+	{
+		fd = open(tty_name, O_RDWR);
+		if (fd != 0)
+			close(fd);
+	}
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
 	process->status = builtin(g_shell, process->av);
 	if (process->type & IS_ALONE)
