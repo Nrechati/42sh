@@ -41,6 +41,23 @@ int8_t				do_history_exp(t_vector **input)
 	return (ret);
 }
 
+static uint8_t		is_only_whitespaces(t_vector *input)
+{
+	size_t		i;
+
+	if (input == NULL || input->buffer == NULL)
+		return (TRUE);
+	i = 0;
+	while (input->buffer[i] != '\0')
+	{
+		if (input->buffer[i] != '\t' && input->buffer[i] != '\n'
+				&& input->buffer[i] != ' ')
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
 void				interactive_mode(t_registry *shell)
 {
 	t_vector		*input;
@@ -49,7 +66,7 @@ void				interactive_mode(t_registry *shell)
 	load_signal_profile(SLE_PROFILE);
 	while (is_input_valid(sle(shell, &input, SLE_GET_INPUT)) == TRUE)
 	{
-		if (input != NULL && input->buffer != NULL && *input->buffer != '\0')
+		if (is_only_whitespaces(input) == FALSE)
 		{
 			if (do_history_exp(&input) == FAILURE)
 				continue ;
@@ -58,9 +75,13 @@ void				interactive_mode(t_registry *shell)
 			execution_pipeline(shell, &input);
 			load_signal_profile(SLE_PROFILE);
 		}
-		else
-			vct_del(&input);
+		else if (input != NULL && input->buffer != NULL)
+			history(g_shell, vct_get_string(input), ADD_ENTRY);
+		vct_del(&input);
 	}
+	vct_del(&input);
 	term_mode(TERMMODE_DFLT);
+	if (exit_blt(shell, NULL) == SUCCESS)
+		interactive_mode(shell);
 	shell_exit_routine(shell, SUCCESS);
 }
