@@ -80,7 +80,7 @@ static int8_t	generate_cmd_group(t_list **cmd_group, t_stack *tree_node)
 			return (FAILURE);
 		ft_lstadd(&group.command_list, node);
 	}
-	node = ft_lstnew(&group, sizeof(t_list));
+	node = ft_lstnew(&group, sizeof(t_group));
 	ft_lstaddback(cmd_group, node);
 	return (SUCCESS);
 }
