@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
+#    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/04 15:57:20 by cempassi         ###   ########.fr        #
+#    Updated: 2019/07/05 15:56:21 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -416,6 +416,7 @@ ANALYZER += token_tools.c
 
 INTERPRETER += interpreter.c
 INTERPRETER += map.c
+INTERPRETER += run.c
 INTERPRETER += list_tools.c
 INTERPRETER += generate_env.c
 INTERPRETER += pipe_interpreter.c
@@ -427,6 +428,7 @@ INTERPRETER += io_redirect_functions.c
 INTERPRETER += stdout_functions.c
 INTERPRETER += special_redirect_functions.c
 INTERPRETER += redirect_tools.c
+INTERPRETER += setup_redirects.c
 INTERPRETER += waiter.c
 INTERPRETER += set_status.c
 INTERPRETER += heredoc_interpreter.c
