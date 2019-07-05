@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/05 11:49:41 by cempassi         ###   ########.fr        #
+#    Updated: 2019/07/05 13:55:47 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -416,6 +416,7 @@ ANALYZER += token_tools.c
 
 INTERPRETER += interpreter.c
 INTERPRETER += map.c
+INTERPRETER += run.c
 INTERPRETER += list_tools.c
 INTERPRETER += generate_env.c
 INTERPRETER += pipe_interpreter.c
@@ -426,6 +427,7 @@ INTERPRETER += redirect_functions.c
 INTERPRETER += io_redirect_functions.c
 INTERPRETER += stdout_functions.c
 INTERPRETER += special_redirect_functions.c
+INTERPRETER += setup_redirects.c
 INTERPRETER += redirect_tools.c
 INTERPRETER += waiter.c
 INTERPRETER += set_status.c

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/04 03:55:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:55:13 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_list			**ptr_to_job_lst(t_list **job_lst, uint8_t mode);
 
 void			fork_process(t_process *process, uint8_t foreground);
 int8_t			launch_pipeline(t_list *processess, uint8_t foreground);
+int				run_job(void *context, void *data);
 void			run_builtin(t_process *process, uint8_t foreground);
 int				run_process(t_process *process, uint8_t foreground);
 
@@ -52,6 +53,7 @@ int				builtin_redirect(void *context, void *data);
 int				check_delimiter(char **delimiter, t_vector **vector, int fd);
 void			valid_heredoc_setup(t_redirect *redirect, int from, int to);
 
+int				setup_redirect(t_process *process);
 int				get_failed_process(void *data, void *context);
 void			re_open_std(const uint8_t std, char *tty_name);
 uint8_t			check_job(t_job *job, int job_type);
