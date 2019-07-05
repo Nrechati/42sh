@@ -33,13 +33,9 @@ static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
 	ft_putendl("");
-	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE
-		|| ft_strequ(sle->prompt.missing_char, PROMPT_PIPE) == TRUE
-		|| ft_strequ(sle->prompt.missing_char, PROMPT_OR) == TRUE
-		|| ft_strequ(sle->prompt.missing_char, PROMPT_AND) == TRUE)
+	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
 	{
-		ft_putendl(sle->line->buffer);
-		if (verif_line(sle, sle->line) == FALSE)
+		if (verif_line(sle->line) == FALSE)
 			return (FAILURE);
 	}
 	return (SUCCESS);
@@ -91,6 +87,9 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 	}
 	vct_del(&line);
 	sle->line = linesave;
+	//if (sle->prompt.missing_char == PROMPT_PIPE
+	//	&& verif_line(sle, line) == FALSE)
+	//	return (FALSE);
 	return (vct_dup(sle->sub_line));
 }
 
