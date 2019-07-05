@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 14:23:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:39:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void	run_type_selection(t_process *process, uint8_t foreground)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
+	else if (process->av == NULL || process->av[0] == '\0')
+		process->completed = 1;
 	else if (process->type == (IS_ALONE | IS_BLT) && foreground == TRUE)
 		run_builtin(process, foreground);
 	else
@@ -67,7 +69,7 @@ int			run_process(t_process *process, uint8_t foreground)
 	}
 	if (expand_process(g_shell->intern, process) == FAILURE)
 	{
-		process->type = IS_EXP_ERROR;
+		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
 	if (get_process_type(g_shell, process) == FAILURE)

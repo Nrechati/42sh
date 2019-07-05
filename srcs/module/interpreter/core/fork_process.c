@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 14:57:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:33:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void		run_child(t_process *process, char **env)
 		if (execve(pathname, process->av, env) == FAILURE)
 			ft_dprintf(2, "42sh: execution error\n");
 	}
-	exit(FAILURE);
+	exit(1);
 }
 
 static void		child_process(t_process *process, char **env, uint8_t fg)

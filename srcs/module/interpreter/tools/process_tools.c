@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 23:15:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:38:23 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int		expand_process(t_list *intern, t_process *process)
 		ft_strdel(&process->av[index]);
 		process->av[index++] = holder;
 	}
-	if (process->av[0] == NULL)
-		return (FAILURE);
-	return (0);
+	return (SUCCESS);
 }
 
 int8_t	is_path_to_bin(char *cmd)
@@ -74,7 +72,7 @@ int8_t	get_process_type(t_registry *shell, t_process *process)
 	char		*path;
 
 	path = NULL;
-	if (process->type & IS_ASSIGN)
+	if (process->type & IS_ASSIGN || !process->av || process->av[0] == '\0')
 		return (SUCCESS);
 	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) != NULL)
 		process->type |= IS_BLT;

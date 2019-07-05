@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 21:24:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 18:07:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:23:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int		setup_background_job(t_job *job)
 	t_job		job_cpy;
 	t_list		*node;
 
+	ft_lstiter(job->processes, del_process_redirect);
+	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
+	if (job->processes == NULL)
+		return (SUCCESS);
 	g_shell->active_jobs++;
 	job->id = g_shell->active_jobs;
 	ft_bzero(&job_cpy, sizeof(t_job));
