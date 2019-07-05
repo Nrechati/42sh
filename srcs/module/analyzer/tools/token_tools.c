@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:03:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 00:57:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:18:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	get_token(t_analyze *analyze)
 {
 	t_list		*node;
 
-	if (analyze->tokens == NULL)
+	if (*analyze->tokens == NULL)
 		return ;
-	node = analyze->tokens;
-	analyze->tokens = analyze->tokens->next;
+	node = *analyze->tokens;
+	*analyze->tokens = (*analyze->tokens)->next;
 	ft_memcpy(&analyze->token, node->data, sizeof(t_token));
 	ft_lstdelone(&node, NULL);
 }

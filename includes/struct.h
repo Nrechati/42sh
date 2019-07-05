@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/05 11:40:53 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:10:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ typedef struct					s_job
 
 struct							s_analyze
 {
-	t_list						*tokens;
+	t_list						**tokens;
 	t_stack						stack;
 	t_stack						tree_node;
 	t_token						token;
