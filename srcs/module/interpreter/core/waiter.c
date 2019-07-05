@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:36:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 17:44:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 09:31:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ void			update_last_bin(t_list *processes)
 	char		*status;
 	t_process	*last;
 
+	if (processes == NULL)
+	{
+		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
+		return ;
+	}
 	while (processes->next != NULL)
 		processes = processes->next;
 	last = processes->data;

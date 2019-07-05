@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:37:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 19:44:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 09:31:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static int	run_job(void *context, void *data)
 		head = job->processes->data;
 		head->type |= IS_ALONE;
 		run_process(head, foreground);
+
 	}
 	else
 		launch_pipeline(job->processes, foreground);
