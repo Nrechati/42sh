@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 13:55:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:57:42 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void			del_redirects(void *data);
 void			del_process(void *data);
 void			del_job(void *data);
 
+void			print_signaled(char *command, int signo);
 void			print_process(void *data);
 void			print_job(void *data);
 void			print_var_lst(void *data);

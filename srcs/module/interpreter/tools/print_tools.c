@@ -6,11 +6,30 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:30:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 23:14:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:42:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void	print_signaled(char *command, int signo)
+{
+	static char			*signal_string[16] = { NULL, "terminal hangup", NULL
+											, "Quit"
+											, "Illegal instruction", "Trap"
+											, "Abort", "EMT Trap"
+											, "Floating point exception"
+											, "killed", "bus error"
+											, "segmentation fault"
+											, "Bad system call"
+											, NULL
+											, "Alarm clock"
+											, "Terminated"};
+
+	if (signo != 2 && signo != 13 && signo >= 1 && signo <= 15)
+		ft_dprintf(2, "\n42sh: %.*s: %s [%d]\n"
+			, ft_strlen(command) - 1 , command, signal_string[signo], signo);
+}
 
 void	print_var_lst(void *data)
 {

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:20:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 17:22:47 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:37:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,16 @@ static void	exited_process(t_process *current, int status)
 		current->completed = TRUE;
 }
 
-static void	print_signaled(char *command, int signo)
+static int	set_signal_status(void *context, void *data)
 {
-	static char			*signal_string[16] = { NULL, "terminal hangup", NULL
-											, "Quit"
-											, "Illegal instruction", "Trap"
-											, "Abort", "EMT Trap"
-											, "Floating point exception"
-											, "killed", "bus error"
-											, "segmentation fault"
-											, "Bad system call"
-											, NULL
-											, "Alarm clock"
-											, "Terminated"};
+	uint8_t		status;
+	t_process	*current;
 
-	if (signo != 2 && signo != 13 && signo >= 1 && signo <= 15)
-		ft_dprintf(2, "42sh: %s: %s [%d]\n"
-				, command, signal_string[signo], signo);
+	status = *((uint8_t*)context);
+	current = data;
+	status += 128;
+	current->status = status;
+	return (SUCCESS);
 }
 
 static void	signaled_process(t_job *job, int status)
@@ -56,6 +49,7 @@ static void	signaled_process(t_job *job, int status)
 	char		*command;
 
 	signo = WTERMSIG(status);
+	ft_lstiter_ctx(job->processes, &signo, set_signal_status);
 	command = get_var(g_shell->intern, "_input");
 	print_signaled(command, signo);
 	if (signo == 2 || signo == 3)
