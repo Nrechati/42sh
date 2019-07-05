@@ -105,7 +105,7 @@ uint8_t				fc_redo(t_registry *shell, char **av)
 	}
 	ft_putendl(cmd);
 	vct_cmd = vct_dups(cmd);
-	if (verif_line(NULL, vct_cmd) == TRUE)
+	if (verif_line(vct_cmd) == TRUE)
 		execution_pipeline(shell, &vct_cmd);
 	vct_del(&vct_cmd);
 	ft_strdel(&cmd);

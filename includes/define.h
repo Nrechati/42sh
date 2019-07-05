@@ -41,6 +41,7 @@
 # define SH42_USAGE_2				"[-c CMD]\n"
 # define SH42_USAGE_LONG_OPTION		"\n\t--help\n\t"
 # define SH42_USAGE_LONG_OPTION_2	"--debug\n"
+# define UNEXPECTED_EOF			 	"Unexpected EOF while looking for matching"
 
 # define NO_OPT						0x0000
 # define HELP_OPT					0x0001

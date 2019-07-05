@@ -34,13 +34,10 @@ static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 	redraw(shell, sle);
 	ft_putendl("");
 	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
-//		|| ft_strequ(sle->prompt.missing_char, PROMPT_PIPE) == TRUE
-//		|| ft_strequ(sle->prompt.missing_char, PROMPT_OR) == TRUE
-//		|| ft_strequ(sle->prompt.missing_char, PROMPT_AND) == TRUE
-//		|| ft_strequ(sle->prompt.missing_char, PROMPT_QUOTE) == TRUE
-//		|| ft_strequ(sle->prompt.missing_char, PROMPT_DQUOTE) == TRUE)
-		if (verif_line(sle, sle->line) == FALSE)
+	{
+		if (verif_line(sle->line) == FALSE)
 			return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -80,24 +77,16 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 										PROMPT_BRACE, PROMPT_MATHS};
 
 	linesave = sle->line;
-
 	sle->line = sle->sub_line;
-
 	sle->prompt.missing_char = (char *)prompt_type[sle_flag & ~SLE_PS2_PROMPT];
 	sle->prompt.state = INT_PS2;
-
 	if ((line = prompt(shell, sle)) == NULL)
 	{
 		sle->line = linesave;
 		return (NULL);
 	}
-
 	vct_del(&line);
 	sle->line = linesave;
-
-	if (verif_line(sle, sle->line) == FALSE)
-		ft_printf("Sub prompt FALSE\n");
-	//ft_printf("Total Line:|%s|%s|\n", sle->line->buffer, sle->sub_line->buffer);
 	return (vct_dup(sle->sub_line));
 }
 

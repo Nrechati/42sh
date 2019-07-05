@@ -15,29 +15,24 @@
 
 # include "struct.h"
 
+
 /*
 *****************************************************
 **************** PROMPT_SUBROUTINE ******************
 *****************************************************
 */
 
-void		save_intern_vars(t_registry *shell, t_sle *sle);
-void		find_multiline_coord(t_sle *sle, int8_t offset);
-t_vector	*read_error(t_registry *shell, t_sle *sle);
-uint64_t	get_prompt_length(t_prompt *prompt);
-
-uint8_t		verif_line(t_sle *sle, t_vector *line);
-uint8_t		parenthesis(t_sle *sle, t_vector *line, size_t *i);
-uint8_t		double_quote_routine(t_sle *sle, t_vector *line, size_t *i);
-uint8_t		single_quote_routine(t_sle *sle, t_vector *line, size_t *i);
-uint8_t		brace_exp_routine(t_sle *sle, t_vector *line, size_t *i);
-uint8_t		maths_exp_routine(t_sle *sle, t_vector *line, size_t *i);
-
+uint8_t		verif_line(t_vector *line);
+uint8_t		parenthesis(t_vector *line, size_t *i);
+uint8_t		double_quote_routine(t_vector *line, size_t *i);
+uint8_t		single_quote_routine(t_vector *line, size_t *i);
+uint8_t		brace_exp_routine(t_vector *line, size_t *i);
+uint8_t		maths_exp_routine(t_vector *line, size_t *i);
 void		backslash_process(t_vector *line);
 uint8_t		is_maths_exp(t_vector *line, int index);
 uint8_t		is_brace_exp(t_vector *line, int index);
 uint8_t		is_end_backslash(t_vector *line, int index);
-uint8_t		subprompt_call(t_sle *sle, t_vector *line, uint32_t option);
+uint8_t		subprompt_call(t_vector *line, uint32_t option);
 
 /*
 *****************************************************
@@ -111,6 +106,10 @@ void		p_insert_job(t_vector *test, uint64_t index);
 *****************************************************
 */
 
+void		save_intern_vars(t_registry *shell, t_sle *sle);
+void		find_multiline_coord(t_sle *sle, int8_t offset);
+t_vector	*read_error(t_registry *shell, t_sle *sle);
+uint64_t	get_prompt_length(t_prompt *prompt);
 int			ft_putc(const int c);
 uint8_t		is_eof(const char *buffer);
 uint8_t		is_separator(char c[READ_SIZE + 1]);

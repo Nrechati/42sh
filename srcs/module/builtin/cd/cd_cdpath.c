@@ -85,12 +85,12 @@ uint8_t			check_path(t_registry *shell, char *curpath,
 		if (oldpwd != NULL)
 			path_give_by_user = oldpwd;
 	}
-	if (access(curpath, F_OK) != SUCCESS)
+	if (lstat(curpath, &stat) != SUCCESS)
+		ft_dprintf(STDERR_FILENO, "42sh: cd: no such file or directory: %s\n",
+				path_give_by_user);
+	else if ((stat.st_mode & S_IFDIR) == FALSE)
 		ft_dprintf(STDERR_FILENO,
-					"cd: no such file or directory: %s\n", path_give_by_user);
-	else if (lstat(curpath, &stat) == FAILURE)
-		ft_dprintf(STDERR_FILENO,
-					"cd: not a directory: %s\n", path_give_by_user);
+					"42sh: cd: not a directory: %s\n", path_give_by_user);
 	else if (access(curpath, R_OK) != SUCCESS)
 		ft_dprintf(STDERR_FILENO,
 					"42sh: cd: %s: Permission denied\n", path_give_by_user);

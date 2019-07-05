@@ -25,7 +25,7 @@ static void				read_input(t_registry *shell)
 		if (ft_strcheck(line, ft_isprint) == TRUE)
 		{
 			cmd = vct_dups(line);
-			if (verif_line(NULL, cmd) == TRUE)
+			if (verif_line(cmd) == TRUE)
 				execution_pipeline(shell, &cmd);
 			vct_del(&cmd);
 		}
@@ -45,7 +45,7 @@ void					batch_mode(t_registry *shell)
 				&& ft_strcheck(shell->option.command_str, ft_isprint) == TRUE)
 		{
 			cmd = vct_dups(shell->option.command_str);
-			if (verif_line(NULL, cmd) == TRUE)
+			if (verif_line(cmd) == TRUE)
 				execution_pipeline(shell, &cmd);
 		}
 		else

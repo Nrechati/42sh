@@ -31,8 +31,8 @@ uint8_t				need_subprompt(enum e_type state, enum e_type type)
 		{
 			if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 			{
-				ft_printf("42sh: Unexpected EOF while looking for matching "
-						"%s\n", (char *)g_shell->grammar[state]);
+				ft_printf("42sh: %s %s\n", UNEXPECTED_EOF, 
+						(char *)g_shell->grammar[state]);
 				add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 				return (FALSE);
 			}
@@ -58,32 +58,49 @@ static uint64_t		set_option_subprompt(enum e_type state)
 	return (option);
 }
 
+static uint8_t		lexing_subline(t_vector *input, t_vector *line,
+							t_list **lst)
+{
+	t_list		*new_token;
+	
+	new_token = NULL;
+	if (verif_line(line) == FALSE)
+	{
+		vct_del(&line);
+		return (FALSE);
+	}
+	new_token = lexer(line, SHELL);
+	vct_ncat(input, line, vct_len(line));
+	vct_del(&line);
+	if ((*lst)->next && (*lst)->next->next)
+		free_one_node_token(&(*lst)->next->next);
+	free_one_node_token(&(*lst)->next);
+	(*lst)->next = new_token;
+	return (TRUE);
+}
+
 uint8_t				parser_subprompt(enum e_type state,
 						t_vector *input, t_list **lst)
 {
 	t_vector	*line;
-	t_list		*new_token;
 	uint64_t	option;
 
-	new_token = NULL;
 	line = NULL;
 	option = set_option_subprompt(state);
 	sle(g_shell, &line, option);
-//	history(g_shell, vct_get_string(input), ADD_ENTRY);
-	if (line == NULL)// || do_history_exp(&line) == FAILURE)
+	history(g_shell, vct_get_string(input), ADD_ENTRY);
+	if (line == NULL || do_history_exp(&line) == FAILURE)
 	{
-//		history(g_shell, NULL, POP_ENTRY);
+		history(g_shell, NULL, POP_ENTRY);
 		return (FALSE);
 	}
-//	history(g_shell, NULL, POP_ENTRY);
+	history(g_shell, NULL, POP_ENTRY);
 	if (line->buffer == NULL || ft_strequ(line->buffer, "\n") == TRUE)
+	{
+		vct_del(&line);
 		return (parser_subprompt(state, input, lst));
+	}
 	vct_pop(input);
 	vct_add(input, ' ');
-	new_token = lexer(line, SHELL);
-	vct_ncat(input, line, vct_len(line));
-	vct_del(&line);
-	free_one_node_token(&(*lst)->next);
-	(*lst)->next = new_token;
-	return (TRUE);
+	return (lexing_subline(input, line, lst));
 }

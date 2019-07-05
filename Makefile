@@ -6,7 +6,7 @@
 #    By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/05 14:03:59 by cempassi         ###   ########.fr        #
+#    Updated: 2019/07/04 15:57:20 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,9 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 
 CC = clang
 LINK = $(CC) -g3
-LINKD = $(CC) -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
+LINKD = $(CC) -g3# -fsanitize=address,undefined -fno-omit-frame-pointer
 COMPILE = $(CC) -c -g3
-DEBUG = $(CC) -g3 -c -fsanitize=address,undefined -fno-omit-frame-pointer
+DEBUG = $(CC) -g3 -c #-fsanitize=address,undefined -fno-omit-frame-pointer
 
 # ---------------------------------------------------------------------------- #
 #									Commands                                   #
@@ -416,7 +416,6 @@ ANALYZER += token_tools.c
 
 INTERPRETER += interpreter.c
 INTERPRETER += map.c
-INTERPRETER += run.c
 INTERPRETER += list_tools.c
 INTERPRETER += generate_env.c
 INTERPRETER += pipe_interpreter.c
@@ -427,7 +426,6 @@ INTERPRETER += redirect_functions.c
 INTERPRETER += io_redirect_functions.c
 INTERPRETER += stdout_functions.c
 INTERPRETER += special_redirect_functions.c
-INTERPRETER += setup_redirects.c
 INTERPRETER += redirect_tools.c
 INTERPRETER += waiter.c
 INTERPRETER += set_status.c

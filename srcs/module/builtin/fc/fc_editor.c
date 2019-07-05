@@ -101,7 +101,7 @@ static int8_t	exec_new_pipeline(t_registry *shell)
 		cmd = vct_dups(line);
 		ft_strdel(&line);
 		shell->option.option &= ~(INTERACTIVE_OPT);
-		if (verif_line(NULL, cmd) == TRUE)
+		if (verif_line(cmd) == TRUE)
 			execution_pipeline(shell, &cmd);
 		shell->option.option |= INTERACTIVE_OPT;
 		vct_del(&cmd);
