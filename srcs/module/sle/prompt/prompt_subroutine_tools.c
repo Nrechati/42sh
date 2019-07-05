@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:43:18 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:28:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ uint8_t			subprompt_call(t_sle *sle, t_vector *line, uint32_t option)
 	//	history(g_shell, NULL, POP_ENTRY);
 		return (FALSE);
 	}
-	ft_putendl(new_input->buffer);
+//	ft_putendl(new_input->buffer);
 //	history(g_shell, NULL, POP_ENTRY);
 	vct_ncat(line, new_input, vct_len(new_input));
 	vct_del(&new_input);
