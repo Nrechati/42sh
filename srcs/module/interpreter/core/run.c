@@ -58,7 +58,7 @@ static void	run_type_selection(t_process *process, uint8_t foreground)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
-	else if (process->av == NULL || process->av[0] == '\0')
+	else if (process->av == NULL || process->av[0] == NULL)
 		process->completed = 1;
 	else if (process->type == (IS_ALONE | IS_BLT) && foreground == TRUE)
 		run_builtin(process, foreground);

@@ -72,7 +72,7 @@ int8_t	get_process_type(t_registry *shell, t_process *process)
 	char		*path;
 
 	path = NULL;
-	if (process->type & IS_ASSIGN || !process->av || process->av[0] == '\0')
+	if (process->type & IS_ASSIGN || !process->av || process->av[0] == NULL)
 		return (SUCCESS);
 	if (ft_hmap_getdata(&shell->hash.blt, process->av[0]) != NULL)
 		process->type |= IS_BLT;
