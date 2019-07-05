@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 22:39:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:30:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ static int	arithmetic(char **output, int i)
 	return (SUCCESS);
 }
 
-static int	check_math_expansion(char **buff, int i)
+static int	check_math_expansion(char **buff, int i, t_quote quote)
 {
 	char	*input;
 	int		check;
 
-	check = 0;
 	input = *buff;
-	if (input[i] != '$')
+	check = 0;
+	if (input[i] != '$' || quote == QUOTE_SINGLE)
 		return (0);
 	if (ft_strnequ(&input[i + 1], "((", 2) == TRUE)
 		check = arithmetic(buff, i);
@@ -75,7 +75,7 @@ char		*arithmetic_expansion(char *input)
 			quote = select_quoting(quote, dest[i]);
 		if (dest[i] == '\\' && (quote == QUOTE_OFF || quote == QUOTE_DOUBLE))
 			i = check_backslash(dest, quote, i);
-		else if ((result = check_math_expansion(&dest, i)) == 1)
+		else if ((result = check_math_expansion(&dest, i, quote)))
 			len = ft_strlen(dest);
 		else if (result == -1)
 			return (NULL);

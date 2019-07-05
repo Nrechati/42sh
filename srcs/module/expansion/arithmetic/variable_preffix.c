@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 17:05:49 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:06:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:13:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		m_preincrement_analyzer(t_arithmetic *arithmetic)
 	}
 	add_var(&g_shell->intern, current->data, data, SET_VAR);
 	ft_strdel(&data);
-	ft_lstdelone(&arithmetic->current, NULL);
+	ft_lstdelone(&arithmetic->current, del_token);
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic, NULL);
@@ -62,7 +62,7 @@ void		m_predecrement_analyzer(t_arithmetic *arithmetic)
 	}
 	add_var(&g_shell->intern, current->data, data, SET_VAR);
 	ft_strdel(&data);
-	ft_lstdelone(&arithmetic->current, NULL);
+	ft_lstdelone(&arithmetic->current, del_token);
 	node = ft_lstnew(&token, sizeof(t_rpn_tk));
 	ft_lstaddback(&arithmetic->solving, node);
 	m_get_token(arithmetic, NULL);
@@ -74,7 +74,7 @@ void		m_preffix(t_arithmetic *arithmetic)
 
 	arithmetic->state = MATH_PREFFIX;
 	control = arithmetic->curr_token->type;
-	m_get_token(arithmetic, NULL);
+	m_get_token(arithmetic, &arithmetic->current);
 	if (arithmetic->curr_token->type == E_M_STRING)
 	{
 		if (control == E_M_DPLUS)
