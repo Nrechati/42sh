@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:05:03 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:33:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:06:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ uint64_t	assign_keycodes(t_sle *sle)
 	sle->ak_masks[AK_CTRL_D] = AK_CTRL_D_MASK;
 	sle->ak_masks[AK_CTRL_L] = AK_CTRL_L_MASK;
 	sle->ak_masks[AK_ESCAPE] = AK_ESCAPE_MASK;
-	sle->ak_masks[AK_CTRL_F] = AK_CTRL_F_MASK;
-	sle->ak_masks[AK_CTRL_X] = AK_CTRL_X_MASK;
-	sle->ak_masks[AK_CTRL_B] = AK_CTRL_B_MASK;
-	sle->ak_masks[AK_CTRL_P] = AK_CTRL_P_MASK;
+	sle->ak_masks[AK_ALT_V] = AK_ALT_V_MASK;
+	sle->ak_masks[AK_ALT_X] = AK_ALT_X_MASK;
+	sle->ak_masks[AK_ALT_C] = AK_ALT_C_MASK;
+	sle->ak_masks[AK_ALT_P] = AK_ALT_P_MASK;
 	sle->ak_masks[AK_CTRL_LEFT] = AK_CTRL_LEFT_MASK;
 	sle->ak_masks[AK_CTRL_RIGHT] = AK_CTRL_RIGHT_MASK;
 	sle->ak_masks[AK_CTRL_DOWN] = AK_CTRL_DOWN_MASK;
@@ -80,11 +80,11 @@ uint64_t	link_keys_functions(t_actionkeys actionkeys[AK_AMOUNT])
 	actionkeys[AK_CTRL_DOWN] = &ak_ctrl_down;
 	actionkeys[AK_CTRL_LEFT] = &ak_ctrl_left;
 	actionkeys[AK_CTRL_RIGHT] = &ak_ctrl_right;
-	actionkeys[AK_CTRL_F] = &ak_enter_visual_mode;
+	actionkeys[AK_ALT_V] = &ak_enter_visual_mode;
 	actionkeys[AK_ESCAPE] = &ak_exit_modes;
-	actionkeys[AK_CTRL_X] = &ak_cut_selection;
-	actionkeys[AK_CTRL_B] = &ak_copy_selection;
-	actionkeys[AK_CTRL_P] = &ak_paste_clipboard;
+	actionkeys[AK_ALT_X] = &ak_cut_selection;
+	actionkeys[AK_ALT_C] = &ak_copy_selection;
+	actionkeys[AK_ALT_P] = &ak_paste_clipboard;
 	actionkeys[AK_ARROW_UP] = &ak_arrow_up;
 	actionkeys[AK_ARROW_DOWN] = &ak_arrow_down;
 	actionkeys[AK_CTRL_R] = &ak_ctrl_r;

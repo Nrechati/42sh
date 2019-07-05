@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_assign_analyzer.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 13:59:55 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 16:15:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:33:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	init_assign_flush(t_analyzer analyzer)
 	analyzer[P_ASSIGN_FLUSH][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_ASSIGN_FLUSH][E_SEMICOLON] = stop_analyzer;
 	analyzer[P_ASSIGN_FLUSH][E_PIPE] = pipe_analyzer;
+	analyzer[P_ASSIGN_FLUSH][E_DAND] = stop_analyzer;
+	analyzer[P_ASSIGN_FLUSH][E_OR] = stop_analyzer;
 	analyzer[P_ASSIGN_FLUSH][E_AND] = stop_analyzer;
 	analyzer[P_ASSIGN_FLUSH][E_NEWLINE] = stop_analyzer;
 	analyzer[P_ASSIGN_FLUSH][E_END] = end_analyzer;
@@ -50,6 +52,8 @@ void	init_assign_data(t_analyzer analyzer)
 	analyzer[P_ASSIGN_DATA][E_ANDDGREAT] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_IO_NUMBER] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_PIPE] = assign_flush_analyzer;
+	analyzer[P_ASSIGN_DATA][E_DAND] = assign_flush_analyzer;
+	analyzer[P_ASSIGN_DATA][E_OR] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_SEMICOLON] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_NEWLINE] = assign_flush_analyzer;
 	analyzer[P_ASSIGN_DATA][E_END] = assign_flush_analyzer;

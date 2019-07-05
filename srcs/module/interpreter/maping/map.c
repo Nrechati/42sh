@@ -6,28 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 13:49:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/04 14:47:04 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:44:51 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-void		*set_redirect(void *context, void *data)
-{
-	static t_redirection	*redirecter;
-	t_list					*node;
-	t_action				*action;
-	t_redirect				redirect;
-
-	(void)context;
-	if (redirecter == NULL)
-		redirecter = redirecter_init();
-	action = data;
-	ft_bzero(&redirect, sizeof(t_redirect));
-	(*redirecter)[action->type](&redirect, action);
-	node = ft_lstnew(&redirect, sizeof(t_redirect));
-	return (node);
-}
 
 void		*set_intern(void *context, void *data)
 {
@@ -49,21 +32,11 @@ void		*set_intern(void *context, void *data)
 	return (node);
 }
 
-void		set_process(t_process *proc, t_command *command, void *context)
+void		set_process(t_process *proc, t_command *cmd, void *context)
 {
-	t_list		*redirect;
-
-	redirect = ft_lstsplit_if(&command->actions, NULL, redirect_or_other);
-	proc->redirects = ft_lstmap(redirect, context, set_redirect, del_action);
-	if (ft_lstiter_ctx(proc->redirects, proc, check_redirect_error) == FAILURE)
-	{
-		ft_lstdel(&redirect, del_action);
-		ft_lstdel(&proc->redirects, close_redirect);
-		return ;
-	}
-	proc->av = ft_lsttotab(command->av, token_to_str);
-	proc->env = ft_lstmap(command->actions, context, token_to_var, free_node);
-	ft_lstdel(&redirect, del_action);
+	proc->redirects = ft_lstsplit_if(&cmd->actions, NULL, redirect_or_other);
+	proc->av = ft_lsttotab(cmd->av, token_to_str);
+	proc->env = ft_lstmap(cmd->actions, context, token_to_var, free_node);
 	return ;
 }
 

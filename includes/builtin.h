@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 20:16:14 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:38:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ int8_t		get_first_last(char **av, char **param);
 *****************************************************
 */
 
-uint8_t		bg_blt(t_registry *shell, char **av);
+int8_t		bg_blt(t_registry *shell, char **av);
 
 /*
 *****************************************************
@@ -177,7 +177,7 @@ uint8_t		bg_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-uint8_t		fg_blt(t_registry *shell, char **av);
+int8_t		fg_blt(t_registry *shell, char **av);
 
 /*
 *****************************************************
@@ -185,7 +185,7 @@ uint8_t		fg_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-uint8_t		jobs_blt(t_registry *shell, char **av);
+int8_t		jobs_blt(t_registry *shell, char **av);
 t_option	get_option_jobs(char *s, t_option option);
 
 #endif

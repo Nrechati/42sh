@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:48:28 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 18:36:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:15:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		heredoc_delimiter(t_analyze *analyze)
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
 		ft_dprintf(2, "42sh: Here documents only in interractive mode\n");
-		ft_lstdel(&analyze->tokens, del_token);
+		ft_lstdel(analyze->tokens, del_token);
 		ft_strdel(&analyze->token.data);
 		error_analyzer(analyze);
 	}

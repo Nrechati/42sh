@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:44:20 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 01:05:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:20:38 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_list			*analyzer(t_list **tokens)
 	if (analyzer == NULL)
 		analyzer = init_analyzer();
 	ft_bzero(&analyze, sizeof(t_analyze));
-	analyze.tokens = *tokens;
+	analyze.tokens = tokens;
 	analyze.token.type = E_DEFAULT;
 	get_token(&analyze);
 	while (analyze.state != P_END)

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 07:18:22 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 13:30:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:20:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ int8_t				execution_pipeline(t_registry *shell, t_vector **input)
 	if (parser(*input, tokens) == FAILURE)
 		return (invalid_input(input, &tokens));
 	command_group = analyzer(&tokens);
-	if (command_group)
+	if (command_group == NULL)
+		return (invalid_input(input, &tokens));
+	else
 		valid_command(input, &command_group);
 	vct_del(input);
 	return (SUCCESS);

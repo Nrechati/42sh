@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 16:03:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 17:34:25 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:39:03 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static uint8_t		get_jobname(t_registry *shell, char **av, t_option option)
 	return (ret);
 }
 
-uint8_t				jobs_blt(t_registry *shell, char **av)
+int8_t				jobs_blt(t_registry *shell, char **av)
 {
 	t_option	option;
 	uint8_t		ret;

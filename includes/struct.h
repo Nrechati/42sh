@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/04 12:09:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:20:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct					s_process
 {
 	char						**av;
 	t_list						*env;
+	t_list						*pipe;
 	t_list						*redirects;
 	uint32_t					type;
 	uint32_t					id;
@@ -172,7 +173,7 @@ typedef struct					s_job
 
 struct							s_analyze
 {
-	t_list						*tokens;
+	t_list						**tokens;
 	t_stack						stack;
 	t_stack						tree_node;
 	t_token						token;

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 07:18:30 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:06:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:15:16 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ void		m_suffix(t_arithmetic *arithmetic)
 	token = ft_stcktop(&arithmetic->processing);
 	arithmetic->state = MATH_SUFFIX;
 	control = arithmetic->curr_token->type;
-	free(arithmetic->curr_token);
-	free(arithmetic->current);
-	m_get_token(arithmetic, NULL);
+	m_get_token(arithmetic, &arithmetic->current);
 	if (token->type == E_M_STRING)
 	{
 		if (control == E_M_DPLUS)

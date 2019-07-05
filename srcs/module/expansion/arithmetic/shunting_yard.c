@@ -6,62 +6,76 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:38:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 17:07:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:51:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static int8_t	close_bracket(t_rpn_tk *curr, t_stack *operator, t_stack *rpn)
+static int8_t	close_bracket(t_stack *operator, t_stack *rpn)
 {
-	(void)curr;
+	t_list		*node;
+
 	while (is_left_p(operator) == FALSE)
-		if (ft_stckpush(rpn, ft_stckpop(operator)
-				, sizeof(t_rpn_tk)) == FAILURE)
+		if (ft_stckpushnode(rpn, ft_stckpopnode(operator)) == FAILURE)
 			return (FAILURE);
 	if (is_left_p(operator) == TRUE)
-		curr = ft_stckpop(operator);
+	{
+		node = ft_stckpopnode(operator);
+		ft_lstdelone(&node, NULL);
+	}
 	return (SUCCESS);
 }
 
-static int8_t	handle_operator(t_rpn_tk *curr, t_stack *operator, t_stack *rpn)
+static int8_t	handle_operator(t_list *curr, t_stack *operator, t_stack *rpn)
 {
-	while (need_pop_operator(curr, operator) == TRUE)
-		if (ft_stckpush(rpn, ft_stckpop(operator), sizeof(t_rpn_tk)) == FAILURE)
+	t_rpn_tk *token;
+
+	token = curr->data;
+	while (need_pop_operator(token, operator) == TRUE)
+		if (ft_stckpushnode(rpn, ft_stckpopnode(operator)) == FAILURE)
 			return (FAILURE);
-	if (ft_stckpush(operator, curr, sizeof(t_rpn_tk)) == FAILURE)
+	if (ft_stckpushnode(operator, curr) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-static int8_t	handle_bracket(t_rpn_tk *curr, t_stack *operator, t_stack *rpn)
+static int8_t	handle_bracket(t_list *curr, t_stack *operator, t_stack *rpn)
 {
-	if (curr->value.type == OPEN_P)
+	t_rpn_tk	*token;
+
+	token = curr->data;
+	if (token->value.type == OPEN_P)
 	{
-		if (ft_stckpush(operator, curr, sizeof(t_rpn_tk)) == FAILURE)
+		if (ft_stckpushnode(operator, curr) == FAILURE)
 			return (FAILURE);
 	}
-	else if (close_bracket(curr, operator, rpn) == FAILURE)
+	else if (close_bracket(operator, rpn) == FAILURE)
 		return (FAILURE);
+	if (token->value.type == CLOSE_P)
+		ft_lstdelone(&curr, NULL);
 	return (SUCCESS);
 }
 
-static int8_t	handle_infix_token(t_rpn_tk *curr
+static int8_t	handle_infix_token(t_list *current
 				, t_stack *rpn, t_stack *operator)
 {
-	if (curr->type == RPN_NUMBER)
+	t_rpn_tk	*token;
+
+	token = current->data;
+	if (token->type == RPN_NUMBER)
 	{
-		if (ft_stckpush(rpn, curr, sizeof(t_rpn_tk)) == FAILURE)
+		if (ft_stckpushnode(rpn, current) == FAILURE)
 			return (FAILURE);
 	}
-	else if (curr->type == RPN_OPERATOR)
+	else if (token->type == RPN_OPERATOR)
 	{
-		if (handle_operator(curr, operator, rpn) == FAILURE)
+		if (handle_operator(current, operator, rpn) == FAILURE)
 			return (FAILURE);
 	}
-	else if (curr->type == RPN_PARENT_OPEN || curr->type == RPN_PARENT_CLOSE)
+	else if (token->type == RPN_PARENT_OPEN || token->type == RPN_PARENT_CLOSE)
 	{
-		if (handle_bracket(curr, operator, rpn) == FAILURE)
+		if (handle_bracket(current, operator, rpn) == FAILURE)
 			return (FAILURE);
 	}
 	return (SUCCESS);
@@ -70,16 +84,14 @@ static int8_t	handle_infix_token(t_rpn_tk *curr
 int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn)
 {
 	t_list		*node;
-	t_rpn_tk	*curr;
 	t_stack		operator;
 
 	ft_stckinit(&operator);
 	while (ft_stcksize(infix) > 0)
 	{
-		curr = ft_stckpop(infix);
-		if (handle_infix_token(curr, rpn, &operator) == FAILURE)
+		node = ft_stckpopnode(infix);
+		if (handle_infix_token(node, rpn, &operator) == FAILURE)
 			return (FAILURE);
-		free(curr);
 	}
 	while (ft_stcksize(&operator) > 0)
 	{
