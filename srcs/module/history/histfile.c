@@ -31,6 +31,26 @@ static char		*get_histfile(t_registry *shell)
 	return (NULL);
 }
 
+static int		get_histfile_fd(t_registry *shell, int flags)
+{
+	char		*histfile;
+	struct stat	st;
+	int			fd;
+
+	fd = -1;
+	histfile = get_histfile(shell);
+	if (histfile == NULL)
+		return (-1);
+	fd = open(histfile, flags, S_IRUSR | S_IWUSR);
+	if (stat(histfile, &st) != SUCCESS || (st.st_mode & S_IFREG) == FALSE)
+	{	
+		close(fd);
+		fd = -1;
+	}
+	ft_strdel(&histfile);
+	return (fd);
+}
+
 static int		get_histsize(t_registry *shell)
 {
 	const char	*tmp;
@@ -48,27 +68,23 @@ static int		get_histsize(t_registry *shell)
 
 void			read_histfile(t_registry *shell, t_history *history)
 {
-	char	*histfile;
 	char	*cmd;
 	int		fd;
 
-	histfile = get_histfile(shell);
-	if (histfile == NULL)
+	if ((fd = get_histfile_fd(shell, O_CREAT | O_RDONLY)) == FAILURE)
 		return ;
-	if ((fd = open(histfile, O_CREAT | O_RDONLY,
-					S_IRUSR | S_IWUSR)) == FAILURE)
-	{
-		ft_strdel(&histfile);
-		return ;
-	}
-	ft_strdel(&histfile);
 	cmd = NULL;
 	while (get_next_line(fd, &cmd) > 0)
 	{
-		add_entry(&history->entry, create_entry(cmd));
-		ft_strdel(&cmd);
-		history->head_ptr = history->entry;
-		history->nb_of_entries++;
+		if (cmd != NULL)
+		{
+			if (ft_strcheck(cmd, ft_isprint) == TRUE
+					&& *cmd != '\0' && *cmd != '\n')
+				add_entry(&history->entry, create_entry(cmd));
+			ft_strdel(&cmd);
+			history->head_ptr = history->entry;
+			history->nb_of_entries++;
+		}
 	}
 	ft_strdel(&cmd);
 	close(fd);
@@ -77,20 +93,12 @@ void			read_histfile(t_registry *shell, t_history *history)
 void			write_histfile(t_registry *shell, t_history *history)
 {
 	t_entry		*entry;
-	char		*histfile;
 	int			histsize;
 	int			fd;
 	int			i;
 
-	if ((histfile = get_histfile(shell)) == NULL)
+	if ((fd = get_histfile_fd(shell, O_CREAT | O_WRONLY | O_TRUNC)) == FAILURE)
 		return ;
-	if ((fd = open(histfile, O_CREAT | O_WRONLY | O_TRUNC,
-					S_IRUSR | S_IWUSR)) == FAILURE)
-	{
-		ft_strdel(&histfile);
-		return ;
-	}
-	ft_strdel(&histfile);
 	entry = entry_roll_back(history->entry);
 	histsize = get_histsize(shell);
 	i = 0;
