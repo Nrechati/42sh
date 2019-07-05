@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 11:18:39 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:42:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,10 +206,12 @@ enum	e_action_keys
 	AK_CTRL_D,
 	AK_CTRL_L,
 	AK_ESCAPE,
-	AK_CTRL_F,
-	AK_CTRL_B,
-	AK_CTRL_X,
-	AK_CTRL_P,
+
+	AK_ALT_V,
+	AK_ALT_C,
+	AK_ALT_X,
+	AK_ALT_P,
+
 	AK_CTRL_R,
 	AK_CTRL_T,
 	AK_TABULATION,

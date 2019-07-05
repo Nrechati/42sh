@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:41:30 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:15:13 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ static void				expand_prompt(t_sle *sle, t_vector *text)
 			p_insert_host(text, index - 1);
 		else if (vct_charat(text, index) == P_MISS)
 			p_insert_missing(sle, text, index - 1);
+		else if (vct_charat(text, index) == P_SUCCESS)
+			p_insert_success(text, index - 1);
+		else if (vct_charat(text, index) == P_JOB)
+			p_insert_job(text, index - 1);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 11:13:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:54:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
-# define INT_PS1_VALUE				"[\\e[31m\\u\\e[0m][\\e[34m\\w\\e[0m]-> "
-# define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
+# define INT_PS1_VALUE		"[\\?][\\!][\\e[31m\\u\\e[0m][\\e[34m\\w\\e[0m]-> "
+# define INT_PS2_VALUE				"(\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
 
 /*
@@ -505,15 +505,20 @@
 # define P_HOST				'h'
 # define P_MISS				'm'
 # define P_ESCAPE			'e'
+# define P_SUCCESS			'?'
+# define P_JOB				'!'
+
 
 # define FAIL_EOF					42
 # define AK_AMOUNT					24
 
 # define AK_ESCAPE_MASK				0x1b00000000000000
+
 # define AK_ARROW_UP_MASK			0x1b5b410000000000
 # define AK_ARROW_DOWN_MASK 		0x1b5b420000000000
 # define AK_ARROW_RIGHT_MASK		0x1b5b430000000000
 # define AK_ARROW_LEFT_MASK 		0x1b5b440000000000
+
 # define AK_HOME_MASK 				0x1b5b480000000000
 # define AK_END_MASK 				0x1b5b460000000000
 # define AK_CTRL_A_MASK 			0x0100000000000000
@@ -522,18 +527,21 @@
 # define AK_BACKSPACE_MASK		 	0x7f00000000000000
 # define AK_CTRL_D_MASK 			0x0400000000000000
 # define AK_CTRL_L_MASK				0x0c00000000000000
-# define AK_CTRL_F_MASK				0x0600000000000000
 
-# define AK_CTRL_X_MASK				0x1800000000000000
-# define AK_CTRL_B_MASK				0x0200000000000000
-# define AK_CTRL_P_MASK				0x1000000000000000
+//								0xFF80000000000000
+# define AK_ALT_P_MASK				0xFF80000000000000
+# define AK_ALT_X_MASK				0xFFFF880000000000
+# define AK_ALT_C_MASK				0xFFA7000000000000
+# define AK_ALT_V_MASK				0xFFFF9A0000000000
 
 # define AK_CTRL_R_MASK				0x1200000000000000
 # define AK_CTRL_T_MASK				0x1400000000000000
-# define AK_CTRL_UP_MASK			0x1b5b313b35410000
-# define AK_CTRL_DOWN_MASK			0x1b5b313b35420000
-# define AK_CTRL_RIGHT_MASK			0x1b5b313b35430000
-# define AK_CTRL_LEFT_MASK			0x1b5b313b35440000
+
+# define AK_CTRL_UP_MASK			0x1B1B5B4100000000
+# define AK_CTRL_DOWN_MASK			0x1B1B5B4200000000
+# define AK_CTRL_LEFT_MASK			0x1B1B5B4400000000
+# define AK_CTRL_RIGHT_MASK			0x1B1B5B4300000000
+
 # define AK_TAB_MASK				0x0900000000000000
 
 /*
