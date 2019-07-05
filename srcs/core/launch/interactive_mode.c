@@ -76,10 +76,8 @@ void				interactive_mode(t_registry *shell)
 			load_signal_profile(SLE_PROFILE);
 		}
 		else if (input != NULL && input->buffer != NULL)
-		{
 			history(g_shell, vct_get_string(input), ADD_ENTRY);
-			vct_del(&input);
-		}
+		vct_del(&input);
 	}
 	vct_del(&input);
 	term_mode(TERMMODE_DFLT);
