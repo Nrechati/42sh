@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 11:49:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:54:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void			handle_actionkey(t_registry *shell,
 
 	index = 0;
 	value = compute_mask(c);
+//	ft_printf("|%lu|\n", value);
 	while (index < AK_AMOUNT)
 	{
 		if (value == sle->ak_masks[index])
