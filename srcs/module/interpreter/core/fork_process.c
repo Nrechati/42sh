@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/04 19:47:40 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:57:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		run_child(t_process *process, char **env)
 
 	pathname = NULL;
 	if (ft_lstiter_ctx(process->redirects, NULL, do_redirect) == FAILURE)
-		exit(FAILURE);
+		exit(1);
 	ft_lstiter(process->redirects, close_redirect);
 	if (process->type & IS_BIN)
 		pathname = ft_hmap_getdata(&g_shell->hash.bin, process->av[0]);
