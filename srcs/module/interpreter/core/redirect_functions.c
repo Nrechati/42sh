@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/04 12:28:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:46:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	stdin_readfd(t_redirect *redirect, t_action *action)
 	if (action_type == FAILURE)
 		redirect->type = FD_CRITICAL_ERROR;
 	else if (action_type == -2)
-		redirect->type = FD_BAD_DESCRIPTOR;
+		redirect->type = FD_AMBIGOUS_REDIRECT;
 	else
 	{
 		fd = ft_atoi(str);

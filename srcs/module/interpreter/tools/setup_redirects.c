@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_redirects.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:44:25 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 14:28:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:39:18 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ int			setup_redirect(t_process *process)
 	redirect = ft_lstmap(process->redirects, NULL, set_redirect, del_action);
 	if (ft_lstiter_ctx(redirect, process, check_redirect_error) == FAILURE)
 	{
-		ft_lstdel(&redirect, del_action);
-		ft_lstdel(&process->redirects, close_redirect);
+		ft_lstdel(&redirect, close_redirect);
+		ft_lstdel(&process->redirects, del_action);
 		return (FAILURE);
 	}
+	ft_lstdel(&process->redirects, del_action);
 	process->redirects = redirect;
 	if (process->pipe)
 	{
