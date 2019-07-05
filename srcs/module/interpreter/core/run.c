@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 16:46:29 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 21:49:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int			run_process(t_process *process, uint8_t foreground)
 	if (expand_process(g_shell->intern, process) == FAILURE)
 	{
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
+		process->completed = 1;
 		return (FAILURE);
 	}
 	if (get_process_type(g_shell, process) == FAILURE)
