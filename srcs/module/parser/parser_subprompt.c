@@ -16,11 +16,14 @@ static void			free_one_node_token(t_list **token_lst)
 {
 	t_token	*token;
 
-	token = (t_token *)((*token_lst)->data);
-	ft_strdel(&token->data);
-	free(token);
-	free(*token_lst);
-	*token_lst = NULL;
+	if (token_lst != NULL)
+	{
+		token = (t_token *)((*token_lst)->data);
+		ft_strdel(&token->data);
+		free(token);
+		free(*token_lst);
+		*token_lst = NULL;
+	}
 }
 
 uint8_t				need_subprompt(enum e_type state, enum e_type type)

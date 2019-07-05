@@ -20,6 +20,7 @@ uint8_t				echo_blt(t_registry *shell, char **av)
 	++av;
 	(void)shell;
 	option = 0;
+	ret = SUCCESS;
 	while (ft_strequ("-n", *av) == TRUE)
 	{
 		option |= N_OPT;

@@ -16,8 +16,11 @@ static void		find_x3_coord(t_sle *sle, char *line, uint32_t prompt_len)
 {
 	if (line == NULL)
 	{
-		while (sle->line->buffer[sle->cursor.x3] != '\0')
-			sle->cursor.x3++;
+		if (sle->line != NULL && sle->line->buffer != NULL)
+		{
+			while (sle->line->buffer[sle->cursor.x3] != '\0')
+				sle->cursor.x3++;
+		}
 		sle->cursor.x3 += prompt_len;
 	}
 	else
@@ -54,8 +57,11 @@ static void		find_x2_coord(t_sle *sle, char *line, uint32_t prompt_len,
 {
 	if (line == NULL)
 	{
-		while (cmd_offset[sle->cursor.x2] != '\0')
-			sle->cursor.x2++;
+		if (cmd_offset != NULL)
+		{
+			while (cmd_offset[sle->cursor.x2] != '\0')
+				sle->cursor.x2++;
+		}
 		sle->cursor.x2 += prompt_len;
 	}
 	else

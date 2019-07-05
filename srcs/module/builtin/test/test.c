@@ -76,7 +76,6 @@ int8_t				test_blt(t_registry *shell, char **av)
 	t_hash			callbacks;
 
 	(void)shell;
-	status = 0;
 	ft_bzero(&callbacks, sizeof(t_hash));
 	callbacks = ft_hmap_init(TEST_HASH_SIZE);
 	load_test_hashmap(&callbacks);
