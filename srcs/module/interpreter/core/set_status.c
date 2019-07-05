@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:20:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 13:37:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:04:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ static void	signaled_process(t_job *job, int status)
 	char		*command;
 
 	signo = WTERMSIG(status);
-	ft_lstiter_ctx(job->processes, &signo, set_signal_status);
+	if (signo != SIGPIPE)
+		ft_lstiter_ctx(job->processes, &signo, set_signal_status);
 	command = get_var(g_shell->intern, "_input");
 	print_signaled(command, signo);
-	if (signo == 2 || signo == 3)
+	if (signo == SIGINT || signo == SIGQUIT)
 		sigstop_exec(signo);
 	mark_job_as_stopped(job);
 }
