@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:00:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 19:13:56 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:09:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	mark_proc(pid_t pid, int status)
 		return ;
 	if (WIFEXITED(status) == 1)
 		mark_job_as_completed(job);
-	if (WIFSTOPPED(status))
+	else if (WIFSTOPPED(status))
 		mark_job_as_stopped(job);
 	else if (WIFSIGNALED(status))
 		if (WTERMSIG(status) != 18 && WTERMSIG(status) != 19)
@@ -82,7 +82,7 @@ uint8_t	mark_proc_status(void)
 	while (joblst != NULL)
 	{
 		job = joblst->data;
-		pid = waitpid(job->pgid, &status, WNOHANG);
+		pid = waitpid(job->pgid, &status, WNOHANG | WUNTRACED);
 		mark_proc(pid, status);
 		joblst = joblst->next;
 	}

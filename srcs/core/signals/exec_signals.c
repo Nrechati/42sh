@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 19:43:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:13:27 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	sigstop_exec(int signo)
 
 void	init_exec_signals(void)
 {
+	signal(SIGHUP, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGPIPE, SIG_DFL);
@@ -29,7 +30,7 @@ void	init_exec_signals(void)
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGCONT, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTTOU, SIG_IGN);
+	signal(SIGTTOU, SIG_DFL);
 }
 
 void	sigchld_exec(int signo)
