@@ -87,9 +87,6 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 	}
 	vct_del(&line);
 	sle->line = linesave;
-	//if (sle->prompt.missing_char == PROMPT_PIPE
-	//	&& verif_line(sle, line) == FALSE)
-	//	return (FALSE);
 	return (vct_dup(sle->sub_line));
 }
 
