@@ -6,12 +6,30 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/04 14:52:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:32:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
+
+void			hash_builtin(t_registry *shell)
+{
+	ft_hmap_insert(&(shell->hash.blt), "echo", echo_blt);
+	ft_hmap_insert(&(shell->hash.blt), "cd", cd_blt);
+	ft_hmap_insert(&(shell->hash.blt), "hash", hash_blt);
+	ft_hmap_insert(&(shell->hash.blt), "exit", exit_blt);
+	ft_hmap_insert(&(shell->hash.blt), "type", type_blt);
+	ft_hmap_insert(&(shell->hash.blt), "export", export_blt);
+	ft_hmap_insert(&(shell->hash.blt), "set", set_blt);
+	ft_hmap_insert(&(shell->hash.blt), "unset", unset_blt);
+	ft_hmap_insert(&(shell->hash.blt), "pwd", pwd_blt);
+	ft_hmap_insert(&(shell->hash.blt), "fc", fc_blt);
+	ft_hmap_insert(&(shell->hash.blt), "fg", fg_blt);
+	ft_hmap_insert(&(shell->hash.blt), "bg", bg_blt);
+	ft_hmap_insert(&(shell->hash.blt), "jobs", jobs_blt);
+	ft_hmap_insert(&(shell->hash.blt), "test", test_blt);
+}
 
 int8_t			hash_one(t_registry *shell, char *key, char *path)
 {
@@ -35,8 +53,13 @@ int8_t			hash_args(t_registry *shell, char *key)
 	return (ret);
 }
 
-void			hash_print_help(void)
+uint8_t			hash_print_help(void)
 {
+	if (write(1, NULL, 0) == FAILURE)
+	{
+		ft_putendl_fd("42sh: hash: write error: Bad file descriptor", 2);
+		return (FALSE);
+	}
 	ft_printf("%s%s%s%s%s%s%s%s%s%s%s"
 			, HASH_USAGE
 			, HASH_HELP
@@ -49,4 +72,5 @@ void			hash_print_help(void)
 			, HASH_OPT_2
 			, HASH_UTIL_1
 			, HASH_UTIL_2);
+	return (TRUE);
 }
