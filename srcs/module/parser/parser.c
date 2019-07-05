@@ -29,8 +29,8 @@ static uint8_t	state_is_ok(enum e_type to_find, enum e_type *current,
 	if (possible_state == NULL)
 		return (FALSE);
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE
-			&& to_find == E_DLESS
-			&& to_find == E_DLESSDASH)
+			&& (to_find == E_DLESS
+			|| to_find == E_DLESSDASH))
 		return (FALSE);
 	while (possible_state[i] != E_ERROR)
 	{
