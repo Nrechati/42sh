@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 19:08:05 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:22:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 		|| ft_strequ(sle->prompt.missing_char, PROMPT_OR) == TRUE
 		|| ft_strequ(sle->prompt.missing_char, PROMPT_AND) == TRUE)
 	{
-		ft_putendl(sle->line->buffer);
+//		ft_putendl(sle->line->buffer);
 		if (verif_line(sle, sle->line) == FALSE)
 			return (FAILURE);
 	}
