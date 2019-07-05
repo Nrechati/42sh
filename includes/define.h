@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 11:13:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:15:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
-# define INT_PS1_VALUE				"[\\e[31m\\u\\e[0m][\\e[34m\\w\\e[0m]-> "
-# define INT_PS2_VALUE				"[\\e[31m\\u\\e[0m@\\e[33m\\h\\e[0m](\\m)> "
+# define INT_PS1_VALUE		"[\\?][\\!][\\e[31m\\u\\e[0m][\\e[34m\\w\\e[0m]-> "
+# define INT_PS2_VALUE				"(\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
 
 /*
@@ -505,6 +505,9 @@
 # define P_HOST				'h'
 # define P_MISS				'm'
 # define P_ESCAPE			'e'
+# define P_SUCCESS			'?'
+# define P_JOB				'!'
+
 
 # define FAIL_EOF					42
 # define AK_AMOUNT					24
