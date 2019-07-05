@@ -29,7 +29,8 @@ void				remove_job_from_list(t_list **list, t_job *job)
 		ptr = *list;
 		while (ptr->next != NULL && ptr->next != job_ptr)
 			ptr = ptr->next;
-		ptr->next = ptr->next->next;
+		if (ptr->next != NULL)
+			ptr->next = ptr->next->next;
 	}
 }
 

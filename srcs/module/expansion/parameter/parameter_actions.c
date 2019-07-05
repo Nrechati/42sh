@@ -47,7 +47,7 @@ int			assign_expansion(t_list *intern, t_parameter *param, int mode)
 	if (status < 0)
 	{
 		add_var(&intern, param->tokens->data, word ? word->data : "", SET_VAR);
-		param->expanded = ft_strdup(word->data);
+		param->expanded = ft_strdup(word ? word->data : "");
 	}
 	else if ((data = get_var(intern, param->tokens->data)) == NULL)
 	{
