@@ -6,13 +6,13 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:37:48 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 14:03:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:38:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t	fg_blt(t_registry *shell, char **av)
+int8_t	fg_blt(t_registry *shell, char **av)
 {
 	t_job	*job;
 	int8_t	result;

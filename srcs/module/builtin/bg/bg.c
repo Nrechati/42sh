@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 15:39:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 09:49:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:38:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static	uint8_t		check_failure(t_registry *shell, char *av, int8_t result)
 	return (FALSE);
 }
 
-uint8_t				bg_blt(t_registry *shell, char **av)
+int8_t				bg_blt(t_registry *shell, char **av)
 {
 	t_job	*job;
 	int8_t	result;
