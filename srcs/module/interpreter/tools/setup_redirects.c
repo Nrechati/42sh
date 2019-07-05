@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:44:25 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 13:47:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:28:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,10 @@ int			setup_redirect(t_process *process)
 		return (FAILURE);
 	}
 	process->redirects = redirect;
+	if (process->pipe)
+	{
+		process->redirects = ft_lstmerge(&process->pipe, process->redirects);
+		process->pipe = NULL;
+	}
 	return (SUCCESS);
 }
