@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:31:35 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 18:23:43 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:41:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	init_m_unary(t_ar_analyzer analyzer)
 	analyzer[MATH_UNARY][E_M_OPENP] = m_parenthesis_analyzer;
 	analyzer[MATH_UNARY][E_M_DPLUS] = m_preffix;
 	analyzer[MATH_UNARY][E_M_DMINUS] = m_preffix;
+	analyzer[MATH_UNARY][E_M_STRING] = m_variable_analyzer;
 }
 
 void	init_m_operator(t_ar_analyzer analyzer)

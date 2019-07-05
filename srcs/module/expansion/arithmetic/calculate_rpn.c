@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 22:57:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:59:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,15 @@ int8_t			calculate_rpn(t_stack *rpn, t_infix *infix)
 		if (calcul(rpn, &solve) == FAILURE)
 		{
 			ft_stckdestroy(&solve, NULL);
+			ft_stckdestroy(&infix->calcul, NULL);
 			return (FAILURE);
 		}
 	}
 	if (ft_stcksize(&solve) != 1)
 	{
 		ft_dprintf(2, "Expression unsolvable\n");
+		ft_stckdestroy(&solve, NULL);
+		ft_stckdestroy(&infix->calcul, NULL);
 		return (FAILURE);
 	}
 	infix->result = ((t_rpn_tk*)solve.head->data)->value.digit;

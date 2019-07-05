@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:40:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 18:18:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:48:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		m_number_analyzer(t_arithmetic *arithmetic)
 	token.type = RPN_NUMBER;
 	if (convert_number(&token, arithmetic->curr_token) == FAILURE)
 	{
-		ft_lstdelone(&arithmetic->current, del_token);
 		m_error_analyzer(arithmetic);
 		return ;
 	}
