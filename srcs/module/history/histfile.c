@@ -37,7 +37,6 @@ static int		get_histfile_fd(t_registry *shell, int flags)
 	struct stat	st;
 	int			fd;
 
-	fd = -1;
 	histfile = get_histfile(shell);
 	if (histfile == NULL)
 		return (-1);

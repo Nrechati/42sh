@@ -16,7 +16,7 @@ static void			free_one_node_token(t_list **token_lst)
 {
 	t_token	*token;
 
-	if (token_lst != NULL)
+	if (token_lst != NULL && *token_lst != NULL)
 	{
 		token = (t_token *)((*token_lst)->data);
 		ft_strdel(&token->data);
