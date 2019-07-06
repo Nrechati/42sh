@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 18:47:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:51:44 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@ static char	*variable_replace(t_list *lst, t_vector *str, uint32_t start_idx)
 	char		*data_name;
 
 	sub = ft_strsub(vct_get_string(str), start_idx + 1
-					, vct_len(str) - (start_idx + 1));
-	i = ft_strcspn(sub, EXP_INTERUPT);
+			, vct_len(str) - (start_idx + 1));
+	i = 0;
+	while (sub[i] && (ft_isalnum(sub[i]) || sub[i] == '_'))
+	{
+		if (i == 0 && ft_isdigit(sub[i]))
+			break;
+		i++;
+	}
 	data_name = ft_strsub(sub, 0, i);
 	data = get_var(lst, data_name);
 	ft_strdel(&sub);
@@ -72,25 +78,30 @@ static int	variable_special(t_list *intern, char **dest, int i)
 	return (1);
 }
 
-static int	check_expansion(t_list *intern, char **dest, int i, t_quote quote)
+static int	check_expansion(t_list *intern, char **dest, uint32_t *i, t_quote quote)
 {
 	int		check;
 
 	check = 0;
-	if ((*dest)[i] != '$' || quote == QUOTE_SINGLE)
+	if ((*dest)[*i] != '$' || quote == QUOTE_SINGLE)
 		return (0);
-	if ((*dest)[i + 1] == '{')
-		check = parameter_expansion(intern, dest, i);
-	else if (ft_strnequ((*dest) + i + 1, "((", 2))
+	if ((*dest)[*i + 1] == '{')
+		check = parameter_expansion(intern, dest, *i);
+	else if (ft_strnequ((*dest) + *i + 1, "((", 2))
 		check = 0;
-	else if (ft_strchr(EXP_SPECIAL, (*dest)[i + 1]))
-		check = variable_special(intern, dest, i);
-	else if ((*dest)[i + 1] != '\0')
+	else if (ft_strnequ((*dest) + *i + 1, "(", 1))
 	{
-		if (ft_strchr(EXP_CHECK, (*dest)[i + 1]))
+		ft_dprintf(2, "42sh: bad substitution\n");
+		check = -1;
+	}
+	else if (ft_strchr(EXP_SPECIAL, (*dest)[*i + 1]))
+		check = variable_special(intern, dest, *i);
+	else if ((*dest)[*i + 1] != '\0')
+	{
+		if (ft_strchr(EXP_CHECK, (*dest)[*i + 1]))
 			check = 0;
 		else if (quote != QUOTE_SINGLE)
-			check = variable_concat(intern, dest, i);
+			check = variable_concat(intern, dest, *i);
 	}
 	return (check);
 }
@@ -113,7 +124,7 @@ char		*variable_expansion(t_list *intern_var, char *str)
 			quote = select_quoting(quote, dest[i]);
 		if (dest[i] == '\\' && (quote == QUOTE_OFF || quote == QUOTE_DOUBLE))
 			i = check_backslash(dest, quote, i);
-		else if ((result = check_expansion(intern_var, &dest, i, quote)) == 1)
+		else if ((result = check_expansion(intern_var, &dest, &i, quote)) == 1)
 			len = ft_strlen(dest);
 		else if (result == -1)
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 11:30:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:17:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 	int			diff;
 
 	vector = vct_dups(*output);
-	diff = i + arithmetic->end + 1;
+	diff = i + arithmetic->end;
 	vct_replace_string(vector, i, diff, arithmetic->expanded);
 	ft_strdel(output);
 	*output = ft_strdup(vct_get_string(vector));
@@ -32,7 +32,7 @@ static int	arithmetic(char **output, int i)
 
 	ft_bzero(&arithmetic, sizeof(t_arithmetic));
 	if (find_expansion_end(&arithmetic, *output, i + 3) == FAILURE)
-		return (FAILURE);
+		return (del_arithmetic(&arithmetic, output));
 	if (get_expansion_input(&arithmetic, *output, i + 3) == FAILURE)
 		return (del_arithmetic(&arithmetic, output));
 	arithmetic.tokens = lexer(arithmetic.input, MATHS);
@@ -78,7 +78,9 @@ char		*arithmetic_expansion(char *input)
 		else if ((result = check_math_expansion(&dest, i, quote)))
 			len = ft_strlen(dest);
 		else if (result == -1)
+		{
 			return (NULL);
+		}
 		if (result == 0)
 			++i;
 	}
