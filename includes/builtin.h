@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 14:06:36 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:06:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,19 +149,6 @@ uint8_t		test_gt_cb(void *data, void *more, uint8_t type);
 uint8_t		test_ge_cb(void *data, void *more, uint8_t type);
 uint8_t		test_lt_cb(void *data, void *more, uint8_t type);
 uint8_t		test_le_cb(void *data, void *more, uint8_t type);
-
-/*
-*****************************************************
-*********************** FC **************************
-*****************************************************
-*/
-
-t_option	get_option_fc(char *s, t_option option);
-uint8_t		fc_blt(t_registry *shell, char **av);
-uint8_t		fc_list(char **av, t_option option);
-uint8_t		fc_redo(t_registry *shell, char **av);
-uint8_t		fc_editor(t_registry *shell, char **av, char *editor);
-int8_t		get_first_last(char **av, char **param);
 
 /*
 *****************************************************

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 14:06:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:07:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void			hash_builtin(t_registry *shell)
 	ft_hmap_insert(&(shell->hash.blt), "set", set_blt);
 	ft_hmap_insert(&(shell->hash.blt), "unset", unset_blt);
 	ft_hmap_insert(&(shell->hash.blt), "pwd", pwd_blt);
-	ft_hmap_insert(&(shell->hash.blt), "fc", fc_blt);
 	ft_hmap_insert(&(shell->hash.blt), "test", test_blt);
 }
 

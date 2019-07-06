@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/06 16:01:37 by nrechati         ###   ########.fr        #
+#    Updated: 2019/07/06 16:06:23 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,6 @@ P_BUILTIN += module/builtin/set/
 P_BUILTIN += module/builtin/test/
 P_BUILTIN += module/builtin/type/
 P_BUILTIN += module/builtin/unset/
-P_BUILTIN += module/builtin/fc/
 P_BUILTIN += module/builtin/env/
 
 P_EXPANSION += module/expansion/
@@ -298,12 +297,6 @@ BUILTIN += type.c
 
 #UNSET
 BUILTIN += unset.c
-
-#FC
-BUILTIN += fc.c
-BUILTIN += fc_list.c
-BUILTIN += fc_redo.c
-BUILTIN += fc_editor.c
 
 #ENV
 BUILTIN += env.c
