@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/05 15:56:21 by nrechati         ###   ########.fr        #
+#    Updated: 2019/07/06 11:49:03 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,6 +130,7 @@ P_BUILTIN += module/builtin/fc/
 P_BUILTIN += module/builtin/jobs/
 P_BUILTIN += module/builtin/fg/
 P_BUILTIN += module/builtin/bg/
+P_BUILTIN += module/builtin/env/
 
 P_EXPANSION += module/expansion/
 P_EXPANSION += module/expansion/parameter/
@@ -340,6 +341,11 @@ BUILTIN += fc.c
 BUILTIN += fc_list.c
 BUILTIN += fc_redo.c
 BUILTIN += fc_editor.c
+
+#ENV
+BUILTIN += env.c
+BUILTIN += setenv.c
+BUILTIN += unsetenv.c
 
 #	    					- - - - - SLE - - - - -                           #
 

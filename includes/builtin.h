@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 16:26:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:06:56 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,14 @@ int8_t		fg_blt(t_registry *shell, char **av);
 
 int8_t		jobs_blt(t_registry *shell, char **av);
 t_option	get_option_jobs(char *s, t_option option);
+
+/*
+*****************************************************
+************************ ENV ************************
+*****************************************************
+*/
+
+uint8_t		setenv_blt(t_registry *shell, char **av);
+uint8_t		unsetenv_blt(t_registry *shell, char **av);
 
 #endif
