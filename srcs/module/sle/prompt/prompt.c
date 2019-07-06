@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/06 13:25:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 14:26:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 										PROMPT_NL, PROMPT_AND, PROMPT_OR,
 										PROMPT_BRACE, PROMPT_MATHS};
 
-	//g_shell->sigint = FALSE;
 	linesave = sle->line;
 	sle->line = sle->sub_line;
 	sle->prompt.missing_char = (char *)prompt_type[sle_flag & ~SLE_PS2_PROMPT];
@@ -89,11 +88,6 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 	}
 	vct_del(&line);
 	sle->line = linesave;
-	if (g_shell->sigint == TRUE)
-	{
-		g_shell->sigint = FALSE;
-		return (NULL);
-	}
 	return (vct_dup(sle->sub_line));
 }
 
