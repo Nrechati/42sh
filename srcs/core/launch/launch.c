@@ -31,7 +31,7 @@ void			launch_shell(t_registry *shell)
 
 	if (isatty(STDOUT_FILENO) != 1)
 	{
-		ft_printf("42sh: stdout: bad file descriptor.\n");
+		ft_dprintf(2, "42sh: stdout: bad file descriptor\n");
 		return ;
 	}
 	if (is_shell_interactive(shell) == TRUE)
