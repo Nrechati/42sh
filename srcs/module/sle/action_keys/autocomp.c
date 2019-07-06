@@ -6,12 +6,12 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 14:53:52 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 14:59:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:52:48 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
+/*
 static inline void		handle_void_comp(t_registry *shell, t_sle *sle,
 				char *substring)
 {
@@ -32,10 +32,12 @@ static inline void		handle_work_comp(t_sle *sle,
 	ft_strdel(&ret_completion);
 	ft_strdel(&substring);
 }
-
+*/
 int8_t					ak_hightab(t_registry *shell, t_sle *sle)
 {
-	char		*ret_completion;
+	(void)shell;
+	(void)sle;
+/*	char		*ret_completion;
 	char		*substring;
 
 	(void)shell;
@@ -56,6 +58,6 @@ int8_t					ak_hightab(t_registry *shell, t_sle *sle)
 	else
 		handle_void_comp(shell, sle, substring);
 	set_redraw_bounds(sle, sle->cursor.index == 0 ? 0
-			: sle->cursor.index - 1, vct_len(sle->line));
+			: sle->cursor.index - 1, vct_len(sle->line));*/
 	return (SUCCESS);
 }
