@@ -6,12 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 18:23:42 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 14:42:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 11:36:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
+/*
 static struct sigaction	set_sigaction_struct(void (*handler)(int),
 			int flags, sigset_t mask)
 {
@@ -22,44 +22,37 @@ static struct sigaction	set_sigaction_struct(void (*handler)(int),
 	sigaction.sa_mask = mask;
 	return (sigaction);
 }
-
-static void				loop_defaults(struct sigaction generic[NB_SIGNALS])
+*/
+static void				loop_defaults(void)
 {
 	int			i;
-	sigset_t	sigset;
 
 	i = 1;
-	ft_bzero(&sigset, sizeof(sigset_t));
 	while (i < NB_SIGNALS)
 	{
-		generic[i] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
+//		generic[i] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
+		signal(i, SIG_DFL);
 		++i;
 	}
 }
 
-void					init_tab_signal_dflt(
-							struct sigaction tab_signal[NB_SIGNALS])
+void					init_tab_signal_dflt(void)
 {
-	struct sigaction	ignore;
-	sigset_t			sigset;
-
-	ft_bzero(&sigset, sizeof(sigset_t));
-	loop_defaults(tab_signal);
-	ignore = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-	tab_signal[SIGINT] = ignore;
-	tab_signal[SIGTERM] = ignore;
-	tab_signal[SIGQUIT] = ignore;
-	tab_signal[SIGTSTP] = ignore;
-	tab_signal[SIGCONT] = ignore;
+	loop_defaults();
+	signal(SIGINT, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGCONT, SIG_IGN);
 }
 
-void					init_tab_signal_sle(
-							struct sigaction tab_signal[NB_SIGNALS])
+void					load_profile_sle(void)
 {
 	sigset_t			sigset;
 
-	ft_bzero(&sigset, sizeof(sigset_t));
-	loop_defaults(tab_signal);
+	loop_defaults();
+	signal(SIGQUIT, SIG_IGN);
+
 	tab_signal[SIGQUIT] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTERM] = set_sigaction_struct(sigterm_sle, SA_RESTART,
 								sigset);

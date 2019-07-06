@@ -6,11 +6,21 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:37:48 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 13:38:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 10:13:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+static uint8_t	is_fg_forked(t_registry *shell)
+{
+	if (getpid() != shell->pid)
+	{
+		ft_printf("42sh: fg: No job control.\n");
+		return (TRUE);
+	}
+	return (FALSE);
+}
 
 int8_t	fg_blt(t_registry *shell, char **av)
 {
@@ -18,7 +28,8 @@ int8_t	fg_blt(t_registry *shell, char **av)
 	int8_t	result;
 	uint8_t	ret;
 
-	if (jobctl_is_active(shell) == FALSE)
+	if (jobctl_is_active(shell) == FALSE
+				|| is_fg_forked(shell) == TRUE)
 		return (FAILURE);
 	++av;
 	job = NULL;

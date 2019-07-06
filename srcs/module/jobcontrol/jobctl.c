@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 19:35:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 10:49:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ void				job_run_background(t_registry *shell, t_job *job)
 {
 	(void)shell;
 	job->state = RUNNING;
+	mark_job_as_running(job);
 	job->signo = SIGCONT;
 	killpg(job->pgid, SIGCONT);
-	waiter(job);
+//	waiter(job);
 }
 
 void				jobctl(t_registry *shell, t_job *job, uint8_t flag)

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 16:03:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 13:39:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 10:24:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void				jobs(t_registry *shell, t_job *job, t_option option)
 		jobctl(shell, job, JOBCTL_LIST);
 }
 
-static uint8_t		get_jobname(t_registry *shell, char **av, t_option option)
+static int8_t		get_jobname(t_registry *shell, char **av, t_option option)
 {
 	uint8_t		ret;
 	int8_t		result;

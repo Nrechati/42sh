@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:00:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 16:09:24 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 10:56:42 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	mark_job_as_running(t_job *job)
 	{
 		process = proclist->data;
 		process->stopped = FALSE;
+		process->completed = FALSE;
 		proclist = proclist->next;
 	}
 }
@@ -50,6 +51,7 @@ void	mark_job_as_completed(t_job *job)
 	while (proclist != NULL)
 	{
 		process = proclist->data;
+		process->stopped = FALSE;
 		process->completed = TRUE;
 		proclist = proclist->next;
 	}
@@ -62,13 +64,26 @@ void	mark_proc(pid_t pid, int status)
 	job = find_job(pid);
 	if (pid <= 0 || job == NULL)
 		return ;
-	if (WIFEXITED(status) == 1)
-		mark_job_as_completed(job);
-	else if (WIFSTOPPED(status))
+	if (WIFSTOPPED(status))
+	{
+		ft_printf("stopped\n");
 		mark_job_as_stopped(job);
+	}
+	else if (WIFEXITED(status) == 1)
+	{
+		ft_printf("exited\n");
+		mark_job_as_completed(job);
+	}
 	else if (WIFSIGNALED(status))
+	{
+		ft_printf("signaled\n");
 		if (WTERMSIG(status) != 18 && WTERMSIG(status) != 19)
-			mark_job_as_completed(job);
+		{
+		ft_printf("termsig\n");
+			mark_job_as_running(job);
+
+		}
+	}
 }
 
 uint8_t	mark_proc_status(void)
