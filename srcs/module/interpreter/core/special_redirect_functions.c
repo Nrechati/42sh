@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:23:24 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 11:22:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:44:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,21 @@ static int	get_filename_special(t_list *node, char **file)
 	return (SUCCESS);
 }
 
-static void	set_filename_special(t_redirect *redirect, char *filename, int type)
+static int	set_filename_special(t_redirect *redirect, char *filename, int type)
 {
+	int			test;
+
+	test = 0;
 	redirect->to = ft_atoi(filename);
+	if (write(redirect->to, &test, 0) == -1)
+	{
+		if (read(redirect->to, &test, 0) == -1)
+		{
+			ft_dprintf(2, "42sh: %d: Bad File descriptor\n", redirect->to);
+			redirect->type = FD_BAD_DESCRIPTOR;
+			return (FAILURE);
+		}
+	}
 	redirect->from = STDOUT_FILENO;
 	if (type == A_CLOSE)
 		redirect->type = FD_CLOSE_SPECIAL;
@@ -38,23 +50,33 @@ static void	set_filename_special(t_redirect *redirect, char *filename, int type)
 		redirect->type = FD_MOVE;
 	else
 		redirect->type = FD_DUP;
+	return (SUCCESS);
 }
 
-void		stdout_truncate_special(t_redirect *redirect, t_action *action)
+int			stdout_truncate_special(t_redirect *redirect, t_action *action)
 {
 	char		*filename;
 	int			open_flags;
 	int			type;
+	int			return_value;
 
 	filename = NULL;
+	return_value = 0;
 	open_flags = O_WRONLY | O_TRUNC | O_CREAT | O_CLOEXEC;
 	if ((type = get_filename_special(action->data, &filename)) > 0)
-		set_filename_special(redirect, filename, type);
+		return_value = set_filename_special(redirect, filename, type);
 	else if (type == FAILURE)
+	{
 		redirect->type = FD_CRITICAL_ERROR;
+		return_value = FAILURE;
+	}
 	else if (*filename == '\0')
+	{
 		set_ambigous_redirect(redirect, action->data);
+		return_value = FAILURE;
+	}
 	else
-		open_write_file(redirect, filename, open_flags);
+		return_value = open_write_file(redirect, filename, open_flags, 1);
 	ft_strdel(&filename);
+	return (return_value);
 }

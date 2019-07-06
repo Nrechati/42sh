@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:44:25 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 14:39:18 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:34:53 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static void	*set_redirect(void *context, void *data)
 		redirecter = redirecter_init();
 	action = data;
 	ft_bzero(&redirect, sizeof(t_redirect));
-	(*redirecter)[action->type](&redirect, action);
+	if ((*redirecter)[action->type](&redirect, action) == FAILURE)
+		return (NULL);
 	node = ft_lstnew(&redirect, sizeof(t_redirect));
 	return (node);
 }
@@ -33,7 +34,14 @@ int			setup_redirect(t_process *process)
 {
 	t_list		*redirect;
 
-	redirect = ft_lstmap(process->redirects, NULL, set_redirect, del_action);
+	redirect = ft_lstmap(process->redirects, NULL, set_redirect, close_redirect);
+	if (process->redirects != NULL && redirect == NULL)
+	{
+		process->type = FD_OPEN_ERROR;
+		ft_lstdel(&redirect, close_redirect);
+		ft_lstdel(&process->redirects, del_action);
+		return (FAILURE);
+	}
 	if (ft_lstiter_ctx(redirect, process, check_redirect_error) == FAILURE)
 	{
 		ft_lstdel(&redirect, close_redirect);

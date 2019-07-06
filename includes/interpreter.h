@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 13:57:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:11:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				do_redirect(void *context, void *data);
 int				builtin_redirect(void *context, void *data);
 
 int				check_delimiter(char **delimiter, t_vector **vector, int fd);
-void			valid_heredoc_setup(t_redirect *redirect, int from, int to);
+int				valid_heredoc_setup(t_redirect *redirect, int from, int to);
 
 int				setup_redirect(t_process *process);
 int				get_failed_process(void *data, void *context);
@@ -70,26 +70,30 @@ char			*get_filename(t_list *node);
 void			set_ambigous_redirect(t_redirect *redirect, t_list *node);
 int				get_io(t_list *node);
 int				get_custom_fd(char **str, t_list *node);
-void			open_write_file(t_redirect *redirect, char *filename, int flag);
+int				open_write_file(t_redirect *redirect, char *filename
+					, int flag, int from);
+int				open_read_file(t_redirect *redirect, char *filename
+							, int flag, int from);
+int				action_type(t_redirect *redirect, int action_type, char *str);
 
-void			heredoc(t_redirect *redirect, t_action *action);
-void			heredoc_trim(t_redirect *redirect, t_action *action);
-void			io_heredoc(t_redirect *redirect, t_action *action);
-void			io_heredoc_trim(t_redirect *redirect, t_action *action);
+int				heredoc(t_redirect *redirect, t_action *action);
+int				heredoc_trim(t_redirect *redirect, t_action *action);
+int				io_heredoc(t_redirect *redirect, t_action *action);
+int				io_heredoc_trim(t_redirect *redirect, t_action *action);
 int				write_heredoc(t_vector **vector, int fd, int trim);
 
-void			stdout_truncate(t_redirect *redirect, t_action *action);
-void			stdout_append(t_redirect *redirect, t_action *action);
-void			stdin_readfile(t_redirect *redirect, t_action *action);
-void			stdin_readfd(t_redirect *redirect, t_action *action);
-void			io_append(t_redirect *redirect, t_action *action);
-void			io_truncate(t_redirect *redirect, t_action *action);
-void			io_readfile(t_redirect *redirect, t_action *action);
-void			close_fd(t_redirect *redirect, t_action *action);
-void			move_fd(t_redirect *redirect, t_action *action);
-void			duplicate_fd(t_redirect *redirect, t_action *action);
-void			io_readfd(t_redirect *redirect, t_action *action);
-void			stdout_truncate_special(t_redirect *redirect, t_action *action);
+int				stdout_truncate(t_redirect *redirect, t_action *action);
+int				stdout_append(t_redirect *redirect, t_action *action);
+int				stdin_readfile(t_redirect *redirect, t_action *action);
+int				stdin_readfd(t_redirect *redirect, t_action *action);
+int				io_append(t_redirect *redirect, t_action *action);
+int				io_truncate(t_redirect *redirect, t_action *action);
+int				io_readfile(t_redirect *redirect, t_action *action);
+int				close_fd(t_redirect *redirect, t_action *action);
+int				move_fd(t_redirect *redirect, t_action *action);
+int				duplicate_fd(t_redirect *redirect, t_action *action);
+int				io_readfd(t_redirect *redirect, t_action *action);
+int				stdout_truncate_special(t_redirect *redirect, t_action *action);
 
 void			*token_to_var(void *context, void *data);
 char			*token_to_str(void *data);

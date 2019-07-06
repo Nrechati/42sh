@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/05 14:20:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:32:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ typedef t_analyzing				t_analyzer[ANALYZER_STATES][NB_OF_TOKENS];
 typedef struct s_redirect		t_redirect;
 typedef struct s_action			t_action;
 
-typedef void					(*t_set_redirect)(t_redirect *, t_action *);
+typedef int						(*t_set_redirect)(t_redirect *, t_action *);
 typedef t_set_redirect			t_redirection[REDIRECT_ACTION];
 
 struct							s_redirect

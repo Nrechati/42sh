@@ -6,17 +6,18 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:06:45 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 15:41:11 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:11:34 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void	valid_heredoc_setup(t_redirect *redirect, int from, int to)
+int		valid_heredoc_setup(t_redirect *redirect, int from, int to)
 {
 	redirect->type |= FD_REDIRECT;
 	redirect->from = from;
 	redirect->to = to;
+	return (SUCCESS);
 }
 
 int		check_delimiter(char **delimiter, t_vector **vector, int fd)

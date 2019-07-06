@@ -6,118 +6,133 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 11:18:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:04:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
-void	duplicate_fd(t_redirect *redirect, t_action *action)
+int	duplicate_fd(t_redirect *redirect, t_action *action)
 {
+	t_token		*token;
+
+	token = action->data->data;
+	redirect->from = ft_atoi(token->data);
+	if ((redirect->to = get_io(action->data->next)) == FAILURE)
+	{
+		redirect->type = FD_BAD_DESCRIPTOR;
+		return (FAILURE);
+	}
 	redirect->type = FD_DUP;
-	redirect->from = get_io(action->data);
-	redirect->to = get_io(action->data->next);
+	return (SUCCESS);
 }
 
-void	io_append(t_redirect *redirect, t_action *action)
+int	io_append(t_redirect *redirect, t_action *action)
 {
 	char		*filename;
 	int			open_flags;
+	int			return_value;
+	int			fd;
 
+	return_value = SUCCESS;
 	filename = get_filename(action->data);
 	if (filename == NULL)
+	{
 		redirect->type = FD_CRITICAL_ERROR;
+		return_value = FAILURE;
+}
 	else if (*filename == '\0')
+{
 		set_ambigous_redirect(redirect, action->data);
+		return_value = FAILURE;
+}
 	else
 	{
 		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
-		if ((redirect->to = open(filename, open_flags, 0644)) == FAILURE)
-		{
-			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
-			redirect->type = FD_OPEN_ERROR;
-		}
-		else
-			redirect->type = FD_REDIRECT;
-		redirect->from = get_io(action->data->next);
+		fd = get_io(action->data->next);
+		return_value = open_write_file(redirect, filename, open_flags, fd);
 	}
 	ft_strdel(&filename);
+	return (return_value);
 }
 
-void	io_truncate(t_redirect *redirect, t_action *action)
+int	io_truncate(t_redirect *redirect, t_action *action)
 {
 	char		*filename;
 	int			open_flags;
+	int			return_value;
+	int			fd;
 
 	filename = get_filename(action->data);
+	return_value = SUCCESS;
 	if (filename == NULL)
+	{
 		redirect->type |= FD_CRITICAL_ERROR;
+		return_value = FAILURE;
+	}
 	else if (*filename == '\0')
+	{
 		set_ambigous_redirect(redirect, action->data);
+		return_value = FAILURE;
+	}
 	else
 	{
 		open_flags = O_RDWR | O_TRUNC | O_CREAT;
-		if ((redirect->to = open(filename, open_flags, 0644)) == FAILURE)
-		{
-			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
-			redirect->type = FD_OPEN_ERROR;
-		}
-		else
-			redirect->type = FD_REDIRECT;
-		redirect->from = get_io(action->data->next);
+		fd = get_io(action->data->next);
+		return_value = open_write_file(redirect, filename, open_flags, fd);
 	}
 	ft_strdel(&filename);
+	return (return_value);
 }
 
-void	io_readfile(t_redirect *redirect, t_action *action)
+int	io_readfile(t_redirect *redirect, t_action *action)
 {
 	char		*filename;
+	int			open_flag;
+	int			return_value;
+	int			fd;
 
 	filename = get_filename(action->data);
+	return_value = 0;
+	open_flag = O_RDONLY | O_CLOEXEC;
 	if (filename == NULL)
+	{
 		redirect->type = FD_CRITICAL_ERROR;
+		return(FAILURE);
+	}
 	else if (*filename == '\0')
+	{
 		set_ambigous_redirect(redirect, action->data);
+		return_value = FAILURE;
+	}
 	else
 	{
-		if ((redirect->to = open(filename, O_RDWR, 0644)) == -1)
-		{
-			ft_dprintf(2, SH_GENERAL_ERROR "open FAILED on %s\n", filename);
-			redirect->type = FD_OPEN_ERROR;
-		}
-		else
-			redirect->type = FD_REDIRECT;
-		redirect->from = get_io(action->data->next);
+		fd = get_io(action->data->next);
+		return_value = open_read_file(redirect, filename, open_flag, fd);
 	}
 	ft_strdel(&filename);
+	return (return_value);
 }
 
-void	io_readfd(t_redirect *redirect, t_action *action)
+int	io_readfd(t_redirect *redirect, t_action *action)
 {
-	int		action_type;
-	int		fd;
+	int		action_type_value;
 	char	*str;
+	int		return_value;
 
 	str = NULL;
-	action_type = get_custom_fd(&str, action->data);
-	if (action_type == FAILURE)
+	return_value = 0;
+	action_type_value = get_custom_fd(&str, action->data);
+	if (action_type_value == FAILURE)
 		redirect->type = FD_CRITICAL_ERROR;
-	else if (action_type == -2)
-		redirect->type = FD_BAD_DESCRIPTOR;
-	else
+	else if (action_type_value == -2)
 	{
-		fd = ft_atoi(str);
-		redirect->to = fd;
-		if (action_type == A_DUP && write(fd, str, 0) == 0)
-			redirect->type = FD_DUP;
-		else if (action_type == A_MOVE)
-			redirect->type = FD_MOVE;
-		else if (action_type == A_CLOSE)
-			redirect->type = FD_CLOSE;
-		else
-			redirect->type = FD_BAD_DESCRIPTOR;
-		redirect->from = get_io(action->data->next);
+		redirect->type = FD_AMBIGOUS_REDIRECT;
+		return_value = FAILURE;
 	}
+	else
+		return_value = action_type(redirect, action_type_value, str);
 	ft_strdel(&str);
+	return (return_value);
 }

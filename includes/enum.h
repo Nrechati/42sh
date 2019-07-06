@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 11:42:32 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:27:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ enum			e_actions
 	A_IO_HEREDOC,
 	A_IO_HEREDOC_TRIM,
 	A_AMBIGOUS_REDIRECT,
+	A_BAD_FILEDESC,
 	A_ARGS,
 	A_ASSIGN,
 	A_AND,

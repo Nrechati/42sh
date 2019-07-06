@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:02:15 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 15:40:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:10:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char	*get_heredoc_delim(char *data)
 	return (delimiter);
 }
 
-void	heredoc(t_redirect *redirect, t_action *action)
+int	heredoc(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			fd[2];
 	t_vector	*vector;
 
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
-		return ;
+		return (SUCCESS);
 	vector = NULL;
 	delimiter = get_heredoc_delim(((t_token *)action->data->data)->data);
 	pipe(fd);
@@ -53,14 +53,14 @@ void	heredoc(t_redirect *redirect, t_action *action)
 	return (valid_heredoc_setup(redirect, STDIN_FILENO, fd[0]));
 }
 
-void	heredoc_trim(t_redirect *redirect, t_action *action)
+int	heredoc_trim(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			fd[2];
 	t_vector	*vector;
 
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
-		return ;
+		return (SUCCESS);
 	vector = NULL;
 	delimiter = get_heredoc_delim(((t_token *)action->data->data)->data);
 	pipe(fd);
@@ -75,7 +75,7 @@ void	heredoc_trim(t_redirect *redirect, t_action *action)
 	return (valid_heredoc_setup(redirect, STDIN_FILENO, fd[0]));
 }
 
-void	io_heredoc(t_redirect *redirect, t_action *action)
+int	io_heredoc(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			io_num;
@@ -83,7 +83,7 @@ void	io_heredoc(t_redirect *redirect, t_action *action)
 	t_vector	*vector;
 
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
-		return ;
+		return (SUCCESS);
 	vector = NULL;
 	delimiter = get_heredoc_delim(((t_token *)action->data->data)->data);
 	io_num = ft_atoi(((t_token *)action->data->next->data)->data);
@@ -99,7 +99,7 @@ void	io_heredoc(t_redirect *redirect, t_action *action)
 	return (valid_heredoc_setup(redirect, io_num, fd[0]));
 }
 
-void	io_heredoc_trim(t_redirect *redirect, t_action *action)
+int	io_heredoc_trim(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			io_num;
@@ -107,7 +107,7 @@ void	io_heredoc_trim(t_redirect *redirect, t_action *action)
 	t_vector	*vector;
 
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
-		return ;
+		return (SUCCESS);
 	vector = NULL;
 	delimiter = get_heredoc_delim(((t_token *)action->data->data)->data);
 	io_num = ft_atoi(((t_token *)action->data->next->data)->data);
