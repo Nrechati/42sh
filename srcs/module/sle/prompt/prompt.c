@@ -77,7 +77,6 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 										PROMPT_NL, PROMPT_AND, PROMPT_OR,
 										PROMPT_BRACE, PROMPT_MATHS};
 
-	//g_shell->sigint = FALSE;
 	linesave = sle->line;
 	sle->line = sle->sub_line;
 	sle->prompt.missing_char = (char *)prompt_type[sle_flag & ~SLE_PS2_PROMPT];
@@ -89,11 +88,6 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 	}
 	vct_del(&line);
 	sle->line = linesave;
-	if (g_shell->sigint == TRUE)
-	{
-		g_shell->sigint = FALSE;
-		return (NULL);
-	}
 	return (vct_dup(sle->sub_line));
 }
 

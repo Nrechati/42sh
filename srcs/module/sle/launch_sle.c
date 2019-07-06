@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2019/06/04 18:33:35 by nrechati          #+#    #+#             */
 /*   Updated: 2019/07/06 13:16:01 by nrechati         ###   ########.fr       */
+=======
+/*   Created: 2019/06/04 18:33:35 by skuppers          #+#    #+#             */
+/*   Updated: 2019/07/06 14:26:15 by skuppers         ###   ########.fr       */
+>>>>>>> a2a6aff6fe580e6b6ce58cb4afb7205f8a08cbb4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +41,6 @@ uint8_t				launch_sle(t_registry *shell, t_sle *sle)
 void				handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 {
 	ak_exit_modes(shell, sl);
-	sl->prompt.state = INT_PS1;
 	update_window(sl);
 	if (flag & SLE_CC)
 		ft_putendl("^C");
