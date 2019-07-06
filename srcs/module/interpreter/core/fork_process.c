@@ -19,7 +19,7 @@ static uint8_t	check_cmd_path(char *data)
 
 	if (lstat(data, &stat))
 	{
-		ft_dprintf(2, "42sh: no such file or directory: %s\n", data);
+		ft_dprintf(2, "42sh: %s: no such file or directory\n", data);
 		return (FALSE);
 	}
 	if (stat.st_mode & S_IFDIR)
