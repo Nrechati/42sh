@@ -84,7 +84,8 @@ void			process_lexer(t_lexer *lexer)
 {
 	if (is_input_end(lexer) == TRUE)
 		lexer->state = L_OUT;
-	else if (is_inhibitor(lexer) == TRUE)
+	else if ((g_shell->option.option & INTERACTIVE_OPT)
+					&& is_inhibitor(lexer) == TRUE)
 		lexer->token_type = E_STRING;
 	else if (is_io_number(lexer) == TRUE)
 		lexer->state = L_OUT;
