@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/05 15:56:21 by nrechati         ###   ########.fr        #
+#    Updated: 2019/07/06 23:44:42 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,9 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 
 CC = clang
 LINK = $(CC) -g3
-LINKD = $(CC) -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
+LINKD = $(CC) -g3 #-fsanitize=address,undefined -fno-omit-frame-pointer
 COMPILE = $(CC) -c -g3
-DEBUG = $(CC) -g3 -c -fsanitize=address,undefined -fno-omit-frame-pointer
+DEBUG = $(CC) -g3 -c #-fsanitize=address,undefined -fno-omit-frame-pointer
 
 # ---------------------------------------------------------------------------- #
 #									Commands                                   #

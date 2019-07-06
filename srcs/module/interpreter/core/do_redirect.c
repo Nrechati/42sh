@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:06:19 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 17:56:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 00:57:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int		do_redirect(void *context, void *data)
 		close(STDOUT_FILENO);
 		close(STDERR_FILENO);
 	}
-	if (redirect->type & (FD_PIPE_IN | FD_PIPE_OUT))
-		close(redirect->from);
 	close(redirect->to);
 	return (SUCCESS);
 }

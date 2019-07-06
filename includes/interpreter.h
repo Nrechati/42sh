@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 16:11:24 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 00:50:50 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void			run_background_job(t_registry *shell, t_job *job);
 int8_t			interpreter(t_registry *shell, t_list **cmd_group);
 t_list			**ptr_to_job_lst(t_list **job_lst, uint8_t mode);
 
-void			fork_process(t_process *process, uint8_t foreground);
+void			fork_process(t_process *process, uint8_t foreground, int pipe);
 int8_t			launch_pipeline(t_list *processess, uint8_t foreground);
 int				run_job(void *context, void *data);
 void			run_builtin(t_process *process, uint8_t foreground);
-int				run_process(t_process *process, uint8_t foreground);
+int				run_process(t_process *process, uint8_t foreground, int pipe);
 
 uint8_t			job_is_completed(t_job *job);
 uint8_t			job_is_stopped(t_job *job);
@@ -69,6 +69,7 @@ int				expand_process(t_list *intern, t_process *process);
 char			*get_filename(t_list *node);
 void			set_ambigous_redirect(t_redirect *redirect, t_list *node);
 int				get_io(t_list *node);
+int				get_io_noprotect(t_list *node);
 int				get_custom_fd(char **str, t_list *node);
 int				open_write_file(t_redirect *redirect, char *filename
 					, int flag, int from);

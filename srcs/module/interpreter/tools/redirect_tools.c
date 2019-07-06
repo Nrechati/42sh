@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 17:43:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 22:10:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,18 @@ char			*get_filename(t_list *node)
 		return (filename);
 	else
 		return (filename);
+}
+
+int				get_io_noprotect(t_list *node)
+{
+	t_token		*token;
+	int			io;
+	int			test;
+
+	test = 0;
+	token = node->data;
+	io = ft_atoi(token->data);
+	return (io);
 }
 
 int				get_io(t_list *node)

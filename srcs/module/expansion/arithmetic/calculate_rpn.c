@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 21:27:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 22:42:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,35 @@ static int8_t	check_forbidden_operation(t_rpn_tk *curr, t_rpn_tk *second)
 	return (TRUE);
 }
 
+static int8_t	do_operation(t_rpn_tk *curr, t_stack *solve)
+{
+	t_rpn_tk	*second;
+	t_list		*node;
+
+	second = NULL;
+	second = ft_stckpop(solve);
+	node = ft_stckpopnode(solve);
+	if (check_forbidden_operation(curr, second) == FALSE)
+	{
+		ft_lstdelone(&node, NULL);
+		return (FAILURE);
+	}
+	do_math(node->data, second, curr);
+	free(second);
+	ft_stckpushnode(solve, node);
+	return (SUCCESS);
+}
+
 static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 {
 	t_list			*node;
-	t_rpn_tk		*second;
 
-	second = NULL;
+	node = NULL;
 	if (curr->value.type & (PRECEDENCE & UNARY_MINUS) && ft_stcksize(solve) > 0)
 	{
 		node = ft_stckpopnode(solve);
 		do_unary(node->data, curr);
+		ft_stckpushnode(solve, node);
 	}
 	else if (ft_stcksize(solve) < 2)
 	{
@@ -57,14 +76,9 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 	}
 	else
 	{
-		second = ft_stckpop(solve);
-		node = ft_stckpopnode(solve);
-		if (check_forbidden_operation(curr, second) == FALSE)
+		if (do_operation(curr, solve) == FAILURE)
 			return (FAILURE);
-		do_math(node->data, second, curr);
-		free(second);
 	}
-	ft_stckpushnode(solve, node);
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 21:25:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 00:51:02 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		run_builtin(t_process *process, uint8_t foreground)
 	return ;
 }
 
-static void	run_type_selection(t_process *process, uint8_t foreground)
+static void	run_type_selection(t_process *process, uint8_t foreground, int pipe)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
@@ -63,10 +63,10 @@ static void	run_type_selection(t_process *process, uint8_t foreground)
 	else if (process->type == (IS_ALONE | IS_BLT) && foreground == TRUE)
 		run_builtin(process, foreground);
 	else
-		fork_process(process, foreground);
+		fork_process(process, foreground, pipe);
 }
 
-int			run_process(t_process *process, uint8_t foreground)
+int			run_process(t_process *process, uint8_t foreground, int pipe)
 {
 	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
@@ -86,7 +86,7 @@ int			run_process(t_process *process, uint8_t foreground)
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
-	run_type_selection(process, foreground);
+	run_type_selection(process, foreground, pipe);
 	return (SUCCESS);
 }
 
@@ -109,7 +109,7 @@ int			run_job(void *context, void *data)
 	{
 		head = job->processes->data;
 		head->type |= IS_ALONE;
-		run_process(head, foreground);
+		run_process(head, foreground, 0);
 	}
 	else
 		launch_pipeline(job->processes, foreground);
