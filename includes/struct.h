@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 01:30:30 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:33:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ typedef t_set_redirect			t_redirection[REDIRECT_ACTION];
 
 struct							s_redirect
 {
-	char						*file;
 	int32_t						from;
 	int32_t						to;
 	uint16_t					type;

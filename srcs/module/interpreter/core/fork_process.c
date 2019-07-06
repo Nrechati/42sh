@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 15:33:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:36:10 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void		parent_process(t_process *process, char ***env)
 	ft_freetab(env);
 }
 
-void			fork_process(t_process *process)
+void			fork_process(t_process *process, int pipe)
 {
 	char			**env;
 
@@ -88,6 +88,7 @@ void			fork_process(t_process *process)
 	}
 	if ((process->pid = fork()) < 0)
 	{
+		ft_freetab(&env);
 		ft_dprintf(2, "21sh: fork error\n");
 		return ;
 	}
@@ -95,4 +96,6 @@ void			fork_process(t_process *process)
 		child_process(process, env);
 	else
 		parent_process(process, &env);
+	if (pipe)
+		close(pipe);
 }

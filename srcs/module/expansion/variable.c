@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 01:32:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:38:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char		*variable_expansion(t_list *intern_var, char *str)
 	quote = 0;
 	dest = ft_strdup(str);
 	len = ft_strlen(dest);
+	(void)intern_var;
 	while (i < len && dest[i] != '\0' && (result = 0) == 0)
 	{
 		if (ft_strchr("\'\"", dest[i]))

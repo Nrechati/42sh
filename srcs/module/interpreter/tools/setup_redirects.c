@@ -6,11 +6,45 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:44:25 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 17:34:53 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 00:50:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void		print_redirect(void *content)
+{
+	char			*redirect_type;
+	t_redirect		*redirect;
+
+	redirect = content;
+	if (redirect->type & FD_DUP)
+		redirect_type = "FD_DUP";
+	if (redirect->type & FD_MOVE)
+		redirect_type = "FD_MOVE";
+	if (redirect->type & FD_REDIRECT)
+		redirect_type = "FD_REDIRECT";
+	if (redirect->type & FD_CLOSE)
+		redirect_type = "FD_CLOSE";
+	if (redirect->type & FD_CLOSE_SPECIAL)
+		redirect_type = "FD_CLOSE_SPECIAL";
+	if (redirect->type & FD_PIPE_IN)
+		redirect_type = "FD_PIPE_IN";
+	if (redirect->type & FD_PIPE_OUT)
+		redirect_type = "FD_PIPE_OUT";
+	if (redirect->type & FD_OPEN_ERROR)
+		redirect_type = "FD_OPEN_ERROR";
+	if (redirect->type & FD_DUP_ERROR)
+		redirect_type = "FD_DUP_ERROR";
+	if (redirect->type & FD_CRITICAL_ERROR)
+		redirect_type = "FD_CRITICAL_ERROR";
+	if (redirect->type & FD_BAD_DESCRIPTOR)
+		redirect_type = "FD_BAD_DESCRIPTOR";
+	if (redirect->type & FD_AMBIGOUS_REDIRECT)
+		redirect_type = "FD_AMBIGOUS_REDIRECT";
+	ft_printf("type: %s | to: %ld | from: %ld\n"
+			, redirect_type, redirect->to, redirect->from);
+}
 
 static void	*set_redirect(void *context, void *data)
 {
@@ -55,5 +89,8 @@ int			setup_redirect(t_process *process)
 		process->redirects = ft_lstmerge(&process->pipe, process->redirects);
 		process->pipe = NULL;
 	}
+	ft_printf("- - - - - - - - - -\n");
+	ft_lstiter(process->redirects, print_redirect);
+	ft_printf("- - - - - - - - - -\n");
 	return (SUCCESS);
 }

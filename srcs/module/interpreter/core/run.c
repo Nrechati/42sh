@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 01:30:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:37:23 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		run_builtin(t_process *process)
 	return ;
 }
 
-static void	run_type_selection(t_process *process)
+static void	run_type_selection(t_process *process, int pipe)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
@@ -58,10 +58,10 @@ static void	run_type_selection(t_process *process)
 	else if (process->type == (IS_ALONE | IS_BLT))
 		run_builtin(process);
 	else
-		fork_process(process);
+		fork_process(process, pipe);
 }
 
-int			run_process(t_process *process)
+int			run_process(t_process *process, int pipe)
 {
 	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
@@ -81,7 +81,7 @@ int			run_process(t_process *process)
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
-	run_type_selection(process);
+	run_type_selection(process, pipe);
 	return (SUCCESS);
 }
 
@@ -102,7 +102,7 @@ int			run_job(void *context, void *data)
 	{
 		head = job->processes->data;
 		head->type |= IS_ALONE;
-		run_process(head);
+		run_process(head, 0);
 	}
 	else
 		launch_pipeline(job->processes);

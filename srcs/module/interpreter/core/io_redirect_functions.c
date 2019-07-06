@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 17:04:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 22:17:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ int	duplicate_fd(t_redirect *redirect, t_action *action)
 
 	token = action->data->data;
 	redirect->from = ft_atoi(token->data);
-	if ((redirect->to = get_io(action->data->next)) == FAILURE)
-	{
-		redirect->type = FD_BAD_DESCRIPTOR;
-		return (FAILURE);
-	}
+	redirect->to = get_io_noprotect(action->data->next);
 	redirect->type = FD_DUP;
 	return (SUCCESS);
 }
@@ -50,7 +46,7 @@ int	io_append(t_redirect *redirect, t_action *action)
 	else
 	{
 		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
-		fd = get_io(action->data->next);
+		fd = get_io_noprotect(action->data->next);
 		return_value = open_write_file(redirect, filename, open_flags, fd);
 	}
 	ft_strdel(&filename);
@@ -79,7 +75,7 @@ int	io_truncate(t_redirect *redirect, t_action *action)
 	else
 	{
 		open_flags = O_RDWR | O_TRUNC | O_CREAT;
-		fd = get_io(action->data->next);
+		fd = get_io_noprotect(action->data->next);
 		return_value = open_write_file(redirect, filename, open_flags, fd);
 	}
 	ft_strdel(&filename);

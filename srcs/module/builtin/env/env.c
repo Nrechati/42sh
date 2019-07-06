@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 14:03:06 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 20:14:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:38:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ uint8_t			env_blt(t_registry *shell, char **av, t_process *process)
 	{
 		process->type = 0;
 		process->completed = 0;
-		run_process(process);
+		run_process(process, 0);
 	}
 	return (ret);
 }
