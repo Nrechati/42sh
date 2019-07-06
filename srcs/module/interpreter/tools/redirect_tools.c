@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:56:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 20:08:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:43:10 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,21 @@ char			*get_filename(t_list *node)
 int				get_io(t_list *node)
 {
 	t_token		*token;
+	int			io;
+	int			test;
 
+	test = 0;
 	token = node->data;
-	return (ft_atoi(token->data));
+	io = ft_atoi(token->data);
+	if (write(io, &test, 0) == -1)
+	{
+		if (read(io, &test, 0) == -1)
+		{
+			ft_dprintf(2, "42sh: %d: Bad File descriptor\n", io);
+			return (FAILURE);
+		}
+	}
+	return (SUCCESS);
 }
 
 int				get_custom_fd(char **str, t_list *node)

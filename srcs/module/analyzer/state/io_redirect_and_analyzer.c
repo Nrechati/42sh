@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:15:21 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/03 00:57:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:27:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ int				define_io_dup_move(t_token *token)
 {
 	int		len;
 	int		index;
+	int		tester;
 
 	len = ft_strlen(token->data);
 	index = 0;
+	tester = 0;
 	if (len == 1 && token->data[0] == '-')
 		return (A_CLOSE);
 	while (index < len - 1)
