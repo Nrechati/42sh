@@ -12,16 +12,6 @@
 
 #include "sh21.h"
 
-static void	stopped_process(t_job *job, int status)
-{
-	job->state = STOPPED;
-	job->signo = WSTOPSIG(status);
-	mark_job_as_stopped(job);
-	g_shell->active_jobs++;
-	job->id = (g_shell->active_jobs);
-	jobctl(g_shell, job, JOBCTL_PUTINBG);
-}
-
 static void	exited_process(t_process *current, int status)
 {
 	current->status = ((uint8_t)WEXITSTATUS(status));
@@ -60,8 +50,6 @@ static void	signaled_process(t_job *job, int status)
 
 void		set_status(t_job *job, t_process *current, int status)
 {
-	if (WIFSTOPPED(status))
-		stopped_process(job, status);
 	if (WIFEXITED(status))
 		exited_process(current, status);
 	if (WIFSIGNALED(status))

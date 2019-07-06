@@ -28,9 +28,6 @@ void			hash_builtin(t_registry *shell)
 	ft_hmap_insert(&(shell->hash.blt), "unset", unset_blt);
 	ft_hmap_insert(&(shell->hash.blt), "pwd", pwd_blt);
 	ft_hmap_insert(&(shell->hash.blt), "fc", fc_blt);
-	ft_hmap_insert(&(shell->hash.blt), "fg", fg_blt);
-	ft_hmap_insert(&(shell->hash.blt), "bg", bg_blt);
-	ft_hmap_insert(&(shell->hash.blt), "jobs", jobs_blt);
 	ft_hmap_insert(&(shell->hash.blt), "test", test_blt);
 }
 

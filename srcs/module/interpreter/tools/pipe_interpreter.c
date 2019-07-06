@@ -31,7 +31,7 @@ void	close_pipe(void *data)
 	t_redirect	*redirect;
 
 	redirect = data;
-	if (redirect->type & FD_PIPE_IN)
+if (redirect->type & FD_PIPE_IN)
 	{
 		if (redirect->to >= 3)
 			close(redirect->to);
@@ -53,7 +53,7 @@ int		setup_pipe(t_process *current, t_process *next, int pipe_fd[2])
 	return (SUCCESS);
 }
 
-int8_t	launch_pipeline(t_list *process, uint8_t foreground)
+int8_t	launch_pipeline(t_list *process)
 {
 	int			pipe_fd[2];
 
@@ -68,9 +68,9 @@ int8_t	launch_pipeline(t_list *process, uint8_t foreground)
 		if (setup_pipe(process->data, process->next->data, pipe_fd) == FAILURE)
 			return (FAILURE);
 	}
-	run_process(process->data, foreground);
+	run_process(process->data);
 	pipe_fd[1] == 0 ? pipe_fd[1] : close(pipe_fd[1]);
-	launch_pipeline(process->next, foreground);
+	launch_pipeline(process->next);
 	pipe_fd[0] == 0 ? pipe_fd[0] : close(pipe_fd[0]);
 	return (SUCCESS);
 }

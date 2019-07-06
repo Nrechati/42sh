@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 13:25:12 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:20:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void				prompt_pre_process(t_sle *sle)
 {
-	mark_proc_status();
-	notify_job_info(g_shell->job_list, "Done");
 	sle->state = STATE_STD;
 	vct_reset(sle->line);
 	vct_reset(sle->sub_line);

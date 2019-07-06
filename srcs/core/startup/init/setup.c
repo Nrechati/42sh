@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:06:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/30 08:16:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:25:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,11 @@ static int8_t	get_env(t_list **alst, char **env)
 
 static void		default_variable(t_list **intern, char *name)
 {
-	char		*str;
 	t_vector	*option;
 
-	str = NULL;
-	ft_asprintf(&str, "%d", getpid());
 	add_var(intern, "0", name, READONLY_VAR);
-	add_var(intern, "$", str, READONLY_VAR);
 	add_var(intern, "?", "0", READONLY_VAR);
 	add_var(intern, "!", "", READONLY_VAR);
-	ft_strdel(&str);
 	option = vct_new(0);
 	if (g_shell->option.option & COMMAND_OPT)
 		vct_add(option, 'c');

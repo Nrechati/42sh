@@ -34,7 +34,6 @@
 # include "history.h"
 # include "autocompletion.h"
 # include "log.h"
-# include "jobctl.h"
 
 uint8_t			is_shell_interactive(t_registry *shell);
 t_registry		*g_shell;

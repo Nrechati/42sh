@@ -13,20 +13,15 @@
 #include "sh21.h"
 #include <fcntl.h>
 
-static void	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
+static void	setup_builtin(t_process *process, uint8_t *std)
 {
-	if (fg == TRUE)
-	{
-		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-			tcsetpgrp(STDOUT_FILENO, *process->pgid);
-	}
 	if (process->type & IS_ALONE)
 		ft_lstiter_ctx(process->redirects, std, builtin_redirect);
 	else
 		ft_lstiter_ctx(process->redirects, NULL, do_redirect);
 }
 
-void		run_builtin(t_process *process, uint8_t foreground)
+void		run_builtin(t_process *process)
 {
 	char			*tty_name;
 	uint8_t			std;
@@ -35,7 +30,7 @@ void		run_builtin(t_process *process, uint8_t foreground)
 
 	std = 0;
 	tty_name = ttyname(STDIN_FILENO);
-	setup_builtin(process, foreground, &std);
+	setup_builtin(process, &std);
 	close(STDIN_FILENO);
 	if (ft_strequ(process->av[0], "fc"))
 	{
@@ -54,19 +49,19 @@ void		run_builtin(t_process *process, uint8_t foreground)
 	return ;
 }
 
-static void	run_type_selection(t_process *process, uint8_t foreground)
+static void	run_type_selection(t_process *process)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
 	else if (process->av == NULL || process->av[0] == NULL)
 		process->completed = 1;
-	else if (process->type == (IS_ALONE | IS_BLT) && foreground == TRUE)
-		run_builtin(process, foreground);
+	else if (process->type == (IS_ALONE | IS_BLT))
+		run_builtin(process);
 	else
-		fork_process(process, foreground);
+		fork_process(process);
 }
 
-int			run_process(t_process *process, uint8_t foreground)
+int			run_process(t_process *process)
 {
 	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
@@ -86,7 +81,7 @@ int			run_process(t_process *process, uint8_t foreground)
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
-	run_type_selection(process, foreground);
+	run_type_selection(process);
 	return (SUCCESS);
 }
 
@@ -95,7 +90,6 @@ int			run_job(void *context, void *data)
 	t_job		*job;
 	t_process	*head;
 	t_registry	*shell;
-	uint8_t		foreground;
 
 	if (data == NULL)
 		return (FAILURE);
@@ -103,15 +97,14 @@ int			run_job(void *context, void *data)
 	job = data;
 	if (check_job(job, ft_atoi(get_var(shell->intern, "job_type"))) == FALSE)
 		return (SUCCESS);
-	foreground = job->type & GROUP_BG ? FALSE : TRUE;
 	job->state = RUNNING;
 	if (job->processes->next == NULL)
 	{
 		head = job->processes->data;
 		head->type |= IS_ALONE;
-		run_process(head, foreground);
+		run_process(head);
 	}
 	else
-		launch_pipeline(job->processes, foreground);
-	return (foreground == FALSE ? setup_background_job(job) : waiter(job));
+		launch_pipeline(job->processes);
+	return (waiter(job));
 }

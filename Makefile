@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/06 14:21:31 by nrechati         ###   ########.fr        #
+#    Updated: 2019/07/06 15:09:59 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRCS += $(PARSER)
 SRCS += $(RESOLVE)
 SRCS += $(HISTORY)
 SRCS += $(AUTOCOMPLETION)
-SRCS += $(JOBCTL)
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
 
@@ -113,8 +112,6 @@ P_INTERPRETER += module/interpreter/core/
 P_INTERPRETER += module/interpreter/maping/
 P_INTERPRETER += module/interpreter/tools/
 
-P_JOBCTL += module/jobcontrol/
-
 P_BUILTIN += module/builtin/
 P_BUILTIN += module/builtin/cd/
 P_BUILTIN += module/builtin/echo/
@@ -127,9 +124,6 @@ P_BUILTIN += module/builtin/test/
 P_BUILTIN += module/builtin/type/
 P_BUILTIN += module/builtin/unset/
 P_BUILTIN += module/builtin/fc/
-P_BUILTIN += module/builtin/jobs/
-P_BUILTIN += module/builtin/fg/
-P_BUILTIN += module/builtin/bg/
 P_BUILTIN += module/builtin/env/
 
 P_EXPANSION += module/expansion/
@@ -162,7 +156,6 @@ _SPATH += $(P_PARSER)
 _SPATH += $(P_HISTORY)
 _SPATH += $(P_AUTOCOMPLETION)
 _SPATH += $(P_INTERPRETER)
-_SPATH += $(P_JOBCTL)
 
 SPATH += $(addprefix srcs/, $(_SPATH))
 
@@ -214,7 +207,6 @@ INCS += autocompletion.h
 INCS += define.h
 INCS += struct.h
 INCS += enum.h
-INCS += jobctl.h
 
 # ---------------------------------------------------------------------------- #
 #									Sources                                    #
@@ -282,16 +274,6 @@ AUTOCOMPLETION += print_result.c
 #						- - - - -  Built-in   - - - - -                        #
 
 BUILTIN += blt_options.c
-
-#JOBS
-BUILTIN += bg.c
-BUILTIN += fg.c
-BUILTIN += jobs.c
-BUILTIN += print.c
-BUILTIN += get_state.c
-BUILTIN += get_avs.c
-BUILTIN += jobs_utils.c
-
 
 #CD
 BUILTIN += cd.c
@@ -446,15 +428,7 @@ INTERPRETER += process_tools.c
 INTERPRETER += print_tools.c
 INTERPRETER += background_job.c
 
-#						   - - - - Jobcontrol - - - -                          #
-
-JOBCTL += jobctl.c
-JOBCTL += mark_jobs.c
-JOBCTL += notify_job.c
-JOBCTL += pushjob.c
-JOBCTL += remove_done_jobs.c
-JOBCTL += update_jobs.c
-JOBCTL += utils.c
+INTERPRETER += mark_job.c
 
 #						   - - - - Expansion - - - -                           #
 
