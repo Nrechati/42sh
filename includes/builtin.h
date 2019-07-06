@@ -50,7 +50,7 @@ uint8_t		echo_blt(t_registry *shell, char **av, t_process *process);
 uint8_t		cd_blt(t_registry *shell, char **av, t_process *process);
 t_option	get_option_cd(char *s, t_option option);
 char		*concat_pwd_with_curpath(t_registry *shell, char **path);
-char		*get_home_path(void);
+char		*get_home_path(t_registry *shell);
 char		*is_cdpath_env(t_registry *shell, const char *to_find);
 char		*get_relative_path(char **curpath);
 char		*make_curpath_simple(char *curpath);

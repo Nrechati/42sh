@@ -17,14 +17,10 @@
 static char			*ft_get_curpath(t_registry *shell,
 							const char *path_give_by_user)
 {
-	char	*home_path;
 	char	*curpath;
 
 	if (path_give_by_user == NULL)
-	{
-		home_path = get_var(shell->intern, "HOME");
-		curpath = ft_strdup(home_path != NULL ? home_path : get_home_path());
-	}
+		curpath = ft_strdup(get_home_path(shell));
 	else if (ft_strequ(path_give_by_user, "-") == TRUE)
 	{
 		if ((curpath = get_var(shell->intern, "OLDPWD")) == NULL)
@@ -38,6 +34,11 @@ static char			*ft_get_curpath(t_registry *shell,
 	{
 		if ((curpath = is_cdpath_env(shell, path_give_by_user)) == NULL)
 			curpath = ft_strdup(path_give_by_user);
+	}
+	if (curpath == NULL || *curpath == '\0')
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: cd: no such file or directory\n");
+		ft_strdel(&curpath);
 	}
 	return (curpath);
 }
@@ -110,8 +111,7 @@ uint8_t				cd_blt(t_registry *shell, char **av, t_process *process)
 	(void)process;
 	av++;
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
-		|| (curpath = ft_get_curpath(shell, *av)) == NULL
-		|| one_only_arg(av) == FALSE)
+		|| !(curpath = ft_get_curpath(shell, *av)) || !one_only_arg(av))
 		return (2);
 	if (is_root(curpath) == FALSE && curpath[ft_strlen(curpath) - 1] == '/')
 		curpath[ft_strlen(curpath) - 1] = '\0';
@@ -122,8 +122,9 @@ uint8_t				cd_blt(t_registry *shell, char **av, t_process *process)
 				return (3);
 		if ((curpath = make_curpath_simple(curpath)) == NULL)
 		{
-			ft_dprintf(STDERR_FILENO, "42sh: cd: %s: %s", ft_strequ(*av,
-					"-") ? get_var(shell->intern, "OLDPWD") : *av, NOFI);
+			curpath = *av == NULL ? get_var(shell->intern, "HOME") : *av;
+			ft_dprintf(STDERR_FILENO, "42sh: cd: %s: %s", ft_strequ(*av, "-") ? 
+				get_var(shell->intern, "OLDPWD") : curpath, NOFI);
 			return (1);
 		}
 		else if (ft_strlen(curpath) + 1 >= PATH_MAX)
