@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 02:46:51 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 10:50:47 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:07:45 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int			assign_expansion(t_list *intern, t_parameter *param, int mode)
 
 	word = mode & EXPANDED_PARAM ? param->tokens->next->next->data : NULL;
 	parameter = ((t_pex_token *)param->tokens->data)->data;
-	status = get_var_status(intern, parameter);
-	if (status < 0)
+	if ((status = get_var_status(intern, parameter)) < 0)
 	{
 		add_var(&intern, parameter, word ? word->data : "", SET_VAR);
 		param->expanded = ft_strdup(word ? word->data : "");

@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:02:15 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 16:10:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:16:29 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_heredoc_delim(char *data)
 	return (delimiter);
 }
 
-int	heredoc(t_redirect *redirect, t_action *action)
+int		heredoc(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			fd[2];
@@ -53,7 +53,7 @@ int	heredoc(t_redirect *redirect, t_action *action)
 	return (valid_heredoc_setup(redirect, STDIN_FILENO, fd[0]));
 }
 
-int	heredoc_trim(t_redirect *redirect, t_action *action)
+int		heredoc_trim(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			fd[2];
@@ -75,7 +75,7 @@ int	heredoc_trim(t_redirect *redirect, t_action *action)
 	return (valid_heredoc_setup(redirect, STDIN_FILENO, fd[0]));
 }
 
-int	io_heredoc(t_redirect *redirect, t_action *action)
+int		io_heredoc(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			io_num;
@@ -99,7 +99,7 @@ int	io_heredoc(t_redirect *redirect, t_action *action)
 	return (valid_heredoc_setup(redirect, io_num, fd[0]));
 }
 
-int	io_heredoc_trim(t_redirect *redirect, t_action *action)
+int		io_heredoc_trim(t_redirect *redirect, t_action *action)
 {
 	char		*delimiter;
 	int			io_num;
