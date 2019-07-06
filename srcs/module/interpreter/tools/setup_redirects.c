@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:44:25 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 00:50:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:50:43 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,8 @@ int			setup_redirect(t_process *process)
 	}
 	ft_lstdel(&process->redirects, del_action);
 	process->redirects = redirect;
-	if (process->pipe)
-	{
-		process->redirects = ft_lstmerge(&process->pipe, process->redirects);
-		process->pipe = NULL;
-	}
+	process->redirects = ft_lstmerge(&process->pipe, process->redirects);
+	process->pipe = NULL;
 	ft_printf("- - - - - - - - - -\n");
 	ft_lstiter(process->redirects, print_redirect);
 	ft_printf("- - - - - - - - - -\n");
