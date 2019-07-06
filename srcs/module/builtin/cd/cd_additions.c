@@ -73,7 +73,7 @@ char			*get_home_path(t_registry *shell)
 	char			*home_path;
 
 	home_path = get_var(shell->intern, "HOME");
-	if (home_path != NULL && home_path != '\0')
+	if (home_path != NULL && *home_path != '\0')
 		return (home_path);
 	if ((user_name = get_var(g_shell->intern, "USER")) == NULL)
 	{
@@ -86,7 +86,7 @@ char			*get_home_path(t_registry *shell)
 		return (NULL);
 	}
 	home_path = passwd->pw_dir;
-	if (home_path != NULL && home_path != '\0')
+	if (home_path != NULL && *home_path != '\0')
 		return (home_path);
 	return (NULL);
 }
