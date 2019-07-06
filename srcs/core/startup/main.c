@@ -51,17 +51,17 @@ static int8_t	init_shell(t_registry *shell, char **av, char **env)
 int				main(int ac, char **av, char **env)
 {
 	t_registry		shell;
-//	pid_t			shell_pgid;
+	pid_t			shell_pgid;
 
 	(void)ac;
 	g_shell = &shell;
-//	if (isatty(STDIN_FILENO))
-//	{
-//		while (tcgetpgrp(STDIN_FILENO) != (shell_pgid = getpgrp()))
-//			kill(-shell_pgid, SIGTTIN);
-//	}
+	if (isatty(STDIN_FILENO))
+	{
+		while (tcgetpgrp(STDIN_FILENO) != (shell_pgid = getpgrp()))
+			kill(-shell_pgid, SIGTTIN);
+	}
 	if (init_shell(&shell, av + 1, env) == FAILURE)
-		return (FAILURE);
+		shell_exit_routine(&shell, FAILURE);
 	if (setpgid(shell.pid, shell.pid) < 0)
 	{
 		ft_dprintf(2, "42sh: Failed Setpgid\n");
@@ -70,5 +70,6 @@ int				main(int ac, char **av, char **env)
 	if (shell.option.option & INTERACTIVE_OPT)
 		tcsetpgrp(STDIN_FILENO, shell.pid);
 	launch_shell(&shell);
+	shell_exit_routine(&shell, FAILURE);
 	return (FAILURE);
 }
