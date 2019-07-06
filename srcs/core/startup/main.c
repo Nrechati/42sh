@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 15:26:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:27:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int8_t	init_shell(t_registry *shell, char **av, char **env)
 	term_mode(TERMMODE_INIT);
 	return (SUCCESS);
 }
+
 int				main(int ac, char **av, char **env)
 {
 	t_registry		shell;

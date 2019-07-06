@@ -6,17 +6,18 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 12:08:41 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 13:48:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:00:12 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t				setenv_blt(t_registry *shell, char **av)
+uint8_t				setenv_blt(t_registry *shell, char **av, t_process *process)
 {
 	int			ac;
 	uint8_t		ret;
 
+	(void)process;
 	ret = SUCCESS;
 	ac = ft_tabsize(av);
 	if (ac != 3)

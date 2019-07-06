@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 15:09:13 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 19:02:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ uint8_t			job_is_completed(t_job *job);
 uint8_t			job_is_stopped(t_job *job);
 
 int8_t			get_process_type(t_registry *shell, t_process *process);
+int				is_export(void *data, void *to_find);
+int				copy_var(void *src, void *dest);
+int				variable_update(void *context, void *data);
 char			**generate_env(t_registry *shell, t_list *local_env);
 
 int				assign_intern(t_registry *shell, t_list **assign);

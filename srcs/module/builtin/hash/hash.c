@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 16:42:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:52:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ static uint8_t	do_hash(t_registry *shell, char **av, int i)
 	return (0);
 }
 
-uint8_t			hash_blt(t_registry *shell, char **av)
+uint8_t			hash_blt(t_registry *shell, char **av, t_process *process)
 {
 	int			i;
 	int8_t		ret;
 	t_option	opt;
 
 	opt = 0;
+	(void)process;
 	if (protect_no_input(av) == TRUE)
 		return (1);
 	if ((ret = check_no_args(shell, av)) == TRUE)

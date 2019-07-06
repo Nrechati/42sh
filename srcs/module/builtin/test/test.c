@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/04 09:25:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:54:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static uint8_t		check_no_input(t_hash *callbacks, int ac)
 	return (FALSE);
 }
 
-int8_t				test_blt(t_registry *shell, char **av)
+int8_t				test_blt(t_registry *shell, char **av, t_process *process)
 {
 	int				i;
 	int				ac;
@@ -76,6 +76,7 @@ int8_t				test_blt(t_registry *shell, char **av)
 	t_hash			callbacks;
 
 	(void)shell;
+	(void)process;
 	ft_bzero(&callbacks, sizeof(t_hash));
 	callbacks = ft_hmap_init(TEST_HASH_SIZE);
 	load_test_hashmap(&callbacks);

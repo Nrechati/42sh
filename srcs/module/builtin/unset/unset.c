@@ -6,17 +6,18 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 14:42:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:58:23 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t				unset_blt(t_registry *shell, char **av)
+uint8_t				unset_blt(t_registry *shell, char **av, t_process *process)
 {
 	uint8_t ret;
 
 	++av;
+	(void)process;
 	ret = SUCCESS;
 	while (*av != NULL)
 	{

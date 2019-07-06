@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 21:49:22 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 19:19:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		run_builtin(t_process *process)
 			close(fd);
 	}
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
-	process->status = builtin(g_shell, process->av);
+	process->status = builtin(g_shell, process->av, process);
 	if (process->type & IS_ALONE)
 	{
 		default_io(std, tty_name);

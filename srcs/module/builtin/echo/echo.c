@@ -6,19 +6,20 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:57 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/21 16:07:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:49:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t				echo_blt(t_registry *shell, char **av)
+uint8_t				echo_blt(t_registry *shell, char **av, t_process *process)
 {
 	t_option	option;
 	int8_t		ret;
 
 	++av;
 	(void)shell;
+	(void)process;
 	option = 0;
 	ret = SUCCESS;
 	while (ft_strequ("-n", *av) == TRUE)

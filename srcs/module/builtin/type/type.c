@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/15 11:43:00 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:57:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ static int8_t		type_loop_arg(t_registry *shell, char *arg)
 	return (SUCCESS);
 }
 
-uint8_t				type_blt(t_registry *shell, char **av)
+uint8_t				type_blt(t_registry *shell, char **av, t_process *process)
 {
 	uint8_t		error;
 	int8_t		ret;
 
 	av++;
+	(void)process;
 	error = SUCCESS;
 	while (*av != NULL)
 	{

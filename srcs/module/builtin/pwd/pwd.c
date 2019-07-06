@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:03:25 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/03 15:57:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:53:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,13 @@ t_option		get_option_pwd(char *s, t_option option)
 	return (option);
 }
 
-uint8_t			pwd_blt(t_registry *shell, char **av)
+uint8_t			pwd_blt(t_registry *shell, char **av, t_process *process)
 {
 	t_option	option;
 	char		*pwd;
 
 	++av;
+	(void)process;
 	option = set_options(&av, get_option_pwd);
 	if (option == ERROR_OPT)
 		return (2);

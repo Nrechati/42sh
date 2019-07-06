@@ -57,7 +57,7 @@ void				interactive_mode(t_registry *shell)
 	}
 	vct_del(&input);
 	term_mode(TERMMODE_DFLT);
-	if (exit_blt(shell, NULL) == SUCCESS)
+	if (exit_blt(shell, NULL, NULL) == SUCCESS)
 		interactive_mode(shell);
 	shell_exit_routine(shell, SUCCESS);
 }

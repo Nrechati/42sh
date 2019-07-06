@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:59:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 19:28:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:50:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ static uint8_t	job_notified(t_registry *shell)
 		return (TRUE);
 }
 
-uint8_t			exit_blt(t_registry *shell, char **av)
+uint8_t			exit_blt(t_registry *shell, char **av, t_process *process)
 {
 	uint8_t			ret;
 
+	(void)process;
 	if (job_notified(shell) == FALSE)
 		return (1);
 	ret = shell == NULL ? SUCCESS : ft_atoi(get_var(shell->intern, "?"));

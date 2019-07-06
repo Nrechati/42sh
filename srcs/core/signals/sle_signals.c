@@ -15,7 +15,7 @@
 void	sigterm_sle(int signo)
 {
 	(void)signo;
-	exit_blt(g_shell, 0);
+	exit_blt(g_shell, 0, NULL);
 }
 
 void	sigcont_sle(int signo)

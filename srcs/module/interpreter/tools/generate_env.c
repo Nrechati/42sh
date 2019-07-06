@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 23:32:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 19:02:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		copy_var(void *src, void *dest)
 	return (0);
 }
 
-int		variable_update(void *context, void *data)
+int				variable_update(void *context, void *data)
 {
 	t_list		*tmp_env;
 	t_variable	*variable;
@@ -51,7 +51,7 @@ int		variable_update(void *context, void *data)
 	return (0);
 }
 
-char	*variable_to_tab(void *data)
+static char		*variable_to_tab(void *data)
 {
 	t_variable	*variable;
 	char		*str;
@@ -62,7 +62,7 @@ char	*variable_to_tab(void *data)
 	return (str);
 }
 
-char	**generate_env(t_registry *shell, t_list *local_env)
+char			**generate_env(t_registry *shell, t_list *local_env)
 {
 	char	**env;
 	t_list	*tmp_env;

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 12:09:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:50:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,12 @@ static uint8_t		export_process(t_registry *shell, char **av)
 	return (ret);
 }
 
-uint8_t				export_blt(t_registry *shell, char **av)
+uint8_t				export_blt(t_registry *shell, char **av, t_process *process)
 {
 	t_option	option;
 
 	av++;
+	(void)process;
 	option = 0;
 	if (((option |= set_options(&av, get_option_export)) == ERROR_OPT))
 		return (2);
