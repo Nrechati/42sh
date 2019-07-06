@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/24 16:41:49 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:41:19 by ffoissey         ###   ########.fr       */
+/*   Created: 2019/04/24 16:41:49 by cempassi          #+#    #+#             */
+/*   Updated: 2019/07/02 19:41:19 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ uint8_t				need_subprompt(enum e_type state, enum e_type type)
 		{
 			if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 			{
-				ft_printf("42sh: %s %s\n", UNEXPECTED_EOF, 
+				ft_printf("42sh: %s %s\n", UNEXPECTED_EOF,
 						(char *)g_shell->grammar[state]);
 				add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 				return (FALSE);
@@ -65,7 +65,7 @@ static uint8_t		lexing_subline(t_vector *input, t_vector *line,
 							t_list **lst)
 {
 	t_list		*new_token;
-	
+
 	new_token = NULL;
 	if (verif_line(line) == FALSE)
 	{

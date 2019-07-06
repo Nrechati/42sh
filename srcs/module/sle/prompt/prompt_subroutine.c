@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_subroutine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*   By: cempassi <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 14:58:14 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/05 11:02:41 by skuppers         ###   ########.fr       */
+/*   Created: 2019/06/20 14:58:14 by cempassi          #+#    #+#             */
+/*   Updated: 2019/07/05 11:02:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

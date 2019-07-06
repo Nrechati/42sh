@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_maths_interface.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*   By: cempassi <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/24 12:59:11 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:34:41 by ffoissey         ###   ########.fr       */
+/*   Created: 2019/06/24 12:59:11 by cempassi          #+#    #+#             */
+/*   Updated: 2019/07/02 19:34:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

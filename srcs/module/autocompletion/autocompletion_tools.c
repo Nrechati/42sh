@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocompletion_tools.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*   By: cempassi <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 19:01:59 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:09:37 by ffoissey         ###   ########.fr       */
+/*   Created: 2019/07/02 19:01:59 by cempassi          #+#    #+#             */
+/*   Updated: 2019/07/02 19:09:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

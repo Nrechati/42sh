@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/07 11:59:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:28:01 by ffoissey         ###   ########.fr       */
+/*   Created: 2019/05/07 11:59:35 by nrechati          #+#    #+#             */
+/*   Updated: 2019/07/02 19:28:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 	}
 	else
 		ret = SUCCESS;
-	shell_exit_routine(shell, shell == NULL ? 0 : 
+	shell_exit_routine(shell, shell == NULL ? 0 :
 							ft_atoi(get_var(shell->intern, "?")));
 	return (SUCCESS);
 }

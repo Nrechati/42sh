@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 04:23:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 19:25:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:25:41 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int		get_histfile_fd(t_registry *shell, int flags)
 		return (-1);
 	fd = open(histfile, flags, S_IRUSR | S_IWUSR);
 	if (stat(histfile, &st) != SUCCESS || (st.st_mode & S_IFREG) == FALSE)
-	{	
+	{
 		close(fd);
 		fd = -1;
 	}

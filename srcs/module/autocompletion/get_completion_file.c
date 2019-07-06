@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_completion_file.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*   By: cempassi <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 19:15:16 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:20:40 by ffoissey         ###   ########.fr       */
+/*   Created: 2019/07/02 19:15:16 by cempassi          #+#    #+#             */
+/*   Updated: 2019/07/02 19:20:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
