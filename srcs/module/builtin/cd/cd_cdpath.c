@@ -88,7 +88,8 @@ uint8_t			check_path(t_registry *shell, char *curpath,
 	if (lstat(curpath, &stat) != SUCCESS)
 		ft_dprintf(STDERR_FILENO, "42sh: cd: no such file or directory: %s\n",
 				path_give_by_user);
-	else if ((stat.st_mode & S_IFDIR) == FALSE)
+	else if ((stat.st_mode & S_IFDIR) == FALSE
+				&& (stat.st_mode & S_IFLNK) == FALSE)
 		ft_dprintf(STDERR_FILENO,
 					"42sh: cd: not a directory: %s\n", path_give_by_user);
 	else if (access(curpath, R_OK) != SUCCESS)
