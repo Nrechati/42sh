@@ -57,7 +57,7 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 	uint8_t			ret;
 
 	if (job_notified(shell) == FALSE)
-		return (SUCCESS);
+		return (1);
 	if (av == NULL)
 		shell_exit_routine(shell, SUCCESS);
 	++av;

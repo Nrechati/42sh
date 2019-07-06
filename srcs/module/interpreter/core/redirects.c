@@ -31,7 +31,7 @@ int		check_redirect_error(void *context, void *data)
 	}
 	if (redirect->type & FD_BAD_DESCRIPTOR)
 	{
-		ft_dprintf(2, "42sh: %d: bad filedescriptor\n", redirect->to);
+		ft_dprintf(2, "42sh: %d: bad file descriptor\n", redirect->to);
 		process->type = IS_DUP_FAILED;
 	}
 	if (redirect->type & FD_AMBIGOUS_REDIRECT)
