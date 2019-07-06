@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/06 20:11:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:28:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static int	check_expansion(char **dest, uint32_t *i, t_quote quote)
 	return (check);
 }
 
-char		*variable_expansion(t_list *intern_var, char *str)
+char		*variable_expansion(__unused t_list *intern_var, char *str)
 {
 	uint32_t	i;
 	uint32_t	len;

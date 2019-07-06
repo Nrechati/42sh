@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 17:28:43 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 20:02:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:47:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,13 @@ uint8_t			job_is_completed(t_job *job)
 			return (FALSE);
 		process = process->next;
 	}
+	return (TRUE);
+}
+
+int8_t			am_i_forked(t_registry *shell, char *name)
+{
+	if (getpid() == shell->pid)
+		return (FALSE);
+	ft_dprintf(2, "42sh: %s: no job control.\n", name);
 	return (TRUE);
 }

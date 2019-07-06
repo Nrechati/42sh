@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 15:39:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 13:38:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:52:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int8_t				bg_blt(t_registry *shell, char **av)
 	int8_t	result;
 	uint8_t	ret;
 
-	if (jobctl_is_active(shell) == FALSE)
+	if (jobctl_is_active(shell) == FALSE
+			|| am_i_forked(shell, "bg") == TRUE)
 		return (FAILURE);
 	++av;
 	if (*av == NULL)

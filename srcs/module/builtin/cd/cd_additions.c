@@ -66,12 +66,15 @@ char			*concat_pwd_with_curpath(t_registry *shell, char **path)
 	return (curpath);
 }
 
-char			*get_home_path(void)
+char			*get_home_path(t_registry *shell)
 {
 	struct passwd	*passwd;
 	char			*user_name;
 	char			*home_path;
 
+	home_path = get_var(shell->intern, "HOME");
+	if (home_path != NULL && home_path != '\0')
+		return (home_path);
 	if ((user_name = get_var(g_shell->intern, "USER")) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, "42sh: cd: USER variable is not set\n");
@@ -83,7 +86,9 @@ char			*get_home_path(void)
 		return (NULL);
 	}
 	home_path = passwd->pw_dir;
-	return (home_path);
+	if (home_path != NULL && home_path != '\0')
+		return (home_path);
+	return (NULL);
 }
 
 char			*get_relative_path(char **curpath)

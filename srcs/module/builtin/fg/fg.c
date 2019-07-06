@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:37:48 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 13:38:51 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:48:01 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int8_t	fg_blt(t_registry *shell, char **av)
 	int8_t	result;
 	uint8_t	ret;
 
-	if (jobctl_is_active(shell) == FALSE)
+	if (jobctl_is_active(shell) == FALSE
+			|| am_i_forked(shell, "fg") == TRUE)
 		return (FAILURE);
 	++av;
 	job = NULL;
