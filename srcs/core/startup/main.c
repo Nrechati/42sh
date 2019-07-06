@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 21:23:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 19:41:53 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				main(int ac, char **av, char **env)
 	g_shell = &shell;
 	if (isatty(STDIN_FILENO))
 	{
-		while (tcgetpgrp(STDIN_FILENO) != (shell_pgid = getpgrp()))
+		while (tcgetpgrp(STDOUT_FILENO) != (shell_pgid = getpgrp()))
 			kill(-shell_pgid, SIGTTIN);
 	}
 	if (init_shell(&shell, av + 1, env) == FAILURE)
