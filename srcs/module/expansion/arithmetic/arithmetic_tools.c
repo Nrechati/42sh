@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:43:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 03:09:07 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:15:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int8_t	get_expansion_input(t_arithmetic *arithmetic, char *input, size_t start)
 	char		*str;
 
 	str = NULL;
-	ft_asprintf(&str, "%.*s", arithmetic->end - start - 1, input + start);
+	ft_asprintf(&str, "%.*s", arithmetic->end - start - 2, input + start);
 	if (str == NULL)
 	{
 		ft_dprintf(2, "Malloc Error on get_expansion_input\n");
@@ -64,16 +64,27 @@ int8_t	get_expansion_input(t_arithmetic *arithmetic, char *input, size_t start)
 int8_t	find_expansion_end(t_arithmetic *arithmetic, char *input, size_t start)
 {
 	size_t		end;
+	size_t		parent;
 
-	end = ft_strcspn(input + start, "$") + start;
-	while (end > start)
+	end = start;
+	parent = 2;
+	while (input[end])
 	{
-		if (input[end] == ')' && input[end - 1] == ')')
+		if (parent == 0)
 		{
 			arithmetic->end = end;
 			return (SUCCESS);
 		}
-		end--;
+		else if (input[end] == '(')
+			parent++;
+		else if (input[end] == ')')
+			parent--;
+		end++;
+	}
+	if (parent == 0)
+	{
+		arithmetic->end = end;
+		return (SUCCESS);
 	}
 	ft_dprintf(2, "No end of expansion token\n");
 	return (FAILURE);

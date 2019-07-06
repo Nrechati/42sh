@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 07:20:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 03:07:13 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 12:22:40 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,16 @@ void		m_flush_variable_analyzer(t_arithmetic *arithmetic)
 	t_rpn_tk	token;
 	t_token		*current;
 	char		*data;
+	int			index;
 
 	arithmetic->state = MATH_VARIABLE_FLUSH;
 	ft_bzero(&token, sizeof(t_rpn_tk));
+	index = 0;
 	node = ft_stckpopnode(&arithmetic->processing);
 	current = node->data;
 	token.type = RPN_NUMBER;
-	if ((data = get_var(g_shell->intern, current->data)))
+	index = current->data[0] == '$' ? 1 : 0;
+	if ((data = get_var(g_shell->intern, current->data + index)))
 		token.value.digit = ft_atoll_base(data, DEC_BASE);
 	else
 		token.value.digit = 0;
