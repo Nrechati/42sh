@@ -68,10 +68,6 @@ void					init_tab_signal_sle(
 								sigset);
 	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-//	tab_signal[SIGTTIN] = set_sigaction_struct(sigttin_exec, SA_RESTART,
-//								sigset);
-//	tab_signal[SIGTTOU] = set_sigaction_struct(sigttin_exec, SA_RESTART,
-//								sigset);
 	tab_signal[SIGINT] = set_sigaction_struct(sigint_sle, 0, sigset);
 	tab_signal[SIGWINCH] = set_sigaction_struct(sigwinch_sle, SA_RESTART,
 								sigset);
