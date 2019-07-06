@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "sh21.h"
-
+/*
 int		setup_background_job(t_job *job)
 {
 	t_job		job_cpy;
@@ -33,7 +33,7 @@ int		setup_background_job(t_job *job)
 	job->term_modes = NULL;
 	return (SUCCESS);
 }
-
+*/
 t_list	**ptr_to_job_lst(t_list **job_lst, uint8_t mode)
 {
 	static t_list		**saved = NULL;

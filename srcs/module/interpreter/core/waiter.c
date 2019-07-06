@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:36:20 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 15:47:58 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:18:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int8_t			waiter(t_job *job)
 	}
 	update_last_bin(job->processes);
 	job->state ^= (RUNNING | ENDED);
-	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/21 16:09:49 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:28:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_option		get_option_cd(char *s, t_option option)
 		else
 		{
 			ft_dprintf(STDERR_FILENO,
-					"42sh: cd: -%c: invalid option\n", *s);
+					"21sh: cd: -%c: invalid option\n", *s);
 			ft_putendl_fd(CD_USAGE, STDERR_FILENO);
 			return (ERROR_OPT);
 		}
@@ -74,12 +74,12 @@ char			*get_home_path(void)
 
 	if ((user_name = get_var(g_shell->intern, "USER")) == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "42sh: cd: USER variable is not set\n");
+		ft_dprintf(STDERR_FILENO, "21sh: cd: USER variable is not set\n");
 		return (NULL);
 	}
 	if ((passwd = getpwnam(user_name)) == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "42sh: cd: user `%s'is unknow\n", user_name);
+		ft_dprintf(STDERR_FILENO, "21sh: cd: user `%s'is unknown\n", user_name);
 		return (NULL);
 	}
 	home_path = passwd->pw_dir;

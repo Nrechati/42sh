@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mark_jobs.c                                        :+:      :+:    :+:   */
+/*   mark_job.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 16:00:41 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 10:56:42 by nrechati         ###   ########.fr       */
+/*   Created: 2019/07/06 15:08:17 by nrechati          #+#    #+#             */
+/*   Updated: 2019/07/06 15:08:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,51 +55,4 @@ void	mark_job_as_completed(t_job *job)
 		process->completed = TRUE;
 		proclist = proclist->next;
 	}
-}
-
-void	mark_proc(pid_t pid, int status)
-{
-	t_job	*job;
-
-	job = find_job(pid);
-	if (pid <= 0 || job == NULL)
-		return ;
-	if (WIFSTOPPED(status))
-	{
-		ft_printf("stopped\n");
-		mark_job_as_stopped(job);
-	}
-	else if (WIFEXITED(status) == 1)
-	{
-		ft_printf("exited\n");
-		mark_job_as_completed(job);
-	}
-	else if (WIFSIGNALED(status))
-	{
-		ft_printf("signaled\n");
-		if (WTERMSIG(status) != 18 && WTERMSIG(status) != 19)
-		{
-		ft_printf("termsig\n");
-			mark_job_as_running(job);
-
-		}
-	}
-}
-
-uint8_t	mark_proc_status(void)
-{
-	t_job		*job;
-	t_list		*joblst;
-	pid_t		pid;
-	int			status;
-
-	joblst = g_shell->job_list;
-	while (joblst != NULL)
-	{
-		job = joblst->data;
-		pid = waitpid(job->pgid, &status, WNOHANG | WUNTRACED);
-		mark_proc(pid, status);
-		joblst = joblst->next;
-	}
-	return (42);
 }

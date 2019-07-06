@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 13:57:42 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:09:13 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,20 @@
 *****************************************************
 */
 
-void			run_background_job(t_registry *shell, t_job *job);
+void			mark_job_as_running(t_job *job);
+void			mark_job_as_stopped(t_job *job);
+void			mark_job_as_completed(t_job *job);
+
+//void			run_background_job(t_registry *shell, t_job *job);
 
 int8_t			interpreter(t_registry *shell, t_list **cmd_group);
 t_list			**ptr_to_job_lst(t_list **job_lst, uint8_t mode);
 
-void			fork_process(t_process *process, uint8_t foreground);
-int8_t			launch_pipeline(t_list *processess, uint8_t foreground);
+void			fork_process(t_process *process);
+int8_t			launch_pipeline(t_list *processess);
 int				run_job(void *context, void *data);
-void			run_builtin(t_process *process, uint8_t foreground);
-int				run_process(t_process *process, uint8_t foreground);
+void			run_builtin(t_process *process);
+int				run_process(t_process *process);
 
 uint8_t			job_is_completed(t_job *job);
 uint8_t			job_is_stopped(t_job *job);

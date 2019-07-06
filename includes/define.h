@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 13:35:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:20:30 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -503,7 +503,6 @@
 # define P_NAME				's'
 # define P_USER				'u'
 # define P_CWD				'w'
-# define P_HOST				'h'
 # define P_MISS				'm'
 # define P_ESCAPE			'e'
 # define P_SUCCESS			'?'

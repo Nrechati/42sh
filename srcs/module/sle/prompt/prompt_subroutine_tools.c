@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 10:28:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:59:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ uint8_t			subprompt_call(t_vector *line, uint32_t option)
 	history(g_shell, vct_get_string(line), ADD_ENTRY);
 	new_input = NULL;
 	sle(g_shell, &new_input, option | SLE_PS2_PROMPT);
-	if (new_input == NULL || (option != PRINT_QUOTE && option != PRINT_DQUOTE
-				&& do_history_exp(&new_input) == FAILURE))
+	if (new_input == NULL || (option != PRINT_QUOTE && option != PRINT_DQUOTE))
 	{
 		vct_del(&new_input);
 		history(g_shell, NULL, POP_ENTRY);

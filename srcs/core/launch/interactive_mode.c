@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 21:25:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:58:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,6 @@ static uint8_t		is_input_valid(uint8_t valid)
 	if (valid != SUCCESS && valid != LINE_FAIL)
 		return (FALSE);
 	return (TRUE);
-}
-
-int8_t				do_history_exp(t_vector **input)
-{
-	t_vector	*new;
-	int8_t		ret;
-
-	new = vct_dup(*input);
-	history(NULL, NULL, RESET_HEAD);
-	ret = history_expansion(new);
-	history(NULL, NULL, RESET_HEAD);
-	if (ret == SUCCESS)
-	{
-		if (ft_strequ(new->buffer, (*input)->buffer) == FALSE)
-			ft_putstr(new->buffer);
-		vct_del(input);
-		*input = vct_dup(new);
-	}
-	else
-		vct_del(input);
-	vct_del(&new);
-	return (ret);
 }
 
 static uint8_t		is_only_whitespaces(t_vector *input)
@@ -68,8 +46,6 @@ void				interactive_mode(t_registry *shell)
 	{
 		if (is_only_whitespaces(input) == FALSE)
 		{
-			if (do_history_exp(&input) == FAILURE)
-				continue ;
 			term_mode(TERMMODE_DFLT);
 			load_signal_profile(DFLT_PROFILE);
 			execution_pipeline(shell, &input);

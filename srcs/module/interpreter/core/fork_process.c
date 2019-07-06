@@ -19,13 +19,13 @@ static uint8_t	check_cmd_path(char *data)
 
 	if (lstat(data, &stat))
 	{
-		ft_dprintf(2, "42sh: no such file or directory: %s\n", data);
+		ft_dprintf(2, "21sh: no such file or directory: %s\n", data);
 		return (FALSE);
 	}
 	if (stat.st_mode & S_IFDIR)
-		ft_dprintf(2, "42sh: %s: Is a directory\n", data);
+		ft_dprintf(2, "21sh: %s: Is a directory\n", data);
 	else if (access(data, X_OK))
-		ft_dprintf(2, "42sh: %s: Permission denied\n", data);
+		ft_dprintf(2, "21sh: %s: Permission denied\n", data);
 	else
 		return (TRUE);
 	return (FALSE);
@@ -47,54 +47,37 @@ static void		run_child(t_process *process, char **env)
 			pathname = process->av[0];
 	}
 	else if (process->type & IS_NOTFOUND)
-		ft_dprintf(2, "42sh: %s: command not found\n", process->av[0]);
+		ft_dprintf(2, "21sh: %s: command not found\n", process->av[0]);
 	if (pathname != NULL)
 	{
 		if (execve(pathname, process->av, env) == FAILURE)
-			ft_dprintf(2, "42sh: execution error\n");
+			ft_dprintf(2, "21sh: execution error\n");
 	}
 	exit(1);
 }
 
-static void		child_process(t_process *process, char **env, uint8_t fg)
+static void		child_process(t_process *process, char **env)
 {
 	init_exec_signals();
-	process->pid = getpid();
-	if (*process->pgid == 0)
-		*process->pgid = process->pid;
-	setpgid(process->pid, *process->pgid);
-	if (fg == TRUE)
-	{
-		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-			tcsetpgrp(STDOUT_FILENO, *process->pgid);
-	}
 	if (process->type & IS_BLT)
 	{
-		run_builtin(process, fg);
+		run_builtin(process);
 		exit(process->status);
 	}
 	else
 		run_child(process, env);
 }
 
-static void		parent_process(t_process *process, char ***env, uint8_t fg)
+static void		parent_process(t_process *process, char ***env)
 {
 	if (process->type & IS_BIN)
 		ft_hmap_hits(&g_shell->hash.bin, process->av[0]);
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
-	setpgid(process->pid, *process->pgid);
-	if (fg == FALSE)
-	{
-		tcsetpgrp(STDOUT_FILENO, g_shell->pid);
-		term_mode(TERMMODE_EXEC);
-	}
-	else
-		tcsetpgrp(STDOUT_FILENO, *process->pgid);
 	ft_freetab(env);
 }
 
-void			fork_process(t_process *process, uint8_t foreground)
+void			fork_process(t_process *process)
 {
 	char			**env;
 
@@ -105,11 +88,11 @@ void			fork_process(t_process *process, uint8_t foreground)
 	}
 	if ((process->pid = fork()) < 0)
 	{
-		ft_dprintf(2, "42sh: fork error\n");
+		ft_dprintf(2, "21sh: fork error\n");
 		return ;
 	}
 	else if (process->pid == 0)
-		child_process(process, env, foreground);
+		child_process(process, env);
 	else
-		parent_process(process, &env, foreground);
+		parent_process(process, &env);
 }

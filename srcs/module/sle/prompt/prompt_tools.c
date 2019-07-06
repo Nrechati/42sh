@@ -33,8 +33,6 @@ static void				expand_prompt(t_sle *sle, t_vector *text)
 			p_insert_username(sle, text, index - 1);
 		else if (vct_charat(text, index) == P_CWD)
 			p_insert_cwd(sle, text, index - 1);
-		else if (vct_charat(text, index) == P_HOST)
-			p_insert_host(text, index - 1);
 		else if (vct_charat(text, index) == P_MISS)
 			p_insert_missing(sle, text, index - 1);
 		else if (vct_charat(text, index) == P_SUCCESS)

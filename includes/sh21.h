@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/04 11:46:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:00:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@
 # include "resolve.h"
 # include "expansion.h"
 # include "history.h"
-# include "autocompletion.h"
 # include "log.h"
-# include "jobctl.h"
 
 uint8_t			is_shell_interactive(t_registry *shell);
 t_registry		*g_shell;
@@ -68,7 +66,6 @@ void			launch_shell(t_registry *shell);
 void			batch_mode(t_registry *shell);
 void			interactive_mode(t_registry *shell);
 int8_t			execution_pipeline(t_registry *shell, t_vector **input);
-int8_t			do_history_exp(t_vector **input);
 
 /*
 *****************************************************

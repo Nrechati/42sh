@@ -50,23 +50,6 @@ void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index)
 	}
 }
 
-void		p_insert_host(t_vector *text, uint64_t index)
-{
-	char	*host;
-	char	*hostname;
-	size_t	host_len;
-
-	host_len = 32;
-	host = ft_strnew(host_len);
-	if (gethostname(host, host_len) != 0)
-		hostname = ft_strdup("hostname");
-	else
-		hostname = ft_strsub(host, 0, ft_strcspn(host, "."));
-	vct_replace_string(text, index, index + 2, hostname);
-	ft_strdel(&host);
-	ft_strdel(&hostname);
-}
-
 void		p_insert_success(t_vector *text, uint64_t index)
 {
 	char	*success;
