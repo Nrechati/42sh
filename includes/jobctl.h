@@ -6,13 +6,15 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 19:12:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:47:10 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef JOBCTL_H
 # define JOBCTL_H
 # include "struct.h"
+
+int8_t	am_i_forked(t_registry *shell, char *name);
 
 void	jobctl(t_registry *shell, t_job *job, uint8_t flag);
 
