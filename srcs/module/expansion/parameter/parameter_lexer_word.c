@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:20:37 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 10:38:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:09:33 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	pex_next_quote(t_parameter *param)
 	while (param->source[param->index] != '\'')
 	{
 		if (param->source[param->index] == '\0')
-			return;
+			return ;
 		vct_add(param->buffer, param->source[param->index]);
 		param->index++;
 	}
@@ -38,7 +38,7 @@ static void	pex_next_double_quote(t_parameter *param)
 	while (param->source[param->index] != '\"')
 	{
 		if (param->source[param->index] == '\0')
-			return;
+			return ;
 		vct_add(param->buffer, param->source[param->index]);
 		param->index++;
 	}
@@ -57,7 +57,7 @@ static void	pex_next_brace(t_parameter *param)
 	while (param->source[param->index] != '}')
 	{
 		if (param->source[param->index] == '\0')
-			return;
+			return ;
 		vct_add(param->buffer, param->source[param->index]);
 		param->index++;
 	}

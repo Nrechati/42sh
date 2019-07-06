@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 13:17:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:05:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ char		*arithmetic_expansion(char *input)
 		else if ((result = check_math_expansion(&dest, i, quote)))
 			len = ft_strlen(dest);
 		else if (result == -1)
-		{
 			return (NULL);
-		}
 		if (result == 0)
 			++i;
 	}

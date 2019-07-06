@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/06 13:51:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:11:54 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*variable_replace(t_list *lst, t_vector *str, uint32_t start_idx)
 	while (sub[i] && (ft_isalnum(sub[i]) || sub[i] == '_'))
 	{
 		if (i == 0 && ft_isdigit(sub[i]))
-			break;
+			break ;
 		i++;
 	}
 	data_name = ft_strsub(sub, 0, i);
@@ -78,7 +78,7 @@ static int	variable_special(t_list *intern, char **dest, int i)
 	return (1);
 }
 
-static int	check_expansion(t_list *intern, char **dest, uint32_t *i, t_quote quote)
+static int	check_expansion(char **dest, uint32_t *i, t_quote quote)
 {
 	int		check;
 
@@ -86,7 +86,7 @@ static int	check_expansion(t_list *intern, char **dest, uint32_t *i, t_quote quo
 	if ((*dest)[*i] != '$' || quote == QUOTE_SINGLE)
 		return (0);
 	if ((*dest)[*i + 1] == '{')
-		check = parameter_expansion(intern, dest, *i);
+		check = parameter_expansion(g_shell->intern, dest, *i);
 	else if (ft_strnequ((*dest) + *i + 1, "((", 2))
 		check = 0;
 	else if (ft_strnequ((*dest) + *i + 1, "(", 1))
@@ -95,13 +95,13 @@ static int	check_expansion(t_list *intern, char **dest, uint32_t *i, t_quote quo
 		check = -1;
 	}
 	else if (ft_strchr(EXP_SPECIAL, (*dest)[*i + 1]))
-		check = variable_special(intern, dest, *i);
+		check = variable_special(g_shell->intern, dest, *i);
 	else if ((*dest)[*i + 1] != '\0')
 	{
 		if (ft_strchr(EXP_CHECK, (*dest)[*i + 1]))
 			check = 0;
 		else if (quote != QUOTE_SINGLE)
-			check = variable_concat(intern, dest, *i);
+			check = variable_concat(g_shell->intern, dest, *i);
 	}
 	return (check);
 }
@@ -124,7 +124,7 @@ char		*variable_expansion(t_list *intern_var, char *str)
 			quote = select_quoting(quote, dest[i]);
 		if (dest[i] == '\\' && (quote == QUOTE_OFF || quote == QUOTE_DOUBLE))
 			i = check_backslash(dest, quote, i);
-		else if ((result = check_expansion(intern_var, &dest, &i, quote)) == 1)
+		else if ((result = check_expansion(&dest, &i, quote)) == 1)
 			len = ft_strlen(dest);
 		else if (result == -1)
 			return (NULL);
