@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 19:19:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 19:40:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		run_builtin(t_process *process)
 	tty_name = ttyname(STDIN_FILENO);
 	setup_builtin(process, &std);
 	close(STDIN_FILENO);
-	if (ft_strequ(process->av[0], "fc"))
+	if (ft_strequ(process->av[0], "env"))
 	{
 		fd = open(tty_name, O_RDWR);
 		if (fd != 0)
