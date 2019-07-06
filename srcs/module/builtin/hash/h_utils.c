@@ -18,7 +18,6 @@ void			hash_builtin(t_registry *shell)
 	ft_hmap_insert(&(shell->hash.blt), "env", env_blt);
 	ft_hmap_insert(&(shell->hash.blt), "setenv", setenv_blt);
 	ft_hmap_insert(&(shell->hash.blt), "unsetenv", unsetenv_blt);
-
 	ft_hmap_insert(&(shell->hash.blt), "echo", echo_blt);
 	ft_hmap_insert(&(shell->hash.blt), "cd", cd_blt);
 	ft_hmap_insert(&(shell->hash.blt), "hash", hash_blt);
