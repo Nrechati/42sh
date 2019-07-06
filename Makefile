@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/06 15:09:59 by nrechati         ###   ########.fr        #
+#    Updated: 2019/07/06 16:01:37 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRCS += $(LOGGING)
 SRCS += $(PARSER)
 SRCS += $(RESOLVE)
 SRCS += $(HISTORY)
-SRCS += $(AUTOCOMPLETION)
 OBJS = $(patsubst %.c, $(OPATH)%.o, $(SRCS))
 OBJD = $(patsubst %.c, $(OPATH)db%.o, $(SRCS))
 
@@ -142,9 +141,6 @@ P_PARSER += module/parser/debug/
 
 P_HISTORY += module/history/
 
-P_AUTOCOMPLETION += module/autocompletion/
-
-
 _SPATH += $(P_CORE)
 _SPATH += $(P_SLE)
 _SPATH += $(P_ANALYZER)
@@ -154,7 +150,6 @@ _SPATH += $(P_LEXER)
 _SPATH += $(P_LOGGING)
 _SPATH += $(P_PARSER)
 _SPATH += $(P_HISTORY)
-_SPATH += $(P_AUTOCOMPLETION)
 _SPATH += $(P_INTERPRETER)
 
 SPATH += $(addprefix srcs/, $(_SPATH))
@@ -203,7 +198,6 @@ INCS += analyzer.h
 INCS += builtin.h
 INCS += resolve.h
 INCS += history.h
-INCS += autocompletion.h
 INCS += define.h
 INCS += struct.h
 INCS += enum.h
@@ -258,18 +252,6 @@ HISTORY += histfile.c
 HISTORY += entry_manager.c
 HISTORY += get_entry.c
 HISTORY += print_history.c
-
-#						- - - -  Autocompletion - - - -						   #
-
-AUTOCOMPLETION += autocompletion.c
-AUTOCOMPLETION += autocompletion_tools.c
-AUTOCOMPLETION += autocompletion_tools2.c
-AUTOCOMPLETION += get_completion_cmd.c
-AUTOCOMPLETION += get_completion_file.c
-AUTOCOMPLETION += get_completion_var.c
-AUTOCOMPLETION += get_start_input.c
-AUTOCOMPLETION += get_type.c
-AUTOCOMPLETION += print_result.c
 
 #						- - - - -  Built-in   - - - - -                        #
 

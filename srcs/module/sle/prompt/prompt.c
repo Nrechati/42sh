@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 15:20:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:02:18 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void				prompt_pre_process(t_sle *sle)
 static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 {
 	sle->state = STATE_STD;
-	autocompletion(NULL, shell, NULL, RESET_RESULT);
 	history(NULL, NULL, RESET_HEAD);
 	vct_add(sle->line, '\n');
 	set_redraw_flags(sle, RD_LINE | RD_CEND);

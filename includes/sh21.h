@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 15:59:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:00:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include "resolve.h"
 # include "expansion.h"
 # include "history.h"
-# include "autocompletion.h"
 # include "log.h"
 
 uint8_t			is_shell_interactive(t_registry *shell);
