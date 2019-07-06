@@ -57,7 +57,8 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 	uint8_t			ret;
 
 	if (job_notified(shell) == FALSE)
-		return (SUCCESS);
+		return (1);
+	ret = shell == NULL ? SUCCESS : ft_atoi(get_var(shell->intern, "?"));
 	if (av == NULL)
 		shell_exit_routine(shell, SUCCESS);
 	++av;
@@ -72,7 +73,6 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 	}
 	else
 		ret = SUCCESS;
-	shell_exit_routine(shell, shell == NULL ? 0 :
-							ft_atoi(get_var(shell->intern, "?")));
+	shell_exit_routine(shell, ret);
 	return (SUCCESS);
 }
