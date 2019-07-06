@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 15:38:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:00:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,6 @@ int		expand_process(t_list *intern, t_process *process)
 	{
 		if ((holder = expansion_pipeline(intern, process->av[index])) == NULL)
 			return (FAILURE);
-		if (*holder == '\0')
-		{
-			remove_empty(&process->av[index]);
-			ft_strdel(&holder);
-			continue;
-		}
 		ft_strdel(&process->av[index]);
 		process->av[index++] = holder;
 	}

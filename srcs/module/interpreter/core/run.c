@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 00:51:02 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:16:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,11 @@ int			run_job(void *context, void *data)
 	{
 		head = job->processes->data;
 		head->type |= IS_ALONE;
-		run_process(head, foreground, 0);
+		if (run_process(head, foreground, 0) == FAILURE)
+			return (FAILURE);
 	}
 	else
-		launch_pipeline(job->processes, foreground);
+		if (launch_pipeline(job->processes, foreground) == FAILURE)
+			return (FAILURE);
 	return (foreground == FALSE ? setup_background_job(job) : waiter(job));
 }

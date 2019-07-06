@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 00:57:23 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 01:41:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,16 @@ int8_t	launch_pipeline(t_list *process, uint8_t foreground)
 		if (setup_pipe(process->data, process->next->data, pipe_fd) == FAILURE)
 			return (FAILURE);
 	}
-	run_process(process->data, foreground, pipe_fd[1]);
-	launch_pipeline(process->next, foreground);
+	if  (run_process(process->data, foreground, pipe_fd[1]) == FAILURE)
+	{
+		pipe_fd[0] == 0 ? pipe_fd[0] : close(pipe_fd[0]);
+		return (FAILURE);
+	}
+	if (launch_pipeline(process->next, foreground) == FAILURE)
+	{
+		pipe_fd[0] == 0 ? pipe_fd[0] : close(pipe_fd[0]);
+		return (FAILURE);
+	}
 	pipe_fd[0] == 0 ? pipe_fd[0] : close(pipe_fd[0]);
 	return (SUCCESS);
 }
