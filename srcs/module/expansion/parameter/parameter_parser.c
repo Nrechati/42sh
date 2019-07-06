@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 08:31:52 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/24 18:11:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 10:38:48 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	word_check(t_list *intern, t_pex_token *token)
 {
 	char	*expanded;
 
-	if ((expanded = expansion_pipeline(intern, token->data)) == NULL)
+	if ((expanded = expansion_word(intern, token->data)) == NULL)
 		return (-1);
 	ft_strdel(&token->data);
 	token->data = expanded;

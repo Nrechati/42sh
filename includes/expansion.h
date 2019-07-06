@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 11:48:41 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 10:38:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "struct.h"
 
 char			*expansion_pipeline(t_list *intern_var, char *str);
+char			*expansion_word(t_list *intern_var, char *str);
 char			*arithmetic_expansion(char *input);
 char			*expand_string(t_list *lst, char *str);
 char			*tilde(t_list *intern_var, char *str);

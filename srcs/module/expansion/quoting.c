@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:16:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/04 02:06:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 10:43:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ static int	delete_backslash(char *str, t_quote quote)
 		delete_character(str);
 		return (TRUE);
 	}
+}
+
+t_quote		select_quoting(t_quote quote, const char c)
+{
+	if (quote == QUOTE_OFF)
+		quote = c == '\'' ? QUOTE_SINGLE : QUOTE_DOUBLE;
+	else if (quote == QUOTE_SINGLE)
+		quote = c == '\'' ? QUOTE_OFF : QUOTE_SINGLE;
+	else if (quote == QUOTE_DOUBLE)
+		quote = c == '\"' ? QUOTE_OFF : QUOTE_DOUBLE;
+	return (quote);
 }
 
 void		quote_removal(char *str)

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/04 02:05:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 10:38:00 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,6 @@ int		check_backslash(char *dest, t_quote quote, int i)
 	}
 	else
 		return (i + 1);
-}
-
-t_quote	select_quoting(t_quote quote, const char c)
-{
-	if (quote == QUOTE_OFF)
-		quote = c == '\'' ? QUOTE_SINGLE : QUOTE_DOUBLE;
-	else if (quote == QUOTE_SINGLE)
-		quote = c == '\'' ? QUOTE_OFF : QUOTE_SINGLE;
-	else if (quote == QUOTE_DOUBLE)
-		quote = c == '\"' ? QUOTE_OFF : QUOTE_DOUBLE;
-	return (quote);
 }
 
 void	newline_removal(char *str)
@@ -78,5 +67,24 @@ char	*expansion_pipeline(t_list *intern_var, char *str)
 	if (dest == NULL)
 		return (NULL);
 	quote_removal(dest);
+	return (dest);
+}
+
+char	*expansion_word(t_list *intern_var, char *str)
+{
+	char		*dest;
+	char		*expanded;
+
+	newline_removal(str);
+	if ((dest = tilde(intern_var, str)) == NULL)
+		return (NULL);
+	expanded = variable_expansion(intern_var, dest);
+	ft_strdel(&dest);
+	if (expanded == NULL)
+		return (NULL);
+	dest = arithmetic_expansion(expanded);
+	ft_strdel(&expanded);
+	if (dest == NULL)
+		return (NULL);
 	return (dest);
 }
