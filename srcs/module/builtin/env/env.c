@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 14:03:06 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 19:13:51 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:14:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int8_t	assign_to_var(t_list **env_lst, char *assign)
 {
 	t_list		*node;
 	t_variable	variable;
-	size_t 		pos;
+	size_t		pos;
 
 	ft_bzero(&variable, sizeof(t_variable));
 	pos = ft_strcspn(assign, "=");
@@ -59,16 +59,32 @@ void			print_var(void *data)
 	return ;
 }
 
-uint8_t			env_blt(t_registry *shell, char **av, t_process *process)
+static uint8_t	print_env(t_registry *shell, t_process *process)
 {
 	t_list		*tmp_env;
+
+	if (write(1, NULL, 0) == FAILURE)
+	{
+		ft_putendl_fd("21sh: env: write error: Bad file descriptor", 2);
+		return (FALSE);
+	}
+	tmp_env = ft_lstfilter(shell->intern, NULL, is_export, copy_var);
+	if (ft_lstiter_ctx(process->env, tmp_env, variable_update) == FAILURE)
+		return (FALSE);
+	ft_lstiter(tmp_env, print_var);
+	ft_lstdel(&tmp_env, free_node);
+	return (TRUE);
+}
+
+uint8_t			env_blt(t_registry *shell, char **av, t_process *process)
+{
 	uint8_t		ret;
 
 	ret = SUCCESS;
 	(void)av;
 	(void)shell;
 	remove_args(process->av);
-	while(ft_strchr(process->av[0], '='))
+	while (ft_strchr(process->av[0], '='))
 	{
 		if (assign_to_var(&process->env, process->av[0]) == FAILURE)
 			return (2);
@@ -76,16 +92,8 @@ uint8_t			env_blt(t_registry *shell, char **av, t_process *process)
 	}
 	if (process->av[0] == NULL)
 	{
-		if (write(1, NULL, 0) == FAILURE)
-		{
-			ft_putendl_fd("21sh: env: write error: Bad file descriptor", 2);
-			return (1);
-		}
-		tmp_env = ft_lstfilter(shell->intern, NULL, is_export, copy_var);
-		if (ft_lstiter_ctx(process->env, tmp_env, variable_update) == FAILURE)
+		if (print_env(shell, process) == FALSE)
 			return (2);
-		ft_lstiter(tmp_env, print_var);
-		ft_lstdel(&tmp_env, free_node);
 	}
 	else
 	{

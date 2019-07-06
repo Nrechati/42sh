@@ -6,13 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 11:50:45 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 18:00:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:11:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t				unsetenv_blt(t_registry *shell, char **av, t_process *process)
+uint8_t				unsetenv_blt(t_registry *shell
+							, char **av, t_process *process)
 {
 	uint8_t		ret;
 
