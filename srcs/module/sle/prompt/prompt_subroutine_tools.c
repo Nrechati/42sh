@@ -29,7 +29,7 @@ uint8_t			subprompt_call(t_vector *line, uint32_t option)
 	history(g_shell, vct_get_string(line), ADD_ENTRY);
 	new_input = NULL;
 	sle(g_shell, &new_input, option | SLE_PS2_PROMPT);
-	if (new_input == NULL || (option != PRINT_QUOTE && option != PRINT_DQUOTE))
+	if (new_input == NULL)
 	{
 		vct_del(&new_input);
 		history(g_shell, NULL, POP_ENTRY);
