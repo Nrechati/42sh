@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:41:49 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 19:41:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:58:55 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ uint8_t				parser_subprompt(enum e_type state,
 	option = set_option_subprompt(state);
 	sle(g_shell, &line, option);
 	history(g_shell, vct_get_string(input), ADD_ENTRY);
-	if (line == NULL || do_history_exp(&line) == FAILURE)
+	if (line == NULL)
 	{
 		history(g_shell, NULL, POP_ENTRY);
 		return (FALSE);
