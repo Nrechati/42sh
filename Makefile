@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/06 11:49:03 by nrechati         ###   ########.fr        #
+#    Updated: 2019/07/06 14:21:31 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -255,7 +255,6 @@ CORE += termmode.c
 
 #						- - - - -  Debug Log  - - - - -						   #
 
-LOGGING += debug_logger.c
 LOGGING += print_debug.c
 
 #						- - - - -   History   - - - - -						   #
