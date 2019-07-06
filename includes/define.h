@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 15:20:30 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:07:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -452,15 +452,17 @@
 # define STATE_REVSEARCH	0x02
 # define STATE_INCSEARCH	0x04
 
-# define PROMPT_PIPE	"pipe"
-# define PROMPT_QUOTE	"quote"
-# define PROMPT_DQUOTE	"dquote"
-# define PROMPT_BQUOTE	"bquote"
-# define PROMPT_NL		"nl"
-# define PROMPT_AND		"and"
-# define PROMPT_OR		"or"
-# define PROMPT_BRACE	"braceparam"
-# define PROMPT_MATHS	"mathsubst"
+# define PROMPT_PIPE		"pipe"
+# define PROMPT_QUOTE		"quote"
+# define PROMPT_DQUOTE		"dquote"
+# define PROMPT_BQUOTE		"bquote"
+# define PROMPT_NL			"nl"
+# define PROMPT_AND			"and"
+# define PROMPT_OR			"or"
+# define PROMPT_BRACE		"braceparam"
+# define PROMPT_MATHS		"mathsubst"
+# define PROMPT_PARENTHESE	"parenthese"
+# define PROMPT_BRACKET		"bracket"
 
 # define DEFAULT_TYPE	0
 # define PAR_TYPE		1

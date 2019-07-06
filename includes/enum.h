@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:33:26 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 11:42:32 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:07:06 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,9 @@ enum	e_prompt_type
 	PRINT_AND,
 	PRINT_OR,
 	PRINT_BRACE,
-	PRINT_MATHS
+	PRINT_MATHS,
+	PRINT_PARENTHESE,
+	PRINT_BRACKET
 };
 
 enum	e_action_keys

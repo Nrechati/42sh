@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 16:02:18 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:07:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
 										PROMPT_DQUOTE, PROMPT_BQUOTE,
 										PROMPT_NL, PROMPT_AND, PROMPT_OR,
-										PROMPT_BRACE, PROMPT_MATHS};
+										PROMPT_BRACE, PROMPT_MATHS,
+										PROMPT_PARENTHESE, PROMPT_BRACKET};
 
 	linesave = sle->line;
 	sle->line = sle->sub_line;

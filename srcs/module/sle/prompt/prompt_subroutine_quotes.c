@@ -6,7 +6,7 @@
 /*   By: cempassi <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:48:14 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 19:48:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:03:37 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,70 @@ uint8_t			double_quote_routine(t_vector *line, size_t *i)
 			ret = maths_exp_routine(line, i);
 		if (ret == FALSE)
 			return (FALSE);
+		(*i)++;
+	}
+	return (TRUE);
+}
+
+uint8_t			brace_routine(t_vector *line, size_t *i)
+{
+	(*i)++;
+	while (vct_charat(line, *i) != '}')
+	{
+		if (vct_charat(line, *i) == '\0')
+		{
+			if (subprompt_call(line, PRINT_BRACE) == FALSE)
+				return (FALSE);
+			continue ;
+		}
+		(*i)++;
+	}
+	return (TRUE);
+}
+
+uint8_t			backquote_routine(t_vector *line, size_t *i)
+{
+	(*i)++;
+	while (vct_charat(line, *i) != '`')
+	{
+		if (vct_charat(line, *i) == '\0')
+		{
+			if (subprompt_call(line, PRINT_BQUOTE) == FALSE)
+				return (FALSE);
+			continue ;
+		}
+		(*i)++;
+	}
+	return (TRUE);
+}
+
+uint8_t			brackets_routine(t_vector *line, size_t *i)
+{
+	(*i)++;
+	while (vct_charat(line, *i) != ']')
+	{
+		if (vct_charat(line, *i) == '\0')
+		{
+			if (subprompt_call(line, PRINT_BRACKET) == FALSE)
+				return (FALSE);
+			continue ;
+		}
+		(*i)++;
+	}
+	return (TRUE);
+}
+
+uint8_t			parenthese_routine(t_vector *line, size_t *i)
+{
+	(*i)++;
+	while (vct_charat(line, *i) != ')')
+	{
+		if (vct_charat(line, *i) == '\0')
+		{
+			if (subprompt_call(line, PRINT_PARENTHESE) == FALSE)
+				return (FALSE);
+			continue ;
+		}
 		(*i)++;
 	}
 	return (TRUE);

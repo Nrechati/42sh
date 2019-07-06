@@ -6,7 +6,7 @@
 /*   By: cempassi <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:58:14 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 11:02:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:03:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,20 @@ static uint8_t	extend_subroutine(t_vector *line, size_t *i, uint8_t type)
 		return (single_quote_routine(line, i));
 	else if (vct_charat(line, *i) == '\"')
 		return (double_quote_routine(line, i));
+
+	else if (vct_charat(line, *i) == '{')
+		return (brace_routine(line, i));
+	else if (vct_charat(line, *i) == '[')
+		return (brackets_routine(line, i));
+	else if (vct_charat(line, *i) == '`')
+		return (backquote_routine(line, i));
+
+
 	else if (type == PAR_TYPE && vct_charat(line, *i) == '(')
 		return (parenthesis(line, i));
+
+	else if (vct_charat(line, *i) == '(')
+		return (parenthese_routine(line, i));
 	return (TRUE);
 }
 

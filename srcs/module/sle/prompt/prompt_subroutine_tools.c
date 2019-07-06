@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 15:59:17 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:27:32 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ uint8_t			subprompt_call(t_vector *line, uint32_t option)
 	t_vector			*new_input;
 	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
 						PROMPT_DQUOTE, PROMPT_BQUOTE, PROMPT_NL,PROMPT_AND,
-						PROMPT_OR, PROMPT_BRACE, PROMPT_MATHS};
+						PROMPT_OR, PROMPT_BRACE, PROMPT_MATHS,
+						PROMPT_PARENTHESE, PROMPT_BRACKET};
 
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
-		ft_printf("42sh: %s %s\n", UNEXPECTED_EOF, (char *)prompt_type[option]);
+		ft_printf("21sh: %s %s\n", UNEXPECTED_EOF, (char *)prompt_type[option]);
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FALSE);
 	}

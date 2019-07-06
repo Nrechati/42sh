@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 10:15:12 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:02:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 **************** PROMPT_SUBROUTINE ******************
 *****************************************************
 */
+
+uint8_t		brace_routine(t_vector *line, size_t *i);
+uint8_t		parenthese_routine(t_vector *line, size_t *i);
+uint8_t		brackets_routine(t_vector *line, size_t *i);
+uint8_t		backquote_routine(t_vector *line, size_t *i);
 
 uint8_t		verif_line(t_vector *line);
 uint8_t		parenthesis(t_vector *line, size_t *i);
