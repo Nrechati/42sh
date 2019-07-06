@@ -30,8 +30,6 @@ void					load_profile_dflt(void)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGTERM, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGCONT, SIG_IGN);
 }
 
 void					load_profile_sle(void)
@@ -39,7 +37,6 @@ void					load_profile_sle(void)
 	loop_defaults();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTERM, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGINT, sigint_sle);
@@ -55,6 +52,4 @@ void					load_profile_exec(void)
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGCHLD, sigchld_exec);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
 }
