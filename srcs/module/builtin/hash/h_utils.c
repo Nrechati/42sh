@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 16:32:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 02:43:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ void			hash_builtin(t_registry *shell)
 
 int8_t			hash_one(t_registry *shell, char *key, char *path)
 {
-	if (ft_hmap_insert(&(shell->hash.bin), key, path) == FALSE)
+	int		ret;
+
+	if ((ret = ft_hmap_insert(&(shell->hash.bin), key, path)) == FALSE)
+		return (ERROR);
+	if (ret == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -44,10 +48,12 @@ int8_t			hash_args(t_registry *shell, char *key)
 	char	*pathname;
 
 	pathname = NULL;
+	if (ft_hmap_getdata(&shell->hash.blt, key) != NULL)
+		return (0);
 	if ((ret = find_in_path(shell, key, &pathname)) == SUCCESS)
 	{
 		ret = hash_one(shell, key, pathname);
-		if (ret == FAILURE)
+		if (ret == FAILURE || ret == ERROR)
 			ft_strdel(&pathname);
 	}
 	return (ret);
