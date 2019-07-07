@@ -86,7 +86,9 @@ void				job_run_background(t_registry *shell, t_job *job)
 	job->state = RUNNING;
 	job->signo = SIGCONT;
 	killpg(job->pgid, SIGCONT);
-	waiter(job);
+	tcsetpgrp(STDOUT_FILENO, shell->pid);
+	term_mode(TERMMODE_EXEC);
+	//waiter(job);
 }
 
 void				jobctl(t_registry *shell, t_job *job, uint8_t flag)
