@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:19:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 14:21:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 12:00:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,23 @@ static void	del_interns(t_sle *sle)
 
 void		save_intern_vars(t_registry *shell, t_sle *sle)
 {
-	if (shell != NULL)
-	{
-		del_interns(sle);
-		sle->interns.ps1 = vct_dups((get_var(shell->intern, INT_PS1) == NULL) ?
-					"prompt> " : get_var(shell->intern, INT_PS1));
-		sle->interns.ps2 = vct_dups((get_var(shell->intern, INT_PS2) == NULL) ?
-					"$> " : get_var(shell->intern, INT_PS2));
-		sle->interns.ps3 = vct_dups((get_var(shell->intern, INT_PS3) == NULL) ?
-					">> " : get_var(shell->intern, INT_PS3));
-		sle->interns.pwd = vct_dups((get_var(shell->intern, "PWD") == NULL) ?
-					"pwd" : get_var(shell->intern, "PWD"));
-		sle->interns.username = vct_dups((get_var(shell->intern, "USER")
-					== NULL) ? "user" : get_var(shell->intern, "USER"));
-		sle->interns.home = vct_dups((get_var(shell->intern, "HOME")
-					== NULL) ? "~" : get_var(shell->intern, "HOME"));
-	}
+	char	*data;
+
+	if (shell == NULL)
+			return ;
+	del_interns(sle);
+	data = get_var(shell->intern, INT_PS1);
+	sle->interns.ps1 = vct_dups((data != NULL && *data != '\0')
+					? data : "prompt> ");
+	data = get_var(shell->intern, INT_PS2);
+	sle->interns.ps2 = vct_dups((data != NULL && *data != '\0') ? data : "$> ");
+	data = get_var(shell->intern, INT_PS3);
+	sle->interns.ps3 = vct_dups((data != NULL && *data != '\0') ? data : ">> ");
+	data = get_var(shell->intern, "PWD");
+	sle->interns.pwd = vct_dups((data != NULL && *data != '\0') ? data : "pwd");
+	data = get_var(shell->intern, "USER");
+	sle->interns.username = vct_dups((data != NULL && *data != '\0')
+				? data : "user");
+	data = get_var(shell->intern, "HOME");
+	sle->interns.home = vct_dups((data != NULL && *data != '\0') ? data : "home");
 }
