@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/07 03:10:09 by cempassi         ###   ########.fr        #
+#    Updated: 2019/07/07 12:20:34 by skuppers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,9 @@ LIBDB = $(addprefix $(LPATH), $(LIBFTDB))
 
 CC = clang
 LINK = $(CC) -g3
-LINKD = $(CC) -g3 #-fsanitize=address,undefined -fno-omit-frame-pointer
+LINKD = $(CC) -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
 COMPILE = $(CC) -c -g3
-DEBUG = $(CC) -g3 -c #-fsanitize=address,undefined -fno-omit-frame-pointer
+DEBUG = $(CC) -g3 -c -fsanitize=address,undefined -fno-omit-frame-pointer
 
 # ---------------------------------------------------------------------------- #
 #									Commands                                   #
@@ -508,7 +508,7 @@ PARSER += ways_graph_word.c
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #
 
-all : $(OPATH) $(NAME)
+all : $(CLEAR) $(OPATH) $(NAME)
 
 run : $(NAME)
 	./$<
@@ -526,7 +526,7 @@ test : $(NAMET)
 
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OBJS)
+$(NAME) : $(LIB) $(OBJS)
 	$(LINK) $(OBJS) $(CFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
@@ -539,7 +539,7 @@ $(LIB) : FORCE
 
 #					 - - - - - Debug Compilation - - - - -                     #
 
-$(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
+$(NAMEDB) : $(LIBDB) $(OPATH) $(OBJD)
 	$(LINKD) $(OBJD) $(DFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
@@ -579,4 +579,4 @@ help :
 FORCE:
 
 .PHONY : all 21 21debug lexer lexerdb clean fclean re help FORCE
-#.SILENT:
+.SILENT:
