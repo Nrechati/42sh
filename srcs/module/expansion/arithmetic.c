@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 20:05:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 06:42:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 	int			diff;
 
 	vector = vct_dups(*output);
-	diff = i + arithmetic->end;
+	diff = arithmetic->end ;
 	vct_replace_string(vector, i, diff, arithmetic->expanded);
 	ft_strdel(output);
 	*output = ft_strdup(vct_get_string(vector));
@@ -40,7 +40,7 @@ static int	arithmetic(char **output, int i)
 		return (del_arithmetic(&arithmetic, output));
 	arithmetic_replace(&arithmetic, output, i);
 	del_arithmetic(&arithmetic, NULL);
-	return (SUCCESS);
+	return (TRUE);
 }
 
 static int	check_math_expansion(char **buff, int i, t_quote quote)
