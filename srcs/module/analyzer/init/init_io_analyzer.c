@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:54:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/04 16:21:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 03:13:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	init_io_flush_and(t_analyzer analyzer)
 	analyzer[P_IO_FLUSH_AND][E_IO_NUMBER] = io_analyzer;
 	analyzer[P_IO_FLUSH_AND][E_PIPE] = flush_string;
 	analyzer[P_IO_FLUSH_AND][E_SEMICOLON] = flush_string;
+	analyzer[P_IO_FLUSH_AND][E_DAND] = flush_string;
+	analyzer[P_IO_FLUSH_AND][E_OR] = flush_string;
 	analyzer[P_IO_FLUSH_AND][E_AND] = flush_string;
 	analyzer[P_IO_FLUSH_AND][E_NEWLINE] = flush_string;
 	analyzer[P_IO_FLUSH_AND][E_END] = flush_string;
