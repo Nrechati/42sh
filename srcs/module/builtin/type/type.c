@@ -20,14 +20,14 @@ static int8_t		find_type_path(t_registry *shell, char *arg)
 	if (arg == NULL || *arg == '\0')
 		return (FALSE);
 	path_bin = NULL;
-	if (*arg == '/')
+	if (lstat(arg, &stat) == SUCCESS && (stat.st_mode & S_IFDIR) == FALSE
+			&& access(arg, X_OK) == SUCCESS)
 	{
-		if (lstat(arg, &stat) == SUCCESS && (stat.st_mode & S_IFDIR) == FALSE
-				&& access(arg, X_OK) == SUCCESS)
-		{
+		if (*arg == '/' || ft_strnequ(arg, "./", 2) == TRUE)
 			ft_printf("%s is %s\n", arg, arg);
-			return (SUCCESS);
-		}
+		else
+			ft_printf("%s is ./%s\n", arg, arg);
+		return (SUCCESS);
 	}
 	else if (find_in_path(shell, arg, &path_bin) == SUCCESS)
 	{
