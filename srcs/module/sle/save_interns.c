@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:19:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/29 14:21:26 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 12:00:21 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void		save_intern_vars(t_registry *shell, t_sle *sle)
 	sle->interns.username = vct_dups((data != NULL && *data != '\0')
 				? data : "user");
 	data = get_var(shell->intern, "HOME");
-	sle->interns.home = vct_dups((data != NULL && *data != '\0') ? data : "~");
+	sle->interns.home = vct_dups((data != NULL && *data != '\0') ? data : "home");
 }
