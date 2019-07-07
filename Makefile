@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/07 01:33:26 by nrechati         ###   ########.fr        #
+#    Updated: 2019/07/07 06:06:58 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -462,7 +462,7 @@ PARSER += ways_graph_word.c
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #
 
-all : $(NAME)
+all : $(OPATH) $(NAME)
 
 run : $(NAME)
 	./$<
@@ -480,7 +480,7 @@ test : $(NAMET)
 
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OPATH) $(OBJS)
+$(NAME) : $(CLEAR) $(LIB) $(OBJS)
 	$(LINK) $(OBJS) $(CFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
@@ -533,4 +533,4 @@ help :
 FORCE:
 
 .PHONY : all 21 21debug lexer lexerdb clean fclean re help FORCE
-.SILENT:
+#.SILENT:
