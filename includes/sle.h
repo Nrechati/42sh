@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 17:02:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:51:24 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ uint8_t		is_maths_exp(t_vector *line, int index);
 uint8_t		is_brace_exp(t_vector *line, int index);
 uint8_t		is_end_backslash(t_vector *line, int index);
 uint8_t		subprompt_call(t_vector *line, uint32_t option);
+void		check_nl(t_registry *shell, t_sle *sle, t_vector *line);
 
 /*
 *****************************************************

@@ -6,11 +6,54 @@
 /*   By: cempassi <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:48:14 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 19:07:14 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:53:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void			p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index)
+{
+	size_t	len;
+	char	*cwd;
+	char	*home;
+
+	cwd = vct_get_string(sle->interns.pwd);
+	home = vct_get_string(sle->interns.home);
+	vct_replace_string(text, index, index + 2, cwd);
+	if (ft_strbeginswith(cwd, home))
+	{
+		len = ft_strlen(home);
+		vct_replace_string(text, index, index + len, "~");
+	}
+}
+
+void			check_nl(t_registry *shell, t_sle *sl, t_vector *line)
+{
+	uint32_t	index;
+	t_vector	*concat;
+	t_vector	*hardcopy;
+
+	(void)sl;
+	index = 0;
+	while (vct_charat(line, index) != '\0')
+	{
+		if (vct_charat(line, index) == '\\'
+				&& vct_charat(line, index + 1) == '\n')
+		{
+			vct_pop(line);
+			vct_pop(line);
+			hardcopy = vct_dup(line);
+			sle(shell, &concat, SLE_PS3_PROMPT);
+			vct_ncat(hardcopy, concat, vct_len(concat));
+			vct_replace_string(line, 0, vct_len(hardcopy),
+							vct_get_string(hardcopy));
+			vct_del(&hardcopy);
+			vct_del(&concat);
+		}
+		++index;
+	}
+}
 
 uint8_t			single_quote_routine(t_vector *line, size_t *i)
 {

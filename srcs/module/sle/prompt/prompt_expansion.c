@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 19:45:20 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 19:49:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:53:17 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,6 @@ void		p_insert_username(t_sle *sle, t_vector *text, uint64_t index)
 	username = ft_strdup(username == NULL ? "user" : username);
 	vct_replace_string(text, index, index + 2, username);
 	ft_strdel(&username);
-}
-
-void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index)
-{
-	size_t	len;
-	char	*cwd;
-	char	*home;
-
-	cwd = vct_get_string(sle->interns.pwd);
-	home = vct_get_string(sle->interns.home);
-	vct_replace_string(text, index, index + 2, cwd);
-	if (ft_strbeginswith(cwd, home))
-	{
-		len = ft_strlen(home);
-		vct_replace_string(text, index, index + len, "~");
-	}
 }
 
 void		p_insert_success(t_vector *text, uint64_t index)
