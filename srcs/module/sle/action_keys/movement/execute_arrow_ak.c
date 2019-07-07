@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:21:29 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 15:01:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:02:29 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,10 @@ int8_t				ak_arrow_up(t_registry *shell, t_sle *sle)
 	char		*hist_cmd;
 
 	(void)shell;
-	if (sle->state != STATE_STD && sle->state != STATE_INCSEARCH
-				&& sle->state != STATE_REVSEARCH)
+	if (sle->state != STATE_STD)
 		return (FAILURE);
 	if (sle->state == STATE_STD && sle->line_save == NULL)
 		sle->line_save = vct_dup(sle->line);
-	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
-		sle->state = STATE_STD;
 	hist_cmd = history(NULL, NULL, GET_ENTRY | PREV);
 	if (hist_cmd == NULL)
 		return (FAILURE);
@@ -83,11 +80,8 @@ int8_t				ak_arrow_down(t_registry *shell, t_sle *sle)
 	uint64_t	len;
 
 	(void)shell;
-	if (sle->state != STATE_STD && sle->state != STATE_REVSEARCH
-				&& sle->state != STATE_INCSEARCH)
+	if (sle->state != STATE_STD)
 		return (FAILURE);
-	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
-		sle->state = STATE_STD;
 	hist_cmd = history(NULL, NULL, GET_ENTRY | NEXT);
 	len = (vct_len(sle->line) == 0) ? 1 : vct_len(sle->line);
 	if (hist_cmd == NULL)

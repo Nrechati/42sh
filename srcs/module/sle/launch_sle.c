@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 12:28:22 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:03:18 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ void				handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 
 void				handle_resize(t_sle *sle)
 {
-	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
-	{
-		vct_reset(sle->line);
-		sle->state = STATE_STD;
-	}
 	redraw_window(sle);
 	find_multiline_coord(sle, 0);
 	set_cursor_pos(sle, sle->cursor.index);

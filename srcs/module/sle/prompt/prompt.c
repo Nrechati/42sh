@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 11:57:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:01:44 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_vector				*prompt(t_registry *shell, t_sle *sle)
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);
 	}
-
 	if (prompt_post_process(shell, sle) == FAILURE)
 		vct_reset(sle->line);
 	return (vct_dup(sle->line));

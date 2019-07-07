@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:20:05 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 14:54:10 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:03:05 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int8_t		ak_delete(t_registry *shell, t_sle *sle)
 {
 	(void)shell;
-	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
-		return (ak_exit_modes(shell, sle));
 	if (sle->state != STATE_STD)
 		return (FAILURE);
 	vct_del_char(sle->line, sle->cursor.index);
@@ -31,15 +29,8 @@ int8_t		ak_backspace(t_registry *shell, t_sle *sle)
 	uint64_t	index;
 
 	(void)shell;
-	if (sle->state != STATE_STD && sle->state != STATE_REVSEARCH
-			&& sle->state != STATE_INCSEARCH)
+	if (sle->state != STATE_STD)
 		return (FAILURE);
-	if (sle->state == STATE_INCSEARCH || sle->state == STATE_REVSEARCH)
-	{
-		vct_pop(sle->line);
-		set_redraw_flags(sle, RD_LINE | RD_CEND);
-		return (SUCCESS);
-	}
 	if (sle->cursor.index == 0)
 		return (FAILURE);
 	index = sle->cursor.index <= 0 ? 0 : sle->cursor.index - 1;
@@ -53,16 +44,8 @@ int8_t		ak_backspace(t_registry *shell, t_sle *sle)
 int8_t		ak_ctrl_d(t_registry *shell, t_sle *sle)
 {
 	(void)shell;
-	if (sle->state != STATE_STD && sle->state != STATE_REVSEARCH
-					&& sle->state != STATE_INCSEARCH)
+	if (sle->state != STATE_STD)
 		return (FAILURE);
-	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
-	{
-		vct_reset(sle->line);
-		set_redraw_flags(sle, RD_LINE | RD_CEND);
-		sle->state = STATE_STD;
-		return (SUCCESS);
-	}
 	if (sle->cursor.index == 0 && vct_len(sle->line) == 0)
 	{
 		vct_add(sle->line, 4);
