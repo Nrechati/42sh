@@ -27,7 +27,7 @@ static int8_t		find_type_path(t_registry *shell, char *arg)
 		{
 			ft_printf("%s is %s\n", arg, arg);
 			return (SUCCESS);
-		}t st
+		}
 	}
 	else if (find_in_path(shell, arg, &path_bin) == SUCCESS)
 	{
