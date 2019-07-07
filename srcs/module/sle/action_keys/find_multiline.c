@@ -24,8 +24,13 @@ static void		find_x3_coord(t_sle *sle, char *line, uint32_t prompt_len)
 		sle->cursor.x3 += prompt_len;
 	}
 	else
-		while (line[1 + sle->cursor.x3] != '\0')
+		while (line[sle->cursor.x3] != '\0')
 			sle->cursor.x3++;
+	if (sle->cursor.x3 > sle->window.cols)
+	{
+		sle->cursor.y3 += sle->cursor.x3 / sle->window.cols;
+		sle->cursor.x3 = sle->cursor.x3 % sle->window.cols;
+	}
 }
 
 static void		find_y3_coord(t_sle *sle, uint32_t prompt_len)
@@ -40,11 +45,12 @@ static void		find_y3_coord(t_sle *sle, uint32_t prompt_len)
 	line = NULL;
 	tmp = sle->line->buffer;
 	while (tmp != NULL && *tmp != '\0' &&
-			(tmp2 = ft_strchr(tmp + 1, '\n')) != NULL)
+			(tmp2 = ft_strchr(tmp, '\n')) != NULL)
 	{
 		sup = (tmp2 - tmp + (line == NULL ? prompt_len : 0)) / sle->window.cols;
 		while (sup-- > 0)
 			sle->cursor.y3++;
+		tmp2++;
 		tmp = tmp2;
 		line = tmp2;
 		sle->cursor.y3++;
@@ -65,8 +71,13 @@ static void		find_x2_coord(t_sle *sle, char *line, uint32_t prompt_len,
 		sle->cursor.x2 += prompt_len;
 	}
 	else
-		while (line[1 + sle->cursor.x2] != '\0')
+		while (line[sle->cursor.x2] != '\0')
 			sle->cursor.x2++;
+	if (sle->cursor.x2 > sle->window.cols)
+	{
+		sle->cursor.y2 += sle->cursor.x2 / sle->window.cols;
+		sle->cursor.x2 = sle->cursor.x2 % sle->window.cols;
+	}
 	ft_strdel(&cmd_offset);
 }
 
@@ -86,11 +97,12 @@ static void		find_y2_coord(t_sle *sle, uint32_t prompt_len, int8_t offset)
 	tmp = cmd_offset;
 	line = NULL;
 	while (tmp != NULL && *tmp != '\0' &&
-			(tmp2 = ft_strchr(tmp + 1, '\n')) != NULL)
+			(tmp2 = ft_strchr(tmp, '\n')) != NULL)
 	{
 		sup = (tmp2 - tmp + (line == NULL ? prompt_len : 0)) / sle->window.cols;
 		while (sup-- > 0)
 			sle->cursor.y2++;
+		tmp2++;
 		tmp = tmp2;
 		line = tmp2;
 		sle->cursor.y2++;
@@ -105,4 +117,6 @@ void			find_multiline_coord(t_sle *sle, int8_t offset)
 	prompt_len = get_prompt_length(&sle->prompt);
 	find_y2_coord(sle, prompt_len, offset);
 	find_y3_coord(sle, prompt_len);
+	ft_dprintf(3, "y3: %d, x3: %d\n", sle->cursor.y3, sle->cursor.x3);
+	ft_dprintf(3, "y2: %d, x2: %d\n", sle->cursor.y2, sle->cursor.x2);
 }
