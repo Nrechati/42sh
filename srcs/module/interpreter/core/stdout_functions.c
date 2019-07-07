@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stdout_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:28:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 16:37:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:24:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int	check_path_access(t_redirect *redirect, char *filename)
 {
 	if (access(filename, F_OK) == SUCCESS)
 	{
-		if (access(filename, W_OK) == FAILURE)
+		if (access(filename, W_OK) == FAILURE
+				&& access(filename, X_OK) == FAILURE)
 		{
-			ft_dprintf(2, "42sh: %s: permission denied\n", filename);
+			ft_dprintf(2, "21sh: %s: permission denied\n", filename);
 			redirect->type = FD_OPEN_ERROR;
 			return (FAILURE);
 		}
