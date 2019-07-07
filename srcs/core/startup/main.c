@@ -42,8 +42,8 @@ int				main(int ac, char **av, char **env)
 	(void)ac;
 	g_shell = &shell;
 	if (init_shell(&shell, av + 1, env) == FAILURE)
-		shell_exit_routine(&shell, FAILURE);
+		shell_exit_routine(&shell, 1);
 	launch_shell(&shell);
-	shell_exit_routine(&shell, FAILURE);
+	shell_exit_routine(&shell, 1);
 	return (FAILURE);
 }

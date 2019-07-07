@@ -51,7 +51,7 @@ void			close_filedesc(void)
 	close(STDERR_FILENO);
 }
 
-void			shell_exit_routine(t_registry *shell, int8_t ret)
+void			shell_exit_routine(t_registry *shell, uint8_t ret)
 {
 	t_list **joblst;
 
