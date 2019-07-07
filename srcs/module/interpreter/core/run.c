@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 16:53:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/08 00:19:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,26 @@ int				run_process(t_process *process, uint8_t foreground, int pipe)
 	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
 	{
+		pipe ? close(pipe) : 0;
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (process->completed = FAILURE);
 	}
 	if (expand_process(g_shell->intern, process) == FAILURE)
 	{
+		pipe ? close(pipe) : 0;
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		process->completed = 1;
 		return (FAILURE);
 	}
 	if (get_process_type(g_shell, process) == FAILURE)
 	{
+		pipe ? close(pipe) : 0;
 		ft_dprintf(2, "42sh: [CRITICAL] Malloc error\n");
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
 	run_type_selection(process, foreground);
-	if (pipe)
-		close(pipe);
+	pipe ? close(pipe) : 0;
 	return (SUCCESS);
 }
 
