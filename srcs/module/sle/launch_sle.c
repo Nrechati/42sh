@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:33:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 11:12:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/07 11:22:49 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ void				handle_cc(t_registry *shell, t_sle *sl, uint32_t flag)
 	set_cursor_pos(sl, sl->cursor.index);
 	redraw(shell, sl);
 	if (flag & SLE_CC)
-		ft_putendl("^C");
+		ft_putstr("^C");
+	set_redraw_flags(sl, RD_NONE | RD_CEND);
+	redraw(shell, sl);
+	ft_putendl("");
 	update_window(sl);
 	print_prompt(shell, sl);
 	vct_reset(sl->line);
-
 	find_multiline_coord(sl, sl->cursor.index);
 }
 
