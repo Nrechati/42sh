@@ -76,7 +76,8 @@ static uint8_t	is_inhibitor(t_lexer *lexer)
 		loop_maths(lexer);
 	else
 		return (FALSE);
-	add_to_buffer(lexer);
+	if (get_input(lexer, CUR_CHAR) != '\0')
+		add_to_buffer(lexer);
 	return (TRUE);
 }
 
