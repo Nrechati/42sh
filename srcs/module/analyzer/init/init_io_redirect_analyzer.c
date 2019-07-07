@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:56:47 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/04 16:11:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 06:06:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	init_io_dup_move(t_analyzer analyzer)
 	analyzer[P_IO_DUP_MOVE][E_IO_NUMBER] = io_and_redirect_flush;
 	analyzer[P_IO_DUP_MOVE][E_PIPE] = io_and_redirect_flush;
 	analyzer[P_IO_DUP_MOVE][E_SEMICOLON] = io_and_redirect_flush;
+	analyzer[P_IO_DUP_MOVE][E_DAND] = io_and_redirect_flush;
+	analyzer[P_IO_DUP_MOVE][E_OR] = io_and_redirect_flush;
 	analyzer[P_IO_DUP_MOVE][E_AND] = io_and_redirect_flush;
 	analyzer[P_IO_DUP_MOVE][E_NEWLINE] = io_and_redirect_flush;
 	analyzer[P_IO_DUP_MOVE][E_END] = io_and_redirect_flush;
