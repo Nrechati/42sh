@@ -17,15 +17,11 @@ static void		find_x3_coord(t_sle *sle, char *line, uint32_t prompt_len)
 	if (line == NULL)
 	{
 		if (sle->line != NULL && sle->line->buffer != NULL)
-		{
-			while (sle->line->buffer[sle->cursor.x3] != '\0')
-				sle->cursor.x3++;
-		}
+			sle->cursor.x3 = vct_len(sle->line);
 		sle->cursor.x3 += prompt_len;
 	}
 	else
-		while (line[sle->cursor.x3] != '\0')
-			sle->cursor.x3++;
+		sle->cursor.x3 = ft_strlen(line);
 	if (sle->cursor.x3 > sle->window.cols)
 	{
 		sle->cursor.y3 += sle->cursor.x3 / sle->window.cols;
@@ -64,15 +60,11 @@ static void		find_x2_coord(t_sle *sle, char *line, uint32_t prompt_len,
 	if (line == NULL)
 	{
 		if (cmd_offset != NULL)
-		{
-			while (cmd_offset[sle->cursor.x2] != '\0')
-				sle->cursor.x2++;
-		}
+			sle->cursor.x2 = ft_strlen(cmd_offset);
 		sle->cursor.x2 += prompt_len;
 	}
 	else
-		while (line[sle->cursor.x2] != '\0')
-			sle->cursor.x2++;
+		sle->cursor.x2 = ft_strlen(line);
 	if (sle->cursor.x2 > sle->window.cols)
 	{
 		sle->cursor.y2 += sle->cursor.x2 / sle->window.cols;
