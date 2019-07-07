@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 16:41:13 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 12:18:47 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:21:43 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_exec_signals(void)
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGCONT, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTTOU, SIG_DFL);
+	signal(SIGTTOU, SIG_IGN);
 }
 
 void	sigchld_exec(int signo)

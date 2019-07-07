@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:06:19 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 05:59:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:52:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	pipe_redirection(t_redirect *redirect)
 		dup2(redirect->to, STDOUT_FILENO);
 	else
 		dup2(redirect->to, STDIN_FILENO);
+	close(redirect->from);
 }
 
 int		dup_redirection(t_redirect *redirect)

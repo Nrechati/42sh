@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:20:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/05 14:04:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:01:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ static int	set_signal_status(void *context, void *data)
 	return (SUCCESS);
 }
 
-static void	signaled_process(t_job *job, int status)
+static void	signaled_process(t_job *job, t_process *current, int status)
 {
 	int			signo;
 	char		*command;
 
 	signo = WTERMSIG(status);
+	if (signo == SIGPIPE)
+	{
+		current->completed = 1;
+		return ;
+	}
 	if (signo != SIGPIPE)
 		ft_lstiter_ctx(job->processes, &signo, set_signal_status);
 	command = get_var(g_shell->intern, "_input");
@@ -53,5 +58,5 @@ void		set_status(t_job *job, t_process *current, int status)
 	if (WIFEXITED(status))
 		exited_process(current, status);
 	if (WIFSIGNALED(status))
-		signaled_process(job, status);
+		signaled_process(job, current, status);
 }
