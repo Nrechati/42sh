@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_interns.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 14:19:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 12:00:21 by skuppers         ###   ########.fr       */
+/*   Created: 2019/07/07 19:47:37 by nrechati          #+#    #+#             */
+/*   Updated: 2019/07/07 19:51:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		save_intern_vars(t_registry *shell, t_sle *sle)
 	char	*data;
 
 	if (shell == NULL)
-			return ;
+		return ;
 	del_interns(sle);
 	data = get_var(shell->intern, INT_PS1);
 	sle->interns.ps1 = vct_dups((data != NULL && *data != '\0')
@@ -48,5 +48,6 @@ void		save_intern_vars(t_registry *shell, t_sle *sle)
 	sle->interns.username = vct_dups((data != NULL && *data != '\0')
 				? data : "user");
 	data = get_var(shell->intern, "HOME");
-	sle->interns.home = vct_dups((data != NULL && *data != '\0') ? data : "home");
+	sle->interns.home = vct_dups((data != NULL && *data != '\0')
+			? data : "home");
 }

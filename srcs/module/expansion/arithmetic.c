@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 06:42:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:29:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 	int			diff;
 
 	vector = vct_dups(*output);
-	diff = arithmetic->end ;
+	diff = arithmetic->end;
 	vct_replace_string(vector, i, diff, arithmetic->expanded);
 	ft_strdel(output);
 	*output = ft_strdup(vct_get_string(vector));

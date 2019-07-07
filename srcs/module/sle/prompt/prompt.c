@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 17:01:44 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:50:10 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void				prompt_pre_process(t_sle *sle)
+static void			prompt_pre_process(t_sle *sle)
 {
 	sle->state = STATE_STD;
 	vct_reset(sle->line);
@@ -22,7 +22,7 @@ static void				prompt_pre_process(t_sle *sle)
 	update_window(sle);
 }
 
-static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
+static int8_t		prompt_post_process(t_registry *shell, t_sle *sle)
 {
 	sle->state = STATE_STD;
 	history(NULL, NULL, RESET_HEAD);
@@ -38,7 +38,7 @@ static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 	return (SUCCESS);
 }
 
-t_vector				*prompt(t_registry *shell, t_sle *sle)
+t_vector			*prompt(t_registry *shell, t_sle *sle)
 {
 	char		character[READ_SIZE + 1];
 
@@ -63,7 +63,7 @@ t_vector				*prompt(t_registry *shell, t_sle *sle)
 	return (vct_dup(sle->line));
 }
 
-t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
+t_vector			*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 				uint32_t sle_flag)
 {
 	t_vector			*linesave;
@@ -88,7 +88,7 @@ t_vector				*invoke_ps2prompt(t_registry *shell, t_sle *sle,
 	return (vct_dup(sle->sub_line));
 }
 
-static void					check_nl(t_registry *shell, t_sle *sl, t_vector *line)
+static void			check_nl(t_registry *shell, t_sle *sl, t_vector *line)
 {
 	uint32_t	index;
 	t_vector	*concat;
@@ -115,7 +115,7 @@ static void					check_nl(t_registry *shell, t_sle *sl, t_vector *line)
 	}
 }
 
-t_vector				*invoke_ps3prompt(t_registry *shell, t_sle *sle)
+t_vector			*invoke_ps3prompt(t_registry *shell, t_sle *sle)
 {
 	t_vector	*linesave;
 	t_vector	*line;

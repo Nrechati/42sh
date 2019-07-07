@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 02:48:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:33:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	close_pipe(void *data)
 	t_redirect	*redirect;
 
 	redirect = data;
-if (redirect->type & FD_PIPE_IN)
+	if (redirect->type & FD_PIPE_IN)
 	{
 		if (redirect->to >= 3)
 			close(redirect->to);
@@ -68,7 +68,7 @@ int8_t	launch_pipeline(t_list *process)
 		if (setup_pipe(process->data, process->next->data, pipe_fd) == FAILURE)
 			return (FAILURE);
 	}
-	if  (run_process(process->data, pipe_fd[1]) == FAILURE)
+	if (run_process(process->data, pipe_fd[1]) == FAILURE)
 	{
 		pipe_fd[0] == 0 ? pipe_fd[0] : close(pipe_fd[0]);
 		return (FAILURE);

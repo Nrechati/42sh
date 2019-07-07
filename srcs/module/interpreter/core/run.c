@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 15:32:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:31:10 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int8_t	setup_builtin(t_process *process, uint8_t *std)
 		return (ft_lstiter_ctx(process->redirects, NULL, do_redirect));
 }
 
-void		run_builtin(t_process *process)
+void			run_builtin(t_process *process)
 {
 	char			*tty_name;
 	uint8_t			std;
@@ -32,7 +32,7 @@ void		run_builtin(t_process *process)
 	tty_name = ttyname(STDIN_FILENO);
 	process->completed = 1;
 	if (setup_builtin(process, &std) == FAILURE)
-		return;
+		return ;
 	close(STDIN_FILENO);
 	if (ft_strequ(process->av[0], "env"))
 	{
@@ -48,7 +48,7 @@ void		run_builtin(t_process *process)
 	return ;
 }
 
-static void	run_type_selection(t_process *process)
+static void		run_type_selection(t_process *process)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
@@ -60,7 +60,7 @@ static void	run_type_selection(t_process *process)
 		fork_process(process);
 }
 
-int			run_process(t_process *process, int pipe)
+int				run_process(t_process *process, int pipe)
 {
 	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
@@ -86,7 +86,7 @@ int			run_process(t_process *process, int pipe)
 	return (SUCCESS);
 }
 
-int			run_job(void *context, void *data)
+int				run_job(void *context, void *data)
 {
 	t_job		*job;
 	t_process	*head;
@@ -106,8 +106,7 @@ int			run_job(void *context, void *data)
 		if (run_process(head, 0) == FAILURE)
 			return (FAILURE);
 	}
-	else
-		if (launch_pipeline(job->processes) == FAILURE)
-			return (FAILURE);
+	else if (launch_pipeline(job->processes) == FAILURE)
+		return (FAILURE);
 	return (waiter(job));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 10:38:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:28:46 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int8_t			calculator(t_infix *infix);
 uint8_t			need_pop_operator(t_rpn_tk *curr
 										, t_stack *operator);
 uint8_t			is_left_p(t_stack *operator);
+void			do_math(t_rpn_tk *first, t_rpn_tk *second
+					, t_rpn_tk *curr);
 int8_t			ft_shunting_yds(t_stack *infix, t_stack *rpn);
 int8_t			calculate_rpn(t_stack *rpn, t_infix *infix);
 void			do_logical(t_rpn_tk *first, t_rpn_tk *second

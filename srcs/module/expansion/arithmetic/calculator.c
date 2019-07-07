@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   calculator.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 14:35:33 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 10:34:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:35:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+void		do_math(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
+{
+	if (curr->value.type & (PRECEDENCE & AND))
+		do_logical(first, second, curr);
+	else if (curr->value.type & (PRECEDENCE & EQUAL))
+		do_compare(first, second, curr);
+	else if (curr->value.type & (PRECEDENCE & TIMES))
+		do_high_op(first, second, curr);
+	else if (curr->value.type & (PRECEDENCE & PLUS))
+		do_low_op(first, second, curr);
+}
 
 uint8_t		is_left_p(t_stack *operator)
 {

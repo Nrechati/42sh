@@ -6,13 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 19:02:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:33:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int		is_export(void *data, void *to_find)
+int				is_export(void *data, void *to_find)
 {
 	t_variable *variable;
 
@@ -23,7 +23,7 @@ int		is_export(void *data, void *to_find)
 	return (FALSE);
 }
 
-int		copy_var(void *src, void *dest)
+int				copy_var(void *src, void *dest)
 {
 	t_variable *source;
 	t_variable *destination;
