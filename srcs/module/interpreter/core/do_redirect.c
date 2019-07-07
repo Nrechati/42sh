@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:06:19 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 02:56:05 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 05:59:53 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ int		do_redirect(void *context, void *data)
 	else if (redirect->type & FD_CLOSE)
 		close(redirect->from);
 	else if (redirect->type & FD_CLOSE_SPECIAL)
-	{
 		close(STDOUT_FILENO);
-		close(STDERR_FILENO);
-	}
 	close(redirect->to);
 	return (SUCCESS);
 }

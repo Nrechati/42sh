@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_redirect_tools.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:36:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 03:19:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 05:59:32 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ int			builtin_redirect(void *context, void *data)
 	else if (redirect->type & FD_CLOSE)
 		close(redirect->from);
 	else if (redirect->type & FD_CLOSE_SPECIAL)
-	{
 		close(STDOUT_FILENO);
-		close(STDERR_FILENO);
-	}
 	return (SUCCESS);
 }
