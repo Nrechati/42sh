@@ -6,12 +6,22 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 02:51:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:56:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
+
+uint8_t			protect_no_input(char **av)
+{
+	if (av == NULL || av[0] == NULL)
+	{
+		ft_dprintf(2, "%s%s", HASH_GENERAL_ERROR, HASH_NO_AV);
+		return (TRUE);
+	}
+	return (FALSE);
+}
 
 void			hash_builtin(t_registry *shell)
 {

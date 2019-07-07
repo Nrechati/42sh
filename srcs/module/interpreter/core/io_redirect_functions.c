@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 17:41:01 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 22:17:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:30:23 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int	io_append(t_redirect *redirect, t_action *action)
 	{
 		redirect->type = FD_CRITICAL_ERROR;
 		return_value = FAILURE;
-}
+	}
 	else if (*filename == '\0')
-{
+	{
 		set_ambigous_redirect(redirect, action->data);
 		return_value = FAILURE;
-}
+	}
 	else
 	{
 		open_flags = O_RDWR | O_APPEND | O_CREAT | O_CLOEXEC;
@@ -95,7 +95,7 @@ int	io_readfile(t_redirect *redirect, t_action *action)
 	if (filename == NULL)
 	{
 		redirect->type = FD_CRITICAL_ERROR;
-		return(FAILURE);
+		return (FAILURE);
 	}
 	else if (*filename == '\0')
 	{

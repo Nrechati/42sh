@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 02:50:22 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:04:33 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@ static int16_t	hash_handle_opt(t_registry *shell, t_option opt)
 	}
 	else
 		return (SUCCESS);
-}
-
-static uint8_t	protect_no_input(char **av)
-{
-	if (av == NULL || av[0] == NULL)
-	{
-		ft_dprintf(2, "%s%s", HASH_GENERAL_ERROR, HASH_NO_AV);
-		return (TRUE);
-	}
-	return (FALSE);
 }
 
 static uint8_t	check_no_args(t_registry *shell, char **av)
@@ -76,28 +66,37 @@ static uint8_t	do_hash(t_registry *shell, char **av, int i)
 	return (0);
 }
 
-uint8_t			hash_blt(t_registry *shell, char **av, t_process *process)
+uint8_t			handle_cases(t_registry *shell, char **av, int *i)
 {
-	int			i;
-	int			error;
-	int8_t		ret;
 	t_option	opt;
+	int8_t		ret;
 
 	opt = 0;
-	(void)process;
 	if (protect_no_input(av) == TRUE)
 		return (1);
 	if ((ret = check_no_args(shell, av)) == TRUE)
 		return (SUCCESS);
 	if (ret == ERROR)
 		return (1);
-	if ((i = hash_get_opt(1, av, &opt)) == FAILURE)
+	if ((*i = hash_get_opt(1, av, &opt)) == FAILURE)
 		return (2);
 	if ((ret = hash_handle_opt(shell, opt)) == H_HELP)
 		return (2);
 	if (ret == FAILURE)
 		return (1);
+	return (0);
+}
+
+uint8_t			hash_blt(t_registry *shell, char **av, t_process *process)
+{
+	int			i;
+	int			error;
+	int8_t		ret;
+
 	error = 0;
+	(void)process;
+	if ((ret = handle_cases(shell, av, &i)) != SUCCESS)
+		return (ret);
 	while (av[i] != NULL)
 	{
 		if ((ret = do_hash(shell, av, i)) == 2)

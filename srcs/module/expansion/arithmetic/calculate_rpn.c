@@ -6,23 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 01:34:01 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:28:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-static void		do_math(t_rpn_tk *first, t_rpn_tk *second, t_rpn_tk *curr)
-{
-	if (curr->value.type & (PRECEDENCE & AND))
-		do_logical(first, second, curr);
-	else if (curr->value.type & (PRECEDENCE & EQUAL))
-		do_compare(first, second, curr);
-	else if (curr->value.type & (PRECEDENCE & TIMES))
-		do_high_op(first, second, curr);
-	else if (curr->value.type & (PRECEDENCE & PLUS))
-		do_low_op(first, second, curr);
-}
 
 static int8_t	check_forbidden_operation(t_rpn_tk *curr, t_rpn_tk *second)
 {

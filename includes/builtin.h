@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 20:27:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:44:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ uint8_t		hash_blt(t_registry *reg, char **av, t_process *process);
 int8_t		hash_args(t_registry *shell, char *key);
 int8_t		hash_all_path(t_registry *shell);
 int8_t		hash_one(t_registry *shell, char *key, char *path);
+uint8_t		protect_no_input(char **av);
 
 /*
 *****************************************************

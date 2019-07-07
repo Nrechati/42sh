@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_expansion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/23 17:53:07 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 10:15:10 by nrechati         ###   ########.fr       */
+/*   Created: 2019/07/07 19:45:20 by nrechati          #+#    #+#             */
+/*   Updated: 2019/07/07 19:49:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void		p_insert_success(t_vector *text, uint64_t index)
 	success = get_var(g_shell->intern, "?");
 	vct_replace_string(text, index, index + 2, success);
 }
+
 void		p_insert_job(t_vector *text, uint64_t index)
 {
 	char	*success;

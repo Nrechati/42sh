@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 20:30:49 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:45:25 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int8_t		run_builtin(t_process *process)
 	return (SUCCESS);
 }
 
-static void	run_type_selection(t_process *process)
+static void		run_type_selection(t_process *process)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
@@ -61,7 +61,7 @@ static void	run_type_selection(t_process *process)
 		process->completed = fork_process(process);
 }
 
-int			run_process(t_process *process, int pipe)
+int				run_process(t_process *process, int pipe)
 {
 	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
@@ -89,7 +89,7 @@ int			run_process(t_process *process, int pipe)
 	return (SUCCESS);
 }
 
-int			run_job(void *context, void *data)
+int				run_job(void *context, void *data)
 {
 	t_job		*job;
 	t_process	*head;
@@ -109,8 +109,7 @@ int			run_job(void *context, void *data)
 		if (run_process(head, 0) == FAILURE)
 			return (FAILURE);
 	}
-	else
-		if (launch_pipeline(job->processes) == FAILURE)
-			return (FAILURE);
+	else if (launch_pipeline(job->processes) == FAILURE)
+		return (FAILURE);
 	return (waiter(job));
 }

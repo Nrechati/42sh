@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_subroutine.h                                :+:      :+:    :+:   */
+/*   prompt_subroutine_tools.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 18:37:10 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 17:27:32 by skuppers         ###   ########.fr       */
+/*   Created: 2019/07/07 19:46:06 by nrechati          #+#    #+#             */
+/*   Updated: 2019/07/07 19:50:46 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ uint8_t			subprompt_call(t_vector *line, uint32_t option)
 {
 	t_vector			*new_input;
 	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
-						PROMPT_DQUOTE, PROMPT_BQUOTE, PROMPT_NL,PROMPT_AND,
+						PROMPT_DQUOTE, PROMPT_BQUOTE, PROMPT_NL, PROMPT_AND,
 						PROMPT_OR, PROMPT_BRACE, PROMPT_MATHS,
 						PROMPT_PARENTHESE, PROMPT_BRACKET};
 

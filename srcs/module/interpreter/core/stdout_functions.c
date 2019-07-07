@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:28:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 17:24:54 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:32:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	check_path_access(t_redirect *redirect, char *filename)
 int	check_absolute_path(t_redirect *redirect, char *filename)
 {
 	char	*path;
-	char 	*holder;
-	int 	return_value;
+	char	*holder;
+	int		return_value;
 
 	return_value = 0;
 	holder = NULL;

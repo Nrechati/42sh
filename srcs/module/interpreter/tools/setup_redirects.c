@@ -6,44 +6,17 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:44:25 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 20:41:51 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:46:12 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		print_redirect(void *content)
+int			close_fd(t_redirect *redirect, t_action *action)
 {
-	char			*redirect_type;
-	t_redirect		*redirect;
-
-	redirect = content;
-	if (redirect->type & FD_DUP)
-		redirect_type = "FD_DUP";
-	if (redirect->type & FD_MOVE)
-		redirect_type = "FD_MOVE";
-	if (redirect->type & FD_REDIRECT)
-		redirect_type = "FD_REDIRECT";
-	if (redirect->type & FD_CLOSE)
-		redirect_type = "FD_CLOSE";
-	if (redirect->type & FD_CLOSE_SPECIAL)
-		redirect_type = "FD_CLOSE_SPECIAL";
-	if (redirect->type & FD_PIPE_IN)
-		redirect_type = "FD_PIPE_IN";
-	if (redirect->type & FD_PIPE_OUT)
-		redirect_type = "FD_PIPE_OUT";
-	if (redirect->type & FD_OPEN_ERROR)
-		redirect_type = "FD_OPEN_ERROR";
-	if (redirect->type & FD_DUP_ERROR)
-		redirect_type = "FD_DUP_ERROR";
-	if (redirect->type & FD_CRITICAL_ERROR)
-		redirect_type = "FD_CRITICAL_ERROR";
-	if (redirect->type & FD_BAD_DESCRIPTOR)
-		redirect_type = "FD_BAD_DESCRIPTOR";
-	if (redirect->type & FD_AMBIGOUS_REDIRECT)
-		redirect_type = "FD_AMBIGOUS_REDIRECT";
-	ft_printf("type: %s | to: %ld | from: %ld\n"
-			, redirect_type, redirect->to, redirect->from);
+	redirect->from = get_io_noprotect(action->data);
+	redirect->type = FD_CLOSE;
+	return (SUCCESS);
 }
 
 static void	*set_redirect(void *context, void *data)
