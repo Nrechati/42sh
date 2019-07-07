@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 04:38:31 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:25:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int			run_process(t_process *process, uint8_t foreground, int pipe)
 		return (FAILURE);
 	}
 	run_type_selection(process, foreground, pipe);
+	if (pipe)
+		close(pipe);
 	return (SUCCESS);
 }
 
