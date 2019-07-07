@@ -56,14 +56,12 @@ static void	delete_entry(t_history *history, const int id)
 	}
 }
 
-static void	init_and_reset(t_registry *shell,
-					t_history *history, const uint64_t option)
+static void	init_and_reset(t_history *history, const uint64_t option)
 {
 	if (option & INIT_HISTORY)
 	{
 		ft_bzero(history, sizeof(t_history));
 		history->first_search = TRUE;
-		read_histfile(shell, history);
 	}
 	else if (option & RESET_HEAD)
 	{
@@ -77,7 +75,7 @@ char		*history(t_registry *shell, const char *name, const uint64_t option)
 	static t_history	history;
 
 	if ((option & INIT_HISTORY) || (option & RESET_HEAD))
-		init_and_reset(shell, &history, option);
+		init_and_reset(&history, option);
 	else if (option & ADD_ENTRY)
 		add_new_entry(&history, (char *)name);
 	else if (option & POP_ENTRY)

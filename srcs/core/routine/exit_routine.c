@@ -57,7 +57,6 @@ void			shell_exit_routine(t_registry *shell, int8_t ret)
 
 	if (shell->option.option & RECORD_HISTORY_OPT)
 	{
-		history(shell, NULL, WRITE_HISTFILE);
 		history(shell, NULL, RESET_HEAD);
 		history(shell, NULL, FREE_HISTORY);
 	}
