@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 10:14:06 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 15:47:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:01:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 static void			redraw_line(t_registry *shell, t_sle *sle)
 {
-	if (sle->state == STATE_INCSEARCH || sle->state == STATE_REVSEARCH)
-		sle->window.rd_flag = RD_LINE | RD_CEND;
 	if (sle->window.rd_flag & RD_NONE)
 		return ;
 	if (sle->window.rd_flag & RD_CLEAR)

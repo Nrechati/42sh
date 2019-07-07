@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 20:16:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:00:52 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -449,8 +449,6 @@
 
 # define STATE_STD			0x00
 # define STATE_VISUAL		0x01
-# define STATE_REVSEARCH	0x02
-# define STATE_INCSEARCH	0x04
 
 # define PROMPT_PIPE		"pipe"
 # define PROMPT_QUOTE		"quote"

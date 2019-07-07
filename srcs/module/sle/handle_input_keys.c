@@ -6,17 +6,11 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 12:06:49 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:03:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
-static void			insert_zero(t_sle *sle, char c)
-{
-	vct_add(sle->line, c);
-	set_redraw_flags(sle, RD_LINE | RD_CEND);
-}
 
 static void			handle_insertion(t_sle *sle, char c)
 {
@@ -38,14 +32,11 @@ static void			handle_printable_char(t_sle *sle, const char c)
 	t_vector *line;
 	t_cursor *cursor;
 
-	if (sle->state != STATE_STD && sle->state != STATE_INCSEARCH
-			&& sle->state != STATE_REVSEARCH)
+	if (sle->state != STATE_STD)
 		return ;
 	cursor = &sle->cursor;
 	line = sle->line;
-	if (sle->state == STATE_INCSEARCH || sle->state == STATE_REVSEARCH)
-		insert_zero(sle, c);
-	else if (cursor->index == 0)
+	if (cursor->index == 0)
 	{
 		vct_push(line, c);
 		set_redraw_flags(sle, RD_LINE | RD_CMOVE);

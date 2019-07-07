@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 15:50:48 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:01:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ void			print_loop(t_sle *sle, char *str)
 	i = 0;
 	active = FALSE;
 	tputs(sle->termcaps.normal_cursor, 1, &ft_putc);
-	if (sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH
-		|| (sle->state == STATE_VISUAL
-		&& sle->window.point1 - sle->window.point2 != 0))
-		tputs(sle->termcaps.hidden_cursor, 1, &ft_putc);
 	while (str[i] != '\0')
 	{
 		if (sle->state == STATE_VISUAL && i >= sle->window.point1
