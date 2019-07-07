@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 15:23:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:31:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void		parent_process(t_process *process, char ***env)
 	ft_freetab(env);
 }
 
-void			fork_process(t_process *process, int pipe)
+void			fork_process(t_process *process)
 {
 	char			**env;
 
@@ -96,6 +96,4 @@ void			fork_process(t_process *process, int pipe)
 		child_process(process, env);
 	else
 		parent_process(process, &env);
-	if (pipe)
-		close(pipe);
 }

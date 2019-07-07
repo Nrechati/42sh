@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 06:09:21 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:32:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		run_builtin(t_process *process)
 	return ;
 }
 
-static void	run_type_selection(t_process *process, int pipe)
+static void	run_type_selection(t_process *process)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
@@ -57,7 +57,7 @@ static void	run_type_selection(t_process *process, int pipe)
 	else if (process->type == (IS_ALONE | IS_BLT))
 		run_builtin(process);
 	else
-		fork_process(process, pipe);
+		fork_process(process);
 }
 
 int			run_process(t_process *process, int pipe)
@@ -80,7 +80,9 @@ int			run_process(t_process *process, int pipe)
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
-	run_type_selection(process, pipe);
+	run_type_selection(process);
+	if (pipe)
+		close(pipe);
 	return (SUCCESS);
 }
 
