@@ -516,7 +516,7 @@ run : $(NAME)
 drun : $(NAMEDB)
 		./$< -d
 
-debug : $(NAMEDB)
+debug : $(CLEAR) $(NAMEDB)
 
 lldb : $(NAMEDB)
 	lldb -- ./$< -d

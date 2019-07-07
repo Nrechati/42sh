@@ -33,7 +33,8 @@ void		loop_par(t_lexer *lexer)
 			&& get_input(lexer, NEXT_CHAR) == '('
 			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
 			loop_maths(lexer);
-		add_to_buffer(lexer);
+		if (get_input(lexer, CUR_CHAR) != '\0')
+			add_to_buffer(lexer);
 	}
 }
 
@@ -44,7 +45,7 @@ void		loop_maths(t_lexer *lexer)
 	add_to_buffer(lexer);
 	add_to_buffer(lexer);
 	par = 0;
-	while (par != 2)
+	while (par != 2 && get_input(lexer, CUR_CHAR) != '\0')
 	{
 		loop_par(lexer);
 		par++;
@@ -69,7 +70,8 @@ void		loop_braceparam(t_lexer *lexer)
 			&& get_input(lexer, NEXT_CHAR) == '('
 			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
 			loop_maths(lexer);
-		add_to_buffer(lexer);
+		if (get_input(lexer, CUR_CHAR) != '\0')
+			add_to_buffer(lexer);
 	}
 }
 
@@ -88,7 +90,8 @@ void		loop_dbquote(t_lexer *lexer)
 			&& get_input(lexer, NEXT_CHAR) == '('
 			&& get_input(lexer, NEXT_NEXT_CHAR) == '(')
 			loop_maths(lexer);
-		add_to_buffer(lexer);
+		if (get_input(lexer, CUR_CHAR) != '\0')
+			add_to_buffer(lexer);
 	}
 }
 
