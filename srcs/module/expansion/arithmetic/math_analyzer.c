@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_analyzer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:31:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/02 17:07:54 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 05:06:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void			init_m_logical_operator(t_ar_analyzer analyzer)
 	analyzer[MATH_LOGICAL_OPERATOR][E_M_NB_HEX] = m_number_analyzer;
 	analyzer[MATH_LOGICAL_OPERATOR][E_M_PLUS] = m_unary_analyzer;
 	analyzer[MATH_LOGICAL_OPERATOR][E_M_MINUS] = m_unary_analyzer;
+	analyzer[MATH_LOGICAL_OPERATOR][E_M_STRING] = m_variable_analyzer;
 	analyzer[MATH_LOGICAL_OPERATOR][E_M_DPLUS] = m_preffix;
 	analyzer[MATH_LOGICAL_OPERATOR][E_M_DMINUS] = m_preffix;
 }
