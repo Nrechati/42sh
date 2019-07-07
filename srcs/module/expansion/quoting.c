@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:16:09 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/06 10:43:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:26:05 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ static int	delete_backslash(char *str, t_quote quote)
 	}
 }
 
+static int	delete_newline(char *str)
+{
+	delete_character(str);
+	delete_character(str);
+	return (TRUE);
+}
+
 t_quote		select_quoting(t_quote quote, const char c)
 {
 	if (quote == QUOTE_OFF)
@@ -65,7 +72,12 @@ void		quote_removal(char *str)
 	{
 		if (ft_strchr("\'\"", *str))
 			quote = select_quoting(quote, *str);
-		if (*str == '\\' && (quote == QUOTE_OFF || quote == QUOTE_DOUBLE))
+		if (ft_strnequ("\\\n", str, 2) && (quote != QUOTE_SINGLE))
+		{
+			if (delete_newline(str) == TRUE)
+				str++;
+		}
+		if (*str == '\\' && (quote != QUOTE_SINGLE))
 		{
 			if (delete_backslash(str, quote) == TRUE)
 				str++;

@@ -6,11 +6,39 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 01:00:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:51:26 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+#include <fcntl.h>
+
+int		open_read_file(t_redirect *redirect, char *filename, int flag, int from)
+{
+	if (access(filename, F_OK) == SUCCESS)
+	{
+		if (access(filename, R_OK) == FAILURE)
+		{
+			ft_dprintf(2, SH_GENERAL_ERROR "%s: permission denied\n", filename);
+			redirect->type = FD_OPEN_ERROR;
+			return (FAILURE);
+		}
+		if ((redirect->to = open(filename, flag, 0644)) == -1)
+		{
+			ft_dprintf(2, SH_GENERAL_ERROR "%s: open error\n", filename);
+			redirect->type = FD_OPEN_ERROR;
+			return (FAILURE);
+		}
+		else
+			redirect->type = from;
+		redirect->type = FD_REDIRECT;
+		redirect->from = STDIN_FILENO;
+		return (SUCCESS);
+	}
+	ft_dprintf(2, SH_GENERAL_ERROR "%s: no such file or directory\n", filename);
+	redirect->type = FD_OPEN_ERROR;
+	return (FAILURE);
+}
 
 void	remove_empty(char **av)
 {

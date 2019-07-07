@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:30:55 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/05 13:42:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:59:01 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_signaled(char *command, int signo)
 
 	if (signo != 2 && signo != 13 && signo >= 1 && signo <= 15)
 		ft_dprintf(2, "\n42sh: %.*s: %s [%d]\n"
-			, ft_strlen(command) - 1 , command, signal_string[signo], signo);
+			, ft_strlen(command) - 1, command, signal_string[signo], signo);
 }
 
 void	print_var_lst(void *data)

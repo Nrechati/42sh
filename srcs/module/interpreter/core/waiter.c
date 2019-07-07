@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:36:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/07 14:54:44 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:53:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void			update_last_bin(t_list *processes)
 {
 	char		*status;
 	t_process	*last;
-	uint16_t		errors;
+	uint16_t	errors;
 
 	errors = (IS_EXP_ERROR | IS_OPEN_FAILED
 			| IS_CRITICAL | IS_DUP_FAILED | IS_ASSIGN);

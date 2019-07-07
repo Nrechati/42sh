@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 15:25:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:49:11 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static uint8_t	check_cmd_path(char *data)
 	return (FALSE);
 }
 
-static void		run_child(t_process *process, char **env)
+static int8_t	run_child(t_process *process, char **env)
 {
 	char		*pathname;
 
@@ -56,7 +56,7 @@ static void		run_child(t_process *process, char **env)
 	exit(1);
 }
 
-static void		child_process(t_process *process, char **env, uint8_t fg)
+static int8_t	child_process(t_process *process, char **env, uint8_t fg)
 {
 	init_exec_signals();
 	process->pid = getpid();
@@ -65,7 +65,7 @@ static void		child_process(t_process *process, char **env, uint8_t fg)
 	setpgid(process->pid, *process->pgid);
 	if (fg == TRUE)
 	{
-//		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
+		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
 			tcsetpgrp(STDOUT_FILENO, *process->pgid);
 	}
 	if (process->type & IS_BLT)
@@ -74,10 +74,10 @@ static void		child_process(t_process *process, char **env, uint8_t fg)
 		exit(process->status);
 	}
 	else
-		run_child(process, env);
+		return (run_child(process, env));
 }
 
-static void		parent_process(t_process *process, char ***env, uint8_t fg)
+static int8_t	parent_process(t_process *process, char ***env, uint8_t fg)
 {
 	if (process->type & IS_BIN)
 		ft_hmap_hits(&g_shell->hash.bin, process->av[0]);
@@ -92,25 +92,26 @@ static void		parent_process(t_process *process, char ***env, uint8_t fg)
 	else
 		tcsetpgrp(STDOUT_FILENO, *process->pgid);
 	ft_freetab(env);
+	return (TRUE);
 }
 
-void			fork_process(t_process *process, uint8_t foreground)
+int8_t			fork_process(t_process *process, uint8_t foreground)
 {
 	char			**env;
 
 	if ((env = generate_env(g_shell, process->env)) == NULL)
 	{
 		process->type |= IS_EXP_ERROR;
-		return ;
+		return (FAILURE);
 	}
 	if ((process->pid = fork()) < 0)
 	{
 		ft_freetab(&env);
 		ft_dprintf(2, "42sh: fork error\n");
-		return ;
+		return (FAILURE);
 	}
 	else if (process->pid == 0)
-		child_process(process, env, foreground);
+		return (child_process(process, env, foreground));
 	else
-		parent_process(process, &env, foreground);
+		return (parent_process(process, &env, foreground));
 }

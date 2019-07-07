@@ -6,11 +6,37 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:58:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 06:42:17 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:43:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+int8_t		calculate_rpn(t_stack *rpn, t_infix *infix)
+{
+	t_stack		solve;
+
+	ft_stckinit(&solve);
+	while (ft_stcksize(rpn) > 0)
+	{
+		if (calcul(rpn, &solve) == FAILURE)
+		{
+			ft_stckdestroy(&solve, NULL);
+			ft_stckdestroy(&infix->calcul, NULL);
+			return (FAILURE);
+		}
+	}
+	if (ft_stcksize(&solve) != 1)
+	{
+		ft_dprintf(2, "Expression unsolvable\n");
+		ft_stckdestroy(&solve, NULL);
+		ft_stckdestroy(&infix->calcul, NULL);
+		return (FAILURE);
+	}
+	infix->result = ((t_rpn_tk*)solve.head->data)->value.digit;
+	ft_stckdestroy(&solve, NULL);
+	return (SUCCESS);
+}
 
 int			arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 {
@@ -18,7 +44,7 @@ int			arithmetic_replace(t_arithmetic *arithmetic, char **output, int i)
 	int			diff;
 
 	vector = vct_dups(*output);
-	diff = arithmetic->end ;
+	diff = arithmetic->end;
 	vct_replace_string(vector, i, diff, arithmetic->expanded);
 	ft_strdel(output);
 	*output = ft_strdup(vct_get_string(vector));

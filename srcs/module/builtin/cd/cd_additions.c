@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/21 16:09:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:33:52 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char			*concat_pwd_with_curpath(t_registry *shell, char **path)
 	char	*tmp_pwd;
 
 	pwd = get_pwd(shell, NO_OPT);
-	 if (pwd == NULL)
+	if (pwd == NULL)
 		return (NULL);
 	else if (pwd[ft_strlen(pwd) - 1] != '/')
 	{

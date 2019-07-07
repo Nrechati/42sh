@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 11:57:30 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/06 22:42:48 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:47:32 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int8_t	handle_operator(t_rpn_tk *curr, t_stack *solve)
 	return (SUCCESS);
 }
 
-static int8_t	calcul(t_stack *rpn, t_stack *solve)
+int8_t			calcul(t_stack *rpn, t_stack *solve)
 {
 	t_list		*node;
 	t_rpn_tk	*curr;
@@ -100,31 +100,5 @@ static int8_t	calcul(t_stack *rpn, t_stack *solve)
 		}
 		ft_lstdelone(&node, NULL);
 	}
-	return (SUCCESS);
-}
-
-int8_t			calculate_rpn(t_stack *rpn, t_infix *infix)
-{
-	t_stack		solve;
-
-	ft_stckinit(&solve);
-	while (ft_stcksize(rpn) > 0)
-	{
-		if (calcul(rpn, &solve) == FAILURE)
-		{
-			ft_stckdestroy(&solve, NULL);
-			ft_stckdestroy(&infix->calcul, NULL);
-			return (FAILURE);
-		}
-	}
-	if (ft_stcksize(&solve) != 1)
-	{
-		ft_dprintf(2, "Expression unsolvable\n");
-		ft_stckdestroy(&solve, NULL);
-		ft_stckdestroy(&infix->calcul, NULL);
-		return (FAILURE);
-	}
-	infix->result = ((t_rpn_tk*)solve.head->data)->value.digit;
-	ft_stckdestroy(&solve, NULL);
 	return (SUCCESS);
 }

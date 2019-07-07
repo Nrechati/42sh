@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 15:29:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:53:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,46 +26,45 @@ static int8_t	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 		return (ft_lstiter_ctx(process->redirects, NULL, do_redirect));
 }
 
-void		run_builtin(t_process *process, uint8_t foreground)
+int8_t			run_builtin(t_process *process, uint8_t foreground)
 {
 	char			*tty_name;
 	uint8_t			std;
 	t_builtin		builtin;
 	int				fd;
+	int				status;
 
 	std = 0;
 	tty_name = ttyname(STDIN_FILENO);
-	process->completed = 1;
 	if (setup_builtin(process, foreground, &std) == FAILURE)
-		return;
+		return (TRUE);
 	close(STDIN_FILENO);
-	if (ft_strequ(process->av[0], "fc"))
-	{
-		fd = open(tty_name, O_RDWR);
-		if (fd != 0)
-			close(fd);
-	}
+	if (ft_strequ(process->av[0], "fc") && (fd = open(tty_name, O_RDWR)))
+		close(fd);
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
-	process->status = builtin(g_shell, process->av);
+	status = builtin(g_shell, process->av);
 	if (process->type & IS_ALONE)
+	{
+		process->status = status;
 		default_io(std, tty_name);
+	}
 	ft_lstiter(process->redirects, close_redirect);
-	return ;
+	return (TRUE);
 }
 
-static void	run_type_selection(t_process *process, uint8_t foreground)
+static void		run_type_selection(t_process *process, uint8_t foreground)
 {
 	if (process->type & IS_ASSIGN)
 		process->completed = assign_intern(g_shell, &process->env);
 	else if (process->av == NULL || process->av[0] == NULL)
 		process->completed = 1;
 	else if (process->type == (IS_ALONE | IS_BLT) && foreground == TRUE)
-		run_builtin(process, foreground);
+		process->completed = run_builtin(process, foreground);
 	else
-		fork_process(process, foreground);
+		process->completed = fork_process(process, foreground);
 }
 
-int			run_process(t_process *process, uint8_t foreground, int pipe)
+int				run_process(t_process *process, uint8_t foreground, int pipe)
 {
 	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
@@ -91,7 +90,7 @@ int			run_process(t_process *process, uint8_t foreground, int pipe)
 	return (SUCCESS);
 }
 
-int			run_job(void *context, void *data)
+int				run_job(void *context, void *data)
 {
 	t_job		*job;
 	t_process	*head;
@@ -113,8 +112,7 @@ int			run_job(void *context, void *data)
 		if (run_process(head, foreground, 0) == FAILURE)
 			return (FAILURE);
 	}
-	else
-		if (launch_pipeline(job->processes, foreground) == FAILURE)
-			return (FAILURE);
+	else if (launch_pipeline(job->processes, foreground) == FAILURE)
+		return (FAILURE);
 	return (foreground == FALSE ? setup_background_job(job) : waiter(job));
 }

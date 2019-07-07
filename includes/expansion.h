@@ -6,7 +6,7 @@
 /*   By: Nrechati <Nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:50:56 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 10:38:25 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:42:16 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int				get_delimiter(t_parameter *param
 
 void			parameter_print_debug(t_list *token_list);
 
+int8_t			calcul(t_stack *rpn, t_stack *solve);
 int8_t			arithmetic_analyzer(t_arithmetic *arithmetic);
 int8_t			find_expansion_end(t_arithmetic *arithmetic
 						, char *input, size_t start);
