@@ -462,7 +462,7 @@ PARSER += ways_graph_word.c
 #									 Rules                                     #
 # ---------------------------------------------------------------------------- #
 
-all : $(OPATH) $(NAME)
+all : $(CLEAR) $(OPATH) $(NAME)
 
 run : $(NAME)
 	./$<
@@ -480,7 +480,7 @@ test : $(NAMET)
 
 #					 - - - - - Normal Compilation - - - - -                    #
 
-$(NAME) : $(CLEAR) $(LIB) $(OBJS)
+$(NAME) : $(LIB) $(OBJS)
 	$(LINK) $(OBJS) $(CFLAGS) $(LDFLAGS) $(LDLIBN) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
@@ -493,7 +493,7 @@ $(LIB) : FORCE
 
 #					 - - - - - Debug Compilation - - - - -                     #
 
-$(NAMEDB) : $(CLEAR) $(LIBDB) $(OPATH) $(OBJD)
+$(NAMEDB) : $(LIBDB) $(OPATH) $(OBJD)
 	$(LINKD) $(OBJD) $(DFLAGS) $(LDFLAGS) $(LDLIBD) $(LFLAGS) -o $@
 	$(PRINT) "$(GREEN)$@ is ready\n$(NC)"
 
@@ -533,4 +533,4 @@ help :
 FORCE:
 
 .PHONY : all 21 21debug lexer lexerdb clean fclean re help FORCE
-#.SILENT:
+.SILENT:
