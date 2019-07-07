@@ -6,14 +6,14 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 01:16:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 04:38:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
-static void	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
+static int8_t	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 {
 	if (fg == TRUE)
 	{
@@ -21,9 +21,9 @@ static void	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 			tcsetpgrp(STDOUT_FILENO, *process->pgid);
 	}
 	if (process->type & IS_ALONE)
-		ft_lstiter_ctx(process->redirects, std, builtin_redirect);
+		return (ft_lstiter_ctx(process->redirects, std, builtin_redirect));
 	else
-		ft_lstiter_ctx(process->redirects, NULL, do_redirect);
+		return (ft_lstiter_ctx(process->redirects, NULL, do_redirect));
 }
 
 void		run_builtin(t_process *process, uint8_t foreground)
@@ -35,7 +35,9 @@ void		run_builtin(t_process *process, uint8_t foreground)
 
 	std = 0;
 	tty_name = ttyname(STDIN_FILENO);
-	setup_builtin(process, foreground, &std);
+	process->completed = 1;
+	if (setup_builtin(process, foreground, &std) == FAILURE)
+		return;
 	close(STDIN_FILENO);
 	if (ft_strequ(process->av[0], "fc"))
 	{
@@ -46,10 +48,7 @@ void		run_builtin(t_process *process, uint8_t foreground)
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
 	process->status = builtin(g_shell, process->av);
 	if (process->type & IS_ALONE)
-	{
 		default_io(std, tty_name);
-		process->completed = 1;
-	}
 	ft_lstiter(process->redirects, close_redirect);
 	return ;
 }

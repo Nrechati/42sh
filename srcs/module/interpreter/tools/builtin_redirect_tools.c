@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:36:38 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 23:15:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 03:19:31 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			builtin_redirect(void *context, void *data)
 	redirect = data;
 	set_context(context, data);
 	if (redirect->type & FD_DUP)
-		dup2(redirect->to, redirect->from);
+		return (dup_redirection(redirect));
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
 	{
 		dup2(redirect->to, redirect->from);
