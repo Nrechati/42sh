@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 01:42:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 02:44:04 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,9 @@ int	move_fd(t_redirect *redirect, t_action *action)
 
 int	close_fd(t_redirect *redirect, t_action *action)
 {
-	if ((redirect->from = get_io(action->data)) == SUCCESS)
-	{
-		redirect->type = FD_CLOSE;
-		return (SUCCESS);
-	}
-	redirect->type = FD_BAD_DESCRIPTOR;
-	return (FAILURE);
+	redirect->from = get_io_noprotect(action->data);
+	redirect->type = FD_CLOSE;
+	return (SUCCESS);
 }
 
 int	open_read_file(t_redirect *redirect, char *filename, int flag, int from)
@@ -97,7 +93,7 @@ int	action_type(t_redirect *redirect, int action_type, char *str)
 
 	fd = ft_atoi(str);
 	redirect->to = fd;
-	if (action_type == A_DUP && write(fd, str, 0) == 0)
+	if (action_type == A_DUP && read(fd, str, 0) == 0)
 		redirect->type = FD_DUP;
 	else if (action_type == A_MOVE)
 		redirect->type = FD_MOVE;
@@ -105,6 +101,7 @@ int	action_type(t_redirect *redirect, int action_type, char *str)
 		redirect->type = FD_CLOSE;
 	else
 	{
+		ft_dprintf(2, "42sh: %d: Bad File descriptor\n", fd);
 		redirect->type = FD_BAD_DESCRIPTOR;
 		return (FAILURE);
 	}

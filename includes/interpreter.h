@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 00:50:50 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 03:09:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int				check_delimiter(char **delimiter, t_vector **vector, int fd);
 int				valid_heredoc_setup(t_redirect *redirect, int from, int to);
 
 int				setup_redirect(t_process *process);
+int				dup_redirection(t_redirect *redirect);
 int				get_failed_process(void *data, void *context);
 void			re_open_std(const uint8_t std, char *tty_name);
 uint8_t			check_job(t_job *job, int job_type);
