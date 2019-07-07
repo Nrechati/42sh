@@ -77,19 +77,17 @@ uint8_t			check_path(t_registry *shell, char *curpath,
 						const char *path_give_by_user)
 {
 	char		*oldpwd;
-	struct stat	stat;
+	DIR			*dir;
 
 	if (ft_strequ(path_give_by_user, "-") == TRUE)
 	{
-		oldpwd = get_var(shell->intern, "OLDPWD");
-		if (oldpwd != NULL)
+		if ((oldpwd = get_var(shell->intern, "OLDPWD")) != NULL)
 			path_give_by_user = oldpwd;
 	}
-	if (lstat(curpath, &stat) != SUCCESS)
+	if (access(curpath, F_OK) != SUCCESS)
 		ft_dprintf(STDERR_FILENO, "42sh: cd: no such file or directory: %s\n",
 				path_give_by_user);
-	else if ((stat.st_mode & S_IFDIR) == FALSE
-				&& (stat.st_mode & S_IFLNK) == FALSE)
+	else if ((dir = opendir(curpath)) == NULL)
 		ft_dprintf(STDERR_FILENO,
 					"42sh: cd: not a directory: %s\n", path_give_by_user);
 	else if (access(curpath, R_OK) != SUCCESS)
@@ -98,6 +96,9 @@ uint8_t			check_path(t_registry *shell, char *curpath,
 	else if (chdir(curpath) == FAILURE)
 		ft_dprintf(STDERR_FILENO, "chdir() failed\n");
 	else
+	{
+		closedir(dir);
 		return (TRUE);
+	}
 	return (FALSE);
 }
