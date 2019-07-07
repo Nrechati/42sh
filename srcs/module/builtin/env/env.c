@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 14:03:06 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 01:38:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:41:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ static uint8_t	print_env(t_registry *shell, t_process *process)
 
 uint8_t			env_blt(t_registry *shell, char **av, t_process *process)
 {
-	uint8_t		ret;
-
-	ret = SUCCESS;
 	(void)av;
 	(void)shell;
 	remove_args(process->av);
@@ -94,12 +91,9 @@ uint8_t			env_blt(t_registry *shell, char **av, t_process *process)
 	{
 		if (print_env(shell, process) == FALSE)
 			return (2);
+		process->completed = 1;
 	}
 	else
-	{
-		process->type = 0;
-		process->completed = 0;
-		run_process(process, 0);
-	}
-	return (ret);
+		run_env(process);
+	return (process->status);
 }

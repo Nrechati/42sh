@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 00:58:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 01:30:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:35:22 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char	*expansion_word(t_list *intern_var, char *str)
 	char		*dest;
 	char		*expanded;
 
+	if (str == NULL)
+		return (str);
 	newline_removal(str);
 	if ((dest = tilde(intern_var, str)) == NULL)
 		return (NULL);

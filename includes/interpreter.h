@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 15:30:43 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 18:46:39 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void			mark_job_as_completed(t_job *job);
 int8_t			interpreter(t_registry *shell, t_list **cmd_group);
 t_list			**ptr_to_job_lst(t_list **job_lst, uint8_t mode);
 
-void			fork_process(t_process *process);
+int8_t			fork_process(t_process *process);
 int8_t			launch_pipeline(t_list *processess);
 int				run_job(void *context, void *data);
-void			run_builtin(t_process *process);
+int8_t			run_builtin(t_process *process);
 int				run_process(t_process *process, int pipe);
 
 uint8_t			job_is_completed(t_job *job);

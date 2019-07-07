@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/07 11:09:06 by skuppers         ###   ########.fr        #
+#    Updated: 2019/07/07 20:33:17 by cempassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -300,6 +300,7 @@ BUILTIN += unset.c
 
 #ENV
 BUILTIN += env.c
+BUILTIN += env_launcher.c
 BUILTIN += setenv.c
 BUILTIN += unsetenv.c
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 15:32:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:30:49 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int8_t	setup_builtin(t_process *process, uint8_t *std)
 		return (ft_lstiter_ctx(process->redirects, NULL, do_redirect));
 }
 
-void		run_builtin(t_process *process)
+int8_t		run_builtin(t_process *process)
 {
 	char			*tty_name;
 	uint8_t			std;
@@ -29,23 +29,24 @@ void		run_builtin(t_process *process)
 	int				fd;
 
 	std = 0;
-	tty_name = ttyname(STDIN_FILENO);
 	process->completed = 1;
+	tty_name = ttyname(STDIN_FILENO);
 	if (setup_builtin(process, &std) == FAILURE)
-		return;
+		return (SUCCESS);
 	close(STDIN_FILENO);
 	if (ft_strequ(process->av[0], "env"))
 	{
 		fd = open(tty_name, O_RDWR);
 		if (fd != 0)
 			close(fd);
+		process->completed = 0;
 	}
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
 	process->status = builtin(g_shell, process->av, process);
 	if (process->type & IS_ALONE)
 		default_io(std, tty_name);
 	ft_lstiter(process->redirects, close_redirect);
-	return ;
+	return (SUCCESS);
 }
 
 static void	run_type_selection(t_process *process)
@@ -57,7 +58,7 @@ static void	run_type_selection(t_process *process)
 	else if (process->type == (IS_ALONE | IS_BLT))
 		run_builtin(process);
 	else
-		fork_process(process);
+		process->completed = fork_process(process);
 }
 
 int			run_process(t_process *process, int pipe)
@@ -65,24 +66,26 @@ int			run_process(t_process *process, int pipe)
 	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
 	{
+		pipe ? close(pipe) : 0;
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (process->completed = FAILURE);
 	}
 	if (expand_process(g_shell->intern, process) == FAILURE)
 	{
+		pipe ? close(pipe) : 0;
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		process->completed = 1;
 		return (FAILURE);
 	}
 	if (get_process_type(g_shell, process) == FAILURE)
 	{
+		pipe ? close(pipe) : 0;
 		ft_dprintf(2, "42sh: [CRITICAL] Malloc error\n");
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FAILURE);
 	}
 	run_type_selection(process);
-	if (pipe)
-		close(pipe);
+	pipe ? close(pipe) : 0;
 	return (SUCCESS);
 }
 

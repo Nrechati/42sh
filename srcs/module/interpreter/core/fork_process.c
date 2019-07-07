@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 15:31:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:39:15 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static uint8_t	check_cmd_path(char *data)
+static uint8_t		check_cmd_path(char *data)
 {
 	struct stat	stat;
 
@@ -31,7 +31,7 @@ static uint8_t	check_cmd_path(char *data)
 	return (FALSE);
 }
 
-static void		run_child(t_process *process, char **env)
+static int8_t		run_child(t_process *process, char **env)
 {
 	char		*pathname;
 
@@ -56,7 +56,7 @@ static void		run_child(t_process *process, char **env)
 	exit(1);
 }
 
-static void		child_process(t_process *process, char **env)
+static int8_t		child_process(t_process *process, char **env)
 {
 	init_exec_signals();
 	if (process->type & IS_BLT)
@@ -65,35 +65,36 @@ static void		child_process(t_process *process, char **env)
 		exit(process->status);
 	}
 	else
-		run_child(process, env);
+		return (run_child(process, env));
 }
 
-static void		parent_process(t_process *process, char ***env)
+static int8_t		parent_process(t_process *process, char ***env)
 {
 	if (process->type & IS_BIN)
 		ft_hmap_hits(&g_shell->hash.bin, process->av[0]);
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	ft_freetab(env);
+	return (SUCCESS);
 }
 
-void			fork_process(t_process *process)
+int8_t				fork_process(t_process *process)
 {
 	char			**env;
 
 	if ((env = generate_env(g_shell, process->env)) == NULL)
 	{
 		process->type |= IS_EXP_ERROR;
-		return ;
+		return (FAILURE);
 	}
 	if ((process->pid = fork()) < 0)
 	{
 		ft_freetab(&env);
 		ft_dprintf(2, "21sh: fork error\n");
-		return ;
+		return (FAILURE);
 	}
 	else if (process->pid == 0)
-		child_process(process, env);
+		return (child_process(process, env));
 	else
-		parent_process(process, &env);
+		return (parent_process(process, &env));
 }
