@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 17:14:21 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:55:46 by skuppers         ###   ########.fr       */
+/*   Created: 2019/06/04 17:14:21 by nrechati          #+#    #+#             */
+/*   Updated: 2019/07/07 11:58:09 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	sle_destroy(t_sle *sle)
 	vct_del(&sle->interns.home);
 	vct_del(&sle->line);
 	vct_del(&sle->sub_line);
+	vct_del(&sle->heredocln);
 	vct_del(&sle->line_save);
 	vct_del(&sle->clip);
 }
