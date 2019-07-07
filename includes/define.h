@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/06 13:35:18 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 05:31:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@
 
 # define MATH_TOKEN					24
 # define MATH_STATE					13
-# define OCTAL_BASE					"012345678"
+# define OCTAL_BASE					"01234567"
 # define HEX_BASE					"0123456789ABCDEF"
 # define DEC_BASE					"0123456789"
 
