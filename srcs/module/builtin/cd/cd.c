@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 19:17:39 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 19:22:30 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ uint8_t				cd_blt(t_registry *shell, char **av, t_process *process)
 				get_var(shell->intern, "OLDPWD") : curpath, NOFI);
 			return (1);
 		}
-		else if (ft_strlen(curpath) + 1 >= PATH_MAX)
-			curpath = get_relative_path(&curpath);
 	}
 	return (change_directory(shell, curpath, *av, option));
 }
