@@ -62,15 +62,15 @@ int				main(int ac, char **av, char **env)
 //			kill(-shell_pgid, SIGTTIN);
 //	}
 	if (init_shell(&shell, av + 1, env) == FAILURE)
-		shell_exit_routine(&shell, FAILURE);
+		shell_exit_routine(&shell, 1);
 	if (setpgid(shell.pid, shell.pid) < 0)
 	{
 		ft_dprintf(2, "42sh: Failed Setpgid\n");
-		shell_exit_routine(&shell, FAILURE);
+		shell_exit_routine(&shell, 1);
 	}
 	if (shell.option.option & INTERACTIVE_OPT)
 		tcsetpgrp(STDIN_FILENO, shell.pid);
 	launch_shell(&shell);
-	shell_exit_routine(&shell, FAILURE);
+	shell_exit_routine(&shell, 1);
 	return (FAILURE);
 }
