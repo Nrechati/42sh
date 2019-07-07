@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 00:50:19 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:25:57 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void		child_process(t_process *process, char **env, uint8_t fg)
 	setpgid(process->pid, *process->pgid);
 	if (fg == TRUE)
 	{
-		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
+//		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
 			tcsetpgrp(STDOUT_FILENO, *process->pgid);
 	}
 	if (process->type & IS_BLT)
@@ -94,7 +94,7 @@ static void		parent_process(t_process *process, char ***env, uint8_t fg)
 	ft_freetab(env);
 }
 
-void			fork_process(t_process *process, uint8_t foreground, int pipe)
+void			fork_process(t_process *process, uint8_t foreground)
 {
 	char			**env;
 
@@ -113,6 +113,4 @@ void			fork_process(t_process *process, uint8_t foreground, int pipe)
 		child_process(process, env, foreground);
 	else
 		parent_process(process, &env, foreground);
-	if (pipe)
-		close(pipe);
 }
