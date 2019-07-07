@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 17:52:49 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/07 02:50:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,19 @@ static uint8_t	do_hash(t_registry *shell, char **av, int i)
 
 	ret = hash_args(shell, av[i]);
 	if (ret == NOT_FOUND)
+	{
 		ft_dprintf(2, "%s%s%s", HASH_GENERAL_ERROR, av[i], HASH_NOT_FOUND);
-	else if (ret == 1)
 		return (1);
-	i++;
+	}
+	else if (ret == FAILURE)
+		return (2);
 	return (0);
 }
 
 uint8_t			hash_blt(t_registry *shell, char **av, t_process *process)
 {
 	int			i;
+	int			error;
 	int8_t		ret;
 	t_option	opt;
 
@@ -94,11 +97,16 @@ uint8_t			hash_blt(t_registry *shell, char **av, t_process *process)
 		return (2);
 	if (ret == FAILURE)
 		return (1);
+	error = 0;
 	while (av[i] != NULL)
 	{
-		if (do_hash(shell, av, i) == 1)
-			return (1);
+		if ((ret = do_hash(shell, av, i)) == 2)
+			return (2);
+		if (ret == 1 && error != 1)
+			error = 1;
 		i++;
 	}
-	return (SUCCESS);
+	if (error == TRUE)
+		return (1);
+	return (0);
 }
