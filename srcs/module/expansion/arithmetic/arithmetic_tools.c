@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic_tools.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:43:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 13:15:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:01:46 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ int8_t	find_expansion_end(t_arithmetic *arithmetic, char *input, size_t start)
 		arithmetic->end = end;
 		return (SUCCESS);
 	}
-	ft_dprintf(2, "No end of expansion token\n");
+	ft_dprintf(2, "21sh: Unexpected EOF while testing\n");
 	return (FAILURE);
 }
