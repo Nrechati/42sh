@@ -11,12 +11,14 @@
 /* ************************************************************************** */
 
 #include "sh21.h"
+#include <termios.h>
 
 int		setup_background_job(t_job *job)
 {
 	t_job		job_cpy;
 	t_list		*node;
 
+//	tcgetattr(STDIN_FILENO, job->term_modes);
 	ft_lstiter(job->processes, del_process_redirect);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	if (job->processes == NULL)

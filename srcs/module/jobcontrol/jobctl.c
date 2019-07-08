@@ -58,14 +58,13 @@ static void			job_to_registry(t_registry *shell, t_job *job)
 void				job_to_foreground(t_registry *shell, t_job *job)
 {
 	char	*avs;
-	pid_t	pid;
 	int		status;
 
 	if (job == NULL || job->processes == NULL)
 		return ;
 	status = 0;
-	pid = waitpid(-job->pgid, &status, WNOHANG | WUNTRACED);
-	mark_proc(job->pgid, status);
+	tcsetpgrp(STDIN_FILENO, job->pgid);
+	kill(-job->pgid, SIGCONT);
 	job->state = RUNNING;
 	mark_job_as_running(job);
 	remove_job_from_list(&shell->job_list, job);
@@ -75,10 +74,9 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 	get_job_av(job, &avs);
 	ft_printf("%s\n", avs);
 	ft_strdel(&avs);
-	killpg(job->pgid, SIGCONT);
-	tcsetpgrp(STDIN_FILENO, pid);
-	tcsetattr(STDIN_FILENO, TCSADRAIN, job->term_modes);
+//	tcsetattr(STDIN_FILENO, TCSADRAIN, job->term_modes);
 	waiter(job);
+//	tcgetattr(STDIN_FILENO, job->term_modes);
 //	tcsetpgrp(STDIN_FILENO, g_shell->pid);
 //	term_mode(TERMMODE_EXEC);
 }

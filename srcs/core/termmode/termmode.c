@@ -27,7 +27,6 @@ static int16_t			init_term_modes(void)
 	if (tcgetattr(STDIN_FILENO, &term) != SUCCESS)
 		return (CRITICAL_ERROR | TERMMDE_FAIL);
 	ft_memcpy(g_shell->orig_ios, &term, sizeof(struct termios));
-	term.c_lflag &= ~(TOSTOP);
 	ft_memcpy(g_shell->exe_ios, &term, sizeof(struct termios));
 	term.c_lflag &= ~(ECHO | ICANON);
 	term.c_cc[VMIN] = 1;

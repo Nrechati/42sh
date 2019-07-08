@@ -98,7 +98,7 @@ int8_t			waiter(t_job *job)
 	}
 	update_last_bin(job->processes);
 	job->state ^= (RUNNING | ENDED);
-	tcsetpgrp(STDIN_FILENO, g_shell->pid);
-	term_mode(TERMMODE_EXEC);
+//	tcsetpgrp(STDIN_FILENO, g_shell->pid);
+//	term_mode(TERMMODE_EXEC);
 	return (SUCCESS);
 }
