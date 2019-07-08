@@ -64,6 +64,7 @@ void			shell_exit_routine(t_registry *shell, uint8_t ret)
 	if (shell->option.option & INTERACTIVE_OPT)
 	{
 		kill_active_jobs(shell);
+		ft_lstiter(shell->job_list, del_job);
 		sle(shell, NULL, SLE_EXIT);
 	}
 	joblst = ptr_to_job_lst(NULL, GET_ADDR);

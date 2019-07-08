@@ -23,14 +23,20 @@ void				remove_job_from_list(t_list **list, t_job *job)
 	while (job_ptr != NULL && (t_job*)job_ptr->data != job)
 		job_ptr = job_ptr->next;
 	if (job_ptr == *list)
+	{
 		*list = (job_ptr->next);
+		free(job_ptr);
+	}
 	else
 	{
 		ptr = *list;
 		while (ptr->next != NULL && ptr->next != job_ptr)
 			ptr = ptr->next;
 		if (ptr->next != NULL)
+		{
+			free(ptr->next);
 			ptr->next = ptr->next->next;
+		}
 	}
 }
 
@@ -41,13 +47,13 @@ static void			job_to_registry(t_registry *shell, t_job *job)
 	t_job		job_cpy;
 
 	avs = NULL;
-	ft_bzero(&job_cpy, sizeof(t_job));
-	job->state = STOPPED;
 	mark_job_as_stopped(job);
 	ft_memcpy(&job_cpy, job, sizeof(t_job));
+
 	get_job_av(job, &avs);
 	ft_printf("[%d]+  Stopped(%d) \t %s\n", job->id, job->signo, avs);
 	ft_strdel(&avs);
+
 	job->processes = NULL;
 	job->term_modes = NULL;
 	data = ft_lstnew(&job_cpy, sizeof(t_job));
@@ -62,6 +68,14 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 
 	if (job == NULL || job->processes == NULL)
 		return ;
+	mark_proc_status();
+	if (job_is_completed(job) == TRUE)
+	{
+		ft_printf("job is already done.\n");
+		del_job(job);
+		free(job);
+		return ;
+	}
 	status = 0;
 	job->state = RUNNING;
 	mark_job_as_running(job);
@@ -76,6 +90,8 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 	tcsetpgrp(STDIN_FILENO, job->pgid);
 	killpg(job->pgid, SIGCONT);
 	waiter(job);
+	del_job(job);
+	free(job);
 }
 
 void				job_run_background(t_registry *shell, t_job *job)

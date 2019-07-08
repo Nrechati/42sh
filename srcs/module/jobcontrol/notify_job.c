@@ -32,7 +32,7 @@ void		notify_job_info(t_list *joblst, char *info)
 	while (jobl != NULL)
 	{
 		job = jobl->data;
-		if (job_is_completed(job) == TRUE)
+		if (job != NULL && job_is_completed(job) == TRUE)
 		{
 			get_job_av(job, &command);
 			ft_printf("[%d]%c %s \t %s\n", job->id, job->current, info,
@@ -41,6 +41,8 @@ void		notify_job_info(t_list *joblst, char *info)
 			to_del = jobl;
 			jobl = jobl->next;
 			pop_job(job);
+
+			del_job(job);
 			free(to_del);
 			continue ;
 		}

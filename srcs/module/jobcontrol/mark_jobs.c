@@ -31,6 +31,7 @@ void	mark_job_as_stopped(t_job *job)
 	t_list		*proclist;
 	t_process	*process;
 
+	job->state = STOPPED;
 	proclist = job->processes;
 	while (proclist != NULL)
 	{

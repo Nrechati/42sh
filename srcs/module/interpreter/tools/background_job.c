@@ -19,18 +19,22 @@ int		setup_background_job(t_job *job)
 
 	ft_lstiter(job->processes, del_process_redirect);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
+
 	if (job->processes == NULL)
 		return (SUCCESS);
+
 	g_shell->active_jobs++;
 	job->id = g_shell->active_jobs;
-	ft_bzero(&job_cpy, sizeof(t_job));
 	ft_memcpy(&job_cpy, job, sizeof(t_job));
 	node = ft_lstnew(&job_cpy, sizeof(t_job));
 	ft_lstaddback(&g_shell->job_list, node);
+
 	push_current_job(g_shell, node);
 	ft_printf("[%d] %d\n", job->id, job->pgid);
+
 	job->processes = NULL;
 	job->term_modes = NULL;
+
 	return (SUCCESS);
 }
 

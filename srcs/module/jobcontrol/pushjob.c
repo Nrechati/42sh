@@ -40,7 +40,7 @@ void			pop_current_job(t_registry *shell, t_job *job)
 	t_list	*jobs;
 
 	jobs = NULL;
-	if (shell->current_plus == NULL)
+	if (shell->current_plus == NULL || job == NULL)
 		return ;
 	if ((t_job*)shell->current_plus->data == job)
 	{
