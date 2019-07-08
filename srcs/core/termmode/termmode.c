@@ -40,7 +40,7 @@ static int16_t			init_term_modes(void)
 
 static int16_t			set_mode(struct termios *mode)
 {
-	if (tcsetattr(STDIN_FILENO, TCSANOW, mode) != SUCCESS)
+	if (tcsetattr(STDIN_FILENO, TCSADRAIN, mode) != SUCCESS)
 		return (FAILURE | TERMMDE_FAIL);
 	return (SUCCESS);
 }
