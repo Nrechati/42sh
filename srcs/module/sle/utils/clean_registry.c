@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:14:21 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 11:58:09 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:38:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	sle_destroy(t_sle *sle)
 	vct_del(&sle->sub_line);
 	vct_del(&sle->heredocln);
 	vct_del(&sle->line_save);
+	vct_del(&sle->search_hit);
 	vct_del(&sle->clip);
 }
 

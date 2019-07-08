@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 11:57:42 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:37:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ static void				prompt_pre_process(t_sle *sle)
 
 static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 {
+	if ((sle->state == STATE_REVSEARCH || sle->state == STATE_INCSEARCH)
+			&& sle->search_hit != NULL)
+	{
+		vct_reset(sle->line);
+		vct_ncpy(sle->line, sle->search_hit, vct_len(sle->search_hit));
+		vct_del(&sle->search_hit);
+		sle->search_hit = NULL;
+	}
 	sle->state = STATE_STD;
 	autocompletion(NULL, shell, NULL, RESET_RESULT);
 	history(NULL, NULL, RESET_HEAD);

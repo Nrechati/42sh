@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:26:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 14:38:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:36:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ static void		state_search(t_sle *sle)
 
 	disp_line = NULL;
 	search_hit = NULL;
+	vct_del(&sle->search_hit);
+	sle->search_hit = NULL;
 	tputs(sle->termcaps.hidden_cursor, 1, &ft_putc);
 	search_hit = history(NULL, vct_get_string(sle->line),
 		GET_ENTRY | BY_NAME | sle->search_type);
+	sle->search_hit = vct_dups(search_hit);
 	disp_line = vct_dups(((sle->state == STATE_INCSEARCH)
 							? INC_SEARCH : REV_SEARCH));
 	vct_ncat(disp_line, sle->line, vct_len(sle->line));

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:05:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 11:43:04 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:38:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ uint64_t	init_line(t_sle *sle)
 		return (CRITICAL_ERROR | LINE_FAIL);
 	if ((sle->heredocln = vct_new(0)) == NULL)
 		return (CRITICAL_ERROR | LINE_FAIL);
+	sle->search_hit = NULL;
 	sle->line_save = NULL;
 	return (SUCCESS);
 }
