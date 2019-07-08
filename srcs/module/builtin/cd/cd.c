@@ -27,6 +27,7 @@ static char			*ft_get_curpath(t_registry *shell,
 			ft_dprintf(STDERR_FILENO, CD_ERROR_OLDPWD_NOTSET);
 		else
 			curpath = ft_strdup(curpath);
+		return (curpath);
 	}
 	else if (*path_give_by_user == '/' || *path_give_by_user == '.')
 		curpath = ft_strdup(path_give_by_user);
@@ -110,7 +111,7 @@ uint8_t				cd_blt(t_registry *shell, char **av)
 
 	av++;
 	if (((option = set_options(&av, get_option_cd)) == ERROR_OPT)
-		|| !(curpath = ft_get_curpath(shell, *av)) || !one_only_arg(av))
+		|| !one_only_arg(av) || !(curpath = ft_get_curpath(shell, *av)))
 		return (2);
 	if (is_root(curpath) == FALSE && curpath[ft_strlen(curpath) - 1] == '/')
 		curpath[ft_strlen(curpath) - 1] = '\0';
