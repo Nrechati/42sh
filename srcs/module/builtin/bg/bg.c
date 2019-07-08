@@ -20,7 +20,12 @@ static int8_t		run_current(t_registry *shell)
 		job = ((t_job*)(shell->current_plus)->data);
 	else
 	{
-		ft_printf("42sh: bg: no current job\n");
+		ft_dprintf(2, "42sh: bg: no current job\n");
+		return (FAILURE);
+	}
+	if (job->state == RUNNING)
+	{
+		ft_dprintf(2, "42sh: bg: job %d is already in background\n", job->id);
 		return (FAILURE);
 	}
 	jobctl(shell, job, JOBCTL_RUNINBG);
@@ -33,9 +38,9 @@ static	uint8_t		check_failure(t_registry *shell, char *av, int8_t result)
 			|| (result == SUCCESS && shell->current_plus == NULL))
 	{
 		if (result == BAD_PERCENTAGE)
-			ft_printf("bg: usage: bg [%%jobID]\n");
+			ft_dprintf(2, "bg: usage: bg [%%jobID]\n");
 		else
-			ft_printf("42sh: bg: %s: no such job\n", av);
+			ft_dprintf(2, "42sh: bg: %s: no such job\n", av);
 		return (TRUE);
 	}
 	return (FALSE);
