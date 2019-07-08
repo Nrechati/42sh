@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 20:39:15 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/08 11:32:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static uint8_t		check_cmd_path(char *data)
 
 	if (lstat(data, &stat))
 	{
-		ft_dprintf(2, "21sh: no such file or directory: %s\n", data);
+		ft_dprintf(2, "42sh: %s: no such file or directory\n", data);
 		return (FALSE);
 	}
 	if (stat.st_mode & S_IFDIR)
-		ft_dprintf(2, "21sh: %s: Is a directory\n", data);
+		ft_dprintf(2, "42sh: %s: Is a directory\n", data);
 	else if (access(data, X_OK))
-		ft_dprintf(2, "21sh: %s: Permission denied\n", data);
+		ft_dprintf(2, "42sh: %s: Permission denied\n", data);
 	else
 		return (TRUE);
 	return (FALSE);
@@ -47,11 +47,11 @@ static int8_t		run_child(t_process *process, char **env)
 			pathname = process->av[0];
 	}
 	else if (process->type & IS_NOTFOUND)
-		ft_dprintf(2, "21sh: %s: command not found\n", process->av[0]);
+		ft_dprintf(2, "42sh: %s: command not found\n", process->av[0]);
 	if (pathname != NULL)
 	{
 		if (execve(pathname, process->av, env) == FAILURE)
-			ft_dprintf(2, "21sh: execution error\n");
+			ft_dprintf(2, "42sh: execution error\n");
 	}
 	exit(1);
 }
@@ -90,7 +90,7 @@ int8_t				fork_process(t_process *process)
 	if ((process->pid = fork()) < 0)
 	{
 		ft_freetab(&env);
-		ft_dprintf(2, "21sh: fork error\n");
+		ft_dprintf(2, "42sh: fork error\n");
 		return (FAILURE);
 	}
 	else if (process->pid == 0)

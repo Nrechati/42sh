@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 13:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 01:14:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/08 11:31:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ static int8_t	find_bin(char *path, char *bin, char **buf)
 	return (NOT_FOUND);
 }
 
+static int8_t	check_binary(t_registry *shell)
+{
+	if (get_var(shell->intern, "PATH") == NULL)
+		return (FAILURE);
+	if (ft_strequ("", get_var(shell->intern, "PATH")))
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int8_t			find_in_path(t_registry *shell, char *bin, char **buf)
 {
 	uint32_t	i;
@@ -49,8 +58,9 @@ int8_t			find_in_path(t_registry *shell, char *bin, char **buf)
 	char		**tab;
 
 	ret = NOT_FOUND;
-	if (get_var(shell->intern, "PATH") == NULL
-			|| ft_strequ("", get_var(shell->intern, "PATH")))
+	if (is_path_to_bin(bin) == TRUE)
+		return (NOT_FOUND);
+	if (check_binary(shell) == FAILURE)
 		return (NOT_FOUND);
 	tab = ft_strsplit(get_var(shell->intern, "PATH"), ":");
 	if (tab == NULL)

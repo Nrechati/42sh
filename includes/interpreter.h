@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 18:46:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/08 11:30:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int				run_process(t_process *process, int pipe);
 uint8_t			job_is_completed(t_job *job);
 uint8_t			job_is_stopped(t_job *job);
 
+int8_t			is_path_to_bin(char *cmd);
 int8_t			get_process_type(t_registry *shell, t_process *process);
 int				is_export(void *data, void *to_find);
 int				copy_var(void *src, void *dest);
