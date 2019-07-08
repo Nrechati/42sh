@@ -64,10 +64,7 @@ static void		child_process(t_process *process, char **env, uint8_t fg)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
 	if (fg == TRUE)
-	{
-//		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-			tcsetpgrp(STDOUT_FILENO, *process->pgid);
-	}
+		tcsetpgrp(STDIN_FILENO, *process->pgid);
 	if (process->type & IS_BLT)
 	{
 		run_builtin(process, fg);
@@ -79,18 +76,12 @@ static void		child_process(t_process *process, char **env, uint8_t fg)
 
 static void		parent_process(t_process *process, char ***env, uint8_t fg)
 {
+	(void)fg;
 	if (process->type & IS_BIN)
 		ft_hmap_hits(&g_shell->hash.bin, process->av[0]);
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
-	if (fg == FALSE)
-	{
-		tcsetpgrp(STDOUT_FILENO, g_shell->pid);
-		term_mode(TERMMODE_EXEC);
-	}
-	else
-		tcsetpgrp(STDOUT_FILENO, *process->pgid);
 	ft_freetab(env);
 }
 

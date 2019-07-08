@@ -14,8 +14,11 @@
 
 static void	stopped_process(t_job *job, int status)
 {
+	int		signal;
+
+	signal = WSTOPSIG(status);
 	job->state = STOPPED;
-	job->signo = WSTOPSIG(status);
+	job->signo = signal;
 	mark_job_as_stopped(job);
 	g_shell->active_jobs++;
 	job->id = (g_shell->active_jobs);
@@ -70,5 +73,7 @@ void		set_status(t_job *job, t_process *current, int status)
 	if (WIFEXITED(status))
 		exited_process(current, status);
 	if (WIFSIGNALED(status))
+	{
 		signaled_process(job, current, status);
+	}
 }

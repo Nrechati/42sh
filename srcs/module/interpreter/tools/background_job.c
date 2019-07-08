@@ -21,7 +21,6 @@ int		setup_background_job(t_job *job)
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
 	if (job->processes == NULL)
 		return (SUCCESS);
-	killpg(job->pgid, SIGTSTP);
 	g_shell->active_jobs++;
 	job->id = g_shell->active_jobs;
 	ft_bzero(&job_cpy, sizeof(t_job));

@@ -92,12 +92,13 @@ int8_t			waiter(t_job *job)
 		if (job->state & KILLED)
 			ft_lstiter_ctx(job->processes, &job->signo, kill_process);
 		status = 0;
-		pid = waitpid(-1, &status, WUNTRACED);
+		pid = waitpid(WAIT_ANY, &status, WUNTRACED);
 		if (pid)
 			update_pid(job, pid, status);
 	}
 	update_last_bin(job->processes);
 	job->state ^= (RUNNING | ENDED);
-	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
+	tcsetpgrp(STDIN_FILENO, g_shell->pid);
+	term_mode(TERMMODE_EXEC);
 	return (SUCCESS);
 }

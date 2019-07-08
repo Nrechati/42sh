@@ -45,7 +45,7 @@ void					init_tab_signal_dflt(
 
 	ft_bzero(&sigset, sizeof(sigset_t));
 	loop_defaults(tab_signal);
-	ignore = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
+	ignore = set_sigaction_struct(SIG_IGN, 0, sigset);
 	tab_signal[SIGINT] = ignore;
 	tab_signal[SIGTERM] = ignore;
 	tab_signal[SIGQUIT] = ignore;
@@ -63,11 +63,10 @@ void					init_tab_signal_sle(
 	tab_signal[SIGQUIT] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTERM] = set_sigaction_struct(sigterm_sle, SA_RESTART,
 								sigset);
-	tab_signal[SIGCONT] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-	tab_signal[SIGTSTP] = set_sigaction_struct(sigtstp_exec, SA_RESTART,
-								sigset);
-	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
+	tab_signal[SIGCONT] = set_sigaction_struct(SIG_IGN, 0, sigset);
+	tab_signal[SIGTSTP] = set_sigaction_struct(SIG_IGN, 0, sigset);
+	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, 0, sigset);
+	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, 0, sigset);
 	tab_signal[SIGINT] = set_sigaction_struct(sigint_sle, 0, sigset);
 	tab_signal[SIGWINCH] = set_sigaction_struct(sigwinch_sle, SA_RESTART,
 								sigset);
@@ -80,16 +79,16 @@ void					init_tab_signal_exec(
 
 	ft_bzero(&sigset, sizeof(sigset_t));
 	loop_defaults(tab_signal);
-	tab_signal[SIGHUP] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
 	tab_signal[SIGINT] = set_sigaction_struct(sigstop_exec, SA_RESTART, sigset);
 	tab_signal[SIGQUIT] = set_sigaction_struct(sigstop_exec, SA_RESTART,
 								sigset);
 	tab_signal[SIGTERM] = set_sigaction_struct(sigstop_exec, SA_RESTART,
 								sigset);
-	tab_signal[SIGTSTP] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
-	tab_signal[SIGCONT] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
-	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
-	tab_signal[SIGCHLD] = set_sigaction_struct(sigchld_exec, SA_RESTART,
+	tab_signal[SIGHUP] = set_sigaction_struct(SIG_DFL, SA_RESTART, sigset);
+	tab_signal[SIGTSTP] = set_sigaction_struct(SIG_IGN, 0, sigset);
+	tab_signal[SIGCONT] = set_sigaction_struct(SIG_IGN, 0, sigset);
+	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, 0, sigset);
+	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, 0, sigset);
+	tab_signal[SIGCHLD] = set_sigaction_struct(SIG_DFL, SA_RESTART,
 								sigset);
 }

@@ -17,8 +17,8 @@ static int8_t	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 {
 	if (fg == TRUE)
 	{
-		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-			tcsetpgrp(STDOUT_FILENO, *process->pgid);
+		if (tcgetpgrp(STDIN_FILENO) != *process->pgid)
+			tcsetpgrp(STDIN_FILENO, *process->pgid);
 	}
 	if (process->type & IS_ALONE)
 		return (ft_lstiter_ctx(process->redirects, std, builtin_redirect));

@@ -54,7 +54,7 @@ static void			job_to_registry(t_registry *shell, t_job *job)
 	ft_lstaddback(&shell->job_list, data);
 	push_current_job(shell, data);
 }
-
+#include <termios.h>
 void				job_to_foreground(t_registry *shell, t_job *job)
 {
 	char	*avs;
@@ -64,8 +64,8 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 	if (job == NULL || job->processes == NULL)
 		return ;
 	status = 0;
-	pid = waitpid(job->pgid, &status, WNOHANG | WUNTRACED);
-	mark_proc(pid, status);
+	pid = waitpid(-job->pgid, &status, WNOHANG | WUNTRACED);
+	mark_proc(job->pgid, status);
 	job->state = RUNNING;
 	mark_job_as_running(job);
 	remove_job_from_list(&shell->job_list, job);
@@ -75,9 +75,12 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 	get_job_av(job, &avs);
 	ft_printf("%s\n", avs);
 	ft_strdel(&avs);
-	tcsetpgrp(STDOUT_FILENO, job->pgid);
 	killpg(job->pgid, SIGCONT);
+	tcsetpgrp(STDIN_FILENO, pid);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, job->term_modes);
 	waiter(job);
+//	tcsetpgrp(STDIN_FILENO, g_shell->pid);
+//	term_mode(TERMMODE_EXEC);
 }
 
 void				job_run_background(t_registry *shell, t_job *job)
@@ -86,7 +89,7 @@ void				job_run_background(t_registry *shell, t_job *job)
 	job->state = RUNNING;
 	job->signo = SIGCONT;
 	killpg(job->pgid, SIGCONT);
-	tcsetpgrp(STDOUT_FILENO, shell->pid);
+	tcsetpgrp(STDIN_FILENO, shell->pid);
 	term_mode(TERMMODE_EXEC);
 	//waiter(job);
 }
@@ -99,9 +102,15 @@ void				jobctl(t_registry *shell, t_job *job, uint8_t flag)
 	if (flag & JOBCTL_LIST)
 		print_jobs(shell, job, flag);
 	else if (flag & JOBCTL_PUTINBG)
+	{
+		ft_putendl("BG");
 		job_to_registry(shell, job);
+	}
 	else if (flag & JOBCTL_PUTINFG)
+	{
+		ft_putendl("FG");
 		job_to_foreground(shell, job);
+	}
 	else if (flag & JOBCTL_RUNINBG)
 		job_run_background(shell, job);
 }
