@@ -28,7 +28,7 @@ t_option		get_option_cd(char *s, t_option option)
 		{
 			ft_dprintf(STDERR_FILENO,
 					"21sh: cd: -%c: invalid option\n", *s);
-			ft_putendl_fd(CD_USAGE, STDERR_FILENO);
+			ft_dprintf(STDERR_FILENO, CD_USAGE);
 			return (ERROR_OPT);
 		}
 		s++;
