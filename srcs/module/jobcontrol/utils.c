@@ -14,8 +14,7 @@
 
 uint8_t			jobctl_is_active(t_registry *shell)
 {
-	if (isatty(STDIN_FILENO) != 0
-					|| ((shell->option.option & INTERACTIVE_OPT) == FALSE))
+	if ((shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
 		ft_printf("42sh: No job control.\n");
 		return (FALSE);

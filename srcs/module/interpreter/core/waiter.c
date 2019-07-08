@@ -92,7 +92,7 @@ int8_t			waiter(t_job *job)
 		if (job->state & KILLED)
 			ft_lstiter_ctx(job->processes, &job->signo, kill_process);
 		status = 0;
-		pid = waitpid(-1, &status, WUNTRACED);
+		pid = waitpid(-job->pgid, &status, WUNTRACED);
 		if (pid)
 			update_pid(job, pid, status);
 	}

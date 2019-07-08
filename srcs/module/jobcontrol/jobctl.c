@@ -91,8 +91,7 @@ void				job_run_background(t_registry *shell, t_job *job)
 
 void				jobctl(t_registry *shell, t_job *job, uint8_t flag)
 {
-	if (((shell->option.option & COMMAND_OPT)) == TRUE
-			&& isatty(STDIN_FILENO) == FALSE)
+	if (jobctl_is_active(shell) == FALSE)
 		return ;
 	if (flag & JOBCTL_LIST)
 		print_jobs(shell, job, flag);
