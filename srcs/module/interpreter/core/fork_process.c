@@ -65,8 +65,8 @@ static void		child_process(t_process *process, char **env, uint8_t fg)
 	setpgid(process->pid, *process->pgid);
 	if (fg == TRUE)
 	{
-//		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-			tcsetpgrp(STDOUT_FILENO, *process->pgid);
+//		if (tcgetpgrp(STDIN_FILENO) != *process->pgid)
+			tcsetpgrp(STDIN_FILENO, *process->pgid);
 	}
 	if (process->type & IS_BLT)
 	{
@@ -86,11 +86,11 @@ static void		parent_process(t_process *process, char ***env, uint8_t fg)
 	setpgid(process->pid, *process->pgid);
 	if (fg == FALSE)
 	{
-		tcsetpgrp(STDOUT_FILENO, g_shell->pid);
+		tcsetpgrp(STDIN_FILENO, g_shell->pid);
 		term_mode(TERMMODE_EXEC);
 	}
 	else
-		tcsetpgrp(STDOUT_FILENO, *process->pgid);
+		tcsetpgrp(STDIN_FILENO, *process->pgid);
 	ft_freetab(env);
 }
 

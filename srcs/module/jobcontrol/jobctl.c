@@ -73,7 +73,7 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 	ft_printf("%s\n", avs);
 	ft_strdel(&avs);
 
-	tcsetpgrp(STDOUT_FILENO, job->pgid);
+	tcsetpgrp(STDIN_FILENO, job->pgid);
 	killpg(job->pgid, SIGCONT);
 	waiter(job);
 }
@@ -84,7 +84,7 @@ void				job_run_background(t_registry *shell, t_job *job)
 	job->state = RUNNING;
 	job->signo = SIGCONT;
 	killpg(job->pgid, SIGCONT);
-	tcsetpgrp(STDOUT_FILENO, shell->pid);
+	tcsetpgrp(STDIN_FILENO, shell->pid);
 	term_mode(TERMMODE_EXEC);
 	//waiter(job);
 }

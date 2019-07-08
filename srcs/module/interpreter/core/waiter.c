@@ -98,6 +98,6 @@ int8_t			waiter(t_job *job)
 	}
 	update_last_bin(job->processes);
 	job->state ^= (RUNNING | ENDED);
-	tcsetpgrp(STDOUT_FILENO, g_shell->pid);
+	tcsetpgrp(STDIN_FILENO, g_shell->pid);
 	return (SUCCESS);
 }
