@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:22:59 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 13:02:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:05:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int8_t	ak_copy_selection(t_registry *shell, t_sle *sle)
 			? (sle->vis_start - sle->vis_stop)
 			: (sle->vis_stop - sle->vis_start);
 	vct_reset(sle->clip);
-	tmp = vct_sub(sle->line, start, length + 1);
+	tmp = vct_sub(sle->line, start, length);
 	vct_scpy(sle->clip, tmp, ft_strlen(tmp));
 	ft_strdel(&tmp);
 	ak_exit_modes(shell, sle);
