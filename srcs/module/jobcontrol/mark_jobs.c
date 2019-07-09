@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:00:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 09:34:38 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 09:45:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,11 @@ uint8_t	mark_proc_status(void)
 	while (joblst != NULL)
 	{
 		job = joblst->data;
-		pid = waitpid(job->pgid, &status, WNOHANG | WUNTRACED);
-		mark_proc(pid, status);
+		if (job != NULL)
+		{
+			pid = waitpid(job->pgid, &status, WNOHANG | WUNTRACED);
+			mark_proc(pid, status);
+		}
 		joblst = joblst->next;
 	}
 	return (42);

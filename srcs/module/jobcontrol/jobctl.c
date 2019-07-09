@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 09:39:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 09:50:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,29 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 	if (job_is_completed(job) == TRUE)
 	{
 		ft_dprintf(2, "Job is already done.");
+		remove_job_from_list(&shell->job_list, job);
+		shell->active_jobs--;
 		del_job(job);
 		free(job);
+		return ;
 	}
 	job->state = RUNNING;
 	mark_job_as_running(job);
+
 	remove_job_from_list(&shell->job_list, job);
 	shell->active_jobs--;
+
 	update_jobinfos(shell);
 	pop_current_job(shell, job);
+
 	get_job_av(job, &avs);
 	ft_printf("%s\n", avs);
 	ft_strdel(&avs);
+
 	tcsetpgrp(STDIN_FILENO, job->pgid);
 	killpg(job->pgid, SIGCONT);
 	waiter(job);
+
 	del_job(job);
 	free(job);
 }

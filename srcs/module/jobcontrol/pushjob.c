@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:59:23 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 09:37:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 09:53:40 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void			pop_current_job(t_registry *shell, t_job *job)
 	t_list	*jobs;
 
 	jobs = NULL;
-	if (shell->current_plus == NULL)
+	if (job == NULL || shell->current_plus == NULL
+		|| shell->current_minus == NULL)
 		return ;
 	if (((t_job*)shell->current_plus->data) == job)
 	{
@@ -53,6 +54,6 @@ void			pop_current_job(t_registry *shell, t_job *job)
 			jobs = jobs->next;
 		}
 	}
-	else if ((t_job*)shell->current_minus->data == job)
+	else if (((t_job*)shell->current_minus->data) == job)
 		set_minus(shell, jobs);
 }

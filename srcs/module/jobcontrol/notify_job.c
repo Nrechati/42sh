@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:01:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 09:34:43 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 09:51:34 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		notify_job_info(t_list *joblst, char *info)
 	while (jobl != NULL)
 	{
 		job = jobl->data;
-		if (job_is_completed(job) == TRUE)
+		if (job != NULL && job_is_completed(job) == TRUE)
 		{
 			get_job_av(job, &command);
 			ft_printf("[%d]%c %s \t %s\n", job->id, job->current, info,
