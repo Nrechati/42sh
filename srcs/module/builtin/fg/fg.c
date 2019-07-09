@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:37:48 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 12:06:18 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:09:49 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ t_job	*get_current(void)
 	return (NULL);
 }
 
-int8_t	fg_blt(t_registry *shell, char **av)
+int8_t	fg_blt(t_list *intern, char **av)
 {
 	t_job	*job;
 	int8_t	result;
 	uint8_t	ret;
 
-	if (jobctl_is_active(shell) == FALSE
-			|| am_i_forked(shell, "fg") == TRUE)
+	(void)intern;
+	if (!jobctl_is_active(g_shell) || am_i_forked(g_shell, "fg") == TRUE)
 		return (FAILURE);
 	++av;
 	job = NULL;
@@ -36,15 +36,15 @@ int8_t	fg_blt(t_registry *shell, char **av)
 	if (av != NULL)
 		result = parse_jobid(&job, *av);
 	if (result == BAD_PERCENTAGE || result == FAILURE
-				|| (result == SUCCESS && shell->current_plus == NULL))
+				|| (result == SUCCESS && g_shell->current_plus == NULL))
 	{
 		if (result == BAD_PERCENTAGE)
 			ft_dprintf(2, "fg: usage: fg [%%jobID]\n");
 		ft_dprintf(2, "42sh: fg: no current job\n");
 		ret = 1;
 	}
-	else if (job == NULL && shell->current_plus != NULL)
+	else if (job == NULL && g_shell->current_plus != NULL)
 		job = get_current();
-	jobctl(shell, job, JOBCTL_PUTINFG);
+	jobctl(g_shell, job, JOBCTL_PUTINFG);
 	return (ret);
 }

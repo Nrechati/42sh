@@ -6,16 +6,17 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 14:42:17 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:44:03 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-uint8_t				unset_blt(t_registry *shell, char **av)
+uint8_t				unset_blt(t_list *intern, char **av)
 {
 	uint8_t ret;
 
+	(void)intern;
 	++av;
 	ret = SUCCESS;
 	while (*av != NULL)
@@ -26,10 +27,10 @@ uint8_t				unset_blt(t_registry *shell, char **av)
 					"42sh: unset: `%s': not a valid identifier\n", *av);
 			ret = 2;
 		}
-		else if (shell->intern != NULL)
-			free_var(&shell->intern, *av);
+		else if (g_shell->intern != NULL)
+			free_var(&g_shell->intern, *av);
 		if (ft_strequ(*av, "PATH") == TRUE)
-			ft_hmap_free_content(&(shell->hash.bin), free);
+			ft_hmap_free_content(&(g_shell->hash.bin), free);
 		av++;
 	}
 	return (ret);

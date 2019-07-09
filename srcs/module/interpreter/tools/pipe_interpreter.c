@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 12:20:16 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:33:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_list	*create_pipe_in(int from)
 	return (node);
 }
 
-t_list	*create_pipe_out(int to, __unused int from)
+t_list	*create_pipe_out(int to)
 {
 	t_action	action;
 	t_list		*node;
@@ -63,7 +63,7 @@ int		setup_pipe(t_process *current, t_process *next, int pipe_fd[2])
 	t_token		token;
 	t_list		*node;
 
-	if ((pipe_node = create_pipe_out(pipe_fd[1], pipe_fd[0])) == NULL)
+	if ((pipe_node = create_pipe_out(pipe_fd[1])) == NULL)
 		return (FAILURE);
 	ft_bzero(&action, sizeof(t_action));
 	action.type = A_CLOSE;

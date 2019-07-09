@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 10:37:59 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:18:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,28 @@ void			hash_builtin(t_registry *shell)
 	ft_hmap_insert(&(shell->hash.blt), "test", test_blt);
 }
 
-int8_t			hash_one(t_registry *shell, char *key, char *path)
+int8_t			hash_one(char *key, char *path)
 {
 	int		ret;
 
-	if ((ret = ft_hmap_insert(&(shell->hash.bin), key, path)) == FALSE)
+	if ((ret = ft_hmap_insert(&(g_shell->hash.bin), key, path)) == FALSE)
 		return (ERROR);
 	if (ret == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-int8_t			hash_args(t_registry *shell, char *key)
+int8_t			hash_args(t_list *intern, char *key)
 {
 	int8_t	ret;
 	char	*pathname;
 
 	pathname = NULL;
-	if (ft_hmap_getdata(&shell->hash.blt, key) != NULL)
+	if (ft_hmap_getdata(&g_shell->hash.blt, key) != NULL)
 		return (0);
-	if ((ret = find_in_path(shell->intern, key, &pathname)) == SUCCESS)
+	if ((ret = find_in_path(intern, key, &pathname)) == SUCCESS)
 	{
-		ret = hash_one(shell, key, pathname);
+		ret = hash_one(key, pathname);
 		if (ret == FAILURE || ret == ERROR)
 			ft_strdel(&pathname);
 	}

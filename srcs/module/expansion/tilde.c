@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 12:57:21 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 16:00:46 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:45:20 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*tilde_expansion(t_list *intern_var, const char *str)
 	if (ft_strequ(str, "~") == TRUE || ft_strequ(str, "~/"))
 		expanded = get_home();
 	else if (ft_strequ(str, "~+") == TRUE)
-		expanded = get_pwd(g_shell, NO_OPT);
+		expanded = get_pwd(g_shell->intern, NO_OPT);
 	else if (ft_strequ(str, "~-") == TRUE)
 	{
 		if ((expanded = get_var(intern_var, "OLDPWD")) != NULL)

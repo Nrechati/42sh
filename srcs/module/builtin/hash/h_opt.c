@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:29 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 16:02:25 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:57:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static void		hash_dir(t_registry *shell, const char *dir)
+static void		hash_dir(const char *dir)
 {
 	char			*asp;
 	DIR				*dip;
@@ -29,7 +29,7 @@ static void		hash_dir(t_registry *shell, const char *dir)
 			{
 				if (dit->d_name[0] != '.')
 				{
-					if (ft_hmap_insert(&(shell->hash.bin)
+					if (ft_hmap_insert(&(g_shell->hash.bin)
 							, dit->d_name, asp) == FALSE)
 						free(asp);
 				}
@@ -42,22 +42,22 @@ static void		hash_dir(t_registry *shell, const char *dir)
 	}
 }
 
-int8_t			hash_all_path(t_registry *shell)
+int8_t			hash_all_path(t_list *intern)
 {
 	uint32_t	i;
 	char		**tabs;
 
-	if (shell->hash.bin.used > 0)
-		ft_hmap_free_content(&(shell->hash.bin), free);
-	if (get_var(shell->intern, "PATH") != NULL
-		&& !ft_strequ("", get_var(shell->intern, "PATH")))
+	if (g_shell->hash.bin.used > 0)
+		ft_hmap_free_content(&(g_shell->hash.bin), free);
+	if (get_var(intern, "PATH") != NULL
+		&& !ft_strequ("", get_var(intern, "PATH")))
 	{
-		tabs = ft_strsplit(get_var(shell->intern, "PATH"), ":");
+		tabs = ft_strsplit(get_var(intern, "PATH"), ":");
 		if (tabs == NULL)
 			return (FAILURE);
 		i = 0;
 		while (tabs[i] != NULL)
-			hash_dir(shell, tabs[i++]);
+			hash_dir(tabs[i++]);
 		ft_freetab(&tabs);
 	}
 	return (SUCCESS);

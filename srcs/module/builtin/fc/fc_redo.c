@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:29:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:30:32 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:10:30 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void			free_tools(char **target, char **result, char **param)
 	ft_strdel(param);
 }
 
-static int8_t		get_cmd(t_registry *shell, char **av, char **cmd)
+static int8_t		get_cmd(char **av, char **cmd)
 {
 	char	*target;
 	char	*result;
@@ -79,21 +79,22 @@ static int8_t		get_cmd(t_registry *shell, char **av, char **cmd)
 		}
 		param = ft_strdup(*av);
 	}
-	*cmd = ft_strdup(history(shell, param, GET_ENTRY | (param ? BY_ID : PREV)));
+	*cmd = ft_strdup(history(g_shell, param,
+				GET_ENTRY | (param ? BY_ID : PREV)));
 	while (replace_cmd(cmd, target, result) == SUCCESS)
 		;
 	free_tools(&target, &result, &param);
 	return (SUCCESS);
 }
 
-uint8_t				fc_redo(t_registry *shell, char **av)
+uint8_t				fc_redo(char **av)
 {
 	char		*cmd;
 	t_vector	*vct_cmd;
 
 	cmd = NULL;
-	history(shell, NULL, POP_ENTRY);
-	if (get_cmd(shell, av, &cmd) == FAILURE)
+	history(g_shell, NULL, POP_ENTRY);
+	if (get_cmd(av, &cmd) == FAILURE)
 		return (1);
 	if (cmd == NULL)
 		return (1);
@@ -106,7 +107,7 @@ uint8_t				fc_redo(t_registry *shell, char **av)
 	ft_putendl(cmd);
 	vct_cmd = vct_dups(cmd);
 	if (verif_line(vct_cmd) == TRUE)
-		execution_pipeline(shell, &vct_cmd);
+		execution_pipeline(g_shell, &vct_cmd);
 	vct_del(&vct_cmd);
 	ft_strdel(&cmd);
 	return (SUCCESS);
