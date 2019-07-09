@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 11:11:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:15:21 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
 {
 	char		*pwd;
 
+	(void)shell;
 	if (option & P_OPT)
 	{
 		pwd = NULL;
