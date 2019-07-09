@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 10:24:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:37:19 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ void		p_insert_username(t_sle *sle, t_vector *text, uint64_t index);
 void		p_insert_cwd(t_sle *sle, t_vector *text, uint64_t index);
 void		p_insert_host(t_vector *text, uint64_t index);
 void		p_insert_missing(t_sle *sle, t_vector *text, uint64_t index);
-void		p_insert_success(t_vector *test, uint64_t index);
-void		p_insert_job(t_vector *test, uint64_t index);
 
 /*
 *****************************************************

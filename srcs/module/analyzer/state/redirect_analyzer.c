@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/03 20:54:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:24:14 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			flush_redirect(t_analyze *analyze)
 	action.type = define_redirect(node->data);
 	type = ((t_token *)node->data)->type;
 	ft_lstdelone(&node, NULL);
-	if (type == E_ANDGREAT || type == E_ANDDGREAT || type == E_GREATAND)
+	if (type == E_ANDGREAT || type == E_ANDDGREAT)
 		dup_stderr(analyze);
 	ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 }

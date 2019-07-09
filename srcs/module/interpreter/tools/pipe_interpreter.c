@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 13:12:07 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:33:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_list	*create_pipe_in(int from)
 	return (node);
 }
 
-t_list	*create_pipe_out(int to, int from)
+t_list	*create_pipe_out(int to)
 {
 	t_action	action;
 	t_list		*node;
@@ -53,37 +53,26 @@ t_list	*create_pipe_out(int to, int from)
 	ft_lstadd(&action.data, node);
 	node = ft_lstnew(&action, sizeof(t_action));
 	ft_lstadd(&pipe_out, node);
-	ft_bzero(&action, sizeof(t_action));
-	action.type = A_CLOSE;
-	token.type = E_STRING;
-	token.data = ft_itoa(from);
-	node = ft_lstnew(&token, sizeof(t_token));
-	ft_lstadd(&action.data, node);
-	node = ft_lstnew(&action, sizeof(t_action));
-	ft_lstadd(&pipe_out, node);
 	return (pipe_out);
-}
-
-void	close_pipe(void *data)
-{
-	t_redirect	*redirect;
-
-	redirect = data;
-	if (redirect->type & FD_PIPE_IN)
-	{
-		if (redirect->to >= 3)
-			close(redirect->to);
-		if (redirect->from >= 3)
-			close(redirect->from);
-	}
 }
 
 int		setup_pipe(t_process *current, t_process *next, int pipe_fd[2])
 {
 	t_list		*pipe_node;
+	t_action	action;
+	t_token		token;
+	t_list		*node;
 
-	if ((pipe_node = create_pipe_out(pipe_fd[1], pipe_fd[0])) == NULL)
+	if ((pipe_node = create_pipe_out(pipe_fd[1])) == NULL)
 		return (FAILURE);
+	ft_bzero(&action, sizeof(t_action));
+	action.type = A_CLOSE;
+	token.type = E_STRING;
+	token.data = ft_itoa(pipe_fd[0]);
+	node = ft_lstnew(&token, sizeof(t_token));
+	ft_lstadd(&action.data, node);
+	node = ft_lstnew(&action, sizeof(t_action));
+	ft_lstadd(&pipe_node, node);
 	current->redirects = ft_lstmerge(&current->redirects, pipe_node);
 	if ((pipe_node = create_pipe_in(pipe_fd[0])) == NULL)
 		return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 06:13:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:59:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void	del_process_redirect(void *data)
 	t_process	*process;
 
 	process = data;
-	ft_lstiter(process->redirects, close_redirect);
+	ft_lstiter(process->redirects, del_action);
 }
