@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 11:41:11 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:37:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,7 @@ typedef struct					s_sle
 	t_vector					*line;
 	t_vector					*sub_line;
 	t_vector					*heredocln;
+	t_vector					*search_hit;
 	t_vector					*line_save;
 	t_vector					*clip;
 }								t_sle;

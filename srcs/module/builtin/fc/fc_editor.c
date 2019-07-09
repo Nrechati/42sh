@@ -44,9 +44,7 @@ static int8_t	launch_edition(t_registry *shell, char *editor)
 	out = ft_strjoin(out, FC_FILE_TMP);
 	ft_strdel(&tmp);
 	cmd = vct_dups(out);
-	shell->option.option &= ~(INTERACTIVE_OPT);
 	execution_pipeline(shell, &cmd);
-	shell->option.option |= INTERACTIVE_OPT;
 	ft_strdel(&out);
 	vct_del(&cmd);
 	history(NULL, NULL, POP_ENTRY);

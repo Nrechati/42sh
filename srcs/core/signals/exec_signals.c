@@ -30,7 +30,7 @@ void	init_exec_signals(void)
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGCONT, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTTOU, SIG_IGN);
+	signal(SIGTTOU, SIG_DFL);
 }
 
 void	sigchld_exec(int signo)

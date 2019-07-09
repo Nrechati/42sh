@@ -56,9 +56,9 @@ static uint8_t		get_jobname(t_registry *shell, char **av, t_option option)
 		if (result == FAILURE || result == BAD_PERCENTAGE)
 		{
 			if (result == FAILURE)
-				ft_printf("jobs: %s: no such job.\n", *av);
+				ft_dprintf(2, "jobs: %s: no such job.\n", *av);
 			else
-				ft_printf("jobs: usage: jobs [-l|-p] [%%jobID]\n");
+				ft_dprintf(2, "jobs: usage: jobs [-l|-p] [%%jobID]\n");
 			ret = 1;
 			++av;
 			continue ;

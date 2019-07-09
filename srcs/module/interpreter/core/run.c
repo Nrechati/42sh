@@ -15,11 +15,12 @@
 
 static int8_t	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 {
-	if (fg == TRUE)
-	{
-		if (tcgetpgrp(STDOUT_FILENO) != *process->pgid)
-			tcsetpgrp(STDOUT_FILENO, *process->pgid);
-	}
+	(void)fg;
+//	if (fg == TRUE)
+//	{
+/////		if (tcgetpgrp(STDIN_FILENO) != *process->pgid)
+	//			tcsetpgrp(STDIN_FILENO, *process->pgid);
+//	}
 	if (process->type & IS_ALONE)
 		return (ft_lstiter_ctx(process->redirects, std, builtin_redirect));
 	else
@@ -31,16 +32,19 @@ int8_t			run_builtin(t_process *process, uint8_t foreground)
 	char			*tty_name;
 	uint8_t			std;
 	t_builtin		builtin;
-	int				fd;
-	int				status;
+//	int				fd;
 
 	std = 0;
 	tty_name = ttyname(STDIN_FILENO);
 	if (setup_builtin(process, foreground, &std) == FAILURE)
-		return (TRUE);
-	close(STDIN_FILENO);
-	if (ft_strequ(process->av[0], "fc") && (fd = open(tty_name, O_RDWR)))
-		close(fd);
+		return;
+//	if (ft_strequ(process->av[0], "fc"))
+//	{
+//		close(STDIN_FILENO);
+//		fd = open(tty_name, O_RDWR);
+//		if (fd != 0)
+//			close(fd);
+//	}
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
 	status = builtin(g_shell, process->av);
 	if (process->type & IS_ALONE)

@@ -31,8 +31,8 @@ int8_t	fg_blt(t_registry *shell, char **av)
 				|| (result == SUCCESS && shell->current_plus == NULL))
 	{
 		if (result == BAD_PERCENTAGE)
-			ft_printf("fg: usage: fg [%%jobID]\n");
-		ft_printf("42sh: fg: no current job\n");
+			ft_dprintf(2, "fg: usage: fg [%%jobID]\n");
+		ft_dprintf(2, "42sh: fg: no current job\n");
 		ret = 1;
 	}
 	else if (job == NULL && shell->current_plus != NULL)

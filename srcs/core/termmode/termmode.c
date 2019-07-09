@@ -27,7 +27,7 @@ static int16_t			init_term_modes(void)
 	if (tcgetattr(STDIN_FILENO, &term) != SUCCESS)
 		return (CRITICAL_ERROR | TERMMDE_FAIL);
 	ft_memcpy(g_shell->orig_ios, &term, sizeof(struct termios));
-	term.c_lflag &= ~(TOSTOP);
+	term.c_lflag &= ~TOSTOP;
 	ft_memcpy(g_shell->exe_ios, &term, sizeof(struct termios));
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
@@ -40,7 +40,7 @@ static int16_t			init_term_modes(void)
 
 static int16_t			set_mode(struct termios *mode)
 {
-	if (tcsetattr(STDIN_FILENO, TCSANOW, mode) != SUCCESS)
+	if (tcsetattr(STDIN_FILENO, TCSADRAIN, mode) != SUCCESS)
 		return (FAILURE | TERMMDE_FAIL);
 	return (SUCCESS);
 }

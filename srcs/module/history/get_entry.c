@@ -18,7 +18,7 @@ static char	*get_entry_by_id(t_history *history, int id, const uint64_t option)
 	int			real_id;
 
 	if (id == -1)
-		id = history->nb_of_entries - 1;
+		id = history->nb_of_entries;
 	real_id = option & REL ? id - 1 : history->nb_of_entries - id;
 	entry = history->entry;
 	while (entry != NULL)

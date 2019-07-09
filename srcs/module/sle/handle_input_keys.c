@@ -6,56 +6,69 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 12:06:49 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:00:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static void			insert_zero(t_sle *sle, char c)
+static void			insert_zero(t_sle *sle, char c[READ_SIZE])
 {
-	vct_add(sle->line, c);
+	uint8_t		idx;
+
+	idx = 0;
+	while (idx < READ_SIZE)
+	{
+		if (ft_isprint(c[idx]))
+			vct_add(sle->line, c[idx]);
+		else
+			break ;
+		idx++;
+	}
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 }
 
-static void			handle_insertion(t_sle *sle, char c)
+static void			handle_insertion(t_sle *sle, char c[READ_SIZE])
 {
 	t_cursor	*cursor;
 	t_vector	*line;
+	uint8_t		buff_len;
 
 	line = sle->line;
 	cursor = &sle->cursor;
-	vct_insert_char(line, c, cursor->index);
+	buff_len = ft_strlen(c);
+	vct_insert_string(line, c, cursor->index);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);
-	set_redraw_bounds(sle, cursor->index,
-					vct_len(sle->line) + 1);
-	set_cursor_pos(sle, cursor->index + 1);
+	set_cursor_pos(sle, cursor->index + buff_len);
 	find_multiline_coord(sle, 1);
 }
 
-static void			handle_printable_char(t_sle *sle, const char c)
+static void			handle_printable_char(t_sle *sle, char c[READ_SIZE])
 {
-	t_vector *line;
-	t_cursor *cursor;
+	uint8_t		buff_len;
+	t_vector	*line;
+	t_cursor	*cursor;
 
 	if (sle->state != STATE_STD && sle->state != STATE_INCSEARCH
 			&& sle->state != STATE_REVSEARCH)
 		return ;
 	cursor = &sle->cursor;
 	line = sle->line;
+	buff_len = ft_strlen(c);
 	if (sle->state == STATE_INCSEARCH || sle->state == STATE_REVSEARCH)
 		insert_zero(sle, c);
 	else if (cursor->index == 0)
 	{
-		vct_push(line, c);
+		vct_insert_string(line, c, 0);
 		set_redraw_flags(sle, RD_LINE | RD_CMOVE);
-		set_cursor_pos(sle, 1);
-		find_multiline_coord(sle, 1);
+		set_cursor_pos(sle, buff_len);
+		find_multiline_coord(sle, buff_len);
 	}
 	else if (cursor->index == vct_len(line))
 	{
-		vct_add(line, c);
+		vct_insert_string(line, c, cursor->index);
 		set_redraw_flags(sle, RD_LINE | RD_CEND);
+		set_cursor_pos(sle, vct_len(line));
 		find_multiline_coord(sle, 1);
 	}
 	else
@@ -83,7 +96,7 @@ void				handle_input_key(t_registry *shell,
 {
 	if (is_printable(c) == TRUE)
 	{
-		handle_printable_char(sle, c[0]);
+		handle_printable_char(sle, c);
 		history(NULL, NULL, RESET_HEAD);
 		vct_del(&sle->line_save);
 	}

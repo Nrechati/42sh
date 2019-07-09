@@ -15,7 +15,7 @@
 t_option		get_option_fc(char *s, t_option option)
 {
 	if (ft_isnumeric(s) == TRUE)
-		return (option & STOP_OPT);
+		return (option | STOP_OPT);
 	while (*s)
 	{
 		if (*s == 'n')
@@ -25,7 +25,9 @@ t_option		get_option_fc(char *s, t_option option)
 		else if (*s == 'r')
 			option |= R_OPT;
 		else if (*s == 's')
+		{
 			option |= S_OPT;
+		}
 		else if (*s == 'e' && (option == NO_OPT))
 			return (option | E_OPT | STOP_OPT);
 		else
@@ -84,6 +86,7 @@ uint8_t			fc_blt(t_registry *shell, char **av)
 
 	++av;
 	option = 0;
+	ret = 0;
 	if ((shell->option.option & RECORD_HISTORY_OPT) == FALSE)
 		return (SUCCESS);
 	editor = get_fc_options(&av, &option);
