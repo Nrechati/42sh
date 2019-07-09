@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 13:33:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:54:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int		setup_pipe(t_process *current, t_process *next, int pipe_fd[2])
 	ft_lstadd(&action.data, node);
 	node = ft_lstnew(&action, sizeof(t_action));
 	ft_lstadd(&pipe_node, node);
-	current->redirects = ft_lstmerge(&current->redirects, pipe_node);
+	current->redirects = ft_lstmerge(&pipe_node, current->redirects);
 	if ((pipe_node = create_pipe_in(pipe_fd[0])) == NULL)
 		return (FAILURE);
-	next->redirects = ft_lstmerge(&next->redirects, pipe_node);
+	next->redirects = ft_lstmerge(&pipe_node, next->redirects);
 	return (SUCCESS);
 }
 
