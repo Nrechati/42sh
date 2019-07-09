@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/08 11:37:12 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 09:25:26 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int8_t	parent_process(t_process *process, char ***env, uint8_t fg)
 	if (fg == TRUE)
 		tcsetpgrp(STDIN_FILENO, *process->pgid);
 	ft_freetab(env);
-	return (TRUE);
+	return (SUCCESS);
 }
 
 int8_t			fork_process(t_process *process, uint8_t foreground)

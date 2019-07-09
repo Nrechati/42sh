@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/08 00:19:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 09:23:02 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 static int8_t	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 {
 	(void)fg;
-//	if (fg == TRUE)
-//	{
-/////		if (tcgetpgrp(STDIN_FILENO) != *process->pgid)
-	//			tcsetpgrp(STDIN_FILENO, *process->pgid);
-//	}
 	if (process->type & IS_ALONE)
 		return (ft_lstiter_ctx(process->redirects, std, builtin_redirect));
 	else
@@ -32,19 +27,12 @@ int8_t			run_builtin(t_process *process, uint8_t foreground)
 	char			*tty_name;
 	uint8_t			std;
 	t_builtin		builtin;
-//	int				fd;
+	int				status;
 
 	std = 0;
 	tty_name = ttyname(STDIN_FILENO);
 	if (setup_builtin(process, foreground, &std) == FAILURE)
-		return;
-//	if (ft_strequ(process->av[0], "fc"))
-//	{
-//		close(STDIN_FILENO);
-//		fd = open(tty_name, O_RDWR);
-//		if (fd != 0)
-//			close(fd);
-//	}
+		return (TRUE);
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
 	status = builtin(g_shell, process->av);
 	if (process->type & IS_ALONE)
