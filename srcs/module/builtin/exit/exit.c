@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:59:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 12:30:28 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:56:39 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ uint8_t			exit_blt(t_list *intern, char **av)
 	(void)intern;
 	if (job_notified() == FALSE)
 		return (1);
-	ret = ft_atoi(get_var(g_shell->intern, "?"));
+	ret = g_shell == NULL ? SUCCESS : ft_atoi(get_var(g_shell->intern, "?"));
 	if (av == NULL)
 		shell_exit_routine(g_shell, SUCCESS);
 	++av;
@@ -72,8 +72,6 @@ uint8_t			exit_blt(t_list *intern, char **av)
 		}
 		ret = verif_arg(*av);
 	}
-	else
-		ret = SUCCESS;
 	shell_exit_routine(g_shell, ret);
 	return (SUCCESS);
 }
