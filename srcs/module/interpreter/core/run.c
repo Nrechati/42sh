@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 12:02:57 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:25:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,18 @@ int8_t			run_builtin(t_process *process, uint8_t foreground)
 		process->type |= IS_EXP_ERROR;
 		return (FAILURE);
 	}
-
 	tty_name = ttyname(STDIN_FILENO);
 	if (setup_builtin(process, foreground, &std) == FAILURE)
 		return (TRUE);
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
-	status = builtin(l_env, process->av);
+	if (ft_strequ(process->av[0], "exit") == TRUE)
+	{
+		ft_lstdel(&l_env, free_node);
+		status = builtin(NULL, process->av);
+	}
+	else
+		status = builtin(l_env, process->av);
+	ft_lstdel(&l_env, free_node);
 	if (process->type & IS_ALONE)
 	{
 		process->status = status;
