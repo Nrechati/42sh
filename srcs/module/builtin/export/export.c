@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 14:40:54 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:43:41 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@ t_option			get_option_export(char *s, t_option option)
 	return (option);
 }
 
-static void			export_var(t_registry *shell, t_variable *variable)
+static void			export_var(t_list *intern, t_variable *variable)
 {
 	if (variable->data)
 	{
-		add_var(&shell->intern, variable->name, variable->data,
+		add_var(&g_shell->intern, variable->name, variable->data,
 				EXPORT_VAR | SET_VAR);
 		if (ft_strequ(variable->name, "PATH") == TRUE)
-			ft_hmap_free_content(&(shell->hash.bin), free);
+			ft_hmap_free_content(&(g_shell->hash.bin), free);
 	}
 	else
 	{
-		if ((variable->data = get_var(shell->intern, variable->name)) == NULL)
-			add_var(&shell->intern, variable->name, "", EXPORT_VAR);
+		if ((variable->data = get_var(intern, variable->name)) == NULL)
+			add_var(&g_shell->intern, variable->name, "", EXPORT_VAR);
 		else
 		{
 			variable->data = ft_strdup(variable->data);
-			add_var(&shell->intern, variable->name, variable->data,
+			add_var(&g_shell->intern, variable->name, variable->data,
 					SET_VAR | EXPORT_VAR);
 		}
 	}
@@ -66,7 +66,7 @@ static void			get_name_and_data(t_variable *variable, char *arg)
 	}
 }
 
-static uint8_t		export_process(t_registry *shell, char **av)
+static uint8_t		export_process(t_list *intern, char **av)
 {
 	t_variable	*variable;
 	uint8_t		ret;
@@ -86,7 +86,7 @@ static uint8_t		export_process(t_registry *shell, char **av)
 			ret = 2;
 		}
 		else
-			export_var(shell, variable);
+			export_var(intern, variable);
 		free_node((void *)variable);
 		free(variable);
 		av++;
@@ -94,7 +94,7 @@ static uint8_t		export_process(t_registry *shell, char **av)
 	return (ret);
 }
 
-uint8_t				export_blt(t_registry *shell, char **av)
+uint8_t				export_blt(t_list *intern, char **av)
 {
 	t_option	option;
 
@@ -109,8 +109,8 @@ uint8_t				export_blt(t_registry *shell, char **av)
 			ft_putendl_fd("42sh: export: write error: Bad file descriptor", 2);
 			return (1);
 		}
-		print_lst(shell->intern, STDOUT_FILENO,
+		print_lst(intern, STDOUT_FILENO,
 					(option & P_OPT) ? "export " : "", EXPORT_VAR);
 	}
-	return (export_process(shell, av));
+	return (export_process(intern, av));
 }

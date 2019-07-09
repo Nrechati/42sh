@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:16:26 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 21:25:37 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:38:21 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void				interactive_mode(t_registry *shell)
 	}
 	vct_del(&input);
 	term_mode(TERMMODE_DFLT);
-	if (exit_blt(shell, NULL) == 1)
+	if (exit_blt(shell->intern, NULL) == 1)
 		interactive_mode(shell);
 	shell_exit_routine(shell, SUCCESS);
 }

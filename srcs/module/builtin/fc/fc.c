@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:28:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/05 16:39:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:44:52 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ static char		*get_fc_options(char ***av, t_option *option)
 	return (editor);
 }
 
-static char		*get_default_editor(t_registry *shell)
+static char		*get_default_editor(t_list *intern)
 {
 	char	*editor;
 
-	editor = get_var(shell->intern, "FCEDIT");
+	editor = get_var(intern, "FCEDIT");
 	editor = ft_strdup(editor == NULL ? "ed" : editor);
 	return (editor);
 }
 
-uint8_t			fc_blt(t_registry *shell, char **av)
+uint8_t			fc_blt(t_list *intern, char **av)
 {
 	t_option	option;
 	char		*editor;
@@ -87,22 +87,22 @@ uint8_t			fc_blt(t_registry *shell, char **av)
 	++av;
 	option = 0;
 	ret = 0;
-	if ((shell->option.option & RECORD_HISTORY_OPT) == FALSE)
+	if ((g_shell->option.option & RECORD_HISTORY_OPT) == FALSE)
 		return (SUCCESS);
 	editor = get_fc_options(&av, &option);
 	if (option == ERROR_OPT)
 		ret = 2;
 	else if (option & S_OPT)
-		ret = fc_redo(shell, av);
+		ret = fc_redo(av);
 	else if (option & L_OPT)
 		ret = fc_list(av, option);
 	else
 	{
 		if (editor == NULL)
-			editor = get_default_editor(shell);
-		ret = fc_editor(shell, av, editor);
+			editor = get_default_editor(intern);
+		ret = fc_editor(av, editor);
 	}
-	history(shell, NULL, RESET_HEAD);
+	history(g_shell, NULL, RESET_HEAD);
 	ft_strdel(&editor);
 	return (ret);
 }

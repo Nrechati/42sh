@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:59:35 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:28:01 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:30:28 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ uint8_t			verif_arg(char *s)
 	return ((uint8_t)ft_atoi(s));
 }
 
-static uint8_t	job_notified(t_registry *shell)
+static uint8_t	job_notified(void)
 {
-	if (shell->job_list != NULL && shell->job_notified == 0)
+	if (g_shell->job_list != NULL && g_shell->job_notified == 0)
 	{
-		shell->job_notified++;
+		g_shell->job_notified++;
 		ft_dprintf(2, "There are stopped jobs.\n");
 		return (FALSE);
 	}
@@ -52,15 +52,16 @@ static uint8_t	job_notified(t_registry *shell)
 		return (TRUE);
 }
 
-uint8_t			exit_blt(t_registry *shell, char **av)
+uint8_t			exit_blt(t_list *intern, char **av)
 {
 	uint8_t			ret;
 
-	if (job_notified(shell) == FALSE)
+	(void)intern;
+	if (job_notified() == FALSE)
 		return (1);
-	ret = shell == NULL ? SUCCESS : ft_atoi(get_var(shell->intern, "?"));
+	ret = ft_atoi(get_var(g_shell->intern, "?"));
 	if (av == NULL)
-		shell_exit_routine(shell, SUCCESS);
+		shell_exit_routine(g_shell, SUCCESS);
 	++av;
 	if (av != NULL && *av != NULL)
 	{
@@ -73,6 +74,6 @@ uint8_t			exit_blt(t_registry *shell, char **av)
 	}
 	else
 		ret = SUCCESS;
-	shell_exit_routine(shell, ret);
+	shell_exit_routine(g_shell, ret);
 	return (SUCCESS);
 }

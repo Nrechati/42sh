@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 10:43:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:39:21 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int8_t	get_process_type(t_list	*intern, t_process *process)
 	{
 		if (ret == FAILURE)
 			return (FAILURE);
-		hash_one(g_shell, process->av[0], path);
+		hash_one(process->av[0], path);
 		process->type |= IS_BIN;
 	}
 	else if (is_path_to_bin(process->av[0]) == TRUE)

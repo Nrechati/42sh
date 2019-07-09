@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 16:03:30 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 13:39:03 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:39:57 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ t_option			get_option_jobs(char *s, t_option option)
 	return (option);
 }
 
-void				jobs(t_registry *shell, t_job *job, t_option option)
+static void			jobs(t_job *job, t_option option)
 {
 	if (option & L_OPT)
-		jobctl(shell, job, JOBCTL_LIST | JOBCTL_LONG);
+		jobctl(g_shell, job, JOBCTL_LIST | JOBCTL_LONG);
 	else if (option & P_OPT)
-		jobctl(shell, job, JOBCTL_LIST | JOBCTL_ID);
+		jobctl(g_shell, job, JOBCTL_LIST | JOBCTL_ID);
 	else
-		jobctl(shell, job, JOBCTL_LIST);
+		jobctl(g_shell, job, JOBCTL_LIST);
 }
 
-static uint8_t		get_jobname(t_registry *shell, char **av, t_option option)
+static uint8_t		get_jobname(char **av, t_option option)
 {
 	uint8_t		ret;
 	int8_t		result;
@@ -63,26 +63,27 @@ static uint8_t		get_jobname(t_registry *shell, char **av, t_option option)
 			++av;
 			continue ;
 		}
-		jobs(shell, job, option);
+		jobs(job, option);
 		++av;
 	}
 	return (ret);
 }
 
-int8_t				jobs_blt(t_registry *shell, char **av)
+int8_t				jobs_blt(t_list *intern, char **av)
 {
 	t_option	option;
 	uint8_t		ret;
 
-	if (jobctl_is_active(shell) == FALSE)
+	(void)intern;
+	if (jobctl_is_active(g_shell) == FALSE)
 		return (FAILURE);
 	++av;
 	if ((option = set_options(&av, get_option_jobs)) == ERROR_OPT)
 		return (2);
 	ret = SUCCESS;
 	if (*av == NULL)
-		jobs(shell, NULL, option);
+		jobs(NULL, option);
 	else
-		ret = get_jobname(shell, av, option);
+		ret = get_jobname(av, option);
 	return (ret);
 }

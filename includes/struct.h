@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:25:34 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 11:45:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:11:14 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ typedef int8_t					(*t_actionkeys)(t_registry *shell, t_sle *sle);
 *****************************************************
 */
 
-typedef int						(*t_builtin) (list *, char **);
+typedef int						(*t_builtin) (t_list *, char **);
 typedef t_option				(*t_get_option)(char *s, t_option option);
 typedef uint8_t					(*t_test_cb)(void *, void *, uint8_t);
 

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 09:50:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:45:44 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void				jobctl(t_registry *shell, t_job *job, uint8_t flag)
 	if (jobctl_is_active(shell) == FALSE)
 		return ;
 	if (flag & JOBCTL_LIST)
-		print_jobs(shell, job, flag);
+		print_jobs(job, flag);
 	else if (flag & JOBCTL_PUTINBG)
 		job_to_registry(shell, job);
 	else if (flag & JOBCTL_PUTINFG)

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 12:18:39 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:41:37 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ uint8_t		is_valid_variable(char *name);
 
 uint8_t		pwd_blt(t_list *intern, char **av);
 t_option	get_option_pwd(char *s, t_option option);
-char		*get_pwd(t_registry *shell, t_option option);
+char		*get_pwd(t_list *intern, t_option option);
 
 /*
 *****************************************************
@@ -49,15 +49,15 @@ uint8_t		echo_blt(t_list *intern, char **av);
 
 uint8_t		cd_blt(t_list *intern, char **av);
 t_option	get_option_cd(char *s, t_option option);
-char		*concat_pwd_with_curpath(t_registry *shell, char **path);
-char		*get_home_path(t_registry *shell);
-char		*is_cdpath_env(t_registry *shell, const char *to_find);
+char		*concat_pwd_with_curpath(t_list *intern, char **path);
+char		*get_home_path(t_list *intern);
+char		*is_cdpath_env(t_list *intern, const char *to_find);
 char		*get_relative_path(char **curpath);
 char		*make_curpath_simple(char *curpath);
 uint8_t		one_only_arg(char **arg);
-uint8_t		check_path(t_registry *shell, char *curpath,
+uint8_t		check_path(t_list *intern, char *curpath,
 					const char *path_give_by_user);
-uint8_t		exit_cd(t_registry *shell, char **old_pwd,
+uint8_t		exit_cd(t_list *intern, char **old_pwd,
 					char **curpath, uint8_t ret);
 
 /*
@@ -159,8 +159,8 @@ uint8_t		test_le_cb(void *data, void *more, uint8_t type);
 t_option	get_option_fc(char *s, t_option option);
 uint8_t		fc_blt(t_list *intern, char **av);
 uint8_t		fc_list(char **av, t_option option);
-uint8_t		fc_redo(t_registry *shell, char **av);
-uint8_t		fc_editor(t_registry *shell, char **av, char *editor);
+uint8_t		fc_redo(char **av);
+uint8_t		fc_editor(char **av, char *editor);
 int8_t		get_first_last(char **av, char **param);
 
 /*

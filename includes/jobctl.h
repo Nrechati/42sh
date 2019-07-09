@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/06 17:47:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:40:24 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	remove_done_jobs(t_registry *shell);
 
 int		setup_background_job(t_job *job);
 
-void	print_jobs(t_registry *shell, t_job *job, uint8_t flag);
+void	print_jobs(t_job *job, uint8_t flag);
 void	state_to_str(t_job *job, char **str);
 void	get_job_av(t_job *job, char **str);
 void	get_process_av(t_process *proc, char **str);

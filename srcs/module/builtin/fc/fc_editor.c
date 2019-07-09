@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:28:42 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:29:19 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:44:46 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		add_fd_to_param(char **param, int fd)
 	ft_strdel(&fd_str);
 }
 
-static int8_t	launch_edition(t_registry *shell, char *editor)
+static int8_t	launch_edition(char *editor)
 {
 	t_vector	*cmd;
 	char		*out;
@@ -44,17 +44,17 @@ static int8_t	launch_edition(t_registry *shell, char *editor)
 	out = ft_strjoin(out, FC_FILE_TMP);
 	ft_strdel(&tmp);
 	cmd = vct_dups(out);
-	execution_pipeline(shell, &cmd);
+	execution_pipeline(g_shell, &cmd);
 	ft_strdel(&out);
 	vct_del(&cmd);
 	history(NULL, NULL, POP_ENTRY);
-	if ((ret = get_var(shell->intern, "?")) != NULL
+	if ((ret = get_var(g_shell->intern, "?")) != NULL
 			&& ft_strequ(ret, "0") == FALSE)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-static int8_t	write_file(t_registry *shell, char **av, char *editor)
+static int8_t	write_file(char **av, char *editor)
 {
 	int		fd;
 	char	*param;
@@ -78,10 +78,10 @@ static int8_t	write_file(t_registry *shell, char **av, char *editor)
 	history(NULL, param, PRINT_HISTORY | WITHOUT_SPACE);
 	ft_strdel(&param);
 	close(fd);
-	return (launch_edition(shell, editor));
+	return (launch_edition(editor));
 }
 
-static int8_t	exec_new_pipeline(t_registry *shell)
+static int8_t	exec_new_pipeline(void)
 {
 	t_vector	*cmd;
 	char		*line;
@@ -98,10 +98,10 @@ static int8_t	exec_new_pipeline(t_registry *shell)
 	{
 		cmd = vct_dups(line);
 		ft_strdel(&line);
-		shell->option.option &= ~(INTERACTIVE_OPT);
+		g_shell->option.option &= ~(INTERACTIVE_OPT);
 		if (verif_line(cmd) == TRUE)
-			execution_pipeline(shell, &cmd);
-		shell->option.option |= INTERACTIVE_OPT;
+			execution_pipeline(g_shell, &cmd);
+		g_shell->option.option |= INTERACTIVE_OPT;
 		vct_del(&cmd);
 	}
 	ft_strdel(&line);
@@ -109,12 +109,12 @@ static int8_t	exec_new_pipeline(t_registry *shell)
 	return (SUCCESS);
 }
 
-uint8_t			fc_editor(t_registry *shell, char **av, char *editor)
+uint8_t			fc_editor(char **av, char *editor)
 {
 	history(NULL, NULL, POP_ENTRY);
-	if (write_file(shell, av, editor) == FAILURE)
+	if (write_file(av, editor) == FAILURE)
 		return (1);
-	if (exec_new_pipeline(shell) == FAILURE)
+	if (exec_new_pipeline() == FAILURE)
 		return (1);
 	return (SUCCESS);
 }

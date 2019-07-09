@@ -6,18 +6,18 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 15:39:38 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/06 17:52:50 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:19:20 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-static int8_t		run_current(t_registry *shell)
+static int8_t		run_current(void)
 {
 	t_job	*job;
 
-	if (shell->current_plus != NULL)
-		job = ((t_job*)(shell->current_plus)->data);
+	if (g_shell->current_plus != NULL)
+		job = ((t_job*)(g_shell->current_plus)->data);
 	else
 	{
 		ft_dprintf(2, "42sh: bg: no current job\n");
@@ -28,14 +28,14 @@ static int8_t		run_current(t_registry *shell)
 		ft_dprintf(2, "42sh: bg: job %d is already in background\n", job->id);
 		return (FAILURE);
 	}
-	jobctl(shell, job, JOBCTL_RUNINBG);
+	jobctl(g_shell, job, JOBCTL_RUNINBG);
 	return (SUCCESS);
 }
 
-static	uint8_t		check_failure(t_registry *shell, char *av, int8_t result)
+static	uint8_t		check_failure(char *av, int8_t result)
 {
 	if (result == FAILURE || result == BAD_PERCENTAGE
-			|| (result == SUCCESS && shell->current_plus == NULL))
+			|| (result == SUCCESS && g_shell->current_plus == NULL))
 	{
 		if (result == BAD_PERCENTAGE)
 			ft_dprintf(2, "bg: usage: bg [%%jobID]\n");
@@ -46,27 +46,28 @@ static	uint8_t		check_failure(t_registry *shell, char *av, int8_t result)
 	return (FALSE);
 }
 
-int8_t				bg_blt(t_registry *shell, char **av)
+int8_t				bg_blt(t_list *intern, char **av)
 {
 	t_job	*job;
 	int8_t	result;
 	uint8_t	ret;
 
-	if (jobctl_is_active(shell) == FALSE
-			|| am_i_forked(shell, "bg") == TRUE)
+	(void)intern;
+	if (jobctl_is_active(g_shell) == FALSE
+			|| am_i_forked(g_shell, "bg") == TRUE)
 		return (FAILURE);
 	++av;
 	if (*av == NULL)
-		if (run_current(shell) == FAILURE)
+		if (run_current() == FAILURE)
 			return (FAILURE);
 	ret = SUCCESS;
 	while (*av != NULL)
 	{
 		result = parse_jobid(&job, *av);
-		if (check_failure(shell, *av, result) == TRUE)
+		if (check_failure(*av, result) == TRUE)
 			ret = 1;
 		else
-			jobctl(shell, job, JOBCTL_RUNINBG);
+			jobctl(g_shell, job, JOBCTL_RUNINBG);
 		++av;
 	}
 	return (ret);
