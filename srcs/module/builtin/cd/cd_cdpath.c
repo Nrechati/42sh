@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:35:32 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/06 14:25:45 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:17:03 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ static uint8_t	add_end_slash(char **path)
 	return (TRUE);
 }
 
-char			*is_cdpath_env(t_registry *shell, const char *to_find)
+char			*is_cdpath_env(t_list *intern, const char *to_find)
 {
 	char		*cd_path;
 	char		**tab_cd_path;
 	uint32_t	i;
 
 	i = 0;
-	if ((cd_path = get_var(shell->intern, "CDPATH")) == NULL)
+	if ((cd_path = get_var(intern, "CDPATH")) == NULL)
 		return (is_valid_path("./", to_find));
 	if ((tab_cd_path = ft_strsplit(cd_path, ":")) == NULL)
 		return (NULL);
@@ -73,7 +73,7 @@ char			*is_cdpath_env(t_registry *shell, const char *to_find)
 	return (NULL);
 }
 
-uint8_t			check_path(t_registry *shell, char *curpath,
+uint8_t			check_path(t_list *intern, char *curpath,
 						const char *path_give_by_user)
 {
 	char		*oldpwd;
@@ -82,7 +82,7 @@ uint8_t			check_path(t_registry *shell, char *curpath,
 	lstat(curpath, &stat);
 	if (ft_strequ(path_give_by_user, "-") == TRUE)
 	{
-		if ((oldpwd = get_var(shell->intern, "OLDPWD")) != NULL)
+		if ((oldpwd = get_var(intern, "OLDPWD")) != NULL)
 			path_give_by_user = oldpwd;
 	}
 	if (access(curpath, F_OK) != SUCCESS)
