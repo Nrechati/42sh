@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:13:31 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/08 14:00:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:20:26 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ static void			handle_printable_char(t_sle *sle, char c[READ_SIZE])
 	t_vector	*line;
 	t_cursor	*cursor;
 
-	if (sle->state != STATE_STD && sle->state != STATE_INCSEARCH
-			&& sle->state != STATE_REVSEARCH)
-		return ;
 	cursor = &sle->cursor;
 	line = sle->line;
 	buff_len = ft_strlen(c);
@@ -96,6 +93,9 @@ void				handle_input_key(t_registry *shell,
 {
 	if (is_printable(c) == TRUE)
 	{
+		if (sle->state != STATE_STD && sle->state != STATE_INCSEARCH
+				&& sle->state != STATE_REVSEARCH)
+			return ;
 		handle_printable_char(sle, c);
 		history(NULL, NULL, RESET_HEAD);
 		vct_del(&sle->line_save);
