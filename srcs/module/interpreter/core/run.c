@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 12:59:31 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:43:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@ static int8_t	setup_builtin(t_process *process, uint8_t fg)
 	if (process->type & IS_ALONE)
 		return (setup_redirect(process));
 	return (SUCCESS);
+}
+
+int				launch_builtin(char **av, t_list **l_env, t_builtin builtin)
+{
+	int		status;
+
+	status = 0;
+	if (ft_strequ(av[0], "exit") == TRUE)
+	{
+		ft_lstdel(l_env, free_node);
+		status = builtin(NULL, av);
+	}
+	else
+		status = builtin(*l_env, av);
+	ft_lstdel(l_env, free_node);
+	return (status);
 }
 
 int8_t			run_builtin(t_process *process, uint8_t foreground)
@@ -38,14 +54,7 @@ int8_t			run_builtin(t_process *process, uint8_t foreground)
 	if (setup_builtin(process, foreground) == FAILURE)
 		return (TRUE);
 	builtin = ft_hmap_getdata(&g_shell->hash.blt, process->av[0]);
-	if (ft_strequ(process->av[0], "exit") == TRUE)
-	{
-		ft_lstdel(&l_env, free_node);
-		status = builtin(NULL, process->av);
-	}
-	else
-		status = builtin(l_env, process->av);
-	ft_lstdel(&l_env, free_node);
+	status = launch_builtin(process->av, &l_env, builtin);
 	if (process->type & IS_ALONE)
 	{
 		process->status = status;
