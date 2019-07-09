@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/07 16:34:30 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:15:21 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,17 @@ static void			set_oldpwd_and_pwd(t_registry *shell, char *curpath,
 {
 	char		*pwd;
 
+	(void)shell;
 	if (option & P_OPT)
 	{
 		pwd = NULL;
 		pwd = getcwd(NULL, PATH_MAX);
-		add_var(&shell->intern, "PWD", pwd, SET_VAR | EXPORT_VAR);
+		add_var(&g_shell->intern, "PWD", pwd, SET_VAR | EXPORT_VAR);
 		ft_strdel(&pwd);
 	}
 	else
-		add_var(&shell->intern, "PWD", curpath, SET_VAR | EXPORT_VAR);
-	add_var(&shell->intern, "OLDPWD", old_pwd, SET_VAR | EXPORT_VAR);
+		add_var(&g_shell->intern, "PWD", curpath, SET_VAR | EXPORT_VAR);
+	add_var(&g_shell->intern, "OLDPWD", old_pwd, SET_VAR | EXPORT_VAR);
 }
 
 static uint8_t		change_directory(t_registry *shell, char *curpath,
