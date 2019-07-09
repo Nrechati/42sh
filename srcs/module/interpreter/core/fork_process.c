@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 10:39:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:48:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ static int8_t	run_child(t_process *process, char **env)
 	char		*pathname;
 
 	pathname = NULL;
-	if (ft_lstiter_ctx(process->redirects, NULL, do_redirect) == FAILURE)
-		exit(1);
-	ft_lstiter(process->redirects, close_redirect);
 	if (process->type & IS_BIN)
 		pathname = ft_hmap_getdata(&g_shell->hash.bin, process->av[0]);
 	else if (process->type & IS_ABS)
@@ -58,13 +55,15 @@ static int8_t	run_child(t_process *process, char **env)
 
 static int8_t	child_process(t_process *process, char **env, uint8_t fg)
 {
-	init_exec_signals();
 	process->pid = getpid();
 	if (*process->pgid == 0)
 		*process->pgid = process->pid;
 	setpgid(process->pid, *process->pgid);
 	if (fg == TRUE)
 		tcsetpgrp(STDIN_FILENO, *process->pgid);
+	if (setup_redirect(process) == FAILURE)
+		exit(1);
+	init_exec_signals();
 	if (process->type & IS_BLT)
 	{
 		run_builtin(process, fg);

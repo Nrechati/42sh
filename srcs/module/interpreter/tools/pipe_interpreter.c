@@ -6,24 +6,62 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/08 00:16:56 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:23:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-t_list	*create_pipe(int to, int from, unsigned int pipe_type)
+t_list	*create_pipe_in(int from)
 {
+	t_action	action;
 	t_list		*node;
-	t_redirect	pipe;
+	t_token		token;
 
-	ft_bzero(&pipe, sizeof(t_redirect));
-	pipe.to = to;
-	pipe.from = from;
-	pipe.type = pipe_type;
-	node = ft_lstnew(&pipe, sizeof(t_redirect));
+	ft_bzero(&action, sizeof(t_action));
+	action.type = A_MOVE;
+	token.type = E_STRING;
+	token.data = ft_itoa(from);
+	node = ft_lstnew(&token, sizeof(t_token));
+	ft_lstadd(&action.data, node);
+	token.type = E_STRING;
+	token.data = ft_itoa(STDIN_FILENO);
+	node = ft_lstnew(&token, sizeof(t_token));
+	ft_lstadd(&action.data, node);
+	node = ft_lstnew(&action, sizeof(t_action));
 	return (node);
+}
+
+t_list	*create_pipe_out(int to, __unused int from)
+{
+	t_action	action;
+	t_list		*node;
+	t_token		token;
+	t_list		*pipe_out;
+
+	ft_bzero(&action, sizeof(t_action));
+	pipe_out = NULL;
+	action.type = A_DUP;
+	token.type = E_STRING;
+	token.data = ft_itoa(to);
+	node = ft_lstnew(&token, sizeof(t_token));
+	ft_lstadd(&action.data, node);
+	token.type = E_STRING;
+	token.data = ft_itoa(STDOUT_FILENO);
+	node = ft_lstnew(&token, sizeof(t_token));
+	ft_lstadd(&action.data, node);
+	node = ft_lstnew(&action, sizeof(t_action));
+	ft_lstadd(&pipe_out, node);
+	ft_bzero(&action, sizeof(t_action));
+	action.type = A_CLOSE;
+	token.type = E_STRING;
+	token.data = ft_itoa(from);
+	node = ft_lstnew(&token, sizeof(t_token));
+	ft_lstadd(&action.data, node);
+	node = ft_lstnew(&action, sizeof(t_action));
+	ft_lstadd(&pipe_out, node);
+	return (pipe_out);
 }
 
 void	close_pipe(void *data)
@@ -44,12 +82,12 @@ int		setup_pipe(t_process *current, t_process *next, int pipe_fd[2])
 {
 	t_list		*pipe_node;
 
-	if ((pipe_node = create_pipe(pipe_fd[1], pipe_fd[0], FD_PIPE_OUT)) == NULL)
+	if ((pipe_node = create_pipe_out(pipe_fd[1], pipe_fd[0])) == NULL)
 		return (FAILURE);
-	ft_lstadd(&current->pipe, pipe_node);
-	if ((pipe_node = create_pipe(pipe_fd[0], pipe_fd[1], FD_PIPE_IN)) == NULL)
+	current->redirects = ft_lstmerge(&current->redirects, pipe_node);
+	if ((pipe_node = create_pipe_in(pipe_fd[0])) == NULL)
 		return (FAILURE);
-	ft_lstadd(&next->pipe, pipe_node);
+	next->redirects = ft_lstmerge(&next->redirects, pipe_node);
 	return (SUCCESS);
 }
 

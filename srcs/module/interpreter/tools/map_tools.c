@@ -6,26 +6,21 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 21:33:53 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/21 14:51:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 06:07:17 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
-void	default_io(const uint8_t std, char *tty_name)
+void	default_io(char *tty_name)
 {
 	int		fd;
 
 	fd = open(tty_name, O_RDWR);
-	if (std & CLOSED_STDIN)
-		dup2(fd, STDIN_FILENO);
-	if (std & CLOSED_STDOUT)
-		dup2(fd, STDOUT_FILENO);
-	if (std & CLOSED_STDERR)
-		dup2(fd, STDERR_FILENO);
-	if (fd >= 3)
-		close(fd);
+	dup2(fd, STDIN_FILENO);
+	dup2(fd, STDOUT_FILENO);
+	dup2(fd, STDERR_FILENO);
 	return ;
 }
 
