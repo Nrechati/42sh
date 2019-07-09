@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 14:34:10 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:40:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static int8_t	run_child(t_process *process, char **env)
 	pathname = NULL;
 	if (process->type & IS_BIN)
 	{
-			pathname = ft_hmap_getdata(&g_shell->hash.bin, process->av[0]);
-			if (check_cmd_path(pathname) != TRUE)
-				pathname = NULL;
+		pathname = ft_hmap_getdata(&g_shell->hash.bin, process->av[0]);
+		if (check_cmd_path(pathname) != TRUE)
+			pathname = NULL;
 	}
 	else if (process->type & IS_ABS)
 	{
@@ -101,7 +101,7 @@ int8_t			fork_process(t_process *process, uint8_t foreground)
 		return (FAILURE);
 	}
 	if (ft_strequ(get_var(process->env, "PATH")
-			, get_var(g_shell->intern, "PATH")) == FALSE)
+				, get_var(g_shell->intern, "PATH")) == FALSE)
 	{
 		process->type = 0;
 		get_process_type(process->env, process);
