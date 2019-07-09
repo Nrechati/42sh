@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 10:07:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:09:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@
 # define INT_PS2					"PS2"
 # define INT_PS3					"PS3"
 
-# define INT_PS1_VALUE		"[\\?][\\!][\\e[31m\\u\\e[0m][\\e[34m\\w\\e[0m]-> "
+# define INT_PS1_VALUE				"[\\e[31m\\u\\e[0m][\\e[34m\\w\\e[0m]-> "
 # define INT_PS2_VALUE				"(\\m)> "
 # define INT_PS3_VALUE				"(\\e[31mheredoc\\e[0m)> "
 
