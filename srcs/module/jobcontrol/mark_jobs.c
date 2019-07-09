@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:00:41 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 09:45:23 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:57:58 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	mark_job_as_running(t_job *job)
 	t_list		*proclist;
 	t_process	*process;
 
+	job->state = RUNNING;
 	proclist = job->processes;
 	while (proclist != NULL)
 	{
@@ -31,6 +32,7 @@ void	mark_job_as_stopped(t_job *job)
 	t_list		*proclist;
 	t_process	*process;
 
+	job->state = STOPPED;
 	proclist = job->processes;
 	while (proclist != NULL)
 	{
