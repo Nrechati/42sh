@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 07:55:03 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 12:26:46 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:11:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void			load_test_hashmap(t_hash *callbacks)
 	ft_hmap_insert(callbacks, "-S", test_caps_s_cb);
 	ft_hmap_insert(callbacks, "-s", test_s_cb);
 	ft_hmap_insert(callbacks, "-u", test_u_cb);
-	ft_hmap_insert(callbacks, "-W", test_w_cb);
+	ft_hmap_insert(callbacks, "-w", test_w_cb);
 	ft_hmap_insert(callbacks, "-x", test_x_cb);
 	ft_hmap_insert(callbacks, "-z", test_z_cb);
 	ft_hmap_insert(callbacks, "=", test_equal_cb);
