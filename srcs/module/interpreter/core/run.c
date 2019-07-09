@@ -6,14 +6,14 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/08 00:19:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 08:06:18 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <fcntl.h>
 
-static int8_t	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
+static int8_t	setup_builtin(t_process *process, uint8_t fg)
 {
 	if (fg == TRUE)
 	{
@@ -21,22 +21,19 @@ static int8_t	setup_builtin(t_process *process, uint8_t fg, uint8_t *std)
 			tcsetpgrp(STDOUT_FILENO, *process->pgid);
 	}
 	if (process->type & IS_ALONE)
-		return (ft_lstiter_ctx(process->redirects, std, builtin_redirect));
-	else
-		return (ft_lstiter_ctx(process->redirects, NULL, do_redirect));
+		return (setup_redirect(process));
+	return (SUCCESS);
 }
 
 int8_t			run_builtin(t_process *process, uint8_t foreground)
 {
 	char			*tty_name;
-	uint8_t			std;
 	t_builtin		builtin;
 	int				fd;
 	int				status;
 
-	std = 0;
 	tty_name = ttyname(STDIN_FILENO);
-	if (setup_builtin(process, foreground, &std) == FAILURE)
+	if (setup_builtin(process, foreground) == FAILURE)
 		return (TRUE);
 	close(STDIN_FILENO);
 	if (ft_strequ(process->av[0], "fc") && (fd = open(tty_name, O_RDWR)))
@@ -46,9 +43,9 @@ int8_t			run_builtin(t_process *process, uint8_t foreground)
 	if (process->type & IS_ALONE)
 	{
 		process->status = status;
-		default_io(std, tty_name);
+		ft_lstiter(process->redirects, del_action);
+		default_io(tty_name);
 	}
-	ft_lstiter(process->redirects, close_redirect);
 	return (TRUE);
 }
 
@@ -66,7 +63,6 @@ static void		run_type_selection(t_process *process, uint8_t foreground)
 
 int				run_process(t_process *process, uint8_t foreground, int pipe)
 {
-	setup_redirect(process);
 	if (process->type & (IS_DUP_FAILED | IS_CRITICAL | IS_OPEN_FAILED))
 	{
 		pipe ? close(pipe) : 0;

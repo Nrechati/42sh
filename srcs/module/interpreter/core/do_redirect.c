@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:06:19 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/08 00:15:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 05:33:08 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,8 @@ int		dup_redirection(t_redirect *redirect)
 	return (SUCCESS);
 }
 
-int		do_redirect(void *context, void *data)
+int		do_redirect(t_redirect *redirect)
 {
-	t_redirect	*redirect;
-
-	(void)context;
-	redirect = data;
 	if (redirect->type & (FD_PIPE_OUT | FD_PIPE_IN))
 		pipe_redirection(redirect);
 	else if (redirect->type & FD_DUP)

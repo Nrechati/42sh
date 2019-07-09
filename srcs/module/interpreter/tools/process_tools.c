@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:44:46 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 16:51:26 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 06:46:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		open_read_file(t_redirect *redirect, char *filename, int flag, int from)
 		else
 			redirect->type = from;
 		redirect->type = FD_REDIRECT;
-		redirect->from = STDIN_FILENO;
+		redirect->from = from;
 		return (SUCCESS);
 	}
 	ft_dprintf(2, SH_GENERAL_ERROR "%s: no such file or directory\n", filename);
