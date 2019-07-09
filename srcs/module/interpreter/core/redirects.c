@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:33:09 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/03 00:22:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 06:13:28 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,13 @@ int		redirect_or_other(void *context, void *data)
 
 void	close_redirect(void *data)
 {
-	t_redirect	*redirect;
+	t_token	*token;
+	int		fd;
 
-	redirect = data;
-	if (redirect->type & FD_REDIRECT)
-	{
-		if (redirect->to >= 3)
-			close(redirect->to);
-	}
+	token = data;
+	fd = ft_atoi(token->data);
+	if (fd >= 3)
+		close(fd);
 }
 
 void	del_process_redirect(void *data)
