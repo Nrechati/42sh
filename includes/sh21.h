@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 11:46:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:36:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int8_t			free_var(t_list **alst, char *var);
 *****************************************************
 */
 
-int8_t			find_in_path(t_registry *shell, char *bin, char **buf);
+int8_t			find_in_path(t_list	*intern, char *bin, char **buf);
 
 /*
 *****************************************************

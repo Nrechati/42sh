@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:46:31 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 09:23:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:40:27 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int				run_process(t_process *process, uint8_t foreground, int pipe)
 		process->completed = 1;
 		return (FAILURE);
 	}
-	if (get_process_type(g_shell, process) == FAILURE)
+	if (get_process_type(g_shell->intern, process) == FAILURE)
 	{
 		pipe ? close(pipe) : 0;
 		ft_dprintf(2, "42sh: [CRITICAL] Malloc error\n");
