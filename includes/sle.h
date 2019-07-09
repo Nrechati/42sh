@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 10:15:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:24:19 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SLE_H
 
 # include "struct.h"
-
 
 /*
 *****************************************************
@@ -121,6 +120,7 @@ uint32_t	get_next_char(const char *str, uint32_t index
 
 void		link_actions_to_keys(int8_t (*actionkeys[AK_AMOUNT])
 				(struct s_sle *sle));
+void		check_nl(t_registry *shell, t_sle *sl, t_vector *line);
 
 /*
 *****************************************************

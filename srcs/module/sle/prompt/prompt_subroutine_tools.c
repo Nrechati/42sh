@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 10:28:37 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:25:12 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ uint8_t			subprompt_call(t_vector *line, uint32_t option)
 {
 	t_vector			*new_input;
 	static const char	*prompt_type[] = {PROMPT_PIPE, PROMPT_QUOTE,
-						PROMPT_DQUOTE, PROMPT_BQUOTE, PROMPT_NL,PROMPT_AND,
+						PROMPT_DQUOTE, PROMPT_BQUOTE, PROMPT_NL, PROMPT_AND,
 						PROMPT_OR, PROMPT_BRACE, PROMPT_MATHS};
 
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)

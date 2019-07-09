@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/07 12:20:34 by skuppers         ###   ########.fr        #
+#    Updated: 2019/07/09 10:48:17 by ffoissey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -352,6 +352,7 @@ SLE += clean_registry.c
 SLE += redraw.c
 SLE += redraw_modes.c
 SLE += redraw_tools.c
+SLE += redraw_tools2.c
 SLE += redraw_utils.c
 SLE += mode_fptp.c
 
@@ -371,6 +372,7 @@ SLE += prompt_subroutine_quotes.c
 SLE += prompt_subroutine_tools.c
 SLE += prompt_expansion.c
 SLE += prompt_tools.c
+SLE += prompt_tools2.c
 
 #Action keys
 SLE += execute_clipboard_copy_ak.c
