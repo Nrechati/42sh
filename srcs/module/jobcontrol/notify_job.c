@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:01:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 12:04:34 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:44:36 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ t_list		*get_job_ptr(t_list **list, t_list *job_ptr)
 void		job_already_done(t_registry *shell, t_job *job)
 {
 	t_list	*todel;
+	char	*command;
 
 	todel = NULL;
-	ft_dprintf(2, "Job is already done.\n");
+	get_job_av(job, &command);
+	ft_printf("[%d]%c %s \t %s\n", job->id, job->current, "Done",
+					command);
+	ft_strdel(&command);
+	ft_dprintf(2, "fg: Job is already done.\n");
 	todel = remove_job_from_list(&shell->job_list, job);
 	shell->active_jobs--;
 	update_jobinfos(shell);
