@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 12:41:37 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:31:51 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_option	get_option_type(char *s, t_option option);
 *****************************************************
 */
 
+uint8_t		protect_no_input(char **av);
 int			hash_get_opt(int i, char **av, t_option *opt);
 void		hash_builtin(t_registry *shell);
 uint8_t		hash_print_help(void);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:01:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/06 20:14:06 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:12:59 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,7 @@ void	error_analyzer(t_analyze *analyze)
 	ft_strdel(&analyze->token.data);
 	ft_stckdestroy(&analyze->stack, del_token);
 	ft_stckdestroy(&analyze->tree_node, del_action);
-	while (check_token(analyze))
-	{
-		get_token(analyze);
-		ft_strdel(&analyze->token.data);
-	}
+	ft_lstdel(analyze->tokens, del_token);
 }
 
 void	stop_analyzer(t_analyze *analyze)
