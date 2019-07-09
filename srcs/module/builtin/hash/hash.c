@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/07 16:37:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:54:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int16_t	hash_handle_opt(t_registry *shell, t_option opt)
 	}
 	else if (opt & H_WIPE)
 	{
-		ft_hmap_free_content(&(shell->hash.bin), free);
-		shell->hash.bin.print_pad = 0;
+		ft_hmap_free_content(&(g_shell->hash.bin), free);
+		g_shell->hash.bin.print_pad = 0;
 		return (H_WIPE);
 	}
 	else
@@ -46,7 +46,7 @@ static uint8_t	protect_no_input(char **av)
 	return (FALSE);
 }
 
-static uint8_t	check_no_args(t_registry *shell, char **av)
+static uint8_t	check_no_args(char **av)
 {
 	if (av[1] == NULL)
 	{
@@ -55,7 +55,7 @@ static uint8_t	check_no_args(t_registry *shell, char **av)
 			ft_putendl_fd("42sh: hash: write error: Bad file descriptor", 2);
 			return (ERROR);
 		}
-		ft_simplified_hash_print(&(shell->hash.bin));
+		ft_simplified_hash_print(&(g_shell->hash.bin));
 		return (TRUE);
 	}
 	return (FALSE);
@@ -76,7 +76,7 @@ static uint8_t	do_hash(t_registry *shell, char **av, int i)
 	return (0);
 }
 
-uint8_t			hash_blt(t_registry *shell, char **av)
+uint8_t			hash_blt(t_list	*intern, char **av)
 {
 	int			i;
 	int			error;
@@ -86,7 +86,7 @@ uint8_t			hash_blt(t_registry *shell, char **av)
 	opt = 0;
 	if (protect_no_input(av) == TRUE)
 		return (1);
-	if ((ret = check_no_args(shell, av)) == TRUE)
+	if ((ret = check_no_args(av)) == TRUE)
 		return (SUCCESS);
 	if (ret == ERROR)
 		return (1);

@@ -6,13 +6,20 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 10:42:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:05:13 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-int		is_export(void *data, void *to_find)
+int			is_all(void *data, void *to_find)
+{
+	(void)data;
+	(void)to_find;
+	return (TRUE);
+}
+
+int			is_export(void *data, void *to_find)
 {
 	t_variable *variable;
 
@@ -23,7 +30,7 @@ int		is_export(void *data, void *to_find)
 	return (FALSE);
 }
 
-int		copy_var(void *src, void *dest)
+int			copy_var(void *src, void *dest)
 {
 	t_variable *source;
 	t_variable *destination;
@@ -35,7 +42,7 @@ int		copy_var(void *src, void *dest)
 	return (0);
 }
 
-int		variable_update(void *context, void *data)
+int			variable_update(void *context, void *data)
 {
 	t_list		*tmp_env;
 	t_variable	*variable;
@@ -53,7 +60,7 @@ int		variable_update(void *context, void *data)
 	return (0);
 }
 
-char	*variable_to_tab(void *data)
+static char	*variable_to_tab(void *data)
 {
 	t_variable	*variable;
 	char		*str;
@@ -64,7 +71,7 @@ char	*variable_to_tab(void *data)
 	return (str);
 }
 
-char	**generate_env(t_registry *shell, t_list *local_env)
+char		**generate_env(t_registry *shell, t_list *local_env)
 {
 	char	**env;
 	t_list	*tmp_env;
