@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 13:11:34 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:26:54 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int8_t	run_child(t_process *process, char **env)
 		if (execve(pathname, process->av, env) == FAILURE)
 			ft_dprintf(2, "42sh: execution error\n");
 	}
-	exit(1);
+	shell_exit_routine(g_shell, 1);
+	return (FAILURE);
 }
 
 static int8_t	child_process(t_process *process, char **env, uint8_t fg)
@@ -62,7 +63,7 @@ static int8_t	child_process(t_process *process, char **env, uint8_t fg)
 	if (fg == TRUE)
 		tcsetpgrp(STDIN_FILENO, *process->pgid);
 	if (setup_redirect(process) == FAILURE)
-		exit(1);
+		shell_exit_routine(g_shell, 1);
 	init_exec_signals();
 	if (process->type & IS_BLT)
 	{
