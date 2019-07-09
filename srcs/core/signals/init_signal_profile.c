@@ -6,11 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 18:23:42 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 16:50:06 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 static struct sigaction	set_sigaction_struct(void (*handler)(int),
 			int flags, sigset_t mask)

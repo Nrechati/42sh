@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_avs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:58:39 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 14:04:02 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 void		get_job_av(t_job *job, char **str)
 {

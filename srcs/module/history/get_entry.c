@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_entry.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 04:23:02 by cempassi          #+#    #+#             */
-/*   Updated: 2019/06/30 04:40:10 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 static char	*get_entry_by_id(t_history *history, int id, const uint64_t option)
 {

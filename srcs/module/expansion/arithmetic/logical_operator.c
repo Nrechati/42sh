@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   logical_operator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 17:04:16 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 18:22:34 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 void		convert_logical_operator(t_arithmetic *arithmetic, t_rpn_tk *token)
 {

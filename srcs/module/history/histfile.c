@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   histfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 04:23:05 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 10:17:08 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 #include <fcntl.h>
 
 static char		*get_histfile(t_registry *shell)

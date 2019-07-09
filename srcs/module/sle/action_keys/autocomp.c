@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   autocomp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 14:53:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 15:35:45 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 static inline void		handle_void_comp(t_registry *shell, t_sle *sle,
 				char *substring)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_maths_interface.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:11 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:34:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 static t_token	generate_token_m(t_lexer *lexer)
 {

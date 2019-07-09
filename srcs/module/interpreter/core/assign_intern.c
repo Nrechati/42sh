@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   assign_intern.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:28:43 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 09:52:35 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 static int	update_intern(t_variable *variable, char *data)
 {

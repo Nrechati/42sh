@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_completion_file.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:15:16 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:20:40 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 static char		*extract_path(char *input)
 {

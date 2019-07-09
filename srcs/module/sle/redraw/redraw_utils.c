@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redraw_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:42:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:46:00 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 inline void		add_redraw_flags(t_sle *sle, uint32_t rd_flag)
 {

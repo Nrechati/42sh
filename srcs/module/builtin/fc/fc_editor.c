@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fc_editor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:28:42 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 12:44:46 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 #include <fcntl.h>
 
 static void		add_fd_to_param(char **param, int fd)

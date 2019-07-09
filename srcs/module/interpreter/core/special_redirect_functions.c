@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   special_redirect_functions.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:23:24 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 13:25:28 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 #include <fcntl.h>
 
 static int	get_filename_special(t_list *node, char **file)

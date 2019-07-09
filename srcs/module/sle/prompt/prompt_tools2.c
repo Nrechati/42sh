@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_tools2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 10:23:24 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 10:27:10 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 void			check_nl(t_registry *shell, t_sle *sl, t_vector *line)
 {

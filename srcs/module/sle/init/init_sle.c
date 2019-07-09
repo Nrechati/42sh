@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_sle.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:14 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:08:29 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 #include <termcap.h>
 
 uint64_t			get_terminal_info(t_registry *shell)

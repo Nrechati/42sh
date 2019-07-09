@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   autocompletion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:21:02 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/02 19:13:37 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 static char		*active_completion(t_autocomplete *result,
 					char *input, char *completion, t_registry *shell)

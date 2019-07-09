@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic_variable.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 07:20:23 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/06 12:22:40 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 void		convert_operator(t_arithmetic *arithmetic, t_rpn_tk *token)
 {

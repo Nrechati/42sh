@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   notify_job.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:01:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 16:49:19 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 
 t_list		*get_job_ptr(t_list **list, t_list *job_ptr)
 {

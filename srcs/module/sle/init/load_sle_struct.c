@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   load_sle_struct.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:36:27 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 15:09:52 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh21.h"
+#include "sh42.h"
 #include <sys/ioctl.h>
 
 uint64_t	init_window(t_sle *sle)
