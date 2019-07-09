@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:02:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/07 02:43:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:37:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int8_t			hash_args(t_registry *shell, char *key)
 	pathname = NULL;
 	if (ft_hmap_getdata(&shell->hash.blt, key) != NULL)
 		return (0);
-	if ((ret = find_in_path(shell, key, &pathname)) == SUCCESS)
+	if ((ret = find_in_path(shell->intern, key, &pathname)) == SUCCESS)
 	{
 		ret = hash_one(shell, key, pathname);
 		if (ret == FAILURE || ret == ERROR)

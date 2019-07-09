@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:03:03 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/02 23:32:32 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:42:16 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		variable_update(void *context, void *data)
 	variable = data;
 	if ((holder = expansion_pipeline(g_shell->intern, variable->data)) == NULL)
 		return (-1);
+	if (ft_strequ(variable->name, "PATH") == TRUE)
+		ft_hmap_free_content(&(g_shell->hash.bin), free);
 	ft_strdel(&variable->data);
 	variable->data = holder;
 	add_var(&tmp_env, variable->name, variable->data, variable->flag);
