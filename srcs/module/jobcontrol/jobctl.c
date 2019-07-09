@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 10:17:48 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:04:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ t_list				*remove_job_from_list(t_list **list, t_job *job)
 	while (job_ptr != NULL && (t_job*)job_ptr->data != job)
 		job_ptr = job_ptr->next;
 	if (job_ptr == *list)
-	{
-		*list = (job_ptr->next);
-		return (job_ptr);
-	}
+		return (get_job_ptr(list, job_ptr));
 	else
 	{
 		ptr = *list;
@@ -66,27 +63,16 @@ static void			job_to_registry(t_registry *shell, t_job *job)
 void				job_to_foreground(t_registry *shell, t_job *job)
 {
 	char	*avs;
-	int		status;
 	t_list	*todel;
 
 	if (job == NULL || !(job->processes != NULL))
 		return ;
-	status = 0;
 	mark_proc_status();
 	if (job_is_completed(job) == TRUE)
 	{
-		ft_dprintf(2, "Job is already done.");
-		todel = remove_job_from_list(&shell->job_list, job);
-		shell->active_jobs--;
-		update_jobinfos(shell);
-		pop_current_job(shell, job);
-		del_job(job);
-		free(job);
-		free(todel);
-		job = NULL;
+		job_already_done(shell, job);
 		return ;
 	}
-	job->state = RUNNING;
 	mark_job_as_running(job);
 	todel = remove_job_from_list(&shell->job_list, job);
 	shell->active_jobs--;

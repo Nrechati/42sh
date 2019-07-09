@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 10:17:33 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:04:35 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 int8_t	am_i_forked(t_registry *shell, char *name);
 
 void	jobctl(t_registry *shell, t_job *job, uint8_t flag);
+void	job_already_done(t_registry *shell, t_job *job);
+t_list	*get_job_ptr(t_list **list, t_list *job_ptr);
 
 void	update_jobinfos(t_registry *shell);
 void	push_current_job(t_registry *shell, t_list *job);
