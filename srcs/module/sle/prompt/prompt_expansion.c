@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:53:07 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 10:21:40 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:35:04 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,4 @@ void		p_insert_host(t_vector *text, uint64_t index)
 	vct_replace_string(text, index, index + 2, hostname);
 	ft_strdel(&host);
 	ft_strdel(&hostname);
-}
-
-void		p_insert_success(t_vector *text, uint64_t index)
-{
-	char	*success;
-
-	success = get_var(g_shell->intern, "?");
-	vct_replace_string(text, index, index + 2, success);
-}
-void		p_insert_job(t_vector *text, uint64_t index)
-{
-	char	*success;
-
-	success = get_var(g_shell->intern, "!");
-	vct_replace_string(text, index, index + 2, success);
 }
