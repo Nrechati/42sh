@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:48:40 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 10:32:09 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:11:51 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			index_to_coord(t_sle *sle, uint64_t index, t_coord *co)
 
 void			print_char(t_sle *sle, char c)
 {
-	write(1, &c, 1);
+	write(2, &c, 1);
 	sle->cursor.x++;
 	sle->cursor.index++;
 	if (sle->cursor.x == sle->window.cols || c == '\n')

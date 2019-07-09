@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 10:25:48 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:12:47 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_vector				*prompt(t_registry *shell, t_sle *sle)
 			ft_putchar('\n');
 			return (NULL);
 		}
-		if (read(0, character, READ_SIZE) == FAILURE)
+		if (read(STDIN_FILENO, character, READ_SIZE) == FAILURE)
 			return (read_error(shell, sle));
 		handle_input_key(shell, sle, character);
 		redraw(shell, sle);

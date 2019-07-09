@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 13:36:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:12:50 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static uint8_t			prompt_need_alignment(void)
 	ch = 0;
 	x = 0;
 	ft_bzero(buff, 256);
-	write(1, "\033[6n", 4);
+	write(2, "\033[6n", 4);
 	while (ch != 'R' && i < 255)
 	{
 		read(0, &ch, 1);
@@ -78,7 +78,7 @@ static uint8_t			prompt_need_alignment(void)
 static void				align_prompt(t_sle *sle)
 {
 	tputs(sle->termcaps.standout_on, 1, &ft_putc);
-	write(1, "%\n", 2);
+	write(2, "%\n", 2);
 	tputs(sle->termcaps.standout_off, 1, &ft_putc);
 }
 
