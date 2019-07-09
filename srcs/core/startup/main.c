@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 11:48:09 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:07:35 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static int8_t	init_shell(t_registry *shell, char **av, char **env)
 int				main(int ac, char **av, char **env)
 {
 	t_registry		shell;
-	pid_t			shell_pgid;
+//	pid_t			shell_pgid;
 
 	(void)ac;
 	g_shell = &shell;
-	if (isatty(STDIN_FILENO))
-	{
-		while (tcgetpgrp(STDIN_FILENO) != (shell_pgid = getpgrp()))
-			kill(-shell_pgid, SIGTTIN);
-	}
+//	if (isatty(STDIN_FILENO))
+//	{
+//		while (tcgetpgrp(STDIN_FILENO) != (shell_pgid = getpgrp()))
+//			kill(-shell_pgid, SIGTTIN);
+//	}
 	if (init_shell(&shell, av + 1, env) == FAILURE)
 		shell_exit_routine(&shell, 1);
 	if (setpgid(shell.pid, shell.pid) < 0)
