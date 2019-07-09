@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:37:10 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 15:37:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:43:23 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ uint8_t			subprompt_call(t_vector *line, uint32_t option)
 
 	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
 	{
-		ft_dprintf(2, "42sh: %s %s\n", UNEXPECTED_EOF, (char *)prompt_type[option]);
+		ft_dprintf(2, "42sh: %s %s\n", UNEXPECTED_EOF, prompt_type[option]);
 		add_var(&g_shell->intern, "?", "1", READONLY_VAR);
 		return (FALSE);
 	}

@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 21:24:13 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 12:59:03 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:47:39 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		setup_background_job(t_job *job)
 
 	ft_lstiter(job->processes, del_process_redirect);
 	ft_lstremove_if(&job->processes, NULL, get_failed_process, del_process);
+	if ((g_shell->option.option & INTERACTIVE_OPT) == FALSE)
+		return (SUCCESS);
 	if (job->processes == NULL)
 		return (SUCCESS);
 	g_shell->active_jobs++;
