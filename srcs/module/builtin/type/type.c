@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/06/15 11:43:00 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:38:38 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int8_t		find_type_path(t_registry *shell, char *arg)
 			ft_printf("%s is ./%s\n", arg, arg);
 		return (SUCCESS);
 	}
-	else if (find_in_path(shell, arg, &path_bin) == SUCCESS)
+	else if (find_in_path(shell->intern, arg, &path_bin) == SUCCESS)
 	{
 		ft_printf("%s is %s\n", arg, path_bin);
 		ft_strdel(&path_bin);

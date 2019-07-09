@@ -6,19 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:31:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/07 05:31:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:07:00 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
-
-/*
-*** LINUX ***
-*/
-# ifndef __unused
-#  define __unused __attribute__((unused))
-# endif
 
 /*
 *****************************************************
@@ -118,6 +111,7 @@
 # define FC2 						" [-lnr] [first] [last]"
 # define FC3 						"fc -s [pat=rep] [command]\n"
 # define FC_E 						"42sh: fc: -e: option requires an argument"
+# define FC_INV 					": invalid option\n"
 
 /*
 *****************************************************

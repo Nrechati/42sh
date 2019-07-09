@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:19:01 by skuppers          #+#    #+#             */
-/*   Updated: 2019/06/29 14:21:26 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:29:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		save_intern_vars(t_registry *shell, t_sle *sle)
 	char	*data;
 
 	if (shell == NULL)
-			return ;
+		return ;
 	del_interns(sle);
 	data = get_var(shell->intern, INT_PS1);
 	sle->interns.ps1 = vct_dups((data != NULL && *data != '\0')

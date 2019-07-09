@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 09:36:39 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:48:21 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,12 @@ int8_t			fork_process(t_process *process, uint8_t foreground)
 		process->type |= IS_EXP_ERROR;
 		return (FAILURE);
 	}
+	if (ft_strequ(get_var(process->env, "PATH")
+			, get_var(g_shell->intern, "PATH")) == FALSE)
+	{
+		process->type = 0;
+		get_process_type(process->env, process);
+    }
 	if ((process->pid = fork()) < 0)
 	{
 		ft_freetab(&env);

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 14:40:54 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:12:12 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void			export_var(t_registry *shell, t_variable *variable)
 {
 	if (variable->data)
 	{
-		add_var(&shell->intern, variable->name, variable->data,
+		add_var(&g_shell->intern, variable->name, variable->data,
 				EXPORT_VAR | SET_VAR);
 		if (ft_strequ(variable->name, "PATH") == TRUE)
 			ft_hmap_free_content(&(shell->hash.bin), free);
@@ -42,11 +42,11 @@ static void			export_var(t_registry *shell, t_variable *variable)
 	else
 	{
 		if ((variable->data = get_var(shell->intern, variable->name)) == NULL)
-			add_var(&shell->intern, variable->name, "", EXPORT_VAR);
+			add_var(&g_shell->intern, variable->name, "", EXPORT_VAR);
 		else
 		{
 			variable->data = ft_strdup(variable->data);
-			add_var(&shell->intern, variable->name, variable->data,
+			add_var(&g_shell->intern, variable->name, variable->data,
 					SET_VAR | EXPORT_VAR);
 		}
 	}

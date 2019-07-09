@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:28:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/05 16:39:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:07:01 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ t_option		get_option_fc(char *s, t_option option)
 			return (option | E_OPT | STOP_OPT);
 		else
 		{
-			ft_dprintf(STDERR_FILENO,
-					"42sh: fc: -%c: invalid option\n", *s);
+			ft_dprintf(STDERR_FILENO, "42sh: fc: -%c%s", *s, FC_INV);
 			ft_dprintf(STDERR_FILENO, "%s%s or %s", FC1, FC2, FC3);
 			return (ERROR_OPT);
 		}

@@ -6,12 +6,31 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:32 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/05 10:15:13 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:29:00 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <termcap.h>
+
+static void				expand_prompt_extend(t_sle *sle, t_vector *text,
+							int64_t index)
+{
+	if (vct_charat(text, index) == P_NAME)
+		p_insert_name(text, index - 1);
+	else if (vct_charat(text, index) == P_USER)
+		p_insert_username(sle, text, index - 1);
+	else if (vct_charat(text, index) == P_CWD)
+		p_insert_cwd(sle, text, index - 1);
+	else if (vct_charat(text, index) == P_HOST)
+		p_insert_host(text, index - 1);
+	else if (vct_charat(text, index) == P_MISS)
+		p_insert_missing(sle, text, index - 1);
+	else if (vct_charat(text, index) == P_SUCCESS)
+		p_insert_success(text, index - 1);
+	else if (vct_charat(text, index) == P_JOB)
+		p_insert_job(text, index - 1);
+}
 
 static void				expand_prompt(t_sle *sle, t_vector *text)
 {
@@ -27,28 +46,8 @@ static void				expand_prompt(t_sle *sle, t_vector *text)
 		if (vct_get_string(text)[index] != '\\')
 			continue ;
 		++index;
-		if (vct_charat(text, index) == P_NAME)
-			p_insert_name(text, index - 1);
-		else if (vct_charat(text, index) == P_USER)
-			p_insert_username(sle, text, index - 1);
-		else if (vct_charat(text, index) == P_CWD)
-			p_insert_cwd(sle, text, index - 1);
-		else if (vct_charat(text, index) == P_HOST)
-			p_insert_host(text, index - 1);
-		else if (vct_charat(text, index) == P_MISS)
-			p_insert_missing(sle, text, index - 1);
-		else if (vct_charat(text, index) == P_SUCCESS)
-			p_insert_success(text, index - 1);
-		else if (vct_charat(text, index) == P_JOB)
-			p_insert_job(text, index - 1);
+		expand_prompt_extend(sle, text, index);
 	}
-}
-
-void					prompt_mode(t_prompt *prompt, char *state,
-				char *missing)
-{
-	prompt->state = state;
-	prompt->missing_char = missing;
 }
 
 static uint8_t			prompt_need_alignment(void)

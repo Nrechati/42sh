@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:19:49 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 11:46:27 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:48:09 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int8_t	init_shell(t_registry *shell, char **av, char **env)
 		return (FAILURE);
 	shell->pid = getpid();
 	shell->active_jobs = 0;
+	shell->current_plus = NULL;
+	shell->current_minus = NULL;
 	init_log(shell);
 	term_mode(TERMMODE_INIT);
 	return (SUCCESS);

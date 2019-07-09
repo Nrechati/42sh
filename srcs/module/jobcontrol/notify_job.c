@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:01:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 20:01:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:09:30 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 static void	pop_job(t_job *job)
 {
-	remove_job_from_list(&g_shell->job_list, job);
+	t_list	*todel;
+
+	todel = remove_job_from_list(&g_shell->job_list, job);
 	pop_current_job(g_shell, job);
 	g_shell->active_jobs--;
 	del_job(job);
 	free(job);
+	free(todel);
+	job = NULL;
 }
 
 void		notify_job_info(t_list *joblst, char *info)
@@ -32,7 +36,7 @@ void		notify_job_info(t_list *joblst, char *info)
 	while (jobl != NULL)
 	{
 		job = jobl->data;
-		if (job_is_completed(job) == TRUE)
+		if (job != NULL && job_is_completed(job) == TRUE)
 		{
 			get_job_av(job, &command);
 			ft_printf("[%d]%c %s \t %s\n", job->id, job->current, info,
@@ -41,7 +45,6 @@ void		notify_job_info(t_list *joblst, char *info)
 			to_del = jobl;
 			jobl = jobl->next;
 			pop_job(job);
-			free(to_del);
 			continue ;
 		}
 		else

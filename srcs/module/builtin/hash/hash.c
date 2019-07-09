@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/07 16:37:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:09:50 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,5 @@ uint8_t			hash_blt(t_registry *shell, char **av)
 			error = 1;
 		i++;
 	}
-	if (error == TRUE)
-		return (1);
-	return (0);
+	return (error == TRUE ? 1 : 0);
 }
