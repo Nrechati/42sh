@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:01:47 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 20:01:58 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 09:34:43 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void		notify_job_info(t_list *joblst, char *info)
 			to_del = jobl;
 			jobl = jobl->next;
 			pop_job(job);
-			free(to_del);
 			continue ;
 		}
 		else

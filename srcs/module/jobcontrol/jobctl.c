@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/08 19:18:36 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 09:39:07 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,20 @@ void				remove_job_from_list(t_list **list, t_job *job)
 	while (job_ptr != NULL && (t_job*)job_ptr->data != job)
 		job_ptr = job_ptr->next;
 	if (job_ptr == *list)
+	{
 		*list = (job_ptr->next);
+		free(job_ptr);
+	}
 	else
 	{
 		ptr = *list;
 		while (ptr->next != NULL && ptr->next != job_ptr)
 			ptr = ptr->next;
 		if (ptr->next != NULL)
+		{
+			free(ptr->next);
 			ptr->next = ptr->next->next;
+		}
 	}
 }
 
@@ -63,6 +69,13 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 	if (job == NULL || job->processes == NULL)
 		return ;
 	status = 0;
+	mark_proc_status();
+	if (job_is_completed(job) == TRUE)
+	{
+		ft_dprintf(2, "Job is already done.");
+		del_job(job);
+		free(job);
+	}
 	job->state = RUNNING;
 	mark_job_as_running(job);
 	remove_job_from_list(&shell->job_list, job);
@@ -72,10 +85,11 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 	get_job_av(job, &avs);
 	ft_printf("%s\n", avs);
 	ft_strdel(&avs);
-
 	tcsetpgrp(STDIN_FILENO, job->pgid);
 	killpg(job->pgid, SIGCONT);
 	waiter(job);
+	del_job(job);
+	free(job);
 }
 
 void				job_run_background(t_registry *shell, t_job *job)
@@ -86,7 +100,6 @@ void				job_run_background(t_registry *shell, t_job *job)
 	killpg(job->pgid, SIGCONT);
 	tcsetpgrp(STDIN_FILENO, shell->pid);
 	term_mode(TERMMODE_EXEC);
-	//waiter(job);
 }
 
 void				jobctl(t_registry *shell, t_job *job, uint8_t flag)
