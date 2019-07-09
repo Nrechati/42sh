@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:00:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/04 15:19:48 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:11:22 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,4 @@ void			find_multiline_coord(t_sle *sle, int8_t offset)
 	prompt_len = get_prompt_length(&sle->prompt);
 	find_y2_coord(sle, prompt_len, offset);
 	find_y3_coord(sle, prompt_len);
-	ft_dprintf(3, "y3: %d, x3: %d\n", sle->cursor.y3, sle->cursor.x3);
-	ft_dprintf(3, "y2: %d, x2: %d\n", sle->cursor.y2, sle->cursor.x2);
 }
