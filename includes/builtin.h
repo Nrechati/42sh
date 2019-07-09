@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:30:19 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/06 14:26:33 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:18:39 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ uint8_t		is_valid_variable(char *name);
 *****************************************************
 */
 
-uint8_t		pwd_blt(t_registry *shell, char **av);
+uint8_t		pwd_blt(t_list *intern, char **av);
 t_option	get_option_pwd(char *s, t_option option);
 char		*get_pwd(t_registry *shell, t_option option);
 
@@ -39,7 +39,7 @@ char		*get_pwd(t_registry *shell, t_option option);
 *****************************************************
 */
 
-uint8_t		echo_blt(t_registry *shell, char **av);
+uint8_t		echo_blt(t_list *intern, char **av);
 
 /*
 *****************************************************
@@ -47,7 +47,7 @@ uint8_t		echo_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-uint8_t		cd_blt(t_registry *shell, char **av);
+uint8_t		cd_blt(t_list *intern, char **av);
 t_option	get_option_cd(char *s, t_option option);
 char		*concat_pwd_with_curpath(t_registry *shell, char **path);
 char		*get_home_path(t_registry *shell);
@@ -66,7 +66,7 @@ uint8_t		exit_cd(t_registry *shell, char **old_pwd,
 *****************************************************
 */
 
-uint8_t		exit_blt(t_registry *reg, char **av);
+uint8_t		exit_blt(t_list *intern, char **av);
 
 /*
 *****************************************************
@@ -74,7 +74,7 @@ uint8_t		exit_blt(t_registry *reg, char **av);
 *****************************************************
 */
 
-uint8_t		type_blt(t_registry *shell, char **av);
+uint8_t		type_blt(t_list *intern, char **av);
 t_option	get_option_type(char *s, t_option option);
 
 /*
@@ -86,10 +86,10 @@ t_option	get_option_type(char *s, t_option option);
 int			hash_get_opt(int i, char **av, t_option *opt);
 void		hash_builtin(t_registry *shell);
 uint8_t		hash_print_help(void);
-uint8_t		hash_blt(t_registry *reg, char **av);
-int8_t		hash_args(t_registry *shell, char *key);
-int8_t		hash_all_path(t_registry *shell);
-int8_t		hash_one(t_registry *shell, char *key, char *path);
+uint8_t		hash_blt(t_list *intern, char **av);
+int8_t		hash_args(t_list *intern, char *key);
+int8_t		hash_all_path(t_list *intern);
+int8_t		hash_one(char *key, char *path);
 
 /*
 *****************************************************
@@ -97,7 +97,7 @@ int8_t		hash_one(t_registry *shell, char *key, char *path);
 *****************************************************
 */
 
-uint8_t		export_blt(t_registry *shell, char **av);
+uint8_t		export_blt(t_list *intern, char **av);
 
 /*
 *****************************************************
@@ -105,7 +105,7 @@ uint8_t		export_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-uint8_t		set_blt(t_registry *shell, char **av);
+uint8_t		set_blt(t_list *intern, char **av);
 
 /*
 *****************************************************
@@ -113,7 +113,7 @@ uint8_t		set_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-uint8_t		unset_blt(t_registry *shell, char **av);
+uint8_t		unset_blt(t_list *intern, char **av);
 
 /*
 *****************************************************
@@ -121,7 +121,7 @@ uint8_t		unset_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t		test_blt(t_registry *shell, char **av);
+int8_t		test_blt(t_list *intern, char **av);
 uint8_t		test_not(uint8_t status);
 int8_t		test_single_arg(char *arg);
 int8_t		two_arg_input(t_hash *callbacks, char **av);
@@ -157,7 +157,7 @@ uint8_t		test_le_cb(void *data, void *more, uint8_t type);
 */
 
 t_option	get_option_fc(char *s, t_option option);
-uint8_t		fc_blt(t_registry *shell, char **av);
+uint8_t		fc_blt(t_list *intern, char **av);
 uint8_t		fc_list(char **av, t_option option);
 uint8_t		fc_redo(t_registry *shell, char **av);
 uint8_t		fc_editor(t_registry *shell, char **av, char *editor);
@@ -169,7 +169,7 @@ int8_t		get_first_last(char **av, char **param);
 *****************************************************
 */
 
-int8_t		bg_blt(t_registry *shell, char **av);
+int8_t		bg_blt(t_list *intern, char **av);
 
 /*
 *****************************************************
@@ -177,7 +177,7 @@ int8_t		bg_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t		fg_blt(t_registry *shell, char **av);
+int8_t		fg_blt(t_list *intern, char **av);
 
 /*
 *****************************************************
@@ -185,7 +185,7 @@ int8_t		fg_blt(t_registry *shell, char **av);
 *****************************************************
 */
 
-int8_t		jobs_blt(t_registry *shell, char **av);
+int8_t		jobs_blt(t_list *intern, char **av);
 t_option	get_option_jobs(char *s, t_option option);
 
 #endif
