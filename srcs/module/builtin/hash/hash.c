@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 11:54:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:13:43 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include <unistd.h>
 
-static int16_t	hash_handle_opt(t_registry *shell, t_option opt)
+static int16_t	hash_handle_opt(t_list *intern, t_option opt)
 {
 	if (opt & H_HELP)
 	{
@@ -23,7 +23,7 @@ static int16_t	hash_handle_opt(t_registry *shell, t_option opt)
 	}
 	else if (opt & H_ALL)
 	{
-		hash_all_path(shell);
+		hash_all_path(intern);
 		return (H_ALL);
 	}
 	else if (opt & H_WIPE)
@@ -61,11 +61,11 @@ static uint8_t	check_no_args(char **av)
 	return (FALSE);
 }
 
-static uint8_t	do_hash(t_registry *shell, char **av, int i)
+static uint8_t	do_hash(t_list *intern, char **av, int i)
 {
 	int8_t		ret;
 
-	ret = hash_args(shell, av[i]);
+	ret = hash_args(intern, av[i]);
 	if (ret == NOT_FOUND)
 	{
 		ft_dprintf(2, "%s%s%s", HASH_GENERAL_ERROR, av[i], HASH_NOT_FOUND);
@@ -92,14 +92,14 @@ uint8_t			hash_blt(t_list	*intern, char **av)
 		return (1);
 	if ((i = hash_get_opt(1, av, &opt)) == FAILURE)
 		return (2);
-	if ((ret = hash_handle_opt(shell, opt)) == H_HELP)
+	if ((ret = hash_handle_opt(intern, opt)) == H_HELP)
 		return (2);
 	if (ret == FAILURE)
 		return (1);
 	error = 0;
 	while (av[i] != NULL)
 	{
-		if ((ret = do_hash(shell, av, i)) == 2)
+		if ((ret = do_hash(intern, av, i)) == 2)
 			return (2);
 		if (ret == 1 && error != 1)
 			error = 1;
