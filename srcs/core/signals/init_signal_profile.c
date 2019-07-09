@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 18:23:42 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/06 19:43:55 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:50:06 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void					init_tab_signal_sle(
 	tab_signal[SIGTSTP] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
+	tab_signal[SIGPIPE] = set_sigaction_struct(SIG_DFL, 0, sigset);
 	tab_signal[SIGINT] = set_sigaction_struct(sigint_sle, 0, sigset);
 	tab_signal[SIGWINCH] = set_sigaction_struct(sigwinch_sle, SA_RESTART,
 								sigset);
@@ -89,6 +90,7 @@ void					init_tab_signal_exec(
 	tab_signal[SIGCONT] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTTIN] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
 	tab_signal[SIGTTOU] = set_sigaction_struct(SIG_IGN, SA_RESTART, sigset);
+	tab_signal[SIGPIPE] = set_sigaction_struct(SIG_DFL, 0, sigset);
 	tab_signal[SIGCHLD] = set_sigaction_struct(sigchld_exec, SA_RESTART,
 								sigset);
 }

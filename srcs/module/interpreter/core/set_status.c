@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:20:11 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 15:01:57 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:51:15 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	signaled_process(t_job *job, t_process *current, int status)
 	if (signo == SIGPIPE)
 	{
 		current->completed = 1;
+		job->signo = 13;
 		return ;
 	}
 	if (signo != SIGPIPE)

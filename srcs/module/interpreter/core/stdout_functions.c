@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:28:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/07 17:30:55 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:52:59 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	stdout_truncate(t_redirect *redirect, t_action *action)
 	int			return_value;
 
 	filename = get_filename(action->data);
-	open_flags = O_RDWR | O_TRUNC | O_CREAT | O_CLOEXEC;
+	open_flags = O_WRONLY | O_TRUNC | O_CREAT | O_CLOEXEC;
 	if (filename == NULL)
 	{
 		redirect->type = FD_CRITICAL_ERROR;
