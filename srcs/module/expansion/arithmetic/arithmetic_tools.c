@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 22:43:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:10:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ int8_t	find_expansion_end(t_arithmetic *arithmetic, char *input, size_t start)
 		arithmetic->end = end;
 		return (SUCCESS);
 	}
-	ft_dprintf(2, "21sh: Unexpected EOF while testing\n");
+	ft_dprintf(2, "42sh: Unexpected EOF while testing\n");
 	return (FAILURE);
 }

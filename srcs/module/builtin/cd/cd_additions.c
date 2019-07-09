@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:11:50 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:09:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_option		get_option_cd(char *s, t_option option)
 			option |= P_OPT;
 		else
 		{
-			ft_dprintf(STDERR_FILENO, "21sh: cd: -%c: invalid option\n", *s);
+			ft_dprintf(STDERR_FILENO, "42sh: cd: -%c: invalid option\n", *s);
 			ft_dprintf(STDERR_FILENO, CD_USAGE);
 			return (ERROR_OPT);
 		}

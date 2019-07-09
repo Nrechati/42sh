@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:28:18 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 17:03:14 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:10:15 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_path_access(t_redirect *redirect, char *filename)
 		if (access(filename, W_OK) == FAILURE
 				&& access(filename, X_OK) == FAILURE)
 		{
-			ft_dprintf(2, "21sh: %s: permission denied\n", filename);
+			ft_dprintf(2, "42sh: %s: permission denied\n", filename);
 			redirect->type = FD_OPEN_ERROR;
 			return (FAILURE);
 		}
