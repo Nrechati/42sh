@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:34:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 11:48:21 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:11:34 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int8_t			fork_process(t_process *process, uint8_t foreground)
 	{
 		process->type = 0;
 		get_process_type(process->env, process);
-    }
+	}
 	if ((process->pid = fork()) < 0)
 	{
 		ft_freetab(&env);

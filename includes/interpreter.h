@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:51:14 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 13:01:38 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:08:27 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int				is_all(void *data, void *to_find);
 int				is_export(void *data, void *to_find);
 int				copy_var(void *src, void *dest);
 int				variable_update(void *context, void *data);
-
 
 uint8_t			job_is_completed(t_job *job);
 uint8_t			job_is_stopped(t_job *job);

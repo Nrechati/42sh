@@ -6,7 +6,7 @@
 /*   By: cempassi <cempassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:23:29 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 11:23:36 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:12:07 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_list	*create_pipe_in(int from)
 	return (node);
 }
 
-t_list	*create_pipe_out(int to, __unused int from)
+t_list	*create_pipe_out(int to, int from)
 {
 	t_action	action;
 	t_list		*node;

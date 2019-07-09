@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:29:31 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 12:27:41 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:10:30 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ static int8_t		get_cmd(char **av, char **cmd)
 		}
 		param = ft_strdup(*av);
 	}
-	*cmd = ft_strdup(history(g_shell, param, GET_ENTRY | (param ? BY_ID : PREV)));
+	*cmd = ft_strdup(history(g_shell, param,
+				GET_ENTRY | (param ? BY_ID : PREV)));
 	while (replace_cmd(cmd, target, result) == SUCCESS)
 		;
 	free_tools(&target, &result, &param);
