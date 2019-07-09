@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 22:06:19 by cempassi          #+#    #+#             */
-/*   Updated: 2019/07/09 05:33:08 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:22:24 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ int		dup_redirection(t_redirect *redirect)
 
 int		do_redirect(t_redirect *redirect)
 {
-	if (redirect->type & (FD_PIPE_OUT | FD_PIPE_IN))
-		pipe_redirection(redirect);
-	else if (redirect->type & FD_DUP)
+	if (redirect->type & FD_DUP)
 		return (dup_redirection(redirect));
 	else if (redirect->type & (FD_MOVE | FD_REDIRECT))
+	{
 		dup2(redirect->to, redirect->from);
+		close(redirect->to);
+	}
 	else if (redirect->type & FD_CLOSE)
 		close(redirect->from);
 	else if (redirect->type & FD_CLOSE_SPECIAL)
 		close(STDOUT_FILENO);
-	close(redirect->to);
 	return (SUCCESS);
 }

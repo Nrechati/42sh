@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:54:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 05:58:01 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:12:36 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	move_fd(t_redirect *redirect, t_action *action)
 int	close_fd(t_redirect *redirect, t_action *action)
 {
 	redirect->from = get_io_noprotect(action->data);
-	redirect->type = FD_CLOSE;
+	redirect->type |= FD_CLOSE;
 	return (SUCCESS);
 }
 
