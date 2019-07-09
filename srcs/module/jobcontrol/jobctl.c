@@ -6,26 +6,26 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:17:58 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 09:50:12 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:12:20 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void				remove_job_from_list(t_list **list, t_job *job)
+t_list				*remove_job_from_list(t_list **list, t_job *job)
 {
 	t_list	*ptr;
 	t_list	*job_ptr;
 
 	if (job == NULL || *list == NULL)
-		return ;
+		return (NULL);
 	job_ptr = *list;
 	while (job_ptr != NULL && (t_job*)job_ptr->data != job)
 		job_ptr = job_ptr->next;
 	if (job_ptr == *list)
 	{
 		*list = (job_ptr->next);
-		free(job_ptr);
+		return (job_ptr);
 	}
 	else
 	{
@@ -34,10 +34,12 @@ void				remove_job_from_list(t_list **list, t_job *job)
 			ptr = ptr->next;
 		if (ptr->next != NULL)
 		{
-			free(ptr->next);
+			job_ptr = (ptr->next);
 			ptr->next = ptr->next->next;
+			return (job_ptr);
 		}
 	}
+	return (NULL);
 }
 
 static void			job_to_registry(t_registry *shell, t_job *job)
@@ -65,39 +67,40 @@ void				job_to_foreground(t_registry *shell, t_job *job)
 {
 	char	*avs;
 	int		status;
+	t_list	*todel;
 
-	if (job == NULL || job->processes == NULL)
+	if (job == NULL || !(job->processes != NULL))
 		return ;
 	status = 0;
 	mark_proc_status();
 	if (job_is_completed(job) == TRUE)
 	{
 		ft_dprintf(2, "Job is already done.");
-		remove_job_from_list(&shell->job_list, job);
+		todel = remove_job_from_list(&shell->job_list, job);
 		shell->active_jobs--;
+		update_jobinfos(shell);
+		pop_current_job(shell, job);
 		del_job(job);
 		free(job);
+		free(todel);
+		job = NULL;
 		return ;
 	}
 	job->state = RUNNING;
 	mark_job_as_running(job);
-
-	remove_job_from_list(&shell->job_list, job);
+	todel = remove_job_from_list(&shell->job_list, job);
 	shell->active_jobs--;
-
 	update_jobinfos(shell);
 	pop_current_job(shell, job);
-
 	get_job_av(job, &avs);
 	ft_printf("%s\n", avs);
 	ft_strdel(&avs);
-
 	tcsetpgrp(STDIN_FILENO, job->pgid);
 	killpg(job->pgid, SIGCONT);
 	waiter(job);
-
 	del_job(job);
 	free(job);
+	free(todel);
 }
 
 void				job_run_background(t_registry *shell, t_job *job)

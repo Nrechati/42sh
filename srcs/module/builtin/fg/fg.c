@@ -6,11 +6,19 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:37:48 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/06 17:48:01 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:46:14 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
+
+t_job	*get_current(void)
+{
+	if (g_shell->current_plus != NULL
+		&& g_shell->current_plus->data != NULL)
+		return ((((t_job *)(g_shell->current_plus)->data)));
+	return (NULL);
+}
 
 int8_t	fg_blt(t_registry *shell, char **av)
 {
@@ -35,8 +43,10 @@ int8_t	fg_blt(t_registry *shell, char **av)
 		ft_dprintf(2, "42sh: fg: no current job\n");
 		ret = 1;
 	}
+
 	else if (job == NULL && shell->current_plus != NULL)
-		job = ((t_job *)(shell->current_plus)->data);
+		job = get_current();
+
 	jobctl(shell, job, JOBCTL_PUTINFG);
 	return (ret);
 }

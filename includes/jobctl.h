@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:45:50 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/06 17:47:10 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:17:33 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	jobctl(t_registry *shell, t_job *job, uint8_t flag);
 void	update_jobinfos(t_registry *shell);
 void	push_current_job(t_registry *shell, t_list *job);
 void	pop_current_job(t_registry *shell, t_job *job);
-void	remove_job_from_list(t_list **joblst, t_job *job);
+t_list	*remove_job_from_list(t_list **joblst, t_job *job);
 void	remove_done_jobs(t_registry *shell);
 
 int		setup_background_job(t_job *job);
