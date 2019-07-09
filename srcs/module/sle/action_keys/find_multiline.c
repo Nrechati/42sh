@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:00:20 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/09 12:12:07 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:30:32 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static void		find_y3_coord(t_sle *sle, uint32_t prompt_len)
 	char	*line;
 	int		sup;
 
-	sle->cursor.x3 = 0;
-	sle->cursor.y3 = 0;
 	line = NULL;
 	tmp = sle->line->buffer;
 	while (tmp != NULL && *tmp != '\0' &&
@@ -81,8 +79,6 @@ static void		find_y2_coord(t_sle *sle, uint32_t prompt_len, int8_t offset)
 	char		*cmd_offset;
 	int			sup;
 
-	sle->cursor.x2 = 0;
-	sle->cursor.y2 = 0;
 	cmd_offset = ft_strsub(sle->line->buffer, 0,
 					(((int32_t)sle->cursor.index + offset) <= 0)
 					? 1 : sle->cursor.index + offset);
@@ -106,7 +102,15 @@ void			find_multiline_coord(t_sle *sle, int8_t offset)
 {
 	uint32_t	prompt_len;
 
-	prompt_len = get_prompt_length(&sle->prompt);
-	find_y2_coord(sle, prompt_len, offset);
-	find_y3_coord(sle, prompt_len);
+	sle->cursor.x2 = 0;
+	sle->cursor.y2 = 0;
+	sle->cursor.x3 = 0;
+	sle->cursor.y3 = 0;
+	if (sle->line != NULL && sle->line->buffer != NULL
+			&& *sle->line->buffer != '\0')
+	{
+		prompt_len = get_prompt_length(&sle->prompt);
+		find_y2_coord(sle, prompt_len, offset);
+		find_y3_coord(sle, prompt_len);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 13:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 10:37:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:09:09 by ffoissey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int8_t	find_bin(char *path, char *bin, char **buf)
 	return (NOT_FOUND);
 }
 
-static int8_t	check_binary(t_list	*intern)
+static int8_t	check_binary(t_list *intern)
 {
 	if (get_var(intern, "PATH") == NULL)
 		return (FAILURE);
@@ -51,7 +51,7 @@ static int8_t	check_binary(t_list	*intern)
 	return (SUCCESS);
 }
 
-int8_t			find_in_path(t_list	*intern, char *bin, char **buf)
+int8_t			find_in_path(t_list *intern, char *bin, char **buf)
 {
 	uint32_t	i;
 	int8_t		ret;
