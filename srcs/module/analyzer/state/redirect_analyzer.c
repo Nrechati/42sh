@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:57:46 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 13:24:14 by cempassi         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:05:37 by cempassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			dup_stderr(t_analyze *analyze)
 	ft_lstadd(&action.data, node);
 	token.data = ft_strdup("2");
 	node = ft_lstnew(&token, sizeof(t_token));
-	ft_lstaddback(&action.data, node);
+	ft_lstadd(&action.data, node);
 	ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 }
 
@@ -61,9 +61,9 @@ void			flush_redirect(t_analyze *analyze)
 	action.type = define_redirect(node->data);
 	type = ((t_token *)node->data)->type;
 	ft_lstdelone(&node, NULL);
+	ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 	if (type == E_ANDGREAT || type == E_ANDDGREAT)
 		dup_stderr(analyze);
-	ft_stckpush(&analyze->tree_node, &action, sizeof(t_action));
 }
 
 void			redirect_and_analyzer(t_analyze *analyze)
