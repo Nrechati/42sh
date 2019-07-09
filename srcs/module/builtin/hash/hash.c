@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 12:09:44 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 12:59:55 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:31:30 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@ static int16_t	hash_handle_opt(t_list *intern, t_option opt)
 	}
 	else
 		return (SUCCESS);
-}
-
-static uint8_t	protect_no_input(char **av)
-{
-	if (av == NULL || av[0] == NULL)
-	{
-		ft_dprintf(2, "%s%s", HASH_GENERAL_ERROR, HASH_NO_AV);
-		return (TRUE);
-	}
-	return (FALSE);
 }
 
 static uint8_t	check_no_args(char **av)
@@ -76,13 +66,29 @@ static uint8_t	do_hash(t_list *intern, char **av, int i)
 	return (0);
 }
 
-uint8_t			hash_blt(t_list	*intern, char **av)
+uint8_t			handle_cases(t_list *intern, char **av, int *i)
+{
+	t_option	opt;
+	int8_t		ret;
+
+	opt = 0;
+	if ((*i = hash_get_opt(1, av, &opt)) == FAILURE)
+		return (2);
+	if ((ret = hash_handle_opt(intern, opt)) == H_HELP)
+		return (2);
+	if (ret == FAILURE)
+		return (1);
+	return (0);
+}
+
+uint8_t			hash_blt(t_list *intern, char **av)
 {
 	int			i;
 	int			error;
 	int8_t		ret;
 	t_option	opt;
 
+	i = 0;
 	opt = 0;
 	if (protect_no_input(av) == TRUE)
 		return (1);
@@ -90,12 +96,8 @@ uint8_t			hash_blt(t_list	*intern, char **av)
 		return (SUCCESS);
 	if (ret == ERROR)
 		return (1);
-	if ((i = hash_get_opt(1, av, &opt)) == FAILURE)
-		return (2);
-	if ((ret = hash_handle_opt(intern, opt)) == H_HELP)
-		return (2);
-	if (ret == FAILURE)
-		return (1);
+	if ((ret = handle_cases(intern, av, &i)) != SUCCESS)
+		return (ret);
 	error = 0;
 	while (av[i] != NULL)
 	{
