@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 14:49:54 by nrechati          #+#    #+#             */
-/*   Updated: 2019/07/09 15:12:47 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:34:12 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int8_t			prompt_post_process(t_registry *shell, t_sle *sle)
 	vct_add(sle->line, '\n');
 	set_redraw_flags(sle, RD_LINE | RD_CEND);
 	redraw(shell, sle);
-	ft_putendl("");
+	ft_putendl_fd("", 2);
 	if (ft_strequ(sle->prompt.state, INT_PS1) == TRUE)
 	{
 		if (verif_line(sle->line) == FALSE)
@@ -61,7 +61,7 @@ t_vector				*prompt(t_registry *shell, t_sle *sle)
 		ft_bzero(character, READ_SIZE);
 		if (is_eof(vct_get_string(sle->line)) == TRUE)
 		{
-			ft_putchar('\n');
+			ft_putchar_fd('\n', 2);
 			return (NULL);
 		}
 		if (read(STDIN_FILENO, character, READ_SIZE) == FAILURE)

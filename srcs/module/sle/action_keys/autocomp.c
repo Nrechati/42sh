@@ -6,7 +6,7 @@
 /*   By: skuppers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 14:53:52 by skuppers          #+#    #+#             */
-/*   Updated: 2019/07/03 14:59:21 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:35:45 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static inline void		handle_void_comp(t_registry *shell, t_sle *sle,
 				char *substring)
 {
-	ft_putendl("");
+	ft_putendl_fd("", 2);
 	update_window(sle);
 	print_prompt(shell, sle);
 	set_redraw_flags(sle, RD_LINE | RD_CMOVE);

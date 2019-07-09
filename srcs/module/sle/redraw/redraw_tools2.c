@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 10:30:52 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/09 15:03:54 by skuppers         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:20:54 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ uint32_t		write_esc_sequence(char *str, uint32_t index)
 		{
 			esc = ft_strsub(str, index + 1, length);
 			esc[0] = 27;
-			ft_printf("%s", esc);
+			ft_dprintf(2, "%s", esc);
 			ft_strdel(&esc);
 			break ;
 		}

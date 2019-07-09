@@ -6,7 +6,7 @@
 /*   By: ffoissey <ffoisssey@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:22:05 by ffoissey          #+#    #+#             */
-/*   Updated: 2019/07/02 19:22:18 by ffoissey         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:38:00 by skuppers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void			process_print(t_list *lst, size_t elem_by_col)
 	t_list			*tmp;
 
 	i = 0;
-	ft_putchar('\n');
+	ft_putchar_fd('\n', 2);
 	while (i < elem_by_col)
 	{
 		tmp = lst;
@@ -81,12 +81,12 @@ static void			process_print(t_list *lst, size_t elem_by_col)
 		while (tmp != NULL)
 		{
 			if (j++ % elem_by_col == 0)
-				ft_putstr((char *)tmp->data);
+				ft_putstr_fd((char *)tmp->data, 2);
 			tmp = tmp->next;
 		}
 		i++;
 		if (i != elem_by_col)
-			ft_putchar('\n');
+			ft_putchar_fd('\n', 2);
 	}
 }
 
