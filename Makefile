@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:57:18 by cempassi          #+#    #+#              #
-#    Updated: 2019/07/09 10:48:17 by ffoissey         ###   ########.fr        #
+#    Updated: 2019/07/09 13:54:44 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -419,6 +419,7 @@ ANALYZER += token_tools.c
 INTERPRETER += interpreter.c
 INTERPRETER += map.c
 INTERPRETER += run.c
+INTERPRETER += run_tools.c
 INTERPRETER += list_tools.c
 INTERPRETER += generate_env.c
 INTERPRETER += pipe_interpreter.c
